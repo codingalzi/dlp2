@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -220,125 +217,93 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     1.1.3. 데이터 표현법 학습
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id6">
-       1.1.3.1. 머신러닝 모델
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id7">
-       1.1.3.2. 예제: 선형 분류
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id8">
-       1.1.3.3. 데이터 변환 수동화의 어려움
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id9">
-       1.1.3.4. 데이터 변환 자동화
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id10">
-       1.1.3.5. 가설 공간
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#deep">
-     1.1.4. 딥러닝의 ‘딥’(deep)이란?
+     1.1.3. 딥러닝의 ‘딥’(deep)이란?
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id11">
-       1.1.4.1. 신경망
+      <a class="reference internal nav-link" href="#id5">
+       1.1.3.1. 신경망
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
-     1.1.5. 딥러닝 작동 원리
+    <a class="reference internal nav-link" href="#id6">
+     1.1.4. 딥러닝 작동 원리
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#a">
-       1.1.5.1. A. 가중치
+       1.1.4.1. A. 가중치
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#b">
-       1.1.5.2. B. 손실 함수
+       1.1.4.2. B. 손실 함수
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#c">
-       1.1.5.3. C. 역전파
+       1.1.4.3. C. 역전파
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     1.1.6. 딥러닝의 지금까지 성과
+    <a class="reference internal nav-link" href="#id7">
+     1.1.5. 딥러닝의 지금까지 성과
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
-     1.1.7. 전망
+    <a class="reference internal nav-link" href="#id8">
+     1.1.6. 전망
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id15">
+  <a class="reference internal nav-link" href="#id9">
    1.2. 1.2 딥러닝 이전: 머신러닝의 역사
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
+    <a class="reference internal nav-link" href="#id10">
      1.2.1. 확률적 모델링
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
+    <a class="reference internal nav-link" href="#id11">
      1.2.2. 초창기 신경망
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id18">
+    <a class="reference internal nav-link" href="#id12">
      1.2.3. 커널 기법
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id19">
+    <a class="reference internal nav-link" href="#id13">
      1.2.4. 결정트리, 랜덤 포레스트, 그레이디언트 부스팅 머신
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id20">
+    <a class="reference internal nav-link" href="#id14">
      1.2.5. 딥러닝의 본격적 발전
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id21">
+    <a class="reference internal nav-link" href="#id15">
      1.2.6. 딥러닝의 특징
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id22">
+      <a class="reference internal nav-link" href="#id16">
        1.2.6.1. 최근 머신러닝 분야의 동향 1
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id23">
+      <a class="reference internal nav-link" href="#id17">
        1.2.6.2. 최근 머신러닝 분야의 동향 2
       </a>
      </li>
@@ -347,42 +312,42 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id24">
+  <a class="reference internal nav-link" href="#id18">
    1.3. 1.3 딥러닝 발전 동력
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id25">
+    <a class="reference internal nav-link" href="#id19">
      1.3.1. 딥러닝 주요 요소
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id26">
+    <a class="reference internal nav-link" href="#id20">
      1.3.2. 하드웨어
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id27">
+    <a class="reference internal nav-link" href="#id21">
      1.3.3. 데이터
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id28">
+    <a class="reference internal nav-link" href="#id22">
      1.3.4. 알고리즘
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id29">
+    <a class="reference internal nav-link" href="#id23">
      1.3.5. 투자
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id30">
+    <a class="reference internal nav-link" href="#id24">
      1.3.6. 딥러닝의 대중화
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id31">
+    <a class="reference internal nav-link" href="#id25">
      1.3.7. 딥러닝의 미래
     </a>
    </li>
@@ -424,125 +389,93 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     1.1.3. 데이터 표현법 학습
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id6">
-       1.1.3.1. 머신러닝 모델
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id7">
-       1.1.3.2. 예제: 선형 분류
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id8">
-       1.1.3.3. 데이터 변환 수동화의 어려움
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id9">
-       1.1.3.4. 데이터 변환 자동화
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id10">
-       1.1.3.5. 가설 공간
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#deep">
-     1.1.4. 딥러닝의 ‘딥’(deep)이란?
+     1.1.3. 딥러닝의 ‘딥’(deep)이란?
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id11">
-       1.1.4.1. 신경망
+      <a class="reference internal nav-link" href="#id5">
+       1.1.3.1. 신경망
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
-     1.1.5. 딥러닝 작동 원리
+    <a class="reference internal nav-link" href="#id6">
+     1.1.4. 딥러닝 작동 원리
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#a">
-       1.1.5.1. A. 가중치
+       1.1.4.1. A. 가중치
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#b">
-       1.1.5.2. B. 손실 함수
+       1.1.4.2. B. 손실 함수
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#c">
-       1.1.5.3. C. 역전파
+       1.1.4.3. C. 역전파
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     1.1.6. 딥러닝의 지금까지 성과
+    <a class="reference internal nav-link" href="#id7">
+     1.1.5. 딥러닝의 지금까지 성과
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
-     1.1.7. 전망
+    <a class="reference internal nav-link" href="#id8">
+     1.1.6. 전망
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id15">
+  <a class="reference internal nav-link" href="#id9">
    1.2. 1.2 딥러닝 이전: 머신러닝의 역사
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
+    <a class="reference internal nav-link" href="#id10">
      1.2.1. 확률적 모델링
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
+    <a class="reference internal nav-link" href="#id11">
      1.2.2. 초창기 신경망
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id18">
+    <a class="reference internal nav-link" href="#id12">
      1.2.3. 커널 기법
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id19">
+    <a class="reference internal nav-link" href="#id13">
      1.2.4. 결정트리, 랜덤 포레스트, 그레이디언트 부스팅 머신
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id20">
+    <a class="reference internal nav-link" href="#id14">
      1.2.5. 딥러닝의 본격적 발전
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id21">
+    <a class="reference internal nav-link" href="#id15">
      1.2.6. 딥러닝의 특징
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id22">
+      <a class="reference internal nav-link" href="#id16">
        1.2.6.1. 최근 머신러닝 분야의 동향 1
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id23">
+      <a class="reference internal nav-link" href="#id17">
        1.2.6.2. 최근 머신러닝 분야의 동향 2
       </a>
      </li>
@@ -551,42 +484,42 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id24">
+  <a class="reference internal nav-link" href="#id18">
    1.3. 1.3 딥러닝 발전 동력
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id25">
+    <a class="reference internal nav-link" href="#id19">
      1.3.1. 딥러닝 주요 요소
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id26">
+    <a class="reference internal nav-link" href="#id20">
      1.3.2. 하드웨어
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id27">
+    <a class="reference internal nav-link" href="#id21">
      1.3.3. 데이터
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id28">
+    <a class="reference internal nav-link" href="#id22">
      1.3.4. 알고리즘
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id29">
+    <a class="reference internal nav-link" href="#id23">
      1.3.5. 투자
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id30">
+    <a class="reference internal nav-link" href="#id24">
      1.3.6. 딥러닝의 대중화
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id31">
+    <a class="reference internal nav-link" href="#id25">
      1.3.7. 딥러닝의 미래
     </a>
    </li>
@@ -605,7 +538,7 @@ const thebe_selector_output = ".output, .cell_output"
 <h1><span class="section-number">1. </span>딥러닝이란?<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
 <h2><span class="section-number">1.1. </span>인공지능, 머신러닝, 딥러닝<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p><strong>관계 1: 연구 분야</strong></p>
+<p><strong>관계 1: 연구 분야 관점</strong></p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ai-ml-relation.png" style="width:600px;"></div>
 <p>그림 출처: <a class="reference external" href="http://www.kyobobook.co.kr/readIT/readITColumnView.laf?thmId=00198&amp;sntnId=14142">교보문고(에이지 오브 머신러닝)</a></p>
 <p><strong>관계 2: 역사</strong></p>
@@ -631,14 +564,21 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id4">
 <h3><span class="section-number">1.1.2. </span>머신러닝<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>머신러닝은 1990년대에 본격적으로 발전했다.
+기본적으로 통계학과 연관되어 있지만 다음 두 측면에서 통계학과 다르다.
+첫째, 아주 큰 데이터(빅데이터)를 단순히 통계학적으로 다룰 수는 없다.
+예를 들어, 수 백만장의 사진을 통계 기법으로 다루지 못하지만 머신러닝은 가능하다.
+둘째, 머신러닝, 특히 딥러닝의 경우 수학적, 통계적 이론 보다는 공학적 접근법이 보다 중요하다.
+또한 소프트웨어와 하드웨어의 발전이 딥러닝 연구에 중요한 역할을 수행한다.</p>
+<p><strong>전통적 인공지능 프로그램 대 머신러닝 프로그램</strong></p>
 <ul class="simple">
-<li><p>전통적 프로그래밍</p>
+<li><p>전통적 인공지능 프로그램</p>
 <ul>
 <li><p>컴퓨터가 수행해야 할 규칙을 순서대로 적어 놓은 프로그램 작성</p></li>
 <li><p>입력값이 지정되면 지정된 규칙을 수행하여 적절한 답을 생성함.</p></li>
 </ul>
 </li>
-<li><p>머신러닝 시스템</p>
+<li><p>머신러닝 프로그램</p>
 <ul>
 <li><p>주어진 입력 데이터와 출력 데이터로부터 입력과 출력 사이에 존재하는
 특정 통계적 구조를 스스로 알아내어
@@ -649,73 +589,56 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-a-new-programming-paradigm.png" style="width:400px;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python</a></p>
+<p><strong>머신러닝 모델 학습의 필수 요소</strong></p>
 <ul class="simple">
-<li><p>1990년대 본격적으로 발전.</p></li>
-<li><p>머신러닝은 통계학과 많이 관련되지만 다름.</p>
-<ul>
-<li><p>아주 큰 데이터(빅데이터)를 단순히 통계학적으로 다룰 수는 없음.</p></li>
-<li><p>딥러닝의 경우 수학적, 통계적 이론 보다는 공학적 접근법이 보다 중요해짐.
-소프트웨어와 하드웨어의 발전이 중요한 영향을 끼침.</p></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">1.1.3. </span>데이터 표현법 학습<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>데이터 <strong>표현</strong>(data representation): 특정한 방식으로 구현된 데이터</p></li>
-<li><p>예제: 컬러 이미지 표현법</p>
-<ul>
-<li><p>빨간색-초록색-파란색을 사용하는 RGB 방식 또는</p></li>
-<li><p>색상-채도-명도를 사용하는 HSV 방식</p></li>
-</ul>
-</li>
-<li><p>주어진 과제에 따라 적절한 표현법 선택해야 함</p>
-<ul>
-<li><p>컬러 사진에서 빨간색 픽셀만을 선택하고자 할 때: RGB 방식 활용</p></li>
-<li><p>컬리 이미지의 채도를 낮추고자 할 때: HSV 방식 활용</p></li>
-</ul>
-</li>
-</ul>
-<div class="section" id="id6">
-<h4><span class="section-number">1.1.3.1. </span>머신러닝 모델<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
-<ul class="simple">
-<li><p>필요 사항</p>
-<ul>
 <li><p><strong>입력 데이터셋</strong>: 음성 인식 모델을 위한 음성 파일, 이미지 태깅 모델을 위한 사진 등.</p></li>
-<li><p><strong>기대 출력값</strong>: 음성 인식 작업의 경우 사람이 직접 작성한 글,
+<li><p><strong>타깃 데이터셋</strong>: 음성 인식 작업의 경우 사람이 직접 작성한 글,
 이미지 작업의 경우 ‘강아지’, ‘고양이’, 등의 사람이 직접 붙힌 태그.</p></li>
-<li><p><strong>알고리즘 성능측정법</strong>: 출력 예상값과 기대 출력값 사이의 거리(차이) 측정법.
+<li><p><strong>모델 평가지표</strong>: 출력 예상값과 기대 출력값 사이의 거리(차이) 측정법.
 거리를 줄이는 방향으로 알고리즘에 사용되는 파라미터를 반복 수정하는
-과정을 __학습__이라 부름.</p></li>
+과정을 <strong>학습</strong>이라 부름.</p></li>
 </ul>
-</li>
-<li><p>역할: 입력 데이터를 적절한 표현으로 변환한 후, 변환된 테이터셋으로부터
-과제 해결을 위한 적절한 수학적, 통계적 규칙 찾기</p></li>
+<p><strong>데이터 표현법 학습</strong></p>
+<p>머신러닝 모델은 입력 데이터를 적절하게 변환하여 원하는 결과를 생성하는
+규칙을 입력과 타깃 데이터셋을 이용하여 학습해 나간다.
+즉, 주어진 과제 해결에 가장 적절한 <strong>데이터 표현법</strong>을 모델 학습을 통해 알아낸다.</p>
+<p>데이터는 다양한 방식으로 표현될 수 있으며
+과제에 따라 보다 적절한 표현법을 채택해야 한다.
+예를 들어, 컬러 사진을
+빨간색-초록색-파란색을 사용하는 RGB 방식으로 표현하거나
+색상-채도-명도를 사용하는 HSV 방식으로 표현할 수 있다.
+컬러 사진에서 빨간색 픽셀만을 선택하고자 할 때는 RGB 방식으로 컬러 사진을
+표현하는 것이 좋은 반면에
+컬러 사진의 채도를 조정하고자 할 때는 HSV 방식으로 표현된
+데이터를 사용해야 한다.</p>
+<div class="proof example admonition" id="exp-lin-reg">
+<p class="admonition-title"><span class="caption-number">Example 1.1 </span> (선형 분류)</p>
+<div class="example-content section" id="proof-content">
+<p>검은 점과 흰 점이 아래 왼쪽 그림에서첨 분포되어 있다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-learning_representations.png" style="width:600px;"></div>
+<p>&lt;그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python</a>&gt;</p>
+<p>좌표 <span class="math notranslate nohighlight">\((x, y)\)</span>가 주어지면 해당 좌표의 점의 색깔을 예측하는 머신러닝 모델을 구현하고자 한다.
+즉, 머신러닝 모델의 학습에 필요한 세 요소가 다음과 같다.</p>
+<ul class="simple">
+<li><p>입력 데이터셋: 2차원 좌표로 표현된 데이터셋</p></li>
+<li><p>타깃 데이터셋: 각 좌표의 점이 갖는 색깔</p></li>
+<li><p>모델 평가지표: 점의 색을 정확하게 예측한 비율</p></li>
 </ul>
+<p>점의 색깔을 예측하기 위한 한 가지 방식은 좌표의 축을 위 가운데 그림에서처럼 다르게 선택하는 것이다.
+그러면 위 오른쪽 그림에서처럼 흰 점과 검은 점을 단순히 <span class="math notranslate nohighlight">\(x\)</span>-좌표의 음수와 양수 여부에 따라
+간단하게 판단할 수 있다.
+즉, 새로운 축을 사용하여 각 점의 좌표를 새롭게 표현하도록 변환하는 머신러닝 알고리즘을
+구현하면 흰 점과 검은 점을 선형적으로 분류하는 머신러닝 모델을 구현할 수 있다.</p>
 </div>
-<div class="section" id="id7">
-<h4><span class="section-number">1.1.3.2. </span>예제: 선형 분류<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
-<ol class="simple">
-<li><p>왼쪽 그림: 입력 데이터셋</p></li>
-<li><p>가운데 그림: 부적절한 좌표 변환. 분류 과제 해결에 적합하지 않음.</p></li>
-<li><p>오른쪽 그림: 적절한 좌표 변환. 분류 과제를 보다 효율적으로 해결할 수 있음.</p></li>
-</ol>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-learning_representations.png" style="width:700px;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
-</div>
-<div class="section" id="id8">
-<h4><span class="section-number">1.1.3.3. </span>데이터 변환 수동화의 어려움<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+</div><p><strong>데이터 변환 수동화의 어려움</strong></p>
 <ul class="simple">
 <li><p>위 예제의 경우 수동으로 데이터 변환 방식을 어렵지 않게 알아낼 수 있음.</p></li>
 <li><p>반면에 손글씨 숫자 인식(MNIST)의 경우 간단하지 않음(아래 그림 참조).</p></li>
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch03/homl03-10.png" width="300"/></div>
 <p>그림 출처: <a class="reference external" href="https://www.hanbit.co.kr/store/books/look.php?p_code=B9267655530">핸즈온 머신러닝(2판)</a></p>
-</div>
-<div class="section" id="id9">
-<h4><span class="section-number">1.1.3.4. </span>데이터 변환 자동화<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p><strong>데이터 변환 자동화</strong></p>
 <ul class="simple">
 <li><p>머신러닝 모델 학습: 보다 유용한 데이터 표현으로 변환하는 과정을 자동으로 찾는 과정</p></li>
 <li><p>__데이터 표현의 유용성__에 대한 기준: 주어진 과제 해결을 위한 보다 쉬운 규칙 제공</p></li>
@@ -726,9 +649,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id10">
-<h4><span class="section-number">1.1.3.5. </span>가설 공간<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p><strong>가설 공간</strong></p>
 <ul class="simple">
 <li><p>주어진 문제에 가장 적절한 변환을 머신러닝 알고리즘 스스로 알아내기는 기본적으로 불가능.</p></li>
 <li><p><strong>가설 공간</strong>: 프로그래머에 의해 지정된 함수들의 집합</p></li>
@@ -736,9 +657,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>예제: 위 2차원 좌표 변환 문제의 가설 공간은 ‘모든 가능한 좌표 변환 함수’들의 집합</p></li>
 </ul>
 </div>
-</div>
 <div class="section" id="deep">
-<h3><span class="section-number">1.1.4. </span>딥러닝의 ‘딥’(deep)이란?<a class="headerlink" href="#deep" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.1.3. </span>딥러닝의 ‘딥’(deep)이란?<a class="headerlink" href="#deep" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>‘딥’(deep)이란?: __데이터 표현의 연속적 변환__을 지원하는 여러 개의 ‘층’(layer)을 활용한 학습</p></li>
 <li><p>즉 __계층적 표현 학습__을 지원하는 머신러닝을 딥러닝이라 부름.</p></li>
@@ -752,8 +672,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch14/homl14-15b.png" width="700"/></div>
 <p>&lt;그림 참조: <a class="reference external" href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">ImageNet Classification with Deep Convolutional Neural Networks</a>&gt;</p>
-<div class="section" id="id11">
-<h4><span class="section-number">1.1.4.1. </span>신경망<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id5">
+<h4><span class="section-number">1.1.3.1. </span>신경망<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>유닛(unit): 층(layer)을 구성하는 요소. 몇 개에서 몇 십개로 이루어짐.</p></li>
 <li><p>신경망(neural network): 계층적 표현 학습이 이루어지는 모델</p>
@@ -768,11 +688,11 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>예제: 손글씨 숫자 인식</p></li>
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-mnist_representations.png" style="width:550px;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python</a></p>
 </div>
 </div>
-<div class="section" id="id12">
-<h3><span class="section-number">1.1.5. </span>딥러닝 작동 원리<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3><span class="section-number">1.1.4. </span>딥러닝 작동 원리<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>딥러닝 모델의 작동 원리를 이해하려면 다음 세 개념에 집중해야 함</p>
 <ul class="simple">
 <li><p>가중치(weight)</p></li>
@@ -780,7 +700,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>역전파(backpropagation)</p></li>
 </ul>
 <div class="section" id="a">
-<h4><span class="section-number">1.1.5.1. </span>A. 가중치<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">1.1.4.1. </span>A. 가중치<a class="headerlink" href="#a" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>데이터 표현의 변환에 사용되는 <strong>파라미터</strong>(parameter)</p></li>
 <li><p>학습: 적절한 가중치를 모든 층에 대해 동시에(!) 찾는 과정</p>
@@ -791,20 +711,20 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>많게는 수 천만 개의 가중치를 학습해야 함.</p></li>
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-deep-learning-in-3-figures-1.png" style="width:500px;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python</a></p>
 </div>
 <div class="section" id="b">
-<h4><span class="section-number">1.1.5.2. </span>B. 손실 함수<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">1.1.4.2. </span>B. 손실 함수<a class="headerlink" href="#b" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>신경망의 출력값(output)과 타깃(target) 사이의 거리 측정. 가중치에 의존.</p></li>
 <li><p><strong>목적 함수</strong>(objective function) 또는 <strong>비용 함수</strong>(cost function)라고도 불림</p></li>
 <li><p>손실 함수의 반환값을 학습 과정에서 성능 평가용 피드백으로 활용.</p></li>
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-deep-learning-in-3-figures-2.png" style="width:500px;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python</a></p>
 </div>
 <div class="section" id="c">
-<h4><span class="section-number">1.1.5.3. </span>C. 역전파<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h4>
+<h4><span class="section-number">1.1.4.3. </span>C. 역전파<a class="headerlink" href="#c" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>역전파(backpropagation) 알고리즘:
 경사하강법에 기초하여 손실함수의 출력값과
@@ -817,11 +737,11 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-deep-learning-in-3-figures-3.png" style="width:500px;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python</a></p>
 </div>
 </div>
-<div class="section" id="id13">
-<h3><span class="section-number">1.1.6. </span>딥러닝의 지금까지 성과<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3><span class="section-number">1.1.5. </span>딥러닝의 지금까지 성과<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>사람과 비슷한 수준의 이미지 분류, 음성 인식, 필기 인식, 자율 주행</p></li>
 <li><p>상당한 성능의 기계 번역, TTS(text-to-speech) 변환</p></li>
@@ -831,8 +751,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>초인류 바둑 실력(2013 알파고)</p></li>
 </ul>
 </div>
-<div class="section" id="id14">
-<h3><span class="section-number">1.1.7. </span>전망<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3><span class="section-number">1.1.6. </span>전망<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>단기적으로 너무 높은 기대를 갖는 것은 위험함.</p>
 <ul>
@@ -845,14 +765,14 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 </div>
-<div class="section" id="id15">
-<h2><span class="section-number">1.2. </span>1.2 딥러닝 이전: 머신러닝의 역사<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2><span class="section-number">1.2. </span>1.2 딥러닝 이전: 머신러닝의 역사<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>산업계에서 사용되는 머신러닝 알고리즘의 대부분은 딥러닝 알고리즘이 아님.</p></li>
 <li><p>훈련 데이터가 너무 적거나, 딥러닝과 다른 알고리즘이 보다 좋은 성능 발휘 가능.</p></li>
 </ul>
-<div class="section" id="id16">
-<h3><span class="section-number">1.2.1. </span>확률적 모델링<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3><span class="section-number">1.2.1. </span>확률적 모델링<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>나이브 베이즈 알고리즘(Naive Bayes algorithm)을 활용하는 분석 기법이 대표적임.</p></li>
 <li><p>베이즈 정리(Bayes theorem)에 기초하는 전통적인 기법</p></li>
@@ -861,8 +781,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>예제: 로지스틱 회귀(logistic regression)</p></li>
 </ul>
 </div>
-<div class="section" id="id17">
-<h3><span class="section-number">1.2.2. </span>초창기 신경망<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3><span class="section-number">1.2.2. </span>초창기 신경망<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>기본 아이디어: 1950년대부터 연구됨.</p></li>
 <li><p>LeNet 합성곱 신경망: 손글씨 숫자 이미지 자동 분류 시스템</p>
@@ -874,8 +794,8 @@ const thebe_selector_output = ".output, .cell_output"
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch14/homl14-16.gif" width="400"/></div>
 <p>&lt; 그림 출처: <a class="reference external" href="http://yann.lecun.com/exdb/lenet/index.html">LeNet-T CNN</a> &gt;</p>
 </div>
-<div class="section" id="id18">
-<h3><span class="section-number">1.2.3. </span>커널 기법<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h3><span class="section-number">1.2.3. </span>커널 기법<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>1990년대: 서포트 벡터 머신(SVM) + 커널 기법</p></li>
 <li><p>초창기 신경망 성능을 뛰어 넘음.</p></li>
@@ -892,8 +812,8 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </div>
-<div class="section" id="id19">
-<h3><span class="section-number">1.2.4. </span>결정트리, 랜덤 포레스트, 그레이디언트 부스팅 머신<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3><span class="section-number">1.2.4. </span>결정트리, 랜덤 포레스트, 그레이디언트 부스팅 머신<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>(2000년대) 결정트리: 입력값을 순서도 형식으로 특정 기준으로 분류하는 방식</p></li>
 <li><p>랜덤 포레스트: 2010년 경까지 커널 기법보다 선호됨.</p></li>
@@ -904,10 +824,10 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-decision_tree.png" style="width:350px;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python</a></p>
 </div>
-<div class="section" id="id20">
-<h3><span class="section-number">1.2.5. </span>딥러닝의 본격적 발전<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h3><span class="section-number">1.2.5. </span>딥러닝의 본격적 발전<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>2011년: GPU를 활용한 딥 신경망 훈련 시작</p></li>
 <li><p>2012년: ImageNet Challenge(이미지 분류 경진대회)의 획기적 성공</p>
@@ -921,23 +841,23 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>2015년 이후: 많은 문제 영역에서 SVM, 결정트리 등을 딥러닝 모델로 대체함.</p></li>
 </ul>
 </div>
-<div class="section" id="id21">
-<h3><span class="section-number">1.2.6. </span>딥러닝의 특징<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3><span class="section-number">1.2.6. </span>딥러닝의 특징<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>자동화된 데이터 표현의 변환, 즉 특성 공학 자동화</p></li>
 <li><p>층을 거치면서 점진적으로 더 복잡한 데이터 표현을 만들어 냄.</p></li>
 <li><p>모든 과정의 데이터 표현의 변환, 즉 모든 층에 대한 특성 공학 스스로 해결</p></li>
 </ul>
-<div class="section" id="id22">
-<h4><span class="section-number">1.2.6.1. </span>최근 머신러닝 분야의 동향 1<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id16">
+<h4><span class="section-number">1.2.6.1. </span>최근 머신러닝 분야의 동향 1<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>2019년 캐글(Kaggle) 경진대회에서 상위팀이 사용한 도구 설문조사 결과</p></li>
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/kaggle_top_teams_tools.png" style="width:500px;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python</a></p>
 </div>
-<div class="section" id="id23">
-<h4><span class="section-number">1.2.6.2. </span>최근 머신러닝 분야의 동향 2<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id17">
+<h4><span class="section-number">1.2.6.2. </span>최근 머신러닝 분야의 동향 2<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>데이터과학 일반에서 가장 많이 사용되는 도구(캐글 설문조사 2020)</p></li>
 </ul>
@@ -946,10 +866,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<div class="section" id="id24">
-<h2><span class="section-number">1.3. </span>1.3 딥러닝 발전 동력<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id25">
-<h3><span class="section-number">1.3.1. </span>딥러닝 주요 요소<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id18">
+<h2><span class="section-number">1.3. </span>1.3 딥러닝 발전 동력<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id19">
+<h3><span class="section-number">1.3.1. </span>딥러닝 주요 요소<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>컴퓨터 비전, 자연어 인식 분야가 2012년 이후 획기적으로 발전하였음.</p></li>
 <li><p>획기적 발전에 기여한 아래 기법은 하지만 1990년대에 제시됨</p>
@@ -967,8 +887,8 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </div>
-<div class="section" id="id26">
-<h3><span class="section-number">1.3.2. </span>하드웨어<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id20">
+<h3><span class="section-number">1.3.2. </span>하드웨어<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>CPU: 1990년에 비해 5,000배 이상 빨라짐</p></li>
 <li><p>GPU(Graphical Processing Unit):</p>
@@ -988,8 +908,8 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </div>
-<div class="section" id="id27">
-<h3><span class="section-number">1.3.3. </span>데이터<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id21">
+<h3><span class="section-number">1.3.3. </span>데이터<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>인터넷과 저장장치의 발전으로 인한 엄청난 양의 데이터 축적</p>
 <ul>
@@ -1006,8 +926,8 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </div>
-<div class="section" id="id28">
-<h3><span class="section-number">1.3.4. </span>알고리즘<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id22">
+<h3><span class="section-number">1.3.4. </span>알고리즘<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>2000년대 후반까지 딥러닝 네트워크를 효율적으로 훈련시킬 수 있는 알고리즘 부재(역전파 문제 미해결)</p></li>
 <li><p>2009-2010: 주요 알고리즘 개선</p>
@@ -1027,16 +947,16 @@ const thebe_selector_output = ".output, .cell_output"
 깊은 층으로 구성된 신경망 네트워크 훈련 가능</p></li>
 </ul>
 </div>
-<div class="section" id="id29">
-<h3><span class="section-number">1.3.5. </span>투자<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id23">
+<h3><span class="section-number">1.3.5. </span>투자<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>2013년 이후 투자가 획기적으로 증가함</p></li>
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/startup_investment_oecd.png" style="width:500px;"></div>
 <p>그림 출처: <a class="reference external" href="https://www.oecd-ilibrary.org/sites/3abc27f1-en/index.html?itemId=/content/component/3abc27f1-en&amp;mimeType=text/html">OECD estimate of total investments in AI startups</a></p>
 </div>
-<div class="section" id="id30">
-<h3><span class="section-number">1.3.6. </span>딥러닝의 대중화<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id24">
+<h3><span class="section-number">1.3.6. </span>딥러닝의 대중화<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>이전: C++, CUDA 등을 이용한 어려운 프로그램을 구현할 수 있었어야 함.</p></li>
 <li><p>지금: 파이썬 기초 프로그래밍 수준에서 시작 가능</p>
@@ -1046,8 +966,8 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 </ul>
 </div>
-<div class="section" id="id31">
-<h3><span class="section-number">1.3.7. </span>딥러닝의 미래<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id25">
+<h3><span class="section-number">1.3.7. </span>딥러닝의 미래<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>여전히 딥러닝 혁신적 발전이 진행중임.</p>
 <ul>
