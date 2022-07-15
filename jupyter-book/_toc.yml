@@ -7,4 +7,5 @@ options:
   numbered: True
 #  only_build_toc_files: true
 chapters:
+- file: what_is_deep_learning
 - file: mathematical_building_blocks
