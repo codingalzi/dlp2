@@ -30,9 +30,11 @@
 # ### 머신러닝
 
 # 머신러닝은 1990년대에 본격적으로 발전했다. 
-# 기본적으로 통계학과 연관되어 있지만 다음 두 측면에서 통계학과 다르다. 
+# 기본적으로 통계학과 연관되어 출발했지만 다음 두 측면에서 통계학과 다르다. 
+# 
 # 첫째, 아주 큰 데이터(빅데이터)를 단순히 통계학적으로 다룰 수는 없다.
 # 예를 들어, 수 백만장의 사진을 통계 기법으로 다루지 못하지만 머신러닝은 가능하다.
+# 
 # 둘째, 머신러닝, 특히 딥러닝의 경우 수학적, 통계적 이론 보다는 공학적 접근법이 보다 중요하다.
 # 또한 소프트웨어와 하드웨어의 발전이 딥러닝 연구에 중요한 역할을 수행한다.
 
@@ -52,6 +54,8 @@
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-a-new-programming-paradigm.png" style="width:400px;"></div>
 # 
 # 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
+
+# ### 학습 규칙과 데이터 표현법
 
 # **머신러닝 모델 학습의 필수 요소**
 # 
@@ -81,76 +85,103 @@
 # :::{prf:example} 선형 분류
 # :label: exp-lin-reg
 # 
-# 검은 점과 흰 점이 아래 왼쪽 그림에서첨 분포되어 있다. 
+# 흑점과 백점이 아래 왼쪽 그림에서첨 분포되어 있다. 
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-learning_representations.png" style="width:600px;"></div>
 # 
 # <그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)>
 # 
 # 좌표 $(x, y)$가 주어지면 해당 좌표의 점의 색깔을 예측하는 머신러닝 모델을 구현하고자 한다.
-# 즉, 머신러닝 모델의 학습에 필요한 세 요소가 다음과 같다.
+# 이 경우 머신러닝 모델의 학습에 필요한 세 요소가 다음과 같다.
 # 
 # - 입력 데이터셋: 2차원 좌표로 표현된 데이터셋
 # - 타깃 데이터셋: 각 좌표의 점이 갖는 색깔
 # - 모델 평가지표: 점의 색을 정확하게 예측한 비율
 # 
 # 점의 색깔을 예측하기 위한 한 가지 방식은 좌표의 축을 위 가운데 그림에서처럼 다르게 선택하는 것이다.
-# 그러면 위 오른쪽 그림에서처럼 흰 점과 검은 점을 단순히 $x$-좌표의 음수와 양수 여부에 따라 
+# 그러면 위 오른쪽 그림에서처럼 백점과 흑점을 단순히 $x$-좌표의 음수와 양수 여부에 따라 
 # 간단하게 판단할 수 있다.
 # 즉, 새로운 축을 사용하여 각 점의 좌표를 새롭게 표현하도록 변환하는 머신러닝 알고리즘을
-# 구현하면 흰 점과 검은 점을 선형적으로 분류하는 머신러닝 모델을 구현할 수 있다.
+# 구현하면 백점과 흑점을 매우 간단하게 선형적으로 분류하는 머신러닝 모델을 구현할 수 있다.
 # :::
-
-# **데이터 변환 수동화의 어려움**
-# 
-# - 위 예제의 경우 수동으로 데이터 변환 방식을 어렵지 않게 알아낼 수 있음.
-# - 반면에 손글씨 숫자 인식(MNIST)의 경우 간단하지 않음(아래 그림 참조). 
-
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch03/homl03-10.png" width="300"/></div>
-# 
-# 그림 출처: [핸즈온 머신러닝(2판)](https://www.hanbit.co.kr/store/books/look.php?p_code=B9267655530)
 
 # **데이터 변환 자동화**
 # 
-# - 머신러닝 모델 학습: 보다 유용한 데이터 표현으로 변환하는 과정을 자동으로 찾는 과정
-# - __데이터 표현의 유용성__에 대한 기준: 주어진 과제 해결을 위한 보다 쉬운 규칙 제공
-# - 변환 방식 종류
-#     - 좌표 변환, 픽셀 개수, 닫힌 원의 개수, 선형/비선형 변환, 이동, ...
-#     - 기본적으로 주어진 문제에 따라 다른 변환 방식 활용
+# 위 예제의 경우 수동으로 데이터 변환 방식을 어렵지 않게 알아낼 수 있었다.
+# 반면에 MNIST 손글씨의 경우처럼 각 숫자를 구분하는 쉽게 구분하는
+# 데이터 변환을 수동으로 찾기는 거의 불가능하다.
+
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch03/homl03-10.png" width="300"/></div>
+# 
+# <그림 출처: [핸즈온 머신러닝(2판)](https://www.hanbit.co.kr/store/books/look.php?p_code=B9267655530)>
+
+# 그런데 머신러닝 모델의 학습을 이용하면
+# 데이터를 보다 유용한 방식으로 표현으로 변환을 자동으로 찾을 수 있다.
+# 이때 사용되는 모델의 평가 기준은 **'새로운 데이터 표현법이
+# 과제 해결에 보다 도움이 되는가'** 이며,
+# 평가 기준에 따라 모델 학습에 사용되는 평가 지표가 지정된다.
+# 
+# 머신러닝 학습에 사용되는 대표적인 변환 방식은 다음과 같다.
+# 
+# - 픽셀 수 세기
+# - 닫힌 원의 수 세기
+# - 사영<font size='2'>projection</font>
+# - 회전
+# - 이동
+# - 비선형 변환: $x > 0$ 의 데이터만 선택하기 등
+# 
+# 머신러닝 모델은 한 개 이상의 변환을 조합하며 과제에 따라 서로 다른 조합이 선택된다.
 
 # **가설 공간**
 # 
-# - 주어진 문제에 가장 적절한 변환을 머신러닝 알고리즘 스스로 알아내기는 기본적으로 불가능.
-# - __가설 공간__: 프로그래머에 의해 지정된 함수들의 집합
-# - 머신러닝 알고리즘: 가설공간 내에서 적합한 변환 함수 탐색
-# - 예제: 위 2차원 좌표 변환 문제의 가설 공간은 '모든 가능한 좌표 변환 함수'들의 집합
+# 주어진 문제에 가장 적절한 변환을 머신러닝 알고리즘 스스로 알아내기는 기본적으로 불가능하다.
+# 머신러닝 모델은 학습과정에서 사용할 수 있는 데이터 변환 방식을 지정하는 방식으로 구현되며,
+# 이를 통해  머신러닝 알고리즘이 사용할 수 있는 변환 알고리즘의 공간을 제한한다.
+# 
+# 이와같이 머신러닝 모델이 사용할 수 있는 제한된 알고리즘 공간을
+# **가설 공간**이라 부른다.
+# 즉, 머신러닝 모델이 정해지면 학습은 지정된 가설 공간 내에서 가장 적절한 데이터 변환법을 학습한다.
+# 
 
-# ### 딥러닝의 '딥'(deep)이란?
+# ### 딥러닝
 
-# - '딥'(deep)이란?: __데이터 표현의 연속적 변환__을 지원하는 여러 개의 '층'(layer)을 활용한 학습
-# - 즉 __계층적 표현 학습__을 지원하는 머신러닝을 딥러닝이라 부름.
-# - 딥러닝 모델의 깊이 = 계층으로 쌓아 올린 층의 높이
-#     - 수 십개 또는 수 백개의 층으로 구성된 모델 존재
-#     - 모든 층에서 데이터 표현의 변환이 __자동__으로 이루어지는 것이 핵심!
-# - 섈로우 러닝(shallow learning): 한 두 개의 층만 사용하는 학습
+# **딥<font size='2'>deep</font>의 의미**
+
+# 딥러닝의 딥<font size='2'>deep</font>은 
+# 데이터 변환을 지원하는 **층**<font size='2'>layer</font>을 
+# 세 개 이상 연속적으로 활용하는 머신러닝 모델 학습법을 가리킨다.
+# 이런 의미에서 딥러닝을 **계층적 표현 학습법**이라 부르리도 한다.
+# 반면에 **쉘로우 러닝**<font size='2'>shallow learning</font>는
+# 한 두 개의 층만 사용하는 학습을 의미한다.
+
+# **신경망 모델**
+# 
+# 딥러닝 모델은 **심층 신경망**<font size='2'>deep neural network</font>로 구성된다.
+# 신경망은 여러 개의 층을 쌓아 올린 구조를 갖는다.
+# 신경망의 깊이는 쌓아 올려진 층의 높이이며,
+# 심층 신경망은 경우에 따라 수 십 또는 수 백 층으로 구성되기도 한다(아래 그림 참고).
+# 모든 층에서 데이터 표현의 변환이 **자동**으로 이루어지는 것이 핵심이다.
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch14/homl14-15b.png" width="700"/></div>
 # 
 # <그림 참조: [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)>
 
-# #### 신경망
+# :::{prf:example} 손글씨 숫자 인식
+# :label: exc-minist-transform
 # 
-# - 유닛(unit): 층(layer)을 구성하는 요소. 몇 개에서 몇 십개로 이루어짐.
-# - 신경망(neural network): 계층적 표현 학습이 이루어지는 모델
-#     - __계층적 '인풋-투-타깃'(input-to-target) 변환__ 학습 모델
-#     - 예제: 숫자 이미지 $\Rightarrow \cdots \Rightarrow$ 숫자
-# - 단순하지만 매우 강력한 결과를 생산하는 아이디어! __뇌 과학과 아무 상관 없음!__
-
-# - 예제: 손글씨 숫자 인식
+# 아래 이미지는 네 개의 층을 사용하는 딥러닝 모델이
+# MNIST 손글씨 이미지를 변환해서 최종적으로
+# 이미지가 가리키는 숫자를 예측하는 과정을 보여준다.
+# 
+# 하나을 층을 지날 때마다 원본 이미지와 점차 많이 달라지는
+# 방식으로 데이터를 표현하여 
+# 최종적으로 (사람은 이해할 수 없지만)
+# 모델은 쉽게 적절한 값을 예측할 수 있는 데이터로 변환한다.
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-mnist_representations.png" style="width:550px;"></div>
 # 
 # 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# :::
 
 # ### 딥러닝 작동 원리
 # 
@@ -159,7 +190,7 @@
 # - 손실 함수(loss function)
 # - 역전파(backpropagation)
 
-# #### A. 가중치
+# **A. 가중치**
 # 
 # - 데이터 표현의 변환에 사용되는 __파라미터__(parameter)
 # - 학습: 적절한 가중치를 모든 층에 대해 동시에(!) 찾는 과정
@@ -170,7 +201,7 @@
 # 
 # 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
 
-# #### B. 손실 함수
+# **B. 손실 함수**
 # 
 # - 신경망의 출력값(output)과 타깃(target) 사이의 거리 측정. 가중치에 의존.
 # - __목적 함수__(objective function) 또는 __비용 함수__(cost function)라고도 불림
@@ -180,7 +211,7 @@
 # 
 # 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
 
-# #### C. 역전파
+# **C. 역전파**
 # 
 # - 역전파(backpropagation) 알고리즘: 
 #     경사하강법에 기초하여 손실함수의 출력값과 
