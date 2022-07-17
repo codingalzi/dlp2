@@ -258,6 +258,10 @@
 # 딥러닝 모델의 학습은 훈련 루프를 적게는 몇 십번, 많게는 몇 백, 몇 천 번 이상 
 # 반복해야 최소 손실값을 갖는 가중치를 찾을 때까지 반복한다.
 
+# <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch01-deep-learning-in-3-figures-3-a.png?raw=true" style="width:500px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
 # ### 딥러닝의 지금까지 성과
 
 # - 사람과 비슷한 수준의 이미지 분류, 음성 인식, 필기 인식, 자율 주행
