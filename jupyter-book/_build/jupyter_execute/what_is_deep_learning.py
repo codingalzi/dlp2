@@ -7,15 +7,15 @@
 
 # **관계 1: 연구 분야 관점**
 # 
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ai-ml-relation.png" style="width:600px;"></div>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ai-ml-relation.png" style="width:500px;"></div>
 # 
-# 그림 출처: [교보문고(에이지 오브 머신러닝)](http://www.kyobobook.co.kr/readIT/readITColumnView.laf?thmId=00198&sntnId=14142)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="http://www.kyobobook.co.kr/readIT/readITColumnView.laf?thmId=00198&sntnId=14142">교보문고(에이지 오브 머신러닝)</a>&gt;</div></p>
 
 # **관계 2: 역사**
 # 
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ai-ml-relation2.png" style="width:600px;"></div>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ai-ml-relation2.png" style="width:500px;"></div>
 # 
-# 그림 출처: [NVIDIA 블로그](https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/">NVIDIA 블로그</a>&gt;</div></p>
 
 # ### 인공지능
 
@@ -53,7 +53,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-a-new-programming-paradigm.png" style="width:400px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # ### 학습 규칙과 데이터 표현법
 
@@ -89,7 +89,7 @@
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-learning_representations.png" style="width:600px;"></div>
 # 
-# <그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)>
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 # 
 # 좌표 $(x, y)$가 주어지면 해당 좌표의 점의 색깔을 예측하는 머신러닝 모델을 구현하고자 한다.
 # 이 경우 머신러닝 모델의 학습에 필요한 세 요소가 다음과 같다.
@@ -113,7 +113,7 @@
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch03/homl03-10.png" width="300"/></div>
 # 
-# <그림 출처: [핸즈온 머신러닝(2판)](https://www.hanbit.co.kr/store/books/look.php?p_code=B9267655530)>
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B9267655530">핸즈온 머신러닝(2판)</a>&gt;</div></p>
 
 # 그런데 머신러닝 모델의 학습을 이용하면
 # 데이터를 보다 유용한 방식으로 표현으로 변환을 자동으로 찾을 수 있다.
@@ -138,10 +138,11 @@
 # 머신러닝 모델은 학습과정에서 사용할 수 있는 데이터 변환 방식을 지정하는 방식으로 구현되며,
 # 이를 통해  머신러닝 알고리즘이 사용할 수 있는 변환 알고리즘의 공간을 제한한다.
 # 
-# 이와같이 머신러닝 모델이 사용할 수 있는 제한된 알고리즘 공간을
+# 이와같이 머신러닝 모델이 주어졌을 때 모델 학습에 사용할 수 있는 알고리즘의 공간을
 # **가설 공간**이라 부른다.
-# 즉, 머신러닝 모델이 정해지면 학습은 지정된 가설 공간 내에서 가장 적절한 데이터 변환법을 학습한다.
-# 
+# 즉, 머신러닝 모델이 정해지면 모델은 
+# **주어진 입력 데이터셋과 타깃 데이터셋을 이용하여 입력이 주어지면 타깃을 예측하고, 예측 성능을 평가지표을 이용하여 측정하는 과정을 반복 훈련**하면서
+# 지정된 가설 공간 내에서 가장 적절한 데이터 변환법을 학습한다.
 
 # ### 딥러닝
 
@@ -162,9 +163,9 @@
 # 심층 신경망은 경우에 따라 수 십 또는 수 백 층으로 구성되기도 한다(아래 그림 참고).
 # 모든 층에서 데이터 표현의 변환이 **자동**으로 이루어지는 것이 핵심이다.
 
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch14/homl14-15b.png" width="700"/></div>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch14/homl14-15b.png" width="600"/></div>
 # 
-# <그림 참조: [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)>
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">ImageNet Classification with Deep Convolutional Neural Networks</a>&gt;</div></p>
 
 # :::{prf:example} 손글씨 숫자 인식
 # :label: exc-minist-transform
@@ -180,52 +181,85 @@
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-mnist_representations.png" style="width:550px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 # :::
 
 # ### 딥러닝 작동 원리
-# 
-# 딥러닝 모델의 작동 원리를 이해하려면 다음 세 개념에 집중해야 함
-# - 가중치(weight)
-# - 손실 함수(loss function)
-# - 역전파(backpropagation)
 
-# **A. 가중치**
+# 딥러닝 모델이 사용하는 심층 신경망은
+# 입력 데이터를 여러 층을 통과시키는 방식으로 변환시킨다.
+# 딥러닝 모델의 심층 신경망의 핵심 요소는 다음 네 가지이다.
 # 
-# - 데이터 표현의 변환에 사용되는 __파라미터__(parameter)
-# - 학습: 적절한 가중치를 모든 층에 대해 동시에(!) 찾는 과정
-#     - 하나의 가중치가 변하면 모든 다른 가중치도 변함!
-# - 많게는 수 천만 개의 가중치를 학습해야 함.
+# - 가중치
+# - 손실 함수
+# - 역전파
+# - 훈련 루프
+
+# **가중치**
+# 
+# 심층 신경망의 각 층은
+# 데이터 변환에  **가중치**<font size='2'>weight</font>라 불리는
+# 파라미터가 사용된다.
+# 각 층은 입력되는 데이터를 층 고유의 가중치들과 조합하여
+# 출력값을 생성한 후 다음 층으로 전달한다(아래 그림 참고).
+# 
+# 이와 같이 입력값을 가중치와 조합하는 과정을 여러 층을 통해 수행하여
+# 최종 결과물인 예측값<font size='2'>prediction</font>를 
+# 생성하는 과정을 **순전파**<font size='2'>feedforward</font>라 한다.
+# 
+# 머신러닝 모델의 학습은 모든 층에 대해 적절한 가중치를 찾는 과정을 의미한다.
+# 경우에 따라 수 천만 개의 적절한 파라미터를 동시에 찾아야 하는
+# 매우 어렵거나 불가능한 과제가 되기도 한다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-deep-learning-in-3-figures-1.png" style="width:500px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# **B. 손실 함수**
+# **손실 함수**
 # 
-# - 신경망의 출력값(output)과 타깃(target) 사이의 거리 측정. 가중치에 의존.
-# - __목적 함수__(objective function) 또는 __비용 함수__(cost function)라고도 불림
-# - 손실 함수의 반환값을 학습 과정에서 성능 평가용 피드백으로 활용. 
+# 모델의 **손실 함수**<font size='2'>loss function</font>는
+# 모델의 최종 출력결과인 예측값과 실제 타깃<font size='2'>target</font>이
+# 얼마나 다른지를 측정한다.
+# 손실 함수는 **목적 함수**<font size='2'>objective function</font> 또는 
+# **비용 함수**<font size='2'>cost function</font>라고도 불린다.
+# 
+# 손실 함수가 반환값이 학습 과정에 있는 모델의 성능을 나타내면
+# 기본적으로 0에 가까운 낮은 점수일 수록 잘 학습되었다고 말한다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-deep-learning-in-3-figures-2.png" style="width:500px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# **C. 역전파**
+# **역전파**
 # 
-# - 역전파(backpropagation) 알고리즘: 
-#     경사하강법에 기초하여 손실함수의 출력값과 
-#     타깃 사이의 거리를 좁혀주는 알고리즘
-# - 옵티마이저(optimizer): 역전파 알고리즘을 구현한 프로그램. 
-#     - 모든 가중치 무작위 초기화: 결과적으로 손실값 매우 높음.
-#     - 훈련 반복: 손실값이 낮아지도록 가중치 조절. 
+# **역전파**<font size='2'>backpropagation</font>는
+# 경사하강법에 기초하여 학습 중인 모델의 손실 함수의 반환값을
+# 최대한 낮추는 방향으로
+# 각 층의 가중치를 조절하는 과정을 가리킨다.
+# 역전파 알고리즘은 **옵티마이저**(optimizer)에 의해 실행되며
+# 딥러닝 모델 학습의 핵심 역할을 수행한다.
+# 
+# 모델 훈련은 임의로 초기화된 가중치로 시작한다.
+# 이후 옵티마이저가 각 층의 가중치를 손실값이 보다 작아지는 방향으로 조금씩 업데이트하는 
+# **역전파 과정을 반복 실행**하면서 손실값이 점차 낮아져서 최종적으로 손실 최소값을 갖도록 하는
+# 가중치를 찾아 간다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-deep-learning-in-3-figures-3.png" style="width:500px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# **훈련 루프**
+# 
+# 딥러닝 모델의 **훈련 루프**<font size='2'>training loop</font>는
+# 순전파-손실값 계산-역전파의 구성된 하나의 순환과정을 가리킨다.
+# 즉, 입력값을 받아 예측값을 생성한 후 손실값을 계산하여
+# 그에 따라 가중치를 업데이트하는 일련의 과정이 훈련 루프이다.
+# 
+# 딥러닝 모델의 학습은 훈련 루프를 적게는 몇 십번, 많게는 몇 백, 몇 천 번 이상 
+# 반복해야 최소 손실값을 갖는 가중치를 찾을 때까지 반복한다.
 
 # ### 딥러닝의 지금까지 성과
-# 
+
 # - 사람과 비슷한 수준의 이미지 분류, 음성 인식, 필기 인식, 자율 주행
 # - 상당한 성능의 기계 번역, TTS(text-to-speech) 변환
 # - 구글 어시스턴트, 아마존 알레사 등의 디지털 도우미
@@ -262,7 +296,7 @@
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch14/homl14-16.gif" width="400"/></div>
 # 
-# < 그림 출처: [LeNet-T CNN](http://yann.lecun.com/exdb/lenet/index.html) > 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="http://yann.lecun.com/exdb/lenet/index.html">LeNet-T CNN</a>&gt;</div></p>
 
 # ### 커널 기법
 # 
@@ -283,7 +317,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-decision_tree.png" style="width:350px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # ### 딥러닝의 본격적 발전
 # 
@@ -307,7 +341,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/kaggle_top_teams_tools.png" style="width:500px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # #### 최근 머신러닝 분야의 동향 2
 # 
@@ -315,7 +349,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/kaggle_ds_survey_2020.png" style="width:500px;"></div>
 # 
-# 그림 출처: [www.kaggle.com/kaggle-survey-2020(20쪽)](https://www.kaggle.com/kaggle-survey-2020)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.kaggle.com/kaggle-survey-2020">www.kaggle.com/kaggle-survey-2020(20쪽)</a>&gt;</div></p>
 
 # ## 1.3 딥러닝 발전 동력
 
@@ -372,7 +406,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/startup_investment_oecd.png" style="width:500px;"></div>
 # 
-# 그림 출처: [OECD estimate of total investments in AI startups](https://www.oecd-ilibrary.org/sites/3abc27f1-en/index.html?itemId=/content/component/3abc27f1-en&mimeType=text/html)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oecd-ilibrary.org/sites/3abc27f1-en/index.html?itemId=/content/component/3abc27f1-en&mimeType=text/html">OECD estimate of total investments in AI startups</a>&gt;</div></p>
 
 # ### 딥러닝의 대중화
 # 
