@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2. 신경망의 수학적 구성 요소 &#8212; Deep Learning with Python(2판)</title>
+    <title>2. 신경망 모델의 수학적 구성 요소 &#8212; Deep Learning with Python(2판)</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -94,7 +91,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   2. 신경망의 수학적 구성 요소
+   2. 신경망 모델의 수학적 구성 요소
   </a>
  </li>
 </ul>
@@ -203,12 +200,12 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   2.1. 신경망 활용법 소개
+   2.1. 신경망 모델 활용법 소개
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   2.2. 2.2 신경망에 사용되는 데이터 표현
+   2.2. 신경망 모델에 사용되는 데이터
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -322,7 +319,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>신경망의 수학적 구성 요소</h1>
+                <h1>신경망 모델의 수학적 구성 요소</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -334,12 +331,12 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   2.1. 신경망 활용법 소개
+   2.1. 신경망 모델 활용법 소개
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   2.2. 2.2 신경망에 사용되는 데이터 표현
+   2.2. 신경망 모델에 사용되는 데이터
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -453,7 +450,17 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="ch-building-blocks">
-<span id="id1"></span><h1><span class="section-number">2. </span>신경망의 수학적 구성 요소<a class="headerlink" href="#ch-building-blocks" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1><span class="section-number">2. </span>신경망 모델의 수학적 구성 요소<a class="headerlink" href="#ch-building-blocks" title="Permalink to this headline">¶</a></h1>
+<p><strong>감사의 글</strong></p>
+<p>아래 내용은 프랑소와 숄레의
+<a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
+소스코드 내용을 참고해서 작성되었습니다.
+자료를 공개한 저자에게 진심어린 감사를 전합니다.</p>
+<p><strong>소스코드</strong></p>
+<p>여기서 언급되는 코드를
+<a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB_mathematical_building_blocks.ipynb">(구글 코랩) 신경망의 수학적 구성 요소</a>에서
+직접 실행할 수 있다.</p>
+<p><strong>주요 내용</strong></p>
 <p>아래 요소들을 직관적으로 살펴본다.</p>
 <ul class="simple">
 <li><p>텐서(tensor)</p></li>
@@ -461,12 +468,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>경사 하강법</p></li>
 <li><p>역전파</p></li>
 </ul>
-<p><strong>참고</strong></p>
-<p>여기서 언급되는 코드를
-<a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB_mathematical_building_blocks.ipynb">(구글 코랩) 신경망의 수학적 구성 요소</a>에서
-직접 실행할 수 있다.</p>
 <div class="section" id="id2">
-<h2><span class="section-number">2.1. </span>신경망 활용법 소개<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.1. </span>신경망 모델 활용법 소개<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>MNIST 손글씨 데이터셋을 대상으로 분류 신경망 모델을 훈련시키고 활용하는 방법을
 간단하게 소개한다.</p>
 <p><strong>케라스로 MNIST 데이터셋 불러오기</strong></p>
@@ -502,7 +505,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>클래스<font size='2'>class</font>: 분류 모델이 예측할 수 있는 레이블들의 집합. 범주<font size='2'>category</font>라고도 함. 파이썬 프로그래밍 언어의 클래스 개념과 다름에 주의할 것.</p></li>
 </ul>
 </div>
-<p><strong>신경망 구조 지정</strong></p>
+<p><strong>신경망 모델의 구조 지정</strong></p>
 <p>MNIST 분류 모델로 다음 신경망을 사용한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
@@ -539,7 +542,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<p><strong>신경망 컴파일</strong></p>
+<p><strong>신경망 모델 컴파일</strong></p>
 <p>선언된 신경망을 학습이 가능한 모델로 만들기 위해
 옵티마이저, 손실 함수, 성능 평가 지표를 설정하는 컴파일 과정을 실행한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
@@ -624,7 +627,7 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 <p>7번 인덱스의 값이 0.998 정도로 가장 높으며, 이는
 0번 이미지가 숫자 7을 담고 있을 확률이 거의 100% 라고 예측함을 보여준다.
 실제로도 0번 이미지는 숫자 7을 담고 있어서 이 경우는 정확하게 예측되었다.</p>
-<p><strong>성능 테스트</strong></p>
+<p><strong>모델 성능 테스트</strong></p>
 <p>훈련에 사용되지 않은 테스트셋 전체에 대한 성능 평가를 위해
 <code class="docutils literal notranslate"><span class="pre">evaluate()</span></code> 메서드를 테스트 셋과 테스트 셋의 레이블셋을 인자로 해서 호출한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
@@ -642,7 +645,7 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 과대적합에 대해서는 나중에 보다 자세히 다룰 것이다.</p>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">2.2. </span>2.2 신경망에 사용되는 데이터 표현<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.2. </span>신경망 모델에 사용되는 데이터<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id4">
 <h3><span class="section-number">2.2.1. </span>텐서와 넘파이 어레이<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
