@@ -11,7 +11,16 @@
 # - 경사 하강법
 # - 역전파
 
-# ## 신경망 소개
+# **참고**
+# 
+# 여기서 언급되는 코드를
+# [(구글 코랩) 신경망의 수학적 구성 요소](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB_mathematical_building_blocks.ipynb)에서 
+# 직접 실행할 수 있다.
+
+# ## 신경망 활용법 소개
+
+# MNIST 손글씨 데이터셋을 대상으로 분류 신경망 모델을 훈련시키고 활용하는 방법을
+# 간단하게 소개한다.
 
 # **케라스로 MNIST 데이터셋 불러오기**
 # 
@@ -31,7 +40,7 @@
 
 # <div align="center"><img src="https://miro.medium.com/max/1313/1*Ow-sTZt40xg3YbyWJXNQcg.png" style="width:600px;"></div>
 # 
-# 그림 출처: [towards data science: Mikkel Duif(2019)](https://towardsdatascience.com/exploring-how-neural-networks-work-and-making-them-interactive-ed67adbf9283)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://towardsdatascience.com/exploring-how-neural-networks-work-and-making-them-interactive-ed67adbf9283">Towards data science: Mikkel Duif(2019)</a>&gt;</div></p>
 
 # :::{admonition} 샘플, 타깃, 레이블, 예측값, 클래스
 # :class: info
@@ -42,7 +51,7 @@
 # - 타깃<font size='2'>target</font>: 개별 샘플과 연관된 값. 모델이 맞춰야 하는 값
 # - 레이블<font size='2'>label</font>: 분류 과제의 경우 타깃 대신에 레이블 용어 사용
 # - 예측값<font size='2'>prediction</font>: 개별 샘플에 대해 모델이 예측한 값
-# - 클래스<font size='2'>class</font>: 분류 모델이 예측할 수 있는 레이블들의 집합. 범주<font size='2'>category</font>라고도 함.
+# - 클래스<font size='2'>class</font>: 분류 모델이 예측할 수 있는 레이블들의 집합. 범주<font size='2'>category</font>라고도 함. 파이썬 프로그래밍 언어의 클래스 개념과 다름에 주의할 것.
 # :::
 
 # **신경망 구조 지정**
@@ -84,47 +93,120 @@
 #               metrics=["accuracy"])
 # ```
 # 
-# - **옵티마이저**<font size='2'>optimizer</font>: 
-#     모델의 성능을 향상시키는 방향으로 가중치를 업데이트하는 알고리즘.
-#     경사하강법, 역전파 업무 처리.
-# - **손실 함수**<font size='2'>loss function</font>: 
-#     학습 중에 있는 모델의 성능 측정. 작을 수록 좋음.
-# - **평가 지표**: 
-#     훈련과 테스트 과정을 모니터링 할 때 사용되는 평가 지표<font size='2'>metric</font>.
-#     손실 함수값을 사용할 수도 있고 아닐 수도 있음. 
-#     분류 모델의 경우 일반적으로 정확도<font size='2'>accuracy</font> 활용.
+# - `optimizer`: 
+#     모델의 성능을 향상시키는 방향으로 가중치를 업데이트하는 알고리즘 지정.
+#     옵티마이저라 불리며 경사하강법, 역전파 업무를 처리함.
+# - `loss`: **손실 함수**<font size='2'>loss function</font> 지정.
+#     학습 중에 있는 모델의 성능을 손실값으로 측정. 손실값이 작을 수록 좋음.
+# - `metrics`: 
+#     훈련과 테스트 과정을 모니터링 할 때 사용되는 평가 지표<font size='2'>metric</font> 지정.
+#     손실 함수값을 사용할 수도 있고 아닐 수도 있음.
+#     여러 개의 지표를 사용할 수 있지만 분류 모델의 경우 일반적으로 정확도<font size='2'>accuracy</font> 활용.
+
+# **이미지 데이터 전처리**
+# 
+# 모델 학습에 좋은 방식으로 데이터를 변환하는 과정이다. 
+# MNIST 데이터의 경우 
+# 0부터 255 사이의 8비트 정수(`uint8`)로 이루어진 `(28, 28)` 모양의 2차원 어레이로 표현된 이미지를
+# 0부터 1 사이의 32비트 부동소수점(`float32`)으로 이루어진 `(28*28, )` 모양의 1차원 어레이로 변환한다.
+# 
+# ```python
+# train_images = train_images.reshape((60000, 28 * 28))
+# train_images = train_images.astype("float32") / 255   # 0과 1사이의 값
+# test_images = test_images.reshape((10000, 28 * 28))
+# test_images = test_images.astype("float32") / 255     # 0과 1사이의 값
+# ```
+# 
+# 전처리된 데이터가 신경망에 전달되는 과정을 묘사하면 다음과 같다.
+
+# <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist_2layers_arch.png?raw=true" style="width:600px;"></div>
 
 # **모델 훈련**
 # 
-# 컴파일된 객체 모델을 훈련한다. 
+# 모델 훈련은 컴파일된 모델의 `fit()` 메소드를 호출하면 된다.
+# MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 첫째와 둘째 인자로 사용한다.
 # 
-# - `fit()` 메서드 호출: 훈련 세트와 레이블을 인자로 사용
-# - `epoths`: 에포크(전체 훈련 세트 대상 반복 훈련 횟수)
-# - `batch_size`: 가중치 업데이트 한 번 실행할 때 사용되는 샘플 수
+# ```python
+# model.fit(train_images, train_labels, epochs=5, batch_size=128)
+# ```
 # 
-#     ```python
-#     model.fit(train_images, train_labels, epochs=5, batch_size=128)
-#     ```
+# - 첫째 인자: 훈련 데이터셋
+# - 둘째 인자: 훈련 레이블셋
+# - `epoths`: 에포크. 전체 훈련 세트 대상 반복 훈련 횟수.
+# - `batch_size`: 배치 크기. 배치 크기만큼의 훈련 데이터로 학습할 때 마다 가중치 업데이트.
+# 
+# 모델의 학습과정 동안 에포크가 끝날 때마다
+# 평균 손실값과 평균 정확도를 계산하여 다음과 같이 출력한다.
+# 
+# ```
+# Epoch 1/5
+# 469/469 [==============================] - 5s 4ms/step - loss: 0.2551 - accuracy: 0.9263
+# Epoch 2/5
+# 469/469 [==============================] - 2s 4ms/step - loss: 0.1044 - accuracy: 0.9693
+# Epoch 3/5
+# 469/469 [==============================] - 2s 3ms/step - loss: 0.0683 - accuracy: 0.9793
+# Epoch 4/5
+# 469/469 [==============================] - 2s 4ms/step - loss: 0.0504 - accuracy: 0.9847
+# Epoch 5/5
+# 469/469 [==============================] - 2s 3ms/step - loss: 0.0378 - accuracy: 0.9885
+# ```
+
+# :::{admonition} 배치 크기와 스텝
+# :class: info
+# 
+# **스텝**<font size='2'>step</font>은 하나의 배치(묶음)을 학습하는 과정을 의미한다.
+# 배치 크기(`batch_size`)를 128로 정하면 총 6만개의 훈련 샘플을 128개씩 묶어
+# 총 469(60,000/128 = 468.75)개의 배치가 매 에포크마다 생성된다.
+# 따라서 에포크 한 번 동안 총 469번의 스텝이 실행되고 그럴 때마다 손실값과 정확도가 계산되며
+# 이를 평균해서 훈련 과정중에 보여지게 된다.
+# 위 훈련의 경우 학습된 모델의 훈련셋에 대한 정확도는 98.9% 정도로 계산되었다.
+# :::
 
 # **모델 활용: 예측하기**
 # 
-# 훈련에 사용되지 않은 손글씨 숫자 이미지 10장에 대한 모델 예측값을 확인하기 위해
-# `predict()` 메서드를 이용한다.
+# 훈련에 사용되지 않은 손글씨 숫자 이미지 10장에 대한 학습된 모델의 예측값을
+# `predict()` 메서드로 확인한다.
 # 
 # ```python
 # test_digits = test_images[0:10]
 # predictions = model.predict(test_digits)
 # ```
 
+# 각 이미지에 대한 예측값은 이미지가 각 범주에 속할 확률을 갖는 
+# 길이가 10인 1차원 어레이로 계산된다.
+# 첫째 이미지에 대한 예측값은 다음과 같다.
+
+# ```python
+# >>> predictions[0]
+# array([5.6115879e-10, 6.5201892e-11, 3.8620074e-06, 2.0421362e-04,
+#        2.3715735e-13, 1.0822280e-08, 3.6126845e-15, 9.9979085e-01,
+#        2.0998414e-08, 1.0214288e-06], dtype=float32)
+# ```
+
+# 7번 인덱스의 값이 0.998 정도로 가장 높으며, 이는
+# 0번 이미지가 숫자 7을 담고 있을 확률이 거의 100% 라고 예측함을 보여준다.
+# 실제로도 0번 이미지는 숫자 7을 담고 있어서 이 경우는 정확하게 예측되었다.
+
 # **성능 테스트**
 # 
-# 테스트 세트 전체에 대한 성능 평가는 `evaluate()` 메서드를 활용한다.
-# 성능평가에 사용되는 지표는 앞서 모델을 컴파일할 때 지정한 정확도(accuracy)가 사용된다.
+# 훈련에 사용되지 않은 테스트셋 전체에 대한 성능 평가를 위해 
+# `evaluate()` 메서드를 테스트 셋과 테스트 셋의 레이블셋을 인자로 해서 호출한다.
 # 
 # ```python
-# test_loss, test_acc = model.evaluate(test_images, test_labels)
-# print(f"test_acc: {test_acc}")
+# >>> test_loss, test_acc = model.evaluate(test_images, test_labels)
+# >>> print(f"test_acc: {test_acc}")
+# 313/313 [==============================] - 1s 3ms/step - loss: 0.0635 - accuracy: 0.9811
+# test_acc: 0.9811000227928162
 # ```
+# 
+# 반환값으로 손실값과 앞서 모델을 컴파일할 때 지정한 정확도가 계산된다.
+# 훈련 과정과 동일하게 스텝마다 계산된 손실값과 정확도의 평균값이 출력된다.
+# `evaluate()` 메서드에 사용되는 배치 크기는 32가 기본값으로 사용되기에
+# 총 313(10,000/32=312.5)번의 스텝이 진행되었다.
+# 
+# 테스트 세트에 대한 정확도는 98% 정도이며 훈련 세트에 대한 정확도 보다 낮다.
+# 이는 모델이 훈련 세트에 **과대 적합**<font size='2'>overfitting</font> 되었음을 의미한다. 
+# 과대적합에 대해서는 나중에 보다 자세히 다룰 것이다.
 
 # ## 2.2 신경망에 사용되는 데이터 표현
 
@@ -187,7 +269,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-timeseries_data.png" style="width:350px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # ### 이미지 데이터(4D 텐서)
 # 
@@ -199,7 +281,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-image_data.png" style="width:350px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # ### 동영상 데이터(5D 텐서)
 # 
@@ -251,7 +333,7 @@
 
 # <div align="center"><img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3653/9363.png" style="width:700px;"></div>
 # 
-# 그림 출처: [생활코딩: 한 페이지 머신러닝](https://www.opentutorials.org/module/3653/22060)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a>&gt;</div></p>
 
 # ### 브로드캐스팅(Broadcasting)
 # 
@@ -274,43 +356,37 @@
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/translation.png" style="width:400px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # __회전: 점곱__
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/rotation.png" style="width:400px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # __스케일링: 점곱__
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/scaling.png" style="width:400px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # __아핀 변환__
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/affine_transform.png" style="width:400px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # __아핀 변환과 relu 활성화 함수__
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/dense_transform.png" style="width:400px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # __히든 레이어의 중간 결과__
 
 # <div align="center"><img src="https://lh4.googleusercontent.com/VqlLh386Wb-Q924H8o7dFLbmLapWkeiDzh2i-m90fhsGyf-Wxk-LZrCRQLNE5xaYh5mR0n_RX--IjREqraKZD908ko8u_utnKas_XVLm3QUSQcvTN5_VlRKDxQdt55P-B7wUYij1jOA" style="width:600px;"></div>
 # 
-# 그림 출처: [생활코딩: 한 페이지 머신러닝](https://www.opentutorials.org/module/3653/22060)
-
-# In[ ]:
-
-
-
-
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a>&gt;</div></p>
 
 # ### 딥러닝의 기하학적 의미
 # 
@@ -324,7 +400,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-geometric_interpretation_4.png" style="width:400px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # ## 2.4 신경망의 엔진: 그레이디언트 기반 최적화
 
@@ -350,7 +426,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-gradient_descent_3d.png" style="width:500px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # ### 배치, 미니 배치, 또는 확률적 경사하강법
 # 
@@ -371,7 +447,7 @@
 
 # <div align="center"><img src="https://matthewmazur.files.wordpress.com/2015/03/nn-calculation.png" style="width:400px;"></div>
 # 
-# 그림 출처: [Matt Mazur: A Step by Step Backpropagation Example](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/">Matt Mazur: A Step by Step Backpropagation Example</a>&gt;</div></p>
 
 # ### 텐서플로우의 그레이디언트 테이프
 # 
