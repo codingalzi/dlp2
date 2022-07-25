@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2. 신경망 모델의 수학적 구성 요소 &#8212; Deep Learning with Python(2판)</title>
+    <title>2. 신경망 구성 요소 &#8212; Deep Learning with Python(2판)</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -38,9 +38,12 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -91,7 +94,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   2. 신경망 모델의 수학적 구성 요소
+   2. 신경망 구성 요소
   </a>
  </li>
 </ul>
@@ -205,58 +208,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   2.2. 신경망 모델에 사용되는 데이터
+   2.2. 텐서
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     2.2.1. 텐서와 넘파이 어레이
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     2.2.2. 데이터 텐서 사례
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#d">
-     2.2.3. 스칼라(0D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     2.2.4. 벡터 (1D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     2.2.5. 행렬(2D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     2.2.6. 시계열 또는 시퀀스 데이터(3D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     2.2.7. 이미지 데이터(4D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
-     2.2.8. 동영상 데이터(5D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
-     2.2.9. 텐서의 주요 속성
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id12">
+  <a class="reference internal nav-link" href="#id4">
    2.3. 2.3 텐서 연산
   </a>
   <ul class="nav section-nav flex-column">
@@ -266,34 +222,34 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
+    <a class="reference internal nav-link" href="#id5">
      2.3.2. 텐서 연산의 기하학적 의미
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
+    <a class="reference internal nav-link" href="#id6">
      2.3.3. 딥러닝의 기하학적 의미
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id15">
+  <a class="reference internal nav-link" href="#id7">
    2.4. 2.4 신경망의 엔진: 그레이디언트 기반 최적화
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
+    <a class="reference internal nav-link" href="#id8">
      2.4.1. 손실함수
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
+    <a class="reference internal nav-link" href="#id9">
      2.4.2. 그레이디언트, 경사하강법, 학습(훈련)
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id18">
+    <a class="reference internal nav-link" href="#id10">
      2.4.3. 배치, 미니 배치, 또는 확률적 경사하강법
     </a>
    </li>
@@ -303,7 +259,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id19">
+    <a class="reference internal nav-link" href="#id11">
      2.4.5. 텐서플로우의 그레이디언트 테이프
     </a>
    </li>
@@ -319,7 +275,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>신경망 모델의 수학적 구성 요소</h1>
+                <h1>신경망 구성 요소</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -336,58 +292,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   2.2. 신경망 모델에 사용되는 데이터
+   2.2. 텐서
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     2.2.1. 텐서와 넘파이 어레이
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     2.2.2. 데이터 텐서 사례
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#d">
-     2.2.3. 스칼라(0D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     2.2.4. 벡터 (1D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
-     2.2.5. 행렬(2D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     2.2.6. 시계열 또는 시퀀스 데이터(3D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     2.2.7. 이미지 데이터(4D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
-     2.2.8. 동영상 데이터(5D 텐서)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
-     2.2.9. 텐서의 주요 속성
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id12">
+  <a class="reference internal nav-link" href="#id4">
    2.3. 2.3 텐서 연산
   </a>
   <ul class="nav section-nav flex-column">
@@ -397,34 +306,34 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
+    <a class="reference internal nav-link" href="#id5">
      2.3.2. 텐서 연산의 기하학적 의미
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
+    <a class="reference internal nav-link" href="#id6">
      2.3.3. 딥러닝의 기하학적 의미
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id15">
+  <a class="reference internal nav-link" href="#id7">
    2.4. 2.4 신경망의 엔진: 그레이디언트 기반 최적화
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
+    <a class="reference internal nav-link" href="#id8">
      2.4.1. 손실함수
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
+    <a class="reference internal nav-link" href="#id9">
      2.4.2. 그레이디언트, 경사하강법, 학습(훈련)
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id18">
+    <a class="reference internal nav-link" href="#id10">
      2.4.3. 배치, 미니 배치, 또는 확률적 경사하강법
     </a>
    </li>
@@ -434,7 +343,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id19">
+    <a class="reference internal nav-link" href="#id11">
      2.4.5. 텐서플로우의 그레이디언트 테이프
     </a>
    </li>
@@ -450,7 +359,7 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="ch-building-blocks">
-<span id="id1"></span><h1><span class="section-number">2. </span>신경망 모델의 수학적 구성 요소<a class="headerlink" href="#ch-building-blocks" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1><span class="section-number">2. </span>신경망 구성 요소<a class="headerlink" href="#ch-building-blocks" title="Permalink to this headline">¶</a></h1>
 <p><strong>감사의 글</strong></p>
 <p>아래 내용은 프랑소와 숄레의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
@@ -458,7 +367,7 @@ const thebe_selector_output = ".output, .cell_output"
 자료를 공개한 저자에게 진심어린 감사를 전합니다.</p>
 <p><strong>소스코드</strong></p>
 <p>여기서 언급되는 코드를
-<a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB_mathematical_building_blocks.ipynb">(구글 코랩) 신경망의 수학적 구성 요소</a>에서
+<a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB_mathematical_building_blocks.ipynb">(구글 코랩) 신경망 구성 요소</a>에서
 직접 실행할 수 있다.</p>
 <p><strong>주요 내용</strong></p>
 <p>아래 요소들을 직관적으로 살펴본다.</p>
@@ -645,96 +554,157 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 과대적합에 대해서는 나중에 보다 자세히 다룰 것이다.</p>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">2.2. </span>신경망 모델에 사용되는 데이터<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id4">
-<h3><span class="section-number">2.2.1. </span>텐서와 넘파이 어레이<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><strong>텐서</strong>:  기본적으로 숫자를 담은 컨테이너(container).</p></li>
-<li><p>넘파이 어레이(NumPy array): 대표적 <strong>텐서</strong>(tensor) 예제</p></li>
-<li><p>행렬: 2 개의 차원으로 구성된 텐서로 표현</p></li>
-<li><p>텐서의 차원: 사용된 <strong>축</strong>(axis)의 개수. 임의로 많을 수 있음. <strong>랭크</strong>(rank)라 불리기도 함.</p></li>
-<li><p>tensorflow의 텐서(<code class="docutils literal notranslate"><span class="pre">Tensor</span></code>):</p>
+<h2><span class="section-number">2.2. </span>텐서<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>MNIST 손글씨 데이터 분류 모델 학습에 사용된 훈련셋과 테스트셋이 넘파이 어레이,
+즉 <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>로 저장되어 사용되었다.
+머신러닝에 사용되는 데이터셋은 일반적으로 넘파이 어레이와 같은
+<strong>텐서</strong><font size='2'>tensor</font>에 저장된다.</p>
+<p><strong>넘파이 어레이와 텐서</strong></p>
+<p>텐서는 일반적으로 숫자 데이터를 담은 모음 자료형을 가리키며
+넘파이 어레이, 판다스 데이터프레임 등이 대표적인 텐서 자료형으로 사용된다.
+텐서플로우 팩키지에서 자체적으로 <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> 자료형을 제공하며
+필요에 따라 내부적으로 넘파이 어레이 등을 <code class="docutils literal notranslate"><span class="pre">Tensor</span></code> 자료형으로 변환하여 처리한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code> 는 넘파이 어레이와 매우 유사하며 다차원 어레이를 지원한다.
+넘파이 어레이와의 차이점은 <code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code>는 GPU를 활용한 연산을 지원하지만 넘파이 어레이는 그렇지 않다.
+또한 <code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code>는 한 번 지정하면 수정이 불가능한 불변 자료형이다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code>와 <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> 사이의 형변환은 필요에 따라 자동으로 이루어지기에 특별한 경우가 아니라면
+사용자에게 편한 자료형을 사용하면 된다.
+여기서는 기본적으로 넘파이 어레이를 텐서로 사용한다.</p>
+<p><strong>텐서의 차원</strong></p>
+<p>텐서의 <strong>차원</strong>은 어레이 등 텐서의 표현에 사용된 <strong>축</strong><font size='2'>axis</font>의 수로 결정된다.
+<strong>랭크</strong><font size='2'>rank</font>라 불리기도 한다.</p>
 <ul>
-<li><p>NumPy의 어레이 자료형과 매우 비슷.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Tensor</span></code>는 GPU를 활용한 연산을 지원하지만 넘파이 어레이는 그렇지 않음.</p></li>
-<li><p>하지만 두 자료형 사이의 형변환을 자동으로 처리.</p></li>
-</ul>
+<li><p>0차원(0D) 텐서: 정수 한 개, 부동소수점 한 개 등 하나의 수를 표현하는 텐서.
+<strong>스칼라</strong><font size='2'>scalar</font>라고 불림.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mf">1.34</span><span class="p">)</span>
+</pre></div>
+</div>
 </li>
 </ul>
+<ul>
+<li><p>1차원(1D) 텐서: 수로 이루어진 리스트 형식.
+<strong>벡터</strong><font size='2'>vector</font>라고도 불림.
+한 개의 축을 가짐</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+</pre></div>
 </div>
-<div class="section" id="id5">
-<h3><span class="section-number">2.2.2. </span>데이터 텐서 사례<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>앞으로 다룰 데이터는 크게 아래 네 종류의 텐서들이다.</p>
-<ul class="simple">
-<li><p>벡터 데이터: <code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">특성</span> <span class="pre">수)</span></code> 모양의 2D 텐서</p></li>
-<li><p>시계열 또는 시퀀스 데이터: <code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">타임</span> <span class="pre">스텝</span> <span class="pre">수,</span> <span class="pre">특성</span> <span class="pre">수)</span></code> 모양의 3D 텐서</p></li>
-<li><p>이미지 데이터: <code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">가로,</span> <span class="pre">세로,</span> <span class="pre">채널</span> <span class="pre">수)</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">채널</span> <span class="pre">수,</span> <span class="pre">가로,</span> <span class="pre">세로)</span></code> 모양의 4D 텐서</p></li>
-<li><p>동영상 데이터: <code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">프레임</span> <span class="pre">수,</span> <span class="pre">가로,</span> <span class="pre">세로,</span> <span class="pre">채널</span> <span class="pre">수)</span></code> 모양의 5D 텐서</p></li>
+</li>
 </ul>
+<ul>
+<li><p>2차원(2D) 텐서: 행<font size='2'>row</font>과 열<font size='2'>column</font> 두 개의 축을 가짐.
+<strong>행렬</strong><font size='2'>matrix</font>이라고도 불림.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+          <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+          <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+</pre></div>
 </div>
-<div class="section" id="d">
-<h3><span class="section-number">2.2.3. </span>스칼라(0D 텐서)<a class="headerlink" href="#d" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><strong>스칼라</strong>(scalar): 숫자 하나로 이루어진 텐서</p></li>
-<li><p>차원이 없다는 의미에서 0D 텐서 부름.</p></li>
-<li><p>예제: 넘파이의 <code class="docutils literal notranslate"><span class="pre">float32</span></code>, <code class="docutils literal notranslate"><span class="pre">float64</span></code> 등</p></li>
+</li>
 </ul>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">2.2.4. </span>벡터 (1D 텐서)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>3차원(3D) 텐서</p>
 <ul class="simple">
-<li><p>각 샘플은 여러 개의 특성값으로 이러워진 벡터</p></li>
-<li><p>데이터 배치는 따라서 2D 텐서, 즉 벡터들의 어레이로 표현됨.</p></li>
-<li><p>0번 축은 샘플 축, 1번 축은 __특성 축__임.</p></li>
+<li><p>행, 열, 깊이 세 개의 축 사용.
+컬러 이미지 데이터 표현 등에 사용.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
+            <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
+            <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+             <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]])</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>4D 텐서는 3D 텐서로 이루어진 벡터, 5D 텐서는 4D 텐서로 이루어진 벡터 등등
+임의의 차원의 텐서를 정의할 수 있지만 딥러닝에서는 일반적으로 4D 텐서 정도까지 사용한다.</p>
+<p><strong>텐서 속성</strong></p>
+<p>텐서의 주요 속성 세 가지는 다음과 같으며, 넘파이 어레이와 동일한 기능을 갖는다.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ndim</span></code> 속성: 차원 수(랭크) 저장.
+예를 들어 MNIST 훈련셋 어레이의 차원은 3.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_images</span><span class="o">.</span><span class="n">ndim</span> 
+<span class="go">3</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">shape</span></code> 속성: 축 별 크기.
+예를 들어 MNIST는 3개의 축으로 구성되며
+0번 축은 샘플 수, 1번 축은 이미지의 행의 수, 2번 축은 이미지의 열의 수를 가리킴.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_images</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(60000, 28, 28)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">dtype</span></code> 속성: 항목의 자료형.
+<code class="docutils literal notranslate"><span class="pre">float16</span></code>, <code class="docutils literal notranslate"><span class="pre">float32</span></code>,<code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">int8</span></code>, <code class="docutils literal notranslate"><span class="pre">uint8</span></code>, <code class="docutils literal notranslate"><span class="pre">string</span></code> 등이 가장 많이 사용됨.
+예를 들어, MNIST 훈련셋에 포함된 이미지의 픽셀은 0과 255 사이의 정수를
+가리키는 <code class="docutils literal notranslate"><span class="pre">unit8</span></code> 자료형 사용.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_images</span><span class="o">.</span><span class="n">dtype</span>
+<span class="go">uint8</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>텐서 활용</strong></p>
+<p>넘파이 어레이의 인덱싱, 슬라이싱 등과 동일한 기능을 이용하여
+샘플 확인, 배치 묶음 등을 처리할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">digit</span> <span class="o">=</span> <span class="n">train_images</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span> <span class="o">=</span> <span class="n">train_images</span><span class="p">[</span><span class="mi">128</span><span class="p">:</span><span class="mi">256</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>2D 텐서 예제: 벡터 데이터 활용</strong></p>
+<p>각 샘플이 여러 개의 특성값으로 이러워진 벡터로 표현되며
+전체 데이터셋은 <code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">특성</span> <span class="pre">수)</span></code> 모양의 2D 텐서로 저장된다.</p>
+<ul class="simple">
 <li><p>예제 1</p>
 <ul>
-<li><p>사람의 나이, 우편 번호, 소득 세 개의 특성으로 구성된 이니구 통계 데이터</p></li>
-<li><p>10만 명의 통계 데이터를 포함한 데이터셋은 <code class="docutils literal notranslate"><span class="pre">(100000,</span> <span class="pre">3)</span></code> 모양의 2D 텐서임.</p></li>
+<li><p>샘플: 나이, 우편 번호, 소득 세 개의 특성으로 구성된 인구 통계 데이터.
+<code class="docutils literal notranslate"><span class="pre">(3,)</span></code> 모양의 벡터로 표현.</p></li>
+<li><p>10만 명의 통계 데이터를 포함한 데이터셋은 <code class="docutils literal notranslate"><span class="pre">(100000,</span> <span class="pre">3)</span></code> 모양의 2D 텐서로 표현.</p></li>
 </ul>
 </li>
 <li><p>예제 2</p>
 <ul>
-<li><p>2만개의 단어 각각이 하나의 문서에서 사용된 빈도수로 구성된 데이터:
-길이 2만인 벡터로 표현</p></li>
-<li><p>500개의 문서를 대상으로 할 경우 <code class="docutils literal notranslate"><span class="pre">(500,</span> <span class="pre">20000)</span></code> 모양의 2D 텐서로 표현됨.</p></li>
+<li><p>샘플: 특정 문서에서 2만 개의 단어 각각이 사용된 빈도수로 구성된 데이터.
+<code class="docutils literal notranslate"><span class="pre">(20000,)</span></code> 모양의 벡터로 표현.</p></li>
+<li><p>500개의 문서를 대상으로 할 경우 <code class="docutils literal notranslate"><span class="pre">(500,</span> <span class="pre">20000)</span></code> 모양의 2D 텐서로 표현.</p></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id7">
-<h3><span class="section-number">2.2.5. </span>행렬(2D 텐서)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>행렬: 동일한 크기의 벡터로 이루어진 어레이</p></li>
-<li><p>행(row)과 열(column) 두 개의 축 사용</p></li>
-<li><p>예제: 넘파이의 2차원 어레이</p></li>
-</ul>
-</div>
-<div class="section" id="id8">
-<h3><span class="section-number">2.2.6. </span>시계열 또는 시퀀스 데이터(3D 텐서)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>증시 데이터, 트윗 데이터 등 시간의 흐름 또는 순서가 중요한 데이터를 다룰 때 사용</p></li>
-<li><p>예제 1(시간의 흐름)</p>
-<ul>
-<li><p>분 단위 데이터: (현재 증시가, 지난 1분 동안 최고가, 지난 1분 동안 최저가)</p></li>
-<li><p>하루 390번 250일 측정한 데이터셋: <code class="docutils literal notranslate"><span class="pre">(250,</span> <span class="pre">390,</span> <span class="pre">3)</span></code> 모양의 3D 텐서</p></li>
-</ul>
-</li>
-<li><p>예제 2(순서)</p>
-<ul>
-<li><p>하나의 트윗: 최대 280개의 문자 사용 가능. 문자는 총 128개 중에 하나.</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">(280,</span> <span class="pre">128)</span></code> 모양의 2D 텐서로 표현.</p></li>
-<li><p>문자 하나를 0과 1로 구성된 길이가 128인 벡터로 표현.</p></li>
-</ul>
-</li>
-<li><p>백만 개의 트윗은 <code class="docutils literal notranslate"><span class="pre">(1000000,</span> <span class="pre">280,</span> <span class="pre">128)</span></code> 모양의 3D 텐서.</p></li>
-</ul>
-</li>
-</ul>
+<p><strong>3D 텐서 예제: 시계열 또는 순차 데이터 활용</strong></p>
+<p>증시 데이터 등의 시계열 데이터와 트윗 데이터 등의 순차 데이터를 다룰 때 사용하며
+<code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">타임</span> <span class="pre">스텝</span> <span class="pre">수,</span> <span class="pre">특성</span> <span class="pre">수)</span></code> 모양의 3D 텐서로 표현된다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-timeseries_data.png" style="width:350px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
-<div class="section" id="id9">
-<h3><span class="section-number">2.2.7. </span>이미지 데이터(4D 텐서)<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><ul class="simple">
+<li><p>예제 1</p>
+<ul>
+<li><p>샘플: 하루 390번 매 분마다 측정한 (현재 증시가, 지난 1분 동안 최고가, 지난 1분 동안 최저가) 데이터.
+<code class="docutils literal notranslate"><span class="pre">(390,</span> <span class="pre">3)</span></code> 모양의 2D 텐서로 표현.</p></li>
+<li><p>250일 동안 측정한 데이터셋은 <code class="docutils literal notranslate"><span class="pre">(250,</span> <span class="pre">390,</span> <span class="pre">3)</span></code> 모양의 3D 텐서로 표현.</p></li>
+</ul>
+</li>
+<li><p>예제 2</p>
+<ul>
+<li><p>샘플: 하나의 트윗은 최대 280개의 문자로 구성되며 문자는 총 128 종류일 때
+트윗 샘플 하나를 <code class="docutils literal notranslate"><span class="pre">(280,</span> <span class="pre">128)</span></code> 모양의 2D 텐서로 표현.
+각 항목은 0 또는 1.</p></li>
+<li><p>백만 개의 트윗은 <code class="docutils literal notranslate"><span class="pre">(1000000,</span> <span class="pre">280,</span> <span class="pre">128)</span></code> 모양의 3D 텐서로 표현.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>4D 텐서 예제: 이미지 데이터 활용</strong></p>
+<ul class="simple">
+<li><p>이미지 데이터셋: <code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">가로,</span> <span class="pre">세로,</span> <span class="pre">채널</span> <span class="pre">수)</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">채널</span> <span class="pre">수,</span> <span class="pre">가로,</span> <span class="pre">세로)</span></code> 모양의 4D 텐서</p></li>
+</ul>
 <ul class="simple">
 <li><p>이미지는 보통 3D 텐서로 표현: <code class="docutils literal notranslate"><span class="pre">(가로,</span> <span class="pre">세로,</span> <span class="pre">컬러</span> <span class="pre">채널</span> <span class="pre">수)</span></code></p>
 <ul>
@@ -746,9 +716,10 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 <li><p><code class="docutils literal notranslate"><span class="pre">256x256</span></code> 크기 컬러이미지 128개를 갖는 배치: <code class="docutils literal notranslate"><span class="pre">(128,</span> <span class="pre">256,</span> <span class="pre">256,</span> <span class="pre">3)</span></code> 모양 4D 텐서</p></li>
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-image_data.png" style="width:350px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
-<div class="section" id="id10">
-<h3><span class="section-number">2.2.8. </span>동영상 데이터(5D 텐서)<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>5D 텐서 예제: 동영상 데이터 활용</strong></p>
+<ul class="simple">
+<li><p>동영상 데이터셋: <code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">프레임</span> <span class="pre">수,</span> <span class="pre">가로,</span> <span class="pre">세로,</span> <span class="pre">채널</span> <span class="pre">수)</span></code> 모양의 5D 텐서</p></li>
+</ul>
 <ul class="simple">
 <li><p>동영상은 프레임(frame)으로 구성된 순차 데이터.</p></li>
 <li><p>프레임은 컬러 이미지. 즉 3D 텐서.
@@ -763,34 +734,8 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 </li>
 </ul>
 </div>
-<div class="section" id="id11">
-<h3><span class="section-number">2.2.9. </span>텐서의 주요 속성<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>축 개수(랭크, <code class="docutils literal notranslate"><span class="pre">ndim</span></code>)</p>
-<ul>
-<li><p>텐서에 사용된 축(차원)의 개수</p></li>
-<li><p>음이 아닌 정수</p></li>
-</ul>
-</li>
-<li><p>모양(<code class="docutils literal notranslate"><span class="pre">shape</span></code>)</p>
-<ul>
-<li><p>각각의 축에 사용된 (벡터의) 차원 수</p></li>
-<li><p>정수로 이루어진 튜플</p></li>
-</ul>
-</li>
-<li><p>자료형(<code class="docutils literal notranslate"><span class="pre">dtype</span></code>)</p>
-<ul>
-<li><p>텐서에 사용된 항목들의 자료형</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">float16</span></code>, <code class="docutils literal notranslate"><span class="pre">float32</span></code>,<code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">int8</span></code>, <code class="docutils literal notranslate"><span class="pre">string</span></code> 등이 가장 많이 사용됨.</p></li>
-<li><p>8, 16, 32, 64 등의 숫자는 해당 숫자를 다루는 데 필요한 메모리의 비트(bit) 크기.
-즉, 텐서에 사용되는 항목들을 일괄된 크기의 메모리로 처리.</p></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div class="section" id="id12">
-<h2><span class="section-number">2.3. </span>2.3 텐서 연산<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><span class="section-number">2.3. </span>2.3 텐서 연산<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>신경망 모델의 훈련은 기본적으로 텐서와 관련된 몇 가지 연산으로 이루어진다.
 예를 들어 이전 신경망에 사용된 케라스 레이어를 살펴보자.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
@@ -821,8 +766,8 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 <li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>부터 <code class="docutils literal notranslate"><span class="pre">n-1</span></code>까지의 축에 대해 축(axis)이 자동으로 추가됨.</p></li>
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting10.png" style="width:400px;"></div><div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting11.png" style="width:400px;"></div><div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:400px;"></div></div>
-<div class="section" id="id13">
-<h3><span class="section-number">2.3.2. </span>텐서 연산의 기하학적 의미<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><span class="section-number">2.3.2. </span>텐서 연산의 기하학적 의미<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p><strong>이동: 벡터 합</strong></p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/translation.png" style="width:400px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>회전: 점곱</strong></p>
@@ -836,8 +781,8 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>히든 레이어의 중간 결과</strong></p>
 <div align="center"><img src="https://lh4.googleusercontent.com/VqlLh386Wb-Q924H8o7dFLbmLapWkeiDzh2i-m90fhsGyf-Wxk-LZrCRQLNE5xaYh5mR0n_RX--IjREqraKZD908ko8u_utnKas_XVLm3QUSQcvTN5_VlRKDxQdt55P-B7wUYij1jOA" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a>&gt;</div></p></div>
-<div class="section" id="id14">
-<h3><span class="section-number">2.3.3. </span>딥러닝의 기하학적 의미<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3><span class="section-number">2.3.3. </span>딥러닝의 기하학적 의미<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>신경망은 기본적으로 앞서 언급된 텐서 연산의 조합에 불과함.</p></li>
 <li><p>고차원 공간에서의 매우 복잡한 기하학적 변환 = 단순한 텐서 연산의 조합</p></li>
@@ -853,10 +798,10 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-geometric_interpretation_4.png" style="width:400px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
 </div>
-<div class="section" id="id15">
-<h2><span class="section-number">2.4. </span>2.4 신경망의 엔진: 그레이디언트 기반 최적화<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id16">
-<h3><span class="section-number">2.4.1. </span>손실함수<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h2><span class="section-number">2.4. </span>2.4 신경망의 엔진: 그레이디언트 기반 최적화<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h3><span class="section-number">2.4.1. </span>손실함수<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>모델에 사용되는 모든 가중치(parameters)에 대한 함수</p>
 <ul>
@@ -868,8 +813,8 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 <li><p><strong>주의사항</strong>: 모델 성능 평가(<code class="docutils literal notranslate"><span class="pre">metrics</span></code>)에 사용되는 정확도 등은 가중치에 대한 미분가능 함수가 아님.</p></li>
 </ul>
 </div>
-<div class="section" id="id17">
-<h3><span class="section-number">2.4.2. </span>그레이디언트, 경사하강법, 학습(훈련)<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3><span class="section-number">2.4.2. </span>그레이디언트, 경사하강법, 학습(훈련)<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><strong>그레이디언트</strong>(gradient): 가중치를 조금 변화시켰을 때 손실값이 어떻게 변하는지 설명</p></li>
 <li><p><strong>백워드 패스</strong>(backward pass): 가중치에 대한 손실함수의 그레이디언트 계산</p></li>
@@ -883,8 +828,8 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-gradient_descent_3d.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
-<div class="section" id="id18">
-<h3><span class="section-number">2.4.3. </span>배치, 미니 배치, 또는 확률적 경사하강법<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3><span class="section-number">2.4.3. </span>배치, 미니 배치, 또는 확률적 경사하강법<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>묶음(배치)의 크기에 따라 아래 세 종류의 경사하강법이 활용된다.</p>
 <ul class="simple">
 <li><p>배치 경사하강법: <code class="docutils literal notranslate"><span class="pre">batch_size</span></code>가 전체 훈련 세트의 크기</p></li>
@@ -909,8 +854,8 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 </ul>
 <div align="center"><img src="https://matthewmazur.files.wordpress.com/2015/03/nn-calculation.png" style="width:400px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/">Matt Mazur: A Step by Step Backpropagation Example</a>&gt;</div></p></div>
-<div class="section" id="id19">
-<h3><span class="section-number">2.4.5. </span>텐서플로우의 그레이디언트 테이프<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3><span class="section-number">2.4.5. </span>텐서플로우의 그레이디언트 테이프<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>미분 자동화: 텐서플로우 등이 역전파에 필요한 미분을 자동으로 해결해줌.</p></li>
 <li><p><strong>그레이디언트 테이프</strong>(gradient tape): 임의의 텐서 연산에 대해 원하는 변수에 대한
