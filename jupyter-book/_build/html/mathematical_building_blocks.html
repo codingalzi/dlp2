@@ -38,19 +38,17 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -571,11 +569,11 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 사용자에게 편한 자료형을 사용하면 된다.
 여기서는 기본적으로 넘파이 어레이를 텐서로 사용한다.</p>
 <p><strong>텐서의 차원</strong></p>
-<p>텐서의 <strong>차원</strong>은 어레이 등 텐서의 표현에 사용된 <strong>축</strong><font size='2'>axis</font>의 수로 결정된다.
-<strong>랭크</strong><font size='2'>rank</font>라 불리기도 한다.</p>
+<p>텐서의 <strong>차원</strong>은 텐서의 표현에 사용된 <strong>축</strong><font size='2'>axis</font>의 수로
+결정되며 <strong>랭크</strong><font size='2'>rank</font>라 불리기도 한다.</p>
 <ul>
 <li><p>0차원(0D) 텐서: 정수 한 개, 부동소수점 한 개 등 하나의 수를 표현하는 텐서.
-<strong>스칼라</strong><font size='2'>scalar</font>라고 불림.</p>
+일반적으로 <strong>스칼라</strong><font size='2'>scalar</font>라고 불림.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mf">1.34</span><span class="p">)</span>
 </pre></div>
@@ -584,7 +582,7 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 </ul>
 <ul>
 <li><p>1차원(1D) 텐서: 수로 이루어진 리스트 형식.
-<strong>벡터</strong><font size='2'>vector</font>라고도 불림.
+일반적으로 <strong>벡터</strong><font size='2'>vector</font>로 불림.
 한 개의 축을 가짐</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 </pre></div>
@@ -592,8 +590,9 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 </li>
 </ul>
 <ul>
-<li><p>2차원(2D) 텐서: 행<font size='2'>row</font>과 열<font size='2'>column</font> 두 개의 축을 가짐.
-<strong>행렬</strong><font size='2'>matrix</font>이라고도 불림.</p>
+<li><p>2차원(2D) 텐서: 행<font size='2'>row</font>과 열<font size='2'>column</font>
+두 개의 축을 가짐.
+일반적으로 <strong>행렬</strong><font size='2'>matrix</font>로 불림.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
           <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
           <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
@@ -623,7 +622,8 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 <p>4D 텐서는 3D 텐서로 이루어진 벡터, 5D 텐서는 4D 텐서로 이루어진 벡터 등등
 임의의 차원의 텐서를 정의할 수 있지만 딥러닝에서는 일반적으로 4D 텐서 정도까지 사용한다.</p>
 <p><strong>텐서 속성</strong></p>
-<p>텐서의 주요 속성 세 가지는 다음과 같으며, 넘파이 어레이와 동일한 기능을 갖는다.</p>
+<p>텐서의 주요 속성 세 가지는 다음과 같으며, 넘파이 어레이의 경우와
+동일한 기능을 갖는다.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">ndim</span></code> 속성: 차원 수(랭크) 저장.
 예를 들어 MNIST 훈련셋 어레이의 차원은 3.</p>
@@ -634,9 +634,12 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 </li>
 </ul>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">shape</span></code> 속성: 축 별 크기.
-예를 들어 MNIST는 3개의 축으로 구성되며
-0번 축은 샘플 수, 1번 축은 이미지의 행의 수, 2번 축은 이미지의 열의 수를 가리킴.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">shape</span></code> 속성: 튜플로 저장된 축 별 크기.
+예를 들어 MNIST의 훈련셋은 3개의 축으로 구성됨.
+0번 축은 6만개의 샘플 데이터를,
+1번 축은 각 이미지에 사용된 28개의 세로 픽셀 데이터를
+2번 축은 각 이미지에 사용된 28개의 가로 픽셀 데이터를
+담음.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_images</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(60000, 28, 28)</span>
 </pre></div>
@@ -645,9 +648,10 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 </ul>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">dtype</span></code> 속성: 항목의 자료형.
-<code class="docutils literal notranslate"><span class="pre">float16</span></code>, <code class="docutils literal notranslate"><span class="pre">float32</span></code>,<code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">int8</span></code>, <code class="docutils literal notranslate"><span class="pre">uint8</span></code>, <code class="docutils literal notranslate"><span class="pre">string</span></code> 등이 가장 많이 사용됨.
-예를 들어, MNIST 훈련셋에 포함된 이미지의 픽셀은 0과 255 사이의 정수를
-가리키는 <code class="docutils literal notranslate"><span class="pre">unit8</span></code> 자료형 사용.</p>
+<code class="docutils literal notranslate"><span class="pre">float16</span></code>, <code class="docutils literal notranslate"><span class="pre">float32</span></code>,<code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">int8</span></code>, <code class="docutils literal notranslate"><span class="pre">uint8</span></code>, <code class="docutils literal notranslate"><span class="pre">string</span></code> 등이
+가장 많이 사용됨.
+예를 들어, MNIST 훈련셋에 포함된 이미지의 픽셀 정보는 0과 255 사이의
+정수로 표현되며 따라서 <code class="docutils literal notranslate"><span class="pre">unit8</span></code> 자료형을 사용.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_images</span><span class="o">.</span><span class="n">dtype</span>
 <span class="go">uint8</span>
 </pre></div>
