@@ -430,46 +430,49 @@
 # 동영상 한 편은 `(240, 144, 256, 3)` 모양의 4D 텐서로 표현된다.
 # 따라서 동영상 10 편으로 구성된 데이터셋은 `(10, 240, 144, 256, 3)` 모양의 5D 텐서로 표현된다.
 
-# ## 2.3 텐서 연산
+# ## 텐서 연산
 
+# **신경망 모델의 연산**
+# 
 # 신경망 모델의 훈련은 기본적으로 텐서와 관련된 몇 가지 연산으로 이루어진다. 
-# 예를 들어 이전 신경망에 사용된 케라스 레이어를 살펴보자.
+# 예를 들어 이전 신경망에 사용된 층을 살펴보자.
 # 
 # ```python
 # keras.layers.Dense(512, activation="relu")
 # keras.layers.Dense(10, activation="softmax")
 # ```
 # 
-# 위 두 개의 층이 하는 일은 데이터셋의 변환이며 실제로 이루어지는 연산은 다음과 같다.
+# 첫째층이 하는 일은 데이터셋의 변환이며 실제로 이루어지는 연산은 다음과 같다.
 # 
-# - 1층: `output1 = relu(dot(input1, W1) + b1)`
-# - 2층: `output2 = softmax(dot(input2, W2) + b2)`
+# `output1 = relu(dot(input1, W1) + b1)`
 # 
 # 사용된 세부 연산은 다음과 같다. 
 # 
-# - 점곱(`dot(input, W)`): 입력 텐서와 가중치 텐서의 곱
-# - 덧셈(`dot(input, W) + b`): 점곱의 결과 텐서와 벡터 `b`의 합
-# - `relu` 함수: `relu(x) = max(x, 0)`
-# - `softmax` 함수: 10개 범주 각각에 속할 확률 계산
+# - 텐서 점곱: `dot()`
+# - 텐서 덧셈: `+`
+# - 활성화 함수: `relu()`
+#     - 정의: `relu(x) = np.maximum(x, 0)`
+#     - 유니버서 함수, 즉 항목별로 작동함.
+#     
+# 둘째 층에서 사용된 `softmax()` 함수는 분류 신경망 모델의 마지막 층, 
+# 즉 출력층에서 사용되는 활성화 함수이며
+# 클래스별 확률을 계산한다. 
+# 위 모델의 경우 10개 유닛에서 계산된 값들을 이용하여 10개 각 클래스별로 속할
+# 확률을 계산하며, 확률값의 합은 1이 되도록 한다.
+# 
+# 모든 연산은 텐서 연산으로 계산되며 기본적으로 아래 그림처럼 작동한다.
 
-# <div align="center"><img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3653/9363.png" style="width:700px;"></div>
+# <div align="center"><img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3653/9363.png" style="width:400px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a>&gt;</div></p>
 
-# ### 브로드캐스팅(Broadcasting)
+# **텐서 항목별 연산과 브로드캐스팅**
+
+# <div align="center"><img src="https://scipy-lectures.org/_images/numpy_broadcasting.png" style="width:700px;"></div>
 # 
-# 두 텐서의 모양이 아래와 같을 때 항목별 연산을 위한 브로드캐스팅이 가능하다.
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:300px;"></div>
 # 
-#     (a, b, … n, n + 1, … m) 와 (n, n + 1, … m)
-#     
-# - 둘째 텐서에 대해 브로드캐스팅 발생
-# - `a`부터 `n-1`까지의 축에 대해 축(axis)이 자동으로 추가됨.
-
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting10.png" style="width:400px;"></div>
-
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting11.png" style="width:400px;"></div>
-
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:400px;"></div>
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://scipy-lectures.org/intro/numpy/operations.html">Scipy Lecture Notes</a>&gt;</div></p>
 
 # ### 텐서 연산의 기하학적 의미
 

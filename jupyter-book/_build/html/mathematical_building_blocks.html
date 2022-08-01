@@ -211,22 +211,17 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   2.3. 2.3 텐서 연산
+   2.3. 텐서 연산
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#broadcasting">
-     2.3.1. 브로드캐스팅(Broadcasting)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     2.3.2. 텐서 연산의 기하학적 의미
+     2.3.1. 텐서 연산의 기하학적 의미
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     2.3.3. 딥러닝의 기하학적 의미
+     2.3.2. 딥러닝의 기하학적 의미
     </a>
    </li>
   </ul>
@@ -295,22 +290,17 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   2.3. 2.3 텐서 연산
+   2.3. 텐서 연산
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#broadcasting">
-     2.3.1. 브로드캐스팅(Broadcasting)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
-     2.3.2. 텐서 연산의 기하학적 의미
+     2.3.1. 텐서 연산의 기하학적 의미
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id6">
-     2.3.3. 딥러닝의 기하학적 의미
+     2.3.2. 딥러닝의 기하학적 의미
     </a>
    </li>
   </ul>
@@ -764,39 +754,39 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 따라서 동영상 10 편으로 구성된 데이터셋은 <code class="docutils literal notranslate"><span class="pre">(10,</span> <span class="pre">240,</span> <span class="pre">144,</span> <span class="pre">256,</span> <span class="pre">3)</span></code> 모양의 5D 텐서로 표현된다.</p>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">2.3. </span>2.3 텐서 연산<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.3. </span>텐서 연산<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p><strong>신경망 모델의 연산</strong></p>
 <p>신경망 모델의 훈련은 기본적으로 텐서와 관련된 몇 가지 연산으로 이루어진다.
-예를 들어 이전 신경망에 사용된 케라스 레이어를 살펴보자.</p>
+예를 들어 이전 신경망에 사용된 층을 살펴보자.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
 <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>위 두 개의 층이 하는 일은 데이터셋의 변환이며 실제로 이루어지는 연산은 다음과 같다.</p>
-<ul class="simple">
-<li><p>1층: <code class="docutils literal notranslate"><span class="pre">output1</span> <span class="pre">=</span> <span class="pre">relu(dot(input1,</span> <span class="pre">W1)</span> <span class="pre">+</span> <span class="pre">b1)</span></code></p></li>
-<li><p>2층: <code class="docutils literal notranslate"><span class="pre">output2</span> <span class="pre">=</span> <span class="pre">softmax(dot(input2,</span> <span class="pre">W2)</span> <span class="pre">+</span> <span class="pre">b2)</span></code></p></li>
-</ul>
+<p>첫째층이 하는 일은 데이터셋의 변환이며 실제로 이루어지는 연산은 다음과 같다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">output1</span> <span class="pre">=</span> <span class="pre">relu(dot(input1,</span> <span class="pre">W1)</span> <span class="pre">+</span> <span class="pre">b1)</span></code></p>
 <p>사용된 세부 연산은 다음과 같다.</p>
 <ul class="simple">
-<li><p>점곱(<code class="docutils literal notranslate"><span class="pre">dot(input,</span> <span class="pre">W)</span></code>): 입력 텐서와 가중치 텐서의 곱</p></li>
-<li><p>덧셈(<code class="docutils literal notranslate"><span class="pre">dot(input,</span> <span class="pre">W)</span> <span class="pre">+</span> <span class="pre">b</span></code>): 점곱의 결과 텐서와 벡터 <code class="docutils literal notranslate"><span class="pre">b</span></code>의 합</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">relu</span></code> 함수: <code class="docutils literal notranslate"><span class="pre">relu(x)</span> <span class="pre">=</span> <span class="pre">max(x,</span> <span class="pre">0)</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">softmax</span></code> 함수: 10개 범주 각각에 속할 확률 계산</p></li>
+<li><p>텐서 점곱: <code class="docutils literal notranslate"><span class="pre">dot()</span></code></p></li>
+<li><p>텐서 덧셈: <code class="docutils literal notranslate"><span class="pre">+</span></code></p></li>
+<li><p>활성화 함수: <code class="docutils literal notranslate"><span class="pre">relu()</span></code></p>
+<ul>
+<li><p>정의: <code class="docutils literal notranslate"><span class="pre">relu(x)</span> <span class="pre">=</span> <span class="pre">np.maximum(x,</span> <span class="pre">0)</span></code></p></li>
+<li><p>유니버서 함수, 즉 항목별로 작동함.</p></li>
 </ul>
-<div align="center"><img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3653/9363.png" style="width:700px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a>&gt;</div></p><div class="section" id="broadcasting">
-<h3><span class="section-number">2.3.1. </span>브로드캐스팅(Broadcasting)<a class="headerlink" href="#broadcasting" title="Permalink to this headline">¶</a></h3>
-<p>두 텐서의 모양이 아래와 같을 때 항목별 연산을 위한 브로드캐스팅이 가능하다.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(a, b, … n, n + 1, … m) 와 (n, n + 1, … m)
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>둘째 텐서에 대해 브로드캐스팅 발생</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>부터 <code class="docutils literal notranslate"><span class="pre">n-1</span></code>까지의 축에 대해 축(axis)이 자동으로 추가됨.</p></li>
+</li>
 </ul>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting10.png" style="width:400px;"></div><div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting11.png" style="width:400px;"></div><div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:400px;"></div></div>
-<div class="section" id="id5">
-<h3><span class="section-number">2.3.2. </span>텐서 연산의 기하학적 의미<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>둘째 층에서 사용된 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수는 분류 신경망 모델의 마지막 층,
+즉 출력층에서 사용되는 활성화 함수이며
+클래스별 확률을 계산한다.
+위 모델의 경우 10개 유닛에서 계산된 값들을 이용하여 10개 각 클래스별로 속할
+확률을 계산하며, 확률값의 합은 1이 되도록 한다.</p>
+<p>모든 연산은 텐서 연산으로 계산되며 기본적으로 아래 그림처럼 작동한다.</p>
+<div align="center"><img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3653/9363.png" style="width:400px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a>&gt;</div></p><p><strong>텐서 항목별 연산과 브로드캐스팅</strong></p>
+<div align="center"><img src="https://scipy-lectures.org/_images/numpy_broadcasting.png" style="width:700px;"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:300px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://scipy-lectures.org/intro/numpy/operations.html">Scipy Lecture Notes</a>&gt;</div></p><div class="section" id="id5">
+<h3><span class="section-number">2.3.1. </span>텐서 연산의 기하학적 의미<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p><strong>이동: 벡터 합</strong></p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/translation.png" style="width:400px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>회전: 점곱</strong></p>
@@ -811,7 +801,7 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 <div align="center"><img src="https://lh4.googleusercontent.com/VqlLh386Wb-Q924H8o7dFLbmLapWkeiDzh2i-m90fhsGyf-Wxk-LZrCRQLNE5xaYh5mR0n_RX--IjREqraKZD908ko8u_utnKas_XVLm3QUSQcvTN5_VlRKDxQdt55P-B7wUYij1jOA" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a>&gt;</div></p></div>
 <div class="section" id="id6">
-<h3><span class="section-number">2.3.3. </span>딥러닝의 기하학적 의미<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">2.3.2. </span>딥러닝의 기하학적 의미<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>신경망은 기본적으로 앞서 언급된 텐서 연산의 조합에 불과함.</p></li>
 <li><p>고차원 공간에서의 매우 복잡한 기하학적 변환 = 단순한 텐서 연산의 조합</p></li>
