@@ -104,7 +104,7 @@
 # 
 # - `optimizer`: 
 #     모델의 성능을 향상시키는 방향으로 가중치를 업데이트하는 알고리즘 지정.
-#     옵티마이저라 불리며 경사하강법, 역전파 업무를 처리함.
+#     옵티마이저라 불리며 경사하강법(백워드 패스, 역전파) 업무를 처리함.
 # - `loss`: **손실 함수**<font size='2'>loss function</font> 지정.
 #     학습 중에 있는 모델의 성능을 손실값으로 측정. 손실값이 작을 수록 좋음.
 # - `metrics`: 
@@ -432,7 +432,7 @@
 
 # ## 텐서 연산
 
-# **신경망 모델의 연산**
+# **신경망 모델의 주요 연산**
 # 
 # 신경망 모델의 훈련은 기본적으로 텐서와 관련된 몇 가지 연산으로 이루어진다. 
 # 예를 들어 이전 신경망에 사용된 층을 살펴보자.
@@ -451,9 +451,7 @@
 # - 텐서 점곱: `dot()`
 # - 텐서 덧셈: `+`
 # - 활성화 함수: `relu()`
-#     - 정의: `relu(x) = np.maximum(x, 0)`
-#     - 유니버설 함수, 즉 항목별로 작동함.
-#     
+# 
 # 둘째층이 하는 일은 또 다른 데이터셋의 변환이다.
 # 
 # `output2 = softmax(dot(input1, W1) + b1)`
@@ -471,18 +469,29 @@
 
 # **항목별 연산과 브로드캐스팅**
 # 
-# 앞서 언급된 연산과 함수 중에서 `softmax()` 함수를 제외한 나머지는 텐서에 포함된
-# 항목별로 연산이 이뤄진다.
-# 아래 그림은 텐서의 항목별 덧셈과 브로드캐스팅이 작동하는 방식을 잘 보여준다.
+# 앞서 언급된 연산과 함수 중에서 덧셈 연산은 텐서에 포함된 항목별로 연산이 이뤄진다.
+# 아래 그림은 텐서의 항목별 덧셈과 브로드캐스팅이 작동하는 방식을 보여준다.
 
 # <div align="center"><img src="https://scipy-lectures.org/_images/numpy_broadcasting.png" style="width:750px;"></div>
 # 
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:300px;"></div>
-# 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://scipy-lectures.org/intro/numpy/operations.html">Scipy Lecture Notes</a>&gt;</div></p>
 
-# 아래 그림은 `relu()` 함수의 정의에 사용된 `np.maximum()` 함수가
-# 텐서 인자의 항목을 대상으로 작동하는 과정을 잘 보여준다.
+# 텐서 연산과 브로드캐스팅을 가능한 모든 경우에 적용된다.
+# 아래 그림은 3차원 텐서와 2차원 텐서의 연산에 브로드캐스팅이 
+# 자동으로 적용되는 과정을 보여준다.
+
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:300px;"></div>
+
+# **유니버설 함수**
+# 
+# 덧셈, 뺄셈, 곱셈, 나눗셈의 사칙 연산 이외에 다른 많은 연산과 함수도 항목별로 적용된다.
+# 예를 들어, `relu()` 함수의 정의에 사용된 `np.maximum()` 함수가
+# 텐서 인자의 항목을 대상으로 작동하는 과정을 보여준다.
+# 이와 같이 항목별로 적용가능항 함수를 **유니버설**<font size='2'>universal</font> 함수라 부른다.
+# 
+# ```
+# relu(t) = np.maximum(t, 0)
+# ```
 
 # <div align="center"><img src="https://cdn-coiao.nitrocdn.com/CYHudqJZsSxQpAPzLkHFOkuzFKDpEHGF/assets/static/optimized/rev-b3f6ac8/wp-content/uploads/2022/02/np-maximum_two-2D-arrays-example.png" style="width:500px;"></div>
 # 
@@ -490,108 +499,156 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.sharpsightlabs.com/blog/numpy-maximum/">Sharp Sight - How to Use the Numpy Maximum Function</a>&gt;</div></p>
 
-# ### 텐서 연산의 기하학적 의미
+# **텐서 곱**
+# 
+# **텐서 곱**<font size='2'>tensor product</font> 함수는
+# 두 벡터의 내적 또는 두 행렬의 곱을 계산할 때 사용된다.
+# **점 곱**<font size='2'>dot product</font> 함수로도 불리며,
+# 아래 그림에서 보여지는 것처럼 두 인자의 유형에 따라 다르게 작동한다.
 
-# __이동: 벡터 합__
+# <div align="center"><img src="https://blog.finxter.com/wp-content/uploads/2021/01/numpy_dot-1-scaled.jpg" style="width:600px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://blog.finxter.com/dot-product-numpy/">finxter - NumPy Dot Product</a>&gt;</div></p>
+
+# **텐서 모양 변형**
+# 
+# 머신러닝 모델은 입력 텐서의 모양을 제한한다. 
+# 앞서 사용한 `model`은 입력값으로 2차원 텐서를 요구한다.
+# 
+# ```python
+# model = keras.Sequential([
+#     layers.Dense(512, activation="relu"),
+#     layers.Dense(10, activation="softmax")
+# ])
+# ```
+# 
+# 반면에 `tensorflow.keras.datasets`에서 불러온 
+# `train_images`와 `test_images` 는 각각
+# `(60000, 28, 28)`와 `(10000, 28, 28)` 모양의 2차원 텐서다.
+# 
+# ```python
+# from tensorflow.keras.datasets import mnist
+# (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+# ```
+# 
+# 따라서 모델을 훈련 및 테스트하고 실전에 활용할 때는 입력값을 항상
+# 적절한 모양의 2차원 텐서로 변형해야 한다.
+# 이를 위해 다음과 같이 `reshape()` 텐서 메서드를 활용한다.
+# 아래 코드는 `(60000, 28, 28)` 모양의 훈련셋인 3차원 텐서를 동일 개수의 항목을 갖는
+# `(60000, 784)` 모양의 2차원 텐서로 변형한다.
+# 
+# ```python
+# train_images = train_images.reshape((60000, 28 * 28))
+# ```
+
+# :::{admonition} 넘파이 어레이 연산
+# :class: info
+# 
+# 텐서 연산의 기본이 되는 넘파이 어레이 연산, 유니버설 함수, 텐서 모양 변형 등에 대한
+# 보다 자세한 설명은 
+# [파이썬 데이터 분석](https://codingalzi.github.io/datapy/intro.html) 4장에서 7장을 참고한다.
+# :::
+
+# **텐서 연산의 기하학적 의미**
+# 
+# 신경망 모델에 사용되는 연산과 함수들의 기능을 
+# 기하학적으로 설명할 수 있다.
+
+# - 이동: 벡터 합
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/translation.png" style="width:400px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# __회전: 점곱__
+# - 회전: 점 곱
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/rotation.png" style="width:400px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# __스케일링: 점곱__
+# - 스케일링: 점 곱
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/scaling.png" style="width:400px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# __아핀 변환__
+# - 아핀 변환
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/affine_transform.png" style="width:400px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# __아핀 변환과 relu 활성화 함수__
+# - 아핀 변환과 relu 활성화 함수
 # 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/dense_transform.png" style="width:400px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# __히든 레이어의 중간 결과__
-
-# <div align="center"><img src="https://lh4.googleusercontent.com/VqlLh386Wb-Q924H8o7dFLbmLapWkeiDzh2i-m90fhsGyf-Wxk-LZrCRQLNE5xaYh5mR0n_RX--IjREqraKZD908ko8u_utnKas_XVLm3QUSQcvTN5_VlRKDxQdt55P-B7wUYij1jOA" style="width:600px;"></div>
+# **신경망 모델 연산의 의미**
 # 
-# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a>&gt;</div></p>
-
-# ### 딥러닝의 기하학적 의미
+# 신경망은 기본적으로 앞서 언급된 텐서 연산의 조합을 통해
+# 고차원 공간에서의 매우 복잡한 기하학적 변환을 수행한다.
+# 예를 들어, 빨간 종이와 파란 종이 두 장을 겹친 뭉개서 만든 종이 뭉치를
+# 조심스럽게 조금씩 펴서 결국 두 개의 종이로 구분하는 것처럼
+# 신경망 모델은 뒤 섞인 두 개 클래스로 구성된 입력 데이터셋을
+# 여러 층을 통해 변환하면서 결국엔 두 개의 데이터셋으로 구분하는
+# 방법을 알아낸다. 
 # 
-# - 신경망은 기본적으로 앞서 언급된 텐서 연산의 조합에 불과함.
-# - 고차원 공간에서의 매우 복잡한 기하학적 변환 = 단순한 텐서 연산의 조합
-# - 예제: 3차원 매니폴드
-#     - 빨간 종이와 파란 종이 두 장을 겹쳐 뭉친 입력값
-#     - 연속된 종이 펼치기 과정을 이용하여 명료하게 구분되는 두 장의 종이로 펼치기
-#     - 펼치기 과정에 사용된 과정: 손가락으로 조금씩 펼치기. 부분별로 다른 방식의 펼치기 기법 사용.
-#     - 딥러닝 모델의 많은 층(layer)에서 이루어지는 일과 크게 다르지 않음.
-
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-geometric_interpretation_4.png" style="width:400px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# ## 2.4 신경망의 엔진: 그레이디언트 기반 최적화
+# ## 신경망 모델 훈련 과정
 
-# ### 손실함수
+# 신경망 모델의 훈련은 다음 과정을 반복하는 방식으로 진행된다.
 # 
-# - 모델에 사용되는 모든 가중치(parameters)에 대한 함수
-#     - 입력값: 데이터 묶음. 묶음 크기는 `batch_size`로 지정.
-#     - 함숫값: 모델의 예측치와 실제 타깃 사이의 오차.
-# - 미분가능이어야 함.
-# - __주의사항__: 모델 성능 평가(`metrics`)에 사용되는 정확도 등은 가중치에 대한 미분가능 함수가 아님.
+# 1. 배치<font size='2'>batch</font> 지정: 훈련 샘플 몇 개로 구성된 텐서 `x`와 해당 샘플들의 타깃값들로 구성된 텐서 `y_true`.
+# 1. 예측값 계산<font size="2">forward pass</font>: `x`에 대한 모델의 예측값 `y_pred` 계산.
+# 1. 손실값<font size='2'>loss</font> 계산: `y_pred`와 `y_true` 사이의 오차 계산. 모델에 따라 다양한 방식 사용.
+# 1. 역전파<font size='2'>backpropagation</font>: 해당 배치에 대한 손실값이 줄어드는 방향으로 모델 파라미터인 가중치를 업데이트.
+# 
+# 모델의 훈련은 손실값이 최소가 될 때까지 반복된다.
 
-# ### 그레이디언트, 경사하강법, 학습(훈련)
+# **배치, 미니 배치, 또는 확률적 경사하강법**
 # 
-# - __그레이디언트__(gradient): 가중치를 조금 변화시켰을 때 손실값이 어떻게 변하는지 설명
-# - __백워드 패스__(backward pass): 가중치에 대한 손실함수의 그레이디언트 계산
-# - __경사하강법__(gradient descent): 그레이디언트가 주는 정보를 이용하여
-#     손실 함숫값이 낮아지도록 모든 가중치를 __동시에 조금씩__ 업데이트. 
-# - __역전파__(backpropagation): 모든 가중치를 계산된 그레이디언트의 반대 방향으로 
-#     __학습률__(learning rate)에 비례하여  업데이트 하는 과정.
-# - __학습__(learning) 또는 __훈련__(training): __임의로 선택__된 지정된 크기의 데이터 묶음을 
-#     대상으로 하는 손실 함숫값 계산과 경사하강법 적용을 반복하는 과정.
-# - 최종적으로 손실 함숫값이 최저가 되도록 하는 가중치를 사용하는 모델 완성.
-
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-gradient_descent_3d.png" style="width:500px;"></div>
-# 
-# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
-
-# ### 배치, 미니 배치, 또는 확률적 경사하강법
-# 
-# 묶음(배치)의 크기에 따라 아래 세 종류의 경사하강법이 활용된다.
+# 배치의 크기에 따라 아래 세 종류의 경사하강법이 활용된다.
 # 
 # - 배치 경사하강법: `batch_size`가 전체 훈련 세트의 크기
 # - 미니배치 경사하강법: `batch_size`가 몇 십에서 몇 백.
 # - 확률적 경사하강법(SGD): `batch_size = 1`
+# 
+# 텐서플로우 케라스의 딥러닝 모델은 `batch_size`를 지정하는 방식으로 
+# 언급된 모든 방식을 지원하지만 기본값은 미니배치 경사하강법으로 지정되었다.
 
-# ### 옵티마이저(optimizer)와 역전파(backpropagation)
+# **경사하강법, 백워드 패스, 역전파, 옵티마이저**
 # 
-# - 옵티마이저
-#     - 경사하강법과 역전파를 실행하는 알고리즘
-#     - Adagrad, RMSprop 보다 빠르고 효율적으로 작동하는 알고리즘 활용
+# 손실값을 최소화하는 방향으로 가중치(모델 파라미터)를 업데이트 하기 위해
+# 손실값을 계산하는 손실함수의 그레이디언트를 활용하여
+# 손실값이 줄어드는 방향으로 모든 가중치를 **동시에 조금씩** 업데이트한다.
+# 이 과정이 **경사하강법**<font size='2'>gradient descent method</font>이며,
+# 백워드 패스와 역전파 단계로 구성된다.
 # 
-# - 역전파(backpropagation) 원리
-#     - 손실함수의 그레이디언트를 __연쇄 법칙__(chain rule)을 이용하여 계산
+# - **백워드 패스**<font size='2'>backward pass</font>는 
+# 가중치에 대한 손실함수의 그레이디언트를 계산하는 과정을 가리키며
+# 그레이디언트는 텐서플로우의 `GradientTape` 의해 자동으로 계산되고 관리된다.
+# 
+# - **역전파**<font size='2'>backpropagation</font>는
+# 계산된 그레이디언트와 지정된 학습률<font size='2'>learning rate</font>을 이용하여
+# 모든 가중치를 동시에 업데이트 하는 과정이다. 
+# 
+# **옵티마이저**<font size='2'>optimizer</font>는 경사하강법(백워드 패스, 역전파) 업무를
+# 처리하는 알고리즘을 가리키며 momentum optimization, Nesterov Accelerated Gradeitn, 
+# AdaGrad, RMSProp, Adam optimization 등 다양한 알고리즘이 존재한다.
 
-# <div align="center"><img src="https://matthewmazur.files.wordpress.com/2015/03/nn-calculation.png" style="width:400px;"></div>
+# :::{admonition} 참고
+# :class: info
 # 
-# <p><div style="text-align: center">&lt;그림 출처: <a href="https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/">Matt Mazur: A Step by Step Backpropagation Example</a>&gt;</div></p>
-
-# ### 텐서플로우의 그레이디언트 테이프
-# 
-# - 미분 자동화: 텐서플로우 등이 역전파에 필요한 미분을 자동으로 해결해줌. 
-# - __그레이디언트 테이프__(gradient tape): 임의의 텐서 연산에 대해 원하는 변수에 대한
-#     그레이디언트를 미리 계산해서 기억해두는 독립적인 장치
-# - 케라스가 지원하는 옵티마이저는 내부에서 텐서플로우의 그레이디언트 테이프를 활용함.
+# - 경사하강법: 
+#     [핸즈온 머신러닝(3판), 4.2절](https://codingalzi.github.io/handson-ml3/training_models.html#sec-gradient-descent)이
+#     머신러닝 모델 일반적인 훈련에 사용되는 경사하강법을 쉽게 설명한다.
+# - 역전파: 
+#     딥러닝 신경망 모델에 국한된 역전파는
+# [Matt Mazur의 A Step by Step Backpropagation Example](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/)가 친절히 설명한다.
+# - 옵티마이저:
+#     [핸즈온 머신러닝(3판), 11장](https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/)에서 다양한 옵티마이저를 소개한다.
+# :::
