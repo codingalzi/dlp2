@@ -452,27 +452,43 @@
 # - 텐서 덧셈: `+`
 # - 활성화 함수: `relu()`
 #     - 정의: `relu(x) = np.maximum(x, 0)`
-#     - 유니버서 함수, 즉 항목별로 작동함.
+#     - 유니버설 함수, 즉 항목별로 작동함.
 #     
-# 둘째 층에서 사용된 `softmax()` 함수는 분류 신경망 모델의 마지막 층, 
-# 즉 출력층에서 사용되는 활성화 함수이며
+# 둘째층이 하는 일은 또 다른 데이터셋의 변환이다.
+# 
+# `output2 = softmax(dot(input1, W1) + b1)`
+# 
+# `softmax()` 함수는 분류 신경망 모델의 마지막 층, 즉 출력층에서 사용되는 활성화 함수이며
 # 클래스별 확률을 계산한다. 
 # 위 모델의 경우 10개 유닛에서 계산된 값들을 이용하여 10개 각 클래스별로 속할
 # 확률을 계산하며, 확률값의 합은 1이 되도록 한다.
 # 
 # 모든 연산은 텐서 연산으로 계산되며 기본적으로 아래 그림처럼 작동한다.
 
-# <div align="center"><img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3653/9363.png" style="width:400px;"></div>
+# <div align="center"><img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3653/9363.png" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a>&gt;</div></p>
 
-# **텐서 항목별 연산과 브로드캐스팅**
+# **항목별 연산과 브로드캐스팅**
+# 
+# 앞서 언급된 연산과 함수 중에서 `softmax()` 함수를 제외한 나머지는 텐서에 포함된
+# 항목별로 연산이 이뤄진다.
+# 아래 그림은 텐서의 항목별 덧셈과 브로드캐스팅이 작동하는 방식을 잘 보여준다.
 
-# <div align="center"><img src="https://scipy-lectures.org/_images/numpy_broadcasting.png" style="width:700px;"></div>
+# <div align="center"><img src="https://scipy-lectures.org/_images/numpy_broadcasting.png" style="width:750px;"></div>
 # 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:300px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://scipy-lectures.org/intro/numpy/operations.html">Scipy Lecture Notes</a>&gt;</div></p>
+
+# 아래 그림은 `relu()` 함수의 정의에 사용된 `np.maximum()` 함수가
+# 텐서 인자의 항목을 대상으로 작동하는 과정을 잘 보여준다.
+
+# <div align="center"><img src="https://cdn-coiao.nitrocdn.com/CYHudqJZsSxQpAPzLkHFOkuzFKDpEHGF/assets/static/optimized/rev-b3f6ac8/wp-content/uploads/2022/02/np-maximum_two-2D-arrays-example.png" style="width:500px;"></div>
+# 
+# <div align="center"><img src="https://cdn-coiao.nitrocdn.com/CYHudqJZsSxQpAPzLkHFOkuzFKDpEHGF/assets/static/optimized/rev-b3f6ac8/wp-content/uploads/2022/02/numpy-maximum_broadcasting-example.png" style="width:500px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.sharpsightlabs.com/blog/numpy-maximum/">Sharp Sight - How to Use the Numpy Maximum Function</a>&gt;</div></p>
 
 # ### 텐서 연산의 기하학적 의미
 
