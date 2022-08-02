@@ -647,8 +647,7 @@
 #     [핸즈온 머신러닝(3판), 4.2절](https://codingalzi.github.io/handson-ml3/training_models.html#sec-gradient-descent)이
 #     머신러닝 모델 일반적인 훈련에 사용되는 경사하강법을 쉽게 설명한다.
 # - 역전파: 
-#     딥러닝 신경망 모델에 국한된 역전파는
-# [Matt Mazur의 A Step by Step Backpropagation Example](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/)가 친절히 설명한다.
+# [Matt Mazur의 A Step by Step Backpropagation Example](https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/)가 신경망 모델의 역전파 과정을 친절히 설명한다.
 # - 옵티마이저:
-#     [핸즈온 머신러닝(3판), 11장](https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/)에서 다양한 옵티마이저를 소개한다.
+#     [핸즈온 머신러닝(3판)](https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/), 11장에서 다양한 옵티마이저를 소개한다.
 # :::
