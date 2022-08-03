@@ -19,78 +19,67 @@
 
 # **주요 내용**
 # 
-# 아래 요소들을 살펴본다.
-# 
-# - 딥러닝 필수 요소
-# - 케라스와 텐서플로우 간략 소개
-# - 텐서플로우, 케라스, GPU를 활용한 딥러닝 작업환경
-# - 케라스와 텐서플로우를 이용한 신경망의 핵심 구성요소 구현
+# 케라스와 텐서플로우를 이용한 딥러닝의 활용법을 소개한다.
 
-# ## 3.1 텐서플로우 소개
+# ## 텐서플로우 소개
 
-# ### 텐서플로우
+# 텐서플로우는 파이썬 기본 머신러닝 플랫폼이며,
+# 머신러닝 모델의 훈련에 필요한 계산에 필요한 텐서 연산을 지원한다.
+# 넘파이(Numpy) 패키지와 유사하지만 보다 많은 기능을 제공한다. 
 # 
-# - 구글을 중심으로 개발된 머신러닝 __플랫폼__(platform)
-#     - TF-Agents: 강화학습 연구 지원
-#     - TFX: 머신러닝 프로젝트 진행과정(workflow) 운영 지원
-#     - TF-Hub: 훈련된 모델 제공
-# - 파이썬 기반
-# - 텐서 연산 지원
-
-# ### 넘파이(Numpy)와의 차이점
-# 
-# - 미분 가능한 함수들의 그레이디언트 자동 계산
+# - 그레이디언트 자동 계산
 # - GPU, TPU 등 고성능 병렬 하드웨어 가속기 활용 가능
-#     - 높은 확장성: 일기예보, 바둑 프로그램 등 매우 많은 데이터와 계산이 요구되는 실전 상황에 활용됨.
+# - 여러 대의 컴퓨터 또는 클라우드 컴퓨팅 서비스 활용 가능
 # - C++(게임), 자바스크립트(웹브라우저), TFLite(모바일 장치) 등 다른 언어가 선호되는 
 #     도메인 특화 프로그램에 쉽게 이식 가능
-
-# ## 3.2 케라스
-
-# ### 케라스와 텐서플로우
 # 
-# - 딥러닝 모델 훈련에 최적화된 인터페이스 제공.
-# - 원래 텐서플로우와 독립적으로 시작됨.
-# - 텐서플로우 2.0부터 텐서플로우 라이브러리의 최상위 프레임워크(framework)로 포함됨.
-# - 다양한 워크플로우 제공: 모델 구축과 훈련 방식에 있어서 고수준/저수준 방식 모두 제공
+# 텐서플로우는 또한 단순한 패키지 기능을 넘어서는 머신러닝 플랫폼 역할도 수행한다.
+# - TF-Agents: 강화학습 연구 지원
+# - TFX: 머신러닝 프로젝트 운영 지원
+# - TensorFlow-Hub: 사전 훈련된 머신러닝 모델 제공
 
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/keras_and_tf.png" style="width:650px;"></div>
+# ## 케라스 소개
+
+# 딥러닝 모델 구성 및 훈련에 단순하지만 활용성이 높은 다양한 수준의 API를 제공한다.
+# 원래 텐서플로우와 독립적으로 개발되었지만 텐서플로우 2.0부터 텐서플로우 라이브러리의 최상위 프레임워크(framework)로 포함됐다.
+
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/keras_and_tf.png" style="width:600px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# ## 3.3 케라스와 텐서플로우의 약력
+# ## 케라스와 텐서플로우의 약력
 
-# - 2007년: 씨아노(Theano) 공개. 캐나다 몬트리올 대학교 연구팀.
-#     - 계산 그래프, 미분 자동화 등을 최초로 활용
-# - 2015년 3월: 케라스 라이브러리 공개
-#     - 씨아노(Theano)를 백앤드로 사용하는 고수준 패키지
-# - 2015년 11월: 텐서플로우 라이브러리 공개
-# - 2016년: 텐서플로우가 케라스의 기본 백엔드로 지정됨
-# - 2017년: 씨아노, 텐서플로우, CNTK(마이크로소프트), MXNet(아마존)이 케라스의 백엔드로 지원됨.
+# - 2007년: 씨아노(Theano) 공개. 텐서를 이용한 계산 그래프, 미분 자동화 등을 최초로 지원한 딥러닝 라이브러리.
+# - 2015년 3월: 케라스 라이브러리 공개. Theano를 백앤드로 사용하는 고수준 패키지.
+# - 2015년 11월: 텐서플로우 라이브러리 공개.
+# - 2016년: 텐서플로우가 케라스의 기본 백엔드로 지정됨.
+# - 2017년: Theano, 텐서플로우, CNTK(마이크로소프트), MXNet(아마존)이 케라스의 백엔드로 지원됨.
+#     현재 Theano, CNTK 등은 더 이상 개발되지 않으며, MXNet은 아마존에서만 주로 사용됨.
 # - 2019년 9월: 텐서플로우 2.0부터 케라스가 텐서플로우의 최상위 프레임워크로 지정됨.
 
-# ## 3.4 딥러닝 작업환경
+# ## 딥러닝 작업환경
 
-# ### GPU 활용 옵션
+# 딥러닝 신경망 모델의 훈련을 위해서 GPU를 활용할 것을 강력히 추천한다.
+# GPU를 사용하지 않으면 모델의 훈련이 너무 느려 제대로 활용할 수 없을 것이다.
+# [구글 코랩](https://colab.research.google.com/?hl=ko)을 이용하면
+# 특별한 준비가 필요 없이 바로 신경망 모델을 GPU와 함께 훈련시킬 수 있다.
+# 구글 코랩은 주피터 노트북을 사용하는데, 주피터 노트북 사용법과
+# 구글 코랩에서 GPU를 이용하는 방법을 여기서는 설명하지 않는다.
+# 필요한 경우 인터넷에서 쉽게 관련 내용을 찾아볼 수 있다.
 # 
-# - 개인 NVIDIA 그래픽카드가 장착된 PC 또는 노트북 사용
-#     - 딥러닝을 많이 활용하는 경우
-#     - Ubuntu 설치 또는 WSL(Windows Subsystem for Linux) 활용 추천
-# - 구글 클라우드 플랫폼 또는 아마존 웹서비스(AWS EC2) 활용
-#     - 단기간동안 고성능 컴퓨터를 활용하고자 하는 경우
-# - __구글 코랩 활용__
-#     - 강좌 이수 용도로 추천
-
-# ### 구글 코랩 사용
+# 하지만 딥러닝 모델 훈련을 많이 시키려면 NVIDIA 그래픽카드가 장착된 
+# 개인용 컴퓨터를 활용하는 것이 좋다.
+# 운영체제는 [Ubuntu](https://ubuntu.com/download/desktop) 또는 [WSL 2(Windows Subsystem for Linux 2)](https://docs.microsoft.com/ko-kr/windows/wsl/install) 사용할 것을 추천한다.
 # 
-# - 기본 사용법은 인터넷 검색 참조
-# - 코드 실행에 필요한 추가 패키지 설치는 pip(파이썬 패키지 관리자) 활용
-#     ```python
-#     !pip install package_name
-#     ```
-# - 참고: 느낌표(`!`)는 주피터 노트북 코드셀에서 터미널 명령어를 실행하는 경우 사용
-# - GPU 활용: 런타임 유형을 GPU로 지정만 하면 됨.
-# - TPU 활용: 좀 더 복잡한 세팅 필요. 13장 참조.
+# 윈도우 10/11에서 GPU를 지원하는 텐서플로우를 설치하는 가장 간단한 방식은
+# [conda를 활용한 gpu 지원 tensorflow 설치 요령](https://github.com/ageron/handson-ml3/issues/21#issuecomment-1177864010)과
+# [Anaconda와 conda 환경 활용](https://github.com/ageron/handson-ml3/blob/main/INSTALL.md)을 참고한다.
+# 
+# 보다 전문적인 딥러닝 연구를 위해 대용량의 메모리와 고성능의 CPU, GPU가 필요한 경우
+# 비용이 들기는 하지만
+# [구글 클라우드 플랫폼](https://cloud.google.com/) 또는 
+# [아마존 웹서비스(AWS EC2)](https://aws.amazon.com/ko/?nc2=h_lg)를
+# 단기간동안 고성능 컴퓨터를 활용할 수 있다.
 
 # ## 3.5 텐서플로우 기본 사용법
 
@@ -178,7 +167,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/transformer0001.png" style="width:400px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # #### 망 구성방식과 가설 공간
 # 
