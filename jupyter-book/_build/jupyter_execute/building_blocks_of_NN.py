@@ -14,7 +14,7 @@
 # **소스코드**
 # 
 # 여기서 언급되는 코드를
-# [(구글 코랩) 신경망 구성 요소](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB_building_blocks_of_NN.ipynb)에서 
+# [(구글 코랩) 신경망 구성 요소](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-building_blocks_of_NN.ipynb)에서 
 # 직접 실행할 수 있다.
 
 # **주요 내용**

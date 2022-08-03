@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # 딥러닝이란?
+# # 딥러닝 소개
 
 # ## 인공지능, 머신러닝, 딥러닝
 
