@@ -8,4 +8,4 @@ options:
 #  only_build_toc_files: true
 chapters:
 - file: what_is_deep_learning
-- file: mathematical_building_blocks
+- file: building_blocks_of_NN
