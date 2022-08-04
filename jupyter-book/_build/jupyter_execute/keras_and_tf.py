@@ -68,7 +68,7 @@
 # 텐서플로우와 케라스의 조합이 여전히 보다 많이 사용되지만 파이토치의 비중 또한 점점 늘고 있다.
 # :::
 
-# ## 딥러닝 작업환경
+# ## 딥러닝 개발환경
 
 # 딥러닝 신경망 모델의 훈련을 위해서 GPU를 활용할 것을 강력히 추천한다.
 # GPU를 사용하지 않으면 모델의 훈련이 너무 느려 제대로 활용할 수 없을 것이다.
@@ -106,8 +106,8 @@
 # - 평가지표
 # - 훈련 루프
 
-# **상수 텐서와 변수 텐서**
-# 
+# ### 상수 텐서와 변수 텐서
+
 # 텐서플로우 자체로 두 종류의 텐서 자료형을 지원한다.
 # 사용법은 기본적으로 넘파이 어레이와 유사하지만 GPU 연산과 그레이디언트 자동계산 등
 # 신경망 모델 훈련에 최적화된 기능을 제공한다.
@@ -121,11 +121,11 @@
 #     - 모델의 가중치, 편향 등 업데이트가 되는 텐서로 사용. 
 #     - 가변 자료형
 
-# **텐서 연산**
-# 
+# ### 텐서 연산
+
 # 덧셈, relu, 점곱 등 텐서 연산은 기본적으로 넘파이 어레이 연산과 동일하다.
 
-# **`GradientTape` 활용**
+# ### `GradientTape` 활용
 
 # 넘파이 어레이와의 가장 큰 차이점은 
 # 그레이디언트 테이프 기능을 이용하여 변수 텐서에 의존하는 미분가능한 
@@ -169,178 +169,128 @@
 # 집중하기 위해서이다. 그렇지 않으면 너무 많은 계산을 해야 한다.
 # :::
 
-# **순수 텐서플로우로 선형 분류기 구현**
+# ### 순수 텐서플로우로 선형 분류기 구현
 
 # 케라스를 전혀 사용하지 않으면서 간단한 선형 분류기를 구현하는 과정을 통해
 # 텐서플로우 API의 기본 기능을 살펴 본다.
 
-# *데이터셋 생성*
-
-# - `np.random.multivariate_normal()`
-#     - 다변량 정규분포를 따르는 데이터 생성
-#     - 평균값과 공분산 지정 필요
-# - 음성 데이터셋
-#     - 샘플 수: 1,000
-#     - 평균값: `[0, 3]`
-#     - 공분산: `[[1, 0.5],[0.5, 1]]`
-# - 양성 데이터셋
-#     - 샘플 수: 1,000
-#     - 평균값: `[3, 0]`
-#     - 공분산: `[[1, 0.5],[0.5, 1]]`
-
-# In[1]:
-
-
-num_samples_per_class = 1000
-
-# 음성 데이터셋
-negative_samples = np.random.multivariate_normal(
-    mean=[0, 3], cov=[[1, 0.5],[0.5, 1]], size=num_samples_per_class)
-
-# 양성 데이터셋
-positive_samples = np.random.multivariate_normal(
-    mean=[3, 0], cov=[[1, 0.5],[0.5, 1]], size=num_samples_per_class)
-
-
-# 두 개의 `(1000, 2)` 모양의 양성, 음성 데이터셋을 하나의 `(2000, 2)` 모양의 데이터셋으로 합치면서
-# 동시에 자료형을 `np.float32`로 지정한다. 
-# 자료형을 지정하지 않으면 `np.float64`로 지정되어 보다 많은 메모리와 실행시간을 요구한다.
-
-# In[28]:
-
-
-inputs = np.vstack((negative_samples, positive_samples)).astype(np.float32)
-
-
-# 음성 샘플의 타깃은 0, 양성 샘플의 타깃은 1로 지정한다.
-
-# In[29]:
-
-
-targets = np.vstack((np.zeros((num_samples_per_class, 1), dtype="float32"),
-                     np.ones((num_samples_per_class, 1), dtype="float32")))
-
-
-# 양성, 음성 샘플을 색깔로 구분하면 다음과 같다.
+# **데이터셋 생성**
 # 
-# - `inputs[:, 0]`: x 좌표
-# - `inputs[:, 1]`: x 좌표
-# - `c=targets[:, 0]`: 0 또는 1에 따른 색상 지정
+# 아래 사진 모양처럼 양성(노랑색)과 음성(보라색)으로 구분되는 훈련셋을 생성한다.
+# 훈련셋은 다변량 정규분포를 따르도록 하며 각각 1,000개의 샘플로 구성된 양성과 음성 데이터셋의 
+# 공분산은 동일하고 평균값만 다르도록 한다.
 
-# In[30]:
-
-
-import matplotlib.pyplot as plt
-
-plt.scatter(inputs[:, 0], inputs[:, 1], c=targets[:, 0])
-plt.show()
-
-
-# *가중치 변수 텐서 생성*
-
-# In[31]:
-
-
-input_dim = 2     # 입력 샘플의 특성이 2개
-output_dim = 1    # 하나의 값으로 출력
-
-# 가중치: 무작위 초기화
-W = tf.Variable(initial_value=tf.random.uniform(shape=(input_dim, output_dim)))
-
-# 편향: 0으로 초기화
-b = tf.Variable(initial_value=tf.zeros(shape=(output_dim,)))
-
-
-# *예측 모델(함수) 선언*
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/03-07.png" style="width:500px;"></div>
 # 
-# 아래 함수는 하나의 층만 사용하는 모델이 출력값을 계산하는 과정이다.
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# In[32]:
-
-
-def model(inputs):
-    return tf.matmul(inputs, W) + b
-
-
-# *손실 함수: 평균 제곱 오차(MSE)*
+# ```python
+# num_samples_per_class = 1000
 # 
-# - `tf.reduce_mean()`: 텐서에 포함된 항목들의 평균값 계산.
-#     넘파이의 `np.mean()`과 결과는 동일하지만 텐서플로우의 텐서를 대상으로 함.
-
-# In[33]:
-
-
-def square_loss(targets, predictions):
-    per_sample_losses = tf.square(targets - predictions)
-    return tf.reduce_mean(per_sample_losses)
-
-
-# *훈련 단계*
+# # 음성 데이터셋
+# negative_samples = np.random.multivariate_normal(
+#     mean=[0, 3], cov=[[1, 0.5],[0.5, 1]], size=num_samples_per_class)
 # 
-# 하나의 배치에 대해 예측값을 계산한 후에 손실 함수의 그레이디언트를 이용하여 가중치와 편향을 업데이트한다. 
+# # 양성 데이터셋
+# positive_samples = np.random.multivariate_normal(
+#     mean=[3, 0], cov=[[1, 0.5],[0.5, 1]], size=num_samples_per_class)
+# ```
 
-# In[34]:
+# 두 데이터셋을 합쳐서 훈련셋, 즉, 모델의 입력값으로 지정한다.
+# 자료형을 `np.float32`로 지정함에 주의하라.
+# 그렇게 하지 않으면 `np.float64`로 지정되어 보다 많은 메모리와 실행시간을 요구한다.
 
+# ```python
+# inputs = np.vstack((negative_samples, positive_samples)).astype(np.float32)
+# ```
 
-learning_rate = 0.1
+# 음성 샘플의 레이블은 0, 양성 샘플의 레이블은 1로 지정한다.
 
-def training_step(inputs, targets):
-    with tf.GradientTape() as tape:
-        predictions = model(inputs)
-        loss = square_loss(targets, predictions)
-    grad_loss_wrt_W, grad_loss_wrt_b = tape.gradient(loss, [W, b])
-    W.assign_sub(grad_loss_wrt_W * learning_rate)
-    b.assign_sub(grad_loss_wrt_b * learning_rate)
-    return loss
+# ```python
+# targets = np.vstack((np.zeros((num_samples_per_class, 1), dtype="float32"),
+#                      np.ones((num_samples_per_class, 1), dtype="float32")))
+# ```
 
-
-# *배치 훈련*
+# **선형 회귀 모델 훈련에 필요한 가중치와 편향 변수 텐서 생성**
 # 
-# 배치 훈련을 총 40번 반복한다.
+# 모델 학습에 사용될 가중치와 편향을 변수 텐서로 선언한다.
 
-# In[35]:
+# ```python
+# input_dim = 2     # 입력 샘플의 특성이 2개
+# output_dim = 1    # 하나의 값으로 출력
+# 
+# # 가중치: 무작위 초기화
+# W = tf.Variable(initial_value=tf.random.uniform(shape=(input_dim, output_dim)))
+# 
+# # 편향: 0으로 초기화
+# b = tf.Variable(initial_value=tf.zeros(shape=(output_dim,)))
+# ```
 
+# **모델 선언: 포워드 패스**
+# 
+# 신경망 모델을 훈련할 때 입력값에 대한 예측값을 계산하는 과정인
+# 포워드 패스를 함수로 구현한다.
+# 간단한 모델 표현을 위해 활성화 함수는 사용하지 않는다.
+# 
+# `tf.matmul()` 함수는 넘파이의 점 곱 함수처럼 작동하며 아래 코드에서는
+# 행렬의 곱을 나타낸다.
 
-for step in range(40):
-    loss = training_step(inputs, targets)
-    print(f"Loss at step {step}: {loss:.4f}")
+# ```python
+# def model(inputs):
+#     return tf.matmul(inputs, W) + b
+# ```
 
+# **손실 함수: 평균 제곱 오차(MSE)**
+# 
+# 타깃과 예측값 사이의 평균 제곱 오차를 손실값으로 사용한다. 
+# 아래 코드에서 `tf.reduce_mean()` 함수는 넘파이의 `np.mean()`처럼
+# 평균값을 계산하지만 텐서플로우의 텐서를 대상으로 한다.
 
-# 훈련상태를 보면 여전히 개선의 여지가 보인다. 따라서 학습을 좀 더 시켜본다. 
+# ```python
+# def square_loss(targets, predictions):
+#     per_sample_losses = tf.square(targets - predictions)
+#     return tf.reduce_mean(per_sample_losses)
+# ```
 
-# In[36]:
+# **훈련 스텝: 백워드 패스와 역전파**
+# 
+# 하나의 배치에 대해 예측값을 계산한 후에 손실 함수의 그레이디언트를 
+# 계산한 후에 가중치와 편향을 업데이트하는 함수를 선언한다.
+# 그레이디언트 계산은 그레이디언트 테이프를 이용한다.
 
+# ```python
+# def training_step(inputs, targets):
+#     with tf.GradientTape() as tape:
+#         predictions = model(inputs)
+#         loss = square_loss(targets, predictions)
+#     grad_loss_wrt_W, grad_loss_wrt_b = tape.gradient(loss, [W, b])
+#     W.assign_sub(grad_loss_wrt_W * learning_rate)
+#     b.assign_sub(grad_loss_wrt_b * learning_rate)
+#     return loss
+# ```
 
-for step in range(100):
-    loss = training_step(inputs, targets)
-    if step % 10 == 0:
-        print(f"Loss at step {step}: {loss:.4f}")
+# **훈련 루프**
+# 
+# 반복해서 훈련한 내용을 지정한다.
+# 여기서는 설명을 간단하게 하기 위해 미니 배치가 아닌 배치 훈련을 구현한다.
+# 전체 훈련셋을 총 40번 반복 학습할 때마다 손실값을 출력하도록 한다.
 
+# ```python
+# for step in range(40):
+#     loss = training_step(inputs, targets)
+#     print(f"Loss at step {step}: {loss:.4f}")
+# ```
 
-# *예측*
+# **결정경계 예측**
 
-# In[37]:
-
-
-predictions = model(inputs)
-
-
-# 예측 결과를 확인하면 다음과 같다.
-# 예측값이 0.5보다 클 때 양성으로 판정하는 것이 좋은데
+# 모델의 예측값이 0.5보다 클 때 양성으로 판정하는 것이 좋은데
 # 이유는 샘플들의 레이블이 0 또는 1이기 때문이다.
 # 모델은 훈련과정 중에 음성 샘플은 최대한 0에, 
-# 양성 샘플은 최대한 1에 가까운 값으로 예측하여 손실값이 줄도록 
-# 노력하며, 옵티마이저가 그렇게 유도한다.
-# 따라서 0과 1의 중간값인 0.5가 판단 기준으로 적절하다.
+# 양성 샘플은 최대한 1에 가까운 값으로 예측하여 손실값을 최대한 줄여야 하는데
+# 옵티마이저가 그렇게 유도한다.
+# 따라서 예측값이 0과 1의 중간값인 0.5일 때를 결정경계로 사용한다.
 
-# In[38]:
-
-
-plt.scatter(inputs[:, 0], inputs[:, 1], c=predictions[:, 0] > 0.5)
-plt.show()
-
-
-# 결정 경계를 직선으로 그리려면 아래 식을 이용한다.
+# 결정경계를 직선으로 그리려면 아래 식을 이용한다.
 # 
 # ```python
 # y = - W[0] /  W[1] * x + (0.5 - b) / W[1]
@@ -354,15 +304,9 @@ plt.show()
 # 
 # 위 예측값이 0.5보다 큰지 여부에 따라 음성, 양성이 판단되기 때문이다.
 
-# In[39]:
-
-
-x = np.linspace(-1, 4, 100)
-y = - W[0] /  W[1] * x + (0.5 - b) / W[1]
-
-plt.plot(x, y, "-r")
-plt.scatter(inputs[:, 0], inputs[:, 1], c=predictions[:, 0] > 0.5)
-
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_3-8.png" style="width:500px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # ## 3.6 케스의 핵심 API  이해
 
