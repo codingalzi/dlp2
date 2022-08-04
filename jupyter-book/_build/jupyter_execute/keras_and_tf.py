@@ -47,15 +47,26 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# ## 케라스와 텐서플로우의 약력
+# ## 딥러닝 주요 라이브러리 약력
 
 # - 2007년: 씨아노(Theano) 공개. 텐서를 이용한 계산 그래프, 미분 자동화 등을 최초로 지원한 딥러닝 라이브러리.
 # - 2015년 3월: 케라스 라이브러리 공개. Theano를 백앤드로 사용하는 고수준 패키지.
 # - 2015년 11월: 텐서플로우 라이브러리 공개.
 # - 2016년: 텐서플로우가 케라스의 기본 백엔드로 지정됨.
+# - 2016년 9월: 페이스북이 개발한 PyTorch 공개.
 # - 2017년: Theano, 텐서플로우, CNTK(마이크로소프트), MXNet(아마존)이 케라스의 백엔드로 지원됨.
 #     현재 Theano, CNTK 등은 더 이상 개발되지 않으며, MXNet은 아마존에서만 주로 사용됨.
+# - 2018년 3월: PyTorch와 Caffe2를 합친 PyTorch 출시(페이스북과 마이크로소프트의 협업)
 # - 2019년 9월: 텐서플로우 2.0부터 케라스가 텐서플로우의 최상위 프레임워크로 지정됨.
+
+# :::{admonition} 텐서플로우 대 파이토치
+# :class: info
+# 
+# 파이토치<font size='2'>PyTorch</font> 또한 텐서 연산을 지원하는 딥러닝 라이브러리다.
+# 텐서플로우와 케라스의 조합이 강력하지만 신경망의 보다 섬세한 조정은 약하다는 지적을 많이 받는 반면에
+# 파이토치는 상대적으로 보다 자유롭게 신경망을 구성할 수 있다는 장점이 많이 언급된다.
+# 텐서플로우와 케라스의 조합이 여전히 보다 많이 사용되지만 파이토치의 비중 또한 점점 늘고 있다.
+# :::
 
 # ## 딥러닝 작업환경
 
@@ -81,17 +92,277 @@
 # [아마존 웹서비스(AWS EC2)](https://aws.amazon.com/ko/?nc2=h_lg)를
 # 단기간동안 고성능 컴퓨터를 활용할 수 있다.
 
-# ## 3.5 텐서플로우 기본 사용법
+# ## 순수 텐서플로우 사용법 기초
 
-# ### 신경망 모델 훈련 핵심 1
+# 케라스를 전혀 이용하지 않으면서 신경망 모델을 지정하고 훈련시킬 수 있다.
+# 하지만 다음 개념, 기능, 도구를 모두 직접 구현해야 한다.
 # 
-# 1. 상수 텐서와 변수 텐서
-#     - 상수 텐서(constant tensor): 입출력 데이터 등 변하지 않는 텐서
-#     - 변수 텐서(variable): 모델 가중치, 편향 등 업데이트 되는 텐서
-# 1. 텐서 연산: 덧셈, relu, 점곱 등
-# 1. 역전파(backpropagation): 
-#     - 손실함수의 그레이디언트 계산 후 모델 가중치 업데이트
-#     - 그레이디언트 테이프(`GradientTape`) 이용
+# - 가중치, 편향 등을 저장할 텐서 지정
+# - 덧셈, 행렬 곱, `relu()` 함수 등 정의
+# - 역전파 실행
+# - 층과 모델
+# - 손실 함수
+# - 옵티마이저
+# - 평가지표
+# - 훈련 루프
+
+# **상수 텐서와 변수 텐서**
+# 
+# 텐서플로우 자체로 두 종류의 텐서 자료형을 지원한다.
+# 사용법은 기본적으로 넘파이 어레이와 유사하지만 GPU 연산과 그레이디언트 자동계산 등
+# 신경망 모델 훈련에 최적화된 기능을 제공한다.
+# 
+# - `tf.Tensor` 자료형
+#     - 상수 텐서
+#     - 입출력 데이터 등 변하지 않는 텐서로 사용. 
+#     - 불변 자료형
+# - `tf.Variable` 자료형
+#     - 변수 텐서
+#     - 모델의 가중치, 편향 등 업데이트가 되는 텐서로 사용. 
+#     - 가변 자료형
+
+# **텐서 연산**
+# 
+# 덧셈, relu, 점곱 등 텐서 연산은 기본적으로 넘파이 어레이 연산과 동일하다.
+
+# **`GradientTape` 활용**
+
+# 넘파이 어레이와의 가장 큰 차이점은 
+# 그레이디언트 테이프 기능을 이용하여 변수 텐서에 의존하는 미분가능한 
+# 함수의 그레이디언트 자동 계산이다. 
+# 예를 들어 아래 코드는 제곱 함수의 $x = 3$에서의 미분값인 6을 계산한다.
+# 
+# $$
+# f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
+# $$
+
+# ```python
+# >>> input_var = tf.Variable(initial_value=3.)
+# >>> with tf.GradientTape() as tape:
+# >>>     result = tf.square(input_var)
+# >>> gradient = tape.gradient(result, input_var)
+# >>> print(gradient)
+# tf.Tensor(6.0, shape=(), dtype=float32)
+# ```
+
+# 그레이디언트 테이프 기능을 이용하여 신경망 모델 훈련 중에
+# 손실 함수의 그레이디언트를 계산한다.
+# 
+# ```python
+# gradient = tape.gradient(loss, weights)
+# ```
+
+# :::{admonition} 상수 텐서와 그레이디언트 테이프
+# :class: info
+# 
+# 상수 텐서에 대해 그레이디언트 테이프를 이용하려면 `tape.watch()` 메서드로 감싸야 한다.
+# 
+# ```python
+# input_const = tf.constant(3.)
+# with tf.GradientTape() as tape:
+#     tape.watch(input_const)
+#     result = tf.square(input_const)
+# gradient = tape.gradient(result, input_const)
+# ```
+# 
+# 이유는 모델의 가중치와 편향 등 모델 훈련에 중요한 텐서들에 대해 미분 연산을
+# 집중하기 위해서이다. 그렇지 않으면 너무 많은 계산을 해야 한다.
+# :::
+
+# **순수 텐서플로우로 선형 분류기 구현**
+
+# 케라스를 전혀 사용하지 않으면서 간단한 선형 분류기를 구현하는 과정을 통해
+# 텐서플로우 API의 기본 기능을 살펴 본다.
+
+# *데이터셋 생성*
+
+# - `np.random.multivariate_normal()`
+#     - 다변량 정규분포를 따르는 데이터 생성
+#     - 평균값과 공분산 지정 필요
+# - 음성 데이터셋
+#     - 샘플 수: 1,000
+#     - 평균값: `[0, 3]`
+#     - 공분산: `[[1, 0.5],[0.5, 1]]`
+# - 양성 데이터셋
+#     - 샘플 수: 1,000
+#     - 평균값: `[3, 0]`
+#     - 공분산: `[[1, 0.5],[0.5, 1]]`
+
+# In[1]:
+
+
+num_samples_per_class = 1000
+
+# 음성 데이터셋
+negative_samples = np.random.multivariate_normal(
+    mean=[0, 3], cov=[[1, 0.5],[0.5, 1]], size=num_samples_per_class)
+
+# 양성 데이터셋
+positive_samples = np.random.multivariate_normal(
+    mean=[3, 0], cov=[[1, 0.5],[0.5, 1]], size=num_samples_per_class)
+
+
+# 두 개의 `(1000, 2)` 모양의 양성, 음성 데이터셋을 하나의 `(2000, 2)` 모양의 데이터셋으로 합치면서
+# 동시에 자료형을 `np.float32`로 지정한다. 
+# 자료형을 지정하지 않으면 `np.float64`로 지정되어 보다 많은 메모리와 실행시간을 요구한다.
+
+# In[28]:
+
+
+inputs = np.vstack((negative_samples, positive_samples)).astype(np.float32)
+
+
+# 음성 샘플의 타깃은 0, 양성 샘플의 타깃은 1로 지정한다.
+
+# In[29]:
+
+
+targets = np.vstack((np.zeros((num_samples_per_class, 1), dtype="float32"),
+                     np.ones((num_samples_per_class, 1), dtype="float32")))
+
+
+# 양성, 음성 샘플을 색깔로 구분하면 다음과 같다.
+# 
+# - `inputs[:, 0]`: x 좌표
+# - `inputs[:, 1]`: x 좌표
+# - `c=targets[:, 0]`: 0 또는 1에 따른 색상 지정
+
+# In[30]:
+
+
+import matplotlib.pyplot as plt
+
+plt.scatter(inputs[:, 0], inputs[:, 1], c=targets[:, 0])
+plt.show()
+
+
+# *가중치 변수 텐서 생성*
+
+# In[31]:
+
+
+input_dim = 2     # 입력 샘플의 특성이 2개
+output_dim = 1    # 하나의 값으로 출력
+
+# 가중치: 무작위 초기화
+W = tf.Variable(initial_value=tf.random.uniform(shape=(input_dim, output_dim)))
+
+# 편향: 0으로 초기화
+b = tf.Variable(initial_value=tf.zeros(shape=(output_dim,)))
+
+
+# *예측 모델(함수) 선언*
+# 
+# 아래 함수는 하나의 층만 사용하는 모델이 출력값을 계산하는 과정이다.
+
+# In[32]:
+
+
+def model(inputs):
+    return tf.matmul(inputs, W) + b
+
+
+# *손실 함수: 평균 제곱 오차(MSE)*
+# 
+# - `tf.reduce_mean()`: 텐서에 포함된 항목들의 평균값 계산.
+#     넘파이의 `np.mean()`과 결과는 동일하지만 텐서플로우의 텐서를 대상으로 함.
+
+# In[33]:
+
+
+def square_loss(targets, predictions):
+    per_sample_losses = tf.square(targets - predictions)
+    return tf.reduce_mean(per_sample_losses)
+
+
+# *훈련 단계*
+# 
+# 하나의 배치에 대해 예측값을 계산한 후에 손실 함수의 그레이디언트를 이용하여 가중치와 편향을 업데이트한다. 
+
+# In[34]:
+
+
+learning_rate = 0.1
+
+def training_step(inputs, targets):
+    with tf.GradientTape() as tape:
+        predictions = model(inputs)
+        loss = square_loss(targets, predictions)
+    grad_loss_wrt_W, grad_loss_wrt_b = tape.gradient(loss, [W, b])
+    W.assign_sub(grad_loss_wrt_W * learning_rate)
+    b.assign_sub(grad_loss_wrt_b * learning_rate)
+    return loss
+
+
+# *배치 훈련*
+# 
+# 배치 훈련을 총 40번 반복한다.
+
+# In[35]:
+
+
+for step in range(40):
+    loss = training_step(inputs, targets)
+    print(f"Loss at step {step}: {loss:.4f}")
+
+
+# 훈련상태를 보면 여전히 개선의 여지가 보인다. 따라서 학습을 좀 더 시켜본다. 
+
+# In[36]:
+
+
+for step in range(100):
+    loss = training_step(inputs, targets)
+    if step % 10 == 0:
+        print(f"Loss at step {step}: {loss:.4f}")
+
+
+# *예측*
+
+# In[37]:
+
+
+predictions = model(inputs)
+
+
+# 예측 결과를 확인하면 다음과 같다.
+# 예측값이 0.5보다 클 때 양성으로 판정하는 것이 좋은데
+# 이유는 샘플들의 레이블이 0 또는 1이기 때문이다.
+# 모델은 훈련과정 중에 음성 샘플은 최대한 0에, 
+# 양성 샘플은 최대한 1에 가까운 값으로 예측하여 손실값이 줄도록 
+# 노력하며, 옵티마이저가 그렇게 유도한다.
+# 따라서 0과 1의 중간값인 0.5가 판단 기준으로 적절하다.
+
+# In[38]:
+
+
+plt.scatter(inputs[:, 0], inputs[:, 1], c=predictions[:, 0] > 0.5)
+plt.show()
+
+
+# 결정 경계를 직선으로 그리려면 아래 식을 이용한다.
+# 
+# ```python
+# y = - W[0] /  W[1] * x + (0.5 - b) / W[1]
+# ```
+# 
+# 이유는 위 모델의 예측값이 다음과 같이 계산되며,
+# 
+# ```python
+# W[0]*x + W[1]*y + b
+# ```
+# 
+# 위 예측값이 0.5보다 큰지 여부에 따라 음성, 양성이 판단되기 때문이다.
+
+# In[39]:
+
+
+x = np.linspace(-1, 4, 100)
+y = - W[0] /  W[1] * x + (0.5 - b) / W[1]
+
+plt.plot(x, y, "-r")
+plt.scatter(inputs[:, 0], inputs[:, 1], c=predictions[:, 0] > 0.5)
+
 
 # ## 3.6 케스의 핵심 API  이해
 
