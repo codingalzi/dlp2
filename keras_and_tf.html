@@ -38,22 +38,20 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="2. 신경망 구성 요소" href="building_blocks_of_NN.html" />
@@ -225,13 +223,41 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   3.4. 딥러닝 작업환경
+   3.4. 딥러닝 개발환경
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
    3.5. 순수 텐서플로우 사용법 기초
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     3.5.1. 상수 텐서와 변수 텐서
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     3.5.2. 텐서 연산
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradienttape">
+     3.5.3.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GradientTape
+      </span>
+     </code>
+     활용
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     3.5.4. 순수 텐서플로우로 선형 분류기 구현
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#api">
@@ -239,7 +265,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id10">
      3.6.1. 신경망 모델 훈련 핵심 2
     </a>
    </li>
@@ -249,7 +275,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id8">
+      <a class="reference internal nav-link" href="#id11">
        3.6.2.1. 층의 종류와 처리 가능 텐서
       </a>
      </li>
@@ -284,24 +310,24 @@ const thebe_selector_output = ".output, .cell_output"
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id12">
      3.6.3. 층에서 모델로
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id10">
+      <a class="reference internal nav-link" href="#id13">
        3.6.3.1. 딥러닝 모델
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id11">
+      <a class="reference internal nav-link" href="#id14">
        3.6.3.2. 망 구성방식과 가설 공간
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
+    <a class="reference internal nav-link" href="#id15">
      3.6.4. 모델 컴파일
     </a>
    </li>
@@ -317,7 +343,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
+    <a class="reference internal nav-link" href="#id16">
      3.6.6. 검증 세트 활용
     </a>
    </li>
@@ -360,13 +386,41 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   3.4. 딥러닝 작업환경
+   3.4. 딥러닝 개발환경
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
    3.5. 순수 텐서플로우 사용법 기초
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     3.5.1. 상수 텐서와 변수 텐서
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     3.5.2. 텐서 연산
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradienttape">
+     3.5.3.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GradientTape
+      </span>
+     </code>
+     활용
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     3.5.4. 순수 텐서플로우로 선형 분류기 구현
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#api">
@@ -374,7 +428,7 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id10">
      3.6.1. 신경망 모델 훈련 핵심 2
     </a>
    </li>
@@ -384,7 +438,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id8">
+      <a class="reference internal nav-link" href="#id11">
        3.6.2.1. 층의 종류와 처리 가능 텐서
       </a>
      </li>
@@ -419,24 +473,24 @@ const thebe_selector_output = ".output, .cell_output"
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id12">
      3.6.3. 층에서 모델로
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id10">
+      <a class="reference internal nav-link" href="#id13">
        3.6.3.1. 딥러닝 모델
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id11">
+      <a class="reference internal nav-link" href="#id14">
        3.6.3.2. 망 구성방식과 가설 공간
       </a>
      </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
+    <a class="reference internal nav-link" href="#id15">
      3.6.4. 모델 컴파일
     </a>
    </li>
@@ -452,7 +506,7 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
+    <a class="reference internal nav-link" href="#id16">
      3.6.6. 검증 세트 활용
     </a>
    </li>
@@ -527,7 +581,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id5">
-<h2><span class="section-number">3.4. </span>딥러닝 작업환경<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.4. </span>딥러닝 개발환경<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>딥러닝 신경망 모델의 훈련을 위해서 GPU를 활용할 것을 강력히 추천한다.
 GPU를 사용하지 않으면 모델의 훈련이 너무 느려 제대로 활용할 수 없을 것이다.
 <a class="reference external" href="https://colab.research.google.com/?hl=ko">구글 코랩</a>을 이용하면
@@ -561,7 +615,8 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려 제대로 활용
 <li><p>평가지표</p></li>
 <li><p>훈련 루프</p></li>
 </ul>
-<p><strong>상수 텐서와 변수 텐서</strong></p>
+<div class="section" id="id7">
+<h3><span class="section-number">3.5.1. </span>상수 텐서와 변수 텐서<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>텐서플로우 자체로 두 종류의 텐서 자료형을 지원한다.
 사용법은 기본적으로 넘파이 어레이와 유사하지만 GPU 연산과 그레이디언트 자동계산 등
 신경망 모델 훈련에 최적화된 기능을 제공한다.</p>
@@ -581,9 +636,13 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려 제대로 활용
 </ul>
 </li>
 </ul>
-<p><strong>텐서 연산</strong></p>
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">3.5.2. </span>텐서 연산<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>덧셈, relu, 점곱 등 텐서 연산은 기본적으로 넘파이 어레이 연산과 동일하다.</p>
-<p><strong><code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 활용</strong></p>
+</div>
+<div class="section" id="gradienttape">
+<h3><span class="section-number">3.5.3. </span><code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 활용<a class="headerlink" href="#gradienttape" title="Permalink to this headline">¶</a></h3>
 <p>넘파이 어레이와의 가장 큰 차이점은
 그레이디언트 테이프 기능을 이용하여 변수 텐서에 의존하는 미분가능한
 함수의 그레이디언트 자동 계산이다.
@@ -618,35 +677,17 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <p>이유는 모델의 가중치와 편향 등 모델 훈련에 중요한 텐서들에 대해 미분 연산을
 집중하기 위해서이다. 그렇지 않으면 너무 많은 계산을 해야 한다.</p>
 </div>
-<p><strong>순수 텐서플로우로 선형 분류기 구현</strong></p>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">3.5.4. </span>순수 텐서플로우로 선형 분류기 구현<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>케라스를 전혀 사용하지 않으면서 간단한 선형 분류기를 구현하는 과정을 통해
 텐서플로우 API의 기본 기능을 살펴 본다.</p>
-<p><em>데이터셋 생성</em></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">np.random.multivariate_normal()</span></code></p>
-<ul>
-<li><p>다변량 정규분포를 따르는 데이터 생성</p></li>
-<li><p>평균값과 공분산 지정 필요</p></li>
-</ul>
-</li>
-<li><p>음성 데이터셋</p>
-<ul>
-<li><p>샘플 수: 1,000</p></li>
-<li><p>평균값: <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">3]</span></code></p></li>
-<li><p>공분산: <code class="docutils literal notranslate"><span class="pre">[[1,</span> <span class="pre">0.5],[0.5,</span> <span class="pre">1]]</span></code></p></li>
-</ul>
-</li>
-<li><p>양성 데이터셋</p>
-<ul>
-<li><p>샘플 수: 1,000</p></li>
-<li><p>평균값: <code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">0]</span></code></p></li>
-<li><p>공분산: <code class="docutils literal notranslate"><span class="pre">[[1,</span> <span class="pre">0.5],[0.5,</span> <span class="pre">1]]</span></code></p></li>
-</ul>
-</li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_samples_per_class</span> <span class="o">=</span> <span class="mi">1000</span>
+<p><strong>데이터셋 생성</strong></p>
+<p>아래 사진 모양처럼 양성(노랑색)과 음성(보라색)으로 구분되는 훈련셋을 생성한다.
+훈련셋은 다변량 정규분포를 따르도록 하며 각각 1,000개의 샘플로 구성된 양성과 음성 데이터셋의
+공분산은 동일하고 평균값만 다르도록 한다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/03-07.png" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_samples_per_class</span> <span class="o">=</span> <span class="mi">1000</span>
 
 <span class="c1"># 음성 데이터셋</span>
 <span class="n">negative_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span>
@@ -657,64 +698,20 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
     <span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cov</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">size</span><span class="o">=</span><span class="n">num_samples_per_class</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_207</span><span class="o">/</span><span class="mf">1293141962.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># 음성 데이터셋</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">negative_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">cov</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">size</span><span class="o">=</span><span class="n">num_samples_per_class</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> 
-
-<span class="ne">NameError</span>: name &#39;np&#39; is not defined
+<p>두 데이터셋을 합쳐서 훈련셋, 즉, 모델의 입력값으로 지정한다.
+자료형을 <code class="docutils literal notranslate"><span class="pre">np.float32</span></code>로 지정함에 주의하라.
+그렇게 하지 않으면 <code class="docutils literal notranslate"><span class="pre">np.float64</span></code>로 지정되어 보다 많은 메모리와 실행시간을 요구한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">negative_samples</span><span class="p">,</span> <span class="n">positive_samples</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<p>두 개의 <code class="docutils literal notranslate"><span class="pre">(1000,</span> <span class="pre">2)</span></code> 모양의 양성, 음성 데이터셋을 하나의 <code class="docutils literal notranslate"><span class="pre">(2000,</span> <span class="pre">2)</span></code> 모양의 데이터셋으로 합치면서
-동시에 자료형을 <code class="docutils literal notranslate"><span class="pre">np.float32</span></code>로 지정한다.
-자료형을 지정하지 않으면 <code class="docutils literal notranslate"><span class="pre">np.float64</span></code>로 지정되어 보다 많은 메모리와 실행시간을 요구한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">negative_samples</span><span class="p">,</span> <span class="n">positive_samples</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>음성 샘플의 타깃은 0, 양성 샘플의 타깃은 1로 지정한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_samples_per_class</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span>
+<p>음성 샘플의 레이블은 0, 양성 샘플의 레이블은 1로 지정한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_samples_per_class</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span>
                      <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">num_samples_per_class</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)))</span>
 </pre></div>
 </div>
-</div>
-</div>
-<p>양성, 음성 샘플을 색깔로 구분하면 다음과 같다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">inputs[:,</span> <span class="pre">0]</span></code>: x 좌표</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">inputs[:,</span> <span class="pre">1]</span></code>: x 좌표</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">c=targets[:,</span> <span class="pre">0]</span></code>: 0 또는 1에 따른 색상 지정</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">inputs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">targets</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/keras_and_tf_33_0.png" src="_images/keras_and_tf_33_0.png" />
-</div>
-</div>
-<p><em>가중치 변수 텐서 생성</em></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">input_dim</span> <span class="o">=</span> <span class="mi">2</span>     <span class="c1"># 입력 샘플의 특성이 2개</span>
+<p><strong>선형 회귀 모델 훈련에 필요한 가중치와 편향 변수 텐서 생성</strong></p>
+<p>모델 학습에 사용될 가중치와 편향을 변수 텐서로 선언한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">input_dim</span> <span class="o">=</span> <span class="mi">2</span>     <span class="c1"># 입력 샘플의 특성이 2개</span>
 <span class="n">output_dim</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># 하나의 값으로 출력</span>
 
 <span class="c1"># 가중치: 무작위 초기화</span>
@@ -724,39 +721,30 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">output_dim</span><span class="p">,)))</span>
 </pre></div>
 </div>
-</div>
-</div>
-<p><em>예측 모델(함수) 선언</em></p>
-<p>아래 함수는 하나의 층만 사용하는 모델이 출력값을 계산하는 과정이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+<p><strong>모델 선언: 포워드 패스</strong></p>
+<p>신경망 모델을 훈련할 때 입력값에 대한 예측값을 계산하는 과정인
+포워드 패스를 함수로 구현한다.
+간단한 모델 표현을 위해 활성화 함수는 사용하지 않는다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tf.matmul()</span></code> 함수는 넘파이의 점 곱 함수처럼 작동하며 아래 코드에서는
+행렬의 곱을 나타낸다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
 </pre></div>
 </div>
-</div>
-</div>
-<p><em>손실 함수: 평균 제곱 오차(MSE)</em></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">tf.reduce_mean()</span></code>: 텐서에 포함된 항목들의 평균값 계산.
-넘파이의 <code class="docutils literal notranslate"><span class="pre">np.mean()</span></code>과 결과는 동일하지만 텐서플로우의 텐서를 대상으로 함.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square_loss</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">):</span>
+<p><strong>손실 함수: 평균 제곱 오차(MSE)</strong></p>
+<p>타깃과 예측값 사이의 평균 제곱 오차를 손실값으로 사용한다.
+아래 코드에서 <code class="docutils literal notranslate"><span class="pre">tf.reduce_mean()</span></code> 함수는 넘파이의 <code class="docutils literal notranslate"><span class="pre">np.mean()</span></code>처럼
+평균값을 계산하지만 텐서플로우의 텐서를 대상으로 한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square_loss</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">):</span>
     <span class="n">per_sample_losses</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">targets</span> <span class="o">-</span> <span class="n">predictions</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">per_sample_losses</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<p><em>훈련 단계</em></p>
-<p>하나의 배치에 대해 예측값을 계산한 후에 손실 함수의 그레이디언트를 이용하여 가중치와 편향을 업데이트한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.1</span>
-
-<span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+<p><strong>훈련 스텝: 백워드 패스와 역전파</strong></p>
+<p>하나의 배치에 대해 예측값을 계산한 후에 손실 함수의 그레이디언트를
+계산한 후에 가중치와 편향을 업데이트하는 함수를 선언한다.
+그레이디언트 계산은 그레이디언트 테이프를 이용한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
         <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">square_loss</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
@@ -766,115 +754,23 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
     <span class="k">return</span> <span class="n">loss</span>
 </pre></div>
 </div>
-</div>
-</div>
-<p><em>배치 훈련</em></p>
-<p>배치 훈련을 총 40번 반복한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>
+<p><strong>훈련 루프</strong></p>
+<p>반복해서 훈련한 내용을 지정한다.
+여기서는 설명을 간단하게 하기 위해 미니 배치가 아닌 배치 훈련을 구현한다.
+전체 훈련셋을 총 40번 반복 학습할 때마다 손실값을 출력하도록 한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="n">training_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loss at step </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loss at step 0: 5.6682
-Loss at step 1: 0.8087
-Loss at step 2: 0.2467
-Loss at step 3: 0.1531
-Loss at step 4: 0.1309
-Loss at step 5: 0.1202
-Loss at step 6: 0.1118
-Loss at step 7: 0.1043
-Loss at step 8: 0.0976
-Loss at step 9: 0.0914
-Loss at step 10: 0.0857
-Loss at step 11: 0.0805
-Loss at step 12: 0.0758
-Loss at step 13: 0.0714
-Loss at step 14: 0.0674
-Loss at step 15: 0.0638
-Loss at step 16: 0.0605
-Loss at step 17: 0.0575
-Loss at step 18: 0.0547
-Loss at step 19: 0.0521
-Loss at step 20: 0.0498
-Loss at step 21: 0.0477
-Loss at step 22: 0.0457
-Loss at step 23: 0.0440
-Loss at step 24: 0.0423
-Loss at step 25: 0.0409
-Loss at step 26: 0.0395
-Loss at step 27: 0.0382
-Loss at step 28: 0.0371
-Loss at step 29: 0.0361
-Loss at step 30: 0.0351
-Loss at step 31: 0.0342
-Loss at step 32: 0.0334
-Loss at step 33: 0.0327
-Loss at step 34: 0.0321
-Loss at step 35: 0.0314
-Loss at step 36: 0.0309
-Loss at step 37: 0.0304
-Loss at step 38: 0.0299
-Loss at step 39: 0.0295
-</pre></div>
-</div>
-</div>
-</div>
-<p>훈련상태를 보면 여전히 개선의 여지가 보인다. 따라서 학습을 좀 더 시켜본다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="n">training_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loss at step </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loss at step 0: 0.0291
-Loss at step 10: 0.0266
-Loss at step 20: 0.0256
-Loss at step 30: 0.0252
-Loss at step 40: 0.0250
-Loss at step 50: 0.0250
-Loss at step 60: 0.0249
-Loss at step 70: 0.0249
-Loss at step 80: 0.0249
-Loss at step 90: 0.0249
-</pre></div>
-</div>
-</div>
-</div>
-<p><em>예측</em></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>예측 결과를 확인하면 다음과 같다.
-예측값이 0.5보다 클 때 양성으로 판정하는 것이 좋은데
+<p><strong>결정경계 예측</strong></p>
+<p>모델의 예측값이 0.5보다 클 때 양성으로 판정하는 것이 좋은데
 이유는 샘플들의 레이블이 0 또는 1이기 때문이다.
 모델은 훈련과정 중에 음성 샘플은 최대한 0에,
-양성 샘플은 최대한 1에 가까운 값으로 예측하여 손실값이 줄도록
-노력하며, 옵티마이저가 그렇게 유도한다.
-따라서 0과 1의 중간값인 0.5가 판단 기준으로 적절하다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">inputs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">predictions</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/keras_and_tf_49_0.png" src="_images/keras_and_tf_49_0.png" />
-</div>
-</div>
-<p>결정 경계를 직선으로 그리려면 아래 식을 이용한다.</p>
+양성 샘플은 최대한 1에 가까운 값으로 예측하여 손실값을 최대한 줄여야 하는데
+옵티마이저가 그렇게 유도한다.
+따라서 예측값이 0과 1의 중간값인 0.5일 때를 결정경계로 사용한다.</p>
+<p>결정경계를 직선으로 그리려면 아래 식을 이용한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span> <span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span>  <span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -883,28 +779,13 @@ Loss at step 90: 0.0249
 </pre></div>
 </div>
 <p>위 예측값이 0.5보다 큰지 여부에 따라 음성, 양성이 판단되기 때문이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="o">-</span> <span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span>  <span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s2">&quot;-r&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">inputs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">predictions</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x230b19b7070&gt;
-</pre></div>
-</div>
-<img alt="_images/keras_and_tf_51_1.png" src="_images/keras_and_tf_51_1.png" />
-</div>
-</div>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_3-8.png" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
 </div>
 <div class="section" id="api">
 <h2><span class="section-number">3.6. </span>3.6 케스의 핵심 API  이해<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id7">
-<h3><span class="section-number">3.6.1. </span>신경망 모델 훈련 핵심 2<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3><span class="section-number">3.6.1. </span>신경망 모델 훈련 핵심 2<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>층(layer)과 모델: 층을 적절하게 쌓아 모델 구성</p></li>
 <li><p>손실 함수(loss function): 학습 방향을 유도하는 피드백 역할 수행</p></li>
@@ -920,8 +801,8 @@ Loss at step 90: 0.0249
 <li><p>데이터 표현 변환(forwardd pass)</p></li>
 <li><p>케라스 활용 딥러닝 모델: 호환 가능한 층들의 적절한 연결</p></li>
 </ul>
-<div class="section" id="id8">
-<h4><span class="section-number">3.6.2.1. </span>층의 종류와 처리 가능 텐서<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id11">
+<h4><span class="section-number">3.6.2.1. </span>층의 종류와 처리 가능 텐서<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 클래스를 사용하는 밀집층(dense layer):
 <code class="docutils literal notranslate"><span class="pre">(샘플수,</span> <span class="pre">특성수)</span></code> 모양의 2D 텐서로 제공된 데이터셋</p></li>
@@ -968,8 +849,8 @@ Loss at step 90: 0.0249
 </ul>
 </div>
 </div>
-<div class="section" id="id9">
-<h3><span class="section-number">3.6.3. </span>층에서 모델로<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h3><span class="section-number">3.6.3. </span>층에서 모델로<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>입렵값을 보고 바로 입력값의 모양 확인</p></li>
 <li><p>MNIST 모델 사용된 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 클래스처럼 입력 데이터에 정보 미리 요구하지 않음</p></li>
@@ -983,8 +864,8 @@ Loss at step 90: 0.0249
 <span class="p">])</span>
 </pre></div>
 </div>
-<div class="section" id="id10">
-<h4><span class="section-number">3.6.3.1. </span>딥러닝 모델<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id13">
+<h4><span class="section-number">3.6.3.1. </span>딥러닝 모델<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>층으로 구성된 그래프</p></li>
 <li><p>예제: <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델</p>
@@ -997,8 +878,8 @@ Loss at step 90: 0.0249
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/transformer0001.png" style="width:400px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
-<div class="section" id="id11">
-<h4><span class="section-number">3.6.3.2. </span>망 구성방식과 가설 공간<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id14">
+<h4><span class="section-number">3.6.3.2. </span>망 구성방식과 가설 공간<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>모델의 학습과정은 층을 어떻게 구성하였는가에 전적으로 의존함.</p></li>
 <li><p>여러 개의 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층을 이용한 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델</p>
@@ -1019,8 +900,8 @@ Loss at step 90: 0.0249
 </ul>
 </div>
 </div>
-<div class="section" id="id12">
-<h3><span class="section-number">3.6.4. </span>모델 컴파일<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id15">
+<h3><span class="section-number">3.6.4. </span>모델 컴파일<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>모델의 구조를 정의한 후에 아래 세 가지 설정을 추가로 지정해야 함.</p>
 <ul class="simple">
 <li><p>옵티마이저(optimizer): 모델의 성능을 향상시키는 방향으로 가중치를 업데이트하는 알고리즘</p></li>
@@ -1040,8 +921,8 @@ Loss at step 90: 0.0249
 </ul>
 <p>아래 코드는 앞서 넘파이 어레이로 생성한 (2000, 2) 모양의 양성, 음성 데이터셋을 대상으로 훈련한다.</p>
 </div>
-<div class="section" id="id13">
-<h3><span class="section-number">3.6.6. </span>검증 세트 활용<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id16">
+<h3><span class="section-number">3.6.6. </span>검증 세트 활용<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <p>훈련된 모델이 완전히 새로운 데이터에 대해 예측을 잘하는지 여부를 판단하려면
 전체 데이터셋을 훈련 세트와 <strong>검증 세트</strong>로 구분해야 함.</p>
 <ul class="simple">
