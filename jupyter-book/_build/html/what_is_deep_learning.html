@@ -38,20 +38,22 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="2. 신경망 구성 요소" href="building_blocks_of_NN.html" />
@@ -635,7 +637,9 @@ top-1 정확도는 가장 높은 확률을 갖는 범주가 정답일 확율을 
 정답이 아닐 확률을 계산하면 top-5 오류율 또는 top-1 오류율이 계산된다.</p>
 <p>top-1이 아닌 top-5를 모델 성능의 평가 기준으로 사용하는 이유는 경우에 따라
 매우 유사한 범주가 많아 인간조차도 정확히 분류하기 어려울 수 있다는 점을 고려했기 때문이다.
-예를 들어, 고양이와 삵, 개와 늑대 등은 이미지로 쉽게 분류하기 어렵다.</p>
+예를 들어, 고양이와 삵, 개와 늑대 등은 이미지로 쉽게 분류하기 어려운데
+이런 경우 레이블 자체가 틀릴 수도 있다.
+실제로 ILSVRC 경진대회에 사용된 데이터셋에 사용된 레이블의 5% 정도는 잘못 지정됐다.</p>
 </div>
 <p>2015년 이후로 많은 영역에서 SVM, 결정트리 등 전통적인 머신러닝 모델이
 딥러닝 모델로 대체되기 시작했다.
