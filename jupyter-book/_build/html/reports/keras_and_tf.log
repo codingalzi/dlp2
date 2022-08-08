@@ -17,26 +17,18 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-num_samples_per_class = 1000
-
-# 음성 데이터셋
-negative_samples = np.random.multivariate_normal(
-    mean=[0, 3], cov=[[1, 0.5],[0.5, 1]], size=num_samples_per_class)
-
-# 양성 데이터셋
-positive_samples = np.random.multivariate_normal(
-    mean=[3, 0], cov=[[1, 0.5],[0.5, 1]], size=num_samples_per_class)
+model.compile(optimizer=keras.optimizers.RMSprop(),
+              loss=keras.losses.MeanSquaredError(),
+              metrics=[keras.metrics.BinaryAccuracy()])
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipykernel_207/1293141962.py[0m in [0;36m<module>[0;34m[0m
-[1;32m      2[0m [0;34m[0m[0m
-[1;32m      3[0m [0;31m# 음성 데이터셋[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 4[0;31m negative_samples = np.random.multivariate_normal(
-[0m[1;32m      5[0m     mean=[0, 3], cov=[[1, 0.5],[0.5, 1]], size=num_samples_per_class)
-[1;32m      6[0m [0;34m[0m[0m
+[0;32m/tmp/ipykernel_454/4188964706.py[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m model.compile(optimizer=keras.optimizers.RMSprop(),
+[0m[1;32m      2[0m               [0mloss[0m[0;34m=[0m[0mkeras[0m[0;34m.[0m[0mlosses[0m[0;34m.[0m[0mMeanSquaredError[0m[0;34m([0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m               metrics=[keras.metrics.BinaryAccuracy()])
 
-[0;31mNameError[0m: name 'np' is not defined
-NameError: name 'np' is not defined
+[0;31mNameError[0m: name 'model' is not defined
+NameError: name 'model' is not defined
 
