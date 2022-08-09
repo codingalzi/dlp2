@@ -454,34 +454,21 @@
 # 딥러닝 모델은 층으로 구성된다.
 # 앞서 살펴 본 `Sequential` 모델은 층을 일렬로 쌓은 모델이며
 # 각각의 층은 아래 층에서 전달한 값을 받아 변환해서 다음 층으로 전달한다.
-
-# :::{prf:example} Sequential 모델
-# :label: exp-layertomodel
 # 
-# 아래 모델은 입력값이 들어오면 첫째층은 32개의 특성으로 이루어진 텐서로,
-# 그 다음층은 64개의 특성으로 이루어진 텐서로,
-# 그 다음층은 다시 32개의 특성으로 이루어진 텐서로,
-# 마지막 층은 10개의 특성으로 이루어진 텐서로 변환해서
-# 최종적으로 10개의 클래스에 속할 확률을 계산한다.
-# 
-# ```python
-# model = keras.Sequential([
-#     SimpleDense(32, activation="relu"),
-#     SimpleDense(64, activation="relu"),
-#     SimpleDense(32, activation="relu"),
-#     SimpleDense(10, activation="softmax")
-# ])
-# ```
-# :::
-
-# 앞으로 층을 구성하는 다양한 방식을 살펴볼 것이다.
-# 예를 들어, 아래 그림은 나중에 살펴 볼 
+# 앞으로 층을 구성하는 보다 복잡하고 다양한 방식을 살펴볼 것이다.
+# 예를 들어, 아래 예제는 텍스트 번역에 사용되는
 # 트랜스포머<font size='2'>Transformer</font> 모델에
 # 사용된 층들의 복잡한 구조를 보여준다.
 
+# :::{prf:example} 트랜스포머
+# :label: exp-transformer
+# 
+# {numref}`%s장 자연어 처리 <ch:nlp>`에서 다룰 `TransformerDecoder`의 구조는 다음과 같다.
+# 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/transformer0001.png" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+# :::
 
 # **층의 구성과 모델의 학습과정**
 
@@ -494,14 +481,15 @@
 # 
 # 반면에 여러 개의 층을 다른 방식으로 구성한 모델은 다른 방식으로 텐서를
 # 하나의 표현에서 다른 표현으로 변환한다.
-# 이렇듯 층을 구성하는 방식에 따라 텐서들의 변환 방식이 정해진다.
+# 예를 들어 {prf:ref}`exp-transformer`의 `TransformerDecoder`는
+# 텍스트 번역에 특화된 층의 구성방식을 보여준다.
 # 
-# 딥러닝 신경망의 구성은 주어진 데이터셋과 모델의 목적에 따라 결정되며
+# 일반적으로 딥러닝 신경망의 구성은 주어진 데이터셋과 모델의 목적에 따라 결정되며
 # 특별히 따라야 하는 정해진 규칙은 없다.
 # 따라서 모델의 구조는 이론 보다는 많은 실습을 통한 경험에 의존한다.
 # 앞으로 많은 예제를 통해 다양한 모델을 구성하는 방식을 배울 것이다.
 
-# ### 모델 컴파일
+# **모델 컴파일**
 
 # 모델의 훈련을 위해서 먼저 다음 세 가지 설정을 추가로 지정해야 한다.
 # 
@@ -514,39 +502,114 @@
 #     옵티마이저와 손실함수와는 달리 훈련에 관여하지 않으면서
 #     모델 성능 평가에 사용됨.
 
-# :::{prf:example}
-# :label: exc-compile
-# 
-# 아래 코드는 ...
+# 아래 코드는 옵티마이저, 손실 함수, 평가지표를 문자열로 지정한다.
 # 
 # ```python
+# model = keras.Sequential([keras.layers.Dense(1)])
 # model.compile(optimizer="rmsprop",
 #               loss="mean_squared_error",
 #               metrics=["accuracy"])
 # ```
-# :::
-
-# 세 가지 설정에 사용된 문자열은 지정된 함수를 가리키도록 준비되어 있다.
-# 예를 들어 아래 코드는 앞서의 컴파일과 동일한
-# 결과가 나오도록 옵티마이저, 손실함수, 평가지표에 필요한 객체들을 직접 지정하였다.
-
+# 
+# 각각의 문자열은 특정 파이썬 객체를 가리킨다.
+# 
+# | 문자열 | 파이썬 객체 |
+# | :--- | :--- |
+# | `"rmsprop"` | `keras.optimizers.RMSprop()` |
+# | `"mean_squared_error"` | `keras.losses.MeanSquaredError()` |
+# | `"accuracy"` | `keras.metrics.BinaryAccuracy()]` |
+# 
+# 따라서 지정된 문자열을 사용하는 대신 파이썬 객체를 직접 작성해도 된다.
+# 
 # ```python
 # model.compile(optimizer=keras.optimizers.RMSprop(),
 #               loss=keras.losses.MeanSquaredError(),
 #               metrics=[keras.metrics.BinaryAccuracy()])
 # ```
+# 
+# 옵티마이저 설정에 기본값과 다른 학습률(`learning_rate`)을 지정하는 경우 또는
+# 사용자가 직접 정의한 객체를 사용하려는 경우엔 문자열 대신 직접 파이썬 객체를 지정하는 
+# 방식을 사용해야 한다.
+# 
+# ```python
+# model.compile(optimizer=keras.optimizers.RMSprop(learning_rate=1e-4),
+#               loss=사용자정의손실함수객체,
+#               metrics=[사용자정의평가지표_1, 사용자정의평가지표_2])
+# ```
 
+# 일반적으로 가장 많이 사용되는 옵티마이저, 손실함수, 평가지표는 다음과 같으며
 # 앞으로 다양한 예제를 통해 옵티마이저, 손실함수, 평가지표를 적절하게 선택하는 방법을 살펴볼 것이다.
+# 
+# 옵티마이저:
+# 
+# - SGD (with or without momentum)
+# - RMSprop
+# - Adam
+# - Adagrad
+# 
+# 손실 함수:
+# 
+# - CategoricalCrossentropy
+# - SparseCategoricalCrossentropy
+# - BinaryCrossentropy
+# - MeanSquaredError
+# - KLDivergence
+# - CosineSimilarity
+# 
+# 평가지표:
+# 
+# - CategoricalAccuracy
+# - SparseCategoricalAccuracy
+# - BinaryAccuracy
+# - AUC
+# - Precision
+# - Recall
 
-# **`fit()` 메서드 작동법**
+# ### 훈련 루프
 
-# 모델을 훈련시키려면 `fit()` 메서드를 적절한 인자들과 함께 호출해야 함.
+# 모델을 컴파일한 다음에 `fit()` 메서드를 호출하면
+# 모델은 스텝과 에포크 단위로 반복되는 훈련 루프를
+# 지정된 횟수만큼 또는 학습이 충분히 이루어졌다는 평가가 내려질 때까지
+# 반복하는 훈련을 시작한다.
+
+# **모델 훈련**
+
+# 모델을 훈련시키려면 `fit()` 메서드를 적절한 인자들과 함께 호출해야 한다.
 # 
 # - 훈련 세트: 보통 넘파이 어레이 또는 텐서플로우의 `Dataset` 객체 사용
 # - 에포크(`epochs`): 전체 훈련 세트를 몇 번 훈련할 지 지정
 # - 배치 크기(`batch_size`): 배치 경사하강법에 적용될 배치(묶음) 크기 지정
 # 
 # 아래 코드는 앞서 넘파이 어레이로 생성한 (2000, 2) 모양의 양성, 음성 데이터셋을 대상으로 훈련한다. 
+# 
+# ```python
+# history = model.fit(
+#     inputs,
+#     targets,
+#     epochs=5,
+#     batch_size=128
+# )
+# ```
+
+# **`fit()` 메서드의 반환값**
+
+# 모델의 훈련 결과로 `History` 객체가 반환된다.
+# 예를 들어 `History` 객체의 `history` 속성은 에포크별로 계산된 손실값과 평가지표값을
+# 사전 자료형으로 가리킨다.
+
+# ```python
+# >>> history.history
+# {'loss': [9.07500171661377,
+#   8.722702980041504,
+#   8.423994064331055,
+#   8.137178421020508,
+#   7.8575215339660645],
+#  'binary_accuracy': [0.07800000160932541,
+#   0.07999999821186066,
+#   0.08049999922513962,
+#   0.08449999988079071,
+#   0.0860000029206276]}
+# ```
 
 # **검증 세트 활용**
 

@@ -10,3 +10,4 @@ chapters:
 - file: what_is_deep_learning
 - file: building_blocks_of_NN
 - file: keras_and_tf
+- file: nlp
