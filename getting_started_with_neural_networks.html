@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="5. 5장 머신러닝 핵심 이슈" href="fundamentals_of_ml.html" />
+    <link rel="next" title="5. 머신러닝 핵심 이슈" href="fundamentals_of_ml.html" />
     <link rel="prev" title="3. 케라스와 텐서플로우" href="keras_and_tf.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -110,12 +110,22 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="fundamentals_of_ml.html">
-   5. 5장 머신러닝 핵심 이슈
+   5. 머신러닝 핵심 이슈
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="unversal_workflow_of_ml.html">
+   6. 머신러닝 작업 흐름 일반
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="working_with_keras.html">
+   7. 케라스 모델 활용법
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="nlp.html">
-   6. 자연어 처리
+   8. 자연어 처리
   </a>
  </li>
 </ul>
@@ -790,111 +800,28 @@ const thebe_selector_output = ".output, .cell_output"
 <p><strong><code class="docutils literal notranslate"><span class="pre">History</span></code> 객체 활용</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드가 반환하는 객체는 <code class="docutils literal notranslate"><span class="pre">Callback</span></code> 클래스를 상속하는
 <code class="docutils literal notranslate"><span class="pre">History</span></code> 클래스의 인스턴이며, 케라스의 모든 모델 훈련과정 중에 발생하는
-다양한 정보를 저장한다.</p>
-<p><strong>참고</strong>: 콜백(<code class="docutils literal notranslate"><span class="pre">Callback</span></code>) 클래스에 대해서는 나중에 자세히 살펴볼 예정이다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">params</span></code> 속성: 모델 훈련에 사용된 파라미터 저장</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">history</span><span class="o">.</span><span class="n">params</span>
+다양한 정보를 저장한다.
+콜백(<code class="docutils literal notranslate"><span class="pre">Callback</span></code>) 클래스에 대해서는 <a class="reference internal" href="working_with_keras.html#ch-working-with-keras"><span class="std std-numref">7장</span></a>에서 자세히 살펴본다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">History</span></code> 객체의 속성 중에서 <code class="docutils literal notranslate"><span class="pre">history</span></code> 속성이 가장 많이 활용된다.
+<code class="docutils literal notranslate"><span class="pre">history</span></code> 속성은 훈련 에포크 단위로 측정된 손실값과 평가지표를 사전 자료형으로 가리킨다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">history_dict</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">history_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">dict_keys([&#39;loss&#39;, &#39;accuracy&#39;, &#39;val_loss&#39;, &#39;val_accuracy&#39;])</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_517</span><span class="o">/</span><span class="mf">3133350210.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">history</span><span class="o">.</span><span class="n">params</span>
-
-<span class="ne">NameError</span>: name &#39;history&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">history</span></code> 속성: 평가지표를 사전 자료형으로 저장</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">history_dict</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span>
-
-<span class="n">history_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;loss&#39;, &#39;accuracy&#39;, &#39;val_loss&#39;, &#39;val_accuracy&#39;])
-</pre></div>
-</div>
-</div>
 </div>
 <p>예를 들어, <code class="docutils literal notranslate"><span class="pre">history</span></code> 속성에 저장된 정보를 이용하여
-훈련셋와 검증 세트에 대한 에포크별 손실값과 정확도의 변화를 그래프로 그릴 수 있다.</p>
-<ul class="simple">
-<li><p>훈련셋와 검증 세트에 대한 에포크별 손실값의 변화</p>
-<ul>
-<li><p>훈련셋: 손실값 계속 감소</p></li>
-<li><p>검증 세트: 다섯째 에포크 전후 정체 및 상승. 과대적합(overfitting) 발생.</p></li>
-</ul>
-</li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">history_dict</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span>
-<span class="n">loss_values</span> <span class="o">=</span> <span class="n">history_dict</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span>
-<span class="n">val_loss_values</span> <span class="o">=</span> <span class="n">history_dict</span><span class="p">[</span><span class="s2">&quot;val_loss&quot;</span><span class="p">]</span>
-
-<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">loss_values</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">loss_values</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training loss&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_loss_values</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation loss&quot;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Training and validation loss&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_42_0.png" src="_images/getting_started_with_neural_networks_42_0.png" />
-</div>
-</div>
-<ul class="simple">
-<li><p>훈련셋와 검증 세트에 대한 에포크별 정확도의 변화</p>
-<ul>
-<li><p>훈련셋: 정확도 계속 증가</p></li>
-<li><p>검증 세트: 다섯째 에포크 전후 정체 및 감소. 과대적합(overfitting) 발생.</p></li>
-</ul>
-</li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>    <span class="c1"># 이전 이미지 삭제</span>
-
-<span class="n">acc</span> <span class="o">=</span> <span class="n">history_dict</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]</span>
-<span class="n">val_acc</span> <span class="o">=</span> <span class="n">history_dict</span><span class="p">[</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training acc&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_acc</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation acc&quot;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Training and validation accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_44_0.png" src="_images/getting_started_with_neural_networks_44_0.png" />
-</div>
-</div>
-<p><strong>과대적합</strong></p>
+훈련셋과 검증셋에 대한 에포크별 손실값과 정확도의 변화를 그래프로 그릴 수 있다.</p>
+<p>훈련셋와 검증 세트에 대한 에포크별 손실값의 변화를 보면
+훈련셋에 대해서는 손실값 계속 감소하지만
+검증셋에 대해서는 다섯 번째 에포크 전후 정체하다가 상승한다.
+즉, 모델이 훈련셋에 과대적합<font size='2'>overfitting</font>하게 된다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-06.png" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>훈련셋과 검증셋에 대한 에포크별 정확도의 경우엔
+훈련셋에 대해서는 정확도 계속 증가한다.
+반면에 검증셋에 대해서는 역시 다섯째 에포크 전후 정체한 후 감소한다.
+이또한 과대적합의 증거다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-07.png" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>과대적합</strong></p>
 <p><strong>과대적합</strong>(overfitting)은 모델이 훈련셋에 익숙해진다는 의미이다.
 시험에 비유하면 연습문제의 답을 외워버리는 것을 의미한다.
 과대적합을 방지하기 위한 다양한 기법은 다음 장(chapter)에서 다룬다.
@@ -915,17 +842,16 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/4
-49/49 [==============================] - 1s 8ms/step - loss: 0.4426 - accuracy: 0.8233
-Epoch 2/4
-49/49 [==============================] - 0s 8ms/step - loss: 0.2526 - accuracy: 0.9104
-Epoch 3/4
-49/49 [==============================] - 0s 9ms/step - loss: 0.1966 - accuracy: 0.9282
-Epoch 4/4
-49/49 [==============================] - 0s 8ms/step - loss: 0.1641 - accuracy: 0.9397
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;keras.callbacks.History at 0x2cf3cb63ac0&gt;
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_846</span><span class="o">/</span><span class="mf">1979268009.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="p">])</span>
+
+<span class="ne">NameError</span>: name &#39;keras&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1535,7 +1461,7 @@ Epoch 20/20
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_106_0.png" src="_images/getting_started_with_neural_networks_106_0.png" />
+<img alt="_images/getting_started_with_neural_networks_104_0.png" src="_images/getting_started_with_neural_networks_104_0.png" />
 </div>
 </div>
 <p><strong>정확도의 변화</strong></p>
@@ -1563,7 +1489,7 @@ Epoch 20/20
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_109_0.png" src="_images/getting_started_with_neural_networks_109_0.png" />
+<img alt="_images/getting_started_with_neural_networks_107_0.png" src="_images/getting_started_with_neural_networks_107_0.png" />
 </div>
 </div>
 <p><strong>모델 재훈련</strong></p>
@@ -2217,7 +2143,7 @@ Epoch 20/20
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_160_0.png" src="_images/getting_started_with_neural_networks_160_0.png" />
+<img alt="_images/getting_started_with_neural_networks_158_0.png" src="_images/getting_started_with_neural_networks_158_0.png" />
 </div>
 </div>
 <p>첫 10개의 에포크의 성능이 매우 나쁘기에 그 부분을 제외하고 그래프를 그리면 보다 정확하게
@@ -2234,7 +2160,7 @@ Epoch 20/20
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_162_0.png" src="_images/getting_started_with_neural_networks_162_0.png" />
+<img alt="_images/getting_started_with_neural_networks_160_0.png" src="_images/getting_started_with_neural_networks_160_0.png" />
 </div>
 </div>
 <p><strong>재훈련</strong></p>
@@ -2378,7 +2304,7 @@ Epoch 20/20
     <a class='right-next' id="next-link" href="fundamentals_of_ml.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>5장 머신러닝 핵심 이슈</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>머신러닝 핵심 이슈</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
