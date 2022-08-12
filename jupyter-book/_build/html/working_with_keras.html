@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>&lt;no title&gt; &#8212; Deep Learning with Python(2판)</title>
+    <title>7. 케라스 모델 활용법 &#8212; Deep Learning with Python(2판)</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -54,7 +54,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. 딥러닝 소개" href="what_is_deep_learning.html" />
+    <link rel="next" title="8. 자연어 처리" href="nlp.html" />
+    <link rel="prev" title="6. 머신러닝 작업 흐름 일반" href="unversal_workflow_of_ml.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -86,7 +87,7 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="what_is_deep_learning.html">
    1. 딥러닝 소개
@@ -117,8 +118,8 @@ const thebe_selector_output = ".output, .cell_output"
    6. 머신러닝 작업 흐름 일반
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="working_with_keras.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    7. 케라스 모델 활용법
   </a>
  </li>
@@ -168,7 +169,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/intro.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/working_with_keras.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -188,7 +189,7 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fworking_with_keras.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -209,7 +210,7 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/intro.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/working_with_keras.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -233,7 +234,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1><no title></h1>
+                <h1>케라스 모델 활용법</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -244,36 +245,9 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <p><strong>소개</strong></p>
-<p>머신러닝/딥러닝 기술이 획기적으로 발전하면서 데이터 분석 및 인공지능 관련 연구의
-중요성이 자율주행, 의료영상, 농업, 교육, 재난 예방, 제조업 등
-사회, 경제, 산업의 거의 모든 분야에 지대한 영향을 미치고 있다.
-이런 경향이 앞으로 더욱 강화될 것으로 기대되며 약간의 코딩 지식을 가진
-어느 누구나 데이터로부터 학습하는 스마트 앱을 개발 할 수 있을 정도로
-딥러닝 기술이 누구나 쉽게 활용할 수 있을 정도로 대중화될 것이다.</p>
-<p>여기서는 딥러닝의 기본 개념과 함께 다양한 딥러닝 기법을 최대한 직관적으로 전달하는 일에
-집중하며, 이를 위해 다양한 예제와 적절한 코드를 이용한다.
-예제에 사용되는 코드는 텐서플로우<font size='2'>TensorFlow</font> 2와
-케라스<font size='2'>Keras</font>를 파이썬 딥러닝 프레임워크로 사용한다.</p>
-<p><strong>주요 내용</strong></p>
-<p>여기서 소개하는 내용은 프랑소와 숄레의
-<a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>의
-<a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">주피터 노트북</a> 내용을
-기본 참고서로 사용하며 아래 내용을 전달한다.</p>
-<ul class="simple">
-<li><p>딥러닝 개념</p></li>
-<li><p>딥러닝 활용</p>
-<ul>
-<li><p>컴퓨터비전: 이미지 분석 및 분할</p></li>
-<li><p>자연어처리: 시계열 예측, 텍스트 분류, 자동 번역, 텍스트 생성</p></li>
-</ul>
-</li>
-</ul>
-<p><strong>전제 사항</strong></p>
-<p>코드 이해를 위해 파이썬 프로그래밍과 넘파이<font size='2'>NumPy</font>에 대한
-기초 이상의 지식이 요구된다.<div class="toctree-wrapper compound">
+  <div class="tex2jax_ignore mathjax_ignore section" id="ch-working-with-keras">
+<span id="id1"></span><h1><span class="section-number">7. </span>케라스 모델 활용법<a class="headerlink" href="#ch-working-with-keras" title="Permalink to this headline">¶</a></h1>
 </div>
-</p>
 
     <script type="text/x-thebe-config">
     {
@@ -299,11 +273,18 @@ const thebe_selector_output = ".output, .cell_output"
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="what_is_deep_learning.html" title="next page">
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="unversal_workflow_of_ml.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">6. </span>머신러닝 작업 흐름 일반</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="nlp.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>딥러닝 소개</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>자연어 처리</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

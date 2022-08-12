@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # (ch:fundamentals_of_ml)=
-# # 5장 머신러닝 핵심 이슈
+# # 머신러닝 핵심 이슈
 
 # **감사말**: 프랑소와 숄레의 [Deep Learning with Python, Second Edition](https://www.manning.com/books/deep-learning-with-python-second-edition?a_aid=keras&a_bid=76564dff) 5장에 사용된 코드에 대한 설명을 담고 있으며 텐서플로우 2.6 버전에서 작성되었습니다. 소스코드를 공개한 저자에게 감사드립니다.
 # 

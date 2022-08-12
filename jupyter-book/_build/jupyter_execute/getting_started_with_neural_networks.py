@@ -320,76 +320,37 @@
 # `fit()` 메서드가 반환하는 객체는 `Callback` 클래스를 상속하는
 # `History` 클래스의 인스턴이며, 케라스의 모든 모델 훈련과정 중에 발생하는 
 # 다양한 정보를 저장한다.
+# 콜백(`Callback`) 클래스에 대해서는 {numref}`%s장 <ch:working_with_keras>`에서 자세히 살펴본다.
+
+# `History` 객체의 속성 중에서 `history` 속성이 가장 많이 활용된다.
+# `history` 속성은 훈련 에포크 단위로 측정된 손실값과 평가지표를 사전 자료형으로 가리킨다.
 # 
-# **참고**: 콜백(`Callback`) 클래스에 대해서는 나중에 자세히 살펴볼 예정이다.
-
-# - `params` 속성: 모델 훈련에 사용된 파라미터 저장
-
-# In[1]:
-
-
-history.params
-
-
-# - `history` 속성: 평가지표를 사전 자료형으로 저장
-
-# In[25]:
-
-
-history_dict = history.history
-
-history_dict.keys()
-
+# ```python
+# >>> history_dict = history.history
+# >>> history_dict.keys()
+# dict_keys(['loss', 'accuracy', 'val_loss', 'val_accuracy'])
+# ```
 
 # 예를 들어, `history` 속성에 저장된 정보를 이용하여 
-# 훈련셋와 검증 세트에 대한 에포크별 손실값과 정확도의 변화를 그래프로 그릴 수 있다.
+# 훈련셋과 검증셋에 대한 에포크별 손실값과 정확도의 변화를 그래프로 그릴 수 있다.
+
+# 훈련셋와 검증 세트에 대한 에포크별 손실값의 변화를 보면
+# 훈련셋에 대해서는 손실값 계속 감소하지만 
+# 검증셋에 대해서는 다섯 번째 에포크 전후 정체하다가 상승한다.
+# 즉, 모델이 훈련셋에 과대적합<font size='2'>overfitting</font>하게 된다.
+
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-06.png" style="width:500px;"></div>
 # 
-# * 훈련셋와 검증 세트에 대한 에포크별 손실값의 변화
-#     - 훈련셋: 손실값 계속 감소
-#     - 검증 세트: 다섯째 에포크 전후 정체 및 상승. 과대적합(overfitting) 발생.
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# In[26]:
+# 훈련셋과 검증셋에 대한 에포크별 정확도의 경우엔
+# 훈련셋에 대해서는 정확도 계속 증가한다.
+# 반면에 검증셋에 대해서는 역시 다섯째 에포크 전후 정체한 후 감소한다.
+# 이또한 과대적합의 증거다.
 
-
-import matplotlib.pyplot as plt
-
-history_dict = history.history
-loss_values = history_dict["loss"]
-val_loss_values = history_dict["val_loss"]
-
-epochs = range(1, len(loss_values) + 1)
-
-plt.plot(epochs, loss_values, "bo", label="Training loss")
-plt.plot(epochs, val_loss_values, "b", label="Validation loss")
-
-plt.title("Training and validation loss")
-plt.xlabel("Epochs")
-plt.ylabel("Loss")
-plt.legend()
-plt.show()
-
-
-# * 훈련셋와 검증 세트에 대한 에포크별 정확도의 변화
-#     - 훈련셋: 정확도 계속 증가
-#     - 검증 세트: 다섯째 에포크 전후 정체 및 감소. 과대적합(overfitting) 발생.
-
-# In[27]:
-
-
-plt.clf()    # 이전 이미지 삭제
-
-acc = history_dict["accuracy"]
-val_acc = history_dict["val_accuracy"]
-
-plt.plot(epochs, acc, "bo", label="Training acc")
-plt.plot(epochs, val_acc, "b", label="Validation acc")
-
-plt.title("Training and validation accuracy")
-plt.xlabel("Epochs")
-plt.ylabel("Accuracy")
-plt.legend()
-plt.show()
-
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-07.png" style="width:500px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # **과대적합**
 # 
@@ -399,7 +360,7 @@ plt.show()
 # 위 문제의 경우 넷째 또는 다섯째 에포크 정도만 훈련 반복을 진행하면 된다.
 # 아래 코드는 다시 처음부터 네 번의 에포크만을 사용하여 훈련한 결과를 보여준다.
 
-# In[28]:
+# In[1]:
 
 
 model = keras.Sequential([
