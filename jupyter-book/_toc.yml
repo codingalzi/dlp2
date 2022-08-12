@@ -10,5 +10,6 @@ chapters:
 - file: what_is_deep_learning
 - file: building_blocks_of_NN
 - file: keras_and_tf
-- file: classification_and_regression
+- file: getting_started_with_neural_networks
+- file: fundamentals_of_ml
 - file: nlp

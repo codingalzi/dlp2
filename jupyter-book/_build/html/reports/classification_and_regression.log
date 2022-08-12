@@ -17,14 +17,25 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-len(train_data[0])
+from tensorflow import keras
+from tensorflow.keras import layers
+
+model = keras.Sequential([
+    layers.Dense(16, activation="relu"),
+    layers.Dense(16, activation="relu"),
+    layers.Dense(1, activation="sigmoid")
+])
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipykernel_382/2919771194.py[0m in [0;36m<module>[0;34m[0m
-[0;32m----> 1[0;31m [0mlen[0m[0;34m([0m[0mtrain_data[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m
-[0;31mNameError[0m: name 'train_data' is not defined
-NameError: name 'train_data' is not defined
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+[0;32m/tmp/ipykernel_184/1420667561.py[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0;32mfrom[0m [0mtensorflow[0m [0;32mimport[0m [0mkeras[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      2[0m [0;32mfrom[0m [0mtensorflow[0m[0;34m.[0m[0mkeras[0m [0;32mimport[0m [0mlayers[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m [0;34m[0m[0m
+[1;32m      4[0m model = keras.Sequential([
+[1;32m      5[0m     [0mlayers[0m[0;34m.[0m[0mDense[0m[0;34m([0m[0;36m16[0m[0;34m,[0m [0mactivation[0m[0;34m=[0m[0;34m"relu"[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mModuleNotFoundError[0m: No module named 'tensorflow'
+ModuleNotFoundError: No module named 'tensorflow'
 

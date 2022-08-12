@@ -22,7 +22,7 @@
 # 간단한 실전 예제을 이용하여 신경망 모델을 
 # 이진 분류, 다중 클래스 분류, 회귀 문제에 적용하는 방법을 소개한다.
 # 
-# - 이진 분류: 영화 리뷰 분류
+# - 이진 분류: 영화 후기 분류
 # - 다중 클래스 분류: 뉴스 기사 분류
 # - 회귀: 주택 가격 예측
 # 
@@ -49,17 +49,15 @@
 # | 벡터 회귀 | vector regression | 샘플 별로 두 개 이상의 실숫값 예측하기. 네모 상자의 좌표 등. |
 # | 미니배치 | mini-batch | 보통 8개에서 128개의 샘플로 구성된 묶음(배치). 훈련 루프의 스텝 지정에 활용됨. |
 
-# ## 영화 리뷰 분류: 이진 분류
+# ## 영화 후기 분류: 이진 분류
 
-# 영화 리뷰가 긍정적인지 부정적인지를 판단하는 이진 분류 모델을 구성한다.
+# 영화 후기가 긍정적인지 부정적인지를 판단하는 이진 분류 모델을 구성한다.
 
 # **IMDB 데이터셋**
 
-# 긍정 리뷰와 부정 리뷰 각각 25,000개씩 총 50,000개의 영화 리뷰 샘플로 구성된 데이터셋이며,
-# [IMDB(Internet Moview Database)](https://www.imdb.com/) 영화 리뷰 사이트에서
+# 긍정 후기와 부정 후기 각각 25,000개씩 총 50,000개의 영화 후기 샘플로 구성된 데이터셋이며,
+# [IMDB(Internet Moview Database)](https://www.imdb.com/) 영화 후기 사이트에서
 # 추출된 데이터로 케라스가 자체적으로 제공한다. 
-
-# **IMDB 데이터셋 불러오기**
 
 # 케라스의 `imdb` 모듈의 `load_data()` 함수로 데이터를 불러온다.
 # 데이터셋이 훈련셋과 테스트셋으로 이미 구분되어 있다.
@@ -70,172 +68,156 @@
 # ```
 # 
 # `num_words=10000` 키워드 인자는
-# 가장 많이 사용되는 10,000개의 단어로만 구성된 리뷰를 불러오도록 지정한다.
+# 가장 많이 사용되는 10,000개의 단어로만 구성된 후기를 불러오도록 지정한다.
 # 10,000개의 단어에 포함되지 않는 단어는 무시한다.
 # 
-# 리뷰 전체에서 원래 총 88,585개의 단어가 최소 한 번 이상 사용되지만 가장 많이 사용되는
+# 후기 전체에서 원래 총 88,585개의 단어가 최소 한 번 이상 사용되지만 가장 많이 사용되는
 # 10,000개 단어 이외는 사용 빈도가 너무 낮아서 클래스 분류에 거의 도움되지 않는다.
 # 따라서 그런 단어들은 무시하는 것이 좋다.
 
 # 샘플들의 크기는 서로 다르다.
 
-# In[1]:
-
-
-len(train_data[0])
-
-
-# In[7]:
-
-
-len(train_data[1])
-
+# ```python
+# >>> len(train_data[0])
+# 218
+# >>> len(train_data[1])
+# 189
+# ```
 
 # 0번 샘플의 처음 10개 값은 다음과 같다.
 
-# In[8]:
-
-
-train_data[0][:10]
-
+# ```python
+# >>> train_data[0][:10]
+# [1, 14, 22, 16, 43, 530, 973, 1622, 1385, 65]
+# ```
 
 # 각 샘플의 레이블은 0(부정) 또는 1(긍정)이다.
 
-# In[9]:
+# ```python
+# >>> train_labels[0]
+# 1
+# >>> test_labels[0]
+# 0
+# ```
 
-
-train_labels[0]
-
-
-# In[10]:
-
-
-test_labels[0]
-
-
-# **리뷰 내용 확인하기**
+# :::{admonition} 영화 후기 내용
+# :class: info
 # 
-# *주의사항: 모델 훈련을 위해 반드시 필요한 사항은 아님!*
-
-# - 정수와 단어 사이의 관계를 담은 사전 객체 가져오기
-
-# In[11]:
-
-
-word_index = imdb.get_word_index()
-
-
+# **모델 훈련을 위해 반드시 필요한 사항은 아니지만**
+# 정수와 단어 사이의 관계를 담은 사전을 이용하여
+# 원하면 후기 내용을 확인할 수 있다.
+# 
+# ```python
+# >>> word_index = imdb.get_word_index()
+# ```
+# 
 # `word_index`에 포함된 10개 항목을 확인하면 다음과 같다.
-
-# In[12]:
-
-
-for item in list(word_index.items())[:10]:
-    print(item)
-
-
-# In[13]:
-
-
-reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
-
-
-# `reverse_word_index`에 포함된 10개 항목을 확인하면 다음과 같다.
-
-# In[14]:
-
-
-for item in list(reverse_word_index.items())[:10]:
-    print(item)
-
-
-# 첫째 리뷰 내용을 아래와 같이 확인할 수 있다.
 # 
-# - 단어 인덱스에서 3을 빼야 함. 
-# - 인덱스 0, 1, 2는 각각 여백, 문장 시작, 불분명을 의미함.
+# ```python
+# >>> list(word_index.items()[:10]
+# ('fawn', 34701)
+# ('tsukino', 52006)
+# ('nunnery', 52007)
+# ('sonja', 16816)
+# ('vani', 63951)
+# ('woods', 1408)
+# ('spiders', 16115)
+# ('hanging', 2345)
+# ('woody', 2289)
+# ('trawling', 52008)
+# ```
+# 
+# 아래 코드는 첫째 후기의 내용을 확인한다.
+# 단어 인덱스에서 3을 빼야 함에 주의하라.
+# 이유는 인덱스 0, 1, 2는 각각 여백, 문장 시작, 불분명을 의미하기 때문이다.
+# 앞서 10,000개의 가장 많이 사용되는 단어만을 대상으로 하였기에
+# 그 이외의 단어는 모두 2로 처리된다.
+# 
+# ```python
+# >>> reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
+# >>> first_review = train_data[0]
+# >>> decoded_review = " ".join([reverse_word_index.get(i-3, "?") for i in first_review])
+# ```
+# 
+# 첫째 후기 내용은 다음과 같다.
+# 
+# ```python
+# >>> decoded_review
+# "? this film was just brilliant casting location scenery story direction everyone's really suited the part they played and you could just imagine being there robert ? is an amazing actor and now the same being director ? father came from the same scottish island as myself so i loved the fact there was a real connection with this film the witty remarks throughout the film were great it was just brilliant so much that i bought the film as soon as it was released for ? and would recommend it to everyone to watch and the fly fishing was amazing really cried at the end it was so sad and you know what they say if you cry at a film it must have been good and this definitely was also ? to the two little boy's that played the ? of norman and paul they were just brilliant children are often left out of the ? list i think because the stars that play them all grown up are such a big profile for the whole film but these children are amazing and should be praised for what they have done don't you think the whole story was so lovely because it was true and was someone's life after all that was shared with us all"
+# ```
+# :::
 
-# In[15]:
-
-
-first_review = train_data[0]
-
-decoded_review = " ".join(
-    [reverse_word_index.get(i-3, "?") for i in first_review])
-
-decoded_review
-
-
-# ### 데이터 전처리: 벡터화
+# **데이터 전처리: 벡터화, 멀티-핫-인코딩**
 
 # 정수들의 리스트, 그것도 길이가 다른 여러 개의 리스트를 신경망의 입력값으로 사용할 수 없다. 
-# 또한 모든 샘플의 길이를 통일시킨다 하더라도 정수들의 리스트를 직접 신경망 모델의 입력값으로 
-# 사용하려면 나중에 다룰 `Embedding` 층(layer)과 같은 전처리 층을 사용해야 한다. 
+# 따라서 각 샘플을 지정된 크기의 1차원 어레이로 변환하는 
+# **벡터화**<font size='2'>vectorization</font>를 먼저 실행해야 한다.
+# 
+# 그런데 서로 길이가 다른 정수들의 리스트의 길이를 통일시킨다 하더라도 
+# 정수들의 리스트를 직접 신경망 모델의 입력값으로 사용하는 일은 가급적 피한다.
 # 여기서는 대신에 **멀티-핫-인코딩**을 이용하여 정수들의 리스트를
 # 0과 1로만 이루어진 일정한 길이의 벡터(1차원 어레이)로 변환한다. 
 
-# #### 멀티-핫-인코딩
-
-# 앞서 보았듯이 리뷰 리스트에 사용된 숫자들은 1부터 9999 사이의 값이다.
-# 이 정보를 이용하여 리뷰 샘플을 길이가 10,000인 벡터(1차원 어레이)로 변환할 수 있다.
+# 후기 리스트에 사용된 숫자들은 0부터 9999 사이의 값이다.
+# 이 정보를 이용하여 후기 샘플을 길이가 10,000인 벡터(1차원 어레이)로 변환할 수 있다.
 # 
 # - 어레이 길이: 10,000
 # - 항목: 0 또는 1
-# - 리뷰 샘플에 포함된 정수에 해당하는 인덱스의 항목만 1로 지정
+# - 후기 샘플에 포함된 정수에 해당하는 인덱스의 항목만 1로 지정
 # 
 # 예를 들어, `[1, 18, 13]`은 길이가 10,000인 1차원 어레이(벡터)로 변환되는데
 # 1번, 18번, 13번 인덱스의 항목만 1이고 나머지는 0으로 채워진다.
-# 이러한 변환을 **멀티-핫-인코딩**(multi-hot-encoding)이라 부른다.
-# 다음 `vectorize_sequences()` 함수는 앞서 설명한 멀티-핫-인코딩을 
-# 모든 주어진 샘플에 대해 실행한다.
+# 이러한 변환을 **멀티-핫-인코딩**<font size='2'>multi-hot-encoding</font>이라 부른다.
+
+# 아래 `vectorize_sequences()` 함수는 앞서 설명한 멀티-핫-인코딩을 
+# 모든 주어진 샘플에 대해 실행하여 최종적으로
+# 데이터셋을 표현하는 넘파이 어레이를 반환한다.
 # 
-# 이처럼 각 샘플을 지정된 크기의 1차원 어레이로 변환하는 과정을 **벡터화**(vectorization)이라 한다.
+# ```python
+# def vectorize_sequences(sequences, dimension=10000):
+#     results = np.zeros((len(sequences), dimension))
+#     
+#     for i, sequence in enumerate(sequences):    # 모든 샘플에 대한 멀티-핫-인코딩
+#         for j in sequence:
+#             results[i, j] = 1.
+#     return results
+# ```
 
-# In[16]:
-
-
-import numpy as np
-
-def vectorize_sequences(sequences, dimension=10000):
-    results = np.zeros((len(sequences), dimension))
-    
-    for i, sequence in enumerate(sequences):    # 모든 샘플에 대한 멀티-핫-인코딩
-        for j in sequence:
-            results[i, j] = 1.
-    return results
-
-
+# :::{prf:example} 훈련셋 벡터화
+# :label: exp-vectorization
+# 
 # 이제 훈련셋와 테스트셋를 벡터화한다.
-
-# In[17]:
-
-
-x_train = vectorize_sequences(train_data).astype("float32")
-x_test = vectorize_sequences(test_data).astype("float32")
-
-
+# 자료형은 `float32`로 고정한다. 그렇지 않으면 `float64`로 지정되기에
+# 메모리 효율성을 떨어뜨린다.
+# 
+# ```python
+# >>> x_train = vectorize_sequences(train_data).astype("float32")
+# >>> x_test = vectorize_sequences(test_data).astype("float32")
+# ```
+# 
 # 첫째 훈련 샘플의 변환 결과는 다음과 같다.
-
-# In[18]:
-
-
-x_train[0]
-
-
+# 
+# ```python
+# >>> x_train[0]
+# array([0., 1., 1., ..., 0., 0., 0.], dtype=float32)
+# ```
+# 
 # 레이블 또한 정수 자료형에서 `float32` 자료형으로 변환해서 자료형을 일치시킨다.
+# 
+# ```python
+# >>> y_train = np.asarray(train_labels).astype("float32")
+# >>> y_test = np.asarray(test_labels).astype("float32")
+# >>> y_train
+# array([1., 0., 0., ..., 0., 1., 0.], dtype=float32)
+# ```
+# :::
 
-# In[19]:
-
-
-y_train = np.asarray(train_labels).astype("float32")
-y_test = np.asarray(test_labels).astype("float32")
-
-
-# ### 모델 구성
+# **모델 구성**
 
 # 입력 샘플의 특성이 벡터(1차원 어레이)로 주어지고 
 # 레이블이 스칼라(하나의 숫자)로 주어졌을 때 
-# 밀집층(densely-connected layer)과
-# `Sequential` 모델을 이용하면 성능 좋은 모델을 얻는다. 
+# 밀집층<font size='2'>densely-connected layer</font>인 `Dense` 층을 이용하는
+# `Sequential` 모델을 추천한다.
 # 이때 사용하는 활성화 함수는 일반적으로 다음과 같다.
 # 
 # - 은닉층의 활성화 함수: 음수를 제거하는 `relu` 함수
@@ -257,7 +239,7 @@ y_test = np.asarray(test_labels).astype("float32")
 # 또한 활성화 함수로 0과 1사이의 확률값을 계삲하는 `sigmoid`를 활성화 함수로 사용한다.
 # 그러면 [사이킷런의 로지스틱 회귀(logistic regression) 모델](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)처럼 작동한다.
 
-# In[20]:
+# In[1]:
 
 
 from tensorflow import keras
