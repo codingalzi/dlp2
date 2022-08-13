@@ -38,7 +38,8 @@
 # | 샘플, 입력값 | sample, input | 모델 훈련에 사용되는 데이터 |
 # | 예측값, 출력값 | prediction, output | 모델이 계산한 결과 |
 # | 타깃 | target | 예측해야 하는 값 |
-# | 예측 오류, 손실값 | prediction error, loss value | 타깃과 예측값 사이의 거리 측정값. 측정 방식에 의존함.|
+# | 예측 오류, 손실값, 비용 | prediction error, loss value | 타깃과 예측값 사이의 거리 측정값. 측정 방식에 의존함.|
+# | 손실 함수, 비용 함수| loss function | 손실값(비용)을 계산하는 함수 |
 # | 클래스 | class | 분류 문제에서 샘플이 속하는 범주 |
 # | 레이블 | label | 분류 문제에서 타깃 대신 사용 |
 # | 실제의/정답의 | ground-truth | 실제 조사 결과와 관련된 |
@@ -49,7 +50,7 @@
 # | 벡터 회귀 | vector regression | 샘플 별로 두 개 이상의 실숫값 예측하기. 네모 상자의 좌표 등. |
 # | 미니배치 | mini-batch | 보통 8개에서 128개의 샘플로 구성된 묶음(배치). 훈련 루프의 스텝 지정에 활용됨. |
 
-# ## 영화 후기 분류: 이진 분류
+# ## 영화 후기: 이진 분류
 
 # 영화 후기가 긍정적인지 부정적인지를 판단하는 이진 분류 모델을 구성한다.
 
@@ -101,7 +102,7 @@
 # ```
 
 # :::{admonition} 영화 후기 내용
-# :class: info
+# :class: tip
 # 
 # **모델 훈련을 위해 반드시 필요한 사항은 아니지만**
 # 정수와 단어 사이의 관계를 담은 사전을 이용하여
@@ -206,7 +207,6 @@
 # 
 # ```python
 # >>> y_train = np.asarray(train_labels).astype("float32")
-# >>> y_test = np.asarray(test_labels).astype("float32")
 # >>> y_train
 # array([1., 0., 0., ..., 0., 1., 0.], dtype=float32)
 # ```
@@ -220,8 +220,8 @@
 # `Sequential` 모델을 추천한다.
 # 이때 사용하는 활성화 함수는 일반적으로 다음과 같다.
 # 
-# - 은닉층의 활성화 함수: 음수를 제거하는 `relu` 함수
-# - 이진 분류 모델의 최상위 층의 활성화 함수: 0과 1사이의 확률값을 계삲하는 `sigmoid` 함수
+# - 은닉층의 활성화 함수: 음수를 제거하는 `relu()` 함수
+# - 이진 분류 모델의 최상위 층의 활성화 함수: 0과 1사이의 확률값을 계삲하는 `sigmoid()` 함수
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/slides/images/relu_sigmoid.png" style="width:600px;"></div>
 # 
@@ -230,10 +230,11 @@
 # `Dense` 층을 이용할 때의 핵심은 두 가지다.
 # 
 # - 몇 개의 층을 사용하는가?
-# - 각 층마다 몇 개의 유닛(unit)을 사용하는가?
+# - 각 층마다 몇 개의 유닛<font size='2'>unit</unit>을 사용하는가?
 # 
-# 결정해야 하는데 이에 대해서 {numref}`%s장 머신러닝 핵심 이슈<ch:fundamentals_of_ml>`에서 자세히 설명한다.
-# 여기서는 일단 다음과 같은 구성을 추천한다.
+# 위 두 질문에 대한 체계적인 답은
+# {numref}`%s장 머신러닝 핵심 이슈<ch:fundamentals_of_ml>`에서 다룬다.
+# 여기서는 일단 아래 구성을 사용한다.
 # 
 # - 두 개의 연속된 밀집층
 # - 각각 16개의 유닛
@@ -245,16 +246,6 @@
 #     layers.Dense(1, activation="sigmoid")
 # ])
 # ```
-# 
-# `Dense` 층은 다음 계산을 실행한다.
-# 
-# ```
-# output = relu(dot(input, W) + b)
-# ```
-# 
-# `W`는 입력값의 특성 각각에 대해 곱해지는 가중치이며 그 결과에 편향 `b`를 더한 값이 
-# `Dense` 층의 출력값으로 계산된다.
-# 그런 다음 `relu()` 함수에 의해 음숫값은 삭제된 상태로 이어지는 `Dense` 층으로 전달된다.
 # 
 # `Dense` 층의 유닛이 많을 수록 입력값에 내재된 보다 많은 특성을 찾아내어 보다 복잡한
 # 모델을 학습한다. 하지만 유닛수가 많을 수록 모델 훈련에 필요한 비용(시간과 메모리)이
@@ -277,12 +268,12 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# :::{admonition} 로지스틱 회귀 모델
+# :::{admonition} 사이킷런의 로지스틱 회귀 모델
 # :class: info
 # 
 # 이진 분류 모델의 최상위 층은 스칼라 값을 출력하도록 하나의 유닛을 사용하는 
 # `Dense` 밀집층을 사용한다. 
-# 또한 활성화 함수로 0과 1사이의 확률값을 계산하는 `sigmoid`를 활성화 함수로 사용한다.
+# 또한 활성화 함수로 0과 1사이의 확률값을 계산하는 `sigmoid()`를 활성화 함수로 사용한다.
 # 그러면 [사이킷런의 로지스틱 회귀<font size='2'>logistic regression</font> 모델](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)처럼 작동한다.
 # :::
 
@@ -308,6 +299,11 @@
 # 여기서는 10,000개의 샘플을 검증셋으로 활용한다.
 
 # ```python
+# x_val = x_train[:10000]
+# partial_x_train = x_train[10000:]
+# y_val = y_train[:10000]
+# partial_y_train = y_train[10000:]
+# 
 # history = model.fit(partial_x_train,
 #                     partial_y_train,
 #                     epochs=20,
@@ -318,12 +314,11 @@
 # **`History` 객체 활용**
 
 # `fit()` 메서드가 반환하는 객체는 `Callback` 클래스를 상속하는
-# `History` 클래스의 인스턴이며, 케라스의 모든 모델 훈련과정 중에 발생하는 
-# 다양한 정보를 저장한다.
+# `History` 클래스의 객체이며 모델 훈련과정 중에 계산되는 다양한 정보를 저장한다.
 # 콜백(`Callback`) 클래스에 대해서는 {numref}`%s장 <ch:working_with_keras>`에서 자세히 살펴본다.
 
 # `History` 객체의 속성 중에서 `history` 속성이 가장 많이 활용된다.
-# `history` 속성은 훈련 에포크 단위로 측정된 손실값과 평가지표를 사전 자료형으로 가리킨다.
+# `history` 속성은 훈련중 에포크 단위로 측정된 손실값과 평가지표를 사전으로 저장한다.
 # 
 # ```python
 # >>> history_dict = history.history
@@ -334,541 +329,406 @@
 # 예를 들어, `history` 속성에 저장된 정보를 이용하여 
 # 훈련셋과 검증셋에 대한 에포크별 손실값과 정확도의 변화를 그래프로 그릴 수 있다.
 
-# 훈련셋와 검증 세트에 대한 에포크별 손실값의 변화를 보면
-# 훈련셋에 대해서는 손실값 계속 감소하지만 
-# 검증셋에 대해서는 다섯 번째 에포크 전후 정체하다가 상승한다.
-# 즉, 모델이 훈련셋에 과대적합<font size='2'>overfitting</font>하게 된다.
+# *손실값의 변화*
 
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-06.png" style="width:500px;"></div>
+# 훈련셋와 검증 세트에 대한 에포크별 손실값의 변화를 보면
+# 훈련셋에 대해서는 손실값이 계속 감소하지만 
+# 검증셋에 대해서는 9번째 에포크 전후 정체하다가 상승한다.
+
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-04.png" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
+# *정확도의 변화*
+
 # 훈련셋과 검증셋에 대한 에포크별 정확도의 경우엔
 # 훈련셋에 대해서는 정확도 계속 증가한다.
-# 반면에 검증셋에 대해서는 역시 다섯째 에포크 전후 정체한 후 감소한다.
-# 이또한 과대적합의 증거다.
+# 반면에 검증셋에 대해서는 역시 9번째 에포크 전후 정체하다가 감소한다.
 
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-07.png" style="width:500px;"></div>
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-05.png" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # **과대적합**
+
+# 과대적합<font size='2'>overfitting</font>은 모델이 훈련셋에 익숙해진다는 의미이다.
+# 반면에 처음 보는 데이터에 대해서는 성능이 떨어진다.
+# 에포크가 진행될 수록 훈련셋에 대한 성능은 계속해서 좋아지지만
+# 검증셋에 대한 성능이 4번째 에포크 이후에 오히려 나빠진다.
+
+# **모델 재훈련**
+
+# 과대적합을 방지하기 위한 다양한 기법은 
+# {numref}`%s장 <ch:fundamentals_of_ml>`에서 다룬다.
+# 위 문제의 경우 4번의 에포크만 훈련 반복을 진행하면 된다.
 # 
-# **과대적합**(overfitting)은 모델이 훈련셋에 익숙해진다는 의미이다.
-# 시험에 비유하면 연습문제의 답을 외워버리는 것을 의미한다.
-# 과대적합을 방지하기 위한 다양한 기법은 다음 장(chapter)에서 다룬다.
-# 위 문제의 경우 넷째 또는 다섯째 에포크 정도만 훈련 반복을 진행하면 된다.
-# 아래 코드는 다시 처음부터 네 번의 에포크만을 사용하여 훈련한 결과를 보여준다.
+# 모델 구성부터, 컴파일, 훈련을 모두 다시 시작해야 
+# 가중치와 편향이 초기화된 상태서 훈련을 시작한다.
+# 
+# ```python
+# model = keras.Sequential([
+#     layers.Dense(16, activation="relu"),
+#     layers.Dense(16, activation="relu"),
+#     layers.Dense(1, activation="sigmoid")
+# ])
+# model.compile(optimizer="rmsprop",
+#               loss="binary_crossentropy",
+#               metrics=["accuracy"])
+# model.fit(x_train, y_train, epochs=4, batch_size=512)
+# ```
 
-# In[1]:
-
-
-model = keras.Sequential([
-    layers.Dense(16, activation="relu"),
-    layers.Dense(16, activation="relu"),
-    layers.Dense(1, activation="sigmoid")
-])
-model.compile(optimizer="rmsprop",
-              loss="binary_crossentropy",
-              metrics=["accuracy"])
-model.fit(x_train, y_train, epochs=4, batch_size=512)
-
-
-# 테스트셋에 대한 성능은 아래와 같이 88% 정도의 정확도를 보인다.
+# 테스트셋에 대한 성능은 아래와 같이 88% 정도의 정확도를 보인다. 모델의 손실값은 0.31 정도.
 # 앞으로 보다 좋은 성능의 모델을 살펴볼 것이며, 현존하는 가장 좋은 모델의 정확도는 95% 정도이다.
-
-# In[29]:
-
-
-results = model.evaluate(x_test, y_test)
-results
-
+# 
+# ```python
+# >>> results = model.evaluate(x_test, y_test)
+# >>> results
+# [0.3139097988605499, 0.8770800232887268]
+# ```
 
 # **모델 활용**
-# 
+
 # 훈련된 모델을 활용하려면 `predict()` 메서드를 이용한다.
+# 큰 데이터셋에 대해 미니배치 단위로 예측할 수 있다. 
 # 
 # - 0,99 이상 또는 0.01 이하의 경우: 매우 확실한 예측
 # - 0.4 ~ 0.6: 불확실한 예측
-
-# In[30]:
-
-
-model.predict(x_test)
-
-
-# 아래처럼 데이터셋이 클 경우 배치 단위로 묶어서 예측할 수도 있다.
-
-# In[31]:
-
-
-model.predict(x_test, batch_size=512)
-
-
-# ### 연습문제
-
-# 1. 두 개의 은닉층 대신 1 개 또는 3 개의 은닉층을 사용할 때 
-#     검증 세트와 테스트셋에 대한 평가지표의 변화를 확인하라.
-# 1. 각 은닉층에 사용된 유닛(unit)의 수를 8, 32, 64 등으로 변화시킨 후 
-#     검증 세트와 테스트셋에 대한 평가지표의 변화를 확인하라.
-# 1. `binary_crossentropy` 대신 `mse`를 손실함수로 지정한 후 
-#     검증 세트와 테스트셋에 대한 평가지표의 변화를 확인하라.
-# 1. `relu` 함수 대신 이전에 많이 사용됐었던 `tanh` 함수를 손실함수로 지정한 후 
-#     검증 세트와 테스트셋에 대한 평가지표의 변화를 확인하라.
-
-# ## 4.2 뉴스 기사 분류: 다중 클래스 분류
-
-# ### 로이터(Reuter) 데이터셋
-
-# - 1986년 로이터 통신사의 짧은 기사 모음
-# - 케라스의 `reuters` 모듈의 `load_data()` 함수로 데이터 적재
-#     - 훈련셋와 테스트셋로 분류됨.
-# - 주제: 총 46개
-# - 주제에 따른 기사 수 다름. 하지만 주제 당 최소 10개의 기사가 훈련셋에 포함됨.
-
-# #### 데이터셋 적재
 # 
-# - `num_words=10000`: 10,000등 이내의 단어만 대상으로 함.
-# - 데이터셋 크기: 11, 228
-#     - 훈련셋 크기: 8,982
-#     - 테스트셋 크기: 2,246
+# ```python
+# >>> model.predict(x_test, batch_size=512)
+# array([[0.25440323],
+#        [0.9999424 ],
+#        [0.95840394],
+#        ...,
+#        [0.17153329],
+#        [0.10725482],
+#        [0.6672551 ]], dtype=float32)
+# ```
 
-# In[32]:
+# ## 뉴스 기사: 다중 클래스 분류
 
+# **로이터 데이터셋**
 
-from tensorflow.keras.datasets import reuters
+# 로이터<font size='2'>Reuter</font> 통신사가 1986년에 작성한 짧은 기사 모음집이다.
+# 총 11,228개의 기사로 구성되었으며 훈련셋과 테스트셋으로 이미 구분되어 있다.
+# 
+# - 훈련셋 크기: 8,982
+# - 테스트셋 크기: 2,246
+# 
+# 기사의 주제는 46개로 구분되며, 각각의 기사에 하나의 주제가 할당되어 있다.
+# 여기서 훈련시키는 모델은 기사별로 46개 중의 하나의 주제를 예측해는
+# 분류 모델이며, 클래스가 3개 이상이기에 
+# **다중 클래스 분류**<font size='2'>multiclass classification</font> 모델이라 부른다.
 
-(train_data, train_labels), (test_data, test_labels) = reuters.load_data(num_words=10000)
-
-
-# In[33]:
-
-
-len(train_data)
-
-
-# In[34]:
-
-
-len(test_data)
-
-
-# 주제별 기사 수가 다르다.
-# 훈련셋의 타깃에 사용된 값들의 빈도수를 확인하면 다음과 같다.
-
-# In[35]:
-
-
-from collections import Counter
-
-target_counter = Counter(train_labels)
-target_counter
-
-
-# 가장 많이 언급된 주제는 총 3159번,
-# 자장 적게 언급딘 주제는 총 10번 기사로 작성되었다.
-
-# In[36]:
-
-
-print(f"최대 기사 수: {max(target_counter.values())}")
-print(f"최소 기사 수: {min(target_counter.values())}")
-
+# 케라스의 `reuters` 모듈의 `load_data()` 함수로 데이터셋을 불러올 수 있다.
+# 영화 후기의 경우처럼 사용 빈도가 상위 10,000등 이내의 단어만 사용하도록 한다.
+# 
+# ```python
+# from tensorflow.keras.datasets import reuters
+# (train_data, train_labels), (test_data, test_labels) = reuters.load_data(num_words=10000)
+# ```
 
 # 각 샘플은 정수들의 리스트이다.
-
-# In[37]:
-
-
-train_data[10]
-
-
-# 각 샘플 리스트의 길이가 일반적으로 다르다.
-
-# In[38]:
-
-
-len(train_data[10])
-
-
-# In[39]:
-
-
-len(train_data[11])
-
+# 
+# ```python
+# >>> train_data[10]
+# [1, 245, 273, 207, 156, 53, 74, 160, 26, 14, 46, 296, 26, 39, 74, 2979,
+# 3554, 14, 46, 4689, 4329, 86, 61, 3499, 4795, 14, 61, 451, 4329, 17, 12]
+# ```
 
 # 각 샘플에 대한 레이블은 0부터 45까지의 정수로 표현된다.
 # 예를 들어, 10번 기사의 주제는 3이다. 
-
-# In[40]:
-
-
-train_labels[10]
-
-
-# 주제 3은 'earn'(이익)과 연관된다.
 # 
-# **참고**: 데이터 분석을 위해 반드시 필요한 사항은 아니지만 언급된 46개의 주제와 번호 사이의 관계는
-# [GitHub: Where can I find topics of reuters dataset #12072](https://github.com/keras-team/keras/issues/12072)를 참조할 수 있다.
+# ```python
+# >>> train_labels[10]
+# 3
+# ```
 
-# In[41]:
-
-
-reuter_topics = {'cocoa': 0,
-                 'grain': 1,
-                 'veg-oil': 2,
-                 'earn': 3,
-                 'acq': 4,
-                 'wheat': 5,
-                 'copper': 6,
-                 'housing': 7,
-                 'money-supply': 8,
-                 'coffee': 9,
-                 'sugar': 10,
-                 'trade': 11,
-                 'reserves': 12,
-                 'ship': 13,
-                 'cotton': 14,
-                 'carcass': 15,
-                 'crude': 16,
-                 'nat-gas': 17,
-                 'cpi': 18,
-                 'money-fx': 19,
-                 'interest': 20,
-                 'gnp': 21,
-                 'meal-feed': 22,
-                 'alum': 23,
-                 'oilseed': 24,
-                 'gold': 25,
-                 'tin': 26,
-                 'strategic-metal': 27,
-                 'livestock': 28,
-                 'retail': 29,
-                 'ipi': 30,
-                 'iron-steel': 31,
-                 'rubber': 32,
-                 'heat': 33,
-                 'jobs': 34,
-                 'lei': 35,
-                 'bop': 36,
-                 'zinc': 37,
-                 'orange': 38,
-                 'pet-chem': 39,
-                 'dlr': 40,
-                 'gas': 41,
-                 'silver': 42,
-                 'wpi': 43,
-                 'hog': 44,
-                 'lead': 45}
-
-
+# :::{admonition} 로이터 기사 주제
+# :class: tip
+# 
+# 기사 주제 3은 'earn'(수익)과 연관된다.
+# 언급된 46개의 주제와 번호 사이의 관계는
+# [GitHub: Where can I find topics of reuters dataset #12072](https://github.com/keras-team/keras/issues/12072)에서 확인할 수 있다.
+# 
+# ```
+# {'cocoa': 0,
+# 'grain': 1,
+# 'veg-oil': 2,
+# 'earn': 3,
+# 'acq': 4,
+# 'wheat': 5,
+# 'copper': 6,
+# 'housing': 7,
+# 'money-supply': 8,
+# 'coffee': 9,
+# 'sugar': 10,
+# 'trade': 11,
+# 'reserves': 12,
+# 'ship': 13,
+# 'cotton': 14,
+# 'carcass': 15,
+# 'crude': 16,
+# 'nat-gas': 17,
+# 'cpi': 18,
+# 'money-fx': 19,
+# 'interest': 20,
+# 'gnp': 21,
+# 'meal-feed': 22,
+# 'alum': 23,
+# 'oilseed': 24,
+# 'gold': 25,
+# 'tin': 26,
+# 'strategic-metal': 27,
+# 'livestock': 28,
+# 'retail': 29,
+# 'ipi': 30,
+# 'iron-steel': 31,
+# 'rubber': 32,
+# 'heat': 33,
+# 'jobs': 34,
+# 'lei': 35,
+# 'bop': 36,
+# 'zinc': 37,
+# 'orange': 38,
+# 'pet-chem': 39,
+# 'dlr': 40,
+# 'gas': 41,
+# 'silver': 42,
+# 'wpi': 43,
+# 'hog': 44,
+# 'lead': 45}
+# ```
+# 
 # 실제로 10번 기사 내용을 확인해보면 'earn'과 관련되어 있어 보인다.
 # 데이터를 해독(decoding)하는 방법은 IMDB 데이터셋의 경우와 동일하다.
-
-# In[42]:
-
-
-word_index = reuters.get_word_index()
-reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
-
-
-# 10번 기사 내용은 다음과 같다.
-
-# In[43]:
-
-
-decoded_newswire = " ".join([reverse_word_index.get(i - 3, "?") for i in train_data[10]])
-
-decoded_newswire
-
-
-# ### 데이터 전처리
-
-# **데이터 벡터화**
 # 
-# IMDB의 경우와 동일하게 길이가 10,000인 벡터로 모든 샘플을 변환한다.
+# ```python
+# >>> word_index = reuters.get_word_index()
+# >>> reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
+# >>> decoded_newswire = " ".join([reverse_word_index.get(i - 3, "?") for i in train_data[10]])
+# >>> decoded_newswire
+# '? period ended december 31 shr profit 11 cts vs loss 24 cts net profit 224 271 vs loss 511 349 revs 7 258 688 vs 7 200 349 reuter 3'
+# ```
+# :::
 
-# In[44]:
+# **데이터 전처리**
 
+# *입력 데이터셋 벡터화: 멀티-핫-인코딩*
 
-x_train = vectorize_sequences(train_data)
-x_test = vectorize_sequences(test_data)
+# IMDB의 경우와 동일하게 모든 샘플을 길이가 10,000인 벡터로 변환한다.
+# 
+# ```python
+# >>> x_train = vectorize_sequences(train_data)
+# >>> x_test = vectorize_sequences(test_data)
+# ```
 
+# *레이블 데이터셋 벡터화: 원-핫-인코딩*
 
-# ####  타깃의 원-핫-인코딩
-
-# 앞서 보았듯이 타깃은 0부터 45 사이의 값이다.
-# 이런 경우 정수를 텐서로 변환해서 사용하는 것보다
-# **원-핫-인코딩**(one-hot-encoding) 기법을 적용하는 게 좋다.
+# 레이블은 0부터 45 사이의 값이다.
+# 이런 경우 정수로 구성된 텐서를 사용하기 보다는
+# **원-핫-인코딩**<font size='2'>one-hot-encoding</font>
+# 기법을 적용하는 게 좋다.
 # 
 # 원-핫-인코딩은 멀티-핫-인코딩 기법과 유사하다.
-# 차이점은 1인 오직 한 곳에서만 사용되고 나머지 항목은 모두 0이 된다.
-# 예를 들어, 3은 길이가 46인 벡터(1차원 어레이)로 변환되는데
-# 3번 인덱스에서만 1이고 나머지는 0이 된다.
+# 원-핫-인코딩으로 생성된 텐서는 한 곳만을 제외한 모든 항목이 0이다.
+# 예를 들어, 정수 3은 길이가 46인 벡터로 변환되는데
+# 3번 인덱스에서만 1이고 나머지 항목은 모두 0이다.
 # 
-# 아래 함수는 원-핫-인코딩을 실행하는 함수이다.
-# 입력값은 레이블 데이터셋 전체를 대상으로 함에 주의하라.
-
-# In[45]:
-
-
-def to_one_hot(labels, dimension=46):
-    results = np.zeros((len(labels), dimension))
-    for i, label in enumerate(labels):
-        results[i, label] = 1.
-    return results
-
-
-# 훈련셋의 레이블과 테스트셋의 레이블을 인코딩한다.
-
-# In[46]:
-
-
-y_train = to_one_hot(train_labels)
-y_test = to_one_hot(test_labels)
-
-
-# 인코딩된 레이블 하나를 살펴보자.
-
-# In[47]:
-
-
-y_train[0]
-
-
-# #### `to_categorical()` 함수
-
-# 원-핫-인코딩을 지원하는 함수를 케라스가 지원한다.
+# 아래 함수는 정수들의 어레이로 주어진 레이블 데이터셋을
+# 원-핫-인코딩된 원-핫-벡터로 구성된 2차원 텐서로 변환한다.
+# 각 원-핫-벡터의 길이(차원)는 46이다.
 # 
-# **참고**: 사용된 레이블의 최댓값에 1을 더한 값을 어레이의 길이로 사용한다.
+# ```python
+# def to_one_hot(labels, dimension=46):
+#     results = np.zeros((len(labels), dimension))
+#     for i, label in enumerate(labels):
+#         results[i, label] = 1.
+#     return results
+# ```
 
-# In[48]:
+# *`to_categorical()` 함수*
 
-
-from tensorflow.keras.utils import to_categorical
-
-y_train = to_categorical(train_labels)
-y_test = to_categorical(test_labels)
-
-
-# In[49]:
-
-
-y_train[0]
-
-
-# **참고**: 원-핫-인코딩, 멀티-핫-인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환하는 
-# 전처리 과정을 지원하는 층(layer)이 있다.
-# 예를 들어 [tf.keras.layers.CategoryEncoding 층](https://keras.io/api/layers/preprocessing_layers/categorical/category_encoding/)은 원-핫-인코딩과 멀티-핫-인코딩을 지원한다. 
-
-# ### 모델 생성
-
-# **모델 정의**
+# 케라스의 `to_categorical()` 함수가 원-핫-인코딩을 지원한다.
+# 원-핫-벡터의 길이는 사용된 레이블의 최댓값에 1을 더한 값이다.
 # 
+# ```python
+# >>> from tensorflow.keras.utils import to_categorical
+# >>> y_train = to_categorical(train_labels)
+# >>> y_test = to_categorical(test_labels)
+# >>> y_train[0]
+# array([0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+#        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+#        0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32)
+# ```
+
+# :::{admonition} `CategoryEncoding` 층
+# :class: info
+# 
+# 원-핫-인코딩, 멀티-핫-인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환하는 
+# 전처리 과정을 지원하는 층<font size='2'>layer</font>이 있다.
+# 예를 들어 [tf.keras.layers.CategoryEncoding](https://keras.io/api/layers/preprocessing_layers/categorical/category_encoding/)은 
+# 원-핫-인코딩과 멀티-핫-인코딩을 지원한다.
+# :::
+
+# **모델 구성**
+
 # IMDB 데이터셋의 경우와는 달리 3 개 이상의 클래스로 분류하는 
 # **다중 클래스 분류** 모델의 최종 층은 
 # 분류해야 하는 클래스의 수 만큼의 유닛과 함께
 # 각 클래스에 속할 확률을 계산하는 
 # `softmax` 활성화 함수를 이용한다.
+
+# :::{admonition} softmax 활성화 함수
+# :class: info
 # 
-# **참고**: 각 클래스에 속할 확률을 모두 더하면 1이 되며,
-# 가장 높은 확률을 가진 클래스를 예측값으로 사용한다.
+# 여기서 사용하는 모델의 마지막 층은 46개의 유닛을 사용하며,
+# 46개 클래스 각각에 속할 확률이 유닛별로 계산되어야 한다.
+# `softmax()` 활성화 함수는 유닛별로 아핀변환된 값들을 종합하여
+# 최종적으로 각 유닛이 대변하는 클래스에 속할 확률을 계산한다.
+# 클래스별 확률을 합치면 1이 되며, 가장 높은 확률을 갖는 클래스를 
+# 모델의 최종 예측값으로 사용한다.
+# :::
+
+# 마지막 층을 제외한 나머지 층은 긍정/부정의 이진 분류 모델 보다 훨씬 많은 64개의 
+# 유닛을 사용하도록 한다.
+# 이유는 이진 분류보다 훨씬 많은 46개의 클래스로 분류하려면
+# 보다 많은 정보를 각 층에서 다룰 수 있어야 하기 때문이다.
+# 층에 사용되는 유닛이 많을 수록 보다 많은 정보를 계산한다.
 # 
-# 반면에 이진 분류의 경우보다 복잡한 문제이기에 
-# 은닉층의 유닛은 64개씩 정하여 보다 많은 정보를 상위 층으로 전달하도록 한다.
+# ```python
+# model = keras.Sequential([
+#     layers.Dense(64, activation="relu"),
+#     layers.Dense(64, activation="relu"),
+#     layers.Dense(46, activation="softmax")
+# ])
+# ```
 
-# In[50]:
+# :::{admonition} 정보 병목현상
+# :class: tip
+# 
+# 층에 사용되는 유닛의 수를 지정할 때 병목현상이 발생하지 않도록 조심해야 한다.
+# 각 층은 이전 층에서 넘겨진 값만 활용할 수 있기에 이전 층이 너무 적은 수의 유닛을
+# 사용하면 그만큼 전달되는 정보의 양도 적다.
+# 따라서 아무리 많은 유닛을 사용하더라도 새로운 정보를 생성하기는 어렵다.
+# 이를 정보 병목현상이라 부르며 이런 일이 발생하지 않도록
+# 층을 구성해야 한다.
+# 앞으로 다양한 모델을 통해 다양한 방식의 구조의 층을 살펴볼 것이다.
+# :::
 
-
-model = keras.Sequential([
-    layers.Dense(64, activation="relu"),
-    layers.Dense(64, activation="relu"),
-    layers.Dense(46, activation="softmax")
-])
-
+# :::{admonition} 사이킷런의 소프트맥스 회귀 모델
+# :class: info
+# 
+# 다중 클래스 분류 모델의 최상위 층은 클래스 수 만큼의 값으로 구성된 벡터를 출력하도록 
+# 여러 개의 유닛을 사용하는 `Dense` 밀집층을 사용한다. 
+# 또한 활성화 함수로 모든 유닛에 대한 확률값의 합이 1이 되도록 하는 `softmax()`를 활성화 함수로 사용한다.
+# 그러면 [사이킷런의 로지스틱 회귀<font size='2'>logistic regression</font> 모델](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)에서
+# `multi_class='multinomial'` 옵션이 사용되는 경우처럼 작동한다.
+# :::
 
 # **모델 컴파일**
-# 
+
 # 다중 클래스 분류 모델의 손실함수는 `categorical_crossentropy`을 사용한다. 
 # `categorical_crossentropy`는 클래스의 실제 분포와 예측 클래스의 분포 사이의 
-# 오차를 측정하는 손실함수이며, 
-# 자세한 내용은 생략한다.
-
-# In[51]:
-
-
-model.compile(optimizer="rmsprop",
-              loss="categorical_crossentropy",
-              metrics=["accuracy"])
-
-
-# ### 모델 훈련 및 검증
-
-# **검증 세트 지정**
+# 오차를 측정하며, 보다 자세한 설명은
+# [핸즈온 머신러닝(3판)의 소프트맥스 회귀의 비용 함수](https://codingalzi.github.io/handson-ml3/training_models.html#sec-softmax-regression)를 참고한다.
 # 
-# 처음 1,000개의 샘플을 검증 세트 용도로 사용한다.
-
-# In[52]:
-
-
-# 검증 세트
-x_val = x_train[:1000]
-y_val = y_train[:1000]
-
-# 훈련셋
-partial_x_train = x_train[1000:]
-partial_y_train = y_train[1000:]
-
+# ```python
+# model.compile(optimizer="rmsprop",
+#               loss="categorical_crossentropy",
+#               metrics=["accuracy"])
+# ```
 
 # **모델 훈련**
+
+# 훈련 방식은 영화 후기 이진 분류 모델의 경우와 동일하다.
+# 다만 검증셋의 크기를 1,000으로 정한다.
 # 
-# 훈련 방식은 이전과 동일하다.
+# ```python
+# x_val = x_train[:1000]
+# partial_x_train = x_train[1000:]
+# y_val = y_train[:1000]
+# partial_y_train = y_train[1000:]
+# 
+# history = model.fit(partial_x_train,
+#                     partial_y_train,
+#                     epochs=20,
+#                     batch_size=512,
+#                     validation_data=(x_val, y_val))
+# ```
 
-# In[53]:
+# **`History` 객체 활용**
 
+# 이번엔 9번째 에포크 이후에 과대적합이 발생한다.
 
-history = model.fit(partial_x_train,
-                    partial_y_train,
-                    epochs=20,
-                    batch_size=512,
-                    validation_data=(x_val, y_val))
+# *손실값의 변화*
 
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-06.png" style="width:500px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# **손실값의 변화**
+# *정확도의 변화*
 
-# * 훈련셋와 검증 세트에 대한 에포크별 손실값의 변화
-#     - 훈련셋: 손실값 계속 감소
-#     - 검증 세트: 아홉번 째 에포크 전후 정체 및 상승. 과대적합(overfitting) 발생.
-
-# In[54]:
-
-
-loss = history.history["loss"]
-
-val_loss = history.history["val_loss"]
-epochs = range(1, len(loss) + 1)
-plt.plot(epochs, loss, "bo", label="Training loss")
-plt.plot(epochs, val_loss, "b", label="Validation loss")
-plt.title("Training and validation loss")
-plt.xlabel("Epochs")
-plt.ylabel("Loss")
-plt.legend()
-plt.show()
-
-
-# **정확도의 변화**
-
-# * 훈련셋와 검증 세트에 대한 에포크별 정확도의 변화
-#     - 훈련셋: 정확도 계속 증가
-#     - 검증 세트: 아홉번 째 에포크 전후 정체 및 감소. 과대적합(overfitting) 발생.
-
-# In[55]:
-
-
-plt.clf()
-acc = history.history["accuracy"]
-val_acc = history.history["val_accuracy"]
-plt.plot(epochs, acc, "bo", label="Training accuracy")
-plt.plot(epochs, val_acc, "b", label="Validation accuracy")
-plt.title("Training and validation accuracy")
-plt.xlabel("Epochs")
-plt.ylabel("Accuracy")
-plt.legend()
-plt.show()
-
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-07.png" style="width:500px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # **모델 재훈련**
-# 
-# 9번 에포크를 지나면서 과대적합이 발생하는 것으로 보인다. 
-# 따라서 에포크 수를 9로 줄이고 처음부터 다시 훈련시켜보자.
+
+# 9번 에포크를 지나면서 과대적합이 발생하기에
+# 에포크 수를 9로 줄이고 처음부터 다시 훈련시킨다.
 # 모델 구성부터, 컴파일, 훈련을 모두 다시 시작해야 
 # 가중치와 편향이 초기화된 상태서 훈련을 시작한다.
+# 
+# ```python
+# model = keras.Sequential([
+#     layers.Dense(64, activation="relu"),
+#     layers.Dense(64, activation="relu"),
+#     layers.Dense(46, activation="softmax")
+# ])
+# model.compile(optimizer="rmsprop",
+#               loss="categorical_crossentropy",
+#               metrics=["accuracy"])
+# model.fit(x_train,
+#           y_train,
+#           epochs=9,
+#           batch_size=512)
+# ```
 
-# In[56]:
-
-
-model = keras.Sequential([
-  layers.Dense(64, activation="relu"),
-  layers.Dense(64, activation="relu"),
-  layers.Dense(46, activation="softmax")
-])
-
-model.compile(optimizer="rmsprop",
-              loss="categorical_crossentropy",
-              metrics=["accuracy"])
-
-model.fit(x_train,
-          y_train,
-          epochs=9,
-          batch_size=512)
-
-
-# 훈련된 모델을 이용한 테스트셋에 대한 예측의 정확도는 80% 정도이다.
-
-# In[57]:
-
-
-results = model.evaluate(x_test, y_test)
-
-results
-
+# 테스트셋에 대한 성능은 아래와 같이 80% 정도의 정확도를 보인다.
+# 모델의 손실값은 0.96 정도.
+# 
+# ```python
+# >>> results = model.evaluate(x_test, y_test)
+# >>> results
+# [0.9565213431445807, 0.79697239536954589]
+# ```
 
 # 80%의 정확도가 얼마나 좋은지/나쁜지를 판단하려면 무작위로 찍을 때의 정확도를 계산해봐야 한다.
-# 아래 코드가 이를 실천하며, 20% 정도의 정확도가 나온다.
+# 실제로 로이터 데이터셋을 이용하여 무작위로 찍을 때의 정확도는 19% 정도 나온다.
 # 따라서 80% 정도의 정확도는 상당히 좋은 편이다.
 
-# In[58]:
+# **모델 활용**
 
+# 훈련된 모델의 `predict()` 메서드는 각 입력 샘플에 대해
+# 마지막 층에 사용된 유닛의 개수 만큼의 길이로 구성된 벡터 텐서를 반환한다.
+# 따라서 여기서는 46개 클래스에 솏할 확률로 구성된 길이가 46인 벡터 텐서가 반환되며
+# 각 확률값의 합은 1이다.
+# 이중에 가장 높은 확률값이 위치한 위치가 모델의 최종 예측값으로 사용된다.
+# 
+# 예를 들어, 테스트셋의 첫째 샘플에 대한 예측값은 4다.
+# 
+# ```python
+# >>> predictions = model.predict(x_test)
+# >>> predictions[0].shape
+# (46,)
+# >>> np.sum(predictions[0])
+# 1.0
+# >>> np.argmax(predictions[0])
+# 4
+# ```
 
-import copy
-
-# 원 데이터를 건드리지 않기 위해 사본 사용
-test_labels_copy = copy.copy(test_labels)
-
-# 무작위로 섞은 후 원 데이터의 순서와 비교
-np.random.shuffle(test_labels_copy)
-hits_array = test_labels == test_labels_copy
-
-# 1 또는 0으로만 이루어졌기에 평균값을 계산하면 무작위 선택의 정확도를 계산함
-hits_array.mean()
-
-
-# ### 예측하기
-
-# 훈련된 모델을 테스트셋에 적용한다.
-
-# In[59]:
-
-
-predictions = model.predict(x_test)
-
-
-# 예측값의 모두 길이가 46인 1차원 어레이다.
-
-# In[60]:
-
-
-predictions[0].shape
-
-
-# 예측값은 46개 클래스에 들어갈 확률들로 이루어지며 합은 1이다.
-
-# In[61]:
-
-
-np.sum(predictions[0])
-
-
-# 가장 큰 확률값을 가진 인덱스가 모델이 예측하는 클래스가 된다.
-# 예를 들어 테스트셋의 0번 샘플(로이터 기사)은 3번 레이블을 갖는다고 예측된다.
-
-# In[62]:
-
-
-np.argmax(predictions[0])
-
-
-# ### 정수 레이블 사용법
+# **정수 레이블 사용법**
 
 # 정수 텐서 레이블(타깃)을 이용하여 훈련하려면 모델을 컴파일할 때 손실함수로 
 # `sparse_categorical_crossentropy`를 
@@ -883,14 +743,14 @@ np.argmax(predictions[0])
 #               metrics=["accuracy"])
 # ```
 
-# ### 은닉층에 사용되는 유닛 개수
+# **은닉층에 사용되는 유닛 개수**
 
 # 은닉층에 사용되는 유닛은 마지막 층의 유닛보다 많아야 한다.
 # 그렇지 않으면 정보전달 과정에 병목현상(bottleneck)이 발생할 수 있다.
 # 아래 코드의 둘째 은닉층은 4 개의 유닛만을 사용하는데 
 # 훈련된 모델의 성능이 많이 저하된다.
 
-# In[63]:
+# In[1]:
 
 
 model = keras.Sequential([
@@ -915,11 +775,6 @@ model.fit(partial_x_train,
 
 model.evaluate(x_test, y_test)
 
-
-# ### 연습문제
-# 
-# 1. 은닉층의 유닛 개수를 32, 128 등 여러 값으로 실험해 보아라.
-# 1. 은닉층의 수를 1개 또는 3개로 바꿔 보아라.
 
 # ## 4.3 주택가격 예측: 회귀
 
@@ -1200,3 +1055,24 @@ for train_index, val_index in kf.split(train_data, train_targets):
 test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
 test_mae_score
 
+
+# In[ ]:
+
+
+
+
+
+# ## 연습문제
+
+# 1. 영화 후기 이진 분류
+#     1. 두 개의 은닉층 대신 1 개 또는 3 개의 은닉층을 사용할 때 
+#         검증셋와 테스트셋에 대한 평가지표의 변화를 확인하라.
+#     1. 각 은닉층에 사용된 유닛의 수를 8, 32, 64 등으로 변화시킨 후 
+#         검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.
+#     1. `binary_crossentropy` 대신 `mse`를 손실함수로 지정한 후 
+#         검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.
+#     1. `relu()` 함수 대신 이전에 많이 사용됐었던 `tanh()` 함수를 손실함수로 지정한 후 
+#         검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.
+# 1. 뉴스 기사 다중 클래스 분류
+#     1. 은닉층의 유닛의 수를 32, 128 등 여러 값으로 실험해 보아라.
+#     1. 은닉층의 수를 1개 또는 3개로 바꿔 보아라.
