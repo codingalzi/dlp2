@@ -38,19 +38,17 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -234,105 +232,31 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   4.1. 영화 후기 분류: 이진 분류
+   4.1. 영화 후기: 이진 분류
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     4.1.1. 연습문제
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   4.2. 뉴스 기사: 다중 클래스 분류
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   4.2. 4.2 뉴스 기사 분류: 다중 클래스 분류
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reuter">
-     4.2.1. 로이터(Reuter) 데이터셋
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id5">
-       4.2.1.1. 데이터셋 적재
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     4.2.2. 데이터 전처리
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id7">
-       4.2.2.1. 타깃의 원-핫-인코딩
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#to-categorical">
-       4.2.2.2.
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         to_categorical()
-        </span>
-       </code>
-       함수
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     4.2.3. 모델 생성
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     4.2.4. 모델 훈련 및 검증
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
-     4.2.5. 예측하기
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
-     4.2.6. 정수 레이블 사용법
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
-     4.2.7. 은닉층에 사용되는 유닛 개수
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     4.2.8. 연습문제
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id14">
    4.3. 4.3 주택가격 예측: 회귀
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id15">
+    <a class="reference internal nav-link" href="#id5">
      4.3.1. 보스턴 주택가격 데이터셋
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
+    <a class="reference internal nav-link" href="#id6">
      4.3.2. 데이터 전처리
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
+    <a class="reference internal nav-link" href="#id7">
      4.3.3. 모델 구현
     </a>
    </li>
@@ -342,16 +266,21 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id18">
+    <a class="reference internal nav-link" href="#id8">
      4.3.5. 모델 활용
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id19">
+    <a class="reference internal nav-link" href="#id9">
      4.3.6. 연습문제
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   4.4. 연습문제
+  </a>
  </li>
 </ul>
 
@@ -375,105 +304,31 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   4.1. 영화 후기 분류: 이진 분류
+   4.1. 영화 후기: 이진 분류
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
-     4.1.1. 연습문제
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   4.2. 뉴스 기사: 다중 클래스 분류
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   4.2. 4.2 뉴스 기사 분류: 다중 클래스 분류
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reuter">
-     4.2.1. 로이터(Reuter) 데이터셋
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id5">
-       4.2.1.1. 데이터셋 적재
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     4.2.2. 데이터 전처리
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id7">
-       4.2.2.1. 타깃의 원-핫-인코딩
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#to-categorical">
-       4.2.2.2.
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         to_categorical()
-        </span>
-       </code>
-       함수
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     4.2.3. 모델 생성
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     4.2.4. 모델 훈련 및 검증
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
-     4.2.5. 예측하기
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id11">
-     4.2.6. 정수 레이블 사용법
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id12">
-     4.2.7. 은닉층에 사용되는 유닛 개수
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     4.2.8. 연습문제
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id14">
    4.3. 4.3 주택가격 예측: 회귀
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id15">
+    <a class="reference internal nav-link" href="#id5">
      4.3.1. 보스턴 주택가격 데이터셋
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
+    <a class="reference internal nav-link" href="#id6">
      4.3.2. 데이터 전처리
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id17">
+    <a class="reference internal nav-link" href="#id7">
      4.3.3. 모델 구현
     </a>
    </li>
@@ -483,16 +338,21 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id18">
+    <a class="reference internal nav-link" href="#id8">
      4.3.5. 모델 활용
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id19">
+    <a class="reference internal nav-link" href="#id9">
      4.3.6. 연습문제
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id10">
+   4.4. 연습문제
+  </a>
  </li>
 </ul>
 
@@ -546,50 +406,54 @@ const thebe_selector_output = ".output, .cell_output"
 <td class="text-align:left"><p>target</p></td>
 <td class="text-align:left"><p>예측해야 하는 값</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>예측 오류, 손실값</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>예측 오류, 손실값, 비용</p></td>
 <td class="text-align:left"><p>prediction error, loss value</p></td>
 <td class="text-align:left"><p>타깃과 예측값 사이의 거리 측정값. 측정 방식에 의존함.</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>클래스</p></td>
+<tr class="row-even"><td class="text-align:left"><p>손실 함수, 비용 함수</p></td>
+<td class="text-align:left"><p>loss function</p></td>
+<td class="text-align:left"><p>손실값(비용)을 계산하는 함수</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>클래스</p></td>
 <td class="text-align:left"><p>class</p></td>
 <td class="text-align:left"><p>분류 문제에서 샘플이 속하는 범주</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>레이블</p></td>
+<tr class="row-even"><td class="text-align:left"><p>레이블</p></td>
 <td class="text-align:left"><p>label</p></td>
 <td class="text-align:left"><p>분류 문제에서 타깃 대신 사용</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>실제의/정답의</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>실제의/정답의</p></td>
 <td class="text-align:left"><p>ground-truth</p></td>
 <td class="text-align:left"><p>실제 조사 결과와 관련된</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>이진 분류</p></td>
+<tr class="row-even"><td class="text-align:left"><p>이진 분류</p></td>
 <td class="text-align:left"><p>binary classification</p></td>
 <td class="text-align:left"><p>샘플을 두 개의 클래스로 분류. 양성/음성, 긍정/부정 등.</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>다중 클래스 분류</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>다중 클래스 분류</p></td>
 <td class="text-align:left"><p>multiclass classification</p></td>
 <td class="text-align:left"><p>샘플을 세 개 이상의 클래스로 분류. 손글씨 숫자 등.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>다중 레이블 분류</p></td>
+<tr class="row-even"><td class="text-align:left"><p>다중 레이블 분류</p></td>
 <td class="text-align:left"><p>multilabel classification</p></td>
 <td class="text-align:left"><p>샘플에 두 종류 이상의 레이블을 지정하는 분류.사진 속 여러 마리 동물 등.</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>스칼라 회귀</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>스칼라 회귀</p></td>
 <td class="text-align:left"><p>scalar regression</p></td>
 <td class="text-align:left"><p>샘플 별로 하나의 실숫값 예측하기. 주택 가격 예측 등.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>벡터 회귀</p></td>
+<tr class="row-even"><td class="text-align:left"><p>벡터 회귀</p></td>
 <td class="text-align:left"><p>vector regression</p></td>
 <td class="text-align:left"><p>샘플 별로 두 개 이상의 실숫값 예측하기. 네모 상자의 좌표 등.</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>미니배치</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>미니배치</p></td>
 <td class="text-align:left"><p>mini-batch</p></td>
 <td class="text-align:left"><p>보통 8개에서 128개의 샘플로 구성된 묶음(배치). 훈련 루프의 스텝 지정에 활용됨.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="id2">
-<h2><span class="section-number">4.1. </span>영화 후기 분류: 이진 분류<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.1. </span>영화 후기: 이진 분류<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>영화 후기가 긍정적인지 부정적인지를 판단하는 이진 분류 모델을 구성한다.</p>
 <p><strong>IMDB 데이터셋</strong></p>
 <p>긍정 후기와 부정 후기 각각 25,000개씩 총 50,000개의 영화 후기 샘플로 구성된 데이터셋이며,
@@ -626,7 +490,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="go">0</span>
 </pre></div>
 </div>
-<div class="info admonition">
+<div class="tip admonition">
 <p class="admonition-title">영화 후기 내용</p>
 <p><strong>모델 훈련을 위해 반드시 필요한 사항은 아니지만</strong>
 정수와 단어 사이의 관계를 담은 사전을 이용하여
@@ -711,7 +575,6 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <p>레이블 또한 정수 자료형에서 <code class="docutils literal notranslate"><span class="pre">float32</span></code> 자료형으로 변환해서 자료형을 일치시킨다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span>
 <span class="go">array([1., 0., 0., ..., 0., 1., 0.], dtype=float32)</span>
 </pre></div>
@@ -724,17 +587,18 @@ const thebe_selector_output = ".output, .cell_output"
 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델을 추천한다.
 이때 사용하는 활성화 함수는 일반적으로 다음과 같다.</p>
 <ul class="simple">
-<li><p>은닉층의 활성화 함수: 음수를 제거하는 <code class="docutils literal notranslate"><span class="pre">relu</span></code> 함수</p></li>
-<li><p>이진 분류 모델의 최상위 층의 활성화 함수: 0과 1사이의 확률값을 계삲하는 <code class="docutils literal notranslate"><span class="pre">sigmoid</span></code> 함수</p></li>
+<li><p>은닉층의 활성화 함수: 음수를 제거하는 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수</p></li>
+<li><p>이진 분류 모델의 최상위 층의 활성화 함수: 0과 1사이의 확률값을 계삲하는 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수</p></li>
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/slides/images/relu_sigmoid.png" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층을 이용할 때의 핵심은 두 가지다.</p>
 <ul class="simple">
 <li><p>몇 개의 층을 사용하는가?</p></li>
-<li><p>각 층마다 몇 개의 유닛(unit)을 사용하는가?</p></li>
+<li><p>각 층마다 몇 개의 유닛<font size='2'>unit</unit>을 사용하는가?</p></li>
 </ul>
-<p>결정해야 하는데 이에 대해서 <a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">5장 머신러닝 핵심 이슈</span></a>에서 자세히 설명한다.
-여기서는 일단 다음과 같은 구성을 추천한다.</p>
+<p>위 두 질문에 대한 체계적인 답은
+<a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">5장 머신러닝 핵심 이슈</span></a>에서 다룬다.
+여기서는 일단 아래 구성을 사용한다.</p>
 <ul class="simple">
 <li><p>두 개의 연속된 밀집층</p></li>
 <li><p>각각 16개의 유닛</p></li>
@@ -746,13 +610,6 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="p">])</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층은 다음 계산을 실행한다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">relu</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">W</span></code>는 입력값의 특성 각각에 대해 곱해지는 가중치이며 그 결과에 편향 <code class="docutils literal notranslate"><span class="pre">b</span></code>를 더한 값이
-<code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층의 출력값으로 계산된다.
-그런 다음 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수에 의해 음숫값은 삭제된 상태로 이어지는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층으로 전달된다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층의 유닛이 많을 수록 입력값에 내재된 보다 많은 특성을 찾아내어 보다 복잡한
 모델을 학습한다. 하지만 유닛수가 많을 수록 모델 훈련에 필요한 비용(시간과 메모리)이
 늘어난다.</p>
@@ -767,10 +624,10 @@ const thebe_selector_output = ".output, .cell_output"
 <p>위 모델을 시각화하면 다음과 같다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-01.png" style="width:200px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="info admonition">
-<p class="admonition-title">로지스틱 회귀 모델</p>
+<p class="admonition-title">사이킷런의 로지스틱 회귀 모델</p>
 <p>이진 분류 모델의 최상위 층은 스칼라 값을 출력하도록 하나의 유닛을 사용하는
 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 밀집층을 사용한다.
-또한 활성화 함수로 0과 1사이의 확률값을 계산하는 <code class="docutils literal notranslate"><span class="pre">sigmoid</span></code>를 활성화 함수로 사용한다.
+또한 활성화 함수로 0과 1사이의 확률값을 계산하는 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code>를 활성화 함수로 사용한다.
 그러면 <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">사이킷런의 로지스틱 회귀<font size='2'>logistic regression</font> 모델</a>처럼 작동한다.</p>
 </div>
 <p><strong>모델 컴파일</strong></p>
@@ -790,7 +647,12 @@ const thebe_selector_output = ".output, .cell_output"
 <p><strong>모델 훈련</strong></p>
 <p>훈련 중인 모델을 에포크마다 검증하기 위해 검증셋을 따로 지정한다.
 여기서는 10,000개의 샘플을 검증셋으로 활용한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_x_train</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]</span>
+<span class="n">partial_x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="mi">10000</span><span class="p">:]</span>
+<span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]</span>
+<span class="n">partial_y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="mi">10000</span><span class="p">:]</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_x_train</span><span class="p">,</span>
                     <span class="n">partial_y_train</span><span class="p">,</span>
                     <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                     <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
@@ -799,11 +661,10 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <p><strong><code class="docutils literal notranslate"><span class="pre">History</span></code> 객체 활용</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드가 반환하는 객체는 <code class="docutils literal notranslate"><span class="pre">Callback</span></code> 클래스를 상속하는
-<code class="docutils literal notranslate"><span class="pre">History</span></code> 클래스의 인스턴이며, 케라스의 모든 모델 훈련과정 중에 발생하는
-다양한 정보를 저장한다.
+<code class="docutils literal notranslate"><span class="pre">History</span></code> 클래스의 객체이며 모델 훈련과정 중에 계산되는 다양한 정보를 저장한다.
 콜백(<code class="docutils literal notranslate"><span class="pre">Callback</span></code>) 클래스에 대해서는 <a class="reference internal" href="working_with_keras.html#ch-working-with-keras"><span class="std std-numref">7장</span></a>에서 자세히 살펴본다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">History</span></code> 객체의 속성 중에서 <code class="docutils literal notranslate"><span class="pre">history</span></code> 속성이 가장 많이 활용된다.
-<code class="docutils literal notranslate"><span class="pre">history</span></code> 속성은 훈련 에포크 단위로 측정된 손실값과 평가지표를 사전 자료형으로 가리킨다.</p>
+<code class="docutils literal notranslate"><span class="pre">history</span></code> 속성은 훈련중 에포크 단위로 측정된 손실값과 평가지표를 사전으로 저장한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">history_dict</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">history_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="go">dict_keys([&#39;loss&#39;, &#39;accuracy&#39;, &#39;val_loss&#39;, &#39;val_accuracy&#39;])</span>
@@ -811,25 +672,28 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <p>예를 들어, <code class="docutils literal notranslate"><span class="pre">history</span></code> 속성에 저장된 정보를 이용하여
 훈련셋과 검증셋에 대한 에포크별 손실값과 정확도의 변화를 그래프로 그릴 수 있다.</p>
+<p><em>손실값의 변화</em></p>
 <p>훈련셋와 검증 세트에 대한 에포크별 손실값의 변화를 보면
-훈련셋에 대해서는 손실값 계속 감소하지만
-검증셋에 대해서는 다섯 번째 에포크 전후 정체하다가 상승한다.
-즉, 모델이 훈련셋에 과대적합<font size='2'>overfitting</font>하게 된다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-06.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>훈련셋과 검증셋에 대한 에포크별 정확도의 경우엔
+훈련셋에 대해서는 손실값이 계속 감소하지만
+검증셋에 대해서는 9번째 에포크 전후 정체하다가 상승한다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-04.png" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><em>정확도의 변화</em></p>
+<p>훈련셋과 검증셋에 대한 에포크별 정확도의 경우엔
 훈련셋에 대해서는 정확도 계속 증가한다.
-반면에 검증셋에 대해서는 역시 다섯째 에포크 전후 정체한 후 감소한다.
-이또한 과대적합의 증거다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-07.png" style="width:500px;"></div>
+반면에 검증셋에 대해서는 역시 9번째 에포크 전후 정체하다가 감소한다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-05.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>과대적합</strong></p>
-<p><strong>과대적합</strong>(overfitting)은 모델이 훈련셋에 익숙해진다는 의미이다.
-시험에 비유하면 연습문제의 답을 외워버리는 것을 의미한다.
-과대적합을 방지하기 위한 다양한 기법은 다음 장(chapter)에서 다룬다.
-위 문제의 경우 넷째 또는 다섯째 에포크 정도만 훈련 반복을 진행하면 된다.
-아래 코드는 다시 처음부터 네 번의 에포크만을 사용하여 훈련한 결과를 보여준다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+<p>과대적합<font size='2'>overfitting</font>은 모델이 훈련셋에 익숙해진다는 의미이다.
+반면에 처음 보는 데이터에 대해서는 성능이 떨어진다.
+에포크가 진행될 수록 훈련셋에 대한 성능은 계속해서 좋아지지만
+검증셋에 대한 성능이 4번째 에포크 이후에 오히려 나빠진다.</p>
+<p><strong>모델 재훈련</strong></p>
+<p>과대적합을 방지하기 위한 다양한 기법은
+<a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">5장</span></a>에서 다룬다.
+위 문제의 경우 4번의 에포크만 훈련 반복을 진행하면 된다.</p>
+<p>모델 구성부터, 컴파일, 훈련을 모두 다시 시작해야
+가중치와 편향이 초기화된 상태서 훈련을 시작한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)</span>
@@ -840,805 +704,292 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_846</span><span class="o">/</span><span class="mf">1979268009.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="p">])</span>
-
-<span class="ne">NameError</span>: name &#39;keras&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<p>테스트셋에 대한 성능은 아래와 같이 88% 정도의 정확도를 보인다.
+<p>테스트셋에 대한 성능은 아래와 같이 88% 정도의 정확도를 보인다. 모델의 손실값은 0.31 정도.
 앞으로 보다 좋은 성능의 모델을 살펴볼 것이며, 현존하는 가장 좋은 모델의 정확도는 95% 정도이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-<span class="n">results</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span>
+<span class="go">[0.3139097988605499, 0.8770800232887268]</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>782/782 [==============================] - 1s 2ms/step - loss: 0.3139 - accuracy: 0.8771
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.3139097988605499, 0.8770800232887268]
-</pre></div>
-</div>
-</div>
 </div>
 <p><strong>모델 활용</strong></p>
-<p>훈련된 모델을 활용하려면 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 이용한다.</p>
+<p>훈련된 모델을 활용하려면 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 이용한다.
+큰 데이터셋에 대해 미니배치 단위로 예측할 수 있다.</p>
 <ul class="simple">
 <li><p>0,99 이상 또는 0.01 이하의 경우: 매우 확실한 예측</p></li>
 <li><p>0.4 ~ 0.6: 불확실한 예측</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+<span class="go">array([[0.25440323],</span>
+<span class="go">       [0.9999424 ],</span>
+<span class="go">       [0.95840394],</span>
+<span class="go">       ...,</span>
+<span class="go">       [0.17153329],</span>
+<span class="go">       [0.10725482],</span>
+<span class="go">       [0.6672551 ]], dtype=float32)</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.25440323],
-       [0.9999424 ],
-       [0.95840394],
-       ...,
-       [0.17153321],
-       [0.10725482],
-       [0.6672551 ]], dtype=float32)
-</pre></div>
-</div>
-</div>
-</div>
-<p>아래처럼 데이터셋이 클 경우 배치 단위로 묶어서 예측할 수도 있다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.25440323],
-       [0.9999424 ],
-       [0.95840394],
-       ...,
-       [0.17153329],
-       [0.10725482],
-       [0.6672551 ]], dtype=float32)
-</pre></div>
-</div>
 </div>
 </div>
 <div class="section" id="id3">
-<h3><span class="section-number">4.1.1. </span>연습문제<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
-<li><p>두 개의 은닉층 대신 1 개 또는 3 개의 은닉층을 사용할 때
-검증 세트와 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
-<li><p>각 은닉층에 사용된 유닛(unit)의 수를 8, 32, 64 등으로 변화시킨 후
-검증 세트와 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">binary_crossentropy</span></code> 대신 <code class="docutils literal notranslate"><span class="pre">mse</span></code>를 손실함수로 지정한 후
-검증 세트와 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">relu</span></code> 함수 대신 이전에 많이 사용됐었던 <code class="docutils literal notranslate"><span class="pre">tanh</span></code> 함수를 손실함수로 지정한 후
-검증 세트와 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
-</ol>
-</div>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">4.2. </span>4.2 뉴스 기사 분류: 다중 클래스 분류<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="reuter">
-<h3><span class="section-number">4.2.1. </span>로이터(Reuter) 데이터셋<a class="headerlink" href="#reuter" title="Permalink to this headline">¶</a></h3>
+<h2><span class="section-number">4.2. </span>뉴스 기사: 다중 클래스 분류<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p><strong>로이터 데이터셋</strong></p>
+<p>로이터<font size='2'>Reuter</font> 통신사가 1986년에 작성한 짧은 기사 모음집이다.
+총 11,228개의 기사로 구성되었으며 훈련셋과 테스트셋으로 이미 구분되어 있다.</p>
 <ul class="simple">
-<li><p>1986년 로이터 통신사의 짧은 기사 모음</p></li>
-<li><p>케라스의 <code class="docutils literal notranslate"><span class="pre">reuters</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 데이터 적재</p>
-<ul>
-<li><p>훈련셋와 테스트셋로 분류됨.</p></li>
-</ul>
-</li>
-<li><p>주제: 총 46개</p></li>
-<li><p>주제에 따른 기사 수 다름. 하지만 주제 당 최소 10개의 기사가 훈련셋에 포함됨.</p></li>
-</ul>
-<div class="section" id="id5">
-<h4><span class="section-number">4.2.1.1. </span>데이터셋 적재<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">num_words=10000</span></code>: 10,000등 이내의 단어만 대상으로 함.</p></li>
-<li><p>데이터셋 크기: 11, 228</p>
-<ul>
 <li><p>훈련셋 크기: 8,982</p></li>
 <li><p>테스트셋 크기: 2,246</p></li>
 </ul>
-</li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">reuters</span>
-
+<p>기사의 주제는 46개로 구분되며, 각각의 기사에 하나의 주제가 할당되어 있다.
+여기서 훈련시키는 모델은 기사별로 46개 중의 하나의 주제를 예측해는
+분류 모델이며, 클래스가 3개 이상이기에
+<strong>다중 클래스 분류</strong><font size='2'>multiclass classification</font> 모델이라 부른다.</p>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">reuters</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 데이터셋을 불러올 수 있다.
+영화 후기의 경우처럼 사용 빈도가 상위 10,000등 이내의 단어만 사용하도록 한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">reuters</span>
 <span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8982
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2246
-</pre></div>
-</div>
-</div>
-</div>
-<p>주제별 기사 수가 다르다.
-훈련셋의 타깃에 사용된 값들의 빈도수를 확인하면 다음과 같다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
-
-<span class="n">target_counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
-<span class="n">target_counter</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counter({3: 3159,
-         4: 1949,
-         16: 444,
-         19: 549,
-         8: 139,
-         21: 100,
-         11: 390,
-         1: 432,
-         13: 172,
-         20: 269,
-         18: 66,
-         25: 92,
-         35: 10,
-         9: 101,
-         38: 19,
-         10: 124,
-         28: 48,
-         2: 74,
-         6: 48,
-         12: 49,
-         7: 16,
-         30: 45,
-         34: 50,
-         15: 20,
-         14: 26,
-         32: 32,
-         41: 30,
-         40: 36,
-         45: 18,
-         23: 41,
-         42: 13,
-         26: 24,
-         24: 62,
-         37: 19,
-         27: 15,
-         31: 39,
-         39: 24,
-         0: 55,
-         22: 15,
-         33: 11,
-         36: 49,
-         17: 39,
-         43: 21,
-         29: 19,
-         44: 12,
-         5: 17})
-</pre></div>
-</div>
-</div>
-</div>
-<p>가장 많이 언급된 주제는 총 3159번,
-자장 적게 언급딘 주제는 총 10번 기사로 작성되었다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;최대 기사 수: </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">target_counter</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;최소 기사 수: </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">target_counter</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>최대 기사 수: 3159
-최소 기사 수: 10
-</pre></div>
-</div>
-</div>
-</div>
 <p>각 샘플은 정수들의 리스트이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_data</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_data</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">[1, 245, 273, 207, 156, 53, 74, 160, 26, 14, 46, 296, 26, 39, 74, 2979,</span>
+<span class="go">3554, 14, 46, 4689, 4329, 86, 61, 3499, 4795, 14, 61, 451, 4329, 17, 12]</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,
- 245,
- 273,
- 207,
- 156,
- 53,
- 74,
- 160,
- 26,
- 14,
- 46,
- 296,
- 26,
- 39,
- 74,
- 2979,
- 3554,
- 14,
- 46,
- 4689,
- 4329,
- 86,
- 61,
- 3499,
- 4795,
- 14,
- 61,
- 451,
- 4329,
- 17,
- 12]
-</pre></div>
-</div>
-</div>
-</div>
-<p>각 샘플 리스트의 길이가 일반적으로 다르다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>31
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>59
-</pre></div>
-</div>
-</div>
 </div>
 <p>각 샘플에 대한 레이블은 0부터 45까지의 정수로 표현된다.
 예를 들어, 10번 기사의 주제는 3이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_labels</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_labels</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">3</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+<div class="tip admonition">
+<p class="admonition-title">로이터 기사 주제</p>
+<p>기사 주제 3은 ‘earn’(수익)과 연관된다.
+언급된 46개의 주제와 번호 사이의 관계는
+<a class="reference external" href="https://github.com/keras-team/keras/issues/12072">GitHub: Where can I find topics of reuters dataset #12072</a>에서 확인할 수 있다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;cocoa&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="s1">&#39;grain&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s1">&#39;veg-oil&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="s1">&#39;earn&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="s1">&#39;acq&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<span class="s1">&#39;wheat&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="s1">&#39;copper&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+<span class="s1">&#39;housing&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+<span class="s1">&#39;money-supply&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+<span class="s1">&#39;coffee&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+<span class="s1">&#39;sugar&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+<span class="s1">&#39;trade&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+<span class="s1">&#39;reserves&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+<span class="s1">&#39;ship&#39;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+<span class="s1">&#39;cotton&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+<span class="s1">&#39;carcass&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+<span class="s1">&#39;crude&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+<span class="s1">&#39;nat-gas&#39;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+<span class="s1">&#39;cpi&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+<span class="s1">&#39;money-fx&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+<span class="s1">&#39;interest&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+<span class="s1">&#39;gnp&#39;</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
+<span class="s1">&#39;meal-feed&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+<span class="s1">&#39;alum&#39;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
+<span class="s1">&#39;oilseed&#39;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+<span class="s1">&#39;gold&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+<span class="s1">&#39;tin&#39;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span>
+<span class="s1">&#39;strategic-metal&#39;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+<span class="s1">&#39;livestock&#39;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+<span class="s1">&#39;retail&#39;</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span>
+<span class="s1">&#39;ipi&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+<span class="s1">&#39;iron-steel&#39;</span><span class="p">:</span> <span class="mi">31</span><span class="p">,</span>
+<span class="s1">&#39;rubber&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+<span class="s1">&#39;heat&#39;</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
+<span class="s1">&#39;jobs&#39;</span><span class="p">:</span> <span class="mi">34</span><span class="p">,</span>
+<span class="s1">&#39;lei&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>
+<span class="s1">&#39;bop&#39;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span>
+<span class="s1">&#39;zinc&#39;</span><span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
+<span class="s1">&#39;orange&#39;</span><span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
+<span class="s1">&#39;pet-chem&#39;</span><span class="p">:</span> <span class="mi">39</span><span class="p">,</span>
+<span class="s1">&#39;dlr&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+<span class="s1">&#39;gas&#39;</span><span class="p">:</span> <span class="mi">41</span><span class="p">,</span>
+<span class="s1">&#39;silver&#39;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+<span class="s1">&#39;wpi&#39;</span><span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
+<span class="s1">&#39;hog&#39;</span><span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
+<span class="s1">&#39;lead&#39;</span><span class="p">:</span> <span class="mi">45</span><span class="p">}</span>
 </pre></div>
-</div>
-</div>
-</div>
-<p>주제 3은 ‘earn’(이익)과 연관된다.</p>
-<p><strong>참고</strong>: 데이터 분석을 위해 반드시 필요한 사항은 아니지만 언급된 46개의 주제와 번호 사이의 관계는
-<a class="reference external" href="https://github.com/keras-team/keras/issues/12072">GitHub: Where can I find topics of reuters dataset #12072</a>를 참조할 수 있다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reuter_topics</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cocoa&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                 <span class="s1">&#39;grain&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-                 <span class="s1">&#39;veg-oil&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-                 <span class="s1">&#39;earn&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-                 <span class="s1">&#39;acq&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-                 <span class="s1">&#39;wheat&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-                 <span class="s1">&#39;copper&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-                 <span class="s1">&#39;housing&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-                 <span class="s1">&#39;money-supply&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-                 <span class="s1">&#39;coffee&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-                 <span class="s1">&#39;sugar&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-                 <span class="s1">&#39;trade&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
-                 <span class="s1">&#39;reserves&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-                 <span class="s1">&#39;ship&#39;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
-                 <span class="s1">&#39;cotton&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
-                 <span class="s1">&#39;carcass&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-                 <span class="s1">&#39;crude&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-                 <span class="s1">&#39;nat-gas&#39;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
-                 <span class="s1">&#39;cpi&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
-                 <span class="s1">&#39;money-fx&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
-                 <span class="s1">&#39;interest&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-                 <span class="s1">&#39;gnp&#39;</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
-                 <span class="s1">&#39;meal-feed&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
-                 <span class="s1">&#39;alum&#39;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
-                 <span class="s1">&#39;oilseed&#39;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
-                 <span class="s1">&#39;gold&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
-                 <span class="s1">&#39;tin&#39;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span>
-                 <span class="s1">&#39;strategic-metal&#39;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
-                 <span class="s1">&#39;livestock&#39;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-                 <span class="s1">&#39;retail&#39;</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span>
-                 <span class="s1">&#39;ipi&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
-                 <span class="s1">&#39;iron-steel&#39;</span><span class="p">:</span> <span class="mi">31</span><span class="p">,</span>
-                 <span class="s1">&#39;rubber&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-                 <span class="s1">&#39;heat&#39;</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
-                 <span class="s1">&#39;jobs&#39;</span><span class="p">:</span> <span class="mi">34</span><span class="p">,</span>
-                 <span class="s1">&#39;lei&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>
-                 <span class="s1">&#39;bop&#39;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span>
-                 <span class="s1">&#39;zinc&#39;</span><span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
-                 <span class="s1">&#39;orange&#39;</span><span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
-                 <span class="s1">&#39;pet-chem&#39;</span><span class="p">:</span> <span class="mi">39</span><span class="p">,</span>
-                 <span class="s1">&#39;dlr&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
-                 <span class="s1">&#39;gas&#39;</span><span class="p">:</span> <span class="mi">41</span><span class="p">,</span>
-                 <span class="s1">&#39;silver&#39;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-                 <span class="s1">&#39;wpi&#39;</span><span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
-                 <span class="s1">&#39;hog&#39;</span><span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
-                 <span class="s1">&#39;lead&#39;</span><span class="p">:</span> <span class="mi">45</span><span class="p">}</span>
-</pre></div>
-</div>
-</div>
 </div>
 <p>실제로 10번 기사 내용을 확인해보면 ‘earn’과 관련되어 있어 보인다.
 데이터를 해독(decoding)하는 방법은 IMDB 데이터셋의 경우와 동일하다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">word_index</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">get_word_index</span><span class="p">()</span>
-<span class="n">reverse_word_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">word_index</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">get_word_index</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_word_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_newswire</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">reverse_word_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_data</span><span class="p">[</span><span class="mi">10</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_newswire</span>
+<span class="go">&#39;? period ended december 31 shr profit 11 cts vs loss 24 cts net profit 224 271 vs loss 511 349 revs 7 258 688 vs 7 200 349 reuter 3&#39;</span>
 </pre></div>
 </div>
 </div>
-</div>
-<p>10번 기사 내용은 다음과 같다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">decoded_newswire</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">reverse_word_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_data</span><span class="p">[</span><span class="mi">10</span><span class="p">]])</span>
-
-<span class="n">decoded_newswire</span>
+<p><strong>데이터 전처리</strong></p>
+<p><em>입력 데이터셋 벡터화: 멀티-핫-인코딩</em></p>
+<p>IMDB의 경우와 동일하게 모든 샘플을 길이가 10,000인 벡터로 변환한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_train</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_test</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;? period ended december 31 shr profit 11 cts vs loss 24 cts net profit 224 271 vs loss 511 349 revs 7 258 688 vs 7 200 349 reuter 3&#39;
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">4.2.2. </span>데이터 전처리<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p><strong>데이터 벡터화</strong></p>
-<p>IMDB의 경우와 동일하게 길이가 10,000인 벡터로 모든 샘플을 변환한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_train</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
-<span class="n">x_test</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="id7">
-<h4><span class="section-number">4.2.2.1. </span>타깃의 원-핫-인코딩<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
-<p>앞서 보았듯이 타깃은 0부터 45 사이의 값이다.
-이런 경우 정수를 텐서로 변환해서 사용하는 것보다
-<strong>원-핫-인코딩</strong>(one-hot-encoding) 기법을 적용하는 게 좋다.</p>
+<p><em>레이블 데이터셋 벡터화: 원-핫-인코딩</em></p>
+<p>레이블은 0부터 45 사이의 값이다.
+이런 경우 정수로 구성된 텐서를 사용하기 보다는
+<strong>원-핫-인코딩</strong><font size='2'>one-hot-encoding</font>
+기법을 적용하는 게 좋다.</p>
 <p>원-핫-인코딩은 멀티-핫-인코딩 기법과 유사하다.
-차이점은 1인 오직 한 곳에서만 사용되고 나머지 항목은 모두 0이 된다.
-예를 들어, 3은 길이가 46인 벡터(1차원 어레이)로 변환되는데
-3번 인덱스에서만 1이고 나머지는 0이 된다.</p>
-<p>아래 함수는 원-핫-인코딩을 실행하는 함수이다.
-입력값은 레이블 데이터셋 전체를 대상으로 함에 주의하라.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">to_one_hot</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">46</span><span class="p">):</span>
+원-핫-인코딩으로 생성된 텐서는 한 곳만을 제외한 모든 항목이 0이다.
+예를 들어, 정수 3은 길이가 46인 벡터로 변환되는데
+3번 인덱스에서만 1이고 나머지 항목은 모두 0이다.</p>
+<p>아래 함수는 정수들의 어레이로 주어진 레이블 데이터셋을
+원-핫-인코딩된 원-핫-벡터로 구성된 2차원 텐서로 변환한다.
+각 원-핫-벡터의 길이(차원)는 46이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">to_one_hot</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">46</span><span class="p">):</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">dimension</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
         <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
     <span class="k">return</span> <span class="n">results</span>
 </pre></div>
 </div>
-</div>
-</div>
-<p>훈련셋의 레이블과 테스트셋의 레이블을 인코딩한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span> <span class="o">=</span> <span class="n">to_one_hot</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">to_one_hot</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
+<p><em><code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수</em></p>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수가 원-핫-인코딩을 지원한다.
+원-핫-벡터의 길이는 사용된 레이블의 최댓값에 1을 더한 값이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,</span>
+<span class="go">       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,</span>
+<span class="go">       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32)</span>
 </pre></div>
 </div>
+<div class="info admonition">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">CategoryEncoding</span></code> 층</p>
+<p>원-핫-인코딩, 멀티-핫-인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환하는
+전처리 과정을 지원하는 층<font size='2'>layer</font>이 있다.
+예를 들어 <a class="reference external" href="https://keras.io/api/layers/preprocessing_layers/categorical/category_encoding/">tf.keras.layers.CategoryEncoding</a>은
+원-핫-인코딩과 멀티-핫-인코딩을 지원한다.</p>
 </div>
-</div>
-<p>인코딩된 레이블 하나를 살펴보자.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
-       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
-       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="to-categorical">
-<h4><span class="section-number">4.2.2.2. </span><code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수<a class="headerlink" href="#to-categorical" title="Permalink to this headline">¶</a></h4>
-<p>원-핫-인코딩을 지원하는 함수를 케라스가 지원한다.</p>
-<p><strong>참고</strong>: 사용된 레이블의 최댓값에 1을 더한 값을 어레이의 길이로 사용한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
-
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
-       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
-       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32)
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>참고</strong>: 원-핫-인코딩, 멀티-핫-인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환하는
-전처리 과정을 지원하는 층(layer)이 있다.
-예를 들어 <a class="reference external" href="https://keras.io/api/layers/preprocessing_layers/categorical/category_encoding/">tf.keras.layers.CategoryEncoding 층</a>은 원-핫-인코딩과 멀티-핫-인코딩을 지원한다.</p>
-</div>
-</div>
-<div class="section" id="id8">
-<h3><span class="section-number">4.2.3. </span>모델 생성<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
-<p><strong>모델 정의</strong></p>
+<p><strong>모델 구성</strong></p>
 <p>IMDB 데이터셋의 경우와는 달리 3 개 이상의 클래스로 분류하는
 <strong>다중 클래스 분류</strong> 모델의 최종 층은
 분류해야 하는 클래스의 수 만큼의 유닛과 함께
 각 클래스에 속할 확률을 계산하는
 <code class="docutils literal notranslate"><span class="pre">softmax</span></code> 활성화 함수를 이용한다.</p>
-<p><strong>참고</strong>: 각 클래스에 속할 확률을 모두 더하면 1이 되며,
-가장 높은 확률을 가진 클래스를 예측값으로 사용한다.</p>
-<p>반면에 이진 분류의 경우보다 복잡한 문제이기에
-은닉층의 유닛은 64개씩 정하여 보다 많은 정보를 상위 층으로 전달하도록 한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+<div class="info admonition">
+<p class="admonition-title">softmax 활성화 함수</p>
+<p>여기서 사용하는 모델의 마지막 층은 46개의 유닛을 사용하며,
+46개 클래스 각각에 속할 확률이 유닛별로 계산되어야 한다.
+<code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 활성화 함수는 유닛별로 아핀변환된 값들을 종합하여
+최종적으로 각 유닛이 대변하는 클래스에 속할 확률을 계산한다.
+클래스별 확률을 합치면 1이 되며, 가장 높은 확률을 갖는 클래스를
+모델의 최종 예측값으로 사용한다.</p>
+</div>
+<p>마지막 층을 제외한 나머지 층은 긍정/부정의 이진 분류 모델 보다 훨씬 많은 64개의
+유닛을 사용하도록 한다.
+이유는 이진 분류보다 훨씬 많은 46개의 클래스로 분류하려면
+보다 많은 정보를 각 층에서 다룰 수 있어야 하기 때문이다.
+층에 사용되는 유닛이 많을 수록 보다 많은 정보를 계산한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
 <span class="p">])</span>
 </pre></div>
 </div>
+<div class="tip admonition">
+<p class="admonition-title">정보 병목현상</p>
+<p>층에 사용되는 유닛의 수를 지정할 때 병목현상이 발생하지 않도록 조심해야 한다.
+각 층은 이전 층에서 넘겨진 값만 활용할 수 있기에 이전 층이 너무 적은 수의 유닛을
+사용하면 그만큼 전달되는 정보의 양도 적다.
+따라서 아무리 많은 유닛을 사용하더라도 새로운 정보를 생성하기는 어렵다.
+이를 정보 병목현상이라 부르며 이런 일이 발생하지 않도록
+층을 구성해야 한다.
+앞으로 다양한 모델을 통해 다양한 방식의 구조의 층을 살펴볼 것이다.</p>
 </div>
+<div class="info admonition">
+<p class="admonition-title">사이킷런의 소프트맥스 회귀 모델</p>
+<p>다중 클래스 분류 모델의 최상위 층은 클래스 수 만큼의 값으로 구성된 벡터를 출력하도록
+여러 개의 유닛을 사용하는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 밀집층을 사용한다.
+또한 활성화 함수로 모든 유닛에 대한 확률값의 합이 1이 되도록 하는 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code>를 활성화 함수로 사용한다.
+그러면 <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">사이킷런의 로지스틱 회귀<font size='2'>logistic regression</font> 모델</a>에서
+<code class="docutils literal notranslate"><span class="pre">multi_class='multinomial'</span></code> 옵션이 사용되는 경우처럼 작동한다.</p>
 </div>
 <p><strong>모델 컴파일</strong></p>
 <p>다중 클래스 분류 모델의 손실함수는 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>을 사용한다.
 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>는 클래스의 실제 분포와 예측 클래스의 분포 사이의
-오차를 측정하는 손실함수이며,
-자세한 내용은 생략한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+오차를 측정하며, 보다 자세한 설명은
+<a class="reference external" href="https://codingalzi.github.io/handson-ml3/training_models.html#sec-softmax-regression">핸즈온 머신러닝(3판)의 소프트맥스 회귀의 비용 함수</a>를 참고한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;categorical_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="id9">
-<h3><span class="section-number">4.2.4. </span>모델 훈련 및 검증<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
-<p><strong>검증 세트 지정</strong></p>
-<p>처음 1,000개의 샘플을 검증 세트 용도로 사용한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 검증 세트</span>
-<span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
-<span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
-
-<span class="c1"># 훈련셋</span>
-<span class="n">partial_x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="mi">1000</span><span class="p">:]</span>
-<span class="n">partial_y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="mi">1000</span><span class="p">:]</span>
-</pre></div>
-</div>
-</div>
-</div>
 <p><strong>모델 훈련</strong></p>
-<p>훈련 방식은 이전과 동일하다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_x_train</span><span class="p">,</span>
+<p>훈련 방식은 영화 후기 이진 분류 모델의 경우와 동일하다.
+다만 검증셋의 크기를 1,000으로 정한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+<span class="n">partial_x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="mi">1000</span><span class="p">:]</span>
+<span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+<span class="n">partial_y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="mi">1000</span><span class="p">:]</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_x_train</span><span class="p">,</span>
                     <span class="n">partial_y_train</span><span class="p">,</span>
                     <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                     <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
                     <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/20
-16/16 [==============================] - 1s 25ms/step - loss: 2.7101 - accuracy: 0.4583 - val_loss: 1.7988 - val_accuracy: 0.6410
-Epoch 2/20
-16/16 [==============================] - 0s 12ms/step - loss: 1.4512 - accuracy: 0.7033 - val_loss: 1.3068 - val_accuracy: 0.7140
-Epoch 3/20
-16/16 [==============================] - 0s 11ms/step - loss: 1.0563 - accuracy: 0.7727 - val_loss: 1.1291 - val_accuracy: 0.7660
-Epoch 4/20
-16/16 [==============================] - 0s 11ms/step - loss: 0.8374 - accuracy: 0.8246 - val_loss: 1.0463 - val_accuracy: 0.7930
-Epoch 5/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.6677 - accuracy: 0.8663 - val_loss: 0.9715 - val_accuracy: 0.7960
-Epoch 6/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.5328 - accuracy: 0.8934 - val_loss: 0.9264 - val_accuracy: 0.8140
-Epoch 7/20
-16/16 [==============================] - 0s 11ms/step - loss: 0.4300 - accuracy: 0.9142 - val_loss: 0.9193 - val_accuracy: 0.8210
-Epoch 8/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.3504 - accuracy: 0.9295 - val_loss: 0.8917 - val_accuracy: 0.8200
-Epoch 9/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.2853 - accuracy: 0.9377 - val_loss: 0.9481 - val_accuracy: 0.8060
-Epoch 10/20
-16/16 [==============================] - 0s 11ms/step - loss: 0.2434 - accuracy: 0.9451 - val_loss: 0.9156 - val_accuracy: 0.8150
-Epoch 11/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.2103 - accuracy: 0.9494 - val_loss: 0.9088 - val_accuracy: 0.8200
-Epoch 12/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.1840 - accuracy: 0.9509 - val_loss: 0.9644 - val_accuracy: 0.8060
-Epoch 13/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.1670 - accuracy: 0.9531 - val_loss: 0.9432 - val_accuracy: 0.8180
-Epoch 14/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.1492 - accuracy: 0.9558 - val_loss: 0.9799 - val_accuracy: 0.8070
-Epoch 15/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.1446 - accuracy: 0.9563 - val_loss: 1.0445 - val_accuracy: 0.7920
-Epoch 16/20
-16/16 [==============================] - 0s 12ms/step - loss: 0.1335 - accuracy: 0.9565 - val_loss: 0.9940 - val_accuracy: 0.8170
-Epoch 17/20
-16/16 [==============================] - 0s 9ms/step - loss: 0.1255 - accuracy: 0.9564 - val_loss: 1.0369 - val_accuracy: 0.8080
-Epoch 18/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.1203 - accuracy: 0.9565 - val_loss: 1.0909 - val_accuracy: 0.8020
-Epoch 19/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.1176 - accuracy: 0.9574 - val_loss: 1.0424 - val_accuracy: 0.8140
-Epoch 20/20
-16/16 [==============================] - 0s 10ms/step - loss: 0.1140 - accuracy: 0.9582 - val_loss: 1.0658 - val_accuracy: 0.8130
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>손실값의 변화</strong></p>
-<ul class="simple">
-<li><p>훈련셋와 검증 세트에 대한 에포크별 손실값의 변화</p>
-<ul>
-<li><p>훈련셋: 손실값 계속 감소</p></li>
-<li><p>검증 세트: 아홉번 째 에포크 전후 정체 및 상승. 과대적합(overfitting) 발생.</p></li>
-</ul>
-</li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span>
-
-<span class="n">val_loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_loss&quot;</span><span class="p">]</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training loss&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation loss&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Training and validation loss&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_104_0.png" src="_images/getting_started_with_neural_networks_104_0.png" />
-</div>
-</div>
-<p><strong>정확도의 변화</strong></p>
-<ul class="simple">
-<li><p>훈련셋와 검증 세트에 대한 에포크별 정확도의 변화</p>
-<ul>
-<li><p>훈련셋: 정확도 계속 증가</p></li>
-<li><p>검증 세트: 아홉번 째 에포크 전후 정체 및 감소. 과대적합(overfitting) 발생.</p></li>
-</ul>
-</li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-<span class="n">acc</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]</span>
-<span class="n">val_acc</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_acc</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Training and validation accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_107_0.png" src="_images/getting_started_with_neural_networks_107_0.png" />
-</div>
-</div>
-<p><strong>모델 재훈련</strong></p>
-<p>9번 에포크를 지나면서 과대적합이 발생하는 것으로 보인다.
-따라서 에포크 수를 9로 줄이고 처음부터 다시 훈련시켜보자.
+<p><strong><code class="docutils literal notranslate"><span class="pre">History</span></code> 객체 활용</strong></p>
+<p>이번엔 9번째 에포크 이후에 과대적합이 발생한다.</p>
+<p><em>손실값의 변화</em></p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-06.png" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><em>정확도의 변화</em></p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-07.png" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>모델 재훈련</strong></p>
+<p>9번 에포크를 지나면서 과대적합이 발생하기에
+에포크 수를 9로 줄이고 처음부터 다시 훈련시킨다.
 모델 구성부터, 컴파일, 훈련을 모두 다시 시작해야
 가중치와 편향이 초기화된 상태서 훈련을 시작한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-  <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-  <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-  <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
 <span class="p">])</span>
-
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;categorical_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span>
           <span class="n">y_train</span><span class="p">,</span>
           <span class="n">epochs</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
           <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/9
-18/18 [==============================] - 0s 8ms/step - loss: 2.3815 - accuracy: 0.5605
-Epoch 2/9
-18/18 [==============================] - 0s 8ms/step - loss: 1.2837 - accuracy: 0.7190
-Epoch 3/9
-18/18 [==============================] - 0s 7ms/step - loss: 0.9710 - accuracy: 0.7927
-Epoch 4/9
-18/18 [==============================] - 0s 10ms/step - loss: 0.7652 - accuracy: 0.8370
-Epoch 5/9
-18/18 [==============================] - 0s 9ms/step - loss: 0.6081 - accuracy: 0.8726
-Epoch 6/9
-18/18 [==============================] - 0s 8ms/step - loss: 0.4839 - accuracy: 0.8952
-Epoch 7/9
-18/18 [==============================] - 0s 9ms/step - loss: 0.3859 - accuracy: 0.9188
-Epoch 8/9
-18/18 [==============================] - 0s 8ms/step - loss: 0.3175 - accuracy: 0.9323
-Epoch 9/9
-18/18 [==============================] - 0s 8ms/step - loss: 0.2638 - accuracy: 0.9404
+<p>테스트셋에 대한 성능은 아래와 같이 80% 정도의 정확도를 보인다.
+모델의 손실값은 0.96 정도.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span>
+<span class="go">[0.9565213431445807, 0.79697239536954589]</span>
 </pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;keras.callbacks.History at 0x2cf3b42d550&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<p>훈련된 모델을 이용한 테스트셋에 대한 예측의 정확도는 80% 정도이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-
-<span class="n">results</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>71/71 [==============================] - 0s 2ms/step - loss: 0.9436 - accuracy: 0.7996
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.9436188340187073, 0.7996438145637512]
-</pre></div>
-</div>
-</div>
 </div>
 <p>80%의 정확도가 얼마나 좋은지/나쁜지를 판단하려면 무작위로 찍을 때의 정확도를 계산해봐야 한다.
-아래 코드가 이를 실천하며, 20% 정도의 정확도가 나온다.
+실제로 로이터 데이터셋을 이용하여 무작위로 찍을 때의 정확도는 19% 정도 나온다.
 따라서 80% 정도의 정확도는 상당히 좋은 편이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">copy</span>
-
-<span class="c1"># 원 데이터를 건드리지 않기 위해 사본 사용</span>
-<span class="n">test_labels_copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
-
-<span class="c1"># 무작위로 섞은 후 원 데이터의 순서와 비교</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">test_labels_copy</span><span class="p">)</span>
-<span class="n">hits_array</span> <span class="o">=</span> <span class="n">test_labels</span> <span class="o">==</span> <span class="n">test_labels_copy</span>
-
-<span class="c1"># 1 또는 0으로만 이루어졌기에 평균값을 계산하면 무작위 선택의 정확도를 계산함</span>
-<span class="n">hits_array</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<p><strong>모델 활용</strong></p>
+<p>훈련된 모델의 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드는 각 입력 샘플에 대해
+마지막 층에 사용된 유닛의 개수 만큼의 길이로 구성된 벡터 텐서를 반환한다.
+따라서 여기서는 46개 클래스에 솏할 확률로 구성된 길이가 46인 벡터 텐서가 반환되며
+각 확률값의 합은 1이다.
+이중에 가장 높은 확률값이 위치한 위치가 모델의 최종 예측값으로 사용된다.</p>
+<p>예를 들어, 테스트셋의 첫째 샘플에 대한 예측값은 4다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(46,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">4</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1923419412288513
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="id10">
-<h3><span class="section-number">4.2.5. </span>예측하기<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
-<p>훈련된 모델을 테스트셋에 적용한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>예측값의 모두 길이가 46인 1차원 어레이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(46,)
-</pre></div>
-</div>
-</div>
-</div>
-<p>예측값은 46개 클래스에 들어갈 확률들로 이루어지며 합은 1이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.99999994
-</pre></div>
-</div>
-</div>
-</div>
-<p>가장 큰 확률값을 가진 인덱스가 모델이 예측하는 클래스가 된다.
-예를 들어 테스트셋의 0번 샘플(로이터 기사)은 3번 레이블을 갖는다고 예측된다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="id11">
-<h3><span class="section-number">4.2.6. </span>정수 레이블 사용법<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p><strong>정수 레이블 사용법</strong></p>
 <p>정수 텐서 레이블(타깃)을 이용하여 훈련하려면 모델을 컴파일할 때 손실함수로
 <code class="docutils literal notranslate"><span class="pre">sparse_categorical_crossentropy</span></code>를
 사용하면 된다.</p>
@@ -1650,9 +1001,7 @@ Epoch 9/9
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id12">
-<h3><span class="section-number">4.2.7. </span>은닉층에 사용되는 유닛 개수<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p><strong>은닉층에 사용되는 유닛 개수</strong></p>
 <p>은닉층에 사용되는 유닛은 마지막 층의 유닛보다 많아야 한다.
 그렇지 않으면 정보전달 과정에 병목현상(bottleneck)이 발생할 수 있다.
 아래 코드의 둘째 은닉층은 4 개의 유닛만을 사용하는데
@@ -1676,49 +1025,16 @@ Epoch 9/9
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/20
-63/63 [==============================] - 1s 6ms/step - loss: 2.7547 - accuracy: 0.3588 - val_loss: 2.0262 - val_accuracy: 0.5630
-Epoch 2/20
-63/63 [==============================] - 0s 5ms/step - loss: 1.7311 - accuracy: 0.5808 - val_loss: 1.5582 - val_accuracy: 0.5870
-Epoch 3/20
-63/63 [==============================] - 0s 4ms/step - loss: 1.3904 - accuracy: 0.6163 - val_loss: 1.4050 - val_accuracy: 0.6390
-Epoch 4/20
-63/63 [==============================] - 0s 5ms/step - loss: 1.1950 - accuracy: 0.6695 - val_loss: 1.3178 - val_accuracy: 0.6670
-Epoch 5/20
-63/63 [==============================] - 0s 5ms/step - loss: 1.0543 - accuracy: 0.7235 - val_loss: 1.2940 - val_accuracy: 0.6960
-Epoch 6/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.9497 - accuracy: 0.7512 - val_loss: 1.2820 - val_accuracy: 0.6980
-Epoch 7/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.8585 - accuracy: 0.7786 - val_loss: 1.2812 - val_accuracy: 0.7120
-Epoch 8/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.7729 - accuracy: 0.8036 - val_loss: 1.3157 - val_accuracy: 0.7140
-Epoch 9/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.6988 - accuracy: 0.8227 - val_loss: 1.3189 - val_accuracy: 0.7260
-Epoch 10/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.6370 - accuracy: 0.8444 - val_loss: 1.3645 - val_accuracy: 0.7300
-Epoch 11/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.5862 - accuracy: 0.8535 - val_loss: 1.3981 - val_accuracy: 0.7280
-Epoch 12/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.5424 - accuracy: 0.8596 - val_loss: 1.4963 - val_accuracy: 0.7290
-Epoch 13/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.5066 - accuracy: 0.8681 - val_loss: 1.5458 - val_accuracy: 0.7180
-Epoch 14/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.4722 - accuracy: 0.8735 - val_loss: 1.5992 - val_accuracy: 0.7270
-Epoch 15/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.4450 - accuracy: 0.8807 - val_loss: 1.6689 - val_accuracy: 0.7180
-Epoch 16/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.4192 - accuracy: 0.8854 - val_loss: 1.7057 - val_accuracy: 0.7210
-Epoch 17/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.3994 - accuracy: 0.8920 - val_loss: 1.7751 - val_accuracy: 0.7230
-Epoch 18/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.3830 - accuracy: 0.8948 - val_loss: 1.8543 - val_accuracy: 0.7160
-Epoch 19/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.3646 - accuracy: 0.8993 - val_loss: 1.8992 - val_accuracy: 0.7220
-Epoch 20/20
-63/63 [==============================] - 0s 5ms/step - loss: 0.3506 - accuracy: 0.9018 - val_loss: 2.0408 - val_accuracy: 0.7110
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;keras.callbacks.History at 0x2cf31967370&gt;
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1063</span><span class="o">/</span><span class="mf">2773853959.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="p">])</span>
+
+<span class="ne">NameError</span>: name &#39;keras&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1740,23 +1056,15 @@ Epoch 20/20
 </div>
 </div>
 </div>
-<div class="section" id="id13">
-<h3><span class="section-number">4.2.8. </span>연습문제<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
-<li><p>은닉층의 유닛 개수를 32, 128 등 여러 값으로 실험해 보아라.</p></li>
-<li><p>은닉층의 수를 1개 또는 3개로 바꿔 보아라.</p></li>
-</ol>
-</div>
-</div>
-<div class="section" id="id14">
-<h2><span class="section-number">4.3. </span>4.3 주택가격 예측: 회귀<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2><span class="section-number">4.3. </span>4.3 주택가격 예측: 회귀<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>이진 분류, 다중 클래스 분류 모델은 지정된 숫자들로 이루어진 특정 클래스의 번호 하나를 예측한다.
 반면에 임의의 수를 예측하는 문제는 <strong>회귀</strong>(regression)이라 부른다.
 예를 들어 온도 예측, 가격 예측 등을 다루는 것이 회귀 문제이다.
 여기서는 보스턴 시의 주택가격을 예측하는 회귀 문제를 예제로 다룬다.</p>
 <p><strong>주의사항</strong>: ‘로지스틱 회귀’(logistic regression) 알고리즘는 분류 모델임에 주의하라.</p>
-<div class="section" id="id15">
-<h3><span class="section-number">4.3.1. </span>보스턴 주택가격 데이터셋<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><span class="section-number">4.3.1. </span>보스턴 주택가격 데이터셋<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>사용하는 데이터셋은 다음과 같다.</p>
 <ul class="simple">
 <li><p>1970년대 중반의 미국 보스턴 시내와 외곽의 총 506개 지역별 중간 주택가격.
@@ -1830,8 +1138,8 @@ Epoch 20/20
 </div>
 </div>
 </div>
-<div class="section" id="id16">
-<h3><span class="section-number">4.3.2. </span>데이터 전처리<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3><span class="section-number">4.3.2. </span>데이터 전처리<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>특성에 따라 사용되는 값들의 크기가 다르다.
 어떤 특성은 0과 1사이, 다른 특성은 한 자리리부터 세 자리의 수를 갖기도 한다.</p>
 <div class="cell docutils container">
@@ -2033,8 +1341,8 @@ Epoch 20/20
 </div>
 </div>
 </div>
-<div class="section" id="id17">
-<h3><span class="section-number">4.3.3. </span>모델 구현<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h3><span class="section-number">4.3.3. </span>모델 구현<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p><strong>모델 정의</strong></p>
 <p>이전과는 달리 모델 구성과 컴파일을 동시에 진행하는 함수를 이용한다.</p>
 <ul class="simple">
@@ -2143,7 +1451,7 @@ Epoch 20/20
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_158_0.png" src="_images/getting_started_with_neural_networks_158_0.png" />
+<img alt="_images/getting_started_with_neural_networks_123_0.png" src="_images/getting_started_with_neural_networks_123_0.png" />
 </div>
 </div>
 <p>첫 10개의 에포크의 성능이 매우 나쁘기에 그 부분을 제외하고 그래프를 그리면 보다 정확하게
@@ -2160,7 +1468,7 @@ Epoch 20/20
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_160_0.png" src="_images/getting_started_with_neural_networks_160_0.png" />
+<img alt="_images/getting_started_with_neural_networks_125_0.png" src="_images/getting_started_with_neural_networks_125_0.png" />
 </div>
 </div>
 <p><strong>재훈련</strong></p>
@@ -2201,8 +1509,8 @@ Epoch 20/20
 </div>
 </div>
 </div>
-<div class="section" id="id18">
-<h3><span class="section-number">4.3.5. </span>모델 활용<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3><span class="section-number">4.3.5. </span>모델 활용<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>새로운 데이터에 대한 예측은 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 활용한다.</p></li>
 </ul>
@@ -2220,8 +1528,8 @@ Epoch 20/20
 </div>
 </div>
 </div>
-<div class="section" id="id19">
-<h3><span class="section-number">4.3.6. </span>연습문제<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id9">
+<h3><span class="section-number">4.3.6. </span>연습문제<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code>를 이용하면 봅다 간단하게 K-겹 교차검증을 진행할 수 있다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2266,6 +1574,29 @@ Epoch 20/20
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="id10">
+<h2><span class="section-number">4.4. </span>연습문제<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>영화 후기 이진 분류</p>
+<ol class="simple">
+<li><p>두 개의 은닉층 대신 1 개 또는 3 개의 은닉층을 사용할 때
+검증셋와 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
+<li><p>각 은닉층에 사용된 유닛의 수를 8, 32, 64 등으로 변화시킨 후
+검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">binary_crossentropy</span></code> 대신 <code class="docutils literal notranslate"><span class="pre">mse</span></code>를 손실함수로 지정한 후
+검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수 대신 이전에 많이 사용됐었던 <code class="docutils literal notranslate"><span class="pre">tanh()</span></code> 함수를 손실함수로 지정한 후
+검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
+</ol>
+</li>
+<li><p>뉴스 기사 다중 클래스 분류</p>
+<ol class="simple">
+<li><p>은닉층의 유닛의 수를 32, 128 등 여러 값으로 실험해 보아라.</p></li>
+<li><p>은닉층의 수를 1개 또는 3개로 바꿔 보아라.</p></li>
+</ol>
+</li>
+</ol>
 </div>
 </div>
 

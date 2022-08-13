@@ -18,23 +18,27 @@ Traceback (most recent call last):
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
 model = keras.Sequential([
-    layers.Dense(16, activation="relu"),
-    layers.Dense(16, activation="relu"),
-    layers.Dense(1, activation="sigmoid")
+    layers.Dense(64, activation="relu"),
+    layers.Dense(4, activation="relu"),
+    layers.Dense(46, activation="softmax")
 ])
 model.compile(optimizer="rmsprop",
-              loss="binary_crossentropy",
+              loss="categorical_crossentropy",
               metrics=["accuracy"])
-model.fit(x_train, y_train, epochs=4, batch_size=512)
+model.fit(partial_x_train,
+          partial_y_train,
+          epochs=20,
+          batch_size=128,
+          validation_data=(x_val, y_val))
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipykernel_846/1979268009.py[0m in [0;36m<module>[0;34m[0m
+[0;32m/tmp/ipykernel_1063/2773853959.py[0m in [0;36m<module>[0;34m[0m
 [0;32m----> 1[0;31m model = keras.Sequential([
-[0m[1;32m      2[0m     [0mlayers[0m[0;34m.[0m[0mDense[0m[0;34m([0m[0;36m16[0m[0;34m,[0m [0mactivation[0m[0;34m=[0m[0;34m"relu"[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      3[0m     [0mlayers[0m[0;34m.[0m[0mDense[0m[0;34m([0m[0;36m16[0m[0;34m,[0m [0mactivation[0m[0;34m=[0m[0;34m"relu"[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      4[0m     [0mlayers[0m[0;34m.[0m[0mDense[0m[0;34m([0m[0;36m1[0m[0;34m,[0m [0mactivation[0m[0;34m=[0m[0;34m"sigmoid"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      2[0m     [0mlayers[0m[0;34m.[0m[0mDense[0m[0;34m([0m[0;36m64[0m[0;34m,[0m [0mactivation[0m[0;34m=[0m[0;34m"relu"[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m     [0mlayers[0m[0;34m.[0m[0mDense[0m[0;34m([0m[0;36m4[0m[0;34m,[0m [0mactivation[0m[0;34m=[0m[0;34m"relu"[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m     [0mlayers[0m[0;34m.[0m[0mDense[0m[0;34m([0m[0;36m46[0m[0;34m,[0m [0mactivation[0m[0;34m=[0m[0;34m"softmax"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [1;32m      5[0m ])
 
 [0;31mNameError[0m: name 'keras' is not defined
