@@ -747,113 +747,144 @@
 
 # ## 주택가격 예측: 회귀
 
-# 이진 분류, 다중 클래스 분류 모델은 지정된 숫자들로 이루어진 특정 클래스의 번호 하나를 예측한다.
-# 반면에 임의의 수를 예측하는 문제는 **회귀**(regression)이라 부른다. 
-# 예를 들어 온도 예측, 가격 예측 등을 다루는 것이 회귀 문제이다. 
-# 여기서는 보스턴 시의 주택가격을 예측하는 회귀 문제를 예제로 다룬다.
+# 이진 분류와 다중 클래스 분류는
+# 몇 개의 클래스를 가리키는 숫자들 중에 하나를 예측하는 문제다.
+# 반면에 임의의 실수를 예측하는 문제는 **회귀**<font size='2'>regression</font>라 부른다. 
+# 예를 들어 온도 예측, 가격 예측을 하는 머신러닝 모델이 회귀 모델이다.
 # 
-# **주의사항**: '로지스틱 회귀'(logistic regression) 알고리즘는 분류 모델임에 주의하라.
+# 여기서는 미국 보스턴<font size='2'>Boston</font> 시의 1970년대 중반의 
+# 주택가격을 예측하는 회귀 문제를 예제로 다룬다.
 
-# ### 보스턴 주택가격 데이터셋
-
-# 사용하는 데이터셋은 다음과 같다.
+# :::{admonition} 로지스틱 회귀
+# :class: warning
 # 
-# - 1970년대 중반의 미국 보스턴 시내와 외곽의 총 506개 지역별 중간 주택가격.
-#     즉, 매우 적은 수의 데이터셋임.
-# - 케라스의 `boston_housing` 모듈의 `load_data()` 함수로 데이터 적재
-#     - 훈련셋와 테스트셋로 분류됨.
-# - 지역별 샘플
-#     - 특성: 총 13 개. 지역별 범죄율, 토지 비율, 재산세율, 학생 대 교사 비율 등.
-#     - 타깃: 주택가격
-# - 참고: [위키독스: 보스턴 주택가격 데이터셋 소개](https://wikidocs.net/49966)
+# 로지스틱 회귀<font size='2'>logistic regression</font> 알고리즘는 분류 모델임에 주의하라.
+# :::
 
-# **보스턴 주택가격 데이터셋 적재**
+# **보스턴 주택가격 데이터셋**
+
+# 사용하는 데이터셋은
+# 1970년대 중반의 미국 보스턴 시 외곽의 총 506개 지역에서 수집된 통계 자료를 담고 있다.
+# 통계는  지역별 중간 주택가격과 함께 다음 13가지 내용을 조사했다.
 # 
-# - 데이터셋 크기: 506
-#     - 훈련셋: 404
-#     - 테스트셋: 102
-# - 샘플 특성 수: 13
+# | 특성 | 의미 |
+# |:------|:---------|
+# | CRIM  | 구역별 1인당 범죄율 |
+# | ZN    | 25,000 평방 피트 이상의 주거 구역 비율 |
+# | INDUS | 구역별 비 소매 사업 에이커(acre) 비율 |
+# | CHAS  | Charles River 더미 변수(구역이 강 경계에 닿으면 1, 아니면 0) |
+# | NOX   | 산화 질소 농도(1000만분 율) |
+# | RM    | 주택 당 평균 방 수 |
+# | AGE   | 소유주가 살고 있는 1940년 이전에 지어진 건물 비율 |
+# | DIS   | 보스턴 고용 센터 다섯 곳 까지의 가중 거리 |
+# | RAD   | 방사형 고속도로 접근성 지수 |
+# | TAX   | 1만달러당 전체 가지 재산 세율 |
+# | PTRATIO | 구역별 학생-교사 비율 |
+# | B     | 1000(Bk - 0.63)^2 (Bk 구역별 흑인 비율) |
+# | LSTAT | 구역별 낮은 지위 인구 비율 |
+# 
+# 언급된 13가지 데이터가 주어졌을 때 해당 구역의 중간 주택가격을 예측하는 회귀 모델을
+# 훈련시켜야 한다.
+
+# :::{admonition} 보스턴 데이터셋의 윤리 문제
+# :class: hint
+# 
+# 구역별로 조사된 자료 중에서 흑인 비율을 사용하는 `B` 특성이 윤리적 논쟁을 일으킨다.
+# 구역의 집값과 흑인 비율의 연관성을 암시하는 이런 통계 조사는
+# 1970년대 미국에서 인종 차별이 여전히 주요 쟁점이었음을 단편적으로 보여준다.
+# 이런 이유는 사이킷런 라이브러리는
+# [`sklearn.datasets.load_boston()` 함수](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_boston.html)를 이용하여 제공하던 보스턴 데이터셋을
+# 삭제하기로 예고했다.
+# 여기서는 데이터 활용을 차원에서만 보스턴 데이터셋을 이용할 뿐 다른 어떤 의도도 없음을 밝힌다.
+# :::
+
+# 케라스 `boston_housing` 모듈의 `load_data()` 함수로 보스턴 데이터셋을 불러올 수 있다.
+# 데이터셋이 이미 404개 샘플로 구성된 훈련셋과 102개 샘플로 구성된 테스트셋으로 구분되어 있다.
+# 
+# ```python
+# from tensorflow.keras.datasets import boston_housing
+# (train_data, train_targets), (test_data, test_targets) = boston_housing.load_data()
+# ```
+
+# 훈련셋과 테스트셋의 타깃 텐서는 아래처럼 범위가 지정되지 않은 부동소수점으로 구성된다.
+# 
+# ```python
+# >>> train_targets
+# [ 15.2,  42.3,  50. ...  19.4,  19.4,  29.1]
+# ```
+
+# **데이터 전처리**
+
+# 특성에 따라 사용되는 값들의 크기 정도<font size='2'>scale</font>가 다르다. 
+# 어떤 특성은 0과 1사이의 값을, 다른 특성은 100단위의 값을 포함하기도 한다.
+# 그런데 머신러닝 모델은 기본적으로 모든 특성이 동일한 크기 정도의 
+# 값으로 구성될 때 보다 잘 훈련된다.
+# 이런 이유로 여기서는 평균은 0, 표준편차는 1이 되도록 변환하는
+# **표준화**<font size='2'>standardization</font>를 적용해서
+# 훈련셋과 테스트셋을 전처리한다.
+
+# 표준화는 다음 식으로 계산된다. 
+# $x$는 샘플의 특성값을, $\mu$와 $\sigma$는 훈련셋에 포함된 샘플들의 
+# 특성별 평균값과 표준편차를 가리킨다.
+# 
+# $$
+# \frac{x - \mu}{\sigma}
+# $$
+# 
+# ```python
+# # 훈련셋의 평균값
+# mean = train_data.mean(axis=0)
+# 
+# # 훈련셋 정규화
+# train_data -= mean
+# std = train_data.std(axis=0)
+# train_data /= std
+# 
+# # 테스트셋 정규화: 훈련셋의 평균값과 표준편차 활용
+# test_data -= mean
+# test_data /= std
+# ```
+
+# :::{admonition} 테스트셋 표준화
+# :class: warning
+# 
+# 테스트셋의 정규화도 훈련셋의 평균값과 표준편차를 이용한다.
+# 이유는 테스트셋의 정보는 모델 훈련에 절대로 사용되지 않아야 하기 때문이다.
+# :::
+
+# **모델 구성**
+
+# 데이터셋이 작으므로 출력층을 제외하고 두 개 층만 사용한다.
+# 머신러닝 모델은 훈련셋이 작을 수록 과대적합을 보다 잘하기 때문이
+# 이를 방지하기 위해 보다 단순한 모델을 사용하기도 한다.
+# 
+# 마지막 층을 제외한 나머지 층은 64개의 유닛과 함께 `relu()` 활성화 함수를 사용한다.
+# 회귀 모델의 마지막 층은 기본적으로 활성화 함수 없이 1개의 유닛만 사용한다.
+# 이유는 하나의 값을 예측하되 그 값의 크기를 제한하지 않아야 하기 때문이다.
+# 
+# 모델 컴파일에 필요한 손실 함수와 평가지표는 다음과 같다.
+# 
+# - 손실함수: **평균제곱오차**(mse). 
+#     타깃과 예측값 사이의 오차의 제곱의 평균값. 회귀 모델의 일반적인 손실 함수.
+# - 평가지표: **평균절대오차**(mae, mean absolute error).
+#     타깃과 예측값 사이의 오차의 평균값. 
+
+# 동일한 모델을 앞으로도 계속해서 사용할 예정이기에
+# 여기서는 모델 구성과 컴파일을 동시에 진행하는 
+# 하나의 함수를 지정해서 사용한다.
+# 
+# ```python
+# def build_model():
+#     model = keras.Sequential([
+#         layers.Dense(64, activation="relu"),
+#         layers.Dense(64, activation="relu"),
+#         layers.Dense(1)
+#     ])
+#     model.compile(optimizer="rmsprop", loss="mse", metrics=["mae"])
+#     return model
+# ```
 
 # In[1]:
-
-
-from tensorflow.keras.datasets import boston_housing
-(train_data, train_targets), (test_data, test_targets) = boston_housing.load_data()
-
-
-# In[66]:
-
-
-train_data.shape
-
-
-# In[67]:
-
-
-test_data.shape
-
-
-# 훈련셋 샘플의 타깃은 아래처럼 범위가 지정되지 않은 부동소수점 값이다. 
-
-# In[68]:
-
-
-train_targets[:10]
-
-
-# ### 데이터 전처리
-
-# 특성에 따라 사용되는 값들의 크기가 다르다. 
-# 어떤 특성은 0과 1사이, 다른 특성은 한 자리리부터 세 자리의 수를 갖기도 한다.
-
-# In[69]:
-
-
-import pandas as df
-
-df.DataFrame(train_data).describe()
-
-
-# **데이터 정규화**
-# 
-# 따라서 모든 특성의 값을 **정규화** 해주어야 모델 훈련이 더 잘된다.
-# 모든 특성값들을 특성별로 표준 정규분포를 따르도록 한다. 
-# 즉, 평균값 0, 표준편차 1이 되도록 특성값을 특성별로 변환한다.
-# 
-# **주의사항**: 테스트셋의 정규화는 훈련셋의 평균값과 표준편차를 이용해야 한다.
-# 이유는 테스트셋의 정보는 모델 훈련에 절대로 사용되지 않아야 하기 때문이다. 
-
-# In[70]:
-
-
-# 훈련셋의 평균값
-mean = train_data.mean(axis=0)
-
-# 훈련셋 정규화
-train_data -= mean
-std = train_data.std(axis=0)
-train_data /= std
-
-# 테스트셋 정규화: 훈련셋의 평균값과 표준편차 활용
-test_data -= mean
-test_data /= std
-
-
-# ### 모델 구현
-
-# **모델 정의**
-
-# 이전과는 달리 모델 구성과 컴파일을 동시에 진행하는 함수를 이용한다.
-# 
-# - 은닉층: 데이터셋이 작으므로 두 개만 사용.
-# - 각 은닉층의 유닛 수: 인자로 받도록 함. 아래 예제에서는 64 사용.
-# - 마지막 층: 활성화 함수 없음. 회귀 모델이기 때문임.
-# - 손실함수: **평균제곱오차**(mse). 회귀 모델의 일반적인 손실함수
-# - 평가지표: **평균절대오차**(mae, mean absolute error)
-# 
-# **참고**: 데이터셋이 클 수록 보다 많은 층과 보다 많은 유닛 사용하는 것이 일반적임.
-
-# In[71]:
 
 
 def build_model():
@@ -866,7 +897,9 @@ def build_model():
     return model
 
 
-# ### K-겹 교차검증 활용
+# **모델 훈련**
+
+# *K-겹 교차검증 활용*
 
 # 데이터셋이 작기에 훈련 중에 사용할 검증 세트를 따로 분리하는 것은 훈련의 효율성을 떨어뜨린다.
 # 대신에 **K-겹 교차검증**을(K-fold cross-validation) 사용한다.
@@ -874,166 +907,125 @@ def build_model():
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/3-fold-cross-validation.png" style="width:600px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# **예제: 4-겹 교차검증**
+# *예제: 4-겹 교차검증*
 # 
 # - 에포크 수: 500
 # - `validation_data` 옵션 인자 활용
 #     - 교차검증과 에포크마다 평가지표 저장됨.
 # - `verbose=0`: 손실값과 평가지표를 출력하지 않음.
 
-# In[72]:
+# ```python
+# k = 4
+# num_val_samples = len(train_data) // k
+# 
+# num_epochs = 500
+# all_mae_histories = []   # 모든 에포크에 대한 평균절대오차 저장
+# 
+# for i in range(k):       # 교차 검증
+#     
+#     print(f"{i+1}번 째 폴드(fold) 훈련 시작")
+# 
+#     val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
+#     val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
+# 
+#     partial_train_data = np.concatenate(
+#         [train_data[:i * num_val_samples],
+#          train_data[(i + 1) * num_val_samples:]],
+#         axis=0)
+#     partial_train_targets = np.concatenate(
+#         [train_targets[:i * num_val_samples],
+#          train_targets[(i + 1) * num_val_samples:]],
+#         axis=0)
+#     
+#     model = build_model()    # 유닛 수: 64
+#     history = model.fit(partial_train_data, partial_train_targets,
+#                         validation_data=(val_data, val_targets),
+#                         epochs=num_epochs, batch_size=16, verbose=0)
+#     
+#     mae_history = history.history["val_mae"]
+#     all_mae_histories.append(mae_history)
+# ```
 
-
-k = 4
-num_val_samples = len(train_data) // k
-
-num_epochs = 500
-all_mae_histories = []   # 모든 에포크에 대한 평균절대오차 저장
-
-for i in range(k):       # 교차 검증
-    
-    print(f"{i+1}번 째 폴드(fold) 훈련 시작")
-
-    val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
-    val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
-
-    partial_train_data = np.concatenate(
-        [train_data[:i * num_val_samples],
-         train_data[(i + 1) * num_val_samples:]],
-        axis=0)
-    partial_train_targets = np.concatenate(
-        [train_targets[:i * num_val_samples],
-         train_targets[(i + 1) * num_val_samples:]],
-        axis=0)
-    
-    model = build_model()    # 유닛 수: 64
-    history = model.fit(partial_train_data, partial_train_targets,
-                        validation_data=(val_data, val_targets),
-                        epochs=num_epochs, batch_size=16, verbose=0)
-    
-    mae_history = history.history["val_mae"]
-    all_mae_histories.append(mae_history)
-
-
-# **K-겹 교차검증 훈련 과정 그래프: 평가지표 기준**
+# *K-겹 교차검증 훈련 과정 그래프: 평가지표 기준*
 # 
 # 500번의 에포크마다 4 번의 교차 검증을 진행하였기에
 # 에포크 별로 검증세트를 대상으로하는 평균절대오차의 평균값을 계산한다.
 
-# In[73]:
-
-
-average_mae_history = [
-    np.mean([x[i] for x in all_mae_histories]) for i in range(num_epochs)]
-
+# ```python
+# average_mae_history = [
+#     np.mean([x[i] for x in all_mae_histories]) for i in range(num_epochs)]
+# ```
 
 # 에포크별 평균절대오차의 평균값의 변화를 그래프로 그리면 다음과 같다.
 
-# In[74]:
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-10.png" style="width:600px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
+# :::{prf:example}
+# :label: exp-k-fold
+# 
+# 사이킷런의 `KFold` 클래스를 이용하면 봅다 간단하게 K-겹 교차검증을 진행할 수 있다.
+# 
+# ```python
+# from sklearn.model_selection import KFold
+# 
+# k = 4
+# num_epochs = 500
+# 
+# kf = KFold(n_splits=k)
+# all_mae_histories = []
+# 
+# for train_index, val_index in kf.split(train_data, train_targets):
+#     
+#     val_data, val_targets = train_data[val_index], train_targets[val_index]
+#     partial_train_data, partial_train_targets = train_data[train_index], train_targets[train_index]
+#     
+#     model = build_model()
+#     history = model.fit(partial_train_data, partial_train_targets,
+#                         validation_data=(val_data, val_targets),
+#                         epochs=num_epochs, batch_size=16, verbose=0)
+# 
+#     mae_history = history.history["val_mae"]    
+#     all_mae_histories.append(mae_history)
+# ```
+# 
+# ```python
+# >>> test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
+# >>> test_mae_score
+# 4/4 [==============================] - 0s 0s/step - loss: 15.7864 - mae: 2.7254
+# ```
+# :::
 
-plt.plot(range(1, len(average_mae_history) + 1), average_mae_history)
-
-plt.xlabel("Epochs")
-plt.ylabel("Validation MAE")
-plt.show()
-
-
-# 첫 10개의 에포크의 성능이 매우 나쁘기에 그 부분을 제외하고 그래프를 그리면 보다 정확하게 
-# 변환 과정을 파악할 수 있다.
-
-# In[75]:
-
-
-truncated_mae_history = average_mae_history[10:]
-
-plt.plot(range(1, len(truncated_mae_history) + 1), truncated_mae_history)
-plt.xlabel("Epochs")
-plt.ylabel("Validation MAE")
-plt.show()
-
-
-# **재훈련**
+# **모델 재훈련**
 # 
 # - 130번 째 에포크를 전후로 과대적합 발생함.
 # - 130번의 에포크만 사용해서 모델 재훈련
 
-# In[76]:
-
-
-model = build_model()
-model.fit(train_data, train_targets,
-          epochs=130, batch_size=16, verbose=0)
-
+# ```python
+# model = build_model()
+# model.fit(train_data, train_targets,
+#           epochs=130, batch_size=16, verbose=0)
+# ```
 
 # 재훈련된 모델의 테스트셋에 대한 성능을 평가하면 
 # 주택가격 예측에 있어서 평균적으로 2,500달러 정도의 차이를 갖는다.
 
-# In[77]:
-
-
-test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
-test_mae_score
-
-
-# ### 모델 활용
+# **모델 활용**
 # 
 # - 새로운 데이터에 대한 예측은 `predict()` 메서드를 활용한다. 
 
-# In[78]:
-
-
-predictions = model.predict(test_data)
-predictions[0]
-
-
-# ### 연습문제
-
-# 사이킷런의 `KFold`를 이용하면 봅다 간단하게 K-겹 교차검증을 진행할 수 있다.
-
-# In[79]:
-
-
-from sklearn.model_selection import KFold
-
-k = 4
-num_epochs = 500
-
-kf = KFold(n_splits=k)
-all_mae_histories = []
-
-for train_index, val_index in kf.split(train_data, train_targets):
-    
-    val_data, val_targets = train_data[val_index], train_targets[val_index]
-    partial_train_data, partial_train_targets = train_data[train_index], train_targets[train_index]
-    
-    model = build_model()
-    history = model.fit(partial_train_data, partial_train_targets,
-                        validation_data=(val_data, val_targets),
-                        epochs=num_epochs, batch_size=16, verbose=0)
-
-    mae_history = history.history["val_mae"]    
-    all_mae_histories.append(mae_history)
-
-
-# In[80]:
-
-
-test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
-test_mae_score
-
-
-# In[ ]:
-
-
-
-
+# ```
+# >>> predictions = model.predict(test_data)
+# >>> predictions[0]
+# array([8.091597], dtype=float32)
+# ```
 
 # ## 연습문제
 
-# 1. 영화 후기 이진 분류
+# 1. 영화 후기: 이진 분류
 #     1. 두 개의 은닉층 대신 1 개 또는 3 개의 은닉층을 사용할 때 
 #         검증셋와 테스트셋에 대한 평가지표의 변화를 확인하라.
 #     1. 각 은닉층에 사용된 유닛의 수를 8, 32, 64 등으로 변화시킨 후 
@@ -1042,7 +1034,7 @@ test_mae_score
 #         검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.
 #     1. `relu()` 함수 대신 이전에 많이 사용됐었던 `tanh()` 함수를 손실함수로 지정한 후 
 #         검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.
-# 1. 뉴스 기사 다중 클래스 분류
+# 1. 뉴스 기사: 다중 클래스 분류
 #     1. 아래 모델을 사용하염 정보 병목현상이 발생함을 성능 테스트를 통해 보여라.
 #         ```python
 #         model = keras.Sequential([
@@ -1053,3 +1045,5 @@ test_mae_score
 #         ```
 #     1. 은닉층의 유닛의 수를 32, 128 등 여러 값으로 실험해 보아라.
 #     1. 은닉층의 수를 1개 또는 3개로 바꿔 보아라.
+# 1. 주택가격 예측: 회귀
+#     1. 5-겹, 7-겹, 9-겹 교차검증을 진행하라.
