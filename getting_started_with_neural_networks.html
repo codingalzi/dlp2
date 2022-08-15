@@ -242,7 +242,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   4.3. 4.3 주택가격 예측: 회귀
+   4.3. 주택가격 예측: 회귀
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -314,7 +314,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   4.3. 4.3 주택가격 예측: 회귀
+   4.3. 주택가격 예측: 회귀
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -372,7 +372,7 @@
 자료를 공개한 저자에게 진심어린 감사를 전합니다.</p>
 <p><strong>소스코드</strong></p>
 <p>여기서 언급되는 코드를
-<a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-classification_and_regression.ipynb">(구글 코랩) 분류와 회귀</a>에서
+<a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-getting_started_with_neural_networks.ipynb">(구글 코랩) 신경망 활용 처음부터 끝까지: 분류와 회귀</a>에서
 직접 실행할 수 있다.</p>
 <p><strong>주요 내용</strong></p>
 <p>간단한 실전 예제을 이용하여 신경망 모델을
@@ -923,6 +923,20 @@
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
+<div class="hint admonition">
+<p class="admonition-title">정수 레이블과 sparse_categorical_crossentropy</p>
+<p>클래스 수가 많을 경우 정수 레이블을 사용하는 게 메모리 효율적이다.
+그런데 정수 텐서 레이블(타깃)을 이용하여 훈련하려면 모델을 컴파일할 때 손실함수로
+<code class="docutils literal notranslate"><span class="pre">sparse_categorical_crossentropy</span></code>를 사용해야 한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
 <p><strong>모델 훈련</strong></p>
 <p>훈련 방식은 영화 후기 이진 분류 모델의 경우와 동일하다.
 다만 검증셋의 크기를 1,000으로 정한다.</p>
@@ -989,75 +1003,9 @@
 <span class="go">4</span>
 </pre></div>
 </div>
-<p><strong>정수 레이블 사용법</strong></p>
-<p>정수 텐서 레이블(타깃)을 이용하여 훈련하려면 모델을 컴파일할 때 손실함수로
-<code class="docutils literal notranslate"><span class="pre">sparse_categorical_crossentropy</span></code>를
-사용하면 된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
-<span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-<p><strong>은닉층에 사용되는 유닛 개수</strong></p>
-<p>은닉층에 사용되는 유닛은 마지막 층의 유닛보다 많아야 한다.
-그렇지 않으면 정보전달 과정에 병목현상(bottleneck)이 발생할 수 있다.
-아래 코드의 둘째 은닉층은 4 개의 유닛만을 사용하는데
-훈련된 모델의 성능이 많이 저하된다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
-<span class="p">])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;categorical_crossentropy&quot;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_x_train</span><span class="p">,</span>
-          <span class="n">partial_y_train</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-          <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
-          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1063</span><span class="o">/</span><span class="mf">2773853959.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="p">])</span>
-
-<span class="ne">NameError</span>: name &#39;keras&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<p>테스트셋에 대한 정확도가 80% 정도에서 65% 정도로 낮아진다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>71/71 [==============================] - 0s 2ms/step - loss: 2.1817 - accuracy: 0.6923
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[2.1817328929901123, 0.6923419237136841]
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">4.3. </span>4.3 주택가격 예측: 회귀<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">4.3. </span>주택가격 예측: 회귀<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>이진 분류, 다중 클래스 분류 모델은 지정된 숫자들로 이루어진 특정 클래스의 번호 하나를 예측한다.
 반면에 임의의 수를 예측하는 문제는 <strong>회귀</strong>(regression)이라 부른다.
 예를 들어 온도 예측, 가격 예측 등을 다루는 것이 회귀 문제이다.
@@ -1096,6 +1044,17 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">boston_housing</span>
 <span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span> <span class="o">=</span> <span class="n">boston_housing</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_434</span><span class="o">/</span><span class="mf">3638993738.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">boston_housing</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span> <span class="o">=</span> <span class="n">boston_housing</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
 </pre></div>
 </div>
 </div>
@@ -1451,7 +1410,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_123_0.png" src="_images/getting_started_with_neural_networks_123_0.png" />
+<img alt="_images/getting_started_with_neural_networks_117_0.png" src="_images/getting_started_with_neural_networks_117_0.png" />
 </div>
 </div>
 <p>첫 10개의 에포크의 성능이 매우 나쁘기에 그 부분을 제외하고 그래프를 그리면 보다 정확하게
@@ -1468,7 +1427,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/getting_started_with_neural_networks_125_0.png" src="_images/getting_started_with_neural_networks_125_0.png" />
+<img alt="_images/getting_started_with_neural_networks_119_0.png" src="_images/getting_started_with_neural_networks_119_0.png" />
 </div>
 </div>
 <p><strong>재훈련</strong></p>
@@ -1577,7 +1536,7 @@
 </div>
 <div class="section" id="id10">
 <h2><span class="section-number">4.4. </span>연습문제<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
+<ol>
 <li><p>영화 후기 이진 분류</p>
 <ol class="simple">
 <li><p>두 개의 은닉층 대신 1 개 또는 3 개의 은닉층을 사용할 때
@@ -1591,7 +1550,16 @@
 </ol>
 </li>
 <li><p>뉴스 기사 다중 클래스 분류</p>
-<ol class="simple">
+<ol>
+<li><p>아래 모델을 사용하염 정보 병목현상이 발생함을 성능 테스트를 통해 보여라.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</li>
 <li><p>은닉층의 유닛의 수를 32, 128 등 여러 값으로 실험해 보아라.</p></li>
 <li><p>은닉층의 수를 1개 또는 3개로 바꿔 보아라.</p></li>
 </ol>

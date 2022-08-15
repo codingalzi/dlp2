@@ -17,30 +17,16 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-model = keras.Sequential([
-    layers.Dense(64, activation="relu"),
-    layers.Dense(4, activation="relu"),
-    layers.Dense(46, activation="softmax")
-])
-model.compile(optimizer="rmsprop",
-              loss="categorical_crossentropy",
-              metrics=["accuracy"])
-model.fit(partial_x_train,
-          partial_y_train,
-          epochs=20,
-          batch_size=128,
-          validation_data=(x_val, y_val))
+from tensorflow.keras.datasets import boston_housing
+(train_data, train_targets), (test_data, test_targets) = boston_housing.load_data()
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipykernel_1063/2773853959.py[0m in [0;36m<module>[0;34m[0m
-[0;32m----> 1[0;31m model = keras.Sequential([
-[0m[1;32m      2[0m     [0mlayers[0m[0;34m.[0m[0mDense[0m[0;34m([0m[0;36m64[0m[0;34m,[0m [0mactivation[0m[0;34m=[0m[0;34m"relu"[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      3[0m     [0mlayers[0m[0;34m.[0m[0mDense[0m[0;34m([0m[0;36m4[0m[0;34m,[0m [0mactivation[0m[0;34m=[0m[0;34m"relu"[0m[0;34m)[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      4[0m     [0mlayers[0m[0;34m.[0m[0mDense[0m[0;34m([0m[0;36m46[0m[0;34m,[0m [0mactivation[0m[0;34m=[0m[0;34m"softmax"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      5[0m ])
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+[0;32m/tmp/ipykernel_434/3638993738.py[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0;32mfrom[0m [0mtensorflow[0m[0;34m.[0m[0mkeras[0m[0;34m.[0m[0mdatasets[0m [0;32mimport[0m [0mboston_housing[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      2[0m [0;34m([0m[0mtrain_data[0m[0;34m,[0m [0mtrain_targets[0m[0;34m)[0m[0;34m,[0m [0;34m([0m[0mtest_data[0m[0;34m,[0m [0mtest_targets[0m[0;34m)[0m [0;34m=[0m [0mboston_housing[0m[0;34m.[0m[0mload_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mNameError[0m: name 'keras' is not defined
-NameError: name 'keras' is not defined
+[0;31mModuleNotFoundError[0m: No module named 'tensorflow'
+ModuleNotFoundError: No module named 'tensorflow'
 
