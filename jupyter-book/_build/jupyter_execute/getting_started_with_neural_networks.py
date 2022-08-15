@@ -14,7 +14,7 @@
 # **소스코드**
 # 
 # 여기서 언급되는 코드를
-# [(구글 코랩) 분류와 회귀](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-classification_and_regression.ipynb)에서 
+# [(구글 코랩) 신경망 활용 처음부터 끝까지: 분류와 회귀](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-getting_started_with_neural_networks.ipynb)에서 
 # 직접 실행할 수 있다.
 
 # **주요 내용**
@@ -639,6 +639,23 @@
 #               metrics=["accuracy"])
 # ```
 
+# :::{admonition} 정수 레이블과 sparse_categorical_crossentropy
+# :class: hint
+# 
+# 클래스 수가 많을 경우 정수 레이블을 사용하는 게 메모리 효율적이다.
+# 그런데 정수 텐서 레이블(타깃)을 이용하여 훈련하려면 모델을 컴파일할 때 손실함수로 
+# `sparse_categorical_crossentropy`를 사용해야 한다.
+# 
+# ```python
+# y_train = np.array(train_labels)
+# y_test = np.array(test_labels)
+# 
+# model.compile(optimizer="rmsprop",
+#               loss="sparse_categorical_crossentropy",
+#               metrics=["accuracy"])
+# ```
+# :::
+
 # **모델 훈련**
 
 # 훈련 방식은 영화 후기 이진 분류 모델의 경우와 동일하다.
@@ -728,55 +745,7 @@
 # 4
 # ```
 
-# **정수 레이블 사용법**
-
-# 정수 텐서 레이블(타깃)을 이용하여 훈련하려면 모델을 컴파일할 때 손실함수로 
-# `sparse_categorical_crossentropy`를 
-# 사용하면 된다.
-# 
-# ```python
-# y_train = np.array(train_labels)
-# y_test = np.array(test_labels)
-# 
-# model.compile(optimizer="rmsprop",
-#               loss="sparse_categorical_crossentropy",
-#               metrics=["accuracy"])
-# ```
-
-# **은닉층에 사용되는 유닛 개수**
-
-# 은닉층에 사용되는 유닛은 마지막 층의 유닛보다 많아야 한다.
-# 그렇지 않으면 정보전달 과정에 병목현상(bottleneck)이 발생할 수 있다.
-# 아래 코드의 둘째 은닉층은 4 개의 유닛만을 사용하는데 
-# 훈련된 모델의 성능이 많이 저하된다.
-
-# In[1]:
-
-
-model = keras.Sequential([
-    layers.Dense(64, activation="relu"),
-    layers.Dense(4, activation="relu"),
-    layers.Dense(46, activation="softmax")
-])
-model.compile(optimizer="rmsprop",
-              loss="categorical_crossentropy",
-              metrics=["accuracy"])
-model.fit(partial_x_train,
-          partial_y_train,
-          epochs=20,
-          batch_size=128,
-          validation_data=(x_val, y_val))
-
-
-# 테스트셋에 대한 정확도가 80% 정도에서 65% 정도로 낮아진다.
-
-# In[64]:
-
-
-model.evaluate(x_test, y_test)
-
-
-# ## 4.3 주택가격 예측: 회귀
+# ## 주택가격 예측: 회귀
 
 # 이진 분류, 다중 클래스 분류 모델은 지정된 숫자들로 이루어진 특정 클래스의 번호 하나를 예측한다.
 # 반면에 임의의 수를 예측하는 문제는 **회귀**(regression)이라 부른다. 
@@ -805,7 +774,7 @@ model.evaluate(x_test, y_test)
 #     - 테스트셋: 102
 # - 샘플 특성 수: 13
 
-# In[65]:
+# In[1]:
 
 
 from tensorflow.keras.datasets import boston_housing
@@ -1074,5 +1043,13 @@ test_mae_score
 #     1. `relu()` 함수 대신 이전에 많이 사용됐었던 `tanh()` 함수를 손실함수로 지정한 후 
 #         검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.
 # 1. 뉴스 기사 다중 클래스 분류
+#     1. 아래 모델을 사용하염 정보 병목현상이 발생함을 성능 테스트를 통해 보여라.
+#         ```python
+#         model = keras.Sequential([
+#             layers.Dense(64, activation="relu"),
+#             layers.Dense(4, activation="relu"),
+#             layers.Dense(46, activation="softmax")
+#         ])
+#         ```
 #     1. 은닉층의 유닛의 수를 32, 128 등 여러 값으로 실험해 보아라.
 #     1. 은닉층의 수를 1개 또는 3개로 바꿔 보아라.
