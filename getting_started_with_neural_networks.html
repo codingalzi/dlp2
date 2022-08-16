@@ -38,20 +38,22 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="5. 머신러닝 핵심 이슈" href="fundamentals_of_ml.html" />
@@ -1037,13 +1039,14 @@
 이런 이유로 여기서는 평균은 0, 표준편차는 1이 되도록 변환하는
 <strong>표준화</strong><font size='2'>standardization</font>를 적용해서
 훈련셋과 테스트셋을 전처리한다.</p>
-<p>표준화는 다음 식으로 계산된다.
-<span class="math notranslate nohighlight">\(x\)</span>는 샘플의 특성값을, <span class="math notranslate nohighlight">\(\mu\)</span>와 <span class="math notranslate nohighlight">\(\sigma\)</span>는 훈련셋에 포함된 샘플들의
-특성별 평균값과 표준편차를 가리킨다.</p>
+<p>표준화는 다음 식으로 계산된다.</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{x - \mu}{\sigma}
 \]</div>
+<p><span class="math notranslate nohighlight">\(x\)</span>는 샘플의 특성값을, <span class="math notranslate nohighlight">\(\mu\)</span>와 <span class="math notranslate nohighlight">\(\sigma\)</span>는 훈련셋에 포함된 샘플들의
+특성별 평균값과 표준편차를 가리킨다.
+넘파이 어레이를 이용하면 전체 훈련셋에 대해 한 번에 다음과 같이 표준화를 진행할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 훈련셋의 평균값</span>
 <span class="n">mean</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
@@ -1104,34 +1107,30 @@
 </div>
 </div>
 <p><strong>모델 훈련</strong></p>
-<p><em>K-겹 교차검증 활용</em></p>
 <p>데이터셋이 작기에 훈련 중에 사용할 검증 세트를 따로 분리하는 것은 훈련의 효율성을 떨어뜨린다.
-대신에 <strong>K-겹 교차검증</strong>을(K-fold cross-validation) 사용한다.
+대신에 <strong>K-겹 교차검증</strong><font size='2'>K-fold cross-validation</font>을 사용한다.
 아래 이미지는 3-겹 교차검증을 사용할 때 훈련 중에 사용되는 훈련셋과 검증셋의 사용법을 보여준다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/3-fold-cross-validation.png" style="width:600px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><em>예제: 4-겹 교차검증</em></p>
-<ul class="simple">
-<li><p>에포크 수: 500</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">validation_data</span></code> 옵션 인자 활용</p>
-<ul>
-<li><p>교차검증과 에포크마다 평가지표 저장됨.</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">verbose=0</span></code>: 손실값과 평가지표를 출력하지 않음.</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">4</span>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>아래 코드는 4-겹 교차검증을 구현한다.</p>
+<p>훈련셋을 4등분 한 다음에 폴드별로 차례대로 검증셋으로 활용하여 모델을 4번 훈련시킨다.
+훈련되는 모델은 앞서 <code class="docutils literal notranslate"><span class="pre">build_model()</span></code> 함수로 선언된 모델이며
+폴드가 정해지면 매번 새롭게 선언된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 폴드 수</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="c1"># 검증 폴드의 크기</span>
 <span class="n">num_val_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span> <span class="o">//</span> <span class="n">k</span>
-
+<span class="c1"># 모델 훈련 에포크 수</span>
 <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">500</span>
-<span class="n">all_mae_histories</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># 모든 에포크에 대한 평균절대오차 저장</span>
+<span class="c1"># 폴드별 평가지표 저장</span>
+<span class="n">all_mae_histories</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>       <span class="c1"># 교차 검증</span>
-    
+<span class="c1"># k-겹 교차검증</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">번 째 폴드(fold) 훈련 시작&quot;</span><span class="p">)</span>
-
+    <span class="c1"># 검증 폴드 지정</span>
     <span class="n">val_data</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">]</span>
     <span class="n">val_targets</span> <span class="o">=</span> <span class="n">train_targets</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">]</span>
-
+    <span class="c1"># 훈련셋과 훈련 타깃 지정: 검증 폴드 이외 나머지 3개의 폴드</span>
     <span class="n">partial_train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
         <span class="p">[</span><span class="n">train_data</span><span class="p">[:</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">],</span>
          <span class="n">train_data</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:]],</span>
@@ -1140,27 +1139,28 @@
         <span class="p">[</span><span class="n">train_targets</span><span class="p">[:</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">],</span>
          <span class="n">train_targets</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:]],</span>
         <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    
-    <span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>    <span class="c1"># 유닛 수: 64</span>
+    <span class="c1"># 모델 지정</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
+    <span class="c1"># 모델 훈련</span>
     <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_train_data</span><span class="p">,</span> <span class="n">partial_train_targets</span><span class="p">,</span>
                         <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_data</span><span class="p">,</span> <span class="n">val_targets</span><span class="p">),</span>
                         <span class="n">epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    
+    <span class="c1"># 폴드별 평가지표 저장</span>
     <span class="n">mae_history</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_mae&quot;</span><span class="p">]</span>
     <span class="n">all_mae_histories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_history</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><em>K-겹 교차검증 훈련 과정 그래프: 평가지표 기준</em></p>
-<p>500번의 에포크마다 4 번의 교차 검증을 진행하였기에
-에포크 별로 검증세트를 대상으로하는 평균절대오차의 평균값을 계산한다.</p>
+<p>4개의 폴드에 대해 매번 다른 폴드를 검증셋으로 지정하고
+모델 훈련을 500번 에포크 동안 진행하였다.
+에포크별로 검증셋을 대상으로하는 평균절대오차(MAE)의 평균값을 계산하면
+에포크별 MAE의 변화를 그래프로 확인할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">average_mae_history</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">all_mae_histories</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)]</span>
 </pre></div>
 </div>
-<p>에포크별 평균절대오차의 평균값의 변화를 그래프로 그리면 다음과 같다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-10.png" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="proof example admonition" id="exp-k-fold">
-<p class="admonition-title"><span class="caption-number">Example 4.2 </span></p>
+<p class="admonition-title"><span class="caption-number">Example 4.2 </span> (사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스)</p>
 <div class="example-content section" id="proof-content">
 <p>사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스를 이용하면 봅다 간단하게 K-겹 교차검증을 진행할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
@@ -1185,17 +1185,10 @@
     <span class="n">all_mae_histories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_history</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
-<span class="go">4/4 [==============================] - 0s 0s/step - loss: 15.7864 - mae: 2.7254</span>
-</pre></div>
-</div>
 </div>
 </div><p><strong>모델 재훈련</strong></p>
-<ul class="simple">
-<li><p>130번 째 에포크를 전후로 과대적합 발생함.</p></li>
-<li><p>130번의 에포크만 사용해서 모델 재훈련</p></li>
-</ul>
+<p>130번 째 에포크를 전후로 과대적합이 발생함을 확인할 수 있다.
+따라서 130번의 에포크만 사용해서 모델을 재훈련 하면 좋은 성능의 모델을 얻는다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">,</span>
           <span class="n">epochs</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1203,13 +1196,17 @@
 </div>
 <p>재훈련된 모델의 테스트셋에 대한 성능을 평가하면
 주택가격 예측에 있어서 평균적으로 2,500달러 정도의 차이를 갖는다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
+<span class="go">2.4642276763916016</span>
+</pre></div>
+</div>
 <p><strong>모델 활용</strong></p>
-<ul class="simple">
-<li><p>새로운 데이터에 대한 예측은 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 활용한다.</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+<p>새로운 데이터에 대한 예측은 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 활용한다.
+집갑을 예측하는 모델이기에 하나의 수가 예측된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">array([8.091597], dtype=float32)</span>
+<span class="go">array([9.990133], dtype=float32)</span>
 </pre></div>
 </div>
 </div>
@@ -1246,6 +1243,8 @@
 <li><p>주택가격 예측: 회귀</p>
 <ol class="simple">
 <li><p>5-겹, 7-겹, 9-겹 교차검증을 진행하라.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build_model()</span></code> 함수에 의해 지정되는 모델의 구조를 변경한 후에 최적의 조합을 찾아라.</p></li>
+<li><p>그리드 탐색, 랜덤 탐색 기능을 이용하여 최선의 모델을 찾아라.</p></li>
 </ol>
 </li>
 </ol>
