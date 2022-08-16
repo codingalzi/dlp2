@@ -824,12 +824,14 @@
 # 훈련셋과 테스트셋을 전처리한다.
 
 # 표준화는 다음 식으로 계산된다. 
-# $x$는 샘플의 특성값을, $\mu$와 $\sigma$는 훈련셋에 포함된 샘플들의 
-# 특성별 평균값과 표준편차를 가리킨다.
 # 
 # $$
 # \frac{x - \mu}{\sigma}
 # $$
+# 
+# $x$는 샘플의 특성값을, $\mu$와 $\sigma$는 훈련셋에 포함된 샘플들의 
+# 특성별 평균값과 표준편차를 가리킨다.
+# 넘파이 어레이를 이용하면 전체 훈련셋에 대해 한 번에 다음과 같이 표준화를 진행할 수 있다.
 # 
 # ```python
 # # 훈련셋의 평균값
@@ -899,37 +901,37 @@ def build_model():
 
 # **모델 훈련**
 
-# *K-겹 교차검증 활용*
-
 # 데이터셋이 작기에 훈련 중에 사용할 검증 세트를 따로 분리하는 것은 훈련의 효율성을 떨어뜨린다.
-# 대신에 **K-겹 교차검증**을(K-fold cross-validation) 사용한다.
+# 대신에 **K-겹 교차검증**<font size='2'>K-fold cross-validation</font>을 사용한다.
 # 아래 이미지는 3-겹 교차검증을 사용할 때 훈련 중에 사용되는 훈련셋과 검증셋의 사용법을 보여준다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/3-fold-cross-validation.png" style="width:600px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# *예제: 4-겹 교차검증*
+# 아래 코드는 4-겹 교차검증을 구현한다.
 # 
-# - 에포크 수: 500
-# - `validation_data` 옵션 인자 활용
-#     - 교차검증과 에포크마다 평가지표 저장됨.
-# - `verbose=0`: 손실값과 평가지표를 출력하지 않음.
+# 훈련셋을 4등분 한 다음에 폴드별로 차례대로 검증셋으로 활용하여 모델을 4번 훈련시킨다.
+# 훈련되는 모델은 앞서 `build_model()` 함수로 선언된 모델이며
+# 폴드가 정해지면 매번 새롭게 선언된다.
 
 # ```python
+# # 폴드 수
 # k = 4
+# # 검증 폴드의 크기
 # num_val_samples = len(train_data) // k
-# 
+# # 모델 훈련 에포크 수
 # num_epochs = 500
-# all_mae_histories = []   # 모든 에포크에 대한 평균절대오차 저장
+# # 폴드별 평가지표 저장
+# all_mae_histories = []
 # 
-# for i in range(k):       # 교차 검증
-#     
+# # k-겹 교차검증
+# for i in range(k):
 #     print(f"{i+1}번 째 폴드(fold) 훈련 시작")
-# 
+#     # 검증 폴드 지정
 #     val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
 #     val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
-# 
+#     # 훈련셋과 훈련 타깃 지정: 검증 폴드 이외 나머지 3개의 폴드
 #     partial_train_data = np.concatenate(
 #         [train_data[:i * num_val_samples],
 #          train_data[(i + 1) * num_val_samples:]],
@@ -938,33 +940,32 @@ def build_model():
 #         [train_targets[:i * num_val_samples],
 #          train_targets[(i + 1) * num_val_samples:]],
 #         axis=0)
-#     
-#     model = build_model()    # 유닛 수: 64
+#     # 모델 지정
+#     model = build_model()
+#     # 모델 훈련
 #     history = model.fit(partial_train_data, partial_train_targets,
 #                         validation_data=(val_data, val_targets),
 #                         epochs=num_epochs, batch_size=16, verbose=0)
-#     
+#     # 폴드별 평가지표 저장
 #     mae_history = history.history["val_mae"]
 #     all_mae_histories.append(mae_history)
 # ```
 
-# *K-겹 교차검증 훈련 과정 그래프: 평가지표 기준*
+# 4개의 폴드에 대해 매번 다른 폴드를 검증셋으로 지정하고 
+# 모델 훈련을 500번 에포크 동안 진행하였다.
+# 에포크별로 검증셋을 대상으로하는 평균절대오차(MAE)의 평균값을 계산하면
+# 에포크별 MAE의 변화를 그래프로 확인할 수 있다.
 # 
-# 500번의 에포크마다 4 번의 교차 검증을 진행하였기에
-# 에포크 별로 검증세트를 대상으로하는 평균절대오차의 평균값을 계산한다.
-
 # ```python
 # average_mae_history = [
 #     np.mean([x[i] for x in all_mae_histories]) for i in range(num_epochs)]
 # ```
-
-# 에포크별 평균절대오차의 평균값의 변화를 그래프로 그리면 다음과 같다.
-
+# 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-10.png" style="width:600px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# :::{prf:example}
+# :::{prf:example} 사이킷런의 `KFold` 클래스
 # :label: exp-k-fold
 # 
 # 사이킷런의 `KFold` 클래스를 이용하면 봅다 간단하게 K-겹 교차검증을 진행할 수 있다.
@@ -991,19 +992,13 @@ def build_model():
 #     mae_history = history.history["val_mae"]    
 #     all_mae_histories.append(mae_history)
 # ```
-# 
-# ```python
-# >>> test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
-# >>> test_mae_score
-# 4/4 [==============================] - 0s 0s/step - loss: 15.7864 - mae: 2.7254
-# ```
 # :::
 
 # **모델 재훈련**
-# 
-# - 130번 째 에포크를 전후로 과대적합 발생함.
-# - 130번의 에포크만 사용해서 모델 재훈련
 
+# 130번 째 에포크를 전후로 과대적합이 발생함을 확인할 수 있다.
+# 따라서 130번의 에포크만 사용해서 모델을 재훈련 하면 좋은 성능의 모델을 얻는다.
+# 
 # ```python
 # model = build_model()
 # model.fit(train_data, train_targets,
@@ -1013,14 +1008,21 @@ def build_model():
 # 재훈련된 모델의 테스트셋에 대한 성능을 평가하면 
 # 주택가격 예측에 있어서 평균적으로 2,500달러 정도의 차이를 갖는다.
 
+# ```python
+# >>> test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
+# >>> test_mae_score
+# 2.4642276763916016
+# ```
+
 # **모델 활용**
 # 
-# - 새로운 데이터에 대한 예측은 `predict()` 메서드를 활용한다. 
+# 새로운 데이터에 대한 예측은 `predict()` 메서드를 활용한다.
+# 집갑을 예측하는 모델이기에 하나의 수가 예측된다.
 
-# ```
+# ```python
 # >>> predictions = model.predict(test_data)
 # >>> predictions[0]
-# array([8.091597], dtype=float32)
+# array([9.990133], dtype=float32)
 # ```
 
 # ## 연습문제
@@ -1047,3 +1049,5 @@ def build_model():
 #     1. 은닉층의 수를 1개 또는 3개로 바꿔 보아라.
 # 1. 주택가격 예측: 회귀
 #     1. 5-겹, 7-겹, 9-겹 교차검증을 진행하라.
+#     1. `build_model()` 함수에 의해 지정되는 모델의 구조를 변경한 후에 최적의 조합을 찾아라.
+#     1. 그리드 탐색, 랜덤 탐색 기능을 이용하여 최선의 모델을 찾아라.
