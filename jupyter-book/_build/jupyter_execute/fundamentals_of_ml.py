@@ -104,159 +104,46 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# *셋째: 매우 드문 특성 또는 거짓 상관관계*
+# *셋째: 매우 드문 특성과 거짓 상관관계*
+{numref}`%절 <sec:imdb>`의 이진 분류 모델에서 사용한
+# IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋에서 포함시키는 경우
+# 어쩌다 한 번 사용되는 특성으로 인해 잘못된 판단이 유도될 수 있다.
+# 예를 들어, 에쿠아도르, 페루 등 안데스 산맥 지역에서 자라는 Cherimoya(체리모야) 라는
+# 과일 이름이 들어간 영화 후기가 단 하나만 있으면서 마침 부정적이었다면,
+# 분류 모델은 Cherimoya 단어가 들어간 영화 후기를 기본적으로 부정적으로 판단할 가능이 높아진다.
 
-# - 매우 드문 특성
-#     - 예제: IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋에서 포함시키는 경우
-#         어쩌다 한 번 사용되는 특성으로 인해 잘못된 판단이 유도될 수 있음.
-
-# - 거짓된 상관관계를 유발하는 훈련셋
-# - 예제: MNIST 데이터셋에 **백색 잡음**(white noise)이 포함된 데이터셋과 그렇지 않은 데이터셋 비교 참조.
-
-# In[1]:
-
-
-from tensorflow.keras.datasets import mnist
-import numpy as np
-
-# MNIST 데이터셋 적재 및 전처리
-(train_images, train_labels), _ = mnist.load_data()
-
-train_images = train_images.reshape((60000, 28 * 28))
-train_images = train_images.astype("float32") / 255
-
-# 백색 잡음 추가
-train_images_with_noise_channels = np.concatenate(
-    [train_images, np.random.random((len(train_images), 784))], axis=1)
-
-# 크기를 맞추기 위해 영 행렬 추가
-train_images_with_zeros_channels = np.concatenate(
-    [train_images, np.zeros((len(train_images), 784))], axis=1)
-
-
-# In[2]:
-
-
-train_images_with_noise_channels.shape
-
-
-# In[3]:
-
-
-train_images_with_zeros_channels.shape
-
-
-# 백색 잡음이 들어간 샘플은 다음과 같이 보인다.
-
-# In[4]:
-
-
-train_image_white4 = train_images_with_noise_channels[4].reshape((56, 28))
-
-import matplotlib.pyplot as plt
-
-digit = train_image_white4
-plt.imshow(digit, cmap=plt.cm.binary)
-plt.show()
-
-
-# 영 행렬이 추가된 샘플은 다음과 같이 보인다.
-
-# In[5]:
-
-
-train_image_zeros4 = train_images_with_zeros_channels[4].reshape((56, 28))
-
-import matplotlib.pyplot as plt
-
-digit = train_image_zeros4
-plt.imshow(digit, cmap=plt.cm.binary)
-plt.show()
-
-
-# 모델 구성과 컴파일을 함수를 이용하여 지정한다.
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/cherimoya.jpg" style="width:300px;"></div>
 # 
-# - 정수 레이블을 사용하기에 손실함수로 `sparse_categorical_crossentropy` 지정해야 함.
+# <p><div style="text-align: center">체리모야 열매</div></p>
 
-# In[6]:
+# 이렇듯 매우 드문 특성은 과대적합을 유발한다. 
+# 앞서 사용빈도가 10,000등 안에 드는 단어만으로 작성된 영화 후기만을 대상으로 훈련시킨 이유가
+# 이런 가능성을 제거하기 위해서였다.
 
-
-from tensorflow import keras
-from tensorflow.keras import layers
-
-def get_model():
-    model = keras.Sequential([
-        layers.Dense(512, activation="relu"),
-        layers.Dense(10, activation="softmax")
-    ])
-    
-    model.compile(optimizer="rmsprop",
-                  loss="sparse_categorical_crossentropy",
-                  metrics=["accuracy"])
-    
-    return model
-
-
-# - 백색 잡음이 추가된 데이터셋 훈련
-#     - `validation_split`: 검증셋 비율 지정
-
-# In[7]:
-
-
-# 모델 생성 및 훈련
-model = get_model()
-
-history_noise = model.fit(
-    train_images_with_noise_channels, train_labels,
-    epochs=10,
-    batch_size=128,
-    validation_split=0.2)
-
-
-# - 영 행렬이 추가된 데이터셋 훈련
-#     - `validation_split`: 검증셋 비율 지정
-
-# In[8]:
-
-
-model = get_model()
-history_zeros = model.fit(
-    train_images_with_zeros_channels, train_labels,
-    epochs=10,
-    batch_size=128,
-    validation_split=0.2)
-
-
-# - 정확도 비교: 백색 잡음이 포함된 훈련셋을 이용한 모델의 정확도 성능이 1% 이상 낮음.
-
-# In[9]:
-
-
-import matplotlib.pyplot as plt
-
-val_acc_noise = history_noise.history["val_accuracy"]
-val_acc_zeros = history_zeros.history["val_accuracy"]
-
-epochs = range(1, 11)
-
-plt.plot(epochs, val_acc_noise, "b-",
-         label="Validation accuracy with noise channels")
-
-plt.plot(epochs, val_acc_zeros, "b--",
-         label="Validation accuracy with zeros channels")
-
-plt.title("Effect of noise channels on validation accuracy")
-plt.xlabel("Epochs")
-plt.ylabel("Accuracy")
-plt.legend()
-
-
-# **특성 선택**
+# 샘플과 예측값 사이의 거짓된 상관관계를 많이 등장하는 특성에 의해서도 유발될 수 있다.
+# 예를 들어 아래 이미지는 MNIST 데이터셋에 **백색 잡음**<font size='2'>white noise</font>이 추가된 경우와
+# 단순히 여백이 추가된 경우의 훈련 샘플을 보여준다.
 # 
-# - 과대적합 문제를 위해 훈련에 유용한 특성을 선택해야함.
-#     - IMDB 예제: 빈도수 10,000 등 이내의 단어만 사용
-#     - 백색 잡음 예제: 백색 잡음 부분 제거
-# - 하지만 유용한 특성을 선택하는 일이 기본적으로 불가능하거나 매우 어려움.
+# 백색 잡음 추가 손글씨   | |  |  여백 추가 손글씨
+# :-------------------------:| :---: | :---: | :-------------------------:
+# ![](https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise01.png)  | |  |  ![](https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise02.png)
+
+# 백색 잡음이 포함된 샘플들의 데이터셋으로 훈련시킨 모델과
+# 단순한 여백이 추가된 샘플들의 데이터셋으로 훈련시킨 모델의 성능을 비교하면
+# 백색 잡음이 포함된 훈련셋을 이용한 모델의 성능이 1% 정도 떨어진다.
+
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise03.png" style="width:400px;"></div>
+
+# 따라서 보다 효율적인 훈련을 위해 백색 잡음 등 과대적합을 유발하는
+# 특성을 미리 제거하고 유용한 특성만을 훈련에 사용해야 한다.
+# 하지만 유용한 특성을 선택하는 일이 기본적으로 불가능하거나 매우 어렵다.
+
+# :::{admonition} 백색 잡음
+# :class: info
+# 
+# 백색 잡음<font size='2'>white noise</font>은 ...
+# 
+# :::
 
 # ### 딥러닝 모델 일반화의 핵심
 
@@ -266,7 +153,7 @@ plt.legend()
 # 
 # 아래 코드는 임의로 섞은 레이블을 이용하여 손글씨를 예측하는 모델을 훈련시킨다. 
 
-# In[10]:
+# In[1]:
 
 
 (train_images, train_labels), _ = mnist.load_data()
