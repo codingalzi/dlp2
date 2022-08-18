@@ -17,33 +17,37 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from tensorflow.keras.datasets import mnist
-import numpy as np
-
-# MNIST 데이터셋 적재 및 전처리
 (train_images, train_labels), _ = mnist.load_data()
-
 train_images = train_images.reshape((60000, 28 * 28))
 train_images = train_images.astype("float32") / 255
 
-# 백색 잡음 추가
-train_images_with_noise_channels = np.concatenate(
-    [train_images, np.random.random((len(train_images), 784))], axis=1)
+random_train_labels = train_labels[:]
+np.random.shuffle(random_train_labels)
 
-# 크기를 맞추기 위해 영 행렬 추가
-train_images_with_zeros_channels = np.concatenate(
-    [train_images, np.zeros((len(train_images), 784))], axis=1)
+model = keras.Sequential([
+    layers.Dense(512, activation="relu"),
+    layers.Dense(10, activation="softmax")
+])
+
+model.compile(optimizer="rmsprop",
+              loss="sparse_categorical_crossentropy",
+              metrics=["accuracy"])
+
+history = model.fit(train_images, random_train_labels,
+                    epochs=100,
+                    batch_size=128,
+                    validation_split=0.2)
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-[0;32m/tmp/ipykernel_168/837053873.py[0m in [0;36m<module>[0;34m[0m
-[0;32m----> 1[0;31m [0;32mfrom[0m [0mtensorflow[0m[0;34m.[0m[0mkeras[0m[0;34m.[0m[0mdatasets[0m [0;32mimport[0m [0mmnist[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      2[0m [0;32mimport[0m [0mnumpy[0m [0;32mas[0m [0mnp[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      3[0m [0;34m[0m[0m
-[1;32m      4[0m [0;31m# MNIST 데이터셋 적재 및 전처리[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      5[0m [0;34m([0m[0mtrain_images[0m[0;34m,[0m [0mtrain_labels[0m[0;34m)[0m[0;34m,[0m [0m_[0m [0;34m=[0m [0mmnist[0m[0;34m.[0m[0mload_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m/tmp/ipykernel_856/645801578.py[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0;34m([0m[0mtrain_images[0m[0;34m,[0m [0mtrain_labels[0m[0;34m)[0m[0;34m,[0m [0m_[0m [0;34m=[0m [0mmnist[0m[0;34m.[0m[0mload_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      2[0m [0mtrain_images[0m [0;34m=[0m [0mtrain_images[0m[0;34m.[0m[0mreshape[0m[0;34m([0m[0;34m([0m[0;36m60000[0m[0;34m,[0m [0;36m28[0m [0;34m*[0m [0;36m28[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m [0mtrain_images[0m [0;34m=[0m [0mtrain_images[0m[0;34m.[0m[0mastype[0m[0;34m([0m[0;34m"float32"[0m[0;34m)[0m [0;34m/[0m [0;36m255[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m [0;34m[0m[0m
+[1;32m      5[0m [0mrandom_train_labels[0m [0;34m=[0m [0mtrain_labels[0m[0;34m[[0m[0;34m:[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mModuleNotFoundError[0m: No module named 'tensorflow'
-ModuleNotFoundError: No module named 'tensorflow'
+[0;31mNameError[0m: name 'mnist' is not defined
+NameError: name 'mnist' is not defined
 

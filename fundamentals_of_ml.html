@@ -625,267 +625,45 @@ const thebe_selector_output = ".output, .cell_output"
 간주하는 정도까지 모델이 훈련되어 아래 오른편 그림과 같이
 샘플의 특성에 너무 민감하게 작동한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_5-5.png" style="width:660px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><em>셋째: 매우 드문 특성 또는 거짓 상관관계</em></p>
-<ul class="simple">
-<li><p>매우 드문 특성</p>
-<ul>
-<li><p>예제: IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋에서 포함시키는 경우
-어쩌다 한 번 사용되는 특성으로 인해 잘못된 판단이 유도될 수 있음.</p></li>
-</ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>거짓된 상관관계를 유발하는 훈련셋</p></li>
-<li><p>예제: MNIST 데이터셋에 <strong>백색 잡음</strong>(white noise)이 포함된 데이터셋과 그렇지 않은 데이터셋 비교 참조.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="c1"># MNIST 데이터셋 적재 및 전처리</span>
-<span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-
-<span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">))</span>
-<span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
-
-<span class="c1"># 백색 잡음 추가</span>
-<span class="n">train_images_with_noise_channels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-    <span class="p">[</span><span class="n">train_images</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">train_images</span><span class="p">),</span> <span class="mi">784</span><span class="p">))],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># 크기를 맞추기 위해 영 행렬 추가</span>
-<span class="n">train_images_with_zeros_channels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-    <span class="p">[</span><span class="n">train_images</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">train_images</span><span class="p">),</span> <span class="mi">784</span><span class="p">))],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><em>셋째: 매우 드문 특성과 거짓 상관관계</em></p>
+<p>IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋에서 포함시키는 경우
+어쩌다 한 번 사용되는 특성으로 인해 잘못된 판단이 유도될 수 있다.
+예를 들어, 에쿠아도르, 페루 등 안데스 산맥 지역에서 자라는 Cherimoya(체리모야) 라는
+과일 이름이 들어간 영화 후기가 단 하나만 있으면서 마침 부정적이었다면,
+분류 모델은 Cherimoya 단어가 들어간 영화 후기를 기본적으로 부정적으로 판단할 가능이 높아진다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/cherimoya.jpg" style="width:300px;"></div>
+<p><div style="text-align: center">체리모야 열매</div></p><p>이렇듯 매우 드문 특성은 과대적합을 유발한다.
+앞서 사용빈도가 10,000등 안에 드는 단어만으로 작성된 영화 후기만을 대상으로 훈련시킨 이유가
+이런 가능성을 제거하기 위해서였다.</p>
+<p>샘플과 예측값 사이의 거짓된 상관관계를 많이 등장하는 특성에 의해서도 유발될 수 있다.
+예를 들어 아래 이미지는 MNIST 데이터셋에 <strong>백색 잡음</strong><font size='2'>white noise</font>이 추가된 경우와
+단순히 여백이 추가된 경우의 훈련 샘플을 보여준다.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>백색 잡음 추가 손글씨</p></th>
+<th class="text-align:center head"><p></p></th>
+<th class="text-align:center head"><p></p></th>
+<th class="text-align:center head"><p>여백 추가 손글씨</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p><img alt="" src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise01.png" /></p></td>
+<td class="text-align:center"><p></p></td>
+<td class="text-align:center"><p></p></td>
+<td class="text-align:center"><p><img alt="" src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise02.png" /></p></td>
+</tr>
+</tbody>
+</table>
+<p>백색 잡음이 포함된 샘플들의 데이터셋으로 훈련시킨 모델과
+단순한 여백이 추가된 샘플들의 데이터셋으로 훈련시킨 모델의 성능을 비교하면
+백색 잡음이 포함된 훈련셋을 이용한 모델의 성능이 1% 정도 떨어진다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise03.png" style="width:400px;"></div><p>따라서 보다 효율적인 훈련을 위해 백색 잡음 등 과대적합을 유발하는
+특성을 미리 제거하고 유용한 특성만을 훈련에 사용해야 한다.
+하지만 유용한 특성을 선택하는 일이 기본적으로 불가능하거나 매우 어렵다.</p>
+<div class="info admonition">
+<p class="admonition-title">백색 잡음</p>
+<p>백색 잡음<font size='2'>white noise</font>은 …</p>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_168</span><span class="o">/</span><span class="mf">837053873.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># MNIST 데이터셋 적재 및 전처리</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_images_with_noise_channels</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(60000, 1568)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_images_with_zeros_channels</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(60000, 1568)
-</pre></div>
-</div>
-</div>
-</div>
-<p>백색 잡음이 들어간 샘플은 다음과 같이 보인다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_image_white4</span> <span class="o">=</span> <span class="n">train_images_with_noise_channels</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">56</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">digit</span> <span class="o">=</span> <span class="n">train_image_white4</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">digit</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/fundamentals_of_ml_32_0.png" src="_images/fundamentals_of_ml_32_0.png" />
-</div>
-</div>
-<p>영 행렬이 추가된 샘플은 다음과 같이 보인다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_image_zeros4</span> <span class="o">=</span> <span class="n">train_images_with_zeros_channels</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">56</span><span class="p">,</span> <span class="mi">28</span><span class="p">))</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">digit</span> <span class="o">=</span> <span class="n">train_image_zeros4</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">digit</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/fundamentals_of_ml_34_0.png" src="_images/fundamentals_of_ml_34_0.png" />
-</div>
-</div>
-<p>모델 구성과 컴파일을 함수를 이용하여 지정한다.</p>
-<ul class="simple">
-<li><p>정수 레이블을 사용하기에 손실함수로 <code class="docutils literal notranslate"><span class="pre">sparse_categorical_crossentropy</span></code> 지정해야 함.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
-
-<span class="k">def</span> <span class="nf">get_model</span><span class="p">():</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
-    <span class="p">])</span>
-    
-    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-                  <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
-                  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-    
-    <span class="k">return</span> <span class="n">model</span>
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>백색 잡음이 추가된 데이터셋 훈련</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">validation_split</span></code>: 검증셋 비율 지정</p></li>
-</ul>
-</li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 모델 생성 및 훈련</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">()</span>
-
-<span class="n">history_noise</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-    <span class="n">train_images_with_noise_channels</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
-    <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
-    <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/10
-375/375 [==============================] - 3s 7ms/step - loss: 0.6025 - accuracy: 0.8168 - val_loss: 0.3094 - val_accuracy: 0.9035
-Epoch 2/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.2497 - accuracy: 0.9217 - val_loss: 0.2010 - val_accuracy: 0.9381
-Epoch 3/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.1643 - accuracy: 0.9479 - val_loss: 0.1495 - val_accuracy: 0.9567
-Epoch 4/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.1154 - accuracy: 0.9640 - val_loss: 0.1321 - val_accuracy: 0.9613
-Epoch 5/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0859 - accuracy: 0.9730 - val_loss: 0.1296 - val_accuracy: 0.9624
-Epoch 6/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0632 - accuracy: 0.9795 - val_loss: 0.1307 - val_accuracy: 0.9632
-Epoch 7/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0468 - accuracy: 0.9851 - val_loss: 0.1216 - val_accuracy: 0.9658
-Epoch 8/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0359 - accuracy: 0.9878 - val_loss: 0.1395 - val_accuracy: 0.9625
-Epoch 9/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0283 - accuracy: 0.9912 - val_loss: 0.1347 - val_accuracy: 0.9655
-Epoch 10/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0201 - accuracy: 0.9933 - val_loss: 0.1346 - val_accuracy: 0.9683
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>영 행렬이 추가된 데이터셋 훈련</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">validation_split</span></code>: 검증셋 비율 지정</p></li>
-</ul>
-</li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">()</span>
-<span class="n">history_zeros</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-    <span class="n">train_images_with_zeros_channels</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
-    <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-    <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span>
-    <span class="n">validation_split</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/10
-375/375 [==============================] - 3s 6ms/step - loss: 0.2910 - accuracy: 0.9169 - val_loss: 0.1713 - val_accuracy: 0.9503
-Epoch 2/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.1226 - accuracy: 0.9643 - val_loss: 0.1203 - val_accuracy: 0.9631
-Epoch 3/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0791 - accuracy: 0.9764 - val_loss: 0.0982 - val_accuracy: 0.9708
-Epoch 4/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0569 - accuracy: 0.9835 - val_loss: 0.0893 - val_accuracy: 0.9746
-Epoch 5/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0431 - accuracy: 0.9871 - val_loss: 0.0765 - val_accuracy: 0.9780
-Epoch 6/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0330 - accuracy: 0.9900 - val_loss: 0.0898 - val_accuracy: 0.9757
-Epoch 7/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0246 - accuracy: 0.9926 - val_loss: 0.0832 - val_accuracy: 0.9781
-Epoch 8/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0192 - accuracy: 0.9944 - val_loss: 0.0858 - val_accuracy: 0.9766
-Epoch 9/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0146 - accuracy: 0.9961 - val_loss: 0.0806 - val_accuracy: 0.9792
-Epoch 10/10
-375/375 [==============================] - 2s 6ms/step - loss: 0.0110 - accuracy: 0.9969 - val_loss: 0.0894 - val_accuracy: 0.9783
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>정확도 비교: 백색 잡음이 포함된 훈련셋을 이용한 모델의 정확도 성능이 1% 이상 낮음.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">val_acc_noise</span> <span class="o">=</span> <span class="n">history_noise</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">]</span>
-<span class="n">val_acc_zeros</span> <span class="o">=</span> <span class="n">history_zeros</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">]</span>
-
-<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_acc_noise</span><span class="p">,</span> <span class="s2">&quot;b-&quot;</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation accuracy with noise channels&quot;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_acc_zeros</span><span class="p">,</span> <span class="s2">&quot;b--&quot;</span><span class="p">,</span>
-         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation accuracy with zeros channels&quot;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Effect of noise channels on validation accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fa39bef1610&gt;
-</pre></div>
-</div>
-<img alt="_images/fundamentals_of_ml_42_1.png" src="_images/fundamentals_of_ml_42_1.png" />
-</div>
-</div>
-<p><strong>특성 선택</strong></p>
-<ul class="simple">
-<li><p>과대적합 문제를 위해 훈련에 유용한 특성을 선택해야함.</p>
-<ul>
-<li><p>IMDB 예제: 빈도수 10,000 등 이내의 단어만 사용</p></li>
-<li><p>백색 잡음 예제: 백색 잡음 부분 제거</p></li>
-</ul>
-</li>
-<li><p>하지만 유용한 특성을 선택하는 일이 기본적으로 불가능하거나 매우 어려움.</p></li>
-</ul>
 </div>
 <div class="section" id="id4">
 <h3><span class="section-number">5.1.2. </span>딥러닝 모델 일반화의 핵심<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
@@ -918,208 +696,16 @@ Epoch 10/10
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/100
-375/375 [==============================] - 2s 4ms/step - loss: 2.3160 - accuracy: 0.1028 - val_loss: 2.3059 - val_accuracy: 0.1075
-Epoch 2/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.2996 - accuracy: 0.1146 - val_loss: 2.3174 - val_accuracy: 0.1070
-Epoch 3/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.2908 - accuracy: 0.1272 - val_loss: 2.3171 - val_accuracy: 0.0995
-Epoch 4/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.2773 - accuracy: 0.1397 - val_loss: 2.3299 - val_accuracy: 0.1021
-Epoch 5/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.2598 - accuracy: 0.1543 - val_loss: 2.3369 - val_accuracy: 0.1011
-Epoch 6/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.2398 - accuracy: 0.1665 - val_loss: 2.3438 - val_accuracy: 0.1001
-Epoch 7/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.2154 - accuracy: 0.1839 - val_loss: 2.3700 - val_accuracy: 0.0989
-Epoch 8/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.1878 - accuracy: 0.1998 - val_loss: 2.3839 - val_accuracy: 0.1016
-Epoch 9/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.1590 - accuracy: 0.2128 - val_loss: 2.3994 - val_accuracy: 0.0974
-Epoch 10/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.1286 - accuracy: 0.2277 - val_loss: 2.4190 - val_accuracy: 0.1037
-Epoch 11/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.0950 - accuracy: 0.2460 - val_loss: 2.4478 - val_accuracy: 0.1045
-Epoch 12/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.0629 - accuracy: 0.2592 - val_loss: 2.4759 - val_accuracy: 0.0991
-Epoch 13/100
-375/375 [==============================] - 1s 4ms/step - loss: 2.0296 - accuracy: 0.2728 - val_loss: 2.5128 - val_accuracy: 0.1008
-Epoch 14/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.9952 - accuracy: 0.2901 - val_loss: 2.5418 - val_accuracy: 0.1000
-Epoch 15/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.9599 - accuracy: 0.3048 - val_loss: 2.5699 - val_accuracy: 0.0967
-Epoch 16/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.9254 - accuracy: 0.3213 - val_loss: 2.6053 - val_accuracy: 0.0972
-Epoch 17/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.8932 - accuracy: 0.3329 - val_loss: 2.6457 - val_accuracy: 0.0974
-Epoch 18/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.8590 - accuracy: 0.3470 - val_loss: 2.6563 - val_accuracy: 0.0991
-Epoch 19/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.8269 - accuracy: 0.3623 - val_loss: 2.7011 - val_accuracy: 0.1020
-Epoch 20/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.7944 - accuracy: 0.3726 - val_loss: 2.7439 - val_accuracy: 0.1028
-Epoch 21/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.7609 - accuracy: 0.3858 - val_loss: 2.7780 - val_accuracy: 0.0985
-Epoch 22/100
-375/375 [==============================] - 2s 4ms/step - loss: 1.7303 - accuracy: 0.3974 - val_loss: 2.7981 - val_accuracy: 0.1039
-Epoch 23/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.6979 - accuracy: 0.4106 - val_loss: 2.8535 - val_accuracy: 0.1001
-Epoch 24/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.6701 - accuracy: 0.4201 - val_loss: 2.8859 - val_accuracy: 0.0973
-Epoch 25/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.6388 - accuracy: 0.4335 - val_loss: 2.9421 - val_accuracy: 0.0994
-Epoch 26/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.6115 - accuracy: 0.4434 - val_loss: 2.9658 - val_accuracy: 0.1007
-Epoch 27/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.5837 - accuracy: 0.4527 - val_loss: 3.0111 - val_accuracy: 0.0986
-Epoch 28/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.5548 - accuracy: 0.4655 - val_loss: 3.0483 - val_accuracy: 0.1011
-Epoch 29/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.5296 - accuracy: 0.4767 - val_loss: 3.1150 - val_accuracy: 0.1021
-Epoch 30/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.5034 - accuracy: 0.4840 - val_loss: 3.1430 - val_accuracy: 0.1004
-Epoch 31/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.4779 - accuracy: 0.4952 - val_loss: 3.1994 - val_accuracy: 0.1019
-Epoch 32/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.4529 - accuracy: 0.5032 - val_loss: 3.2257 - val_accuracy: 0.0971
-Epoch 33/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.4279 - accuracy: 0.5128 - val_loss: 3.3020 - val_accuracy: 0.1002
-Epoch 34/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.4045 - accuracy: 0.5218 - val_loss: 3.3248 - val_accuracy: 0.1036
-Epoch 35/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.3814 - accuracy: 0.5292 - val_loss: 3.3838 - val_accuracy: 0.1023
-Epoch 36/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.3574 - accuracy: 0.5381 - val_loss: 3.4409 - val_accuracy: 0.1024
-Epoch 37/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.3383 - accuracy: 0.5439 - val_loss: 3.4563 - val_accuracy: 0.1039
-Epoch 38/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.3127 - accuracy: 0.5539 - val_loss: 3.5009 - val_accuracy: 0.0993
-Epoch 39/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.2932 - accuracy: 0.5600 - val_loss: 3.5584 - val_accuracy: 0.1007
-Epoch 40/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.2719 - accuracy: 0.5677 - val_loss: 3.6023 - val_accuracy: 0.1020
-Epoch 41/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.2497 - accuracy: 0.5742 - val_loss: 3.6746 - val_accuracy: 0.1008
-Epoch 42/100
-375/375 [==============================] - 2s 4ms/step - loss: 1.2318 - accuracy: 0.5840 - val_loss: 3.7526 - val_accuracy: 0.1032
-Epoch 43/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.2115 - accuracy: 0.5918 - val_loss: 3.7552 - val_accuracy: 0.1038
-Epoch 44/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.1919 - accuracy: 0.5969 - val_loss: 3.8143 - val_accuracy: 0.1023
-Epoch 45/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.1745 - accuracy: 0.6030 - val_loss: 3.8828 - val_accuracy: 0.1037
-Epoch 46/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.1547 - accuracy: 0.6113 - val_loss: 3.9233 - val_accuracy: 0.1002
-Epoch 47/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.1371 - accuracy: 0.6198 - val_loss: 3.9866 - val_accuracy: 0.1026
-Epoch 48/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.1208 - accuracy: 0.6220 - val_loss: 4.0294 - val_accuracy: 0.1018
-Epoch 49/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.1018 - accuracy: 0.6288 - val_loss: 4.0804 - val_accuracy: 0.1069
-Epoch 50/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.0838 - accuracy: 0.6354 - val_loss: 4.1528 - val_accuracy: 0.1036
-Epoch 51/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.0685 - accuracy: 0.6414 - val_loss: 4.2166 - val_accuracy: 0.1053
-Epoch 52/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.0503 - accuracy: 0.6479 - val_loss: 4.2461 - val_accuracy: 0.1011
-Epoch 53/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.0350 - accuracy: 0.6546 - val_loss: 4.3196 - val_accuracy: 0.1028
-Epoch 54/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.0190 - accuracy: 0.6600 - val_loss: 4.3868 - val_accuracy: 0.1048
-Epoch 55/100
-375/375 [==============================] - 1s 4ms/step - loss: 1.0045 - accuracy: 0.6650 - val_loss: 4.4188 - val_accuracy: 0.1029
-Epoch 56/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.9895 - accuracy: 0.6708 - val_loss: 4.4720 - val_accuracy: 0.1023
-Epoch 57/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.9740 - accuracy: 0.6747 - val_loss: 4.5235 - val_accuracy: 0.1063
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 58/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.9603 - accuracy: 0.6778 - val_loss: 4.5799 - val_accuracy: 0.1044
-Epoch 59/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.9430 - accuracy: 0.6866 - val_loss: 4.6532 - val_accuracy: 0.1037
-Epoch 60/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.9299 - accuracy: 0.6905 - val_loss: 4.7384 - val_accuracy: 0.1014
-Epoch 61/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.9151 - accuracy: 0.6943 - val_loss: 4.7840 - val_accuracy: 0.1028
-Epoch 62/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.9030 - accuracy: 0.7001 - val_loss: 4.8333 - val_accuracy: 0.1038
-Epoch 63/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.8879 - accuracy: 0.7061 - val_loss: 4.8799 - val_accuracy: 0.1019
-Epoch 64/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.8762 - accuracy: 0.7082 - val_loss: 4.9496 - val_accuracy: 0.1056
-Epoch 65/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.8650 - accuracy: 0.7137 - val_loss: 5.0574 - val_accuracy: 0.1032
-Epoch 66/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.8500 - accuracy: 0.7176 - val_loss: 5.0640 - val_accuracy: 0.1023
-Epoch 67/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.8376 - accuracy: 0.7221 - val_loss: 5.1021 - val_accuracy: 0.1015
-Epoch 68/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.8253 - accuracy: 0.7278 - val_loss: 5.2221 - val_accuracy: 0.1037
-Epoch 69/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.8137 - accuracy: 0.7297 - val_loss: 5.2617 - val_accuracy: 0.1047
-Epoch 70/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.8006 - accuracy: 0.7341 - val_loss: 5.3177 - val_accuracy: 0.1013
-Epoch 71/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.7877 - accuracy: 0.7391 - val_loss: 5.3524 - val_accuracy: 0.1046
-Epoch 72/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.7775 - accuracy: 0.7440 - val_loss: 5.4909 - val_accuracy: 0.1028
-Epoch 73/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.7653 - accuracy: 0.7480 - val_loss: 5.5094 - val_accuracy: 0.1039
-Epoch 74/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.7567 - accuracy: 0.7520 - val_loss: 5.5627 - val_accuracy: 0.1053
-Epoch 75/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.7458 - accuracy: 0.7549 - val_loss: 5.6420 - val_accuracy: 0.1039
-Epoch 76/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.7335 - accuracy: 0.7588 - val_loss: 5.6773 - val_accuracy: 0.1026
-Epoch 77/100
-375/375 [==============================] - 2s 4ms/step - loss: 0.7234 - accuracy: 0.7625 - val_loss: 5.7440 - val_accuracy: 0.1040
-Epoch 78/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.7123 - accuracy: 0.7659 - val_loss: 5.8535 - val_accuracy: 0.1037
-Epoch 79/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.7018 - accuracy: 0.7707 - val_loss: 5.9235 - val_accuracy: 0.1030
-Epoch 80/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6916 - accuracy: 0.7747 - val_loss: 6.0144 - val_accuracy: 0.1032
-Epoch 81/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6825 - accuracy: 0.7757 - val_loss: 6.0495 - val_accuracy: 0.1023
-Epoch 82/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6737 - accuracy: 0.7799 - val_loss: 6.1352 - val_accuracy: 0.1003
-Epoch 83/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6639 - accuracy: 0.7829 - val_loss: 6.1873 - val_accuracy: 0.1043
-Epoch 84/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6540 - accuracy: 0.7865 - val_loss: 6.2577 - val_accuracy: 0.1028
-Epoch 85/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6467 - accuracy: 0.7893 - val_loss: 6.2779 - val_accuracy: 0.1056
-Epoch 86/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6351 - accuracy: 0.7924 - val_loss: 6.3430 - val_accuracy: 0.1041
-Epoch 87/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6262 - accuracy: 0.7940 - val_loss: 6.4281 - val_accuracy: 0.1052
-Epoch 88/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6204 - accuracy: 0.7968 - val_loss: 6.5041 - val_accuracy: 0.1043
-Epoch 89/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6099 - accuracy: 0.8025 - val_loss: 6.5276 - val_accuracy: 0.1047
-Epoch 90/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.6015 - accuracy: 0.8047 - val_loss: 6.6247 - val_accuracy: 0.1028
-Epoch 91/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.5915 - accuracy: 0.8077 - val_loss: 6.6883 - val_accuracy: 0.1027
-Epoch 92/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.5835 - accuracy: 0.8110 - val_loss: 6.8027 - val_accuracy: 0.1067
-Epoch 93/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.5754 - accuracy: 0.8109 - val_loss: 6.8185 - val_accuracy: 0.1057
-Epoch 94/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.5675 - accuracy: 0.8165 - val_loss: 6.9206 - val_accuracy: 0.1043
-Epoch 95/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.5616 - accuracy: 0.8196 - val_loss: 7.0149 - val_accuracy: 0.1042
-Epoch 96/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.5510 - accuracy: 0.8209 - val_loss: 7.0384 - val_accuracy: 0.1025
-Epoch 97/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.5458 - accuracy: 0.8233 - val_loss: 7.0988 - val_accuracy: 0.1061
-Epoch 98/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.5392 - accuracy: 0.8256 - val_loss: 7.1822 - val_accuracy: 0.1053
-Epoch 99/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.5303 - accuracy: 0.8281 - val_loss: 7.2305 - val_accuracy: 0.1041
-Epoch 100/100
-375/375 [==============================] - 1s 4ms/step - loss: 0.5235 - accuracy: 0.8327 - val_loss: 7.2792 - val_accuracy: 0.1055
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_856</span><span class="o">/</span><span class="mf">645801578.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">random_train_labels</span> <span class="o">=</span> <span class="n">train_labels</span><span class="p">[:]</span>
+
+<span class="ne">NameError</span>: name &#39;mnist&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1151,7 +737,7 @@ Epoch 100/100
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fa39af6de90&gt;
 </pre></div>
 </div>
-<img alt="_images/fundamentals_of_ml_49_1.png" src="_images/fundamentals_of_ml_49_1.png" />
+<img alt="_images/fundamentals_of_ml_40_1.png" src="_images/fundamentals_of_ml_40_1.png" />
 </div>
 </div>
 <p>위 결과는 다음을 의미한다.</p>
@@ -1625,7 +1211,7 @@ Epoch 20/20
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fa373fde310&gt;
 </pre></div>
 </div>
-<img alt="_images/fundamentals_of_ml_100_1.png" src="_images/fundamentals_of_ml_100_1.png" />
+<img alt="_images/fundamentals_of_ml_91_1.png" src="_images/fundamentals_of_ml_91_1.png" />
 </div>
 </div>
 <p><strong>MNIST 데이터셋 다중클래스 분류: 보다 많은 저장/분석/표현 능력 모델</strong></p>
@@ -1718,7 +1304,7 @@ Epoch 20/20
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fa3d8b79c90&gt;
 </pre></div>
 </div>
-<img alt="_images/fundamentals_of_ml_104_1.png" src="_images/fundamentals_of_ml_104_1.png" />
+<img alt="_images/fundamentals_of_ml_95_1.png" src="_images/fundamentals_of_ml_95_1.png" />
 </div>
 </div>
 </div>
