@@ -2,103 +2,116 @@
 # coding: utf-8
 
 # (ch:fundamentals_of_ml)=
-# # 머신러닝 핵심 이슈
+# # 머신러닝 모델 훈련법 기초
 
-# **감사말**: 프랑소와 숄레의 [Deep Learning with Python, Second Edition](https://www.manning.com/books/deep-learning-with-python-second-edition?a_aid=keras&a_bid=76564dff) 5장에 사용된 코드에 대한 설명을 담고 있으며 텐서플로우 2.6 버전에서 작성되었습니다. 소스코드를 공개한 저자에게 감사드립니다.
+# **감사의 글**
 # 
-# **tensorflow 버전과 GPU 확인**
-# - 구글 코랩 설정: '런타임 -> 런타임 유형 변경' 메뉴에서 GPU 지정 후 아래 명령어 실행 결과 확인
-# 
-#     ```
-#     !nvidia-smi
-#     ```
-# 
-# - 사용되는 tensorflow 버전 확인
-# 
-#     ```python
-#     import tensorflow as tf
-#     tf.__version__
-#     ```
-# - tensorflow가 GPU를 사용하는지 여부 확인
-# 
-#     ```python
-#     tf.config.list_physical_devices('GPU')
-#     ```
+# 아래 내용은 프랑소와 숄레의 
+# [Deep Learning with Python(2판)](https://github.com/fchollet/deep-learning-with-python-notebooks)의 
+# 소스코드 내용을 참고해서 작성되었습니다.
+# 자료를 공개한 저자에게 진심어린 감사를 전합니다.
 
-# ## 주요 내용
+# **소스코드**
+# 
+# 여기서 언급되는 코드를
+# [(구글 코랩) 머신러닝 모델 훈련법 기초](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-fundamentals_of_ml.ipynb)에서 
+# 직접 실행할 수 있다.
 
-# - 머신러닝의 핵심 이슈 이해: 모델 일반화와 모델 훈련 최적화 사이의 관계 조율
+# **주요 내용**
+# 
+# 좋은 모델을 얻기 위해 알아야 할 기본 개념과 훈련법의 기초를 소개한다.
+# 
+# - 주요 개념: 일반화 대 최적화
 # - 머신러닝 모델 평가 기법
 # - 모델 훈련 최적화 기법
 # - 모델 일반화 성능 향상 기법
 
-# ## 5.1 머신러닝의 목표: 모델 일반화
+# ## 머신러닝의 목표: 모델 일반화
 
 # 훈련을 많이 할 수록 모델은 훈련 세트에 대해 보다 좋은 성능을 보이지만 새로운 데이터에 대한 
 # 성능은 점점 떨어지는 과대적합 현상이 언제나 발생한다. 
-# 머신러닝의 핵심 이슈는 모델 훈련의 **최적화**(optimization)와 
+# 머신러닝 모델 훈련의 주요 과제는 모델 훈련의 **최적화**(optimization)와 
 # 모델 **일반화**(generalization) 사이의 관계를 적절히 조절하는 것이다.
 # 
 # - **최적화**: 훈련 세트에 대해 가장 좋은 성능을 이끌어 내는 과정
 # - **일반화**: 처음 보는 데이터를 처리하는 모델의 능력
+# 
+# 문제는 일반화는 훈련을 통해 조절할 수 있는 대상이 아니라는 점이다.
+# 하지만 모델 훈련 방식을 조정하면 일반화 성능을 끌어올릴 수 있다.
 
-# ### 과소적합과 과대적합
+# **과소적합과 과대적합**
 
 # - 과소적합
-#     - 훈련 초반
-#     - 훈련셋과 검증셋 모두에 대해 성능이 향상되는 과정
 #     - 신경망이 훈련셋의 패턴을 아직 덜 파악한 상태
+#     - 훈련셋과 검증셋 모두에 대해 성능이 향상되는 과정
+#     - 보통 훈련 초반에 일어나는 현상.
+#     - 모델 설정이 잘못된 경우에도 당연히 발생. 예를 들어, 비선형 분류 모델을 선형 모델로 훈련시키는 경우.
 # 
 # - 과대적합
-#     - 훈련셋 고유의 패턴을 학습하기 시작
+#     - 잡음, 애매한 또는 매우 특별한 특성 등 훈련셋 고유의 패턴을 학습하기 시작하는 순간 발생
 #     - 새로운 데이터와 무관하거나 혼동을 주는 패턴 학습
 
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/typical_overfitting.png" style="width:700px;"></div>
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/typical_overfitting.png" style="width:600px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
-
-# #### 일반화 성능이 좋은 모델 대 과대적합 모델
-
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/outliers_and_overfitting.png" style="width:660px;"></div>
-# 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # #### 과대적합 발생 주요 요인
 
-# 과대적합을 발생시키는 요소는 크게 세 가지로 나뉜다.
+# 과대적합을 발생시키는 요인은 크게 세 가지로 나뉜다.
 
-# ##### 첫째, 소음(noise) 섞인 훈련셋.
+# *첫째, 훈련셋에 포함된 잡음*
+
+# 적절하지 않은 데이터 또는 잘못된 레이블을 갖는 데이터 등을 **잡음** 또는 **노이즈**<font size='2'>noise</font>라 부른다.
 # 
-# - 적절하지 않은 데이터 또는 잘못된 레이블을 갖는 데이터 등을 **소음** 또는 **노이즈**(noise)라 부름.
-# - 적절하지 않은 데이터: 다음 MNNIST 이미지들처럼 불분명하면 특성 파악 어려움.
+# - 적절하지 않은 데이터: 다음 MNNIST 이미지들처럼 불분명하면 특성 파악이 어렵다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/fucked_up_mnist.png" style="width:500px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# - 잘못된 레이블: 예를 들어, 잘못 분류된 1처럼 생긴 이미지를 7로 잘못 분류할 가능성이 높아짐.
+# - 잘못된 레이블: 예를 들어, 잘못 분류된 1처럼 생긴 이미지를 7로 잘못 분류할 가능성이 높아진다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/mislabeled_mnist.png" style="width:660px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# ##### 둘째, 애매한 특성.
+# 잡음 등의 이상치<font size='2'>outlier</font>를 학습하면
+# 아래 오른편 그림의 경우처럼 모델이 이상치의 특별한 특성을 학습하게 되어
+# 새루운 데이터에 대한 예측 성능이 불안정해지게 된다.
+
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/outliers_and_overfitting.png" style="width:660px;"></div>
 # 
-# - 소음이 전혀 없는 데이터라 하더라도 특정 특성 영역이 여러 레이블과 연관될 수 있음.
-# 
-# - 예제: 붓꽃 데이터의 꽃잎 길이와 너비를 활용한 
-#     버시컬러(versicolor) 품종과 버지니카(virginica) 품종의 완벽한 구분 불가능.
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# *둘째, 애매한 특성*
+
+# 잡음 등의 이상치가 전혀 없다 하더라도 특정 특성 영역에 대한 예측값이 여러 개의 값을 가질 수 있다. 
+
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml3/master/jupyter-book/imgs/ch04/iris01.png" style="width:500px;"></div>
+
+# 예를 들어, 붓꽃 데이터셋의 경우 꽃잎의 길이와 너비만을 활용해서는 
+# 버시컬러<font size='2'>versicolor</font> 품종과 
+# 버지니카<font size='2'>virginica</font> 품종의 완벽한 구분이
+# 애초에 불가능하다.
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch05/homl05-03b.png" style="width:500px;"></div>
 
-# ##### 셋째: 매우 드문 특성 또는 거짓 상관관계
+# 하지만 훈련을 오래 시키면 각 샘플의 특성을 해당 레이블의 고유의 특성으로
+# 간주하는 정도까지 모델이 훈련되어 아래 오른편 그림과 같이
+# 샘플의 특성에 너무 민감하게 작동한다.
+
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_5-5.png" style="width:660px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# *셋째: 매우 드문 특성 또는 거짓 상관관계*
 
 # - 매우 드문 특성
 #     - 예제: IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋에서 포함시키는 경우
 #         어쩌다 한 번 사용되는 특성으로 인해 잘못된 판단이 유도될 수 있음.
 
 # - 거짓된 상관관계를 유발하는 훈련셋
-# - 예제: MNIST 데이터셋에 **백색 소음**(white noise)이 포함된 데이터셋과 그렇지 않은 데이터셋 비교 참조.
+# - 예제: MNIST 데이터셋에 **백색 잡음**(white noise)이 포함된 데이터셋과 그렇지 않은 데이터셋 비교 참조.
 
 # In[1]:
 
@@ -112,7 +125,7 @@ import numpy as np
 train_images = train_images.reshape((60000, 28 * 28))
 train_images = train_images.astype("float32") / 255
 
-# 백색 소음 추가
+# 백색 잡음 추가
 train_images_with_noise_channels = np.concatenate(
     [train_images, np.random.random((len(train_images), 784))], axis=1)
 
@@ -133,7 +146,7 @@ train_images_with_noise_channels.shape
 train_images_with_zeros_channels.shape
 
 
-# 백색 소음이 들어간 샘플은 다음과 같이 보인다.
+# 백색 잡음이 들어간 샘플은 다음과 같이 보인다.
 
 # In[4]:
 
@@ -184,7 +197,7 @@ def get_model():
     return model
 
 
-# - 백색 소음이 추가된 데이터셋 훈련
+# - 백색 잡음이 추가된 데이터셋 훈련
 #     - `validation_split`: 검증셋 비율 지정
 
 # In[7]:
@@ -214,7 +227,7 @@ history_zeros = model.fit(
     validation_split=0.2)
 
 
-# - 정확도 비교: 백색 소음이 포함된 훈련셋을 이용한 모델의 정확도 성능이 1% 이상 낮음.
+# - 정확도 비교: 백색 잡음이 포함된 훈련셋을 이용한 모델의 정확도 성능이 1% 이상 낮음.
 
 # In[9]:
 
@@ -242,7 +255,7 @@ plt.legend()
 # 
 # - 과대적합 문제를 위해 훈련에 유용한 특성을 선택해야함.
 #     - IMDB 예제: 빈도수 10,000 등 이내의 단어만 사용
-#     - 백색 소음 예제: 백색 소음 부분 제거
+#     - 백색 잡음 예제: 백색 잡음 부분 제거
 # - 하지만 유용한 특성을 선택하는 일이 기본적으로 불가능하거나 매우 어려움.
 
 # ### 딥러닝 모델 일반화의 핵심
@@ -325,7 +338,7 @@ plt.legend()
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch08/homl08-13.png" style="width:550px;"></div>
 # 
-# 그림 출처: [핸즈온 머신러닝(2판), 8장](https://github.com/ageron/handson-ml2)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 8장</a>&gt;</div></p>
 
 # 다양체 가설을 이용하면 적절하게 구성된 모델이 적절한 훈련셋으로 훈련받았을 때 새로운 데이터에 대해 적절한 예측을 할 수 있는 이유를 설명할 수 있다.
 # 즉, 모델이 찾은 연속이며 미분가능한 다양체와 학습된 데이터 정보에 **보간법**을 적용하여 새로운 데이터에 대해 예측을 실행한다.
@@ -343,7 +356,7 @@ plt.legend()
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/dense_sampling.png" style="width:660px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # #### 충분치 않은 훈련셋과 정규화
 # 
@@ -397,7 +410,7 @@ plt.legend()
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/holdout_validation.png" style="width:400px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # 홀드아웃 검증의 전형적인 패턴은 다음과 같다.
 # 
@@ -431,7 +444,7 @@ plt.legend()
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/k_fold_validation.png" style="width:650px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # K-겹 교차검증의 전형적인 패턴은 다음과 같다.
 # 
@@ -546,7 +559,7 @@ model.fit(train_images, train_labels,
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch04/homl04-03.png" style="width:550px;"></div>
 # 
-# 그림 출처: [핸즈온 머신러닝(2판), 4장](https://github.com/ageron/handson-ml2)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 4장</a>&gt;</div></p>
 
 # **MNIST 모델 훈련: 매우 작은 학습률 사용**
 # 
@@ -575,7 +588,7 @@ model.fit(train_images, train_labels,
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch04/homl04-02.png" style="width:550px;"></div>
 # 
-# 그림 출처: [핸즈온 머신러닝(2판), 4장](https://github.com/ageron/handson-ml2)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 4장</a>&gt;</div></p>
 
 # **MNIST 모델 훈련: 적절한 학습률 사용**
 # 
@@ -600,7 +613,7 @@ model.fit(train_images, train_labels,
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch04/homl04-01.png" style="width:550px;"></div>
 # 
-# 그림 출처: [핸즈온 머신러닝(2판), 4장](https://github.com/ageron/handson-ml2)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 4장</a>&gt;</div></p>
 
 # **배치 크기 조정**
 # 
@@ -609,7 +622,7 @@ model.fit(train_images, train_labels,
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch04/homl04-05.png" style="width:550px;"></div>
 # 
-# 그림 출처: [핸즈온 머신러닝(2판), 4장](https://github.com/ageron/handson-ml2)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 4장</a>&gt;</div></p>
 
 # ### 둘째 경우: 보다 적절한 모델 사용
 
@@ -844,7 +857,7 @@ history_smaller_model = model.fit(
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_smaller_model_imdb.png" style="width:500px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # 이번엔 유닛 수를 크게 늘려보자.
 
@@ -872,7 +885,7 @@ history_larger_model = model.fit(
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_larger_model_imdb.png" style="width:500px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # #### 규제 기법 2: 가중치 규제
 
@@ -889,7 +902,7 @@ history_larger_model = model.fit(
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch04/lasso_vs_ridge_plot.png" style="width:550px;"></div>
 # 
-# 그림 출처: [핸즈온 머신러닝(2판), 4장](https://github.com/ageron/handson-ml2)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 4장</a>&gt;</div></p>
 
 # 아래 코드는 IMDB 훈련 모델에 L2 규제를 가한 결과를 보여준다.
 # 
@@ -924,7 +937,7 @@ history_l2_reg = model.fit(
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_l2_regularized_model_imdb.png" style="width:500px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # `l2` 규제 대신에 `l1`, 또는 L1과 L2를 함께 사용하는 `l1_l2` 규제를 사용할 수 있다.
 # 
@@ -970,4 +983,4 @@ history_dropout = model.fit(
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_dropout_regularized_model_imdb.png" style="width:500px;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>

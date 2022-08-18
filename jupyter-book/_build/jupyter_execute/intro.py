@@ -33,3 +33,10 @@
 # 
 # 코드 이해를 위해 파이썬 프로그래밍과 넘파이<font size='2'>NumPy</font>에 대한 
 # 기초 이상의 지식이 요구된다.
+# 또한 머신러닝에 대한 기초 지식이 있는 경우 보다 쉽게 딥러닝을 이해할 수 있다.
+# 
+# 아래 강의노트를 활용할 것을 추천한다.
+# 
+# - [파이썬 왕기초](https://hj617kim.github.io/core_pybook/)
+# - [파이썬 데이터 분석](https://codingalzi.github.io/datapy/)
+# - [핸즈온 머신러닝(3판)](https://codingalzi.github.io/handson-ml3/)
