@@ -422,7 +422,7 @@
 # **다중 클래스 분류**<font size='2'>multiclass classification</font> 모델이라 부른다.
 
 # 케라스의 `reuters` 모듈의 `load_data()` 함수로 데이터셋을 불러올 수 있다.
-# 영화 후기의 경우처럼 사용 빈도가 상위 10,000등 이내의 단어만 사용하도록 한다.
+# 영화 후기의 경우처럼 사용 빈도에서 상위 10,000등 이내의 단어만 사용하도록 한다.
 # 
 # ```python
 # from tensorflow.keras.datasets import reuters

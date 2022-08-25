@@ -59,7 +59,7 @@
 
 # 과대적합을 발생시키는 요인은 크게 세 가지로 나뉜다.
 
-# *첫째, 훈련셋에 포함된 잡음*
+# **_첫째, 훈련셋에 포함된 잡음_**
 
 # 적절하지 않은 데이터 또는 잘못된 레이블을 갖는 데이터 등을 **잡음** 또는 **노이즈**<font size='2'>noise</font>라 부른다.
 # 
@@ -83,7 +83,7 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# *둘째, 애매한 특성*
+# **_둘째, 애매한 특성_**
 
 # 잡음 등의 이상치가 전혀 없다 하더라도 특정 특성 영역에 대한 예측값이 여러 개의 값을 가질 수 있다. 
 
@@ -104,8 +104,9 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# *셋째: 매우 드문 특성과 거짓 상관관계*
-{numref}`%절 <sec:imdb>`의 이진 분류 모델에서 사용한
+# **_셋째: 특성과 타깃 사이의 거짓 상관관계_**
+
+# {numref}`%절 <sec:imdb>`의 이진 분류 모델에서 사용한
 # IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋에서 포함시키는 경우
 # 어쩌다 한 번 사용되는 특성으로 인해 잘못된 판단이 유도될 수 있다.
 # 예를 들어, 에쿠아도르, 페루 등 안데스 산맥 지역에서 자라는 Cherimoya(체리모야) 라는
@@ -117,8 +118,8 @@
 # <p><div style="text-align: center">체리모야 열매</div></p>
 
 # 이렇듯 매우 드문 특성은 과대적합을 유발한다. 
-# 앞서 사용빈도가 10,000등 안에 드는 단어만으로 작성된 영화 후기만을 대상으로 훈련시킨 이유가
-# 이런 가능성을 제거하기 위해서였다.
+# 앞서 사용 빈도에서 10,000등 안에 드는 단어만으로 작성된 영화 후기만을 대상으로 훈련시킨 이유가
+# 이런 가능성을 제한하기 위해서였다.
 
 # 샘플과 예측값 사이의 거짓된 상관관계를 많이 등장하는 특성에 의해서도 유발될 수 있다.
 # 예를 들어 아래 이미지는 MNIST 데이터셋에 **백색 잡음**<font size='2'>white noise</font>이 추가된 경우와
