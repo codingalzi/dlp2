@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -683,7 +680,7 @@ const thebe_selector_output = ".output, .cell_output"
 분류 모델이며, 클래스가 3개 이상이기에
 <strong>다중 클래스 분류</strong><font size='2'>multiclass classification</font> 모델이라 부른다.</p>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">reuters</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 데이터셋을 불러올 수 있다.
-영화 후기의 경우처럼 사용 빈도가 상위 10,000등 이내의 단어만 사용하도록 한다.</p>
+영화 후기의 경우처럼 사용 빈도에서 상위 10,000등 이내의 단어만 사용하도록 한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">reuters</span>
 <span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 </pre></div>
@@ -1299,7 +1296,6 @@ const thebe_selector_output = ".output, .cell_output"
     
       By 코딩알지<br/>
     
-        &copy; Copyright 2021.<br/>
   </p>
 </footer>
 </main>

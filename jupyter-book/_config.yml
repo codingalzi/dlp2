@@ -35,6 +35,8 @@ html:
 # Using sphinx-proof
 # Seehttps://beta.jupyterbook.org/content/proof.html
 sphinx:
+  config:
+    html_show_copyright: false
   extra_extensions:
     - sphinx_proof
 

@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -601,7 +598,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="section" id="id3">
 <h3><span class="section-number">5.1.1. </span>과대적합 발생 주요 요인<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>과대적합을 발생시키는 요인은 크게 세 가지로 나뉜다.</p>
-<p><em>첫째, 훈련셋에 포함된 잡음</em></p>
+<p><strong><em>첫째, 훈련셋에 포함된 잡음</em></strong></p>
 <p>적절하지 않은 데이터 또는 잘못된 레이블을 갖는 데이터 등을 <strong>잡음</strong> 또는 <strong>노이즈</strong><font size='2'>noise</font>라 부른다.</p>
 <ul class="simple">
 <li><p>적절하지 않은 데이터: 다음 MNNIST 이미지들처럼 불분명하면 특성 파악이 어렵다.</p></li>
@@ -615,7 +612,7 @@ const thebe_selector_output = ".output, .cell_output"
 아래 오른편 그림의 경우처럼 모델이 이상치의 특별한 특성을 학습하게 되어
 새루운 데이터에 대한 예측 성능이 불안정해지게 된다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/outliers_and_overfitting.png" style="width:660px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><em>둘째, 애매한 특성</em></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong><em>둘째, 애매한 특성</em></strong></p>
 <p>잡음 등의 이상치가 전혀 없다 하더라도 특정 특성 영역에 대한 예측값이 여러 개의 값을 가질 수 있다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml3/master/jupyter-book/imgs/ch04/iris01.png" style="width:500px;"></div><p>예를 들어, 붓꽃 데이터셋의 경우 꽃잎의 길이와 너비만을 활용해서는
 버시컬러<font size='2'>versicolor</font> 품종과
@@ -625,16 +622,17 @@ const thebe_selector_output = ".output, .cell_output"
 간주하는 정도까지 모델이 훈련되어 아래 오른편 그림과 같이
 샘플의 특성에 너무 민감하게 작동한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_5-5.png" style="width:660px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><em>셋째: 매우 드문 특성과 거짓 상관관계</em></p>
-<p>IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋에서 포함시키는 경우
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong><em>셋째: 특성과 타깃 사이의 거짓 상관관계</em></strong></p>
+<p><a class="reference internal" href="getting_started_with_neural_networks.html#sec-imdb"><span class="std std-numref">4.1절</span></a>의 이진 분류 모델에서 사용한
+IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋에서 포함시키는 경우
 어쩌다 한 번 사용되는 특성으로 인해 잘못된 판단이 유도될 수 있다.
 예를 들어, 에쿠아도르, 페루 등 안데스 산맥 지역에서 자라는 Cherimoya(체리모야) 라는
 과일 이름이 들어간 영화 후기가 단 하나만 있으면서 마침 부정적이었다면,
 분류 모델은 Cherimoya 단어가 들어간 영화 후기를 기본적으로 부정적으로 판단할 가능이 높아진다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/cherimoya.jpg" style="width:300px;"></div>
 <p><div style="text-align: center">체리모야 열매</div></p><p>이렇듯 매우 드문 특성은 과대적합을 유발한다.
-앞서 사용빈도가 10,000등 안에 드는 단어만으로 작성된 영화 후기만을 대상으로 훈련시킨 이유가
-이런 가능성을 제거하기 위해서였다.</p>
+앞서 사용 빈도에서 10,000등 안에 드는 단어만으로 작성된 영화 후기만을 대상으로 훈련시킨 이유가
+이런 가능성을 제한하기 위해서였다.</p>
 <p>샘플과 예측값 사이의 거짓된 상관관계를 많이 등장하는 특성에 의해서도 유발될 수 있다.
 예를 들어 아래 이미지는 MNIST 데이터셋에 <strong>백색 잡음</strong><font size='2'>white noise</font>이 추가된 경우와
 단순히 여백이 추가된 경우의 훈련 샘플을 보여준다.</p>
@@ -698,7 +696,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_856</span><span class="o">/</span><span class="mf">645801578.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1042</span><span class="o">/</span><span class="mf">645801578.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
@@ -737,7 +735,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fa39af6de90&gt;
 </pre></div>
 </div>
-<img alt="_images/fundamentals_of_ml_40_1.png" src="_images/fundamentals_of_ml_40_1.png" />
+<img alt="_images/fundamentals_of_ml_39_1.png" src="_images/fundamentals_of_ml_39_1.png" />
 </div>
 </div>
 <p>위 결과는 다음을 의미한다.</p>
@@ -1211,7 +1209,7 @@ Epoch 20/20
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fa373fde310&gt;
 </pre></div>
 </div>
-<img alt="_images/fundamentals_of_ml_91_1.png" src="_images/fundamentals_of_ml_91_1.png" />
+<img alt="_images/fundamentals_of_ml_90_1.png" src="_images/fundamentals_of_ml_90_1.png" />
 </div>
 </div>
 <p><strong>MNIST 데이터셋 다중클래스 분류: 보다 많은 저장/분석/표현 능력 모델</strong></p>
@@ -1304,7 +1302,7 @@ Epoch 20/20
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fa3d8b79c90&gt;
 </pre></div>
 </div>
-<img alt="_images/fundamentals_of_ml_95_1.png" src="_images/fundamentals_of_ml_95_1.png" />
+<img alt="_images/fundamentals_of_ml_94_1.png" src="_images/fundamentals_of_ml_94_1.png" />
 </div>
 </div>
 </div>
@@ -1812,7 +1810,6 @@ Epoch 20/20
     
       By 코딩알지<br/>
     
-        &copy; Copyright 2021.<br/>
   </p>
 </footer>
 </main>

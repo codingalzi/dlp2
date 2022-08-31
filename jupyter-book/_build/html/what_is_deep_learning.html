@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -57,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="2. 신경망 구성 요소" href="building_blocks_of_NN.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="intro.html" />
+    <link rel="prev" title="소개" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -415,7 +412,7 @@ const thebe_selector_output = ".output, .cell_output"
 <h3><span class="section-number">1.1.3. </span>학습 규칙과 데이터 표현법<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p><strong>머신러닝 모델 학습의 필수 요소</strong></p>
 <ul class="simple">
-<li><p><strong>입력 데이터셋</strong>: 음성 인식 모델을 위한 음성 파일, 이미지 태깅 모델을 위한 사진 등.</p></li>
+<li><p><strong>입력 데이터셋(훈련셋)</strong>: 음성 인식 모델을 위한 음성 파일, 이미지 태깅 모델을 위한 사진 등.</p></li>
 <li><p><strong>타깃 데이터셋</strong>: 음성 인식 작업의 경우 사람이 직접 작성한 글,
 이미지 작업의 경우 ‘강아지’, ‘고양이’, 등의 사람이 직접 붙힌 태그.</p></li>
 <li><p><strong>모델 평가지표</strong>: 출력 예상값과 기대 출력값 사이의 거리(차이) 측정법.
@@ -423,14 +420,14 @@ const thebe_selector_output = ".output, .cell_output"
 과정을 <strong>학습</strong>이라 부름.</p></li>
 </ul>
 <p><strong>데이터 표현법 학습</strong></p>
-<p>머신러닝 모델은 입력 데이터를 적절하게 변환하여 원하는 결과를 생성하는
+<p>머신러닝 모델은 입력 데이터를 적절하게 변환하여 원하는 값을 가리키는 데이터를 생성하는
 규칙을 입력과 타깃 데이터셋을 이용하여 학습해 나간다.
 즉, 주어진 과제 해결에 가장 적절한 <strong>데이터 표현법</strong>을 모델 학습을 통해 알아낸다.</p>
 <p>데이터는 다양한 방식으로 표현될 수 있으며
 과제에 따라 보다 적절한 표현법을 채택해야 한다.
 예를 들어, 컬러 사진을
 빨간색-초록색-파란색을 사용하는 RGB 방식으로 표현하거나
-색상-채도-명도를 사용하는 HSV 방식으로 표현할 수 있다.
+색상(hue)-채도(saturation)-명도(value)를 사용하는 HSV 방식으로 표현할 수 있다.
 컬러 사진에서 빨간색 픽셀만을 선택하고자 할 때는 RGB 방식으로 컬러 사진을
 표현하는 것이 좋은 반면에
 컬러 사진의 채도를 조정하고자 할 때는 HSV 방식으로 표현된
@@ -764,7 +761,7 @@ YouTube(동영상), Flickr(이미지), Wikipedia(문서) 등이 컴퓨터 비전
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">&lt;no title&gt;</p>
+            <p class="prev-next-title">소개</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="building_blocks_of_NN.html" title="next page">
@@ -783,7 +780,6 @@ YouTube(동영상), Flickr(이미지), Wikipedia(문서) 등이 컴퓨터 비전
     
       By 코딩알지<br/>
     
-        &copy; Copyright 2021.<br/>
   </p>
 </footer>
 </main>
