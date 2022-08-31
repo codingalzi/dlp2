@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>&lt;no title&gt; &#8212; Deep Learning with Python(2판)</title>
+    <title>소개 &#8212; Deep Learning with Python(2판)</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -226,6 +223,29 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   소개
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   주요 내용
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   전제 사항
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -233,29 +253,58 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1><no title></h1>
+                <h1>소개</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   소개
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   주요 내용
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   전제 사항
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
             
               <div>
                 
-  <p><strong>소개</strong></p>
+  <div class="section" id="id1">
+<h1>소개<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>머신러닝/딥러닝 기술이 획기적으로 발전하면서 데이터 분석 및 인공지능 관련 연구의
-중요성이 자율주행, 의료영상, 농업, 교육, 재난 예방, 제조업 등
-사회, 경제, 산업의 거의 모든 분야에 지대한 영향을 미치고 있다.
-이런 경향이 앞으로 더욱 강화될 것으로 기대되며 약간의 코딩 지식을 가진
-어느 누구나 데이터로부터 학습하는 스마트 앱을 개발 할 수 있을 정도로
-딥러닝 기술이 누구나 쉽게 활용할 수 있을 정도로 대중화될 것이다.</p>
-<p>여기서는 딥러닝의 기본 개념과 함께 다양한 딥러닝 기법을 최대한 직관적으로 전달하는 일에
-집중하며, 이를 위해 다양한 예제와 적절한 코드를 이용한다.
+중요성이 매우 높아졌다.
+자율주행, 의료영상, 농업, 교육, 재난 예방, 제조업 등
+사회, 경제, 산업의 거의 모든 분야에서 머신러닝/딥러닝의 활용이 점차 강조되어 왔으며
+이런 경향이 앞으로 더욱 강화될 것으로 기대된다.</p>
+<p>또한 약간의 코딩 지식을 가진 어느 누구나
+데이터로부터 학습하는 스마트 앱을 개발 할 수 있을 정도로
+머신러닝/딥러닝 기술이 이미 많이 대중화되었다.</p>
+<p>여기서는 딥러닝의 기본 개념과 함께 다양한 딥러닝 기법을 최대한 직관적으로
+전달하는 일에 집중한다.
+이를 위해 다양한 예제와 적절한 코드를 이용한다.
 예제에 사용되는 코드는 텐서플로우<font size='2'>TensorFlow</font> 2와
 케라스<font size='2'>Keras</font>를 파이썬 딥러닝 프레임워크로 사용한다.</p>
-<p><strong>주요 내용</strong></p>
+</div>
+<div class="section" id="id2">
+<h1>주요 내용<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
 <p>여기서 소개하는 내용은 프랑소와 숄레의
 <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">주피터 노트북</a> 내용을
@@ -265,22 +314,27 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>딥러닝 활용</p>
 <ul>
 <li><p>컴퓨터비전: 이미지 분석 및 분할</p></li>
-<li><p>자연어처리: 시계열 예측, 텍스트 분류, 자동 번역, 텍스트 생성</p></li>
+<li><p>시계열 예측</p></li>
+<li><p>자연어 처리: 텍스트 분류</p></li>
+<li><p>생성 신경망 모델: 문장, 이미지 등등 생성</p></li>
 </ul>
 </li>
 </ul>
-<p><strong>전제 사항</strong></p>
+</div>
+<div class="section" id="id3">
+<h1>전제 사항<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
 <p>코드 이해를 위해 파이썬 프로그래밍과 넘파이<font size='2'>NumPy</font>에 대한
 기초 이상의 지식이 요구된다.
 또한 머신러닝에 대한 기초 지식이 있는 경우 보다 쉽게 딥러닝을 이해할 수 있다.</p>
 <p>아래 강의노트를 활용할 것을 추천한다.</p>
-<ul>
+<ul class="simple">
 <li><p><a class="reference external" href="https://hj617kim.github.io/core_pybook/">파이썬 왕기초</a></p></li>
 <li><p><a class="reference external" href="https://codingalzi.github.io/datapy/">파이썬 데이터 분석</a></p></li>
 <li><p><a class="reference external" href="https://codingalzi.github.io/handson-ml3/">핸즈온 머신러닝(3판)</a></p></li>
+</ul>
 <div class="toctree-wrapper compound">
 </div>
-</ul>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -323,7 +377,6 @@ const thebe_selector_output = ".output, .cell_output"
     
       By 코딩알지<br/>
     
-        &copy; Copyright 2021.<br/>
   </p>
 </footer>
 </main>
