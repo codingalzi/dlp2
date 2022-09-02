@@ -139,6 +139,8 @@
 # 단순히 여백이 추가된 경우의 훈련 샘플을 보여준다.
 # 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise.png" style="width:400px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # 백색 잡음이 포함된 샘플들의 데이터셋으로 훈련시킨 모델과
 # 단순한 여백이 추가된 샘플들의 데이터셋으로 훈련시킨 모델의 성능을 비교하면
@@ -146,8 +148,10 @@
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise03.png" style="width:400px;"></div>
 
+# 이유는 모델이 백색 잡음에 특별한 의미를 부여하기 때문이며, 이로 인해 과대적합이
+# 보다 쉽게 발생한다.
 # 따라서 보다 효율적인 훈련을 위해 백색 잡음 등 과대적합을 유발하는
-# 특성을 미리 제거하고 유용한 특성만을 훈련에 사용해야 한다.
+# 특성을 미리 제거하여 모델에 유용한 특성만을 훈련에 사용해야 한다.
 # 하지만 유용한 특성을 선택하는 일이 기본적으로 불가능하거나 매우 어렵다.
 
 # :::{admonition} 백색 잡음
@@ -159,62 +163,20 @@
 # 백색 잡음을 백색 소음 또는 화이트 노이즈라 부르기도 한다.
 # :::
 
-# ### 딥러닝 모델 일반화의 핵심
+# ### 딥러닝 모델 일반화
 
-# 아래 예제에서 확인할 수 있듯이 딥러닝 모델은 어떤 무엇도 학습할 수 있다.
+# (딥러닝) 모델이 훈련 중에 보지 못한 완전히 새로운 데이터에 대해 예측하는 것을 
+# **일반화**<font size='2'>generalization</font>라고 한다.
+# 그런데 모델의 일반화 능력은 모델의 훈련 과정에 별 상관이 없다.
+# 이유는 훈련을 통해 모델의 일반화 능력을 조절할 수 있는 방법이 없기 때문이다.
 
-# **예제: MNIST 모델을 임의로 섞은 레이블과 함께 훈련시키기**
-# 
-# 아래 코드는 임의로 섞은 레이블을 이용하여 손글씨를 예측하는 모델을 훈련시킨다. 
+# 실제로 딥러닝 모델은 어떤 무엇도 학습할 수 있다.
+# 예를 들어 MNIST 모델을 임의로 섞은 레이블과 함께 훈련시키면
+# 훈련셋에 대한 성능은 훈련하면서 계속 향상되어 결국
+# 모델은 모든 답을 외워버리는 정도에 다달한다.
+# 물론 검증셋에 성능은 전혀 향상되지 않는다.
 
-# In[1]:
-
-
-(train_images, train_labels), _ = mnist.load_data()
-train_images = train_images.reshape((60000, 28 * 28))
-train_images = train_images.astype("float32") / 255
-
-random_train_labels = train_labels[:]
-np.random.shuffle(random_train_labels)
-
-model = keras.Sequential([
-    layers.Dense(512, activation="relu"),
-    layers.Dense(10, activation="softmax")
-])
-
-model.compile(optimizer="rmsprop",
-              loss="sparse_categorical_crossentropy",
-              metrics=["accuracy"])
-
-history = model.fit(train_images, random_train_labels,
-                    epochs=100,
-                    batch_size=128,
-                    validation_split=0.2)
-
-
-# 훈련셋에 대한 성능은 훈련하면서 계속 향상되지만 검증셋에 성능은 전혀 향상되지 않는다.
-
-# In[11]:
-
-
-import matplotlib.pyplot as plt
-
-train_acc = history.history["accuracy"]
-val_acc = history.history["val_accuracy"]
-
-epochs = range(1, 101)
-
-plt.plot(epochs, train_acc, "b--",
-         label="Train accuracy")
-
-plt.plot(epochs, val_acc, "b-",
-         label="Validation accuracy")
-
-plt.title("Shuffled MNIST Accuracy")
-plt.xlabel("Epochs")
-plt.ylabel("Accuracy")
-plt.legend()
-
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-shuffled.png" style="width:400px;"></div>
 
 # 위 결과는 다음을 의미한다.
 # 
@@ -222,14 +184,16 @@ plt.legend()
 # - 모델 훈련을 통해 할 수 있는 것은 주어진 훈련 데이터셋에 모델이 적응하도록 하는 것 뿐이다.
 # - 딥러닝 모델은 어떤 데이터셋에도 적응할 수 있기에 
 #     너무 오래 훈련시키면 과대적합은 반드시 발생하고 일반화는 어려워진다. 
+# - 모델의 **일반화** 능력은 모델 자체보다는 **훈련셋에 내재하는 정보의 구조**와 
+#     보다 밀접히 관련된다.
+
+# **다양체 가설**
+
+# **다양체 가설**<font size='2'>manifold hypothesis</font>은 
+# 데이터셋에 내재하는 정보의 구조에 대한 다음과 같은 가설이다.
 # 
-# 결론적으로 **일반화**가 모델 보다는 사용되는 **데이터셋 내부에 존재하는 정보 구조**와 
-# 보다 밀접히 관련된다고 볼 수 있다. 
-
-# #### 다양체 가설
-
-# 일반적인 데이터셋은 고차원상에 존재하는 (저차원의) 연속이며 미분가능한 다양체를 구성한다는 가설이
-# **다양체 가설**(manifold hypothesis)이다.
+# > 일반적인 데이터셋은 고차원상에 존재하는 (저차원의) 연속이며 미분가능한 다양체를 구성한다.
+# 
 # 그리고 모델 훈련은 바로 이 다양체를 찾아가는 과정이다. 
 # 
 # **참고**: 이런 의미에서 무작위로 섞은 레이블을 사용하는 위 MNIST 예제는 일반적인 데이터셋이 될 수 없다. 
@@ -244,7 +208,7 @@ plt.legend()
 # 다양체 가설을 이용하면 적절하게 구성된 모델이 적절한 훈련셋으로 훈련받았을 때 새로운 데이터에 대해 적절한 예측을 할 수 있는 이유를 설명할 수 있다.
 # 즉, 모델이 찾은 연속이며 미분가능한 다양체와 학습된 데이터 정보에 **보간법**을 적용하여 새로운 데이터에 대해 예측을 실행한다.
 
-# #### 보간법
+# **보간법**
 
 # **보간법**(interpolation)은 모델 훈련에 사용된 훈련셋의 데이터와 새로운 데이터를 연결하는 
 # 다양체 상의 경로를 이용하여 예측값을 실행하는 것을 의미한다. 
@@ -259,7 +223,7 @@ plt.legend()
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# #### 충분치 않은 훈련셋과 정규화
+# **충분치 않은 훈련셋과 정규화**
 # 
 # 충분히 큰 훈련셋을 준비하지 못하면 예측 과정에서 과대한 추측을 하게되어 과대적합이 발생할 가능성이 높다.
 # 이를 방지하기 위해 일반적으로 두 가지 방법을 사용한다.
@@ -438,7 +402,7 @@ plt.legend()
 # - 학습률: 1 (옵티마이저의 옵션에서 지정)
 # - 훈련셋/검증셋에 대한 정확도가 30% 수준에 머무름.
 
-# In[12]:
+# In[1]:
 
 
 (train_images, train_labels), _ = mnist.load_data()
@@ -885,3 +849,8 @@ history_dropout = model.fit(
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_dropout_regularized_model_imdb.png" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# ## 연습문제
+
+# 1. 백색 잡음으로 생성된 데이터셋과 무작위로 지정된 타깃 데이터셋을 이용하여 딥러닝 모델을 학습시킨다. 
+#     이를 통해 훈련셋에 대한 성능은 매우 좋아지지만 검증셋에 대한 성능은 낮은 상태로 전혀 변하지 않음을 확인한다.
