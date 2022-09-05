@@ -108,7 +108,7 @@
 
 # 특성과 타깃 사이의 거짓 상관관계를 유발하는 여러 상황이 있다.
 
-# 첫째, 매우 드문 특성을 사용하는 데이터셋으로 훈련하는 경우.
+# - 매우 드문 특성을 사용하는 데이터셋으로 훈련하는 경우.
 # 
 # {numref}`%s절 <sec:imdb>`의 이진 분류 모델의 훈련에 사용된
 # IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋에서 포함시키는 경우
@@ -126,14 +126,14 @@
 # 앞서 사용 빈도에서 10,000등 안에 드는 단어만으로 작성된 영화 후기만을 대상으로 훈련시킨 이유가
 # 이런 가능성을 제한하기 위해서였다.
 
-# 둘째, 우연에 의한 경우.
+# - 우연에 의한 경우.
 # 
 # 자주 발생하는 특성이라 하더라도 우연히 잘못된 편견을 훈련중인 모델에 심어줄 수 있다.
 # 예를 들어, "너무" 라는 단어를 포함한 100개의 영화 후기 중에서 54%는 긍정,
 # 나머지 46%는 부정이었다면 훈련중인 모델은 "너무"라는 단어를 긍정적으로 평가할 가능성을 높힌다.
 # 하지만 "너무"라는 단어는 긍정적으로, 부정적으로 사용될 수 있기 때문에 이는 우연에 불과하다.
 
-# 셋째, 의미 없는 특성에 의한 경우.
+# - 의미 없는 특성에 의한 경우.
 # 
 # 아래 이미지는 MNIST 데이터셋에 **백색 잡음**<font size='2'>white noise</font>이 추가된 경우와
 # 단순히 여백이 추가된 경우의 훈련 샘플을 보여준다.
@@ -194,15 +194,11 @@
 # 
 # > 일반적인 데이터셋은 고차원상에 존재하는 (저차원의) 연속이며 미분가능한 다양체를 구성한다.
 
-# :::{prf:example}
-# :label: exp-manifold
-# 
-# 아래 이미지는 3차원 공간에 존재하는 2차원 다양체를 보여준다.
+# 예를 들어, 아래 이미지는 3차원 공간에 존재하는 2차원 다양체를 보여준다.
 # 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-homl3-manifold.png" style="width:550px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 8장</a>&gt;</div></p>
-# :::
 
 # 다양체 가설을 인정하면 모델 훈련은 다양체 형식으로 훈련셋에 내재된 정보의 구조를 
 # 찾아가는 과정이 된다.
@@ -251,117 +247,74 @@
 # 이용해서 모델이 과대적합되는 것을 규제할 수 있다.
 # 정규화에 대해서 잠시 뒤에 자세히 다룬다.
 
-# ## 5.2 모델 평가
+# ## 모델 평가
 
-# 모델의 일반화 능력을 향상시키려면 주어진 모델의 일반화 능력을 평가할 수 있어야 하며,
-# 이를 위해 데이터셋을 훈련셋, 검증셋, 테스트셋으로 구분하는 이유를 먼저 알아야 한다. 
+# 모델의 일반화 능력을 향상시키려면 주어진 모델의 일반화 능력을 평가할 수 있어야 한다.
 
-# ### 모델 튜닝과 정보 유출
+# ### 훈련셋, 검증셋, 테스트셋
 
 # 훈련셋, 테스트셋 이외에 검증셋을 사용해야 하는 이유는 
-# 무엇보다도 **최적의 모델을 구성할 때 검증셋에 대한 결과가 반영되기 때문**이다. 
+# 무엇보다도 최적의 모델을 구성할 때 검증셋에 대한 결과가 반영되기 때문이다. 
 # 
 # 테스트셋은 모델 구성과 훈련에 전혀 관여하지 않아야 한다.
 # 따라서 구성된 모델의 성능을 평가하려면 테스트셋을 제외한 다른 데이터셋이 필요하고
 # 이를 위해 훈련셋의 일부를 검증셋으로 활용한다.
-# 검증셋은 훈련 과정 중에 일반화 성능을 테스트하는 용도로 사용되며
-# 이를 통해 레이어 종류 및 개수, 레이어 별 유닛 개수 등 모델 구성에 필요한
-# **하이퍼파라미터**(hyperparameter)를 조정한다. 
-# 이것을 **모델 튜닝**(model tuning)이라 하며,
-# 바로 이 모델 튜닝을 위해 검증셋이 사용되는 것이다. 
 # 
+# 검증셋은 **훈련 과정 중에 일반화 성능을 테스트**하는 용도로 사용되며
+# 이를 통해 레이어 종류 및 개수, 레이어 별 유닛 개수 등 모델 구성에 필요한
+# **하이퍼파라미터**<font size='2'>hyperparameter</font>를 조정한다. 
+# 이것을 **모델 튜닝**<font size='2'>model tuning</font>이라 하며,
+# 바로 이 모델 튜닝을 위해 검증셋이 사용되는 것이다. 
+
+# **모델 튜닝과 정보 유출**
+
 # 모델 튜닝도 모델의 좋은 하이퍼파라미터를 찾아가는 일종의 **학습**이다. 
 # 따라서 튜닝을 많이 하게되면 검증셋에 대한 과대적합이 발생한다.
-# 다시 말해, 검증셋에 특화된 튜닝을 하게 되어 모델의 일반화 성능이 떨어질 수 있게 된다. 
-# 이런 현상을 **정보 유출**이라 부르는데,
-# 이유는 튜닝을 하면 할 수록 검증셋에 대한 보다 많은 정보가 모델로 흘려들어가기 때문이다. 
+# 다시 말해, 검증셋에 특화된 튜닝을 하게 되어 모델의 일반화 성능이 떨어지게 된다. 
+# 이런 현상을 **정보 유출**이라 하는데,
+# 이유는 튜닝을 하면 할 수록 검증셋에 대한 보다 많은 정보가 모델로 흘러 들어가기 때문이다.
+
+# :::{admonition} 하이퍼파라미터 대 파라미터
+# :class: info
 # 
-# **참고**: 하이퍼파라미터와 파라미터는 다르다. 
-# 파라미터(parameter)는 모델 훈련 중에 학습되는 가중치, 편향 등을 가리킨다. 
+# 하이퍼파라미터와 파라미터는 다르다. 
+# 파라미터는 모델 훈련 중에 학습되는 가중치, 편향 등을 가리킨다.
+# :::
 
-# ### 훈련셋, 검증셋, 테스트셋 분류 방법
+# **검증셋 활용법**
 
-# 데이터셋을 훈련셋, 검증셋, 테스트셋으로 분류하여 모델을 훈련을 진행하는
+# 데이터셋을 훈련셋, 검증셋, 테스트셋으로 분류하여 모델 훈련을 진행하는
 # 전형적인 방식 세 가지를 소개한다. 
 
-# #### 홀드아웃(hold-out) 검증
+# *홀드아웃<font size='2'>hold-out</font> 검증*
 
 # 훈련셋의 일부를 검증셋으로 사용하는 가장 일반적인 방법이며,
 # 모델 훈련 후에 테스트셋을 이용하여 모델의 일반화 성능을 확인한다.
-# 하지만 그 이후에 모델 튜닝을 진행하지 않아야 한다. 
+# 하지만 그 이후엔 더 이상 모델 튜닝을 진행하지 않아야 한다. 
 
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/holdout_validation.png" style="width:400px;"></div>
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/holdout_validation.png" style="width:350px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# 홀드아웃 검증의 전형적인 패턴은 다음과 같다.
-# 
-# ---
-# ```python
-# num_validation_samples = 10000
-# 
-# np.random.shuffle(data)
-# 
-# validation_data = data[:num_validation_samples]
-# training_data = data[num_validation_samples:]
-# 
-# model = get_model()
-# model.fit(training_data, ...)
-# 
-# validation_score = model.evaluate(validation_data, ...)
-# 
-# ...
-# 
-# model = get_model()
-# model.fit(np.concatenate([training_data,
-#                           validation_data]), ...)
-# 
-# test_score = model.evaluate(test_data, ...)
-# ```
-# ---
+# 홀드아웃 검증은 하지만 데이터셋이 크지 않은 경우 사용하기 어렵다.
+# 이유는 데이터셋 자체가 작기 때문에 훈련셋과 검증셋은 더욱 작아져서
+# 제대로된 훈련이 이뤄지기 어려울 수 있기 때문이다.
+# 이런 경우 K-겹 교차검증이 권장된다.
 
-# #### K-겹 교차검증
+# *K-겹 교차검증*
 
-# 모델의 성능이 사용되는 훈련셋에 따라 심하게 달라질 때 추천되는 검증기법이다. 
+# 훈련셋을 K개의 부분집합으로 분류한 다음에 한 개의 부분집합을 검증셋으로,
+# 나머지늘 훈련셋으로 사용하는 방식을 K 번 반복하는 훈련법이다.
+# 이때 검증셋으로 사용되는 부분집합은 매번 다르게 선택된다.
+# 모델의 성능은 K개의 검증성능의 평균값으로 평가된다.
+# 
+# 아래 그림은 3-겹 교차검증의 작동 과정을 보여준다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/k_fold_validation.png" style="width:650px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# K-겹 교차검증의 전형적인 패턴은 다음과 같다.
-# 
-# ---
-# ```python
-# k = 3
-# num_validation_samples = len(data) // k
-# 
-# np.random.shuffle(data)
-# 
-# validation_scores = []
-# 
-# for fold in range(k):
-#     validation_data = data[num_validation_samples * fold:
-#                            num_validation_samples * (fold + 1)]
-#     training_data = np.concatenate(
-#         data[:num_validation_samples * fold],
-#         data[num_validation_samples * (fold + 1):])
-#     
-#     model = get_model()
-#     model.fit(training_data, ...)
-#     
-#     validation_score = model.evaluate(validation_data, ...)
-#     validation_scores.append(validation_score)
-# 
-# validation_score = np.average(validation_scores)
-# 
-# model = get_model()
-# model.fit(data, ...)
-# 
-# test_score = model.evaluate(test_data, ...)
-# ```
-# ---
-
-# #### 반복 K-겹 교차검증
+# *반복 K-겹 교차검증*
 
 # 훈련셋의 크기가 너무 작거나 모델의 성능을 최대한 정확하게 평가하기 위해 사용된다.
 # K-겹 교차검증을 여러 번 실행한다. 대신 매번 훈련셋을 무작위로 섞은 뒤에
@@ -372,19 +325,19 @@
 
 # ### 모델 성능 평가의 기준선
 
-# 모델 훈련이 시작되면 평가지표(metrics)를 지켜보는 일 이외에 할 수 있는 게 없다.
-# 따라서 검증셋에 대한 평가지표가 특정 기준선 이상인지를 아는 게 매우 중요하다.
+# 모델 훈련이 시작되면 평가지표<font size='2'>metrics</font>를 지켜보는 일 이외에 할 수 있는 게 없다.
+# 다만 훈련중에 검증셋에 대한 평가지표가 특정 기준선 이상인지를 아는 것은 매우 중요하다.
 # 
-# 기준선 예제
+# 앞서 살펴봤던 모델들의 기준선은 다음과 같다.
 # 
 # - MNIST 데이터셋: 10%의 정확도
 # - IMDB 데이터셋: 50%의 정확도
-# - 로이터 통신 기사: 18-19의 정확도. 이런 경우 정밀도 등 정확도 이외의 다른 평가기준도 고려 가능.
+# - 로이터 통신 기사: 18-19%의 정확도. 기사들이 균등하게 분포되어 있지 않음.
 # 
-# 기준선을 넘는 모델을 생성하는 것이 기본 목표이어야 함.
-# 그렇지 않다면 무언가 잘못된 모델을 또는 잘못된 접근법을 사용하고 있을 가능성이 큼.
+# 기준선을 넘는 모델을 학습을 통해 얻는 것이 기본 목표이어야 한다.
+# 그렇지 않다면 무언가 잘못된 모델을 또는 잘못된 접근법을 사용하고 있을 가능성이 크다.
 
-# ### 데이터셋 준비 관련 주의사항
+# ### 모델 평가용 데이터셋 준비 관련 주의사항
 
 # 최적화된 모델 훈련을 위해 아래 세 가지 사항을 준수하며 훈련셋, 검증셋, 테스트셋을 
 # 준비해야 한다. 
@@ -395,8 +348,9 @@
 #     시간상 뒤쪽에 위치하도록 해야 한다. 그렇지 않으면 미래 정보가 모델에 유출된다.
 #     즉, 데이터를 무작위로 섞어 훈련셋과 테스트셋으로 구분하는 일은 하지 않아야 한다. 
 # - **중복 데이터 제거**: 훈련셋과 테스트셋에 동일한 데이터가 들어가지 않도록 중복 데이터를 제거해야 한다.
+#     그렇지 않으면 공정한 검증이 이뤄질 수 없다.
 
-# ## 5.3 모델 훈련 개선법
+# ## 모델 훈련 개선법
 
 # 모델 훈련을 최적화하려면 먼저 과대적합을 달성해야 한다.
 # 이유는 과대적합이 나타나야만 과대적합의 경계를 알아내서 모델 훈련을
@@ -407,208 +361,65 @@
 # 
 # - 첫째, 훈련셋의 손실값이 줄어들지 않아 훈련이 제대로 진행되지 않는 경우
 # - 둘째, 훈련셋의 손실값은 줄어들지만 검증셋의 성능은 평가 기준선을 넘지 못하는 경우
-# - 셋째, 훈련셋과 검증셋의 평가가 기준선을 넘어 계속 좋아지지만 과대적합이 발생하지 않는 경우
+# - 셋째, 훈련셋과 검증셋의 평가가 기준선을 넘어 계속 좋아지지만 과대적합이 발생하지 않아
+#     계속해서 과소적합 상태로 머무는 경우
 
-# ### 첫째 경우: 경사하강법 관련 파라미터 조정
+# **첫째 경우: 경사하강법 관련 파라미터 조정**
 
 # 훈련셋의 손실값이 줄어들지 않거나 진동하는 등 훈련이 제대로 이루어지지 않는 경우는
-# 기본적으로 학습률과 배치 크기를 조절하면 해결된다. 
+# 기본적으로 경사하강법이 제대로 작동하지 않아서이다.
+# 이럴 때는 보통 학습률과 배치 크기를 조절하면 해결된다.
 
-# **MNIST 모델 훈련: 매우 큰 학습률 사용**
-# 
-# - 학습률: 1 (옵티마이저의 옵션에서 지정)
-# - 훈련셋/검증셋에 대한 정확도가 30% 수준에 머무름.
+# *학습률 조정*
 
-# In[1]:
-
-
-(train_images, train_labels), _ = mnist.load_data()
-train_images = train_images.reshape((60000, 28 * 28))
-train_images = train_images.astype("float32") / 255
-
-model = keras.Sequential([
-    layers.Dense(512, activation="relu"),
-    layers.Dense(10, activation="softmax")
-])
-model.compile(optimizer=keras.optimizers.RMSprop(1.),
-              loss="sparse_categorical_crossentropy",
-              metrics=["accuracy"])
-model.fit(train_images, train_labels,
-          epochs=10,
-          batch_size=128,
-          validation_split=0.2)
-
+# - 매우 큰 학습률을 사용하는 경우: 모델이 제대로 학습되지 않는다.
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch04/homl04-03.png" style="width:550px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 4장</a>&gt;</div></p>
 
-# **MNIST 모델 훈련: 매우 작은 학습률 사용**
-# 
-# - 학습률: 0.000001
-# - 검증셋에 대한 정확도가 느리게 증가함
-
-# In[13]:
-
-
-(train_images, train_labels), _ = mnist.load_data()
-train_images = train_images.reshape((60000, 28 * 28))
-train_images = train_images.astype("float32") / 255
-
-model = keras.Sequential([
-    layers.Dense(512, activation="relu"),
-    layers.Dense(10, activation="softmax")
-])
-model.compile(optimizer=keras.optimizers.RMSprop(1e-6),
-              loss="sparse_categorical_crossentropy",
-              metrics=["accuracy"])
-model.fit(train_images, train_labels,
-          epochs=10,
-          batch_size=128,
-          validation_split=0.2)
-
+# - 매우 작은 학습률을 사용하는 경우: 모델이 너무 느리게 학습된다.
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch04/homl04-02.png" style="width:550px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 4장</a>&gt;</div></p>
 
-# **MNIST 모델 훈련: 적절한 학습률 사용**
-# 
-# - 학습률: 0.01
-# - 제대로 훈련됨.
-
-# In[14]:
-
-
-model = keras.Sequential([
-    layers.Dense(512, activation="relu"),
-    layers.Dense(10, activation="softmax")
-])
-model.compile(optimizer=keras.optimizers.RMSprop(1e-2),
-              loss="sparse_categorical_crossentropy",
-              metrics=["accuracy"])
-model.fit(train_images, train_labels,
-          epochs=10,
-          batch_size=128,
-          validation_split=0.2)
-
+# - 적절한 학습률을 사용하는 경우: 모델이 적절한 속도로 학습된다.
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch04/homl04-01.png" style="width:550px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 4장</a>&gt;</div></p>
 
-# **배치 크기 조정**
-# 
-# - 학습률 이외에 배치크기를 키우면 보다 안정적으로 훈련이 됨. 단, 계산량이 많아질 수 있음.
-# - 아래 그림에서 확인할 수 있듯이, 배치 크기가 클 수록 보다 일관되게 학습됨.
+# *배치 크기 조정*
+
+# 학습률 이외에 배치크기를 키우면 보다 안정적으로 훈련이 된다.
+# 단, 계산량이 많아져서 훈련 시간이 훨씬 오래걸리게 된다.
+# 아래 그림은 선형회귀 모델 훈련에 사용된 파라미터가 배치 크기가 클 수록 보다 
+# 부드럽게 특정 값에 수렴하는 것, 즉 모델이 보다 일관되게 학습되는 것을 보여준다.
 
 # <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch04/homl04-05.png" style="width:550px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 4장</a>&gt;</div></p>
 
-# ### 둘째 경우: 보다 적절한 모델 사용
+# **둘째 경우: 보다 적절한 모델 사용**
 
 # 훈련은 잘 진행되는데 검증셋에 대한 성능이 좋아지지 않는다면 다음 두 가지 경우를 의심해 보아야 한다. 
 # 
-# - 좋은 예측값을 구성할 정도로 충분한 정보가 훈련셋에 담겨있지 않는 경우
+# - 훈련셋이 적절한지 않은 경우
 #     - 예제: 레이블이 무작위로 섞인 MNIST 데이터셋
 # - 사용하는 모델이 적절하지 않은 경우
 #     - 예제: 선형 분류가 불가능한 데이터셋에 선형분류 모델을 적용하는 경우
-#     - 예제: 시계열 데이터 분석에 앞서 살펴본 `Sequential` 모델을 사용하는 경우(나중에 확인할 것임)
+#     - 예제: 시계열 데이터 분석에 앞서 살펴본 `Sequential` 모델을 사용하는 경우
 #     
-# 기본적으로, 문제 해결을 위한 적절한 가정을 사용하는 모델을 훈련시켜야 한다.
+# 문제 해결에 적절한 모델을 훈련시켜야 한다.
 # 앞으로 다양한 문제에 적용되는 다양한 모델 구성과 훈련을 살펴볼 것이다.
 
-# ### 셋째 경우: 모델의 저장 능력 조정
+# **셋째 경우: 모델의 저장 능력 조정**
 
 # 모델의 훈련셋/검증셋의 평가지표가 계속 향상되지만 과대적합이 발생하지 않는 경우 
 # 기본적으로 모델의 정보 저장 능력을 키워야 한다. 
-# 
-# 먼저 아래 예제를 살펴보자. 
-
-# **MNIST 데이터셋 다중클래스 분류: 매우 단순한 모델**
-# 
-# - 은닉층이 없이 출력층 하나만 사용하는 매우 단순한 모델.
-# - 검증셋의 정확도: 93% 정도에서 정체
-# - 검증셋의 손실값: 0.25 이하로 내려가지 않음.
-# 
-# 결론적으로 모델의 정보 저장/분석 능력이 떨어진다. 
-
-# In[15]:
-
-
-model = keras.Sequential([layers.Dense(10, activation="softmax")])
-
-model.compile(optimizer="rmsprop",
-              loss="sparse_categorical_crossentropy",
-              metrics=["accuracy"])
-
-history_small_model = model.fit(
-    train_images, train_labels,
-    epochs=20,
-    batch_size=128,
-    validation_split=0.2)
-
-
-# In[16]:
-
-
-import matplotlib.pyplot as plt
-
-val_loss = history_small_model.history["val_loss"]
-epochs = range(1, 21)
-
-plt.plot(epochs, val_loss, "b--",
-         label="Validation loss")
-
-plt.title("Effect of insufficient model capacity on validation loss")
-plt.xlabel("Epochs")
-plt.ylabel("Loss")
-plt.legend()
-
-
-# **MNIST 데이터셋 다중클래스 분류: 보다 많은 저장/분석/표현 능력 모델**
-# 
-# - 두 개의 은닉층: 96개의 많은 유닛 사용
-# 
-# 잘 훈련되며 과대적합이 발생한다. 
-
-# In[17]:
-
-
-model = keras.Sequential([
-    layers.Dense(96, activation="relu"),
-    layers.Dense(96, activation="relu"),
-    layers.Dense(10, activation="softmax"),
-])
-model.compile(optimizer="rmsprop",
-              loss="sparse_categorical_crossentropy",
-              metrics=["accuracy"])
-history_large_model = model.fit(
-    train_images, train_labels,
-    epochs=20,
-    batch_size=128,
-    validation_split=0.2)
-
-
-# 8 에포크 정도 지나면서 일반화 성능이 떨어진다. 
-
-# In[18]:
-
-
-import matplotlib.pyplot as plt
-
-val_loss = history_large_model.history["val_loss"]
-epochs = range(1, 21)
-
-plt.plot(epochs, val_loss, "b--",
-         label="Validation loss")
-
-plt.title("Effect of insufficient model capacity on validation loss")
-plt.xlabel("Epochs")
-plt.ylabel("Loss")
-plt.legend()
-
+# 즉, 신경망 모델의 은닉층 또는 층에 사용되는 유닛의 수를 증가시켜서
+# 모델이 보다 많은 정보를 처리할 수 있도록 해야 한다.
 
 # ## 5.4 일반화 향상법
 
@@ -685,7 +496,7 @@ plt.legend()
 # 
 # 아래 코드는 이전에 다루었던 IMDB 데이터셋을 이용한 모델 훈련이다. 
 
-# In[19]:
+# In[1]:
 
 
 from tensorflow.keras.datasets import imdb
