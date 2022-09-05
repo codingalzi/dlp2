@@ -17,32 +17,40 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-(train_images, train_labels), _ = mnist.load_data()
-train_images = train_images.reshape((60000, 28 * 28))
-train_images = train_images.astype("float32") / 255
+from tensorflow.keras.datasets import imdb
+(train_data, train_labels), _ = imdb.load_data(num_words=10000)
+
+def vectorize_sequences(sequences, dimension=10000):
+    results = np.zeros((len(sequences), dimension))
+    for i, sequence in enumerate(sequences):
+        results[i, sequence] = 1.
+    return results
+
+train_data = vectorize_sequences(train_data)
 
 model = keras.Sequential([
-    layers.Dense(512, activation="relu"),
-    layers.Dense(10, activation="softmax")
+    layers.Dense(16, activation="relu"),
+    layers.Dense(16, activation="relu"),
+    layers.Dense(1, activation="sigmoid")
 ])
-model.compile(optimizer=keras.optimizers.RMSprop(1.),
-              loss="sparse_categorical_crossentropy",
+
+model.compile(optimizer="rmsprop",
+              loss="binary_crossentropy",
               metrics=["accuracy"])
-model.fit(train_images, train_labels,
-          epochs=10,
-          batch_size=128,
-          validation_split=0.2)
+
+history_original = model.fit(train_data, train_labels,
+                             epochs=20, batch_size=512, validation_split=0.4)
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m/tmp/ipykernel_494/3740393749.py[0m in [0;36m<module>[0;34m[0m
-[0;32m----> 1[0;31m [0;34m([0m[0mtrain_images[0m[0;34m,[0m [0mtrain_labels[0m[0;34m)[0m[0;34m,[0m [0m_[0m [0;34m=[0m [0mmnist[0m[0;34m.[0m[0mload_data[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      2[0m [0mtrain_images[0m [0;34m=[0m [0mtrain_images[0m[0;34m.[0m[0mreshape[0m[0;34m([0m[0;34m([0m[0;36m60000[0m[0;34m,[0m [0;36m28[0m [0;34m*[0m [0;36m28[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      3[0m [0mtrain_images[0m [0;34m=[0m [0mtrain_images[0m[0;34m.[0m[0mastype[0m[0;34m([0m[0;34m"float32"[0m[0;34m)[0m [0;34m/[0m [0;36m255[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      4[0m [0;34m[0m[0m
-[1;32m      5[0m model = keras.Sequential([
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+[0;32m/tmp/ipykernel_1997/3959589821.py[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0;32mfrom[0m [0mtensorflow[0m[0;34m.[0m[0mkeras[0m[0;34m.[0m[0mdatasets[0m [0;32mimport[0m [0mimdb[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      2[0m [0;34m([0m[0mtrain_data[0m[0;34m,[0m [0mtrain_labels[0m[0;34m)[0m[0;34m,[0m [0m_[0m [0;34m=[0m [0mimdb[0m[0;34m.[0m[0mload_data[0m[0;34m([0m[0mnum_words[0m[0;34m=[0m[0;36m10000[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m [0;34m[0m[0m
+[1;32m      4[0m [0;32mdef[0m [0mvectorize_sequences[0m[0;34m([0m[0msequences[0m[0;34m,[0m [0mdimension[0m[0;34m=[0m[0;36m10000[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m     [0mresults[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0mzeros[0m[0;34m([0m[0;34m([0m[0mlen[0m[0;34m([0m[0msequences[0m[0;34m)[0m[0;34m,[0m [0mdimension[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mNameError[0m: name 'mnist' is not defined
-NameError: name 'mnist' is not defined
+[0;31mModuleNotFoundError[0m: No module named 'tensorflow'
+ModuleNotFoundError: No module named 'tensorflow'
 
