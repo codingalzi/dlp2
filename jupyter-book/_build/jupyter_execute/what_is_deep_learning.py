@@ -244,7 +244,7 @@
 # **역전파 과정을 반복 실행**하면서 손실값이 점차 낮아져서 최종적으로 손실 최소값을 갖도록 하는
 # 가중치를 찾아 간다.
 
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-deep-learning-in-3-figures-3.png" style="width:500px;"></div>
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/01-09.png" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 

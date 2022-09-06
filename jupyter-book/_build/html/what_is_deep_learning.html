@@ -38,9 +38,12 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -555,7 +558,7 @@ MNIST 손글씨 이미지를 변환해서 최종적으로
 이후 옵티마이저가 각 층의 가중치를 손실값이 보다 작아지는 방향으로 조금씩 업데이트하는
 <strong>역전파 과정을 반복 실행</strong>하면서 손실값이 점차 낮아져서 최종적으로 손실 최소값을 갖도록 하는
 가중치를 찾아 간다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-deep-learning-in-3-figures-3.png" style="width:500px;"></div>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/01-09.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>훈련 루프</strong></p>
 <p>딥러닝 모델의 <strong>훈련 루프</strong><font size='2'>training loop</font>는
 순전파-손실값 계산-역전파의 구성된 하나의 순환과정을 가리킨다.
