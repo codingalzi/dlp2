@@ -353,10 +353,14 @@
 # **합성곱 신경망**<font size='2'>convolutional neural network</font>(CNN) 모델이 소개되면서
 # 딥러닝에 대한 관심이 폭발적으로 증가했다.
 # 
-# - 2011년 최고 모델의 성능: 74.3%의 top-5 정확도
-# - 2012년 최고 모델의 성능: 83.6%의 top-5 정확도
+# - 2011년 최고 모델의 성능: 74% 정도의 top-5 정확도
+# - 2012년 최고 모델의 성능: 84% 정도의 top-5 정확도
+
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch01-ilsvrc-1.png" style="width:600px;"></div>
 # 
-# 이미지넷 경진대회는 2015년 96.4%의 top-5 정확도 성능을 보인 우승 모델이
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.bulentsiyah.com/imagenet-winning-cnn-architectures-ilsvrc">ImageNet Winning CNN Architectures</a>&gt;</div></p>
+
+# 이미지넷 경진대회는 2017년 97.7% 정도의 top-5 정확도 성능을 보인 우승 모델이
 # 소개된 이후로 더 이상 진행되지 않는다.
 # 이는 이미지 분류 과제가 완성되었음을 의미한다.
 
@@ -445,7 +449,8 @@
 # YouTube(동영상), Flickr(이미지), Wikipedia(문서) 등이 컴퓨터 비전과 자연어 처리(NLP)의
 # 혁신적 발전의 기본 전제조건이었다.
 
-# **투자와 대중화**
+# **투자**
+
 # 
 # 하드웨어, 데이터, 알고리즘 요소 이외에 투자와 대중화라는 두 요소 또한
 # 딥러닝의 발전에 크게 기여하였다.
@@ -455,7 +460,9 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oecd-ilibrary.org/sites/3abc27f1-en/index.html?itemId=/content/component/3abc27f1-en&mimeType=text/html">OECD estimate of total investments in AI startups</a>&gt;</div></p>
 
-# 그리고 대중화 측면에서는 지금은
+# **대중화**
+
+# 대중화 측면에서는 지금은
 # 파이썬 기초 프로그래밍 수준에서 딥러닝을 적용할 수 있을 정도로
 # 많은 편리하며 뛰어난 성능의 도구와 프레임워크가 개발되었다.
 # 
@@ -463,3 +470,5 @@
 # - 텐서플로우
 # - 케라스
 # - 파이토치 등등
+# 
+# 여기서는 텐서플로우와 케라스를 주로 활용한다.
