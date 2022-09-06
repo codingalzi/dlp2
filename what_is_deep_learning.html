@@ -38,9 +38,12 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -555,7 +558,7 @@ MNIST 손글씨 이미지를 변환해서 최종적으로
 이후 옵티마이저가 각 층의 가중치를 손실값이 보다 작아지는 방향으로 조금씩 업데이트하는
 <strong>역전파 과정을 반복 실행</strong>하면서 손실값이 점차 낮아져서 최종적으로 손실 최소값을 갖도록 하는
 가중치를 찾아 간다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-deep-learning-in-3-figures-3.png" style="width:500px;"></div>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/01-09.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>훈련 루프</strong></p>
 <p>딥러닝 모델의 <strong>훈련 루프</strong><font size='2'>training loop</font>는
 순전파-손실값 계산-역전파의 구성된 하나의 순환과정을 가리킨다.
@@ -641,10 +644,11 @@ SVM은 하지만 대용량 데이터셋 처리에 부적합하며, 무엇보다�
 <strong>합성곱 신경망</strong><font size='2'>convolutional neural network</font>(CNN) 모델이 소개되면서
 딥러닝에 대한 관심이 폭발적으로 증가했다.</p>
 <ul class="simple">
-<li><p>2011년 최고 모델의 성능: 74.3%의 top-5 정확도</p></li>
-<li><p>2012년 최고 모델의 성능: 83.6%의 top-5 정확도</p></li>
+<li><p>2011년 최고 모델의 성능: 74% 정도의 top-5 정확도</p></li>
+<li><p>2012년 최고 모델의 성능: 84% 정도의 top-5 정확도</p></li>
 </ul>
-<p>이미지넷 경진대회는 2015년 96.4%의 top-5 정확도 성능을 보인 우승 모델이
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch01-ilsvrc-1.png" style="width:600px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.bulentsiyah.com/imagenet-winning-cnn-architectures-ilsvrc">ImageNet Winning CNN Architectures</a>&gt;</div></p><p>이미지넷 경진대회는 2017년 97.7% 정도의 top-5 정확도 성능을 보인 우승 모델이
 소개된 이후로 더 이상 진행되지 않는다.
 이는 이미지 분류 과제가 완성되었음을 의미한다.</p>
 <div class="info admonition">
@@ -715,12 +719,13 @@ GPU보다 훨씬 빠르고 에너지 효율적임.
 <p>인터넷과 저장장치의 발전으로 인한 엄청난 양의 데이터를 축적하였다.
 YouTube(동영상), Flickr(이미지), Wikipedia(문서) 등이 컴퓨터 비전과 자연어 처리(NLP)의
 혁신적 발전의 기본 전제조건이었다.</p>
-<p><strong>투자와 대중화</strong></p>
+<p><strong>투자</strong></p>
 <p>하드웨어, 데이터, 알고리즘 요소 이외에 투자와 대중화라는 두 요소 또한
 딥러닝의 발전에 크게 기여하였다.
 먼저, 투자 측면에서 보면 2013년 이후 인공지능 스타트업에 대한 투자가 획기적으로 증가하였다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/startup_investment_oecd.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oecd-ilibrary.org/sites/3abc27f1-en/index.html?itemId=/content/component/3abc27f1-en&mimeType=text/html">OECD estimate of total investments in AI startups</a>&gt;</div></p><p>그리고 대중화 측면에서는 지금은
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oecd-ilibrary.org/sites/3abc27f1-en/index.html?itemId=/content/component/3abc27f1-en&mimeType=text/html">OECD estimate of total investments in AI startups</a>&gt;</div></p><p><strong>대중화</strong></p>
+<p>대중화 측면에서는 지금은
 파이썬 기초 프로그래밍 수준에서 딥러닝을 적용할 수 있을 정도로
 많은 편리하며 뛰어난 성능의 도구와 프레임워크가 개발되었다.</p>
 <ul class="simple">
@@ -729,6 +734,7 @@ YouTube(동영상), Flickr(이미지), Wikipedia(문서) 등이 컴퓨터 비전
 <li><p>케라스</p></li>
 <li><p>파이토치 등등</p></li>
 </ul>
+<p>여기서는 텐서플로우와 케라스를 주로 활용한다.</p>
 </div>
 </div>
 

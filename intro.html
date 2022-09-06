@@ -38,9 +38,12 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -228,17 +231,12 @@ const thebe_selector_output = ".output, .cell_output"
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   소개
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    주요 내용
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
    전제 사항
   </a>
@@ -263,17 +261,12 @@ const thebe_selector_output = ".output, .cell_output"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   소개
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    주요 내용
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
    전제 사항
   </a>
@@ -287,7 +280,7 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="section" id="id1">
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
 <h1>소개<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>머신러닝/딥러닝 기술이 획기적으로 발전하면서 데이터 분석 및 인공지능 관련 연구의
 중요성이 매우 높아졌다.
@@ -302,9 +295,8 @@ const thebe_selector_output = ".output, .cell_output"
 이를 위해 다양한 예제와 적절한 코드를 이용한다.
 예제에 사용되는 코드는 텐서플로우<font size='2'>TensorFlow</font> 2와
 케라스<font size='2'>Keras</font>를 파이썬 딥러닝 프레임워크로 사용한다.</p>
-</div>
 <div class="section" id="id2">
-<h1>주요 내용<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<h2>주요 내용<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>여기서 소개하는 내용은 프랑소와 숄레의
 <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">주피터 노트북</a> 내용을
@@ -322,7 +314,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 <div class="section" id="id3">
-<h1>전제 사항<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<h2>전제 사항<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>코드 이해를 위해 파이썬 프로그래밍과 넘파이<font size='2'>NumPy</font>에 대한
 기초 이상의 지식이 요구된다.
 또한 머신러닝에 대한 기초 지식이 있는 경우 보다 쉽게 딥러닝을 이해할 수 있다.</p>
@@ -332,6 +324,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p><a class="reference external" href="https://codingalzi.github.io/datapy/">파이썬 데이터 분석</a></p></li>
 <li><p><a class="reference external" href="https://codingalzi.github.io/handson-ml3/">핸즈온 머신러닝(3판)</a></p></li>
 </ul>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </div>
