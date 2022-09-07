@@ -510,15 +510,19 @@
 # 훈련되어 훈련셋에 덜 특화된, 반면에 일반화 성능은 향상된 모델이
 # 훈련될 수 있다.
 
-# - 신경망의 크기는 줄이는 경우: 과대적합이 보다 늦게 발생하고, 검증셋에 대한 손실값이 줄어든다.
-#     즉, 일반화 성능이 좋아진다.
+# 아래 그래프는 IMDB 영화 후기 분류 모델 대상으로
+# 신경망의 크기를 줄이면
+# 과대적합이 보다 늦게 발생하고, 검증셋에 대한 손실값이 줄어드는 것을 보여준다.
+# 즉, 모델의 일반화 성능이 좋아진다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_smaller_model_imdb.png" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# - 신경망의 크기를 아주 크게 하는 경우: 과대적합이 매우 빠르게 발생하며, 
-#     검증셋에 대한 성능이 매우 불안정해진다.
+# 아래 그래프는 IMDB 영화 후기 분류 모델 대상으로
+# 신경망의 크기를 아주 크게 하면
+# 과대적합이 매우 빠르게 발생하며, 검증셋에 대한 성능이 매우 불안정해질 수도
+# 있음을 보여준다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_larger_model_imdb.png" style="width:500px;"></div>
 # 
@@ -531,48 +535,74 @@
 
 # **규제 기법 2: 가중치 규제**
 
-# 모델이 학습하는 파라미터(가중치와 편향)의 값이 작은 값을 갖도록 유도하는 기법이 
-# **가중치 규제**(weight regularization)이며,
-# 크게 두 종류가 있다. 
+# **가중치 규제**<font size='2'>weight regularization</font>는
+# 모델이 학습하는 파라미터(가중치와 편향)가 너무 큰 값을 갖지 않도록 유도한다.
+# 두 가지 방식이 있다.
 # 
-# - L1 규제: 절댓값이 상대적으로 보다 작은 가중치를 보다 빠르게 0이 되도록 유도.
-#     즉, 덜 중요한 특성을 무시하도록 유도.
-# - L2 규제: 가중치가 작은 값을 갖도록 유도.
-#     즉, 특정 특성에 심하게 휘둘리지 않도록 유도.
-# 
-# **참고**: L1 규제가 적용된 라쏘 회귀(Lasso regression)과 L2 규제가 적용된 릿지 회귀(Ridge regression)
+# - L1 규제: 가중치들의 절댓값이 작아지도록 유도하며,
+#     라쏘<font size='2'>Lasso</font> 규제라고도 불린다.    
+# - L2 규제: 가중치들의 제곱이 작은 값을 갖도록 유도하며,
+#     릿지<font size='2'>Ridge</font> 규제라고도 불린다.
 
-# <div align="center"><img src="https://codingalzi.github.io/handson-ml2/slides/images/ch04/lasso_vs_ridge_plot.png" style="width:550px;"></div>
+# :::{admonition} 규제 적용
+# :class: hint
 # 
-# <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/ageron/handson-ml2">핸즈온 머신러닝(2판), 4장</a>&gt;</div></p>
+# 규제는 훈련 중에만 적용되며 실전에는 사용되지 않는다.
+# :::
 
-# 아래 코드는 IMDB 훈련 모델에 L2 규제를 가한 결과를 보여준다.
+# 규제는 층 단위로 지정되며 아래 형식을 따른다.
 # 
-# - `regularizers.l2(0.002)`: 각 가중치의 제곱에 0.002 곱하기
-# - 규제는 훈련 중에만 적용되며 테스트에는 사용되지 않음.
+# ```python
+# layers.Dense(16, 
+#              kernel_regularizer=regularizers.l2(0.002), 
+#              activation="relu")
+# ```
+# 
+# 위 코드는 L2 규제를 사용하는 층을 지정한다.
+# 0.002는 규제 강도를 나타내며, 클 수록 강한 강도를 의미한다.
+# 
+# L1 규제 또는 L1 규제와 L2 규제를 함께 사용하려면 다음과 같이 규제를 지정한다.
+# 
+# ```python
+# layers.Dense(16, 
+#              kernel_regularizer=regularizers.l1(0.001), 
+#              activation="relu")
+# ```
+# 
+# 또는
+# 
+# ```python
+# layers.Dense(16, 
+#              kernel_regularizer=regularizers.l1_l2(l1=0.001, l2=0.002), 
+#              activation="relu")
+# ```
 
-# L2 규제를 가한 결과는 다음과 같다.
+# :::{admonition} 릿지 회귀, 라쏘 회귀, 엘라스틱 넷
+# :class: info
+# 
+# L1 규제, L2 규제, L1-L2 규제의 정확한 작동방식은 
+# 각 규제가 적용된 선형회귀 모델인 
+# [릿지 회귀, 라쏘 회귀, 엘라스틱 넷](https://codingalzi.github.io/handson-ml3/training_models.html)에 
+# 대한 설명을 참고하면 된다.
+# :::
+
+# 아래 그래프는 IMDB 영화 후기 분류 모델 대상으로
+# L2 규제를 가했을 때 검증셋에 대한 손실값이 적절하게 유지됨을 보여준다.
+# 즉, 일반화 성능이 좋아진다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_l2_regularized_model_imdb.png" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# `l2` 규제 대신에 `l1`, 또는 L1과 L2를 함께 사용하는 `l1_l2` 규제를 사용할 수 있다.
-# 
-# ```python
-# regularizers.l1(0.001)
-# regularizers.l1_l2(l1=0.001, l2=0.001)
-# ```
-
-# **참고**: 가중치 규제 기법은 보다 작은 크기의 딥러닝 모델에 효과적이다.
-# 큰 딥러닝 모델에 대해서는 드롭아웃 기법이 보다 잘 작동한다.
-
 # **규제 기법 3: 드롭아웃 적용**
 
-# **드롭아웃**은 무작위로 선택된 일정한 비율의 유닛을 끄는 것을 의미한다.
-# 즉, 해당 유닛에 저장된 값을 0으로 처리한다. 
+# 가중치 규제 기법은 복잡한 딥러닝 모델에 대해서는 잘 작동하지 않는다.
+# 심층 신경망 모델의 규제는 보통 드롭아웃 기법을 적용한다.
+
+# **드롭아웃**은 무작위로 선택된 일정한 비율의 유닛을 끄는 것을 의미하며,
+# 해당 유닛에 저장된 값을 0으로 처리한다. 
 # 
-# - 적절한 드롭아웃 비율을 답은 드롭아웃 층을 적절한 위치에 추가한다.
+# - 적절한 드롭아웃 비율을 답은 드롭아웃 층을 활용한다.
 # 
 # - 검증셋에 대해서는 드롭아웃을 적용하지 않는다. 대신 출력값을 지정된 비율만큼 줄인다.
 #     그래야 층에서 층으로 전달되는 값의 크기가 훈련할 때와 비슷하게 유지되기 때문이다.
