@@ -55,7 +55,7 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# #### 과대적합 발생 주요 요인
+# **과대적합 발생 주요 요인**
 
 # 과대적합을 발생시키는 요인은 크게 세 가지로 나뉜다.
 
@@ -478,120 +478,58 @@
 
 # ### 조기 종료
 
-# 모델 훈련 중에 검증셋에 대한 성능이 더 이상 좋아지지 않는 순간에 모델 훈련을 멈추는 것이 
+# 모델 훈련 중에 훈련셋에 대한 성능은 계속 좋아지지만 
+# 검증셋에 대한 성능이 더 이상 좋아지지 않는 순간에 모델 훈련을 멈추는 것이 
 # **조기 종료**(early stopping)이다.
 # 이를 위해 에포크마다 모델의 성능을 측정하여 가장 좋은 성능의 모델을 기억해 두고,
 # 더 이상 좋아지지 않으면 그때까지의 최적 모델을 사용하도록 한다. 
+
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-early-stopping.png" style="width:600px;"></div>
 # 
-# 케라스의 경우 `EarlyStopping` 이라는 콜백(callback) 객체를 사용하면 조기 종료 기능을
-# 자동으로 수행한다. 콜백에 대해서는 나중에 자세히 다룬다.
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# 케라스의 경우 `EarlyStopping` 이라는 
+# **콜백**<font size='2'>callback</font> 기능을 사용하면 조기 종료 기능을
+# 자동으로 수행한다. 
+# 다양한 콜백 기능에 대해서는 {numref}`%s장 <ch:working_with_keras>` 자세히 다룬다.
 
 # ### 규제
 
-# 훈련 중이 모델이 데이터셋에 너무 민감하지 않게 유도하는 것을 **규제**(regularization)라 부른다.
-# 즉, 모델 훈련에 규제를 가하여 모델을 보다 더 균형 있고 규칙적으로 예측하도록 유도하여
-# 모델의 일반화 성능을 높힌다. 
+# 모델이 훈련셋에 너무 익숙해지지 않도록 방해하는 것을
+# **규제**<font size='2'>regularization</font>라 부른다.
+# 규제를 통해 모델이 훈련셋에 포함되지 않은 데이터에 대해 보다 잘 예측하도록,
+# 즉, 모델의 일반화 성능을 높힌다.
 # 
-# 여기서는 모델에 규제를 가하는 세 가지 기법을 IMDB 데이터셋을 이용하여 소개한다. 
+# 모델 규제에 가장 많이 사용되는 기법 세 가지를 소개한다.
 
-# #### 규제 기법 1: 신경망 크기 축소
+# **규제 기법 1: 신경망 크기 축소**
 
-# 앞서 보았듯이 모델을 층, 유닛의 수를 줄여 모델을 단순화 하면 
-# 과대적합이 없거나 줄어든다. 
-# 이유는 모델에 저장될 수 있는 정보량이 줄어들어 세세한 정보를 낱낱이 기억하기 보다는
-# 보다 압축된 정보를 활용하도록 유도된다. 
-# 
-# 모델이 너무 단순하면 아예 훈련이 제대로 되지 않을 수 있기에 적절하게 줄이도록 해야 한다.
-# 하지만 이에 대한 이론적 기준은 없으며 실험을 통해 적절한 규제를 찾아내야 한다.
-# 보통 적은 수의 층과 유닛을 사용하다가 점차 수를 늘려 나가는 것이 좋다.
-# 
-# 아래 코드는 이전에 다루었던 IMDB 데이터셋을 이용한 모델 훈련이다. 
+# 신경망 모델에 사용되는 층과 각 층에 포함된 유닛의 수를 줄여 모델을 단순화하면 
+# 모델이 처리할 수 있는 정보량이 줄어들다.
+# 결국 데이터 특성의 세세한 정보 보다는 가장 핵심적인 정보를 활용하도록 
+# 훈련되어 훈련셋에 덜 특화된, 반면에 일반화 성능은 향상된 모델이
+# 훈련될 수 있다.
 
-# In[1]:
-
-
-from tensorflow.keras.datasets import imdb
-(train_data, train_labels), _ = imdb.load_data(num_words=10000)
-
-def vectorize_sequences(sequences, dimension=10000):
-    results = np.zeros((len(sequences), dimension))
-    for i, sequence in enumerate(sequences):
-        results[i, sequence] = 1.
-    return results
-
-train_data = vectorize_sequences(train_data)
-
-model = keras.Sequential([
-    layers.Dense(16, activation="relu"),
-    layers.Dense(16, activation="relu"),
-    layers.Dense(1, activation="sigmoid")
-])
-
-model.compile(optimizer="rmsprop",
-              loss="binary_crossentropy",
-              metrics=["accuracy"])
-
-history_original = model.fit(train_data, train_labels,
-                             epochs=20, batch_size=512, validation_split=0.4)
-
-
-# 은닉층의 유닛수를 4로 만들어보자.
-
-# In[20]:
-
-
-model = keras.Sequential([
-    layers.Dense(4, activation="relu"),
-    layers.Dense(4, activation="relu"),
-    layers.Dense(1, activation="sigmoid")
-])
-
-model.compile(optimizer="rmsprop",
-              loss="binary_crossentropy",
-              metrics=["accuracy"])
-
-history_smaller_model = model.fit(
-    train_data, train_labels,
-    epochs=20, batch_size=512, validation_split=0.4)
-
-
-# 기존 모델과의 차이점은 다음과 같다.
-# 
-# - 기존 모델보다 과대적합이 늦게 발생한다.
+# - 신경망의 크기는 줄이는 경우: 과대적합이 보다 늦게 발생하고, 검증셋에 대한 손실값이 줄어든다.
+#     즉, 일반화 성능이 좋아진다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_smaller_model_imdb.png" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# 이번엔 유닛 수를 크게 늘려보자.
-
-# In[21]:
-
-
-model = keras.Sequential([
-    layers.Dense(512, activation="relu"),
-    layers.Dense(512, activation="relu"),
-    layers.Dense(1, activation="sigmoid")
-])
-model.compile(optimizer="rmsprop",
-              loss="binary_crossentropy",
-              metrics=["accuracy"])
-history_larger_model = model.fit(
-    train_data, train_labels,
-    epochs=20, batch_size=512, validation_split=0.4)
-
-
-# 기존 모델과의 차이점은 다음과 같다.
-# 
-# - 과대적합이 매우 빠르게 발생하며, 검증셋에 대한 성능이 매우 불안정하다.
-# 
-# **주의사항**: 검증셋이 너무 작아도 매우 불안정스러울 수 있다.
+# - 신경망의 크기를 아주 크게 하는 경우: 과대적합이 매우 빠르게 발생하며, 
+#     검증셋에 대한 성능이 매우 불안정해진다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_larger_model_imdb.png" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# #### 규제 기법 2: 가중치 규제
+# 물론 모델이 너무 단순하면 아예 훈련이 제대로 되지 않을 수 있어서
+# 적절한 수의 층과 유닛의 수를 찾아야 한다.
+# 하지만 이에 대한 이론적 기준은 없으며 실험을 통해 적절한 수준을 정할 수 밖에 없다.
+# 보통 적은 수의 층과 유닛을 사용하다가 점차 수를 늘려 나가는 방식을 택하는 것이 좋다.
+
+# **규제 기법 2: 가중치 규제**
 
 # 모델이 학습하는 파라미터(가중치와 편향)의 값이 작은 값을 갖도록 유도하는 기법이 
 # **가중치 규제**(weight regularization)이며,
@@ -613,30 +551,6 @@ history_larger_model = model.fit(
 # - `regularizers.l2(0.002)`: 각 가중치의 제곱에 0.002 곱하기
 # - 규제는 훈련 중에만 적용되며 테스트에는 사용되지 않음.
 
-# In[22]:
-
-
-from tensorflow.keras import regularizers
-
-model = keras.Sequential([
-    layers.Dense(16,
-                 kernel_regularizer=regularizers.l2(0.002),
-                 activation="relu"),
-    layers.Dense(16,
-                 kernel_regularizer=regularizers.l2(0.002),
-                 activation="relu"),
-    layers.Dense(1, activation="sigmoid")
-])
-
-model.compile(optimizer="rmsprop",
-              loss="binary_crossentropy",
-              metrics=["accuracy"])
-
-history_l2_reg = model.fit(
-    train_data, train_labels,
-    epochs=20, batch_size=512, validation_split=0.4)
-
-
 # L2 규제를 가한 결과는 다음과 같다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_l2_regularized_model_imdb.png" style="width:500px;"></div>
@@ -653,7 +567,7 @@ history_l2_reg = model.fit(
 # **참고**: 가중치 규제 기법은 보다 작은 크기의 딥러닝 모델에 효과적이다.
 # 큰 딥러닝 모델에 대해서는 드롭아웃 기법이 보다 잘 작동한다.
 
-# #### 규제 기법 3: 드롭아웃 적용
+# **규제 기법 3: 드롭아웃 적용**
 
 # **드롭아웃**은 무작위로 선택된 일정한 비율의 유닛을 끄는 것을 의미한다.
 # 즉, 해당 유닛에 저장된 값을 0으로 처리한다. 
@@ -664,24 +578,6 @@ history_l2_reg = model.fit(
 #     그래야 층에서 층으로 전달되는 값의 크기가 훈련할 때와 비슷하게 유지되기 때문이다.
 #     
 # 아래 코드는 IMDB 데이터셋에 드롯아웃을 적용하여 훈련한다.
-
-# In[24]:
-
-
-model = keras.Sequential([
-    layers.Dense(16, activation="relu"),
-    layers.Dropout(0.5),
-    layers.Dense(16, activation="relu"),
-    layers.Dropout(0.5),
-    layers.Dense(1, activation="sigmoid")
-])
-model.compile(optimizer="rmsprop",
-              loss="binary_crossentropy",
-              metrics=["accuracy"])
-history_dropout = model.fit(
-    train_data, train_labels,
-    epochs=20, batch_size=512, validation_split=0.4)
-
 
 # 50%의 드롭아웃을 적용한 결과는 다음과 같다.
 
