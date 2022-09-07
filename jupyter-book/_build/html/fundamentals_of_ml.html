@@ -800,18 +800,24 @@ K-겹 교차 검증을 P번 반복하면 총 <code class="docutils literal notra
 <h3><span class="section-number">5.4.2. </span>특성 공학<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>신경망 모델은 데이터셋에 잠재되어 있는 정보의 특성을 보다 쉽게 알아 내기 위해
 여러 층을 통해 데이터셋의 표현을 다양한 방식으로 변환시킨다.</p>
-<p>그럼에도 불구하고 보다 유용한 특성으로 구성된 훈련셋으로
-모델을 훈련하면 보다 적은 양의 데이터를 이용하여
-보다 효율적으로 모델의 성능을 높일 수 있게 된다.</p>
-<p>이처럼 모델 훈련에 가장 유용한 특성으로 구성된
-훈련셋을 준비하는 과정을 <strong>특성 공학</strong>(feature engineering)이라 한다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/05-16.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>예를 들어 위 그림은 시계의 시간을 알아내는 모델을 학습시키려 할 때
-입력 데이터로 사용될 수 있는 세 가지 방식을 보여준다.</p>
+<p>이때 유용한 특성으로 구성된 훈련셋으로 모델을 훈련하면 보다 적은 양의 데이터로
+보다 효율적인 훈련이 가능하다.
+이처럼 모델 훈련에 가장 유용한 특성으로 구성된
+데이터셋을 준비하는 과정이 <strong>특성 공학</strong>(feature engineering)이다.</p>
+<p>예를 들어 아래 그림은 현재 시간을 알아내는 모델을 학습시키려 할 때
+입력 데이터로 사용될 수 있는 세 가지 형식을 보여준다.</p>
 <ul class="simple">
-<li><p>첫쩨 칸: 시계 사진을 입력 데이터로 사용하는 경우</p></li>
-<li><p>둘째 칸: 큰/작은 시계 바늘의 직교좌표를 특성으로 갖는 데이터를 사용하는 경우</p></li>
-<li><p>셋째 칸: 큰/작은 시계 바늘의 극좌표 특성으로 갖는 데이터를 사용하는 경우</p></li>
+<li><p>첫째 형식: 시계 사진</p></li>
+<li><p>둘째 형식: 큰/작은 시계 바늘의 직교좌표</p></li>
+<li><p>셋째 형식: 큰/작은 시계 바늘의 극좌표</p></li>
+</ul>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/05-16.png" style="width:400px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>입력 데이터셋의 형식에 따라 현재 시간을 알아내는 프로그램을 구현하는 방식이 많이 달라질 수 있다.</p>
+<ul class="simple">
+<li><p>첫째 형식: 합성곱 신경망<font size='2'>convolutional neural network</font>(CNN) 모델 활용.
+많은 양의 훈련 데이터 필요.</p></li>
+<li><p>둘째 형식: 시계 사진에서 각 바늘의 좌표를 알아낸 후 간단한 머신러닝 모델 활용 가능.</p></li>
+<li><p>셋째 형식: 각 바늘의 극좌표를 구한 후에 간단한 수식으로 시간 확인 가능. 머신러닝 모델 불필요.</p></li>
 </ul>
 </div>
 <div class="section" id="id13">
@@ -870,7 +876,7 @@ K-겹 교차 검증을 P번 반복하면 총 <code class="docutils literal notra
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_9609</span><span class="o">/</span><span class="mf">3959589821.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_26706</span><span class="o">/</span><span class="mf">3959589821.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">imdb</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> 
