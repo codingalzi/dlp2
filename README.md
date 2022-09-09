@@ -25,4 +25,4 @@
     4. `python -m ipykernel install --user --name=python3`
     5. `jupyter notebook`
 
-참고: GPU를 사용할 수 없는 경우 [environment.yml](https://github.com/ageron/handson-ml3/blob/main/environment.yml) 파일 다운로드.
+참고: GPU를 사용할 수 없는 경우[environment.yml](https://github.com/codingalzi/dlp2/blob/master/environment.yml) 파일 다운로드.
