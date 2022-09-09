@@ -608,8 +608,10 @@
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # 케라스에서는 적절한 드롭아웃 비율을 답은 드롭아웃 층 `Dropout`을 활용한다.
-# 아래 그래프는 IMDB 영화 후기 분류 모델 대상으로 50%의 드롭아웃을 적용하여 훈련한 것과
-# 그렇지 않은 것 사이의 차이를 보여준다.
+# 아래 그래프는 IMDB 영화 후기 분류 모델 대상으로 50%의 드롭아웃을 적용하여 훈련하면
+# 검증셋에 대한 손실값이 보다 늦게, 보다 약하게 증가함을 보여준다. 
+# 즉, 모델의 과대적합이 보다 늦게, 보다 약하게 발생한다.
+# 
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_dropout_regularized_model_imdb.png" style="width:500px;"></div>
 # 
