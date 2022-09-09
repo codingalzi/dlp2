@@ -15,14 +15,14 @@
 2. 컴퓨터 그래픽 카드에 맞는 [Nvidia Game Ready driver](https://www.nvidia.com/Download/index.aspx?lang=en-us#) 설치.
 3. [Miniconda](https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe) 또는 
   [Anaconda](https://www.anaconda.com/products/distribution#Downloads) 설치.
-  1. 설치 과정에서 경로(PATH) 설정을 하지 말 것.
-  2. 설치 완료 후 Anaconda Powershell Prompt를 시작(Start) 메뉴를 통해 실행할 것.
+    1. 설치 과정에서 경로(PATH) 설정을 하지 말 것.
+    2. 설치 완료 후 Anaconda Powershell Prompt를 시작(Start) 메뉴를 통해 실행할 것.
 4. [environment-gpu.yml](https://github.com/vi3itor/handson-ml3/blob/windows-gpu/environment-gpu.yml) 파일 다운로드.
 5. Anaconda Powershell Prompt를 이용하여 아래 명령문 실행.
-  1. `conda update -y -n base conda`
-  2. `conda env create -f environment-gpu.yml`
-  3. `conda activate homl3`
-  4. `python -m ipykernel install --user --name=python3`
-  5. `jupyter notebook`
+    1. `conda update -y -n base conda`
+    2. `conda env create -f environment-gpu.yml`
+    3. `conda activate homl3`
+    4. `python -m ipykernel install --user --name=python3`
+    5. `jupyter notebook`
 
 참고: GPU를 사용할 수 없는 경우 [environment-gpu.yml](https://github.com/ageron/handson-ml3/blob/main/environment.yml) 파일 다운로드.
