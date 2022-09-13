@@ -459,17 +459,19 @@
 # 
 # 첫째층이 하는 일은 데이터셋의 변환이며 실제로 이루어지는 연산은 다음과 같다.
 # 
-# `output1 = relu(dot(input1, W1) + b1)`
+# `output1 = relu(np.dot(input1, W1) + b1)`
 # 
 # 사용된 세부 연산은 다음과 같다. 
 # 
-# - 텐서 점곱: `dot()`
+# - 텐서 점곱: `np.dot()`
 # - 텐서 덧셈: `+`
 # - 활성화 함수: `relu()`
 # 
+# `relu()` 함수는 텐서에 포함된 음수를 모두 0으로 대체하는 활성화 함수로 사용된다.
+# 
 # 둘째층이 하는 일은 또 다른 데이터셋의 변환이다.
 # 
-# `output2 = softmax(dot(input1, W1) + b1)`
+# `output2 = softmax(np.dot(input1, W1) + b1)`
 # 
 # `softmax()` 함수는 분류 신경망 모델의 마지막 층, 즉 출력층에서 사용되는 활성화 함수이며
 # 클래스별 확률을 계산한다. 
@@ -514,21 +516,64 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.sharpsightlabs.com/blog/numpy-maximum/">Sharp Sight - How to Use the Numpy Maximum Function</a>&gt;</div></p>
 
-# **텐서 곱**
+# :::{admonition} `softmax()` 함수
+# :class: warning
 # 
-# **텐서 곱**<font size='2'>tensor product</font> 함수는
-# 두 벡터의 내적 또는 두 행렬의 곱을 계산할 때 사용된다.
-# **점 곱**<font size='2'>dot product</font> 함수로도 불리며,
-# 아래 그림에서 보여지는 것처럼 두 인자의 유형에 따라 다르게 작동한다.
+# `softmax()` 함수는 유니버설 함수가 아니다.
+# 대신 각 유닛에서 계산된 값들의 상대적 크기를 계산한다.
+# 계산된 값들은 각 유닛이 상징하는 클래스에 속할 확률로 사용된다.
+# :::
 
-# <div align="center"><img src="https://blog.finxter.com/wp-content/uploads/2021/01/numpy_dot-1-scaled.jpg" style="width:600px;"></div>
+# **텐서 점곱**
+# 
+# **텐서 점곱**<font size='2'>tensor dot product</font> 함수는
+# 두 벡터의 내적 또는 두 행렬의 곱을 계산할 때 사용된다.
+# 아래 그림에서 보여지는 것처럼 두 인자의 유형에 따라 다르게 작동한다.
+# 
+# - 1D와 스칼라의 점곱: 항목 별 배수 곱셈
+# - 1D와 1D의 점곱: 벡터 내적
+# - 1D와 2D의 점곱: 행렬 곱셈
+# - 2D와 2D의 점곱: 행렬 곱셈
+
+# <div align="center"><img src="https://blog.finxter.com/wp-content/uploads/2021/01/numpy_dot-1-scaled.jpg" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://blog.finxter.com/dot-product-numpy/">finxter - NumPy Dot Product</a>&gt;</div></p>
+
+# :::{admonition} 텐서의 곱셈(`*`)
+# :class: warning
+# 
+# 텐서 점곱(`np.dot()`)과 텐서 곱셈(`*`)은 다르다.
+# 텐서 곱셈은 앞서 브로드캐스팅과 연관지어 설명된 것처럼 동일 모양의 두 텐서를
+# 항목별로 곱해서 동일 모양의 새로운 텐서를 생성한다.
+# 
+# ```python
+# >>> a = np.array([1.0, 2.0, 3.0])
+# >>> b = np.array([2.0, 2.0, 2.0])
+# >>> a * b
+# array([2.,  4.,  6.])
+# 
+# >>> a = np.array([1.0, 2.0, 3.0])
+# >>> b = 2.0
+# >>> a * b
+# array([2.,  4.,  6.])
+# 
+# >>> a = np.array([[ 0.0,  0.0,  0.0],
+#                   [10.0, 10.0, 10.0],
+#                   [20.0, 20.0, 20.0],
+#                   [30.0, 30.0, 30.0]])
+# >>> b = np.array([1.0, 2.0, 3.0])
+# >>> a*b
+# array([[ 0.,  0.,  0.],
+#        [10., 20., 30.],
+#        [20., 40., 60.],
+#        [30., 60., 90.]])
+# ```
+# :::
 
 # **텐서 모양 변형**
 # 
 # 머신러닝 모델은 입력 텐서의 모양을 제한한다. 
-# 앞서 사용한 `model`은 입력값으로 2차원 텐서를 요구한다.
+# 앞서 사용한 `model`은 `Dense` 층으로 구성되었기에 입력값으로 2차원 텐서를 요구한다.
 # 
 # ```python
 # model = keras.Sequential([
@@ -613,6 +658,7 @@
 # 
 # 신경망은 기본적으로 앞서 언급된 텐서 연산의 조합을 통해
 # 고차원 공간에서의 매우 복잡한 기하학적 변환을 수행한다.
+# 
 # 예를 들어, 빨간 종이와 파란 종이 두 장을 겹친 뭉개서 만든 종이 뭉치를
 # 조심스럽게 조금씩 펴서 결국 두 개의 종이로 구분하는 것처럼
 # 신경망 모델은 뒤 섞인 두 개 클래스로 구성된 입력 데이터셋을
