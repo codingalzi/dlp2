@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -247,11 +244,6 @@ const thebe_selector_output = ".output, .cell_output"
    2.3. 텐서 연산
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   2.4. 신경망 모델 훈련 과정
-  </a>
- </li>
 </ul>
 
             </nav>
@@ -285,11 +277,6 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
    2.3. 텐서 연산
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   2.4. 신경망 모델 훈련 과정
   </a>
  </li>
 </ul>
@@ -876,71 +863,6 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 방법을 알아낸다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-geometric_interpretation_4.png" style="width:400px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
-<div class="section" id="id5">
-<h2><span class="section-number">2.4. </span>신경망 모델 훈련 과정<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>신경망 모델의 훈련은 다음 과정을 반복하는 방식으로 진행된다.</p>
-<ol class="simple">
-<li><p>배치<font size='2'>batch</font> 지정: 훈련 샘플 몇 개로 구성된 텐서 <code class="docutils literal notranslate"><span class="pre">x</span></code>와 해당 샘플들의 타깃값들로 구성된 텐서 <code class="docutils literal notranslate"><span class="pre">y_true</span></code>.</p></li>
-<li><p>예측값 계산<font size="2">forward pass</font>: <code class="docutils literal notranslate"><span class="pre">x</span></code>에 대한 모델의 예측값 <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> 계산.</p></li>
-<li><p>손실값<font size='2'>loss</font> 계산: <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>와 <code class="docutils literal notranslate"><span class="pre">y_true</span></code> 사이의 오차 계산. 모델에 따라 다양한 방식 사용.</p></li>
-<li><p>역전파<font size='2'>backpropagation</font>: 해당 배치에 대한 손실값이 줄어드는 방향으로 모델 파라미터인 가중치를 업데이트.</p></li>
-</ol>
-<p>모델의 훈련은 손실값이 최소가 될 때까지 반복된다.</p>
-<p><strong>배치, 미니 배치, 또는 확률적 경사하강법</strong></p>
-<p>배치의 크기에 따라 아래 세 종류의 경사하강법이 활용된다.</p>
-<ul class="simple">
-<li><p>배치 경사하강법: <code class="docutils literal notranslate"><span class="pre">batch_size</span></code>가 전체 훈련 세트의 크기</p></li>
-<li><p>미니배치 경사하강법: <code class="docutils literal notranslate"><span class="pre">batch_size</span></code>가 몇 십에서 몇 백.</p></li>
-<li><p>확률적 경사하강법(SGD): <code class="docutils literal notranslate"><span class="pre">batch_size</span> <span class="pre">=</span> <span class="pre">1</span></code></p></li>
-</ul>
-<p>텐서플로우 케라스의 딥러닝 모델은 <code class="docutils literal notranslate"><span class="pre">batch_size</span></code>를 지정하는 방식으로
-언급된 모든 방식을 지원하지만 기본값은 미니배치 경사하강법으로 지정되었다.</p>
-<p><strong>경사하강법, 백워드 패스, 역전파, 옵티마이저</strong></p>
-<p>손실값을 최소화하는 방향으로 가중치(모델 파라미터)를 업데이트 하기 위해
-손실값을 계산하는 손실함수의 그레이디언트를 활용하여
-손실값이 줄어드는 방향으로 모든 가중치를 <strong>동시에 조금씩</strong> 업데이트한다.
-이 과정이 <strong>경사하강법</strong><font size='2'>gradient descent method</font>이며,
-백워드 패스와 역전파 단계로 구성된다.</p>
-<ul class="simple">
-<li><p><strong>백워드 패스</strong><font size='2'>backward pass</font>는
-가중치에 대한 손실함수의 그레이디언트를 계산하는 과정을 가리키며
-그레이디언트는 텐서플로우의 <code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 클래스의 객체에 의해 자동으로 계산되고 관리된다.</p></li>
-<li><p><strong>역전파</strong><font size='2'>backpropagation</font>는
-계산된 그레이디언트와 지정된 학습률<font size='2'>learning rate</font>을 이용하여
-모든 가중치를 동시에 업데이트 하는 과정이다.</p></li>
-</ul>
-<p><strong>옵티마이저</strong><font size='2'>optimizer</font>는 경사하강법(백워드 패스, 역전파) 업무를
-처리하는 알고리즘을 가리키며 momentum optimization, Nesterov Accelerated Gradeitn,
-AdaGrad, RMSProp, Adam optimization 등 다양한 알고리즘이 존재한다.</p>
-<div class="info admonition">
-<p class="admonition-title">참고</p>
-<ul class="simple">
-<li><p>경사하강법:
-<a class="reference external" href="https://codingalzi.github.io/handson-ml3/training_models.html#sec-gradient-descent">핸즈온 머신러닝(3판), 4.2절</a>이
-머신러닝 모델 일반적인 훈련에 사용되는 경사하강법을 쉽게 설명한다.</p></li>
-<li><p>역전파:
-<a class="reference external" href="https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/">Matt Mazur의 A Step by Step Backpropagation Example</a>가 신경망 모델의 역전파 과정을 친절히 설명한다.</p></li>
-<li><p>옵티마이저:
-<a class="reference external" href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">핸즈온 머신러닝(3판)</a>, 11장에서 다양한 옵티마이저를 소개한다.</p></li>
-</ul>
-</div>
-<p><strong>그레이디언트 테이프</strong></p>
-<p>텐서플로우의 <code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 클래스의 객체를 이용하여 손실함수의 그레이디언트를 자동으로
-미리 계산해두고 역전파 등 필요할 때 활용한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,)))</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-
-<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
-
-<span class="n">grad_of_y_wrt_W_and_b</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="n">W</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">tf.Variable</span></code> 클래스는 항목이 변할 수 있는 텐서 객체를 생성할 때 사용하며
-가중치와 편향 등 신경망 모델의 파라미터와 손실함수에 사용되는 변수 등은
-모두 <code class="docutils literal notranslate"><span class="pre">tf.Variable</span></code> 클래스의 객체로 선언돼야 한다.</p>
-</div>
 </div>
 
     <script type="text/x-thebe-config">
