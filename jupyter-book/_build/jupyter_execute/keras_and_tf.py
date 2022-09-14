@@ -171,24 +171,6 @@
 # 집중하기 위해서이다. 
 # :::
 
-# :::{admonition} 2차 미분
-# :class: tip
-# 
-# 그레이디언트 테이프를 이용하여 
-# 2차 미분도 가능하지만 여기서는 관심 대상이 아니다.
-# 
-# ```python
-# time = tf.Variable(0.)
-# 
-# with tf.GradientTape() as outer_tape:
-#     with tf.GradientTape() as inner_tape:
-#         position =  4.9 * time ** 2
-#     speed = inner_tape.gradient(position, time)
-# 
-# acceleration = outer_tape.gradient(speed, time)
-# ```
-# :::
-
 # ### 예제: 순수 텐서플로우 활용 선형 분류기 구현
 
 # 케라스를 전혀 사용하지 않으면서 간단한 선형 분류기를 구현하는 과정을 통해
@@ -197,13 +179,19 @@
 # :::{admonition} 신경망 모델 훈련 과정
 # :class: info
 # 
-# 신경망 모델의 훈련은 다음 과정을 반복하는 방식으로 진행된다.
+# 신경망 모델의 훈련은 스텝<font size='2'>step</font>이라 불리는 다음 과정을 반복하는 방식으로 진행된다.
 # 
 # 1. 배치<font size='2'>batch</font> 지정: 훈련 샘플 몇 개로 구성된 텐서 `x`와 해당 샘플들의 타깃값들로 구성된 텐서 `y_true`.
 # 1. 순전파<font size="2">forward pass</font>: 예측값 계산, 즉 입력값 `x`에 대한 모델의 예측값 `y_pred` 계산.
 #     이때 가중치라는 모델 파라미터가 활용됨.
 # 1. 손실값<font size='2'>loss</font> 계산: `y_pred`와 `y_true` 사이의 오차 계산. 모델에 따라 다양한 방식 사용.
 # 1. 역전파<font size='2'>backpropagation</font>: 해당 배치에 대한 손실값이 줄어드는 방향으로 모델 파라미터인 가중치를 업데이트.
+# 
+# 하나의 스텝을 간단하게 그림으로 그리면 다음과 같다.
+# 
+# <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch01-deep-learning-in-3-figures-3-c.png?raw=true" style="width:450px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 # 
 # 모델의 훈련은 손실값이 최소가 될 때까지 반복된다.
 # 손실값을 최소화하는 방향으로 가중치(모델 파라미터)를 업데이트 하기 위해
@@ -222,6 +210,8 @@
 # **옵티마이저**<font size='2'>optimizer</font>는 경사하강법(백워드 패스, 역전파) 업무를
 # 처리하는 알고리즘을 가리키며 momentum optimization, Nesterov Accelerated Gradeitn, 
 # AdaGrad, RMSProp, Adam optimization 등 다양한 알고리즘이 존재한다.
+# 
+# 경사하강법, 역전파, 옵티마이저에 대한 보다 자세한 설명은 아래 링크를 참고한다.
 # 
 # - 경사하강법: 
 #     [핸즈온 머신러닝(3판), 4.2절](https://codingalzi.github.io/handson-ml3/training_models.html#sec-gradient-descent)이
