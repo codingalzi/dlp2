@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -236,12 +233,12 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   3.1. 텐서플로우 소개
+   3.1. 텐서플로우
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   3.2. 케라스 소개
+   3.2. 케라스
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -258,6 +255,34 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id6">
    3.5. 순수 텐서플로우 사용법 기초
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     3.5.1. 상수 텐서와 변수 텐서
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     3.5.2. 텐서 연산
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradienttape">
+     3.5.3.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GradientTape
+      </span>
+     </code>
+     활용
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     3.5.4. 예제: 순수 텐서플로우 활용 선형 분류기 구현
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#api">
@@ -265,29 +290,29 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id10">
      3.6.1. 층
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id11">
      3.6.2. 모델
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id12">
      3.6.3. 훈련 루프
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
+    <a class="reference internal nav-link" href="#id13">
      3.6.4. 예측
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
+  <a class="reference internal nav-link" href="#id14">
    3.7. 연습 문제
   </a>
  </li>
@@ -313,12 +338,12 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   3.1. 텐서플로우 소개
+   3.1. 텐서플로우
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   3.2. 케라스 소개
+   3.2. 케라스
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -335,6 +360,34 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id6">
    3.5. 순수 텐서플로우 사용법 기초
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     3.5.1. 상수 텐서와 변수 텐서
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     3.5.2. 텐서 연산
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradienttape">
+     3.5.3.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       GradientTape
+      </span>
+     </code>
+     활용
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     3.5.4. 예제: 순수 텐서플로우 활용 선형 분류기 구현
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#api">
@@ -342,29 +395,29 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id10">
      3.6.1. 층
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
+    <a class="reference internal nav-link" href="#id11">
      3.6.2. 모델
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
+    <a class="reference internal nav-link" href="#id12">
      3.6.3. 훈련 루프
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id10">
+    <a class="reference internal nav-link" href="#id13">
      3.6.4. 예측
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id11">
+  <a class="reference internal nav-link" href="#id14">
    3.7. 연습 문제
   </a>
  </li>
@@ -391,10 +444,10 @@ const thebe_selector_output = ".output, .cell_output"
 <p><strong>주요 내용</strong></p>
 <p>케라스와 텐서플로우를 이용한 딥러닝의 활용법을 소개한다.</p>
 <div class="section" id="id2">
-<h2><span class="section-number">3.1. </span>텐서플로우 소개<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.1. </span>텐서플로우<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>텐서플로우는 파이썬 기본 머신러닝 플랫폼이며,
-머신러닝 모델의 훈련에 필요한 계산에 필요한 텐서 연산을 지원한다.
-넘파이(Numpy) 패키지와 유사하지만 보다 많은 기능을 제공한다.</p>
+머신러닝 모델의 훈련에 필요한 텐서 연산을 지원한다.
+넘파이<font size='2'>Numpy</font> 패키지와 유사하지만 보다 많은 기능을 제공한다.</p>
 <ul class="simple">
 <li><p>그레이디언트 자동 계산</p></li>
 <li><p>GPU, TPU 등 고성능 병렬 하드웨어 가속기 활용 가능</p></li>
@@ -410,19 +463,21 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </div>
 <div class="section" id="id3">
-<h2><span class="section-number">3.2. </span>케라스 소개<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>딥러닝 모델 구성 및 훈련에 단순하지만 활용성이 높은 다양한 수준의 API를 제공한다.
-원래 텐서플로우와 독립적으로 개발되었지만 텐서플로우 2.0부터 텐서플로우 라이브러리의 최상위 프레임워크(framework)로 포함됐다.</p>
+<h2><span class="section-number">3.2. </span>케라스<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>딥러닝 모델 구성 및 훈련에 단순하지만 활용성이 높은 다양한 수준의 API를 제공하는
+텐서플로우의 프론트엔드<font size='2'>front end</font> 인터페이스 기능을 수행한다.
+원래 텐서플로우와 독립적으로 개발되었지만 텐서플로우 2.0부터 텐서플로우 라이브러리의 최상위 프레임워크<font size='2'>framework</font>로 포함됐다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/keras_and_tf.png" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
 <div class="section" id="id4">
 <h2><span class="section-number">3.3. </span>딥러닝 주요 라이브러리 약력<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>2007년: 씨아노(Theano) 공개. 텐서를 이용한 계산 그래프, 미분 자동화 등을 최초로 지원한 딥러닝 라이브러리.</p></li>
+<li><p>2007년: 씨아노<font size='2'>Theano</font> 공개.
+텐서를 이용한 계산 그래프, 미분 자동화 등을 최초로 지원한 딥러닝 라이브러리.</p></li>
 <li><p>2015년 3월: 케라스 라이브러리 공개. Theano를 백앤드로 사용하는 고수준 패키지.</p></li>
 <li><p>2015년 11월: 텐서플로우 라이브러리 공개.</p></li>
 <li><p>2016년: 텐서플로우가 케라스의 기본 백엔드로 지정됨.</p></li>
-<li><p>2016년 9월: 페이스북이 개발한 PyTorch 공개.</p></li>
+<li><p>2016년 9월: 페이스북이 개발한 파이토치<font size='2'>PyTorch</font> 공개.</p></li>
 <li><p>2017년: Theano, 텐서플로우, CNTK(마이크로소프트), MXNet(아마존)이 케라스의 백엔드로 지원됨.
 현재 Theano, CNTK 등은 더 이상 개발되지 않으며, MXNet은 아마존에서만 주로 사용됨.</p></li>
 <li><p>2018년 3월: PyTorch와 Caffe2를 합친 PyTorch 출시(페이스북과 마이크로소프트의 협업)</p></li>
@@ -430,10 +485,10 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <div class="info admonition">
 <p class="admonition-title">텐서플로우 대 파이토치</p>
-<p>파이토치<font size='2'>PyTorch</font> 또한 텐서 연산을 지원하는 딥러닝 라이브러리다.
+<p>파이토치 또한 텐서 연산을 지원하는 딥러닝 라이브러리이다.
 텐서플로우와 케라스의 조합이 강력하지만 신경망의 보다 섬세한 조정은 약하다는 지적을 많이 받는 반면에
-파이토치는 상대적으로 보다 자유롭게 신경망을 구성할 수 있다는 장점이 많이 언급된다.
-텐서플로우와 케라스의 조합이 여전히 보다 많이 사용되지만 파이토치의 비중 또한 점점 늘고 있다.</p>
+파이토치는 상대적으로 보다 자유롭게 신경망을 구성할 수 있다고 평가된다.
+텐서플로우와 케라스의 조합이 여전히 보다 많이 사용되지만 딥러닝 연구에서 파이토치의 활용 또한 점점 늘고 있다.</p>
 </div>
 </div>
 <div class="section" id="id5">
@@ -447,10 +502,11 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려 제대로 활용
 필요한 경우 인터넷에서 쉽게 관련 내용을 찾아볼 수 있다.</p>
 <p>하지만 딥러닝 모델 훈련을 많이 시키려면 NVIDIA 그래픽카드가 장착된
 개인용 컴퓨터를 활용하는 것이 좋다.
-운영체제는 <a class="reference external" href="https://ubuntu.com/download/desktop">Ubuntu</a> 또는 <a class="reference external" href="https://docs.microsoft.com/ko-kr/windows/wsl/install">WSL 2(Windows Subsystem for Linux 2)</a> 사용할 것을 추천한다.</p>
-<p>윈도우 10/11에서 GPU를 지원하는 텐서플로우를 설치하는 가장 간단한 방식은
-<a class="reference external" href="https://github.com/ageron/handson-ml3/issues/21#issuecomment-1177864010">conda를 활용한 gpu 지원 tensorflow 설치 요령</a>과
-<a class="reference external" href="https://github.com/ageron/handson-ml3/blob/main/INSTALL.md">Anaconda와 conda 환경 활용</a>을 참고한다.</p>
+운영체제는 <a class="reference external" href="https://ubuntu.com/download/desktop">Ubuntu</a> 또는 윈도우 10, 가능하면 윈도우 11을 추천한다.</p>
+<ul class="simple">
+<li><p>윈도우 10/11에서 GPU를 지원 텐서플로우 설치: <a class="reference external" href="https://github.com/codingalzi/dlp2">conda를 활용한 gpu 지원 tensorflow 설치 요령</a> 참고</p></li>
+<li><p>우분투에서 GPU 지원하는 텐서플로우 설치: <a class="reference external" href="https://github.com/ageron/handson-ml3/blob/main/INSTALL.md">Anaconda와 conda 환경 활용</a> 참고</p></li>
+</ul>
 <p>보다 전문적인 딥러닝 연구를 위해 대용량의 메모리와 고성능의 CPU, GPU가 필요한 경우
 비용이 들기는 하지만
 <a class="reference external" href="https://cloud.google.com/">구글 클라우드 플랫폼</a> 또는
@@ -460,10 +516,10 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려 제대로 활용
 <div class="section" id="id6">
 <h2><span class="section-number">3.5. </span>순수 텐서플로우 사용법 기초<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>케라스를 전혀 이용하지 않으면서 신경망 모델을 지정하고 훈련시킬 수 있다.
-하지만 다음 개념, 기능, 도구를 모두 직접 구현해야 한다.</p>
+하지만 아래에 언급된 개념, 기능, 도구를 모두 직접 구현해야 한다.</p>
 <ul class="simple">
 <li><p>가중치, 편향 등을 저장할 텐서 지정</p></li>
-<li><p>덧셈, 행렬 곱, <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수 등 정의</p></li>
+<li><p>순전파 실행(덧셈, 행렬 곱, <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수 등 활용)</p></li>
 <li><p>역전파 실행</p></li>
 <li><p>층과 모델</p></li>
 <li><p>손실 함수</p></li>
@@ -471,8 +527,9 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려 제대로 활용
 <li><p>평가지표</p></li>
 <li><p>훈련 루프</p></li>
 </ul>
-<p><strong>상수 텐서와 변수 텐서</strong></p>
-<p>텐서플로우 자체로 두 종류의 텐서 자료형을 지원한다.
+<div class="section" id="id7">
+<h3><span class="section-number">3.5.1. </span>상수 텐서와 변수 텐서<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>텐서플로우 패키지가 두 종류의 새로운 텐서 자료형을 지원한다.
 사용법은 기본적으로 넘파이 어레이와 유사하지만 GPU 연산과 그레이디언트 자동계산 등
 신경망 모델 훈련에 최적화된 기능을 제공한다.</p>
 <ul class="simple">
@@ -491,12 +548,16 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려 제대로 활용
 </ul>
 </li>
 </ul>
-<p><strong>텐서 연산</strong></p>
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">3.5.2. </span>텐서 연산<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>덧셈, relu, 점곱 등 텐서 연산은 기본적으로 넘파이 어레이 연산과 동일하다.
 텐서 연산에 대한 자세한 설명은
 <a class="reference external" href="https://www.tensorflow.org/guide/tensor">텐서 소개(Introduction to Tensors)</a>
 영어판을 참고하라.</p>
-<p><strong><code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 활용</strong></p>
+</div>
+<div class="section" id="gradienttape">
+<h3><span class="section-number">3.5.3. </span><code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 활용<a class="headerlink" href="#gradienttape" title="Permalink to this headline">¶</a></h3>
 <p>넘파이 어레이와의 가장 큰 차이점은
 그레이디언트 테이프 기능을 이용하여 변수 텐서에 의존하는 미분가능한
 함수의 그레이디언트 자동 계산이다.
@@ -505,11 +566,13 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려 제대로 활용
 \[
 f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 \]</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">input_var</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">input_var</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gradient</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">input_var</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">input_var</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">input_var</span><span class="p">)</span>
+<span class="n">gradient</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">input_var</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span>
 <span class="go">tf.Tensor(6.0, shape=(), dtype=float32)</span>
 </pre></div>
 </div>
@@ -524,7 +587,7 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 </pre></div>
 </div>
 <p>이유는 모델의 가중치와 편향 등 모델 훈련에 중요한 텐서들에 대해 미분 연산을
-집중하기 위해서이다. 그렇지 않으면 너무 많은 계산을 해야 한다.</p>
+집중하기 위해서이다.</p>
 </div>
 <div class="tip admonition">
 <p class="admonition-title">2차 미분</p>
@@ -541,13 +604,53 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 </pre></div>
 </div>
 </div>
-<p><strong>예제: 순수 텐서플로우로 선형 분류기 구현</strong></p>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">3.5.4. </span>예제: 순수 텐서플로우 활용 선형 분류기 구현<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>케라스를 전혀 사용하지 않으면서 간단한 선형 분류기를 구현하는 과정을 통해
 텐서플로우 API의 기본 기능을 살펴 본다.</p>
-<p><strong><em>1단계: 데이터셋 생성</em></strong></p>
-<p>아래 사진 모양처럼 양성(노랑색)과 음성(보라색)으로 구분되는 훈련셋을 생성한다.
-훈련셋은 다변량 정규분포를 따르도록 하며 각각 1,000개의 샘플로 구성된 양성과 음성 데이터셋의
-공분산은 동일하고 평균값만 다르도록 한다.</p>
+<div class="info admonition">
+<p class="admonition-title">신경망 모델 훈련 과정</p>
+<p>신경망 모델의 훈련은 다음 과정을 반복하는 방식으로 진행된다.</p>
+<ol class="simple">
+<li><p>배치<font size='2'>batch</font> 지정: 훈련 샘플 몇 개로 구성된 텐서 <code class="docutils literal notranslate"><span class="pre">x</span></code>와 해당 샘플들의 타깃값들로 구성된 텐서 <code class="docutils literal notranslate"><span class="pre">y_true</span></code>.</p></li>
+<li><p>순전파<font size="2">forward pass</font>: 예측값 계산, 즉 입력값 <code class="docutils literal notranslate"><span class="pre">x</span></code>에 대한 모델의 예측값 <code class="docutils literal notranslate"><span class="pre">y_pred</span></code> 계산.
+이때 가중치라는 모델 파라미터가 활용됨.</p></li>
+<li><p>손실값<font size='2'>loss</font> 계산: <code class="docutils literal notranslate"><span class="pre">y_pred</span></code>와 <code class="docutils literal notranslate"><span class="pre">y_true</span></code> 사이의 오차 계산. 모델에 따라 다양한 방식 사용.</p></li>
+<li><p>역전파<font size='2'>backpropagation</font>: 해당 배치에 대한 손실값이 줄어드는 방향으로 모델 파라미터인 가중치를 업데이트.</p></li>
+</ol>
+<p>모델의 훈련은 손실값이 최소가 될 때까지 반복된다.
+손실값을 최소화하는 방향으로 가중치(모델 파라미터)를 업데이트 하기 위해
+손실함수의 그레이디언트를 활용하여 모든 가중치를 <strong>동시에 조금씩</strong> 업데이트한다.
+이 과정이 <strong>경사하강법</strong><font size='2'>gradient descent method</font>이며,
+백워드 패스와 역전파 단계로 구성된다.</p>
+<ul class="simple">
+<li><p><strong>백워드 패스</strong><font size='2'>backward pass</font>는
+가중치에 대한 손실함수의 그레이디언트를 계산하는 과정을 가리키며
+그레이디언트는 텐서플로우의 <code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 클래스의 객체에 의해 자동으로 계산되고 관리된다.</p></li>
+<li><p><strong>역전파</strong><font size='2'>backpropagation</font>는
+계산된 그레이디언트와 지정된 학습률<font size='2'>learning rate</font>을 이용하여
+모든 가중치를 동시에 업데이트 하는 과정이다.</p></li>
+</ul>
+<p><strong>옵티마이저</strong><font size='2'>optimizer</font>는 경사하강법(백워드 패스, 역전파) 업무를
+처리하는 알고리즘을 가리키며 momentum optimization, Nesterov Accelerated Gradeitn,
+AdaGrad, RMSProp, Adam optimization 등 다양한 알고리즘이 존재한다.</p>
+<ul class="simple">
+<li><p>경사하강법:
+<a class="reference external" href="https://codingalzi.github.io/handson-ml3/training_models.html#sec-gradient-descent">핸즈온 머신러닝(3판), 4.2절</a>이
+머신러닝 모델 일반적인 훈련에 사용되는 경사하강법을 쉽게 설명한다.</p></li>
+<li><p>역전파:
+<a class="reference external" href="https://mattmazur.com/2015/03/17/a-step-by-step-backpropagation-example/">Matt Mazur의 A Step by Step Backpropagation Example</a>가 신경망 모델의 역전파 과정을 친절히 설명한다.</p></li>
+<li><p>옵티마이저:
+<a class="reference external" href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">핸즈온 머신러닝(3판)</a>, 11장에서 다양한 옵티마이저를 소개한다.</p></li>
+</ul>
+</div>
+<p><strong>1단계: 데이터셋 생성</strong></p>
+<p>아래 사진 모양처럼 양성(노랑색)과 음성(보라색)으로 구분되는 훈련셋을 생성해서
+훈련셋으로 이용한다.
+생성되는 훈련셋은 다변량 정규분포를 따르도록 하며,
+양성과 음성 데이터셋 각각 1,000개의 샘플로 구성된다.
+데이터셋 생성에 사용되는 공분산은 두 데이터셋에 대해 동일하고 평균값만 서로 다르다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/03-07.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_samples_per_class</span> <span class="o">=</span> <span class="mi">1000</span>
 
@@ -566,12 +669,13 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">negative_samples</span><span class="p">,</span> <span class="n">positive_samples</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>음성 샘플의 레이블은 0, 양성 샘플의 레이블은 1로 지정한다.</p>
+<p>음성 샘플의 레이블은 0, 양성 샘플의 레이블은 1로 지정한다.
+레이블 데이터셋 또한 2차원 어레이로 지정됨에 주의하라.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_samples_per_class</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span>
                      <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">num_samples_per_class</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)))</span>
 </pre></div>
 </div>
-<p><strong><em>2단계: 선형 회귀 모델 훈련에 필요한 가중치와 편향 변수 텐서 생성</em></strong></p>
+<p><strong>2단계: 선형 회귀 모델 훈련에 필요한 가중치와 편향 변수 텐서 생성</strong></p>
 <p>모델 학습에 사용될 가중치와 편향을 변수 텐서로 선언한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">input_dim</span> <span class="o">=</span> <span class="mi">2</span>     <span class="c1"># 입력 샘플의 특성이 2개</span>
 <span class="n">output_dim</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># 하나의 값으로 출력</span>
@@ -583,7 +687,7 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">output_dim</span><span class="p">,)))</span>
 </pre></div>
 </div>
-<p><strong><em>3단계: 모델 선언(포워드 패스 담당)</em></strong></p>
+<p><strong>3단계: 모델 선언(포워드 패스 담당)</strong></p>
 <p>신경망 모델을 훈련할 때 입력값에 대한 예측값을 계산하는 과정인
 포워드 패스를 함수로 구현한다.
 간단한 모델 표현을 위해 활성화 함수는 사용하지 않는다.</p>
@@ -593,7 +697,7 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
     <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
 </pre></div>
 </div>
-<p><strong><em>4단계: 손실 함수 지정</em></strong></p>
+<p><strong>4단계: 손실 함수 지정</strong></p>
 <p>타깃과 예측값 사이의 평균 제곱 오차를 손실값으로 사용한다.
 아래 코드에서 <code class="docutils literal notranslate"><span class="pre">tf.reduce_mean()</span></code> 함수는 넘파이의 <code class="docutils literal notranslate"><span class="pre">np.mean()</span></code>처럼
 평균값을 계산하지만 텐서플로우의 텐서를 대상으로 한다.</p>
@@ -602,10 +706,12 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
     <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">per_sample_losses</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong><em>5단계: 훈련 스텝(백워드 패스와 역전파) 지정</em></strong></p>
+<p><strong>5단계: 훈련 스텝(백워드 패스와 역전파) 지정</strong></p>
 <p>하나의 배치에 대해 예측값을 계산한 후에 손실 함수의 그레이디언트를
 계산한 후에 가중치와 편향을 업데이트하는 함수를 선언한다.
 그레이디언트 계산은 그레이디언트 테이프를 이용한다.</p>
+<p>아래 <code class="docutils literal notranslate"><span class="pre">training_step()</span></code> 함수가 백워드 패스와 역전파를 수행하는 옵티마이저
+역할을 담당한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
         <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
@@ -616,7 +722,7 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
     <span class="k">return</span> <span class="n">loss</span>
 </pre></div>
 </div>
-<p><strong><em>6단계: 훈련 루프 지정</em></strong></p>
+<p><strong>6단계: 훈련 루프 지정</strong></p>
 <p>반복해서 훈련한 내용을 지정한다.
 여기서는 설명을 간단하게 하기 위해 미니 배치가 아닌 배치 훈련을 구현한다.
 전체 훈련셋을 총 40번 반복 학습할 때마다 손실값을 출력하도록 한다.</p>
@@ -625,12 +731,12 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loss at step </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong><em>7단계: 결정경계 예측</em></strong></p>
+<p><strong>7단계: 결정경계 예측</strong></p>
 <p>모델의 예측값이 0.5보다 클 때 양성으로 판정하는 것이 좋은데
 이유는 샘플들의 레이블이 0 또는 1이기 때문이다.
 모델은 훈련과정 중에 음성 샘플은 최대한 0에,
 양성 샘플은 최대한 1에 가까운 값으로 예측하여 손실값을 최대한 줄여야 하는데
-옵티마이저가 그렇게 유도한다.
+<code class="docutils literal notranslate"><span class="pre">training_step()</span></code> 함수에서 구현된 경사하강법이 그렇게 유도한다.
 따라서 예측값이 0과 1의 중간값인 0.5일 때를 결정경계로 사용한다.</p>
 <p>결정경계를 직선으로 그리려면 아래 식을 이용한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="o">-</span> <span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span>  <span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -643,6 +749,7 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <p>위 예측값이 0.5보다 큰지 여부에 따라 음성, 양성이 판단되기 때문이다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_3-8.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
+</div>
 <div class="section" id="api">
 <h2><span class="section-number">3.6. </span>케라스 신경망 모델의 핵심 API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
 <p>신경망 모델은 층<font size='2'>layer</font>으로 구성된다.
@@ -651,8 +758,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 모델과 훈련 방식이 정해지면 이후에 훈련을 어떻게 진행할 것인가를 정해야 한다.
 이또한 많은 선택이 필요하지만 케라스가
 쉽고 간단하게 활용할 수 있는 다양한 API를 제공한다.</p>
-<div class="section" id="id7">
-<h3><span class="section-number">3.6.1. </span>층<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3><span class="section-number">3.6.1. </span>층<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p><strong>층의 기능</strong></p>
 <p>층은 입력 데이터를 지정된 방식에 따라 다른 모양의 데이터로 변환하는 포워드 패스 기능을 담당한다.
 또한 데이터 변환에 사용되는 가중치<font size='2'>weight</font>와
@@ -765,8 +872,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 </div>
 </div>
 </div></div>
-<div class="section" id="id8">
-<h3><span class="section-number">3.6.2. </span>모델<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id11">
+<h3><span class="section-number">3.6.2. </span>모델<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p><strong>층에서 모델로</strong></p>
 <p>딥러닝 모델은 층으로 구성된다.
 앞서 살펴 본 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델은 층을 일렬로 쌓은 모델이며
@@ -877,8 +984,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <li><p>Recall</p></li>
 </ul>
 </div>
-<div class="section" id="id9">
-<h3><span class="section-number">3.6.3. </span>훈련 루프<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h3><span class="section-number">3.6.3. </span>훈련 루프<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <p>모델을 컴파일한 다음에 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드를 호출하면
 모델은 스텝과 에포크 단위로 반복되는 <strong>훈련 루프</strong><font size='2'>training loop</font>를
 지정된 횟수만큼 또는 학습이 충분히 이루어졌다는 평가가 내려질 때까지
@@ -952,8 +1059,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 </pre></div>
 </div>
 </div>
-<div class="section" id="id10">
-<h3><span class="section-number">3.6.4. </span>예측<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3><span class="section-number">3.6.4. </span>예측<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <p>모델의 훈련과 검증이 완료되면 실전에서 새로운 데이터에 대한 예측을 진행한다.
 데이터셋에 포함된 모든 데이터에 대한 예측을 한 번에 실행할 수 있으며
 두 가지 방식이 존재한다.</p>
@@ -980,8 +1087,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 </div>
 </div>
 </div>
-<div class="section" id="id11">
-<h2><span class="section-number">3.7. </span>연습 문제<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h2><span class="section-number">3.7. </span>연습 문제<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p><a class="reference external" href="https://www.tensorflow.org/guide/tensor">텐서 소개(Introduction to Tensors)</a>를 학습하라.</p></li>
 <li><p>…</p></li>
