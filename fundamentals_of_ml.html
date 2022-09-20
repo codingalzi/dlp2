@@ -283,7 +283,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     5.4.2. 특성 공학
+     5.4.2. 특성 조종
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -374,7 +374,7 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id11">
-     5.4.2. 특성 공학
+     5.4.2. 특성 조종
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -731,7 +731,7 @@ K-겹 교차 검증을 P번 반복하면 총 <code class="docutils literal notra
 <p>일반적으로 다음 네 가지 사항이 모델의 일반화 성능에 도움을 준다.</p>
 <ul class="simple">
 <li><p>양질의 데이터셋</p></li>
-<li><p>특성 공학</p></li>
+<li><p>특성 조종</p></li>
 <li><p>조기 종료</p></li>
 <li><p>규제</p></li>
 </ul>
@@ -751,13 +751,14 @@ K-겹 교차 검증을 P번 반복하면 총 <code class="docutils literal notra
 </ul>
 </div>
 <div class="section" id="id11">
-<h3><span class="section-number">5.4.2. </span>특성 공학<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">5.4.2. </span>특성 조종<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
 <p>신경망 모델은 데이터셋에 잠재되어 있는 정보의 특성을 보다 쉽게 알아 내기 위해
 여러 층을 통해 데이터셋의 표현을 다양한 방식으로 변환시킨다.</p>
 <p>이때 유용한 특성으로 구성된 훈련셋으로 모델을 훈련하면 보다 적은 양의 데이터로
 보다 효율적인 훈련이 가능하다.
 이처럼 모델 훈련에 가장 유용한 특성으로 구성된
-데이터셋을 준비하는 과정이 <strong>특성 공학</strong>(feature engineering)이다.</p>
+데이터셋을 준비하는 과정이 <strong>특성 조종</strong>(feature engineering)이며,
+<strong>특성 공학</strong>이라고 많이 불린다.</p>
 <p>예를 들어 아래 그림은 현재 시간을 알아내는 모델을 학습시키려 할 때
 입력 데이터로 사용될 수 있는 세 가지 형식을 보여준다.</p>
 <ul class="simple">
