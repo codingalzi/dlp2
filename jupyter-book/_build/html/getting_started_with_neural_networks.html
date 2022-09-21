@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -322,8 +319,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>다중 클래스 분류: 뉴스 기사 분류</p></li>
 <li><p>회귀: 주택 가격 예측</p></li>
 </ul>
-<p>이를 통해 데이터 전처리, 모델 구조 설계, 모델 평가의 딥러닝 모델 훈련의
-전체 과정을 자세히 살펴본다.</p>
+<p>이를 통해 데이터 전처리, 모델 구조 설계, 모델 훈렬과 평가 과정으로 진행되는
+딥러닝 모델 학습의 전체 과정을 자세히 살펴본다.</p>
 <p><strong>머신러닝 주요 용어</strong></p>
 <p>아래 용어의 정의를 명확히 알아야 한다.</p>
 <table class="colwidths-auto table">
@@ -340,15 +337,15 @@ const thebe_selector_output = ".output, .cell_output"
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>예측값, 출력값</p></td>
 <td class="text-align:left"><p>prediction, output</p></td>
-<td class="text-align:left"><p>모델이 계산한 결과</p></td>
+<td class="text-align:left"><p>모델이 계산한 예측값</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>타깃</p></td>
 <td class="text-align:left"><p>target</p></td>
-<td class="text-align:left"><p>예측해야 하는 값</p></td>
+<td class="text-align:left"><p>모델이 예측해야 하는 값</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>예측 오류, 손실값, 비용</p></td>
 <td class="text-align:left"><p>prediction error, loss value</p></td>
-<td class="text-align:left"><p>타깃과 예측값 사이의 거리 측정값. 측정 방식에 의존함.</p></td>
+<td class="text-align:left"><p>타깃과 예측값 사이의 오차. 문제 유형에 따라 오차 측정법 다름.</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>손실 함수, 비용 함수</p></td>
 <td class="text-align:left"><p>loss function</p></td>
@@ -362,9 +359,9 @@ const thebe_selector_output = ".output, .cell_output"
 <td class="text-align:left"><p>label</p></td>
 <td class="text-align:left"><p>분류 문제에서 타깃 대신 사용</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>실제의/정답의</p></td>
-<td class="text-align:left"><p>ground-truth</p></td>
-<td class="text-align:left"><p>실제 조사 결과와 관련된</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>타깃셋</p></td>
+<td class="text-align:left"><p>ground-truth/annotations</p></td>
+<td class="text-align:left"><p>타깃셋</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>이진 분류</p></td>
 <td class="text-align:left"><p>binary classification</p></td>
@@ -376,19 +373,19 @@ const thebe_selector_output = ".output, .cell_output"
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>다중 레이블 분류</p></td>
 <td class="text-align:left"><p>multilabel classification</p></td>
-<td class="text-align:left"><p>샘플에 두 종류 이상의 레이블을 지정하는 분류.사진 속 여러 마리 동물 등.</p></td>
+<td class="text-align:left"><p>샘플에 두 종류 이상의 레이블을 지정하는 분류. 사진 속 여러 마리 동물 탐지 등.</p></td>
 </tr>
 <tr class="row-odd"><td class="text-align:left"><p>스칼라 회귀</p></td>
 <td class="text-align:left"><p>scalar regression</p></td>
-<td class="text-align:left"><p>샘플 별로 하나의 실숫값 예측하기. 주택 가격 예측 등.</p></td>
+<td class="text-align:left"><p>샘플 별로 하나의 수치 예측하기. 주택 가격 예측 등.</p></td>
 </tr>
 <tr class="row-even"><td class="text-align:left"><p>벡터 회귀</p></td>
 <td class="text-align:left"><p>vector regression</p></td>
-<td class="text-align:left"><p>샘플 별로 두 개 이상의 실숫값 예측하기. 네모 상자의 좌표 등.</p></td>
+<td class="text-align:left"><p>샘플 별로 두 개 이상의 수치 예측하기. 네모 상자의 좌표 등.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>미니배치</p></td>
-<td class="text-align:left"><p>mini-batch</p></td>
-<td class="text-align:left"><p>보통 8개에서 128개의 샘플로 구성된 묶음(배치). 훈련 루프의 스텝 지정에 활용됨.</p></td>
+<tr class="row-odd"><td class="text-align:left"><p>(미니)배치</p></td>
+<td class="text-align:left"><p>mini-batch/batch</p></td>
+<td class="text-align:left"><p>보통 8개에서 128개의 샘플로 구성된 묶음(배치). 훈련 루프의 스텝 크기에 해당됨. 2의 제곱수 사용이 GPU 활용에 좋음.</p></td>
 </tr>
 </tbody>
 </table>
@@ -409,16 +406,19 @@ const thebe_selector_output = ".output, .cell_output"
 가장 많이 사용되는 10,000개의 단어로만 구성된 후기를 불러오도록 지정한다.
 10,000개의 단어에 포함되지 않는 단어는 무시한다.</p>
 <p>후기 전체에서 원래 총 88,585개의 단어가 최소 한 번 이상 사용되지만 가장 많이 사용되는
-10,000개 단어 이외는 사용 빈도가 너무 낮아서 클래스 분류에 거의 도움되지 않는다.
+10,000개 단어 이외는 사용 빈도가 너무 낮아서 클래스 분류에 별 도움이 되지 않거나
+오히려 악형향을 끼치기도 한다.
 따라서 그런 단어들은 무시하는 것이 좋다.</p>
-<p>샘플들의 크기는 서로 다르다.</p>
+<p>샘플의 크기, 하나의 후기에 사용된 단어의 수는 서로 다르다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="go">218</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="go">189</span>
 </pre></div>
 </div>
-<p>0번 샘플의 처음 10개 값은 다음과 같다.</p>
+<p>0번 샘플의 처음 10개 값은 다음과 같다.
+각 정수는 특정 단어와 연결된다.
+예를 들어, 530은 영화 후기에서 530번째로 많이 사용되는 어떤 단어를 가리킨다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
 <span class="go">[1, 14, 22, 16, 43, 530, 973, 1622, 1385, 65]</span>
 </pre></div>
@@ -471,13 +471,13 @@ const thebe_selector_output = ".output, .cell_output"
 <p><strong>데이터 전처리: 벡터화, 멀티-핫-인코딩</strong></p>
 <p>정수들의 리스트, 그것도 길이가 다른 여러 개의 리스트를 신경망의 입력값으로 사용할 수 없다.
 따라서 각 샘플을 지정된 크기의 1차원 어레이로 변환하는
-<strong>벡터화</strong><font size='2'>vectorization</font>를 먼저 실행해야 한다.</p>
+<strong>벡터화</strong><font size='2'>vectorization</font>를 먼저 실행한다.</p>
 <p>그런데 서로 길이가 다른 정수들의 리스트의 길이를 통일시킨다 하더라도
-정수들의 리스트를 직접 신경망 모델의 입력값으로 사용하는 일은 가급적 피한다.
+정수들의 리스트를 직접 신경망 모델의 입력값으로 사용하는 일은 가급적 피해야 한다.
 여기서는 대신에 <strong>멀티-핫-인코딩</strong>을 이용하여 정수들의 리스트를
 0과 1로만 이루어진 일정한 길이의 벡터(1차원 어레이)로 변환한다.</p>
 <p>후기 리스트에 사용된 숫자들은 0부터 9999 사이의 값이다.
-이 정보를 이용하여 후기 샘플을 길이가 10,000인 벡터(1차원 어레이)로 변환할 수 있다.</p>
+이 정보를 이용하여 후기 샘플을 길이가 10,000인 벡터(1차원 어레이)로 변환한다.</p>
 <ul class="simple">
 <li><p>어레이 길이: 10,000</p></li>
 <li><p>항목: 0 또는 1</p></li>
@@ -498,29 +498,25 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="k">return</span> <span class="n">results</span>
 </pre></div>
 </div>
-<div class="proof example admonition" id="exp-vectorization">
-<p class="admonition-title"><span class="caption-number">Example 4.1 </span> (훈련셋 벡터화)</p>
-<div class="example-content section" id="proof-content">
 <p>이제 훈련셋와 테스트셋를 벡터화한다.
 자료형은 <code class="docutils literal notranslate"><span class="pre">float32</span></code>로 고정한다. 그렇지 않으면 <code class="docutils literal notranslate"><span class="pre">float64</span></code>로 지정되기에
 메모리 효율성을 떨어뜨린다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_train</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x_test</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_train</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>첫째 훈련 샘플의 변환 결과는 다음과 같다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">array([0., 1., 1., ..., 0., 0., 0.], dtype=float32)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>레이블 또한 정수 자료형에서 <code class="docutils literal notranslate"><span class="pre">float32</span></code> 자료형으로 변환해서 자료형을 일치시킨다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span>
-<span class="go">array([1., 0., 0., ..., 0., 1., 0.], dtype=float32)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<span class="n">y_train</span>
+<span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div><p><strong>모델 구성</strong></p>
+<p><strong>모델 구성</strong></p>
 <p>입력 샘플의 특성이 벡터(1차원 어레이)로 주어지고
 레이블이 스칼라(하나의 숫자)로 주어졌을 때
 밀집층<font size='2'>densely-connected layer</font>인 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층을 이용하는
@@ -531,10 +527,18 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>이진 분류 모델의 최상위 층의 활성화 함수: 0과 1사이의 확률값을 계삲하는 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수</p></li>
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/slides/images/relu_sigmoid.png" style="width:600px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층을 이용할 때의 핵심은 두 가지다.</p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="hint admonition">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">relu()</span></code> 활성화 함수</p>
+<p>마지막 층을 제외한 모든 층에서 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 활성화 함수를 사용한다.
+이유는 그렇게 하지 않으면 기본적으로 선형 분류 모델이 생성되기 때문이며
+비선형 분류 문제는 해결하지 못하기 때문이다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">relu()</span></code>, <code class="docutils literal notranslate"><span class="pre">prelu()</span></code>, <code class="docutils literal notranslate"><span class="pre">elu()</span></code>, <code class="docutils literal notranslate"><span class="pre">tanh()</span></code> 등 다양한 종류의 활성화 함수가 경우에 따라 사용된다.
+하지만 여기서는 기본적으로 <code class="docutils literal notranslate"><span class="pre">relu()</span></code>를 사용한다.</p>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층을 이용할 때의 핵심은 두 가지다.</p>
 <ul class="simple">
 <li><p>몇 개의 층을 사용하는가?</p></li>
-<li><p>각 층마다 몇 개의 유닛<font size='2'>unit</unit>을 사용하는가?</p></li>
+<li><p>각 층마다 몇 개의 유닛<font size='2'>unit</font>을 사용하는가?</p></li>
 </ul>
 <p>위 두 질문에 대한 체계적인 답은
 <a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">5장 머신러닝 핵심 이슈</span></a>에서 다룬다.
@@ -551,16 +555,8 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층의 유닛이 많을 수록 입력값에 내재된 보다 많은 특성을 찾아내어 보다 복잡한
-모델을 학습한다. 하지만 유닛수가 많을 수록 모델 훈련에 필요한 비용(시간과 메모리)이
-늘어난다.</p>
-<div class="hint admonition">
-<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">relu()</span></code> 활성화 함수</p>
-<p>마지막 층을 제외한 모든 층에서 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 활성화 함수를 사용한다.
-이유는 그렇게 하지 않으면 기본적으로 선형 분류 모델이 생성되기 때문이며
-비선형 분류 문제는 해결하지 못하기 때문이다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">relu()</span></code>, <code class="docutils literal notranslate"><span class="pre">prelu()</span></code>, <code class="docutils literal notranslate"><span class="pre">elu()</span></code>, <code class="docutils literal notranslate"><span class="pre">tanh()</span></code> 등 다양한 종류의 활성화 함수가 경우에 따라 사용된다.
-하지만 여기서는 기본적으로 <code class="docutils literal notranslate"><span class="pre">relu()</span></code>를 사용한다.</p>
-</div>
+모델을 학습한다.
+하지만 유닛이 많을 수록 모델 훈련에 필요한 비용(시간과 메모리)이 늘어난다.</p>
 <p>위 모델을 시각화하면 다음과 같다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-01.png" style="width:200px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="info admonition">
@@ -1160,7 +1156,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-10.png" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="proof example admonition" id="exp-k-fold">
-<p class="admonition-title"><span class="caption-number">Example 4.2 </span> (사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스)</p>
+<p class="admonition-title"><span class="caption-number">Example 4.1 </span> (사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스)</p>
 <div class="example-content section" id="proof-content">
 <p>사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스를 이용하면 봅다 간단하게 K-겹 교차검증을 진행할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
