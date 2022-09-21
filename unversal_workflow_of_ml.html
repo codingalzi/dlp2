@@ -295,6 +295,18 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id13">
    6.3. 모델 실전 배치
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     6.3.1. 의뢰인에게 개발된 시스템의 성능 설명하기
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     6.3.2. 인퍼런스 모델 활용
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -379,6 +391,18 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id13">
    6.3. 모델 실전 배치
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id14">
+     6.3.1. 의뢰인에게 개발된 시스템의 성능 설명하기
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id15">
+     6.3.2. 인퍼런스 모델 활용
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -439,7 +463,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>스팸 메일 필터: 이진 분류 또는 다중클래스 분류(스팸은 아니지만 공격적?)</p></li>
 <li><p>음악 추천 엔진: 딥러닝 보다는 Collaborative Filtering 기법 중의 하나인
 행렬 분해(matrix factorization) 기법을 활용한 추천 시스템이 보다 효율적임.</p></li>
-<li><p>신용카드 사기 검출(credit card fraud detection): 이진 분류</p></li>
+<li><p>신용카드 부정사용 감지(credit card fraud detection): 이진 분류</p></li>
 <li><p>클릭율(click-through-rate) 예측: 스칼라 회귀</p></li>
 <li><p>비정상(?) 과자 탐지: 이진 분류. 하지만 먼저 객체 탐지 모델 필요.
 일반적으로 알려진 “이상치 탐지” 용도의 머신러닝 모델이
@@ -455,7 +479,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="simple">
 <li><p>문제를 다룰 때 특별히 고려해야 할 점?</p>
 <ul>
-<li><p>스팸 탐지 시스템: 암호화된 이메일인 경우 사용자의 전화기에서 작동해야 함.</p></li>
+<li><p>스팸 감지 시스템: 암호화된 이메일인 경우 사용자의 전화기에서 작동해야 함.</p></li>
 <li><p>비정상 과자 탐지가 원격 서버가 아닌 공장의 임베디드 시스템에서 작동해야 할 수 있음.</p></li>
 </ul>
 </li>
@@ -469,7 +493,7 @@ const thebe_selector_output = ".output, .cell_output"
 가장 많은 시간을 요하며, 가장 비용이 많이 든다.</p>
 <ul class="simple">
 <li><p>사진 검색 엔진: 사진의 레이블로 사용될 목록 확인. 보통 10,000개의 사진의 범주(category) 지정. 이후에 수 천장의 사진을 직접 태킹(tagging)해야 함.</p></li>
-<li><p>채팅 앱에 사용될 스팸 탐지 과제: 채팅 내용 모으기는 암호화 및 개인 정보 보호로 막혀 있기에 기본적으로 불가능. 하지만 소셜 미디어에 게시된 데이터를 수만 건 이상의 데이터셋을 모은 다음에 스팸, 공격성 등에 대해 일일이 직접 태깅해야 함.</p></li>
+<li><p>채팅 앱에 사용될 스팸 감지 과제: 채팅 내용 모으기는 암호화 및 개인 정보 보호로 막혀 있기에 기본적으로 불가능. 하지만 소셜 미디어에 게시된 데이터를 수만 건 이상의 데이터셋을 모은 다음에 스팸, 공격성 등에 대해 일일이 직접 태깅해야 함.</p></li>
 <li><p>음악 추천 엔진: 사용자들의 “좋아요” 누르기 정보 데이터 활용 가능.</p></li>
 <li><p>클릭율 예측 과제: 지난 수 년간의 광고에 대한 클릭율 정보 데이터 활용 가능</p></li>
 <li><p>과자 이상치 탐지 모델: 컨베이어 벨트를 감시하는 카메라를 통한 수 만장의 사진과 어떤 형식으로든 사진에 추가된 태그 정보.</p></li>
@@ -535,7 +559,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>문장에 사용된 어휘와 표현이 다르고 영화 장르가 변화했기 때문임.</p></li>
 </ul>
 </li>
-<li><p>신용카드 사기 탐지: 사기 방식이 매일 발전함.</p></li>
+<li><p>신용카드 부정사용 감지: 부정사용 방식이 매일 발전함.</p></li>
 </ul>
 <p>개념 변동에 대처하려면 계속된 데이터 수집과 데이터 레이블링, 모델 재훈련이 요구된다.</p>
 <p><strong>표집 편향</strong></p>
@@ -688,7 +712,7 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 <p><strong>기존 유명 모델 활용</strong></p>
 <p>대부분의 문제는 이미 대부분은 좋은 성능의 모델이 개발되어 있다.</p>
 <ul class="simple">
-<li><p>스팸 탐지</p></li>
+<li><p>스팸 감지</p></li>
 <li><p>음악 추천 엔진</p></li>
 <li><p>이미지 분류기 등등</p></li>
 </ul>
@@ -739,6 +763,72 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 </div>
 <div class="section" id="id13">
 <h2><span class="section-number">6.3. </span>모델 실전 배치<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h3><span class="section-number">6.3.1. </span>의뢰인에게 개발된 시스템의 성능 설명하기<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>머신러닝 모델을 사용하는 시스템을 완성해서 제품 의뢰인에게 인수인계하는 단계가
+프로젝트 전체 과정의 절반을 차지할 정도로 중요하다.</p>
+<p>첫째, 비전문가 의뢰인이 인공지능 시스템에 대한 기대치가 너무 높다.</p>
+<p>마치 사람처럼 작동하는 시스템을 기대할 수 있기에 이에 대해 개발된 시스템의
+성능과 한계를 명확하게 보여줘야 한다.
+예를 들어 신용카드 부정사용 분류 문제에서 사람은 구분하지만 AI는 못하는 예제를 보여주는 방식을 사용한다.</p>
+<p>둘째, 기존에 사람이 하던 일을 시스템으로 모두 대체할 수 있기를 기대한다.</p>
+<p>아직까지는 대부분의 머신러닝 모델이 기존에 사람이 하던 일을 그대로 또는 그 이상의 성능으로
+해결하지는 못한다.
+따라서  예를 들어 분류 모델의 98%의 정확도를 강조하기 보다는
+5%의 거짓음성(false negative) 비율과 2.5%의 거짓양성(false positive) 비율 등을
+언급해야 한다.
+그러면서 평균적으로 하루에 200건 정도의 신용카드 부정사용이 발생한다고 시스템이 감지할 때
+하루 14건 정도의 실제 부정사용을 놓치게 되고, 하루 266건 정도의 부정사용을
+제대로 감지한게 된다고 의뢰인의 사업과 직접 연결되는 구체적인 이야기를 해야 한다.</p>
+<p>셋째, 제품을 실전 배치할 때 사용할 모델의 파라미터를 외뢰인과 함께 상의해야 한다.</p>
+<p>예를 들어, 신용카드 부정사용 감지 모델의 양성 판단 근거의 확률값 기준을 얼마로 정할지를 논의해야 한다.
+확률값 기준을 정할 때마다 정확도, 정밀도, 재현율 등이 어떻게 달라지고
+그에 따른 제품 활용도의 장단점을 명확히 해야 한다.</p>
+</div>
+<div class="section" id="id15">
+<h3><span class="section-number">6.3.2. </span>인퍼런스 모델 활용<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p><strong>인퍼런스 모델</strong><font size='2'>inference model</font>은
+훈련이 완성되어 실전에서 예측을 위해 사용되는 모델을 가리킨다.
+그런데 훈련에서 완성된 모델을 있는 그대로 실전에서 사용하는 일은 매우 드물다.
+따라서 훈련이 완성된 모델을 환경과 여건에 따른 추가 작업을 통해
+인퍼런스 모델로 만들어야 한다.</p>
+<p>첫째, 파이썬이 이외의 언어로 모델을 내보내야 할 수도 있다.</p>
+<ul class="simple">
+<li><p>모바일 앱, 임베디스 시스템 등 파이썬이 전혀 지원되지 않는 환경에서 제품이 사용될 수 있다.</p></li>
+<li><p>파이썬 아닌 다른 언어(자바스크립트, C++ 등)로 구동되는 앱에서 파이썬을 지원하려면 너무 많은 비용이 들 수 있다.</p></li>
+</ul>
+<p>둘째, 훈련이 완성된 모델은 훈련이 아닌 <strong>예측값을 생성</strong>하는
+<strong>추론</strong><font size='2'>inference</font> 과정에서만 활용될 것이기에
+환경과 여건에 따라 모델을 보다 빠르고 메모리 효율적으로 작동하도록 하는
+최적화를 진행할 수 있다.</p>
+<p><strong>모델 실전 배치 옵션</strong></p>
+<p>모델 실전 배치 옵션은 일반적으로 다음과 같다.</p>
+<p><strong><em>REST API로 활용</em></strong></p>
+<p>서버 또는 클라우드 서비스에 텐서플로우를 설치한 후에 REST API를 이용하여
+인퍼런스 모델을 활용한다.
+이를 위해 Flask 또는
+<a class="reference external" href="https://www.tensorflow.org/tfx/guide/serving">Tensorflow Serving</a> 등을 이용할 수 있다.</p>
+<p>일반작으로 아래 조건이 충족되는 경우 이 방식을 사용한다.</p>
+<ul class="simple">
+<li><p>빠르고 안정적인 인터넷 지원이 가능하다.</p></li>
+<li><p>실시간 활용의 경우처럼 레이턴시(빠른 반응)이 절대적일 필요는 없다.</p></li>
+<li><p>예측에 사용되는 데이터가 외부 서버에 공개될 수 있을 정도로 민감한 정보를 담지 않는다.</p></li>
+</ul>
+<p>머신러닝 모델이 REST API로 활용되는 일반적인 경우는 다음과 같다.</p>
+<ul class="simple">
+<li><p>사진 검색 엔진 프로젝트</p></li>
+<li><p>음악 추천 시스템</p></li>
+<li><p>신용카드 부정사용 방지 프로젝트</p></li>
+<li><p>인공위성 사진 분석 프로젝트</p></li>
+</ul>
+<div class="info admonition">
+<p class="admonition-title">REST API란?</p>
+<p>REST API는 …</p>
+</div>
+<p><strong><em>장치에서 활용</em></strong></p>
+<p><strong><em>웹 브라우저에서 활용</em></strong></p>
+<p><strong>인퍼러스 모델 최적화</strong></p>
+</div>
 </div>
 </div>
 
