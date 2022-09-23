@@ -668,3 +668,7 @@
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-geometric_interpretation_4.png" style="width:400px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# ## 연습문제
+
+# 1. [(실습) 신경망 구성 요소](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-building_blocks_of_NN.ipynb)

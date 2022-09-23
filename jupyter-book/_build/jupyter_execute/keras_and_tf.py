@@ -753,5 +753,4 @@
 
 # ## 연습 문제
 
-# 1. [텐서 소개(Introduction to Tensors)](https://www.tensorflow.org/guide/tensor)를 학습하라.
-# 1. ...
+# 1. [(실습) 케라스와 텐서플로우](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-keras_and_tf.ipynb)
