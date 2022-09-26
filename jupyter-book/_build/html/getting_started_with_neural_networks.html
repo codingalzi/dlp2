@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -525,9 +522,22 @@ const thebe_selector_output = ".output, .cell_output"
 밀집층<font size='2'>densely-connected layer</font>인 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층을 이용하는
 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델을 추천한다.
 이때 사용하는 활성화 함수는 일반적으로 다음과 같다.</p>
-<ul class="simple">
-<li><p>은닉층의 활성화 함수: 음수를 제거하는 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수</p></li>
-<li><p>이진 분류 모델의 최상위 층의 활성화 함수: 0과 1사이의 확률값을 계삲하는 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수</p></li>
+<ul>
+<li><p>은닉층의 활성화 함수: 음수를 제거하는 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>이진 분류 모델의 최상위 층의 활성화 함수: 0과 1사이의 확률값을 계삲하는 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/slides/images/relu_sigmoid.png" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="hint admonition">
@@ -1014,10 +1024,10 @@ const thebe_selector_output = ".output, .cell_output"
 <p>구역별로 조사된 자료 중에서 흑인 비율을 사용하는 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성이 윤리적 논쟁을 일으킨다.
 구역의 집값과 흑인 비율의 연관성을 암시하는 이런 통계 조사는
 1970년대 미국에서 인종 차별이 여전히 주요 쟁점이었음을 단편적으로 보여준다.
-이런 이유는 사이킷런 라이브러리는
+이런 이유로 사이킷런 라이브러리는
 <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_boston.html"><code class="docutils literal notranslate"><span class="pre">sklearn.datasets.load_boston()</span></code> 함수</a>를 이용하여 제공하던 보스턴 데이터셋을
 삭제하기로 예고했다.
-여기서는 데이터 활용을 차원에서만 보스턴 데이터셋을 이용할 뿐 다른 어떤 의도도 없음을 밝힌다.</p>
+여기서는 단순히 데이터 활용 차원에서만 보스턴 데이터셋을 이용할 뿐 다른 어떤 의도도 없음을 밝힌다.</p>
 </div>
 <p>케라스 <code class="docutils literal notranslate"><span class="pre">boston_housing</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 보스턴 데이터셋을 불러올 수 있다.
 데이터셋이 이미 404개 샘플로 구성된 훈련셋과 102개 샘플로 구성된 테스트셋으로 구분되어 있다.</p>
@@ -1049,33 +1059,33 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 훈련셋의 평균값</span>
 <span class="n">mean</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="c1"># 훈련셋 정규화</span>
+<span class="c1"># 훈련셋 표준화</span>
 <span class="n">train_data</span> <span class="o">-=</span> <span class="n">mean</span>
 <span class="n">std</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">train_data</span> <span class="o">/=</span> <span class="n">std</span>
 
-<span class="c1"># 테스트셋 정규화: 훈련셋의 평균값과 표준편차 활용</span>
+<span class="c1"># 테스트셋 표준화: 훈련셋의 평균값과 표준편차 활용</span>
 <span class="n">test_data</span> <span class="o">-=</span> <span class="n">mean</span>
 <span class="n">test_data</span> <span class="o">/=</span> <span class="n">std</span>
 </pre></div>
 </div>
 <div class="warning admonition">
 <p class="admonition-title">테스트셋 표준화</p>
-<p>테스트셋의 정규화도 훈련셋의 평균값과 표준편차를 이용한다.
+<p>테스트셋의 표준화도 훈련셋의 평균값과 표준편차를 이용한다.
 이유는 테스트셋의 정보는 모델 훈련에 절대로 사용되지 않아야 하기 때문이다.</p>
 </div>
 <p><strong>모델 구성</strong></p>
 <p>데이터셋이 작으므로 출력층을 제외하고 두 개 층만 사용한다.
 머신러닝 모델은 훈련셋이 작을 수록 과대적합을 보다 잘하기 때문이
-이를 방지하기 위해 보다 단순한 모델을 사용하기도 한다.</p>
+이를 방지하기 위해 보다 단순한 모델을 사용한다.</p>
 <p>마지막 층을 제외한 나머지 층은 64개의 유닛과 함께 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 활성화 함수를 사용한다.
 회귀 모델의 마지막 층은 기본적으로 활성화 함수 없이 1개의 유닛만 사용한다.
 이유는 하나의 값을 예측하되 그 값의 크기를 제한하지 않아야 하기 때문이다.</p>
 <p>모델 컴파일에 필요한 손실 함수와 평가지표는 다음과 같다.</p>
 <ul class="simple">
-<li><p>손실함수: <strong>평균제곱오차</strong>(mse).
+<li><p>손실함수: <strong>평균제곱오차</strong><font size='2'>mean squared error</font>(mse).
 타깃과 예측값 사이의 오차의 제곱의 평균값. 회귀 모델의 일반적인 손실 함수.</p></li>
-<li><p>평가지표: <strong>평균절대오차</strong>(mae, mean absolute error).
+<li><p>평가지표: <strong>평균절대오차</strong><font size='2'>mean absolute error</font>(mae).
 타깃과 예측값 사이의 오차의 평균값.</p></li>
 </ul>
 <p>동일한 모델을 앞으로도 계속해서 사용할 예정이기에
