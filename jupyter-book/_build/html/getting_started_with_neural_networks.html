@@ -1221,41 +1221,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="id5">
 <h2><span class="section-number">4.4. </span>연습문제<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<ol>
-<li><p>영화 후기: 이진 분류</p>
 <ol class="simple">
-<li><p>두 개의 은닉층 대신 1 개 또는 3 개의 은닉층을 사용할 때
-검증셋와 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
-<li><p>각 은닉층에 사용된 유닛의 수를 8, 32, 64 등으로 변화시킨 후
-검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">binary_crossentropy</span></code> 대신 <code class="docutils literal notranslate"><span class="pre">mse</span></code>를 손실함수로 지정한 후
-검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수 대신 이전에 많이 사용됐었던 <code class="docutils literal notranslate"><span class="pre">tanh()</span></code> 함수를 손실함수로 지정한 후
-검증셋과 테스트셋에 대한 평가지표의 변화를 확인하라.</p></li>
-</ol>
-</li>
-<li><p>뉴스 기사: 다중 클래스 분류</p>
-<ol>
-<li><p>아래 모델을 사용하염 정보 병목현상이 발생함을 성능 테스트를 통해 보여라.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
-<span class="p">])</span>
-</pre></div>
-</div>
-</li>
-<li><p>은닉층의 유닛의 수를 32, 128 등 여러 값으로 실험해 보아라.</p></li>
-<li><p>은닉층의 수를 1개 또는 3개로 바꿔 보아라.</p></li>
-</ol>
-</li>
-<li><p>주택가격 예측: 회귀</p>
-<ol class="simple">
-<li><p>5-겹, 7-겹, 9-겹 교차검증을 진행하라.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">build_model()</span></code> 함수에 의해 지정되는 모델의 구조를 변경한 후에 최적의 조합을 찾아라.</p></li>
-<li><p>그리드 탐색, 랜덤 탐색 기능을 이용하여 최선의 모델을 찾아라.</p></li>
-</ol>
-</li>
+<li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-getting_started_with_neural_networks.ipynb">(실습) 신경망 활용 처음부터 끝까지: 분류와 회귀</a></p></li>
 </ol>
 </div>
 </div>
