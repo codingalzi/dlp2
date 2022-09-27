@@ -607,6 +607,16 @@
 # 보다 많은 정보를 각 층에서 다룰 수 있어야 하기 때문이다.
 # 층에 사용되는 유닛이 많을 수록 보다 많은 정보를 계산한다.
 # 
+# 다중 클래스 분류 모델의 최상위 층은 클래스 수 만큼의 값으로 구성된 벡터를 출력하도록 
+# 여러 개의 유닛을 사용하는 `Dense` 밀집층을 사용한다. 
+# 또한 활성화 함수로 모든 유닛에 대한 확률값의 합이 1이 되도록 하는 `softmax()`를 활성화 함수로 사용한다.
+# 
+# ```python
+# def softmax(vector):
+# 	e = np.exp(vector)
+# 	return e / e.sum()
+# ```
+
 # ```python
 # model = keras.Sequential([
 #     layers.Dense(64, activation="relu"),
@@ -614,6 +624,9 @@
 #     layers.Dense(46, activation="softmax")
 # ])
 # ```
+
+# 위 모델은 [사이킷런의 로지스틱 회귀<font size='2'>logistic regression</font> 모델](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)에서
+# `multi_class='multinomial'` 옵션이 사용되는 경우처럼 작동한다.
 
 # :::{admonition} 정보 병목현상
 # :class: tip
@@ -625,16 +638,6 @@
 # 이를 정보 병목현상이라 부르며 이런 일이 발생하지 않도록
 # 층을 구성해야 한다.
 # 앞으로 다양한 모델을 통해 다양한 방식의 구조의 층을 살펴볼 것이다.
-# :::
-
-# :::{admonition} 사이킷런의 소프트맥스 회귀 모델
-# :class: info
-# 
-# 다중 클래스 분류 모델의 최상위 층은 클래스 수 만큼의 값으로 구성된 벡터를 출력하도록 
-# 여러 개의 유닛을 사용하는 `Dense` 밀집층을 사용한다. 
-# 또한 활성화 함수로 모든 유닛에 대한 확률값의 합이 1이 되도록 하는 `softmax()`를 활성화 함수로 사용한다.
-# 그러면 [사이킷런의 로지스틱 회귀<font size='2'>logistic regression</font> 모델](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html)에서
-# `multi_class='multinomial'` 옵션이 사용되는 경우처럼 작동한다.
 # :::
 
 # **모델 컴파일**
