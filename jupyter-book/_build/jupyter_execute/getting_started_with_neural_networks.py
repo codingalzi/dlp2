@@ -613,10 +613,10 @@
 # 
 # ```python
 # def softmax(vector):
-# 	e = np.exp(vector)
-# 	return e / e.sum()
+#     e = np.exp(vector)
+#     return e / e.sum()
 # ```
-
+# 
 # ```python
 # model = keras.Sequential([
 #     layers.Dense(64, activation="relu"),
