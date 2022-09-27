@@ -38,9 +38,12 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -837,6 +840,14 @@ const thebe_selector_output = ".output, .cell_output"
 이유는 이진 분류보다 훨씬 많은 46개의 클래스로 분류하려면
 보다 많은 정보를 각 층에서 다룰 수 있어야 하기 때문이다.
 층에 사용되는 유닛이 많을 수록 보다 많은 정보를 계산한다.</p>
+<p>다중 클래스 분류 모델의 최상위 층은 클래스 수 만큼의 값으로 구성된 벡터를 출력하도록
+여러 개의 유닛을 사용하는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 밀집층을 사용한다.
+또한 활성화 함수로 모든 유닛에 대한 확률값의 합이 1이 되도록 하는 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code>를 활성화 함수로 사용한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">softmax</span><span class="p">(</span><span class="n">vector</span><span class="p">):</span>
+	<span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">e</span> <span class="o">/</span> <span class="n">e</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
@@ -844,6 +855,8 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="p">])</span>
 </pre></div>
 </div>
+<p>위 모델은 <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">사이킷런의 로지스틱 회귀<font size='2'>logistic regression</font> 모델</a>에서
+<code class="docutils literal notranslate"><span class="pre">multi_class='multinomial'</span></code> 옵션이 사용되는 경우처럼 작동한다.</p>
 <div class="tip admonition">
 <p class="admonition-title">정보 병목현상</p>
 <p>층에 사용되는 유닛의 수를 지정할 때 병목현상이 발생하지 않도록 조심해야 한다.
@@ -853,14 +866,6 @@ const thebe_selector_output = ".output, .cell_output"
 이를 정보 병목현상이라 부르며 이런 일이 발생하지 않도록
 층을 구성해야 한다.
 앞으로 다양한 모델을 통해 다양한 방식의 구조의 층을 살펴볼 것이다.</p>
-</div>
-<div class="info admonition">
-<p class="admonition-title">사이킷런의 소프트맥스 회귀 모델</p>
-<p>다중 클래스 분류 모델의 최상위 층은 클래스 수 만큼의 값으로 구성된 벡터를 출력하도록
-여러 개의 유닛을 사용하는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 밀집층을 사용한다.
-또한 활성화 함수로 모든 유닛에 대한 확률값의 합이 1이 되도록 하는 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code>를 활성화 함수로 사용한다.
-그러면 <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">사이킷런의 로지스틱 회귀<font size='2'>logistic regression</font> 모델</a>에서
-<code class="docutils literal notranslate"><span class="pre">multi_class='multinomial'</span></code> 옵션이 사용되는 경우처럼 작동한다.</p>
 </div>
 <p><strong>모델 컴파일</strong></p>
 <p>다중 클래스 분류 모델의 손실함수는 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>을 사용한다.
