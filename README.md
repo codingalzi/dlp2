@@ -20,7 +20,7 @@
 4. [environment-gpu-tf210.yml](https://github.com/codingalzi/dlp2/blob/master/environment-gpu-tf210.yml) 파일 다운로드.
 5. Anaconda Powershell Prompt를 이용하여 아래 명령문 실행.
     1. `conda update -y -n base conda`
-    2. `conda env create -f environment-gpu.yml`
+    2. `conda env create -f environment-gpu-tf210.yml`
     3. `conda activate dlp2`
     4. `python -m ipykernel install --user --name=python3`
     5. `jupyter notebook`
