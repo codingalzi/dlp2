@@ -900,19 +900,6 @@
 #     return model
 # ```
 
-# In[1]:
-
-
-def build_model():
-    model = keras.Sequential([
-        layers.Dense(64, activation="relu"),
-        layers.Dense(64, activation="relu"),
-        layers.Dense(1)
-    ])
-    model.compile(optimizer="rmsprop", loss="mse", metrics=["mae"])
-    return model
-
-
 # **모델 훈련**
 
 # 데이터셋이 작기에 훈련 중에 사용할 검증 세트를 따로 분리하는 것은 훈련의 효율성을 떨어뜨린다.

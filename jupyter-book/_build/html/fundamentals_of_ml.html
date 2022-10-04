@@ -490,7 +490,7 @@ IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋
 과일 이름이 들어간 영화 후기가 단 하나만 있으면서 마침 부정적이었다면,
 분류 모델은 Cherimoya 단어가 들어간 영화 후기를 기본적으로 부정적으로 판단할 가능이 높아진다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/cherimoya.jpg" style="width:300px;"></div>
-<p><div style="text-align: center">체리모야 열매</div></p><p>이렇듯 매우 드문 특성은 과대적합을 유발한다.
+<p><div style="text-align: center">체리모야 열매</div></p><p>이렇듯 매우 매우 드물게 사용되는 특성은 과대적합을 유발한다.
 앞서 사용 빈도에서 10,000등 안에 드는 단어만으로 작성된 영화 후기만을 대상으로 훈련시킨 이유가
 이런 가능성을 제한하기 위해서였다.</p>
 <ul class="simple">
@@ -579,9 +579,9 @@ IMDB 데이터셋에서 매우 낮은 빈도로 사용되는 단어를 훈련셋
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>충분치 않은 훈련셋과 정규화</strong></p>
 <p>일반적으로 양질의 많은 데이터를 이용한 모델의 일반화 성능이 좋다.
 하지만 <a class="reference external" href="https://codingalzi.github.io/handson-ml3/dimensionality_reduction.html"><strong>차원의 저주</strong></a>로 인해 충분한 크기의 훈련셋을 구하기가 일반적으로 불가능하거나 매우 어렵다.</p>
-<p>충분히 큰 훈련셋을 준비하지 못하는 경우 <strong>정규화</strong><font size='2'>regularization</font>를
-이용해서 모델이 과대적합되는 것을 규제할 수 있다.
-정규화에 대해서 잠시 뒤에 자세히 다룬다.</p>
+<p>충분히 큰 훈련셋을 준비하지 못하는 경우 <strong>규제</strong><font size='2'>regularization</font>를
+이용해서 모델이 과대적합되는 것을 예방할 수 있다.
+규제에 대해서 잠시 뒤에 자세히 다룬다.</p>
 </div>
 </div>
 <div class="section" id="id4">
@@ -657,7 +657,7 @@ K-겹 교차 검증을 P번 반복하면 총 <code class="docutils literal notra
 <ul class="simple">
 <li><p><strong>대표성</strong>: 일반적으로 데이터셋을 무작위로 섞어 레이블이 적절한 비율로 섞인
 훈련셋, 검증셋, 테스트셋을 구성해야 한다.</p></li>
-<li><p><strong>시간의 흐름</strong>: 미래를 예측하는 모델을 훈련시킬 때, 테스트셋의 데이터는 훈련셋의 데이터보다
+<li><p><strong>순서 준수</strong>: 미래를 예측하는 모델을 훈련시킬 때, 테스트셋의 데이터는 훈련셋의 데이터보다
 시간상 뒤쪽에 위치하도록 해야 한다. 그렇지 않으면 미래 정보가 모델에 유출된다.
 즉, 데이터를 무작위로 섞어 훈련셋과 테스트셋으로 구분하는 일은 하지 않아야 한다.</p></li>
 <li><p><strong>중복 데이터 제거</strong>: 훈련셋과 테스트셋에 동일한 데이터가 들어가지 않도록 중복 데이터를 제거해야 한다.
@@ -722,7 +722,7 @@ K-겹 교차 검증을 P번 반복하면 총 <code class="docutils literal notra
 <p>모델의 훈련셋/검증셋의 평가지표가 계속 향상되지만 과대적합이 발생하지 않는 경우
 기본적으로 모델의 정보 저장 능력을 키워야 한다.
 즉, 신경망 모델의 은닉층 또는 층에 사용되는 유닛의 수를 증가시켜서
-모델이 보다 많은 정보를 처리할 수 있도록 해야 한다.</p>
+모델이 보다 많은 정보를 처리하며 보다 적절한 데이터 표현의 변환이 가능하도록 해야 한다.</p>
 </div>
 <div class="section" id="id9">
 <h2><span class="section-number">5.4. </span>일반화 향상법<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
