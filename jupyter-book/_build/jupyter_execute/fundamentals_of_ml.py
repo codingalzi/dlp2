@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # (ch:fundamentals_of_ml)=
-# # 머신러닝 모델 훈련법 기초
+# # 머신러닝 모델 훈련 기법
 
 # **감사의 글**
 # 
