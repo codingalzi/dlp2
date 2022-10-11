@@ -620,7 +620,4 @@
 
 # ## 연습문제
 
-# 1. 백색 잡음으로 생성된 데이터셋과 무작위로 지정된 타깃 데이터셋을 이용하여 딥러닝 모델을 학습시킨다. 
-#     이를 통해 훈련셋에 대한 성능은 매우 좋아지지만 검증셋에 대한 성능은 낮은 상태로 전혀 변하지 않음을 확인한다.
-# 1. {numref}`%s장 <ch:getting_started_with_neural_networks>`에서 다룬 로이터 뉴스 기사에 대한
-#     다중 클래스 모델에 대해 다양한 규제를 적용한 후에 각각의 결과를 비교하라.
+# 1. [(실습) 신경망 활용 처음부터 끝까지: 분류와 회귀](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-getting_started_with_neural_networks.ipynb)
