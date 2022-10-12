@@ -2,7 +2,7 @@
 # coding: utf-8
 
 # (ch:working_with_keras)=
-# # 케라스 모델 활용법
+# # 케라스 모델 고급 활용법
 
 # **감사의 글**
 # 
@@ -23,31 +23,29 @@
 # - 모델 훈련 모니터링
 # - 사용자 정의 모델 훈련 및 평가
 
-# ## 케라스 활용성
+# ## 케라스의 다양한 활용법
 
-# 케라스를 이용하여 매우 단순한 모델부터 매우 복잡한 모델까지 구성 및 훈련이 가능하다. 
-# 케라스의 모델과 층은 모두 각각 `Model` 클래스와 `Layer` 클래스를 상속하기에 
+# 케라스를 이용하여 매우 간단한 방식부터 매우 복잡한 방식까지 다양한 방식으로 
+# 필요한 수준의 모델을 구성할 수 있다.
+# 또한 케라스의 모델과 층은 모두 각각 `Model` 클래스와 `Layer` 클래스를 상속하기에 
 # 다른 모델에서 사용된 요소들을 재활용하기에도 용이하다.
 # 
 # 여기서는 주어진 문제에 따른 케라스 모델 구성법과 훈련법의 다양한 방식을 살펴본다. 
 
-# ## 7.2 케라스 모델 구성법
+# ## 케라스 모델 구성법
 
-# 케라스를 이용하여 모델을 세 가지 방식으로 구성할 수 있다.
+# 케라스를 이용하여 세 가지 방식으로 딥러닝 모델을 구성할 수 있다.
 # 
-# - `Sequential` 모델: 층으로 스택을 쌓아 만든 모델
+# - `Sequential` 모델 활용: 층으로 스택을 쌓아 만든 모델
 # - 함수형 API 활용: 가장 많이 사용됨.
 # - 모델 서브클래싱: 모든 것을 사용자가 지정.
-# 
-# 가장 간단한 모델부터 아주 복잡한 모델까지 모두 구성할 수 있으며
-# 사용자가 직접 정의한 모델과 레이어도 활용할 수 있다.
 
 # ### 모델 구성법 1: `Sequential` 모델
 
 # 층으로 스택을 쌓아 만든 모델이며 가장 단순하다.
 # 
 # - 하나의 입력값과 하나의 출력값만 사용 가능
-# - 층을 지정된 순서대로만 적용 가능
+# - 층을 지정된 순서대로 적용
 
 # **`Sequential` 클래스**
 
@@ -63,6 +61,7 @@
 
 # 층의 추가는 `add` 메서드를 이용할 수도 있다.
 # 더해진 순서대로 층이 쌓인다.
+# 예를 들어, 아래 코드는 앞서 정의한 모델과 동일한 모델을 구성한다.
 
 # ```python
 # model = keras.Sequential()
@@ -70,15 +69,24 @@
 # model.add(layers.Dense(10, activation="softmax"))
 # ```
 
-# **`build()` 메서드**
+# **모델의 가중치와 `build()` 메서드**
 
-# 모델 훈련에 사용되는 층별 가중치는 모델이 처음 활용될 때 호출되는
-# `build()` 메서드에 의해 초기화된다.
-# 이유는 입력값이 들어와야 가중치 텐서의 모양(shape)을 정할 수 있기 때문이다. 
-# 아래 코드 샘플은 [3장](https://codingalzi.github.io/dlp/notebooks/dlp03_introduction_to_keras_and_tf.html)에서 
-# `SimpleDense`를 선언할 때 사용된 `build()` 메서드를 보여주며,
-# 훈련이 시작되면서 첫 배치 데이터셋이 입력될 때 특성 수를 확인하여
-# 가중치와 편향 텐서를 생성과 동시에 초기화한다.
+# 지금 당장 모델의 가중치를 확인하려 하면 오류가 발생한다.
+
+# ```python
+# >>> model.weights
+# ...
+# ValueError: Weights for model sequential_1 have not yet been created. 
+# Weights are created when the Model is first called on inputs or 
+# `build()` is called with an `input_shape`.
+# ```
+
+# 이유는 입력값이 들어와야 입력 텐서의 모양<font size='2'>shape</font>을 보고 
+# 가중치와 편향 텐서의 모양을 정할 수 있기 때문이다.
+# 이 과정은 모델 훈련이 시작될 때 제일 먼저 호출되는 
+# `build()` 메서드가 담당한다. 
+# 아래 코드 샘플은 {numref}`%s장 <ch:keras-tf>`에서
+# `SimpleDense`를 선언할 때 사용된 `build()` 메서드를 보여준다.
 
 # ```python
 # def build(self, input_shape):
@@ -89,52 +97,28 @@
 #                              initializer="zeros")
 # ```
 
-# 따라서 지금 당장 가중치를 확인하려 하면 오류가 발생한다.
+# **`build()` 메서드 호출**
 
-# ```python
-# >>> model.weights
-# ...
-# ValueError: Weights for model sequential_1 have not yet been created. 
-# Weights are created when the Model is first called on inputs or 
-# `build()` is called with an `input_shape`.
-# ```
-
-# 반면에 입력값 대신 `build()` 메서드를 특성 수 정보를 이용하여 직접 호출하면
+# `build()` 메서드에 입력 샘플의 차원, 즉 특성의 개수에 대한 정보를 제공하여 호출하면
 # 가중치 텐서가 무작위로 초기화된 형식으로 생성된다.
 # 즉, **모델 빌드**가 완성된다.
 # 
 # - `input_shape` 키워드 인자: `(None, 특성수)`
-# - `None`은 임의의 크기의 배치도 다룰 수 있다는 것을 의미함.
+# - `None`은 배치의 크기는 상관하지 않는다는 것을 의미한다.
+#     실제로 가중치와 편향 텐서의 모양은 입력 샘플의 차원과 각 층에서 사용되는 유닛(뉴런)의 개수에만 의존한다.
 
 # ```python
-# model.build(input_shape=(None, 3))
+# >>> model.build(input_shape=(None, 3))
 # ````
+
+# **층별 가중치 텐서**
 
 # 모델 빌드가 완성되면 `weights` 속성에 생성된 모델 훈련에 필요한 모든 가중치와 편향이 저장된다.
 # 위 모델에 대해서 층별로 가중치와 편향 텐서 하나씩 총 4 개의 텐서가 생성된다.
 
 # ```python
-# len(model.weights)
-# ```
-
-# - 1층의 가중치와 편향 텐서
-
-# ```python
-# model.weights[0].shape
-# ```
-
-# ```python
-# model.weights[1].shape
-# ```
-
-# - 2층의 가중치와 편향 텐서
-
-# ```python
-# model.weights[2].shape
-# ```
-
-# ```python
-# model.weights[3].shape
+# >>> len(model.weights)
+# 4
 # ```
 
 # **`summary()` 메서드**
@@ -146,7 +130,19 @@
 # - 파라미터 수
 
 # ```python
-# model.summary()
+# >>> model.summary()
+# Model: "sequential_1"
+# _________________________________________________________________
+# Layer (type)                 Output Shape              Param #   
+# =================================================================
+# dense_2 (Dense)              (None, 64)                256       
+# _________________________________________________________________
+# dense_3 (Dense)              (None, 10)                650       
+# =================================================================
+# Total params: 906
+# Trainable params: 906
+# Non-trainable params: 0
+# _________________________________________________________________
 # ```
 
 # **`name` 인자**
@@ -157,9 +153,6 @@
 # model = keras.Sequential(name="my_example_model")
 # model.add(layers.Dense(64, activation="relu", name="my_first_layer"))
 # model.add(layers.Dense(10, activation="softmax", name="my_last_layer"))
-# 
-# model.build((None, 3))
-# model.summary()
 # ```
 
 # **`Input()` 함수, `KerasTensor`, 모델 디버깅**

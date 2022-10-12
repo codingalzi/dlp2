@@ -14,7 +14,7 @@
 # **소스코드**
 # 
 # 여기서 언급되는 코드를
-# [(구글 코랩) 머신러닝 모델 훈련법 기초](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-fundamentals_of_ml.ipynb)에서 
+# [(구글 코랩) 머신러닝 모델 훈련 기법](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-fundamentals_of_ml.ipynb)에서 
 # 직접 실행할 수 있다.
 
 # **주요 내용**
