@@ -155,17 +155,31 @@
 # model.add(layers.Dense(10, activation="softmax", name="my_last_layer"))
 # ```
 
-# **`Input()` 함수, `KerasTensor`, 모델 디버깅**
+# `summary()` 결과에 모델과 층의 이름이 추가된다.
+
+# ```python
+# >>> model.build((None, 3))
+# >>> model.summary()
+# Model: "my_example_model"
+# _________________________________________________________________
+# Layer (type)                 Output Shape              Param #   
+# =================================================================
+# my_first_layer (Dense)       (None, 64)                256       
+# _________________________________________________________________
+# my_last_layer (Dense)        (None, 10)                650       
+# =================================================================
+# Total params: 906
+# Trainable params: 906
+# Non-trainable params: 0
+# ```
 # 
-# 모델 구성 중간에 구성 과정을 확인하려면 `Input()`함수를 이용하여
-# **케라스텐서**(`KerasTensor`) 객체를
-# 가장 먼저 모델에 추가한다.
-# 그러면 층을 추가할 때마다 `summary()`를 실행할 수 있다.
-# `Input()` 함수는 모델 훈련에 사용되는 데이터 샘플의 모양(shape) 정보를 제공하는 
-#     가상의 텐서인 `KerasTensor` 객체를 생성한다.
-#     
-# **주의사항**: `shape` 키워드 인자에 사용되는 값은 각 샘플의 특성 수이며,
-# 앞서 `build()` 메서드의 인자와 다른 형식으로 사용된다.
+
+# **`Input()` 함수**
+
+# 모델 구성하는 중간에 그때까지의 모델 구성을 확인하기 위해
+# `Input()`함수를 이용할 수 있다.
+# `Input()` 함수는 모델 훈련에 사용되는 훈련 샘플의 모양 정보를 제공하는
+# 가상의 텐서인 `KerasTensor` 객체를 생성한다.
 
 # ```python
 # model = keras.Sequential()
@@ -173,20 +187,49 @@
 # model.add(layers.Dense(64, activation="relu"))
 # ```
 
+# `Input()` 함수의 `shape` 키워드 인자에 사용되는 값은 각 샘플의 특성 수이며,
+# 앞서 `build()` 메서드의 인자와 다른 형식으로 사용됨에 주의해야 한다.
+
+# 이제 층을 추가할 때마다 `build()` 메서드를 실행할 필요 없이 바로 `summary()`를 실행할 수 있다.
+
 # ```python
-# model.summary()
+# >>> model.summary()
+# Model: "sequential_2"
+# _________________________________________________________________
+# Layer (type)                 Output Shape              Param #   
+# =================================================================
+# dense_4 (Dense)              (None, 64)                256       
+# =================================================================
+# Total params: 256
+# Trainable params: 256
+# Non-trainable params: 0
+# _________________________________________________________________
 # ```
 
 # ```python
-# model.add(layers.Dense(10, activation="softmax"))
-# model.summary()
+# >>> model.add(layers.Dense(10, activation="softmax"))
+# >>> model.summary()
+# Model: "sequential_2"
+# _________________________________________________________________
+# Layer (type)                 Output Shape              Param #   
+# =================================================================
+# dense_4 (Dense)              (None, 64)                256       
+# _________________________________________________________________
+# dense_5 (Dense)              (None, 10)                650       
+# =================================================================
+# Total params: 906
+# Trainable params: 906
+# Non-trainable params: 0
+# _________________________________________________________________
 # ```
 
 # ### 모델 구성법 2: 함수형 API
 
-# 다중 입력과 다중 출력을 지원하려면 함수형 API를 활용하여 모델을 구성해야 하며,
-# 가장 많이 사용되는 모델 구성법이다. 
+# `Sequential` 클래스를 사용하면 하나의 입력과 하나의 출력만을 지원한다.
+# 반면에 함수형 API를 이용하면 다중 입력과 다중 출력을 지원하는 모델을 구성할 수 있다.
+# 가장 많이 사용되는 모델 구성법이며, 사용법이 매우 간단하다.
 # 사용법은 간단하다.
+
 # 
 # ```python
 # Model(inputs, outputs)
@@ -196,7 +239,7 @@
 # - `inputs` 인자: 한 개 이상의 케라스텐서(`KerasTensor`) 객체 이루어진 리스트
 # - `outputs` 인자: 한 개 이사의 출력층으로 이루어진 리스트
 
-# #### 기본 활용법
+# **기본 활용법**
 
 # 앞서 살펴 본 `Sequential` 모델을 함수형 API를 이용하여 구성하면 다음과 같다.
 
@@ -204,56 +247,94 @@
 # inputs = keras.Input(shape=(3,), name="my_input")          # 입력층
 # features = layers.Dense(64, activation="relu")(inputs)     # 은닉층
 # outputs = layers.Dense(10, activation="softmax")(features) # 출력층
-# 
-# model = keras.Model(inputs=inputs, outputs=outputs)
+# model = keras.Model(inputs=inputs, outputs=outputs)        # 모델 지정
 # ```
 
 # 사용된 단계들을 하나씩 살펴보자.
 
-# - 입력층: `inputs = keras.Input(shape=(3,), name="my_input")`
+# 입력층
+
+# ```python
+# >>> inputs = keras.Input(shape=(3,), name="my_input")
+# ```
 
 # 생성된 값은 `KerasTensor`이다.
 
 # ```python
-# type(inputs)
+# >>> type(inputs)
+# keras.engine.keras_tensor.KerasTensor
 # ```
 
 # 케라스텐서(`KerasTensor`)의 모양에서 `None`은 배치 사이즈, 즉 
 # 하나의 훈련 스텝에 사용되는 샘플의 수를 대상으로 하며, 
 # 임의의 크기의 배치를 처리할 수 있다는 의미로 사용된다.
 
+# 텐서 항목의 자료형은 `float32`가 기본값으로 사용된다.
+
 # ```python
-# inputs.shape
+# >>> inputs.dtype
+# float32
 # ```
 
+# 은닉층
+
 # ```python
-# inputs.dtype
+# >>> features = layers.Dense(64, activation="relu")(inputs)
 # ```
 
-# - 은닉층: `features = layers.Dense(64, activation="relu")(inputs)`
+# 은닉층의 결과는 항상 `KerasTensor`이다.
 
 # ```python
-# type(features)
+# >>> type(features)
+# keras.engine.keras_tensor.KerasTensor
 # ```
 
+# 출력값의 모양은 유닛의 개수에 의존한다.
+
 # ```python
-# features.shape
+# >>> features.shape
+# TensorShape([None, 64])
 # ```
 
-# - 출력층: `outputs = layers.Dense(10, activation="softmax")(features)`
+# 출력층
 
 # ```python
-# type(outputs)
+# >>> outputs = layers.Dense(10, activation="softmax")(features)
 # ```
 
-# - 모델 빌드
-# 
-#     ```python
-#     model = keras.Model(inputs=inputs, outputs=outputs)
-#     ```
+# 출력층의 결과도 `KerasTensor`이다.
 
 # ```python
-# model.summary()
+# >>> type(outputs)
+# keras.engine.keras_tensor.KerasTensor
+# ```
+
+# 모델 빌드
+
+# 입력층과 출력층을 이용하여 모델을 지정한다.
+
+# ```python
+# >>> model = keras.Model(inputs=inputs, outputs=outputs)
+# ```
+
+# `summary()` 의 실행결과는 이전과 동일하다.
+
+# ```python
+# >>> model.summary()
+# Model: "functional_1" 
+# _________________________________________________________________
+# Layer (type)                 Output Shape              Param # 
+# =================================================================
+# my_input (InputLayer)        [(None, 3)]               0 
+# _________________________________________________________________
+# dense_6 (Dense)              (None, 64)                256 
+# _________________________________________________________________
+# dense_7 (Dense)              (None, 10)                650 
+# =================================================================
+# Total params: 906 
+# Trainable params: 906 
+# Non-trainable params: 0 
+# _________________________________________________________________
 # ```
 
 # `KerasTensor`의 역할
@@ -263,25 +344,32 @@
 # 빌드되는 모델은 입력 케라스텐서부터 출력 케라스텐서까지 각 층에 저장된 
 # 텐서의 모양 정보를 이용하여 가중치 텐서와 편향 텐서를 생성하고 초기화한다.
 
-# #### 다중 입력, 다중 출력 모델 구성법
+# **다중 입력, 다중 출력 모델 구성법**
 
-# 고객의 요구사항이 적힌 티켓을 처리할 때 필요한 우선순위와 담당부서를 지정하는 시스템을 구현하려 한다.
-# 시스템에 사용될 모델은 세 개의 입력과 두 개의 출력을 사용한다. 
+# 다중 입력과 다중 출력을 지원하는 모델을 구성하는 방법을 예제를 이용하여 설명한다.
+
+# 예제: 고객 요구사항 접수 모델
+
+# 고객의 요구사항의 처리할 때 필요한 우선순위와 담당부서를 지정하는 시스템을 구현하려 한다.
+# 시스템에 사용될 딥러닝 
+# 모델은 세 개의 입력과 두 개의 출력을 사용한다. 
 # 
-# - 입력
-#     - `title`: 요구사항 타이틀. 문자열 인코딩. `vocabulary_size` 활용(11장에서 다룸).
-#     - `text_body`: 요구사항 내용. 문자열 인코딩. `vocabulary_size` 활용(11장에서 다룸).
-#     - `tags`: 사용자에 의한 추가 선택 사항. 멀티-핫-인코딩 사용.
-# - 출력
-#     - `priority`: 요구사항 처리 우선순위. 0에서 1사이의 값. 시그모이드(sigmoid) 활용.
-#     - `department`: 요구사항 처리 담당 부서. 소프트맥스 활용.
+# - 입력 사항 세 종류
+#     - `title`: 요구사항 문자열을 0과 1로 구성된 텐서로 변환한 텐서 입력값. 최대 10,000 종류의 단어 사용.
+#     - `text_body`: 요구사항 문자열을 0과 1로 구성된 텐서로 변환한 텐서 입력값. 최대 10,000 종류의 단어 사용.
+#     - `tags`: 사용자에 의한 추가 선택 사항 100개 중 여러 개 선택. 멀티-핫 인코딩된 텐서 입력값.
+# - 출력 사항 두 종류
+#     - `priority`: 요구사항 처리 우선순위. 0에서 1사이의 값. `sigmoid` 활성화 함수 활용.
+#     - `department`: 네 개의 요구사항 처리 담당 부서 중 하나 선택. `softmax` 활성화 함수 활용.
+
+# 함수형 API를 이용하여 모델을 구현하면 다음과 같다.
 
 # ```python
 # vocabulary_size = 10000    # 요구사항에 사용되는 단어 총 수
 # num_tags = 100             # 태그 수
 # num_departments = 4        # 부서 수
 # 
-# # 입력층: 세 개
+# # 입력층: 세 종류
 # title = keras.Input(shape=(vocabulary_size,), name="title")
 # text_body = keras.Input(shape=(vocabulary_size,), name="text_body")
 # tags = keras.Input(shape=(num_tags,), name="tags")
@@ -290,40 +378,21 @@
 # features = layers.Concatenate()([title, text_body, tags]) # shape=(None, 10000+10000+100)
 # features = layers.Dense(64, activation="relu")(features)
 # 
-# # 출력층: 두 개
+# # 출력층: 두 종류
 # priority = layers.Dense(1, activation="sigmoid", name="priority")(features)
 # department = layers.Dense(
 #     num_departments, activation="softmax", name="department")(features)
 # 
-# # 모델 빌드
+# # 모델 빌드: 입력값과 출력값 모두 리스트 사용
 # model = keras.Model(inputs=[title, text_body, tags], outputs=[priority, department])
 # ```
 
-# 모델 훈련을 위해 적절한 개수의 입력 텐서와 타깃 텐서를 지정해야 한다.
-# 여기서는 훈련 과정을 설명하기 위해 
-# 적절한 모양의 입력 텐서 3개와 타깃 텐서 2개를 무작위로 생성해서 사용한다.
-
-# ```python
-# import numpy as np
-# 
-# # 샘플 수
-# num_samples = 1280
-# 
-# # 입력 텐서 3 개 무작위 생성
-# title_data = np.random.randint(0, 2, size=(num_samples, vocabulary_size))
-# text_body_data = np.random.randint(0, 2, size=(num_samples, vocabulary_size))
-# tags_data = np.random.randint(0, 2, size=(num_samples, num_tags))    # 멀티-핫-인코딩
-# 
-# # 타깃 텐서 2 개 무작위 생성
-# priority_data = np.random.random(size=(num_samples, 1))
-# department_data = np.random.randint(0, 2, size=(num_samples, num_departments))  # 멀티-핫-인코딩
-# ```
-
-# 모델 컴파일 과정에서 지정된 타깃 수만큼 손실함수와 측정 기준을 지정해야 한다.
+# 모델 컴파일 과정에서 지정된 타깃 개수만큼의 손실함수와 측정 기준을 지정해야 한다.
 # 
 # - 손실함수(loss)
 #     - `priority` 대상: `mean_squared_error`
 #     - `department` 대상: `categorical_crossentropy`
+# 
 # - 평가지표(metrics): 평가지표는 여러 개를 사용할 수 있기에 대상 별로 리스트로 지정함.
 #     - `priority` 대상: `["mean_absolute_error"]`
 #     - `department` 대상: `["accuracy"]`
@@ -336,37 +405,25 @@
 
 # 모델 훈련은 `fit()` 함수에 세 개의 훈련 텐서로 이루어진 리스트와 
 # 두 개의 타깃 텐서로 이루어진 리스트를 지정한 후에 실행한다. 
-# 여기서는 시험삼아 한 번의 에포크만 사용한다.
-# 
-# - `epochs=1`
-# - `batch_size=None`: 배치 크기를 지정하지 않으면 32개로 자동 지정됨.
-#     그래서 스텝수가 40(= 1280/30)이 된다.
 
 # ```python
 # model.fit([title_data, text_body_data, tags_data],
 #           [priority_data, department_data],
-#           epochs=1)
+#           ...
+#           )
 # ```
 
-# 평가도 훈련과 동일한 방식의 인자가 사용된다.
+# 모델 평가도 훈련과 동일한 방식의 인자가 사용된다.
 
 # ```python
 # model.evaluate([title_data, text_body_data, tags_data],
 #                [priority_data, department_data])
 # ```
 
-# 예측은 입력값만 리스트로 지정하고 실행하면 두 개의 어레이 출력값으로 구성된 리스트가 반환된다.
+# 예측값은 두 개의 어레이로 구성된 리스트이다.
 
 # ```python
 # priority_preds, department_preds = model.predict([title_data, text_body_data, tags_data])
-# ```
-
-# ```python
-# priority_preds
-# ```
-
-# ```python
-# department_preds
 # ```
 
 # **사전 객체 활용**
@@ -389,16 +446,16 @@
 #     {"title": title_data, "text_body": text_body_data, "tags": tags_data})
 # ```
 
-# #### 층 연결 구조 확인
+# **층 연결 구조**
 
 # `plot_model()`을 이용하여 층 연결 구조를 그래프로 나타낼 수 있다.
 # 
 # ```python
 # >>> keras.utils.plot_model(model, "ticket_classifier.png")
 # ```
-# 
+
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ticket_classifier.png" style="width:400px;"></div>
-# 
+
 # **주의사항**: `pydot` 파이썬 모듈과 graphviz 라는 프로그램이 컴퓨터에 설치되어 있어야 한다.
 # 
 # - `pydot` 모듈 설치: `pip install pydot`
@@ -410,7 +467,7 @@
 # ```python
 # >>> keras.utils.plot_model(model, "ticket_classifier_with_shape_info.png", show_shapes=True)
 # ```
-# 
+
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ticket_classifier_with_shapes.png" style="width:900px;"></div>
 
 # #### 모델 재활용
@@ -420,17 +477,34 @@
 # `layers` 속성은 사용된 층들의 객체로 이루어진 리스트를 가리킨다.
 
 # ```python
-# model.layers
+# >>> model.layers
+# [<tensorflow.python.keras.engine.input_layer.InputLayer at 0x7fa963f9d358>,
+#  <tensorflow.python.keras.engine.input_layer.InputLayer at 0x7fa963f9d2e8>,
+#  <tensorflow.python.keras.engine.input_layer.InputLayer at 0x7fa963f9d470>,
+#  <tensorflow.python.keras.layers.merge.Concatenate at 0x7fa963f9d860>,
+#  <tensorflow.python.keras.layers.core.Dense at 0x7fa964074390>,
+#  <tensorflow.python.keras.layers.core.Dense at 0x7fa963f9d898>,
+#  <tensorflow.python.keras.layers.core.Dense at 0x7fa963f95470>]
+# >>> model.layers[3].input
+# [<tf.Tensor "title:0" shape=(None, 10000) dtype=float32>,
+#  <tf.Tensor "text_body:0" shape=(None, 10000) dtype=float32>,
+#  <tf.Tensor "tags:0" shape=(None, 100) dtype=float32>]
+# >>> model.layers[3].output
+# <tf.Tensor "concatenate/concat:0" shape=(None, 20100) dtype=float32>
 # ```
 
 # 예를 들어, 3번 인덱스에 해당하는 층의 입력값과 출력값에 대한 정보는 아래처럼 확인할 수 있다.
 
 # ```python
-# model.layers[3].input
+# >>> model.layers[3].input
+# [<tf.Tensor "title:0" shape=(None, 10000) dtype=float32>,
+#  <tf.Tensor "text_body:0" shape=(None, 10000) dtype=float32>,
+#  <tf.Tensor "tags:0" shape=(None, 100) dtype=float32>]
 # ```
 
 # ```python
-# model.layers[3].output
+# >>> model.layers[3].output
+# <tf.Tensor "concatenate/concat:0" shape=(None, 20100) dtype=float32>
 # ```
 
 # 출력층을 제외한 나머지 층을 재활용해보자.
@@ -438,7 +512,7 @@
 # 가리키는 (은닉)층의 출력 정보를 따로 떼어낸다.
 
 # ```python
-# features = model.layers[4].output
+# >>> features = model.layers[4].output
 # ```
 
 # 이제 출력층에 문제해결의 어려움 정도를 "quick", "medium", "difficult"로
@@ -446,7 +520,7 @@
 # 먼저, `difficulty` 층을 준비한다.
 
 # ```python
-# difficulty = layers.Dense(3, activation="softmax", name="difficulty")(features)
+# >>> difficulty = layers.Dense(3, activation="softmax", name="difficulty")(features)
 # ```
 
 # 준비된 `'difficulty'` 층을 출력층으로 추가하여 
@@ -472,19 +546,47 @@
 # 요약 결과는 다음과 같다.
 
 # ```python
-# new_model.summary()
+# >>> new_model.summary()
+# Model: "model_2"
+# __________________________________________________________________________________________________
+# Layer (type)                    Output Shape         Param #     Connected to                     
+# ==================================================================================================
+# title (InputLayer)              [(None, 10000)]      0                                            
+# __________________________________________________________________________________________________
+# text_body (InputLayer)          [(None, 10000)]      0                                            
+# __________________________________________________________________________________________________
+# tags (InputLayer)               [(None, 100)]        0                                            
+# __________________________________________________________________________________________________
+# concatenate (Concatenate)       (None, 20100)        0           title[0][0]                      
+#                                                                  text_body[0][0]                  
+#                                                                  tags[0][0]                       
+# __________________________________________________________________________________________________
+# dense_8 (Dense)                 (None, 64)           1286464     concatenate[0][0]                
+# __________________________________________________________________________________________________
+# priority (Dense)                (None, 1)            65          dense_8[0][0]                    
+# __________________________________________________________________________________________________
+# department (Dense)              (None, 4)            260         dense_8[0][0]                    
+# __________________________________________________________________________________________________
+# difficulty (Dense)              (None, 3)            195         dense_8[0][0]                    
+# ==================================================================================================
+# Total params: 1,286,984
+# Trainable params: 1,286,984
+# Non-trainable params: 0
+# __________________________________________________________________________________________________
 # ```
 
 # ### 모델 구성법 3: 서브클래싱
 
 # 케라스 모델과 호환되는 모델 클래스를 직접 선언하여 활용하려면 `keras.Model` 클래스를 상속해야 한다.
-# 이런 방식을 **서브클래싱**(subclassing)이라 부르며
-# `keras.Model` 클래스를 상속하면서 기본적으로 아래 두 메서드를 목적에 맞추어 재정의(overriding)하면 된다.
+# 이런 방식을 **서브클래싱**<font size='2'>subclassing</font>이라 부른다.
 # 
-# - `__init__()` 메서드(생성자): 은닉층과 출력층의 구성요소 지정
-# - `call()` 메서드: 모델 구성 후 출력값 반환
+# 서브클래싱은 `keras.Model` 클래스를 상속하면서 기본적으로 아래 두 메서드를 목적에 맞추어 
+# 재정의<font size='2'>overriding</font>하는 방식으로 진행된다.
 # 
-# 앞서 함수형 API로 구성한 티켓 모델을 서브클래싱을 기법을 이용하여 구현하면 다음과 같다.
+# - `__init__()` 메서드(생성자): 은닉층과 출력층의 구성요소 지정.
+# - `call()` 메서드: 입력으로부터 출력을 만들어내는 순전파 과정 묘사.
+# 
+# 앞서 함수형 API로 구성한 고객 요구사항 접수 모델을 서브클래싱을 기법을 이용하여 구현하면 다음과 같다.
 # 
 # **참고**: `keras.layers.Layer`를 상속하여 사용자 정의 층을 선언하는 방식과 거의 유사하다([3장 6절](https://codingalzi.github.io/dlp/notebooks/dlp03_introduction_to_keras_and_tf.html) 참조).
 
@@ -515,31 +617,16 @@
 # 다만 `Layer`의 경우처럼 가중치는 실제 데이터와 함께 호출되지 전까지 생성되지 않는다.
 
 # ```python
-# model = CustomerTicketModel(num_departments=4)
-# 
-# model.weights
+# >>> model = CustomerTicketModel(num_departments=4)
 # ```
 
 # 컴파일, 훈련, 평가, 예측은 이전과 완전히 동일한 방식으로 실행된다.
-
-# ```python
-# model.compile(optimizer="adam",
-#               loss=["mean_squared_error", "categorical_crossentropy"],
-#               metrics=[["mean_absolute_error"], ["accuracy"]])
-# model.fit({"title": title_data, "text_body": text_body_data, "tags": tags_data},
-#           [priority_data, department_data],
-#           epochs=1)
-# model.evaluate({"title": title_data, "text_body": text_body_data, "tags": tags_data},
-#                [priority_data, department_data])
-# priority_preds, department_preds = model.predict(
-#     {"title": title_data, "text_body": text_body_data, "tags": tags_data})
-# ```
 
 # **서브클래싱 기법의 장단점**
 
 # - 장점
 #     - `call()` 함수를 이용하여 층을 임의로 구성할 수 있다.
-#     - 파이썬 프로그래밍 관련 모든 기법을 적용할 수 있다.
+#     - `for` 반복문 등 파이썬 프로그래밍 모든 기법을 적용할 수 있다.
 # - 단점
 #     - 모델 구성을 전적으로 책임져야 한다.
 #     - 모델 구성 정보가 `call()` 함수 외부로 노출되지 않아서
@@ -594,7 +681,7 @@
 # model = MyModel()
 # ```
 
-# ## 7.3 훈련 모니터링
+# ## 훈련 모니터링
 
 # 케라스 모델의 구성, 훈련, 평가, 예측은 정해진 방식으로 차례대로 이루어진다.
 # 아래 코드는 MNIST 데이터셋을 이용한 모델 훈련 전반 과정을 보여준다.
