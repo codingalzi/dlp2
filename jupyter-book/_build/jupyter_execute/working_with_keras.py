@@ -23,7 +23,7 @@
 # - 모델 훈련 모니터링
 # - 사용자 정의 모델 훈련 및 평가
 
-# ## 케라스의 다양한 활용법
+# ## 케라스 활용
 
 # 케라스를 이용하여 매우 간단한 방식부터 매우 복잡한 방식까지 다양한 방식으로 
 # 필요한 수준의 모델을 구성할 수 있다.
@@ -96,8 +96,6 @@
 #     self.b = self.add_weight(shape=(self.units,),
 #                              initializer="zeros")
 # ```
-
-# **`build()` 메서드 호출**
 
 # `build()` 메서드에 입력 샘플의 차원, 즉 특성의 개수에 대한 정보를 제공하여 호출하면
 # 가중치 텐서가 무작위로 초기화된 형식으로 생성된다.
@@ -344,7 +342,7 @@
 # 빌드되는 모델은 입력 케라스텐서부터 출력 케라스텐서까지 각 층에 저장된 
 # 텐서의 모양 정보를 이용하여 가중치 텐서와 편향 텐서를 생성하고 초기화한다.
 
-# **다중 입력, 다중 출력 모델 구성법**
+# **다중 입력, 다중 출력 모델**
 
 # 다중 입력과 다중 출력을 지원하는 모델을 구성하는 방법을 예제를 이용하여 설명한다.
 
@@ -470,7 +468,7 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ticket_classifier_with_shapes.png" style="width:900px;"></div>
 
-# #### 모델 재활용
+# **모델 재활용**
 
 # 훈련된 모델의 특성을 이용하여 새로운 모델을 빌드할 수 있다.
 # 먼저 모델의 `layers` 속성을 이용하여 사용된 층에 대한 정보를 확인한다. 
@@ -489,20 +487,6 @@
 # [<tf.Tensor "title:0" shape=(None, 10000) dtype=float32>,
 #  <tf.Tensor "text_body:0" shape=(None, 10000) dtype=float32>,
 #  <tf.Tensor "tags:0" shape=(None, 100) dtype=float32>]
-# >>> model.layers[3].output
-# <tf.Tensor "concatenate/concat:0" shape=(None, 20100) dtype=float32>
-# ```
-
-# 예를 들어, 3번 인덱스에 해당하는 층의 입력값과 출력값에 대한 정보는 아래처럼 확인할 수 있다.
-
-# ```python
-# >>> model.layers[3].input
-# [<tf.Tensor "title:0" shape=(None, 10000) dtype=float32>,
-#  <tf.Tensor "text_body:0" shape=(None, 10000) dtype=float32>,
-#  <tf.Tensor "tags:0" shape=(None, 100) dtype=float32>]
-# ```
-
-# ```python
 # >>> model.layers[3].output
 # <tf.Tensor "concatenate/concat:0" shape=(None, 20100) dtype=float32>
 # ```
@@ -632,7 +616,7 @@
 #     - 모델 구성 정보가 `call()` 함수 외부로 노출되지 않아서
 #         앞서 보았던 그래프 표현을 사용할 수 없다. 
 
-# ### 모델 구성법 혼합
+# ### 혼합 모델 구성법
 
 # 소개된 세 가지 방식을 임의로 혼합하여 활용할 수 있다. 
 
