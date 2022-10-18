@@ -346,8 +346,9 @@
 
 # 다중 입력과 다중 출력을 지원하는 모델을 구성하는 방법을 예제를 이용하여 설명한다.
 
-# 예제: 고객 요구사항 접수 모델
-
+# :::{prf:example} 고객 요구사항 접수 모델
+# :label: exp-customer
+# 
 # 고객의 요구사항의 처리할 때 필요한 우선순위와 담당부서를 지정하는 시스템을 구현하려 한다.
 # 시스템에 사용될 딥러닝 
 # 모델은 세 개의 입력과 두 개의 출력을 사용한다. 
@@ -359,8 +360,10 @@
 # - 출력 사항 두 종류
 #     - `priority`: 요구사항 처리 우선순위. 0에서 1사이의 값. `sigmoid` 활성화 함수 활용.
 #     - `department`: 네 개의 요구사항 처리 담당 부서 중 하나 선택. `softmax` 활성화 함수 활용.
+# :::
 
-# 함수형 API를 이용하여 모델을 구현하면 다음과 같다.
+# 고객 요구사항 접수 모델을 함수형 API를 이용하여 다음과 같이 
+# 구현할 수 있다.
 
 # ```python
 # vocabulary_size = 10000    # 요구사항에 사용되는 단어 총 수
@@ -385,7 +388,8 @@
 # model = keras.Model(inputs=[title, text_body, tags], outputs=[priority, department])
 # ```
 
-# 모델 컴파일 과정에서 지정된 타깃 개수만큼의 손실함수와 측정 기준을 지정해야 한다.
+# 모델 컴파일을 위해
+# 손실함수와 측정 기준은 지정된 타깃 개수만큼 지정한다.
 # 
 # - 손실함수(loss)
 #     - `priority` 대상: `mean_squared_error`
@@ -407,7 +411,6 @@
 # ```python
 # model.fit([title_data, text_body_data, tags_data],
 #           [priority_data, department_data],
-#           ...
 #           )
 # ```
 
@@ -454,11 +457,16 @@
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ticket_classifier.png" style="width:400px;"></div>
 
-# **주의사항**: `pydot` 파이썬 모듈과 graphviz 라는 프로그램이 컴퓨터에 설치되어 있어야 한다.
+# :::{admonition} 층 연결 그래프 그리기
+# :class: info
+# 
+# `keras.utils.plot_model()` 함수가 제대로 작동하려면 
+# `pydot` 파이썬 모듈과 graphviz 라는 프로그램이 컴퓨터에 설치되어 있어야 한다.
 # 
 # - `pydot` 모듈 설치: `pip install pydot`
 # - graphviz 프로그램 설치: [https://graphviz.gitlab.io/download/](https://graphviz.gitlab.io/download/)
-# - 구글 코랩에서 기본으로 지원됨.
+# - 구글 코랩에서는 기본으로 지원됨.
+# :::
 
 # 입력 텐서와 출력 텐서의 모양을 함께 표기할 수도 있다.
 # 
@@ -571,8 +579,15 @@
 # - `call()` 메서드: 입력으로부터 출력을 만들어내는 순전파 과정 묘사.
 # 
 # 앞서 함수형 API로 구성한 고객 요구사항 접수 모델을 서브클래싱을 기법을 이용하여 구현하면 다음과 같다.
+
+# :::{admonition} 모델과 층
 # 
-# **참고**: `keras.layers.Layer`를 상속하여 사용자 정의 층을 선언하는 방식과 거의 유사하다([3장 6절](https://codingalzi.github.io/dlp/notebooks/dlp03_introduction_to_keras_and_tf.html) 참조).
+# 모델 서브클래싱은 `keras.layers.Layer`를 상속하여 사용자 정의 층을 선언하는 층 서브클래싱 방식과 거의 동일하다([3장 6절](https://codingalzi.github.io/dlp/notebooks/dlp03_introduction_to_keras_and_tf.html) 참조).
+# 
+# 층과 달리 모델은 `fit()`, `evaluate()`, `predict()` 메서드를 포함하고 있어서
+# 모델의 훈련, 평가, 예측을 총괄할 수 있다는 것 뿐이다. 
+# 물론 모든 과정에서 층을 이용한다.
+# :::
 
 # ```python
 # class CustomerTicketModel(keras.Model):
@@ -913,7 +928,7 @@
 # tensorboard --logdir ./full_path_to_your_log_dir
 # ```
 
-# ## 7.4 사용자 정의 훈련 알고리즘: `fit()` 메서드 대체
+# ## 사용자 정의 훈련 알고리즘: `fit()` 메서드 대체
 
 # ### Training versus inference
 

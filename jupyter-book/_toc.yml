@@ -14,4 +14,8 @@ chapters:
 - file: fundamentals_of_ml
 - file: unversal_workflow_of_ml
 - file: working_with_keras
-- file: nlp
+- file: computer_vision_intro
+- file: computer_vision_advanced
+- file: dl_for_timeseries
+- file: dl_for_text
+- file: generative_dl
