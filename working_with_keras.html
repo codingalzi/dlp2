@@ -38,12 +38,9 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -292,27 +289,21 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
-   7.3. 훈련 모니터링
+   7.3. 모델 훈련/평가 방식 조정
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#metrics">
-     7.3.1. 사용자 정의 평가지표(
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       metrics
-      </span>
-     </code>
-     ) 활용
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#callback">
-     7.3.2. 콜백(callback) 활용
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
+     7.3.1. 사용자 정의 평가지표 활용
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     7.3.2. 콜백 활용
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
      7.3.3. 사용자 정의 콜백 활용
     </a>
    </li>
@@ -324,53 +315,9 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fit">
-   7.4. 사용자 정의 훈련 알고리즘:
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     fit()
-    </span>
-   </code>
-   메서드 대체
+  <a class="reference internal nav-link" href="#id10">
+   7.4. 사용자 정의 훈련과 평가 알고리즘
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#training-versus-inference">
-     7.4.1. Training versus inference
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#low-level-usage-of-metrics">
-     7.4.2. Low-level usage of metrics
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-complete-training-and-evaluation-loop">
-     7.4.3. A complete training and evaluation loop
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#make-it-fast-with-tf-function">
-     7.4.4. Make it fast with
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       tf.function
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#leveraging-fit-with-a-custom-training-loop">
-     7.4.5. Leveraging
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       fit()
-      </span>
-     </code>
-     with a custom training loop
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -432,27 +379,21 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
-   7.3. 훈련 모니터링
+   7.3. 모델 훈련/평가 방식 조정
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#metrics">
-     7.3.1. 사용자 정의 평가지표(
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       metrics
-      </span>
-     </code>
-     ) 활용
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#callback">
-     7.3.2. 콜백(callback) 활용
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id7">
+     7.3.1. 사용자 정의 평가지표 활용
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id8">
+     7.3.2. 콜백 활용
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
      7.3.3. 사용자 정의 콜백 활용
     </a>
    </li>
@@ -464,53 +405,9 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fit">
-   7.4. 사용자 정의 훈련 알고리즘:
-   <code class="docutils literal notranslate">
-    <span class="pre">
-     fit()
-    </span>
-   </code>
-   메서드 대체
+  <a class="reference internal nav-link" href="#id10">
+   7.4. 사용자 정의 훈련과 평가 알고리즘
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#training-versus-inference">
-     7.4.1. Training versus inference
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#low-level-usage-of-metrics">
-     7.4.2. Low-level usage of metrics
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-complete-training-and-evaluation-loop">
-     7.4.3. A complete training and evaluation loop
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#make-it-fast-with-tf-function">
-     7.4.4. Make it fast with
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       tf.function
-      </span>
-     </code>
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#leveraging-fit-with-a-custom-training-loop">
-     7.4.5. Leveraging
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       fit()
-      </span>
-     </code>
-     with a custom training loop
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -1107,108 +1004,69 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="section" id="id6">
-<h2><span class="section-number">7.3. </span>훈련 모니터링<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<p>케라스 모델의 구성, 훈련, 평가, 예측은 정해진 방식으로 차례대로 이루어진다.
-아래 코드는 MNIST 데이터셋을 이용한 모델 훈련 전반 과정을 보여준다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
-
-<span class="k">def</span> <span class="nf">get_mnist_model</span><span class="p">():</span>
-    <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">,))</span>
-    <span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-    <span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
-    <span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">model</span>
-
-<span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-<span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
-<span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
-<span class="n">train_images</span><span class="p">,</span> <span class="n">val_images</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="mi">10000</span><span class="p">:],</span> <span class="n">images</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]</span>
-<span class="n">train_labels</span><span class="p">,</span> <span class="n">val_labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="mi">10000</span><span class="p">:],</span> <span class="n">labels</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
-<span class="n">test_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_images</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="section" id="metrics">
-<h3><span class="section-number">7.3.1. </span>사용자 정의 평가지표(<code class="docutils literal notranslate"><span class="pre">metrics</span></code>) 활용<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h3>
-<p><strong><code class="docutils literal notranslate"><span class="pre">Metric</span></code> 클래스 상속</strong></p>
-<p>아래 세 개의 메서드를 재정의(overriding)해야 한다.</p>
+<h2><span class="section-number">7.3. </span>모델 훈련/평가 방식 조정<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>케라스 모델의 가장 기본적인 활용법은 아래 과정을 차례대로 이행하는 것이다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">update_state()</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">result()</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">reset_state()</span></code></p></li>
+<li><p>컴파일(<code class="docutils literal notranslate"><span class="pre">compile()</span></code>)</p></li>
+<li><p>훈련(<code class="docutils literal notranslate"><span class="pre">fit()</span></code>)</p></li>
+<li><p>평가(<code class="docutils literal notranslate"><span class="pre">evaluate()</span></code>)</p></li>
+<li><p>예측(<code class="docutils literal notranslate"><span class="pre">predict()</span></code>)</p></li>
 </ul>
-<p>아래 코드는 평균제곱근오차(RMSE)를 평가지표로 사용하는 클래스를
-이용하는 모델 훈련을 소개한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-
-<span class="k">class</span> <span class="nc">RootMeanSquaredError</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">Metric</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rmse&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mse_sum&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;total_samples&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">update_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">y_true</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">mse</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
-        <span class="n">num_samples</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">/</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">reset_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">RootMeanSquaredError</span><span class="p">()])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
-<span class="n">test_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="callback">
-<h3><span class="section-number">7.3.2. </span>콜백(callback) 활용<a class="headerlink" href="#callback" title="Permalink to this headline">¶</a></h3>
-<p><strong>콜백</strong>(callback)은 모델 훈련 도중에 부가적으로 호출되는 객체이며
-학습 과정을 모니터링 하면서 일부 제어기능을 수행하는 다양한 메서드를 제공한다.
-콜백이 활용되는 주요 기능은 다음과 같다.</p>
+<p>하지만 훈련중의 모델 평가 방식과 훈련 과정을 조정할 수 있는 다양한 기법이 지원된다.</p>
 <ul class="simple">
-<li><p>모델 체크포인팅: 훈련 중 모델 상태 수시로 저장</p></li>
-<li><p>훈련 조기 중단: 검증셋 손실이 더 이상 개선되지 않는 경우 훈련 중단</p></li>
-<li><p>하이퍼 파라미터 조정: 학습률의 동적 변경</p></li>
-<li><p>훈련 기록 작성: 훈련셋 및 검증셋의 손실값, 평가지표 등 기록 및 시각화</p></li>
+<li><p>평가지표<font size='2'>metric</font>를 사용자가 직접 정의할 수 있다.</p></li>
+<li><p>다양한 종류의 콜백<font size='2'>callback</font>을 이용하여
+<code class="docutils literal notranslate"><span class="pre">fit()</span></code> 함수의 훈련 과정을 모니터링 하거나 어느 정도 조정할 수 있다.</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span>
-<span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span>
-<span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">LearningRateScheduler</span>
-<span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ReduceLROnPlateau</span>
-<span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">CSVLogger</span>
-</pre></div>
-</div>
-<p>여기서는 <code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code>과 <code class="docutils literal notranslate"><span class="pre">ModelCheckpoint</span></code> 두 콜백의 기능을 살펴본다.</p>
-<p><strong><code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드에서 <code class="docutils literal notranslate"><span class="pre">callbacks</span></code> 인자 사용하기</strong></p>
-<p>아래 코드에 사용된 옵션은 다음과 같다.</p>
+<div class="section" id="id7">
+<h3><span class="section-number">7.3.1. </span>사용자 정의 평가지표 활용<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>훈련중인 모델의 성능을 평가하는 평가지표<font size='2'>metric</font>는 문제에 따라 일반적으로 사용되는 것들이 있다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code>: 검증셋에 대한 정확도가 2 에포크(epoch) 연속 개선되지 않을 때 훈련 종료</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ModelCheckpoint</span></code>: 매 에포크마다 훈련된 모델 저장.
-<code class="docutils literal notranslate"><span class="pre">save_best_only=True</span></code>가 설정된 경우 검증셋에 대한 손실값이 가장 낮은 모델만 저장.</p></li>
+<li><p>회귀 모델: 평균제곱근오차(RMSE), 평균절대오차(MAE) 등</p></li>
+<li><p>분류 모델: 정확도, 정밀도 등</p></li>
+</ul>
+<p>하지만 필요에 따라 사용자가 직접 모델 평가지표를 정의해서 활용할 수 있다.
+케라스와 호환되는 평가지표를 정의하기 위해서는 <code class="docutils literal notranslate"><span class="pre">keras.metrics.Metric</span></code> 클래스를 상속하면 된다.</p>
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">7.3.2. </span>콜백 활용<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p><strong>콜백</strong><font size='2'>callback</font>은 모델 훈련 과정중에
+저장되는 모든 기록을 모니터링하면서 필요에 따라 특정 기능을 수행한다.
+가장 많이 활용되는 콜백의 기능과 담당 콜백 클래스는 다음과 같다.</p>
+<ul class="simple">
+<li><p>훈련중인 모델의 상태 저장: 예를 들어, 훈련 중 가장 좋은 성능의 모델(의 상태) 저장한다.
+모델의 <strong>상태</strong><font size='2'>state</font>는 훈련 중인 모델에 저장된 가중치와 편향 등의 파라미터를 가리킨다.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">keras.callbacks.ModelCheckpoint</span></code></p></li>
+</ul>
+</li>
+<li><p>훈련 조기 중단: 검증셋에 대한 손실이 더 이상 개선되지 않는 경우 훈련 중단시킨다.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">keras.callbacks.EarlyStopping</span></code></p></li>
+</ul>
+</li>
+<li><p>하이퍼 파라미터 조정: 예를 들어 학습률을 훈련 과정중에 동적으로 변경한다.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">keras.callbacks.LearningRateScheduler</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keras.callbacks.ReduceLROnPlateau</span></code></p></li>
+</ul>
+</li>
+<li><p>훈련 기록 작성: 훈련셋, 검증셋에 대한 손실값, 평가지표 등을 기록하고 시각화한다.
+예를 들어, <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 함수가 호출되어 훈련이 진행중일 때 에포크마다 보여지는 손실값, 평가지표 등을 관리한다.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">keras.callbacks.CSVLogger</span></code></p></li>
+</ul>
+</li>
+</ul>
+<div class="proof example admonition" id="exp-callbacks">
+<p class="admonition-title"><span class="caption-number">Example 7.2 </span> (<code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code>과 <code class="docutils literal notranslate"><span class="pre">ModelCheckpoint</span></code> 활용)</p>
+<div class="example-content section" id="proof-content">
+<p>아래 코드는 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 함수 호출에 다음 두 종류의 콜백을 사용하는 방식을 보여준다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code>: 검증셋에 대한 정확도가 2 에포크 연속 개선되지 않을 때 훈련을 종료시킨다.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ModelCheckpoint</span></code>: 매 에포크마다 훈련된 모델을 저장한다.
+<code class="docutils literal notranslate"><span class="pre">save_best_only=True</span></code>가 설정된 경우 검증셋에 대한 손실값이 가장 낮은 모델,
+즉 그때까지 훈련 모델 중에서 가장 성능이 좋은 모델만 저장한다.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">callbacks_list</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">(</span>
@@ -1221,9 +1079,8 @@ const thebe_selector_output = ".output, .cell_output"
         <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
 <span class="p">]</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
@@ -1233,283 +1090,29 @@ const thebe_selector_output = ".output, .cell_output"
           <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>조기종료 후 훈련과정에서 저장된 최고 성능의 모델을 불러오면 다음과 같다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;checkpoint_path.keras&quot;</span><span class="p">)</span>
-</pre></div>
 </div>
-</div>
-<div class="section" id="id7">
-<h3><span class="section-number">7.3.3. </span>사용자 정의 콜백 활용<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<p><strong><code class="docutils literal notranslate"><span class="pre">Callback</span></code> 클래스 상속</strong></p>
-<p>매 에포크와 매 배치 훈련 단계의 시작과 종료 지점에서
-수행해야 할 기능을 정의해야 하며 아래 메서드를 재정의하는 방식으로 이루어진다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">on_epoch_begin</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
-<span class="n">on_epoch_end</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
-<span class="n">on_batch_begin</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
-<span class="n">on_batch_end</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
-<span class="n">on_train_begin</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
-<span class="n">on_train_end</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>각 메서드에 사용되는 인자는 훈련 과정 중에 자동으로 생성된 객체로부터 값을 받아온다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">logs</span></code> 인자: 이전 배치와 에포크의 훈련셋과 검증셋에 대한 손실값, 평가지표 등을 포함한 사전 객체.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">batch</span></code>, <code class="docutils literal notranslate"><span class="pre">epoch</span></code>: 배치와 에포크 정보</p></li>
-</ul>
-<p>다음 <code class="docutils literal notranslate"><span class="pre">LossHistory</span></code> 콜백 클래스는 배치 훈련이 끝날 때마다 손실값을 저장하고
-에포크가 끝날 때마다 배치별 손실값을 그래프로 저장하여 훈련이 종료된 후 시각화하여 보여주도록 한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="k">class</span> <span class="nc">LossHistory</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">on_train_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">def</span> <span class="nf">on_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;loss&quot;</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span><span class="p">,</span>
-                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training loss for each batch&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch (epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;plot_at_epoch_</span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span> <span class="o">=</span> <span class="p">[]</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-          <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">LossHistory</span><span class="p">()],</span>
-          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
-</pre></div>
-</div>
+</div></div>
+<div class="section" id="id9">
+<h3><span class="section-number">7.3.3. </span>사용자 정의 콜백 활용<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>케라스와 호환되는 콜백 클래스를 정의하려면 <code class="docutils literal notranslate"><span class="pre">keras.callbacks.Callback</span></code> 클래스를 상속하면 된다.</p>
 </div>
 <div class="section" id="tensorboard">
 <h3><span class="section-number">7.3.4. </span>텐서보드(TensorBoard) 활용<a class="headerlink" href="#tensorboard" title="Permalink to this headline">¶</a></h3>
-<p><strong>텐서보드</strong>(TensorBoard)는 모델 훈련과정을 모니터링하는 최고의 어플이며
+<p><strong>텐서보드</strong><font size='2'>TensorBoard</font>는 모델 훈련과정을 모니터링하는 최고의 어플이며
 텐서플로우와 함께 기본적으로 설치된다.</p>
-<p><strong>주의사항</strong>: 텐서보드 데이터의 저장경로를</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">full_path_to_your_log_dir</span>
-</pre></div>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_7-7.png" style="width:600px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
 </div>
-<p>대신에</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tensorboard_log_dir</span>
-</pre></div>
-</div>
-<p>등을 사용해야 리눅스, 맥 운영체제에서 오류가 발생하지 않는다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-
-<span class="n">tensorboard</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">TensorBoard</span><span class="p">(</span>
-    <span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;./tensorboard_log_dir&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">),</span>
-          <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">tensorboard</span><span class="p">])</span>
-</pre></div>
-</div>
-<p>텐서보드를 주피터 노트북에서 아래처럼 실행할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">tensorboard</span>
-<span class="o">%</span><span class="n">tensorboard</span> <span class="o">--</span><span class="n">logdir</span> <span class="o">./</span><span class="n">tensorboard_log_dir</span>
-</pre></div>
-</div>
-<p>텐서보드를 독립적으로 실행하여 훈련과정을 실시간으로 모니터링 하려면
-아래 명령어를 터미널 창에서 실행하고 반환된 주소로 접속하면 된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tensorboard</span> <span class="o">--</span><span class="n">logdir</span> <span class="o">./</span><span class="n">full_path_to_your_log_dir</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="fit">
-<h2><span class="section-number">7.4. </span>사용자 정의 훈련 알고리즘: <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드 대체<a class="headerlink" href="#fit" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="training-versus-inference">
-<h3><span class="section-number">7.4.1. </span>Training versus inference<a class="headerlink" href="#training-versus-inference" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="low-level-usage-of-metrics">
-<h3><span class="section-number">7.4.2. </span>Low-level usage of metrics<a class="headerlink" href="#low-level-usage-of-metrics" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metric</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()</span>
-<span class="n">targets</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="n">predictions</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
-<span class="n">metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
-<span class="n">current_result</span> <span class="o">=</span> <span class="n">metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;result: </span><span class="si">{</span><span class="n">current_result</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-<span class="n">mean_tracker</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">Mean</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
-    <span class="n">mean_tracker</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean of values: </span><span class="si">{</span><span class="n">mean_tracker</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="a-complete-training-and-evaluation-loop">
-<h3><span class="section-number">7.4.3. </span>A complete training and evaluation loop<a class="headerlink" href="#a-complete-training-and-evaluation-loop" title="Permalink to this headline">¶</a></h3>
-<p><strong>Writing a step-by-step training loop: the training step function</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
-
-<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">()</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">()</span>
-<span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()]</span>
-<span class="n">loss_tracking_metric</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">Mean</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
-    <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
-        <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
-    <span class="n">gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">)</span>
-    <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">))</span>
-
-    <span class="n">logs</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
-        <span class="n">metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
-        <span class="n">logs</span><span class="p">[</span><span class="n">metric</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-
-    <span class="n">loss_tracking_metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
-    <span class="n">logs</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loss_tracking_metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">logs</span>
-</pre></div>
-</div>
-<p><strong>Writing a step-by-step training loop: resetting the metrics</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reset_metrics</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
-        <span class="n">metric</span><span class="o">.</span><span class="n">reset_state</span><span class="p">()</span>
-    <span class="n">loss_tracking_metric</span><span class="o">.</span><span class="n">reset_state</span><span class="p">()</span>
-</pre></div>
-</div>
-<p><strong>Writing a step-by-step training loop: the loop itself</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">training_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">))</span>
-<span class="n">training_dataset</span> <span class="o">=</span> <span class="n">training_dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
-    <span class="n">reset_metrics</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">inputs_batch</span><span class="p">,</span> <span class="n">targets_batch</span> <span class="ow">in</span> <span class="n">training_dataset</span><span class="p">:</span>
-        <span class="n">logs</span> <span class="o">=</span> <span class="n">train_step</span><span class="p">(</span><span class="n">inputs_batch</span><span class="p">,</span> <span class="n">targets_batch</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Results at the end of epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">logs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;...</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Writing a step-by-step evaluation loop</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
-    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
-
-    <span class="n">logs</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
-        <span class="n">metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
-        <span class="n">logs</span><span class="p">[</span><span class="s2">&quot;val_&quot;</span> <span class="o">+</span> <span class="n">metric</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-
-    <span class="n">loss_tracking_metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
-    <span class="n">logs</span><span class="p">[</span><span class="s2">&quot;val_loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loss_tracking_metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">logs</span>
-
-<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
-<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">val_dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
-<span class="n">reset_metrics</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">inputs_batch</span><span class="p">,</span> <span class="n">targets_batch</span> <span class="ow">in</span> <span class="n">val_dataset</span><span class="p">:</span>
-    <span class="n">logs</span> <span class="o">=</span> <span class="n">test_step</span><span class="p">(</span><span class="n">inputs_batch</span><span class="p">,</span> <span class="n">targets_batch</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evaluation results:&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">logs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;...</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="make-it-fast-with-tf-function">
-<h3><span class="section-number">7.4.4. </span>Make it fast with <code class="docutils literal notranslate"><span class="pre">tf.function</span></code><a class="headerlink" href="#make-it-fast-with-tf-function" title="Permalink to this headline">¶</a></h3>
-<p><strong>Adding a <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> decorator to our evaluation step function</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
-<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
-    <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
-
-    <span class="n">logs</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">:</span>
-        <span class="n">metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
-        <span class="n">logs</span><span class="p">[</span><span class="s2">&quot;val_&quot;</span> <span class="o">+</span> <span class="n">metric</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-
-    <span class="n">loss_tracking_metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
-    <span class="n">logs</span><span class="p">[</span><span class="s2">&quot;val_loss&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">loss_tracking_metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">logs</span>
-
-<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
-<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">val_dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
-<span class="n">reset_metrics</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">inputs_batch</span><span class="p">,</span> <span class="n">targets_batch</span> <span class="ow">in</span> <span class="n">val_dataset</span><span class="p">:</span>
-    <span class="n">logs</span> <span class="o">=</span> <span class="n">test_step</span><span class="p">(</span><span class="n">inputs_batch</span><span class="p">,</span> <span class="n">targets_batch</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evaluation results:&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">logs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;...</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="leveraging-fit-with-a-custom-training-loop">
-<h3><span class="section-number">7.4.5. </span>Leveraging <code class="docutils literal notranslate"><span class="pre">fit()</span></code> with a custom training loop<a class="headerlink" href="#leveraging-fit-with-a-custom-training-loop" title="Permalink to this headline">¶</a></h3>
-<p><strong>Implementing a custom training step to use with <code class="docutils literal notranslate"><span class="pre">fit()</span></code></strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">()</span>
-<span class="n">loss_tracker</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">Mean</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;loss&quot;</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">CustomModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
-            <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
-        <span class="n">gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">)</span>
-        <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">))</span>
-
-        <span class="n">loss_tracker</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;loss&quot;</span><span class="p">:</span> <span class="n">loss_tracker</span><span class="o">.</span><span class="n">result</span><span class="p">()}</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">loss_tracker</span><span class="p">]</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">,))</span>
-<span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">CustomModel</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">())</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CustomModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
-            <span class="n">predictions</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compiled_loss</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
-        <span class="n">gradients</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">)</span>
-        <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">gradients</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">compiled_metrics</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">{</span><span class="n">m</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">,))</span>
-<span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">CustomModel</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
-
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(),</span>
-              <span class="n">loss</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">(),</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()])</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="section" id="id10">
+<h2><span class="section-number">7.4. </span>사용자 정의 훈련과 평가 알고리즘<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>모델 컴파일 이후 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드를 호출하면 모델의 훈련이 진행된다.
+그런데 모델의 훈련 방식을 사용자가 직접 조정할 수 있는 방식으로 진행하고자 하면
+아래 과정을 자신만의 알고리즘으로 직접 구현하면 된다.</p>
+<ul class="simple">
+<li><p>순전파<font size='2'>forward pass</font></p></li>
+<li><p>손실함수의 그레이디언트 계산</p></li>
+<li><p>역전파<font size='2'>backward pass</font></p></li>
+</ul>
 </div>
 </div>
 
