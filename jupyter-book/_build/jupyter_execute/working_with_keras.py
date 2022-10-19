@@ -680,118 +680,62 @@
 # model = MyModel()
 # ```
 
-# ## 훈련 모니터링
+# ## 모델 훈련/평가 방식 조정
 
-# 케라스 모델의 구성, 훈련, 평가, 예측은 정해진 방식으로 차례대로 이루어진다.
-# 아래 코드는 MNIST 데이터셋을 이용한 모델 훈련 전반 과정을 보여준다.
+# 케라스 모델의 가장 기본적인 활용법은 아래 과정을 차례대로 이행하는 것이다.
+# 
+# - 컴파일(`compile()`)
+# - 훈련(`fit()`)
+# - 평가(`evaluate()`)
+# - 예측(`predict()`)
 
-# ```python
-# from tensorflow.keras.datasets import mnist
+# 하지만 훈련중의 모델 평가 방식과 훈련 과정을 조정할 수 있는 다양한 기법이 지원된다.
 # 
-# def get_mnist_model():
-#     inputs = keras.Input(shape=(28 * 28,))
-#     features = layers.Dense(512, activation="relu")(inputs)
-#     features = layers.Dropout(0.5)(features)
-#     outputs = layers.Dense(10, activation="softmax")(features)
-#     model = keras.Model(inputs, outputs)
-#     return model
-# 
-# (images, labels), (test_images, test_labels) = mnist.load_data()
-# images = images.reshape((60000, 28 * 28)).astype("float32") / 255
-# test_images = test_images.reshape((10000, 28 * 28)).astype("float32") / 255
-# train_images, val_images = images[10000:], images[:10000]
-# train_labels, val_labels = labels[10000:], labels[:10000]
-# 
-# model = get_mnist_model()
-# model.compile(optimizer="rmsprop",
-#               loss="sparse_categorical_crossentropy",
-#               metrics=["accuracy"])
-# model.fit(train_images, train_labels,
-#           epochs=3,
-#           validation_data=(val_images, val_labels))
-# test_metrics = model.evaluate(test_images, test_labels)
-# predictions = model.predict(test_images)
-# ```
+# - 평가지표<font size='2'>metric</font>를 사용자가 직접 정의할 수 있다.
+# - 다양한 종류의 콜백<font size='2'>callback</font>을 이용하여
+#     `fit()` 함수의 훈련 과정을 모니터링 하거나 어느 정도 조정할 수 있다.
 
-# ### 사용자 정의 평가지표(`metrics`) 활용
+# ### 사용자 정의 평가지표 활용
 
-# **`Metric` 클래스 상속**
+# 훈련중인 모델의 성능을 평가하는 평가지표<font size='2'>metric</font>는 문제에 따라 일반적으로 사용되는 것들이 있다.
 # 
-# 아래 세 개의 메서드를 재정의(overriding)해야 한다.
+# - 회귀 모델: 평균제곱근오차(RMSE), 평균절대오차(MAE) 등
+# - 분류 모델: 정확도, 정밀도 등
 # 
-# - `update_state()`
-# - `result()`
-# - `reset_state()`
-# 
-# 아래 코드는 평균제곱근오차(RMSE)를 평가지표로 사용하는 클래스를 
-# 이용하는 모델 훈련을 소개한다.
+# 하지만 필요에 따라 사용자가 직접 모델 평가지표를 정의해서 활용할 수 있다.
+# 케라스와 호환되는 평가지표를 정의하기 위해서는 `keras.metrics.Metric` 클래스를 상속하면 된다.
 
-# ```python
-# import tensorflow as tf
-# 
-# class RootMeanSquaredError(keras.metrics.Metric):
-# 
-#     def __init__(self, name="rmse", **kwargs):
-#         super().__init__(name=name, **kwargs)
-#         self.mse_sum = self.add_weight(name="mse_sum", initializer="zeros")
-#         self.total_samples = self.add_weight(
-#             name="total_samples", initializer="zeros", dtype="int32")
-# 
-#     def update_state(self, y_true, y_pred, sample_weight=None):
-#         y_true = tf.one_hot(y_true, depth=tf.shape(y_pred)[1])
-#         mse = tf.reduce_sum(tf.square(y_true - y_pred))
-#         self.mse_sum.assign_add(mse)
-#         num_samples = tf.shape(y_pred)[0]
-#         self.total_samples.assign_add(num_samples)
-# 
-#     def result(self):
-#         return tf.sqrt(self.mse_sum / tf.cast(self.total_samples, tf.float32))
-# 
-#     def reset_state(self):
-#         self.mse_sum.assign(0.)
-#         self.total_samples.assign(0)
-# ```
+# ### 콜백 활용
 
-# ```python
-# model = get_mnist_model()
-# model.compile(optimizer="rmsprop",
-#               loss="sparse_categorical_crossentropy",
-#               metrics=["accuracy", RootMeanSquaredError()])
-# model.fit(train_images, train_labels,
-#           epochs=3,
-#           validation_data=(val_images, val_labels))
-# test_metrics = model.evaluate(test_images, test_labels)
-# ```
+# **콜백**<font size='2'>callback</font>은 모델 훈련 과정중에
+# 저장되는 모든 기록을 모니터링하면서 필요에 따라 특정 기능을 수행한다.
+# 가장 많이 활용되는 콜백의 기능과 담당 콜백 클래스는 다음과 같다.
+# 
+# - 훈련중인 모델의 상태 저장: 예를 들어, 훈련 중 가장 좋은 성능의 모델(의 상태) 저장한다.
+#     모델의 **상태**<font size='2'>state</font>는 훈련 중인 모델에 저장된 가중치와 편향 등의 파라미터를 가리킨다.
+#     - `keras.callbacks.ModelCheckpoint`
+# 
+# - 훈련 조기 중단: 검증셋에 대한 손실이 더 이상 개선되지 않는 경우 훈련 중단시킨다.
+#     - `keras.callbacks.EarlyStopping`
+# 
+# - 하이퍼 파라미터 조정: 예를 들어 학습률을 훈련 과정중에 동적으로 변경한다.
+#     - `keras.callbacks.LearningRateScheduler`
+#     - `keras.callbacks.ReduceLROnPlateau`
+# 
+# - 훈련 기록 작성: 훈련셋, 검증셋에 대한 손실값, 평가지표 등을 기록하고 시각화한다.
+#     예를 들어, `fit()` 함수가 호출되어 훈련이 진행중일 때 에포크마다 보여지는 손실값, 평가지표 등을 관리한다.
+#     - `keras.callbacks.CSVLogger`
 
-# ### 콜백(callback) 활용
-
-# **콜백**(callback)은 모델 훈련 도중에 부가적으로 호출되는 객체이며
-# 학습 과정을 모니터링 하면서 일부 제어기능을 수행하는 다양한 메서드를 제공한다.
-# 콜백이 활용되는 주요 기능은 다음과 같다.
+# :::{prf:example} `EarlyStopping`과 `ModelCheckpoint` 활용
+# :label: exp-callbacks
 # 
-# - 모델 체크포인팅: 훈련 중 모델 상태 수시로 저장
-# - 훈련 조기 중단: 검증셋 손실이 더 이상 개선되지 않는 경우 훈련 중단
-# - 하이퍼 파라미터 조정: 학습률의 동적 변경
-# - 훈련 기록 작성: 훈련셋 및 검증셋의 손실값, 평가지표 등 기록 및 시각화
+# 아래 코드는 `fit()` 함수 호출에 다음 두 종류의 콜백을 사용하는 방식을 보여준다.
 # 
-# ```python
-# keras.callbacks.ModelCheckpoint
-# keras.callbacks.EarlyStopping
-# keras.callbacks.LearningRateScheduler
-# keras.callbacks.ReduceLROnPlateau
-# keras.callbacks.CSVLogger
-# ```
+# - `EarlyStopping`: 검증셋에 대한 정확도가 2 에포크 연속 개선되지 않을 때 훈련을 종료시킨다.
+# - `ModelCheckpoint`: 매 에포크마다 훈련된 모델을 저장한다.
+#     `save_best_only=True`가 설정된 경우 검증셋에 대한 손실값이 가장 낮은 모델, 
+#     즉 그때까지 훈련 모델 중에서 가장 성능이 좋은 모델만 저장한다.
 # 
-# 여기서는 `EarlyStopping`과 `ModelCheckpoint` 두 콜백의 기능을 살펴본다.
-
-# **`fit()` 메서드에서 `callbacks` 인자 사용하기**
-# 
-# 아래 코드에 사용된 옵션은 다음과 같다.
-# 
-# - `EarlyStopping`: 검증셋에 대한 정확도가 2 에포크(epoch) 연속 개선되지 않을 때 훈련 종료
-# - `ModelCheckpoint`: 매 에포크마다 훈련된 모델 저장. 
-#     `save_best_only=True`가 설정된 경우 검증셋에 대한 손실값이 가장 낮은 모델만 저장.
-
 # ```python
 # callbacks_list = [
 #     keras.callbacks.EarlyStopping(
@@ -804,9 +748,7 @@
 #         save_best_only=True,
 #     )
 # ]
-# ```
-
-# ```python
+# 
 # model = get_mnist_model()
 # model.compile(optimizer="rmsprop",
 #               loss="sparse_categorical_crossentropy",
@@ -816,307 +758,27 @@
 #           callbacks=callbacks_list,
 #           validation_data=(val_images, val_labels))
 # ```
-
-# 조기종료 후 훈련과정에서 저장된 최고 성능의 모델을 불러오면 다음과 같다.
-
-# ```python
-# model = keras.models.load_model("checkpoint_path.keras")
-# ```
+# :::
 
 # ### 사용자 정의 콜백 활용
 
-# **`Callback` 클래스 상속**
-# 
-# 매 에포크와 매 배치 훈련 단계의 시작과 종료 지점에서
-# 수행해야 할 기능을 정의해야 하며 아래 메서드를 재정의하는 방식으로 이루어진다.
-# 
-# ```python
-# on_epoch_begin(epoch, logs)
-# on_epoch_end(epoch, logs)
-# on_batch_begin(batch, logs)
-# on_batch_end(batch, logs)
-# on_train_begin(logs)
-# on_train_end(logs)
-# ```
-# 
-# 각 메서드에 사용되는 인자는 훈련 과정 중에 자동으로 생성된 객체로부터 값을 받아온다.
-# 
-# - `logs` 인자: 이전 배치와 에포크의 훈련셋과 검증셋에 대한 손실값, 평가지표 등을 포함한 사전 객체.
-# - `batch`, `epoch`: 배치와 에포크 정보
-# 
-# 다음 `LossHistory` 콜백 클래스는 배치 훈련이 끝날 때마다 손실값을 저장하고
-# 에포크가 끝날 때마다 배치별 손실값을 그래프로 저장하여 훈련이 종료된 후 시각화하여 보여주도록 한다.
-
-# ```python
-# from matplotlib import pyplot as plt
-# 
-# class LossHistory(keras.callbacks.Callback):
-#     def on_train_begin(self, logs):
-#         self.per_batch_losses = []
-# 
-#     def on_batch_end(self, batch, logs):
-#         self.per_batch_losses.append(logs.get("loss"))
-# 
-#     def on_epoch_end(self, epoch, logs):
-#         plt.clf()
-#         plt.plot(range(len(self.per_batch_losses)), self.per_batch_losses,
-#                  label="Training loss for each batch")
-#         plt.xlabel(f"Batch (epoch {epoch})")
-#         plt.ylabel("Loss")
-#         plt.legend()
-#         plt.savefig(f"plot_at_epoch_{epoch}")
-#         self.per_batch_losses = []
-# ```
-
-# ```python
-# model = get_mnist_model()
-# model.compile(optimizer="rmsprop",
-#               loss="sparse_categorical_crossentropy",
-#               metrics=["accuracy"])
-# model.fit(train_images, train_labels,
-#           epochs=10,
-#           callbacks=[LossHistory()],
-#           validation_data=(val_images, val_labels))
-# ```
+# 케라스와 호환되는 콜백 클래스를 정의하려면 `keras.callbacks.Callback` 클래스를 상속하면 된다.
 
 # ### 텐서보드(TensorBoard) 활용
 
-# **텐서보드**(TensorBoard)는 모델 훈련과정을 모니터링하는 최고의 어플이며
+# **텐서보드**<font size='2'>TensorBoard</font>는 모델 훈련과정을 모니터링하는 최고의 어플이며
 # 텐서플로우와 함께 기본적으로 설치된다.
+
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_7-7.png" style="width:600px;"></div>
 # 
-# **주의사항**: 텐서보드 데이터의 저장경로를 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# ## 사용자 정의 훈련과 평가 알고리즘
+
+# 모델 컴파일 이후 `fit()` 메서드를 호출하면 모델의 훈련이 진행된다.
+# 그런데 모델의 훈련 방식을 사용자가 직접 조정할 수 있는 방식으로 진행하고자 하면
+# 아래 과정을 자신만의 알고리즘으로 직접 구현하면 된다.
 # 
-# ```python
-# /full_path_to_your_log_dir
-# ```
-# 
-# 대신에 
-# 
-# ```python
-# ./tensorboard_log_dir
-# ```
-# 
-# 등을 사용해야 리눅스, 맥 운영체제에서 오류가 발생하지 않는다.
-
-# ```python
-# model = get_mnist_model()
-# model.compile(optimizer="rmsprop",
-#               loss="sparse_categorical_crossentropy",
-#               metrics=["accuracy"])
-# 
-# tensorboard = keras.callbacks.TensorBoard(
-#     log_dir="./tensorboard_log_dir",
-# )
-# 
-# model.fit(train_images, train_labels,
-#           epochs=10,
-#           validation_data=(val_images, val_labels),
-#           callbacks=[tensorboard])
-# ```
-
-# 텐서보드를 주피터 노트북에서 아래처럼 실행할 수 있다.
-
-# ```python
-# %load_ext tensorboard
-# %tensorboard --logdir ./tensorboard_log_dir
-# ```
-
-# 텐서보드를 독립적으로 실행하여 훈련과정을 실시간으로 모니터링 하려면
-# 아래 명령어를 터미널 창에서 실행하고 반환된 주소로 접속하면 된다.
-# 
-# ```python
-# tensorboard --logdir ./full_path_to_your_log_dir
-# ```
-
-# ## 사용자 정의 훈련 알고리즘: `fit()` 메서드 대체
-
-# ### Training versus inference
-
-# ### Low-level usage of metrics
-
-# ```python
-# metric = keras.metrics.SparseCategoricalAccuracy()
-# targets = [0, 1, 2]
-# predictions = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-# metric.update_state(targets, predictions)
-# current_result = metric.result()
-# print(f"result: {current_result:.2f}")
-# ```
-
-# ```python
-# values = [0, 1, 2, 3, 4]
-# mean_tracker = keras.metrics.Mean()
-# for value in values:
-#     mean_tracker.update_state(value)
-# print(f"Mean of values: {mean_tracker.result():.2f}")
-# ```
-
-# ### A complete training and evaluation loop
-
-# **Writing a step-by-step training loop: the training step function**
-
-# ```python
-# model = get_mnist_model()
-# 
-# loss_fn = keras.losses.SparseCategoricalCrossentropy()
-# optimizer = keras.optimizers.RMSprop()
-# metrics = [keras.metrics.SparseCategoricalAccuracy()]
-# loss_tracking_metric = keras.metrics.Mean()
-# 
-# def train_step(inputs, targets):
-#     with tf.GradientTape() as tape:
-#         predictions = model(inputs, training=True)
-#         loss = loss_fn(targets, predictions)
-#     gradients = tape.gradient(loss, model.trainable_weights)
-#     optimizer.apply_gradients(zip(gradients, model.trainable_weights))
-# 
-#     logs = {}
-#     for metric in metrics:
-#         metric.update_state(targets, predictions)
-#         logs[metric.name] = metric.result()
-# 
-#     loss_tracking_metric.update_state(loss)
-#     logs["loss"] = loss_tracking_metric.result()
-#     return logs
-# ```
-
-# **Writing a step-by-step training loop: resetting the metrics**
-
-# ```python
-# def reset_metrics():
-#     for metric in metrics:
-#         metric.reset_state()
-#     loss_tracking_metric.reset_state()
-# ```
-
-# **Writing a step-by-step training loop: the loop itself**
-
-# ```python
-# training_dataset = tf.data.Dataset.from_tensor_slices((train_images, train_labels))
-# training_dataset = training_dataset.batch(32)
-# epochs = 3
-# for epoch in range(epochs):
-#     reset_metrics()
-#     for inputs_batch, targets_batch in training_dataset:
-#         logs = train_step(inputs_batch, targets_batch)
-#     print(f"Results at the end of epoch {epoch}")
-#     for key, value in logs.items():
-#         print(f"...{key}: {value:.4f}")
-# ```
-
-# **Writing a step-by-step evaluation loop**
-
-# ```python
-# def test_step(inputs, targets):
-#     predictions = model(inputs, training=False)
-#     loss = loss_fn(targets, predictions)
-# 
-#     logs = {}
-#     for metric in metrics:
-#         metric.update_state(targets, predictions)
-#         logs["val_" + metric.name] = metric.result()
-# 
-#     loss_tracking_metric.update_state(loss)
-#     logs["val_loss"] = loss_tracking_metric.result()
-#     return logs
-# 
-# val_dataset = tf.data.Dataset.from_tensor_slices((val_images, val_labels))
-# val_dataset = val_dataset.batch(32)
-# reset_metrics()
-# for inputs_batch, targets_batch in val_dataset:
-#     logs = test_step(inputs_batch, targets_batch)
-# print("Evaluation results:")
-# for key, value in logs.items():
-#     print(f"...{key}: {value:.4f}")
-# ```
-
-# ### Make it fast with `tf.function`
-
-# **Adding a `tf.function` decorator to our evaluation step function**
-
-# ```python
-# @tf.function
-# def test_step(inputs, targets):
-#     predictions = model(inputs, training=False)
-#     loss = loss_fn(targets, predictions)
-# 
-#     logs = {}
-#     for metric in metrics:
-#         metric.update_state(targets, predictions)
-#         logs["val_" + metric.name] = metric.result()
-# 
-#     loss_tracking_metric.update_state(loss)
-#     logs["val_loss"] = loss_tracking_metric.result()
-#     return logs
-# 
-# val_dataset = tf.data.Dataset.from_tensor_slices((val_images, val_labels))
-# val_dataset = val_dataset.batch(32)
-# reset_metrics()
-# for inputs_batch, targets_batch in val_dataset:
-#     logs = test_step(inputs_batch, targets_batch)
-# print("Evaluation results:")
-# for key, value in logs.items():
-#     print(f"...{key}: {value:.4f}")
-# ```
-
-# ### Leveraging `fit()` with a custom training loop
-
-# **Implementing a custom training step to use with `fit()`**
-
-# ```python
-# loss_fn = keras.losses.SparseCategoricalCrossentropy()
-# loss_tracker = keras.metrics.Mean(name="loss")
-# 
-# class CustomModel(keras.Model):
-#     def train_step(self, data):
-#         inputs, targets = data
-#         with tf.GradientTape() as tape:
-#             predictions = self(inputs, training=True)
-#             loss = loss_fn(targets, predictions)
-#         gradients = tape.gradient(loss, model.trainable_weights)
-#         optimizer.apply_gradients(zip(gradients, model.trainable_weights))
-# 
-#         loss_tracker.update_state(loss)
-#         return {"loss": loss_tracker.result()}
-# 
-#     @property
-#     def metrics(self):
-#         return [loss_tracker]
-# ```
-
-# ```python
-# inputs = keras.Input(shape=(28 * 28,))
-# features = layers.Dense(512, activation="relu")(inputs)
-# features = layers.Dropout(0.5)(features)
-# outputs = layers.Dense(10, activation="softmax")(features)
-# model = CustomModel(inputs, outputs)
-# 
-# model.compile(optimizer=keras.optimizers.RMSprop())
-# model.fit(train_images, train_labels, epochs=3)
-# ```
-
-# ```python
-# class CustomModel(keras.Model):
-#     def train_step(self, data):
-#         inputs, targets = data
-#         with tf.GradientTape() as tape:
-#             predictions = self(inputs, training=True)
-#             loss = self.compiled_loss(targets, predictions)
-#         gradients = tape.gradient(loss, model.trainable_weights)
-#         optimizer.apply_gradients(zip(gradients, model.trainable_weights))
-#         self.compiled_metrics.update_state(targets, predictions)
-#         return {m.name: m.result() for m in self.metrics}
-# ```
-
-# ```python
-# inputs = keras.Input(shape=(28 * 28,))
-# features = layers.Dense(512, activation="relu")(inputs)
-# features = layers.Dropout(0.5)(features)
-# outputs = layers.Dense(10, activation="softmax")(features)
-# model = CustomModel(inputs, outputs)
-# 
-# model.compile(optimizer=keras.optimizers.RMSprop(),
-#               loss=keras.losses.SparseCategoricalCrossentropy(),
-#               metrics=[keras.metrics.SparseCategoricalAccuracy()])
-# model.fit(train_images, train_labels, epochs=3)
-# ```
+# - 순전파<font size='2'>forward pass</font>
+# - 손실함수의 그레이디언트 계산
+# - 역전파<font size='2'>backward pass</font>
