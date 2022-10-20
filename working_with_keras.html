@@ -38,9 +38,12 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -316,7 +319,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id10">
-   7.4. 사용자 정의 훈련과 평가 알고리즘
+   7.4. 훈련/평가 알고리즘 직접 구현하기
   </a>
  </li>
 </ul>
@@ -406,7 +409,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id10">
-   7.4. 사용자 정의 훈련과 평가 알고리즘
+   7.4. 훈련/평가 알고리즘 직접 구현하기
   </a>
  </li>
 </ul>
@@ -1104,7 +1107,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
 </div>
 <div class="section" id="id10">
-<h2><span class="section-number">7.4. </span>사용자 정의 훈련과 평가 알고리즘<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.4. </span>훈련/평가 알고리즘 직접 구현하기<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>모델 컴파일 이후 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드를 호출하면 모델의 훈련이 진행된다.
 그런데 모델의 훈련 방식을 사용자가 직접 조정할 수 있는 방식으로 진행하고자 하면
 아래 과정을 자신만의 알고리즘으로 직접 구현하면 된다.</p>
@@ -1113,6 +1116,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>손실함수의 그레이디언트 계산</p></li>
 <li><p>역전파<font size='2'>backward pass</font></p></li>
 </ul>
+<p>자세한 이야기는 <a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-working_with_keras.ipynb">(구글 코랩) 케라스 모델 활용법</a>을 참고한다.</p>
 </div>
 </div>
 
