@@ -749,7 +749,6 @@
 #     )
 # ]
 # 
-# model = get_mnist_model()
 # model.compile(optimizer="rmsprop",
 #               loss="sparse_categorical_crossentropy",
 #               metrics=["accuracy"])
@@ -784,3 +783,7 @@
 # - 역전파<font size='2'>backward pass</font>
 
 # 자세한 이야기는 [(구글 코랩) 케라스 모델 활용법](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-working_with_keras.ipynb)을 참고한다.
+
+# ## 연습문제
+
+# 1. [(실습) 케라스 모델 고급 활용법](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-working_with_keras.ipynb)

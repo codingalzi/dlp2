@@ -322,6 +322,11 @@ const thebe_selector_output = ".output, .cell_output"
    7.4. 훈련/평가 알고리즘 직접 구현하기
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   7.5. 연습문제
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -410,6 +415,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id10">
    7.4. 훈련/평가 알고리즘 직접 구현하기
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   7.5. 연습문제
   </a>
  </li>
 </ul>
@@ -1083,7 +1093,6 @@ const thebe_selector_output = ".output, .cell_output"
     <span class="p">)</span>
 <span class="p">]</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
@@ -1117,6 +1126,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>역전파<font size='2'>backward pass</font></p></li>
 </ul>
 <p>자세한 이야기는 <a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-working_with_keras.ipynb">(구글 코랩) 케라스 모델 활용법</a>을 참고한다.</p>
+</div>
+<div class="section" id="id11">
+<h2><span class="section-number">7.5. </span>연습문제<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-working_with_keras.ipynb">(실습) 케라스 모델 고급 활용법</a></p></li>
+</ol>
 </div>
 </div>
 
