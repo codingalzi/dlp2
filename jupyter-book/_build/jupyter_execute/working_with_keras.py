@@ -773,7 +773,7 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# ## 사용자 정의 훈련과 평가 알고리즘
+# ## 훈련/평가 알고리즘 직접 구현하기
 
 # 모델 컴파일 이후 `fit()` 메서드를 호출하면 모델의 훈련이 진행된다.
 # 그런데 모델의 훈련 방식을 사용자가 직접 조정할 수 있는 방식으로 진행하고자 하면
@@ -782,3 +782,5 @@
 # - 순전파<font size='2'>forward pass</font>
 # - 손실함수의 그레이디언트 계산
 # - 역전파<font size='2'>backward pass</font>
+
+# 자세한 이야기는 [(구글 코랩) 케라스 모델 활용법](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-working_with_keras.ipynb)을 참고한다.

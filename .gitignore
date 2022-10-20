@@ -15,3 +15,4 @@
 **/person.desc
 **/person_pb2.py
 **/datasets
+**/tensorboard_log_dir/*
