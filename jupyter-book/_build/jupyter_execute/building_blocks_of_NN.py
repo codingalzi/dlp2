@@ -510,9 +510,7 @@
 # relu(t) = np.maximum(t, 0)
 # ```
 
-# <div align="center"><img src="https://cdn-coiao.nitrocdn.com/CYHudqJZsSxQpAPzLkHFOkuzFKDpEHGF/assets/static/optimized/rev-b3f6ac8/wp-content/uploads/2022/02/np-maximum_two-2D-arrays-example.png" style="width:500px;"></div>
-
-# <div align="center"><img src="https://cdn-coiao.nitrocdn.com/CYHudqJZsSxQpAPzLkHFOkuzFKDpEHGF/assets/static/optimized/rev-b3f6ac8/wp-content/uploads/2022/02/numpy-maximum_broadcasting-example.png" style="width:500px;"></div>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch01-universal_functions01.jpg" style="width:500px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.sharpsightlabs.com/blog/numpy-maximum/">Sharp Sight - How to Use the Numpy Maximum Function</a>&gt;</div></p>
 
