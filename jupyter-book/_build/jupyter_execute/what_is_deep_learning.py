@@ -393,15 +393,14 @@
 
 # **최근 머신러닝 분야 동향**
 # 
-# 2019년 캐글(Kaggle) 경진대회에서 5등 이내 팀이 사용한 머신러닝 도구에 대한 설문조사 결과
-# 케라스<font size='2'>Keras</font>와 텐서플로우<font size='2'>TensorFlow</font>의
-# 조합이 가장 많이 사용되었다.
-# 그 뒤를 이어 그레이디언트 부스팅 기법과 파이토치<font size='2'>PyTorch</font>의
-# 인기도가 높다.
+# 2022년 캐글(Kaggle)에서 진행한 [머신러닝 도구에 대한 설문조사](https://www.kaggle.com/competitions/kaggle-survey-2022/data) 결과
+# 사이킷런(Sckkit-learn)의 활용도가 가장 높았다.
+# 딥러닝 분야러 한정하면
+# 케라스<font size='2'>Keras</font>와 텐서플로우<font size='2'>TensorFlow</font>의 
+# 조합이 가장 많이 사용되었으며, 파이토치<font size='2'>PyTorch</font>가 뒤를 이었다.
+# 그레이디언트 부스팅 모델은 머신러닝 연구에서 여전히 인기가 많다.
 
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/kaggle_top_teams_tools.png" style="width:500px;"></div>
-# 
-# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch01-kaggle_survey2022.jpg" style="width:700px;"></div>
 
 # 지난 4년 동안의 머신러닝 도구의 인기도 변화도 비슷하다.
 
