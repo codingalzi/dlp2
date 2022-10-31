@@ -23,7 +23,7 @@
 # - 데이터 증식
 # - convnet 재활용
 #     - 특성 추출
-#     - 하이퍼파라미터 튜닝
+#     - 모델 미세 조정<font size='2'>fine-tuning</font>
 # 
 
 # ## 합성곱 신경망 소개
@@ -39,9 +39,7 @@
 # 여기서는 작은 크기의 훈련 데이터셋을 이용하여 이미지 분류 문제에
 # convnet을 적용하는 방법을 소개한다.
 
-# **예제: MNIST 데이터셋 분류**
-
-# **convnet 모델 구성**
+# **예제: MNIST 데이터셋 분류 convnet 모델**
 # 
 # - `Input()`의 `shape`: `(28, 28, 1)`
 # - `Conv2D`와 `MaxPooling2D` 층을 함수형 API 방식으로 층쌓기
@@ -302,25 +300,22 @@
 
 # ## 합성곱 신경망 실전 활용 예제
 
-# 개와 고양이 사진을 대상으로 이항분류를 구현하는 모델을 합성곱 신경으로 구현한다.
-# 실전 상황을 묘사하기 위해 5천 개의 이미지로 이루어진 작은 데이터셋을 훈련, 검증, 테스트 용도로 사용한다. 
-# 실제로 훈련셋의 크기가 수 백에서 수 천인 경우가 매우 일반적으로 발생한다.
+# ### 작은 데이터셋과 딥러닝 모델
+
+# 이미지 분류 모델을 훈련시킬 때 데이터셋의 크기가 그다지 크지 않은 경우가 일반적이다.
+# 즉, 데이터셋의 크기가 적게는 몇 백 개에서 많게는 몇 만 개 정도이다.
+# 여기서 훈련시켜야 하는 모델은 개와 고양이 사진을 대상으로 하는 이진분류 합성곱 신경망 모델이다.
+# 실전 상황에 맞추기 위해 5천 개의 이미지로 이루어진 작은 데이터셋을 사용한다.
 # 
-# 모델 훈련 과정은 다음과 같다.
-# 
-# - 직접 합성곱 신경망 모델 구현 및 훈련
-#     - 합성곱 신경망은 작은 크기의 데이터셋으로도 적절한 성능을 얻을 수 있음.
-#     - 하지만 데이터 증식을 적용하거나 기존에 잘 훈련된 모델을 재활용하여 보다 높은 성능의 모델 구현 가능.
-# - 데이터 증식 기법 추가
-#     - 작은 데이터셋의 크기를 늘리는 기법
-# - 기존에 알려진 모델 재활용
-#     - 특성 추출 기법
-#     - 파인 튜닝(fine-tunig)
+# 합성곱 신경망 모델은 작은 크기의 데이터셋으로도 어느 정도의 성능을 얻을 수 있으며,
+# 데이터 증식 기법을 적용하거나 기존에 잘 훈련된 모델을 재활용하여 보다 또는 훨씬 높은 성능의 모델을 구현할 수 있음을 보인다.
+# 데이터 증식 기법은 훈련 데이터셋을 크기를 늘리는 기법이며, 
+# 사전에 잘 훈련된 모델을 재활용하기 위해 특성 추출 기법과 모델 미세조정 기법을 적용한다.
 
 # ### 데이터 다운로드
 
-# 훈련에 필요한 데이터를 다운로드한다.
-# 하지만 이어지는 데이터 다운로드 관련 코드의 실행은 주의를 기울여야 한다.
+# 데이터 과학과 머신러닝과 관련된 다양한 데이터셋과 모델을 활용할 수 있는 캐글<font size='2'>Kaggle</font>에서
+# 훈련에 필요한 데이터셋을 다운로드하려면 다음 사항을 먼저 확인해야 한다.
 # 
 # - 캐글(kaggle) 계정을 갖고 있어야 하며, 로그인된 상태에서 아래 두 과정을 먼저 해결해야 한다.
 # - 캐글에 로그인한 후 "Account" 페이지의 계정 설정 창에 있는 "API" 항목에서
@@ -328,103 +323,8 @@
 # - [캐글: Dogs vs. Cats](https://www.kaggle.com/c/dogs-vs-cats/rules)를
 #     방문해서 "I Understand and Accept" 버튼을 클릭해야 한다.
 
-# 다음 네 개의 이어지는 코드셀은 구글 코랩에서만 실행해야 한다.
-# 현재 구글 코랩을 사용하고 있는지 여부는 아래와 같이 확인할 수 있다.
-# 
-# ```python
-# if 'google.colab' in str(get_ipython()):
-#     print('구글 코랩 사용중!')
-# else:
-#     print('구글 코랩 환경 아님!')
-# ```
-
-# 개인 PC에서 실행하고자 할 경우 다음 사항들을 고려해야 한다.
-# 
-# - `kaggle.json`: 캐글 API 키를 의미하며, 캐글 웹사이트에 로그인한 후
-#     "My Account"의 API 섹션에서 하나 생성한 후 다운로드한다.
-# 
-# - `kaggle.json` 파일을 아래 둘째 코드셀에서 
-#     지정한 경로와 동일한 곳에 저장한 후에 3 단계부터 실행하면 된다.
-#     단, `kaggle` API가 설치되어 있어야 한다. 
-#     아니면 주피터 노트북에서 아래 명령문을 실행한다.
-# 
-#     ```
-#     !pip install kaggle
-#     ```
-# 
-# - `kaggle` API를 굳이 설치하지 않으려면 
-#     [캐글: Dogs vs. Cats](https://www.kaggle.com/c/dogs-vs-cats/data)에서
-#     `train.zip` 파일을 다운로드하여 현재 주피터 노트북이 실행되는 디렉토리에 저장한 후에
-#     4 단계부터 실행하면 된다.
-
-# - 다운로드 1단계
-
-# ```python
-# if 'google.colab' in str(get_ipython()):
-#     print('구글 코랩 사용중!')
-#     from google.colab import files
-#     files.upload()
-# 
-# print('이어지는 코드는 kaggle.json 파일이 현재 디렉토리에 있다고 가정함.')
-# ```
-
-# - 다운로드 2단계: kaggle.json 파일이 현재 워킹 디렉토리에 있다고 가정한 상태에서 아래 명령문 실행.
-
-# ```python
-# import os, shutil, pathlib
-# 
-# # kaggle 인증서 현재 저장 위치
-# where_kaggle_json = pathlib.Path("kaggle.json")
-# 
-# # kaggle 인증서를 사용자 홈디렉토리의 ".kaggle/" 디렉토리로 옮기기
-# if where_kaggle_json.is_file():
-#     # 홈디렉토리 경로 지정
-#     homeDir = pathlib.Path.home()
-#     kaggleDir = homeDir / ".kaggle"
-#     kaggleJsonFile = kaggleDir / "kaggle.json"
-# 
-#     # ".kaggle" 디렉토리 존재 여부 확인. 없으면 생성.
-#     if not kaggleDir.is_dir():
-#         os.makedirs(kaggleDir)
-# 
-#     # "kaggle.json" 파일 존재 여부 확인. 없으면 복사.
-#     if not kaggleJsonFile.is_file():
-#         shutil.copyfile(src=where_kaggle_json, 
-#                         dst=kaggleJsonFile)
-#         os.chmod(kaggleJsonFile, 0o600)
-# else:
-#     print("kaggle.json 파일을 지정된 사용자 홈폴더의 '.kaggle' 폴더에 저장하세요!")
-# ```
-
-# - 다운로드 3단계: 강아지-고양이 이미지셋 다운로드
-
-# ```
-# # 강아지-고양이 이미지셋 다운로드 및 압축 해제
-# try: 
-#     !kaggle competitions download -c dogs-vs-cats
-# except: 
-#     !pip install kaggle
-#     !kaggle competitions download -c dogs-vs-cats
-# ```
-
-# - 다운로드 4단계: 압축 풀기
-
-# ```python
-# import zipfile
-# 
-# try:
-#     with zipfile.ZipFile('train.zip', 'r') as zip_ref:
-#         zip_ref.extractall('./')
-# except:
-#     with zipfile.ZipFile('dogs-vs-cats.zip', 'r') as zip_ref:
-#         zip_ref.extractall('./')
-#     with zipfile.ZipFile('train.zip', 'r') as zip_ref:
-#         zip_ref.extractall('./')
-# ```
-
-# 다운로드된 데이터셋 전체는 총 25,000장의 강아지와 고양이 사진으로 구성되었으며 570MB 정도로 꽤 크다.
-# 강아지와 고양이 각각 12,500 장씩 포함되어 있으며,
-# 사진들의 크기가 다음과 같이 일정하지 않다.
+# 다운로드된 데이터셋은 총 25,000장의 강아지와 고양이 사진으로 구성되었으며 570MB 정도로 꽤 크다.
+# 강아지 사진 고양이 사진이 각각 12,500 장씩 포함되어 있으며, 사진들의 크기가 다음과 같이 일정하지 않다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/dog_and_cat_samples.png" style="width:700px;"></div>
 # 
@@ -437,49 +337,18 @@
 # - 훈련셋: 강아지와 고양이 각각 1,000 장
 # - 검증셋: 강아지와 고양이 각각 500 장
 # - 테스트셋: 강아지와 고양이 각각 1,000 장
-# 
-# 아래 코드는 앞서 지정한 대로 총 5,000 장의 사진으로 이루어진 데이터셋을
-# 추출해서 각각의 디렉토리에 저장한다.
-# 디렉토리의 구성은 다음과 같다.
-# 
-# ```
-# cats_vs_dogs_small/
-# ...train/
-# ......cat/
-# ......dog/
-# ...validation/
-# ......cat/
-# ......dog/
-# ...test/
-# ......cat/
-# ......dog/
-# ```
-
-# ```python
-# import os, shutil, pathlib
-# 
-# original_dir = pathlib.Path("train")
-# new_base_dir = pathlib.Path("cats_vs_dogs_small")
-# 
-# def make_subset(subset_name, start_index, end_index):
-#     for category in ("cat", "dog"):
-#         dir = new_base_dir / subset_name / category
-#         os.makedirs(dir)
-#         fnames = [f"{category}.{i}.jpg" for i in range(start_index, end_index)]
-#         for fname in fnames:
-#             shutil.copyfile(src=original_dir / fname,
-#                             dst=dir / fname)
-# 
-# make_subset("train", start_index=0, end_index=1000)
-# make_subset("validation", start_index=1000, end_index=1500)
-# make_subset("test", start_index=1500, end_index=2500)
-# ```
 
 # ### 모델 구성
 
 # convnet(합성곱 신경망) 모델은 앞서 설명한대로 `Conv2D`와 `MaxPooling2D` 레이어를
 # 연속에서 쌓는 방식을 사용한다.
-# 다만, 보다 복잡한 모델 구성을 위해 보다 높은 층 스택을 쌓는다.
+# 다만, 보다 큰 이미지와 보다 복잡한 문제를 해결하기 위해 모델을 보다 크게 만들기 위해
+# `Conv2D`와 `MaxPooling2D` 층을 두 번 더 쌓는다.
+# 
+# 이렇게 하면 모델의 정보 저장 능력을 키우면서 동시에 특성맵의 크기를 더 작게 만들어
+# `Flatten` 층에 최종적으로 `7 x 7` 크기의 않은 특성맵이 전달된다.
+# 반면에 특성맵의 깊이(필터 개수)는 32에서 256으로 점차 키운다. 
+# 이렇게 층을 쌓아 합성곱 신경망을 구성하는 방식이 매우 일반적이다.
 # 
 # - 입력층: 입력 샘플의 모양을 `(180, 180, 3)`으로 지정. 픽셀 크기는 임의로 지정함.
 #     사진의 크기가 제 각각이기에 먼저 지정된 크기의 텐서로 변환을 해주는 전처리 과정이 필요함.
@@ -508,43 +377,6 @@
 # model = keras.Model(inputs=inputs, outputs=outputs)
 # ```
 
-# ```python
-# >>> model.summary()
-# Model: "model_2" 
-# _________________________________________________________________
-# Layer (type)                 Output Shape              Param # 
-# =================================================================
-# input_3 (InputLayer)         [(None, 180, 180, 3)]     0 
-# _________________________________________________________________
-# rescaling (Rescaling)        (None, 180, 180, 3)       0 
-# _________________________________________________________________
-# conv2d_6 (Conv2D)            (None, 178, 178, 32)      896 
-# _________________________________________________________________
-# max_pooling2d_2 (MaxPooling2 (None, 89, 89, 32)        0 
-# _________________________________________________________________
-# conv2d_7 (Conv2D)            (None, 87, 87, 64)        18496 
-# _________________________________________________________________
-# max_pooling2d_3 (MaxPooling2 (None, 43, 43, 64)        0 
-# _________________________________________________________________
-# conv2d_8 (Conv2D)            (None, 41, 41, 128)       73856 
-# _________________________________________________________________
-# max_pooling2d_4 (MaxPooling2 (None, 20, 20, 128)       0 
-# _________________________________________________________________
-# conv2d_9 (Conv2D)            (None, 18, 18, 256)       295168 
-# _________________________________________________________________
-# max_pooling2d_5 (MaxPooling2 (None, 9, 9, 256)         0 
-# _________________________________________________________________
-# conv2d_10 (Conv2D)           (None, 7, 7, 256)         590080 
-# _________________________________________________________________
-# flatten_2 (Flatten)          (None, 12544)             0 
-# _________________________________________________________________
-# dense_2 (Dense)              (None, 1)                 12545 
-# =================================================================
-# Total params: 991,041 
-# Trainable params: 991,041 
-# Non-trainable params: 0 
-# ```
-
 # 강아지와 고양이의 비율이 동일하기에 정확도를 평가지표로 사용한다.
 
 # ```python
@@ -553,92 +385,31 @@
 #               metrics=["accuracy"])
 # ```
 
-# ### 데이터 전처리
+# ### 데이터 전처리와 모델 훈련
+
+# **데이터 전처리**
 
 # 샘플 사진의 크기가 제 각각이기에 모델의 입력값으로 지정된 크기인 `(180, 180, 3)` 모양의 
-# 텐서로 변환을 해주어야 한다.
+# 텐서로 변환해야 한다.
 # 케라스의 `image_dataset_from_directory()` 함수를 이용하면 변환 뿐만 아니라
-# 지정된 배치 크기의 배치로 구성된 훈련셋, 검증셋, 테스트셋을 쉽게 생성할 수 있다.
-
-# ```python
-# from tensorflow.keras.utils import image_dataset_from_directory
+# 지정된 크기의 배치로 구성된 훈련셋, 검증셋, 테스트셋을 쉽게 생성할 수 있다.
 # 
+# 예를 들어, 아래 코드는 `new_base_dir/train` 라는 디렉토리에 크기가 32인 배치들로 구성된
+# 훈련셋을 저장한다.
+# 각각의 배치는 `(32, 180, 180, 3)` 모양의 텐서로 저장된다.
+
+# 
+# ```python
 # train_dataset = image_dataset_from_directory(
 #     new_base_dir / "train",
 #     image_size=(180, 180),
 #     batch_size=32)
-# validation_dataset = image_dataset_from_directory(
-#     new_base_dir / "validation",
-#     image_size=(180, 180),
-#     batch_size=32)
-# test_dataset = image_dataset_from_directory(
-#     new_base_dir / "test",
-#     image_size=(180, 180),
-#     batch_size=32)
-# ```
-
-# 생성된 `train_dataset`, `validation_dataset`, `test_dataset`은 모두
-# `BatchDataset` 클래스의 객체이다.
-
-# **생성된 데이터셋 항목 확인**
-
-# ```python
-# >>> for data_batch, labels_batch in train_dataset:
-# >>>     print("data batch shape:", data_batch.shape)
-# >>>     print("labels batch shape:", labels_batch.shape)
-# >>>     break
-# data batch shape: (32, 180, 180, 3)
-# labels batch shape: (32,)
-# ```
-
-# **참고**
-# 
-# 다음 네 개의 코드셀은 `BatchDataet`의 부모 클래스인 
-# `Dataset` 자료형의 간단한 기능과 활용법을 보여준다.
-
-# - 참고 1: 설명을 위해 넘파이 어레이를 이용하여 `Dataset` 객체 생성
-#     - `(1000, 16)` 모양의 넘파이 어레이 활용
-
-# ```python
-# import numpy as np
-# import tensorflow as tf
-# 
-# random_numbers = np.random.normal(size=(1000, 16))
-# dataset = tf.data.Dataset.from_tensor_slices(random_numbers)
-# ```
-
-# - 참고 2: 이터러블 자료형임.
-
-# ```python
-# for i, element in enumerate(dataset):
-#     print(element.shape)
-#     if i >= 2:
-#         break
-# ```
-
-# - 참고 3: `batch()` 메서드 활용
-
-# ```python
-# batched_dataset = dataset.batch(32)
-# for i, element in enumerate(batched_dataset):
-#     print(element.shape)
-#     if i >= 2:
-#         break
-# ```
-
-# - 참고 4: `map()` 메서드 활용 예제: 모양 변환
-
-# ```python
-# reshaped_dataset = dataset.map(lambda x: tf.reshape(x, (4, 4)))
-# for i, element in enumerate(reshaped_dataset):
-#     print(element.shape)
-#     if i >= 2:
-#         break
 # ```
 
 # **모델 훈련**
-# 
-# - `ModelCheckpoint`: `"val_loss"` 기준으로 최고 성능 모델 저장 
+
+# `ModelCheckpoint` 콜백을 이용하여 검증셋에 대한 손실값(`"val_loss"`)을
+# 기준으로 최고 성능의 모델을 저장한다.
 
 # ```python
 # callbacks = [
@@ -646,7 +417,8 @@
 #         filepath="convnet_from_scratch.keras",
 #         save_best_only=True,
 #         monitor="val_loss")
-# ]
+#     ]
+# 
 # history = model.fit(
 #     train_dataset,
 #     epochs=30,
@@ -654,55 +426,22 @@
 #     callbacks=callbacks)
 # ```
 
-# **훈련 과정 확인**
-# 
-# - 과대 적합이 10번 정도의 에포크 이후에 빠르게 발생
+# 과대 적합이 10번 정도의 에포크 이후에 빠르게 발생한다.
 
-# ```python
-# import matplotlib.pyplot as plt
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/08-09.png" style="width:800px;"></div>
 # 
-# accuracy = history.history["accuracy"]
-# val_accuracy = history.history["val_accuracy"]
-# loss = history.history["loss"]
-# val_loss = history.history["val_loss"]
-# 
-# epochs = range(1, len(accuracy) + 1)
-# 
-# # 정확도 그래프
-# plt.plot(epochs, accuracy, "bo", label="Training accuracy")
-# plt.plot(epochs, val_accuracy, "b", label="Validation accuracy")
-# plt.title("Training and validation accuracy")
-# plt.legend()
-# 
-# # 손실 그래프
-# plt.figure()
-# plt.plot(epochs, loss, "bo", label="Training loss")
-# plt.plot(epochs, val_loss, "b", label="Validation loss")
-# plt.title("Training and validation loss")
-# plt.legend()
-# plt.show()
-# ```
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# **모델 평가**
-# 
-# - 훈련된 최고 성능의 모델에 대한 테스트 결과는 69~70% 정도이다.
-# - 과대적합이 매우 빠르게 발생한 이유는 훈련셋의 크기가 2,000 정도로 너무 작다.
-
-# ```python
-# # 최선 모델 적재
-# test_model = keras.models.load_model("convnet_from_scratch.keras")
-# 
-# # 테스트 결과
-# test_loss, test_acc = test_model.evaluate(test_dataset)
-# print(f"Test accuracy: {test_acc:.3f}")
-# ```
+# 훈련된 최고 성능의 모델에 대한 테스트셋에 대한 정확도가 70% 정도의 정확도로 그렇게 높지 않다.
+# 과대적합이 매우 빠르게 발생했기 때문인데 이는 훈련셋의 크기가 2,000 정도로 너무 작기 때문이다.
 
 # ### 데이터 증식
 
-# 데이터 증식 기법을 사용하여 훈련셋의 크기를 키우면,
-# 과대 적합이 보다 늦게 발생하고 따라서 보다 좋은 성능의 모델을 얻게 된다.
-# 케라스의 데이터 증식 층을 이용하여 쉽게 데이터 증식을 구현할 수 있다.
-# 아래 코드는 Sequential 모델을 이용하여 간단하게 데이터 증식 층을 구현한다.
+# 데이터 증식 기법을 사용하여 훈련셋의 크기를 키우는 효과를 추가하면,
+# 과대적합이 보다 늦게 발생하여 학습된 모델의 성능이 올로간다.
+# 
+# 데이터 증식을 지원하는 층을 이용하면 쉽게 데이터 증식 기법을 적용할 수 있다.
+# 아래 코드의 `data_augmentation`는 Sequential 모델을 이용하여 간단하게 구현된 데이터 증식 층을 가리킨다.
 # 
 # - `RandomFlip()`: 사진을 50%의 확률로 지정된 방향으로 회전. 
 # - `RandomRotation()`: 사진을 지정된 범위 안에서 임의로 좌우로 회전
@@ -710,31 +449,21 @@
 
 # ```python
 # data_augmentation = keras.Sequential(
-#     [
-#         layers.RandomFlip("horizontal"),
-#         layers.RandomRotation(0.1),
-#         layers.RandomZoom(0.2),
-#     ]
+#     [layers.RandomFlip("horizontal"),
+#      layers.RandomRotation(0.1),
+#      layers.RandomZoom(0.2)]
 # )
 # ```
 
-# 훈련셋의 첫째 이미지를 대상으로 9번 데이터 증식 기법을 적용한 결과를 
-# 아래와 같이 확인할 수 있다.
+# 훈련셋의 첫째 이미지를 대상으로 데이터 증식 층을 아홉 번 적용한 결과를 
+# 다음고 같다. 실행결과가 다를 수 있음에 주의하라.
 
-# ```python
-# plt.figure(figsize=(10, 10))
-# for images, _ in train_dataset.take(1):
-#     for i in range(9):
-#         augmented_images = data_augmentation(images)
-#         ax = plt.subplot(3, 3, i + 1)
-#         plt.imshow(augmented_images[0].numpy().astype("uint8"))
-#         plt.axis("off")
-# ```
-
-# 모델 구성을 다시 한다. 
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/08-10.png" style="width:800px;"></div>
 # 
-# - 데이터 증식 포함
-# - 출력층 바로 이전에 드롭아웃(Dropout) 추가. 과대적합 방지용.
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# 데이터 증식 층을 이용하여 모델 구성을 다시 한다. 
+# 과대적합을 최대한 방지하기 위해 출력층 바로 이전에 드롭아웃(Dropout) 층도 추가한다.
 
 # ```python
 # inputs = keras.Input(shape=(180, 180, 3))
@@ -753,74 +482,19 @@
 # x = layers.Dropout(0.5)(x)
 # outputs = layers.Dense(1, activation="sigmoid")(x)
 # model = keras.Model(inputs=inputs, outputs=outputs)
-# 
-# model.compile(loss="binary_crossentropy",
-#               optimizer="rmsprop",
-#               metrics=["accuracy"])
 # ```
 
-# 모델 훈련은 동일하다. 다만 에포크 수를 100으로 늘린다.
-# 이유는 과대적합이 보다 늦게 발생할 것이기 때문이다.
+# 과대 적합이 보다 늦게 발생한다.
 
-# ```python
-# callbacks = [
-#     keras.callbacks.ModelCheckpoint(
-#         filepath="convnet_from_scratch_with_augmentation.keras",
-#         save_best_only=True,
-#         monitor="val_loss")
-# ]
-# history = model.fit(
-#     train_dataset,
-#     epochs=100,
-#     validation_data=validation_dataset,
-#     callbacks=callbacks)
-# ```
-
-# 과대 적합이 보다 늦게 발생함을 확인할 수 있다.
-
-# ```python
-# import matplotlib.pyplot as plt
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/08-11.png" style="width:800px;"></div>
 # 
-# accuracy = history.history["accuracy"]
-# val_accuracy = history.history["val_accuracy"]
-# loss = history.history["loss"]
-# val_loss = history.history["val_loss"]
-# 
-# epochs = range(1, len(accuracy) + 1)
-# 
-# # 정확도 그래프
-# plt.plot(epochs, accuracy, "bo", label="Training accuracy")
-# plt.plot(epochs, val_accuracy, "b", label="Validation accuracy")
-# plt.title("Training and validation accuracy")
-# plt.legend()
-# 
-# # 손실 그래프
-# plt.figure()
-# plt.plot(epochs, loss, "bo", label="Training loss")
-# plt.plot(epochs, val_loss, "b", label="Validation loss")
-# plt.title("Training and validation loss")
-# plt.legend()
-# plt.show()
-# ```
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# 테스트셋에 대한 성능은 83% 정도로 올라갔다.
-
-# ```python
-# test_model = keras.models.load_model(
-#     "convnet_from_scratch_with_augmentation.keras")
-# test_loss, test_acc = test_model.evaluate(test_dataset)
-# print(f"Test accuracy: {test_acc:.3f}")
-# ```
-
+# 테스트셋에 대한 정확도가 83% 정도로 올라간다.
 # `Conv2D`와 `MaxPooling2D` 층을 더 쌓거나 층에 사용된 필터수를 늘리는 방식으로
 # 모델의 성능을 90% 정도까지 끌어올릴 수는 있지만 그 이상은 어려울 것이다.
 
-# **참고**
-# 
-# `convnet_from_scratch_with_augmentation.keras` 모델을 
-# 나중에 재활용하고자 한다. 이를 위해 구글 코랩을 사용하는 경우 모델을 저장해 두어야 한다.
-
-# ## 8.3 모델 재활용
+# ## 모델 재활용
 
 # 적은 양의 데이터셋을 대상으로 훈련하는 것보다 대용량의 데이터셋을 이용하여 훈련하면
 # 보다 좋은 성능의 모델을 구현할 수 있다.
