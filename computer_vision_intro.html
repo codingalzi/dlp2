@@ -38,9 +38,12 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -427,12 +430,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="simple">
 <li><p>합성곱 신경망(convnet) 소개</p></li>
 <li><p>데이터 증식</p></li>
-<li><p>convnet 재활용</p>
-<ul>
-<li><p>특성 추출</p></li>
-<li><p>모델 미세 조정<font size='2'>fine-tuning</font></p></li>
-</ul>
-</li>
+<li><p>convnet 재활용: 특성 추출과 모델 미세 조정<font size='2'>fine-tuning</font></p></li>
 </ul>
 <div class="section" id="id2">
 <h2><span class="section-number">8.1. </span>합성곱 신경망 소개<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
@@ -441,8 +439,8 @@ const thebe_selector_output = ".output, .cell_output"
 현재 사진 앱, 사진 검색, 유튜브, 카메라 필터, 글자 인식, 자율주행, 로봇공학, 의학 진단 프로그램,
 얼굴 확인, 스마트 팜 등 일상의 많은 영역에서 딥러닝 모델이 사용되고 있다.</p>
 <p>컴퓨터 비전 분야에서 일반적으로 가장 많이 사용되는 딥러닝 모델은
-<strong>convnet</strong>으로 불리는
-<strong>합성곱 신경망</strong><font size='2'>convolutional neural networks</font>(CNN)이다.
+<strong>convnet</strong> 또는 <strong>CNN</strong>으로 불리는
+<strong>합성곱 신경망</strong><font size='2'>convolutional neural networks</font>이다.
 여기서는 작은 크기의 훈련 데이터셋을 이용하여 이미지 분류 문제에
 convnet을 적용하는 방법을 소개한다.</p>
 <p><strong>예제: MNIST 데이터셋 분류 convnet 모델</strong></p>
@@ -517,47 +515,46 @@ convnet을 적용하는 방법을 소개한다.</p>
 <div class="section" id="id3">
 <h3><span class="section-number">8.1.1. </span>합성곱 연산<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층: 입력값 전체를 학습 대상으로 삼음.</p>
-<ul>
-<li><p>MNIST의 경우: 숫자 이미지 전체</p></li>
-</ul>
-</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층: 입력값 전체를 학습 대상으로 삼는다.
+예를 들어, MNIST의 경우 숫자 이미지 전체를 대상으로 학습한다.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층: 예를 들어 <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>으로 설정된 경우
-<code class="docutils literal notranslate"><span class="pre">3x3</span></code> 크기의 국소적 특성만 대상으로 삼음.
-다음 두 가지 장점을 발휘함.</p></li>
+<code class="docutils literal notranslate"><span class="pre">3x3</span></code> 크기의 국소적 특성들을 대상으로 학습한다.</p></li>
 </ul>
 <p><strong>Conv2D 모델의 장점</strong></p>
-<p>첫째, 패턴의 위치와 무관하다.</p>
-<p>한 번 인식된 패턴을 다른 위치에서도 인식된다.
-따라서 적은 수의 샘플을 이용하여 높은 일반화 성능의 모델을 훈련시킬 수 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층의 장점은 크게 다음 두 가지로 요약된다.</p>
+<p>첫째, 패턴의 위치와 무관하다.
+한 번 인식된 패턴은 다른 위치에서도 인식된다.
+따라서 적은 수의 샘플을 이용하여 일반화 성능이 높은 모델을 훈련시킬 수 있다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/local_patterns.jpg" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>둘째, 패턴 공간의 계층을 파악한다.</p>
-<p>위 층으로 진행할 수록 보다 복잡한 패턴을 파악한다.
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>둘째, 패턴 공간의 계층을 파악한다.
+위 층으로 진행할 수록 보다 복잡한 패턴을 파악한다.
 이를 <strong>패턴 공간의 계층</strong>(spatial hierarchy of patterns)이라 한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/visual_hierarchy_hires.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>특성맵, 채널, 필터</strong></p>
-<p>합성곱 연산의 작동법을 이해하려면 아래 세 개념을 이해해야 한다.</p>
+<p>합성곱 연산의 작동법을 이해하려면 아래 네 개념을 이해해야 한다.</p>
 <ul class="simple">
-<li><p><strong>특성맵</strong>(feature maps): 높이, 너비, 깊이로 구성된 3D 텐서</p>
+<li><p><strong>특성맵</strong><font size='2'>feature map</font>:
+<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층에 입력되거나 출력되는 샘플. 높이, 너비, 깊이로 구성된 3D 텐서임.</p>
 <ul>
 <li><p>예제: MNIST 데이터셋에 포함된 흑백 이미지 샘플의 경우 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code> 모양의 3D 텐서.</p></li>
+<li><p>예제: 컬러 이미지 샘플은 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">3)</span></code> 모양의 3D 텐서. 3은 Red, Green, Blue 세 가지 색상을 나타냄.</p></li>
 </ul>
 </li>
-<li><p><strong>채널</strong>(channel): 특성맵의 깊이를 구성하는 값.</p>
+<li><p><strong>채널</strong><font size='2'>channel</font>: 특성맵의 구성인자로 <code class="docutils literal notranslate"><span class="pre">높이</span> <span class="pre">x</span> <span class="pre">너비</span></code> 모양의 2D 텐서.</p>
 <ul>
 <li><p>예제: MNIST 데이터 샘플은 흑백 사진이기에 하나의 채널로 구성됨.</p></li>
-<li><p>예제: 컬러 이미지 샘플은 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">3)</span></code> 과 같은 모양의 3D 텐서이기에
-세 개의 채널로 구성됨. 3은 RGB를 나타냄.</p></li>
+<li><p>예제: 컬러 이미지 샘플은 세 개의 채널로 구성됨.</p></li>
 </ul>
 </li>
-<li><p><strong>필터</strong>(filter): <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>를 이용한 3D 텐서.</p>
+<li><p><strong>필터</strong><font size='2'>filter</font>: <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>를 이용한 3D 텐서.</p>
 <ul>
 <li><p>예제: <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>인 경우 필터는 <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">입력특성맵깊이)</span></code> 모양의 3D 텐서.</p></li>
-<li><p>하나의 필터가 하나의 <strong>출력맵</strong>(response map), 즉 하나의 채널을 생성하는 데에 사용됨.</p></li>
 <li><p>필터 수: <code class="docutils literal notranslate"><span class="pre">filters</span></code> 인자에 의해 결정됨.</p></li>
-<li><p>출력 특성맵: 출력맵으로 구성된 <code class="docutils literal notranslate"><span class="pre">(높이,</span> <span class="pre">너비,</span> <span class="pre">필터수)</span></code> 모양의 3D 텐서.</p></li>
 </ul>
 </li>
+<li><p><strong>출력맵</strong><font size='2'>response map</font>:
+<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층의 출력값으로 생성되는 하나의 샘플. 필터를 사용해서 생성된 한 개의 채널임.
+출력 특성맵은 출력맵으로 구성된 특성맵이며, 출력 특성맵의 채널 수는 필터 수와 동일함.</p></li>
 </ul>
 <p>아래 그림은 MNIST 데이터 샘플에 대해 하나의 필터가 작동하여 하나의 출력맵을 생성하는 과정을 보여준다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/response_map_hires.png" style="width:500px;"></div>
@@ -571,7 +568,7 @@ convnet을 적용하는 방법을 소개한다.</p>
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/notebooks/images/how_convolution_works.jpg" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>합성곱 커널</strong></p>
-<p>필터는 입력 특성맵을 출력 특성맵으로 변환하는 과정에서 사용되는 <strong>가중치들의 행렬</strong>이며,
+<p>필터는 입력 특성맵을 출력 특성맵으로 변환하는 과정에서 사용되는 <strong>가중치들의 3D 텐서</strong>이며,
 이런 필터를 출력 특성맵의 깊이(채널 수)만큼 모아놓은 (4D) 텐서가 <strong>합성곱 커널</strong>이다.
 <strong>합성곱 신경망</strong>은 바로 이 합성곱 커널(필터)을 학습시키는 모델을 가리킨다.</p>
 <p>합성곱 커널(필터 모음)을 적용하여 생성된 출력 특성맵의 모양이
@@ -579,7 +576,8 @@ convnet을 적용하는 방법을 소개한다.</p>
 이점을 이해하려면 먼저 패딩과 보폭의 의미를 알아야 한다.</p>
 <p><strong>패딩과 보폭</strong></p>
 <p>출력 특성맵의 높이와 너비는
-<strong>패딩</strong>(padding)의 사용 여부와 <strong>보폭</strong>(stride)의 크기에 의에 결정된다.</p>
+<strong>패딩</strong><font size='2'>padding</font>의 사용 여부와
+<strong>보폭</strong><font size='2'>stride</font>의 크기에 의에 결정된다.</p>
 <p>다음 세 개의 그림은 입력 특성맵의 높이와 너비가 <code class="docutils literal notranslate"><span class="pre">5x5</span></code>일 때
 패딩의 사용 여부와 보폭의 크기에 따라
 출력 특성맵의 높이와 너비가 어떻게 달라지는가를 보여준다.</p>
@@ -626,9 +624,9 @@ convnet을 적용하는 방법을 소개한다.</p>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p><p>풀링 층 중에서 <strong>맥스 풀링</strong>(max-pooling) 층이 많이 사용된다.
 맥스 풀링 층은 일정 크기의 영역에서 최댓값만을 선택하여 특성맵의 높이와 너비를 일정 비율로 줄인다.
 예를 들어, 아래 맥스 풀링 층은 <code class="docutils literal notranslate"><span class="pre">2x2</span></code>영역에서 최댓값 하나만을 남기고 나머지는 버리며,
-이 연산을 보폭 2만큼씩 이동하며 특성맵의 모든 영역(<code class="docutils literal notranslate"><span class="pre">높이x너비</span></code>)에 대해 실행한다.
-맥스 풀링 연산은 특성맵, 즉 채녈 별로 이루어지기에 채널 수는 변하지 않는다.
-따라서 만약 <code class="docutils literal notranslate"><span class="pre">x</span></code>가 <code class="docutils literal notranslate"><span class="pre">(26,</span> <span class="pre">26,</span> <span class="pre">32)</span></code> 모양의 3D 텐서이면
+이 연산을 보폭 2만큼씩 이동하며 입력 특성맵의 모든 영역(<code class="docutils literal notranslate"><span class="pre">높이x너비</span></code>)에 대해 실행한다.
+맥스 풀링 연산은 입력 특성맵의 채녈 단위로 이루어지기에 채널 수는 변하지 않는다.
+예를 들어, 만약 <code class="docutils literal notranslate"><span class="pre">x</span></code>가 <code class="docutils literal notranslate"><span class="pre">(26,</span> <span class="pre">26,</span> <span class="pre">32)</span></code> 모양의 3D 텐서이면
 다음 맥스 풀링 층의 출력값은 <code class="docutils literal notranslate"><span class="pre">(13,</span> <span class="pre">13,</span> <span class="pre">32)</span></code> 모양의 3D 텐서가 된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
@@ -675,14 +673,11 @@ convnet을 적용하는 방법을 소개한다.</p>
 <span class="go">Non-trainable params: 0 </span>
 </pre></div>
 </div>
-<p><strong>적절한 <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>, <code class="docutils literal notranslate"><span class="pre">stride</span></code>, <code class="docutils literal notranslate"><span class="pre">pool_size</span></code></strong></p>
+<p><strong>적절한 <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>, <code class="docutils literal notranslate"><span class="pre">stride</span></code>, <code class="docutils literal notranslate"><span class="pre">pool_size</span></code> 지정하기</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층의 기본값: <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>, <code class="docutils literal notranslate"><span class="pre">stride=1</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 층의 기본값: <code class="docutils literal notranslate"><span class="pre">pool_size=2</span></code>, <code class="docutils literal notranslate"><span class="pre">strides=2</span></code></p>
-<ul>
-<li><p>주의: <code class="docutils literal notranslate"><span class="pre">strides</span></code>의 기본값을 지정하지 않으면 <code class="docutils literal notranslate"><span class="pre">pool_size</span></code>의 값과 동일하게 지정됨.</p></li>
-</ul>
-</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 층의 기본값: <code class="docutils literal notranslate"><span class="pre">pool_size=2</span></code>, <code class="docutils literal notranslate"><span class="pre">strides=2</span></code>
+<code class="docutils literal notranslate"><span class="pre">strides</span></code>의 기본값을 지정하지 않으면 <code class="docutils literal notranslate"><span class="pre">pool_size</span></code>의 값과 동일하게 지정됨.</p></li>
 </ul>
 <p>다른 설정 또는 최댓값 대신에 평균값을 사용하는 <code class="docutils literal notranslate"><span class="pre">AveragePooling2D</span></code>를
 활용할 수 있으나 케라스의 기본 설정이 일반적으로 가장 좋은 성능을 보인다.</p>
@@ -703,10 +698,11 @@ convnet을 적용하는 방법을 소개한다.</p>
 </div>
 <div class="section" id="id7">
 <h3><span class="section-number">8.2.2. </span>데이터 다운로드<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
-<p>데이터 과학과 머신러닝과 관련된 다양한 데이터셋과 모델을 활용할 수 있는 캐글<font size='2'>Kaggle</font>에서
+<p>데이터 과학과 머신러닝과 관련된 다양한 데이터셋과 모델을 활용할 수 있는
+<a class="reference external" href="https://www.kaggle.com">캐글<font size='2'>Kaggle</font></a>에서
 훈련에 필요한 데이터셋을 다운로드하려면 다음 사항을 먼저 확인해야 한다.</p>
 <ul class="simple">
-<li><p>캐글(kaggle) 계정을 갖고 있어야 하며, 로그인된 상태에서 아래 두 과정을 먼저 해결해야 한다.</p></li>
+<li><p>캐글 계정을 갖고 있어야 하며, 로그인된 상태에서 아래 두 과정을 먼저 해결해야 한다.</p></li>
 <li><p>캐글에 로그인한 후 “Account” 페이지의 계정 설정 창에 있는 “API” 항목에서
 “Create New API Token”을 생성하여 다운로드한다.</p></li>
 <li><p><a class="reference external" href="https://www.kaggle.com/c/dogs-vs-cats/rules">캐글: Dogs vs. Cats</a>를
