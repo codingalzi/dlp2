@@ -191,7 +191,7 @@
 # `Conv2D` 층을 통과할 때 마다 동일한 작업이 반복된다.
 # 각 층마다 사용되는 필터의 크기와 수가 다를 뿐이다.
 
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml3/master/jupyter-book/imgs/ch14/homl14-09.png" style="width:700px;"></div>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-cnn-layers.jpg" style="width:700px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p>
 
