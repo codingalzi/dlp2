@@ -214,7 +214,7 @@
 #     - 출력 특성맵의 깊이와 너비: `3x3`
 #     - 즉, 출력 특성맥의 깊이와 너비가 줄어듦.
 
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-padding-stride-01.png" style="width:600px;"></div>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-padding-stride-01.png" style="width:400px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.analyticsvidhya.com/blog/2022/03/basics-of-cnn-in-deep-learning/">Basics of CNN in Deep Learning</a>&gt;</div></p>
 
@@ -222,7 +222,7 @@
 #     - 출력 특성맵의 깊이와 너비: `2x2`
 #     - 즉, 출력 특성맵의 깊이와 너비가 보폭의 반비례해서 줄어듦.
 
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-padding-stride-02.png" style="width:550px;"></div>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-padding-stride-02.png" style="width:350px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.analyticsvidhya.com/blog/2022/03/basics-of-cnn-in-deep-learning/">Basics of CNN in Deep Learning</a>&gt;</div></p>
 
