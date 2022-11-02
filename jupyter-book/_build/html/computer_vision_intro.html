@@ -531,51 +531,49 @@ convnet을 적용하는 방법을 소개한다.</p>
 이를 <strong>패턴 공간의 계층</strong>(spatial hierarchy of patterns)이라 한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/visual_hierarchy_hires.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>특성맵, 채널, 필터</strong></p>
-<p>합성곱 연산의 작동법을 이해하려면 아래 네 개념을 이해해야 한다.</p>
+<p>합성곱 연산의 작동법을 이해하려면 아래 세 개념을 이해해야 한다.</p>
 <ul class="simple">
-<li><p><strong>특성맵</strong><font size='2'>feature map</font>:
-<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층에 입력되거나 출력되는 샘플. 높이, 너비, 깊이로 구성된 3D 텐서임.</p>
+<li><p><strong>특성맵</strong><font size='2'>feature map</font>, <strong>채널</strong><font size='2'>channel</font>:</p>
 <ul>
-<li><p>예제: MNIST 데이터셋에 포함된 흑백 이미지 샘플의 경우 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code> 모양의 3D 텐서.</p></li>
-<li><p>예제: 컬러 이미지 샘플은 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">3)</span></code> 모양의 3D 텐서. 3은 Red, Green, Blue 세 가지 색상을 나타냄.</p></li>
-</ul>
-</li>
-<li><p><strong>채널</strong><font size='2'>channel</font>: 특성맵의 구성인자로 <code class="docutils literal notranslate"><span class="pre">높이</span> <span class="pre">x</span> <span class="pre">너비</span></code> 모양의 2D 텐서.</p>
-<ul>
-<li><p>예제: MNIST 데이터 샘플은 흑백 사진이기에 하나의 채널로 구성됨.</p></li>
-<li><p>예제: 컬러 이미지 샘플은 세 개의 채널로 구성됨.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">높이</span> <span class="pre">x</span> <span class="pre">너비</span></code> 모양의 2D 텐서.</p></li>
+<li><p>예제: MNIST 데이터셋에 포함된 흑백 이미지 샘플의 경우 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28)</span></code> 모양의 채널 한 개로 구성됨.</p></li>
+<li><p>예제: 컬러사진의 경우 세 개의 채널(특성맵)으로 구성됨.</p></li>
 </ul>
 </li>
 <li><p><strong>필터</strong><font size='2'>filter</font>: <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>를 이용한 3D 텐서.</p>
 <ul>
-<li><p>예제: <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>인 경우 필터는 <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">입력특성맵깊이)</span></code> 모양의 3D 텐서.</p></li>
+<li><p>예제: <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>인 경우 필터는 <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">입력샘플의깊이)</span></code> 모양의 3D 텐서.</p></li>
 <li><p>필터 수: <code class="docutils literal notranslate"><span class="pre">filters</span></code> 인자에 의해 결정됨.</p></li>
 </ul>
 </li>
 <li><p><strong>출력맵</strong><font size='2'>response map</font>:
-<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층의 출력값으로 생성되는 하나의 샘플. 필터를 사용해서 생성된 한 개의 채널임.
-출력 특성맵은 출력맵으로 구성된 특성맵이며, 출력 특성맵의 채널 수는 필터 수와 동일함.</p></li>
+입력 샘플을 대상으로 하나의 필터를 적용해서 생성된 하나의 특성맵.</p></li>
 </ul>
-<p>아래 그림은 MNIST 데이터 샘플에 대해 하나의 필터가 작동하여 하나의 출력맵을 생성하는 과정을 보여준다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/response_map_hires.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>아래 그림은 세 개의 필터를 슬라이딩 시키면서 출력 특성맵을 생성하는 과정을 보여주며
-사용된 예제는 다음과 같다.</p>
-<ul class="simple">
-<li><p>입력 특성맵: <code class="docutils literal notranslate"><span class="pre">(5,</span> <span class="pre">5,</span> <span class="pre">2)</span></code> 모양의 3D 텐서</p></li>
-<li><p>필터 모양: <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">2)</span></code></p></li>
-<li><p>필터 개수: 3개</p></li>
-<li><p>출력 특성맵: <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">3,</span> <span class="pre">3)</span></code> 모양의 3D 텐서</p></li>
-</ul>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/notebooks/images/how_convolution_works.jpg" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>합성곱 커널</strong></p>
-<p>필터는 입력 특성맵을 출력 특성맵으로 변환하는 과정에서 사용되는 <strong>가중치들의 3D 텐서</strong>이며,
-이런 필터를 출력 특성맵의 깊이(채널 수)만큼 모아놓은 (4D) 텐서가 <strong>합성곱 커널</strong>이다.
-<strong>합성곱 신경망</strong>은 바로 이 합성곱 커널(필터)을 학습시키는 모델을 가리킨다.</p>
-<p>합성곱 커널(필터 모음)을 적용하여 생성된 출력 특성맵의 모양이
-입력 특성맵의 모양과 다를 수 있다.
-이점을 이해하려면 먼저 패딩과 보폭의 의미를 알아야 한다.</p>
+<div class="info admonition">
+<p class="admonition-title">컬러 이미지와 채널</p>
+<p>컬러 이미지는 R(red), G(green), B(blue) 세 개의 채털로 구성된다.
+각각의 채널은 2차원 어레이로 다뤄지기에 하나의 컬러 이미지는 세 개의 채널을 모은 3차원 어레이로 표현된다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-three_d_array.png" style="width:400px;"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-reign_pic_breakdown.png" style="width:700px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://e2eml.school/convert_rgb_to_grayscale.html">How to Convert an RGB Image to Grayscale</a>&gt;</div></p>
+</div>
+<p>아래 그림은 입력 샘플에 필터를 적용하기 위해 필터 모양과 동일한 크기의 텐서를 대상으로 필터를 적용하여 <strong>하나의 값</strong>을
+생성하는 과정을 보여준다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-filter-product-1.jpg" style="width:700px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oreilly.com/library/view/fundamentals-of-deep/9781492082170/">Fundamentals of Deep Learning(2판)</a>&gt;</div></p><p>하나의 필터를 슬라이딩 시키면서 입력 특성맵 전체를 대상으로 위 과정을 적용하여 한 개의 출력맵을
+생성한다.
+아래 그림은 한 개의 채널로 구성된 입력값을 대상으로 하나의 필터를 적용하여 출력맵을 생성하는 과정을 보여준다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-convSobel.gif" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://mlnotebook.github.io/post/CNN1/">Machine Learning Notebook: CNN - Basics</a>&gt;</div></p><p>예를 들어 6개의 필터를 적용하면 최종적으로 6개의 채널로 구성된 출력 특성맵이 생성된다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-filter-product-2.jpg" style="width:700px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oreilly.com/library/view/fundamentals-of-deep/9781492082170/">Fundamentals of Deep Learning(2판)</a>&gt;</div></p><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층을 통과할 때 마다 동일한 작업이 반복된다.
+각 층마다 사용되는 필터의 크기와 수가 다를 뿐이다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml3/master/jupyter-book/imgs/ch14/homl14-09.png" style="width:700px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p><p><strong>합성곱 신경망 모델이란?</strong></p>
+<p>합성곱 신경망 모델은 바로 이 필터들을 학습시키는 모델을 가리킨다.</p>
 <p><strong>패딩과 보폭</strong></p>
-<p>출력 특성맵의 높이와 너비는
+<p>필터를 적용하여 생성된 출력 특성맵의 모양이 입력 특성맵의 모양과 다를 수 있다.
+출력 특성맵의 높이와 너비는
 <strong>패딩</strong><font size='2'>padding</font>의 사용 여부와
 <strong>보폭</strong><font size='2'>stride</font>의 크기에 의에 결정된다.</p>
 <p>다음 세 개의 그림은 입력 특성맵의 높이와 너비가 <code class="docutils literal notranslate"><span class="pre">5x5</span></code>일 때
@@ -589,8 +587,7 @@ convnet을 적용하는 방법을 소개한다.</p>
 </ul>
 </li>
 </ul>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/3x3_patches_in_5x5_input.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><ul class="simple">
+<ul class="simple">
 <li><p>경우 2: 패딩 있음, 보폭은 1.</p>
 <ul>
 <li><p>출력 특성맵의 깊이와 너비: <code class="docutils literal notranslate"><span class="pre">5x5</span></code></p></li>
@@ -598,8 +595,8 @@ convnet을 적용하는 방법을 소개한다.</p>
 </ul>
 </li>
 </ul>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/padding_of_5x5_input.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><ul class="simple">
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-cnn-padding.png" style="width:900px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.researchgate.net/figure/Figure-B2-A-convolutional-filter-with-padding-stride-one-and-filter-size-of-3x3-Image_fig30_324783775">Text to Image Synthesis Using Generative Adversarial Networks</a>&gt;</div></p><ul class="simple">
 <li><p>경우 3: 패딩 없음, 보폭은 2.</p>
 <ul>
 <li><p>출력 특성맵의 깊이와 너비: <code class="docutils literal notranslate"><span class="pre">2x2</span></code></p></li>
@@ -631,8 +628,8 @@ convnet을 적용하는 방법을 소개한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
-<div align="center"><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190721025744/Screenshot-2019-07-21-at-2.57.13-AM.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.geeksforgeeks.org/cnn-introduction-to-pooling-layer/">GeeksforGeeks: Introduction to Pooling Layer</a>&gt;</div></p><p>맥스 풀링 층을 합성곱 층(<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>)과 함께 사용하는 이유는 두 가지이다.</p>
+<div align="center"><img src="http://formal.hknu.ac.kr/handson-ml2/slides/images/ch14/homl14-10.png" style="width:700px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p><p>맥스 풀링 층을 합성곱 층(<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>)과 함께 사용하는 이유는 두 가지이다.</p>
 <ul class="simple">
 <li><p>학습해야할 가중치 파라미터의 수 줄이기.</p></li>
 <li><p>상위 층으로 갈 수록 입력 특성맵의 보다 넓은 영역에 대한 정보를 얻기 위해.</p></li>
