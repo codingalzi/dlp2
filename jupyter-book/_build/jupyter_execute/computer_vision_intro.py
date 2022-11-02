@@ -158,9 +158,9 @@
 # 컬러 이미지는 R(red), G(green), B(blue) 세 개의 채털로 구성된다.
 # 각각의 채널은 2차원 어레이로 다뤄지기에 하나의 컬러 이미지는 세 개의 채널을 모은 3차원 어레이로 표현된다.
 # 
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-three_d_array.png" style="width:400px;"></div>
-# 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-reign_pic_breakdown.png" style="width:700px;"></div>
+# 
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-three_d_array.png" style="width:400px;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://e2eml.school/convert_rgb_to_grayscale.html">How to Convert an RGB Image to Grayscale</a>&gt;</div></p>
 # 
@@ -214,7 +214,19 @@
 #     - 출력 특성맵의 깊이와 너비: `3x3`
 #     - 즉, 출력 특성맥의 깊이와 너비가 줄어듦.
 
-# - 경우 2: 패딩 있음, 보폭은 1.
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-padding-stride-01.png" style="width:600px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.analyticsvidhya.com/blog/2022/03/basics-of-cnn-in-deep-learning/">Basics of CNN in Deep Learning</a>&gt;</div></p>
+
+# - 경우 2: 패딩 없음, 보폭은 2.
+#     - 출력 특성맵의 깊이와 너비: `2x2`
+#     - 즉, 출력 특성맵의 깊이와 너비가 보폭의 반비례해서 줄어듦.
+
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-padding-stride-02.png" style="width:550px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.analyticsvidhya.com/blog/2022/03/basics-of-cnn-in-deep-learning/">Basics of CNN in Deep Learning</a>&gt;</div></p>
+
+# - 경우 3: 패딩 있음, 보폭은 1.
 #     - 출력 특성맵의 깊이와 너비: `5x5`
 #     - 즉, 출력 특성맵의 깊이와 너비가 동일하게 유지됨.
 
@@ -222,17 +234,8 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.researchgate.net/figure/Figure-B2-A-convolutional-filter-with-padding-stride-one-and-filter-size-of-3x3-Image_fig30_324783775">Text to Image Synthesis Using Generative Adversarial Networks</a>&gt;</div></p>
 
-# - 경우 3: 패딩 없음, 보폭은 2.
-#     - 출력 특성맵의 깊이와 너비: `2x2`
-#     - 즉, 출력 특성맵의 깊이와 너비가 보폭의 반비례해서 줄어듦.
-
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/strides.png" style="width:500px;"></div>
-# 
-# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
-
-# - 경우 4: 패딩 있음, 보폭은 2.
-#     - 이 경우는 굳이 사용할 필요 없음. 
-#         이유는 보폭이 1보다 크기에 출력 특성맵의 깊이와 너비가 어차피 보폭에 반비례해서 줄어들기 때문임.
+# - 경우 4: 패딩을 사용하고 보폭이 1보다 큰 경우는 굳이 사용할 필요 없음. 
+#     이유는 보폭이 1보다 크기에 출력 특성맵의 깊이와 너비가 어차피 보폭에 반비례해서 줄어들기 때문임.
 
 # ### 맥스 풀링 연산
 
@@ -512,33 +515,14 @@
 # 적은 양의 데이터셋을 대상으로 훈련하는 것보다 대용량의 데이터셋을 이용하여 훈련하면
 # 보다 좋은 성능의 모델을 구현할 수 있다.
 # 하지만 대용량의 데이터를 구하기는 매우 어렵거나 아예 불가능할 수 있다.
-# 대신 유사한 목적으로 대용량의 훈련 데이터셋을 이용하여 훈련된 모델을 재활용할 수 있으며
-# 이를 통해 모델의 성능을 향상시킬 수 있다.
-# 여기서는 기존에 잘 훈련된 모델 VGG16을 재활용하여 강아지와 고양이 사진을 잘 분류하는
-# 모델을 구현하는 두 가지 방식을 소개한다.
+# 하지만 유사한 목적으로 대용량의 훈련 데이터셋을 이용하여 사전에 훈련된 모델을 재활용하면
+# 높은 성능의 모델의 얻을 수 있다.
 # 
-# - 특성추출(feature extraction)
-# - 모델 미세조정(fine-tuning)
-
-# **모델 재활용 기본 아이디어**
-
-# 기존에 잘 훈련된 모델은 새롭게 구현하고자 하는 모델과 일반적으로 다른 목적으로 구현되었다.
-# 하지만 예를 들어 강아지와 고양이를 포함한 동물 및 기타 여러 사물을 대상으로 
-# 다중클래스 분류를 목적으로 훈련된 모델은 기본적으로 강아지와 고양이를 
-# 분류하는 능력을 갖고 있어야 한다.
+# 여기서는 잘 알려진 모델 VGG16을 재활용하여 강아지와 고양이 사진을 잘 분류하는
+# 모델을 구현하는 다음 두 가지 방식을 소개한다.
 # 
-# 반면에 이항 분류 모델과 다중클래스 분류 모델은 기본적으로 출력층에서 서로 다른 
-# 종류의 값을 출력한다.
-# 고양이와 강아지를 포함해서 총 1000개의 사물 클래스로 이미지를 분류하는 모델의 출력층은 
-# 1000개의 유닛과 softmax 등과 같은 활성화 함수를 사용할 것이지만
-# 고양이-강아지 분류 모델은 1개의 유닛과 sigmoid 등과 같은 활성화 함수를 사용해야 한다.
-# 따라서 기존 모델의 출력층을 포함하여 분류값을 직접적으로 예측하는 마지막 몇 개의 층
-# (일반적으로 밀집층)을 제외시킨 나머지 합성곱 층으로 이루어진 기저(베이스, base)만을 
-# 가져와서 그 위에 원하는 목적에 맞는 층을 새롭게 구성한다(아래 그림 참조).
-
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/08-12.png" style="width:700px;"></div>
-# 
-# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+# - 전이 학습<font size='2'>transfer learning</font>
+# - 모델 미세조정<font size='2'>model fine tuning</font>
 
 # **VGG16 모델**
 
@@ -584,13 +568,36 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://cs.stanford.edu/people/karpathy/cnnembed/">https://cs.stanford.edu/people/karpathy/cnnembed/</a>&gt;</div></p>
 
-# ### 재활용 방식 1: 특성 추출
+# ### 전이 학습
+
+# **전이 학습 기본 아이디어**
+
+# 사전에 잘 훈련된 모델은 새롭게 구현하고자 하는 모델과 일반적으로 다른 목적으로 구현되었다.
+# 하지만 예를 들어 강아지와 고양이를 포함한 동물 및 기타 여러 사물을 대상으로 
+# 다중클래스 분류를 목적으로 훈련된 모델은 기본적으로 강아지와 고양이를 
+# 분류하는 능력을 갖고 있어야 한다.
+# 
+# 반면에 이항 분류 모델과 다중클래스 분류 모델은 기본적으로 출력층에서 서로 다른 
+# 종류의 값을 출력한다.
+# 고양이와 강아지를 포함해서 총 1000개의 사물 클래스로 이미지를 분류하는 모델의 출력층은 
+# 1000개의 유닛과 softmax 등과 같은 활성화 함수를 사용할 것이지만
+# 고양이-강아지 분류 모델은 1개의 유닛과 sigmoid 등과 같은 활성화 함수를 사용해야 한다.
+# 
+# 따라서 기존 모델의 출력층을 포함하여 분류값을 직접적으로 예측하는 마지막 몇 개의 층
+# (일반적으로 밀집층)을 제외시킨 나머지 합성곱 층으로 이루어진 기저(베이스, base)만을 
+# 가져와서 그 위에 원하는 목적에 맞는 층을 새롭게 구성한다(아래 그림 참조).
+# 
+# 학습 관점에 보았을 때 `Conv2D` 합성곱층과 `MaxPooling2D` 맥스풀링층으로 구성된 기저는
+# 이미지의 일반적인 특성을 파악한 정보(가중치)를 포함하고 있기에 
+# 강아지/고양이 분류 모델의 기저로 사용될 수 있는 것이다.
+
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/08-12.png" style="width:700px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# **VGG16 모델을 이용한 전이 학습 예제**
 
 # VGG16 합성곱 모델에서 밀집층(dense 층)을 제외한 나머지 합성곱 층으로만 이루어진 모델을 가져온다.
-# 
-# - `weights="imagenet"`: Imagenet 데이터셋으로 훈련된 모델
-# - `include_top=False`: 출력값을 결정하는 밀집 층 제외
-# - `input_shape=(180, 180, 3)`: 앞서 준비내 놓은 데이터셋 활용 가능하게 만들기
 
 # ```python
 # conv_base = keras.applications.vgg16.VGG16(
@@ -599,7 +606,16 @@
 #     input_shape=(180, 180, 3))
 # ```
 
+# 모델(층)을 가져올 때 사용된 옵션의 의미는 다음과 같다.
+# 
+# - `weights="imagenet"`: Imagenet 데이터셋으로 훈련된 모델의 가중치 가져옴.
+# - `include_top=False`: 출력값을 결정하는 밀집 층은 제외함.
+# - `input_shape=(180, 180, 3)`: 앞서 준비해 놓은 데이터셋을 활용할 수 있도록 지정함. 사용자가 직접 지정해야 함.
+#     지정하지 않으면 임의의 크기의 이미지를 처리할 수 있음. 
+#     층 별 출력 텐서의 모양의 변화 과정을 확인하기 위해 특정 모양으로 지정함.
+
 # 가져온 모델을 요약하면 다음과 같다.
+# 마지막 맥스풀링 층을 통과한 특성맵의 모양은 `(5, 5, 512)`이다.
 
 # ```python
 # >>> conv_base.summary()
@@ -650,20 +666,23 @@
 # Non-trainable params: 0 
 # ```
 
-# **특성 추출(feature extraction)은 재활용할 모델을 적용하여
-# 입력 데이터를 변환하여 새로운 입력 데이터셋을 얻는 과정**을 의미한다.
+# **특성 추출**
 
-# **1) 데이터 증식 없는 특성 추출**
+# **특성 추출**<font size='2'>feature extraction</font>은 전이 학습에 사용되는 모델을 이용하여
+# 데이터를 변환하는 과정을 의미한다.
+# 여기서는 `conv_base` 기저를 특성 추출을 활용하는 두 가지 방식을 소개한다.
 
-# 함수 `get_features_and_labels()`는 이전에 준비해 놓은
-# 강아지-고양이 훈련 데이터셋(`train_dataset`)에
-# VGG16 베이스 모델을 적용하여 
-# 변환된 데이터셋을 생성한다. 
-# 단, 레이블은 그대로 재활용한다. 
+# **1) 단순 특성 추출**
+
+# 아래 `get_features_and_labels()` 함수는 
+# `conv_base` 모델의 `predict()` 메서드를 이용하여 
+# 준비된 훈련 데이터셋을 변환, 
+# 즉 특성 추출을 실행한다.
+# 단, 레이블은 그대로 변환시키지 않는다.
+# 
+# - `keras.applications.vgg16.preprocess_input()` 함수는 텐서플로우와 호환이 되도록 데이터를 전처리한다.
 
 # ```python
-# import numpy as np
-# 
 # def get_features_and_labels(dataset):
 #     all_features = []
 #     all_labels = []
@@ -677,20 +696,26 @@
 #         
 #     # 생성된 배치를 하나의 텐서로 묶어서 반환
 #     return np.concatenate(all_features), np.concatenate(all_labels)
-# 
+# ```
+
+# 훈련셋, 검증셋, 테스트셋을 변환하면 다음과 같다.
+
+# ```python
 # train_features, train_labels =  get_features_and_labels(train_dataset)
 # val_features, val_labels =  get_features_and_labels(validation_dataset)
 # test_features, test_labels =  get_features_and_labels(test_dataset)
 # ```
 
-# 변환된 데이터는 이제 `(5, 5, 512)` 모양을 갖는다.
+# 예를 들어, 변환된 강아지/고양이 이미지 샘플 2,000개는 이제 각각 `(5, 5, 512)` 모양을 갖는다.
 
 # ```python
-# train_features.shape
+# >>> train_features.shape
+# (2000, 5, 5, 12)
 # ```
 
 # 변환된 데이터셋을 훈련 데이터셋으로 사용하는 
 # 간단한 분류 모델을 구성하여 훈련만 하면 된다.
+# `Dropout` 층은 과대적합을 예방하기 위해 사용한다.
 
 # ```python
 # # 입력층
@@ -708,52 +733,13 @@
 # model = keras.Model(inputs, outputs)
 # ```
 
-# 검증셋에 대한 정확도가 97% 정도까지 향상된다.
+# 검증셋에 대한 정확도가 97% 정도까지 향상되지만 과대적합이 매우 빠르게 발생함을 확인할 수 있다.
 
-# ```python
-# model.compile(loss="binary_crossentropy",
-#               optimizer="rmsprop",
-#               metrics=["accuracy"])
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/08-13.png" style="width:700px;"></div>
 # 
-# callbacks = [
-#     keras.callbacks.ModelCheckpoint(
-#       filepath="feature_extraction.keras",
-#       save_best_only=True,
-#       monitor="val_loss")
-# ]
-# 
-# history = model.fit(
-#     train_features, train_labels,
-#     epochs=20,
-#     validation_data=(val_features, val_labels),
-#     callbacks=callbacks)
-# ```
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# 훈련 결과를 시각화하면 다음과 같으며,
-# 과대적합이 매우 빠르게 발생함을 확인할 수 있다.
-# 데이터셋의 크기가 너무 작기 때문이며 데이터 증식 기법을 활용할
-# 필요가 있음을 의미한다.
-
-# ```python
-# import matplotlib.pyplot as plt
-# acc = history.history["accuracy"]
-# val_acc = history.history["val_accuracy"]
-# loss = history.history["loss"]
-# val_loss = history.history["val_loss"]
-# epochs = range(1, len(acc) + 1)
-# plt.plot(epochs, acc, "bo", label="Training accuracy")
-# plt.plot(epochs, val_acc, "b", label="Validation accuracy")
-# plt.title("Training and validation accuracy")
-# plt.legend()
-# plt.figure()
-# plt.plot(epochs, loss, "bo", label="Training loss")
-# plt.plot(epochs, val_loss, "b", label="Validation loss")
-# plt.title("Training and validation loss")
-# plt.legend()
-# plt.show()
-# ```
-
-# **2) 데이터 증식 포함 재활용**
+# **2) 데이터 증식과 특성 추출**
 
 # 데이터 증식 기법을 활용하려면 
 # VGG16 합성곱 기저(베이스)를 구성요소로 사용하는 모델을 직접 정의해야 한다. 
@@ -808,9 +794,9 @@
 # # 모델 구성
 # inputs = keras.Input(shape=(180, 180, 3))
 # 
-# x = data_augmentation(inputs)                      # 데이터 증식
-# x = keras.applications.vgg16.preprocess_input(x)   # VGG16 베이스
-# x = conv_base(x)
+# x = data_augmentation(inputs)                     # 데이터 증식
+# x = keras.applications.vgg16.preprocess_input(x)  # VGG16용 전처리
+# x = conv_base(x)                                  # VGG16 베이스
 # x = layers.Flatten()(x)
 # x = layers.Dense(256)(x)
 # x = layers.Dropout(0.5)(x)
@@ -818,61 +804,18 @@
 # outputs = layers.Dense(1, activation="sigmoid")(x) # 출력층
 # 
 # model = keras.Model(inputs, outputs)
-# 
-# # 모델 컴파일
-# model.compile(loss="binary_crossentropy",
-#               optimizer="rmsprop",
-#               metrics=["accuracy"])
 # ```
 
 # 이렇게 훈련하면 재활용된 합성곱 기저에 속한 층은 학습하지 않으며
 # 두 개의 밀집층에서만 파라미터 학습이 이뤄진다.
-
-# ```python
-# callbacks = [
-#     keras.callbacks.ModelCheckpoint(
-#         filepath="feature_extraction_with_data_augmentation.keras",
-#         save_best_only=True,
-#         monitor="val_loss")
-# ]
-# history = model.fit(
-#     train_dataset,
-#     epochs=50,
-#     validation_data=validation_dataset,
-#     callbacks=callbacks)
-# ```
-
 # 과대적합이 보다 늦게 이루어지며 성능도 향상되었다.
-
-# ```python
-# import matplotlib.pyplot as plt
-# acc = history.history["accuracy"]
-# val_acc = history.history["val_accuracy"]
-# loss = history.history["loss"]
-# val_loss = history.history["val_loss"]
-# epochs = range(1, len(acc) + 1)
-# plt.plot(epochs, acc, "bo", label="Training accuracy")
-# plt.plot(epochs, val_acc, "b", label="Validation accuracy")
-# plt.title("Training and validation accuracy")
-# plt.legend()
-# plt.figure()
-# plt.plot(epochs, loss, "bo", label="Training loss")
-# plt.plot(epochs, val_loss, "b", label="Validation loss")
-# plt.title("Training and validation loss")
-# plt.legend()
-# plt.show()
-# ```
-
 # 테스트셋에 대한 정확도가 97.7%까지 향상된다.
 
-# ```python
-# test_model = keras.models.load_model(
-#     "feature_extraction_with_data_augmentation.keras")
-# test_loss, test_acc = test_model.evaluate(test_dataset)
-# print(f"Test accuracy: {test_acc:.3f}")
-# ```
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/08-14.png" style="width:700px;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# ### 재활용 방식 2: 모델 미세 조정
+# ### 모델 미세 조정
 
 # 모델 **미세 조정**(파인 튜닝, fine-tuning)은 특성 추출 방식과는 달리
 # 기존 합성곱 모델의 최상위 합성곱 층 몇 개를 동결 해제해서
