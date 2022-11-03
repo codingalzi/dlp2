@@ -109,7 +109,7 @@
 
 # **훈련된 convnet 평가**
 # 
-# 테스트셋에 대한 성능이 이전에 사용한 `Sequential` 모델보다 훨씬 좋다.
+# 테스트셋에 대한 정확도가 99% 정도로 이전에 사용한 `Sequential` 모델보다 훨씬 좋다.
 
 # ### 합성곱 연산
 
@@ -143,14 +143,16 @@
 # 합성곱 연산의 작동법을 이해하려면 아래 세 개념을 이해해야 한다.
 # 
 # - **특성맵**<font size='2'>feature map</font>, **채널**<font size='2'>channel</font>:
-#     - `높이 x 너비` 모양의 2D 텐서.
+#     - `(높이, 너비)` 모양의 2D 텐서.
 #     - 예제: MNIST 데이터셋에 포함된 흑백 이미지 샘플의 경우 `(28, 28)` 모양의 채널 한 개로 구성됨.
-#     - 예제: 컬러사진의 경우 세 개의 채널(특성맵)으로 구성됨.
+#     - 예제: 컬러사진의 경우 세 개의 채널(특성맵)로 구성됨.
+#     - 이미지에 포함된 채널의 수를 **깊이**라 부름.
 # - **필터**<font size='2'>filter</font>: `kernel_size`를 이용한 3D 텐서. 
 #     - 예제: `kernel_size=3`인 경우 필터는 `(3, 3, 입력샘플의깊이)` 모양의 3D 텐서.
 #     - 필터 수: `filters` 인자에 의해 결정됨.
 # - **출력맵**<font size='2'>response map</font>: 
-#     입력 샘플을 대상으로 하나의 필터를 적용해서 생성된 하나의 특성맵.
+#     입력 샘플을 대상으로 하나의 필터를 적용해서 생성된 하나의 특성맵(채널).
+#     필터 수만큼의 출력맵이 생성됨.
 
 # :::{admonition} 컬러 이미지와 채널
 # :class: info
@@ -167,7 +169,9 @@
 # 
 # :::
 
-# 아래 그림은 입력 샘플에 필터를 적용하기 위해 필터 모양과 동일한 크기의 텐서를 대상으로 필터를 적용하여 **하나의 값**을
+# **필터 적용**
+
+# 아래 그림은 필터의 모양과 동일한 크기의 국소적 텐서를 대상으로 필터를 적용하여 **하나의 값**을
 # 생성하는 과정을 보여준다.
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-filter-product-1.jpg" style="width:700px;"></div>
@@ -189,7 +193,7 @@
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oreilly.com/library/view/fundamentals-of-deep/9781492082170/">Fundamentals of Deep Learning(2판)</a>&gt;</div></p>
 
 # `Conv2D` 층을 통과할 때 마다 동일한 작업이 반복된다.
-# 각 층마다 사용되는 필터의 크기와 수가 다를 뿐이다.
+# 각 층마다 사용되는 필터의 크기와 수가 다를 수 있다.
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-cnn-layers.jpg" style="width:700px;"></div>
 # 
@@ -201,7 +205,9 @@
 
 # **패딩과 보폭**
 
-# 필터를 적용하여 생성된 출력 특성맵의 모양이 입력 특성맵의 모양과 다를 수 있다.
+# 필터를 적용하여 생성된 출력 특성맵의 모양이 입력 특성맵(채널)의 모양과 다를 수 있다.
+# 다만 출력값의 채널 수는 필터의 개수와 동일하다.
+# 이유는 하나의 필터가 하나의 특성맵(채널)을 생성하기 때문이다.
 # 출력 특성맵의 높이와 너비는
 # **패딩**<font size='2'>padding</font>의 사용 여부와 
 # **보폭**<font size='2'>stride</font>의 크기에 의에 결정된다.
@@ -212,7 +218,7 @@
 
 # - 경우 1: 패딩 없음, 보폭은 1.
 #     - 출력 특성맵의 깊이와 너비: `3x3`
-#     - 즉, 출력 특성맥의 깊이와 너비가 줄어듦.
+#     - 출력 특성맥의 깊이와 너비가 줄어듦.
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-padding-stride-01.png" style="width:400px;"></div>
 # 
@@ -220,7 +226,7 @@
 
 # - 경우 2: 패딩 없음, 보폭은 2.
 #     - 출력 특성맵의 깊이와 너비: `2x2`
-#     - 즉, 출력 특성맵의 깊이와 너비가 보폭의 반비례해서 줄어듦.
+#     - 출력 특성맵의 깊이와 너비가 보폭의 반비례해서 줄어듦.
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-padding-stride-02.png" style="width:350px;"></div>
 # 
@@ -228,7 +234,7 @@
 
 # - 경우 3: 패딩 있음, 보폭은 1.
 #     - 출력 특성맵의 깊이와 너비: `5x5`
-#     - 즉, 출력 특성맵의 깊이와 너비가 동일하게 유지됨.
+#     - 출력 특성맵의 깊이와 너비가 동일하게 유지됨.
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-cnn-padding.png" style="width:900px;"></div>
 # 
@@ -240,6 +246,7 @@
 # ### 맥스 풀링 연산
 
 # 합성곱 신경망의 전형적인 모습은 다음과 같이 풀링 층을 합성곱 층 이후에 바로 위치시킨다.
+# 단, 합성곱 층, 맥스 풀링 층이 연속적으로 몇 개씩 사용될 수 있다.
 
 # <div align="center"><img src="http://formal.hknu.ac.kr/handson-ml2/slides/images/ch14/homl14-03.png" style="width:700px;"></div>
 # 
@@ -306,8 +313,8 @@
 
 # **적절한 `kernel_size`, `stride`, `pool_size` 지정하기**
 
-# - `Conv2D` 층의 기본값: `kernel_size=3`, `stride=1`
-# - `MaxPooling2D` 층의 기본값: `pool_size=2`, `strides=2`
+# - `Conv2D` 층의 기본값: `kernel_size=3`, `stride=1`.
+# - `MaxPooling2D` 층의 기본값: `pool_size=2`, `strides=2`.
 #     `strides`의 기본값을 지정하지 않으면 `pool_size`의 값과 동일하게 지정됨.
 # 
 # 다른 설정 또는 최댓값 대신에 평균값을 사용하는 `AveragePooling2D`를 
