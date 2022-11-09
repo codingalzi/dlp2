@@ -879,3 +879,7 @@
 # test_loss, test_acc = model.evaluate(test_dataset)
 # print(f"Test accuracy: {test_acc:.3f}")
 # ```
+
+# ## 연습문제
+
+# 1. [(실습) 컴퓨터 비전 기초: 합성곱 신경망](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-computer_vision_intro.ipynb)
