@@ -215,7 +215,7 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# ## 합성곱 신경망 모델의 주요 아키텍처 유형
+# ## CNN 모델 주요 구성요소
 
 # **모델 아키텍처**는 모델 설계방식을 의미하며
 # 딥러닝 모델을 구성할 때 매우 중요하다.
