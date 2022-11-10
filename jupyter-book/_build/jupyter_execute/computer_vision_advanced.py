@@ -14,7 +14,7 @@
 # **소스코드**
 # 
 # 여기서 언급되는 코드를
-# [(구글 코랩) 컴퓨터 비전 기초: 합성곱 신경망](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-computer_vision_intro.ipynb)에서 
+# [(구글 코랩) 고급 컴퓨터 비전](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-computer_vision_advanced.ipynb)에서 
 # 직접 실행할 수 있다.
 
 # **주요 내용**
@@ -24,10 +24,9 @@
 #     - 이미지 분할
 #     - 객체 탐지
 # - 합성곱 신경망 기본 아키텍처
-#     - 잔차 연결(residual connections)
-#     - 배치 정규화(batch normalization)
-#     - 채널 분리 합성곱(depthwise separable convolutions)
-# - 합성곱 신경망 학습 내용 시각화
+#     - 잔차 연결
+#     - 배치 정규화
+#     - 채널 분리 합성곱
 
 # ## 컴퓨터 비전 분야 세 가지 주요 과제
 
@@ -215,7 +214,7 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# ## CNN 모델 주요 구성요소
+# ## CNN 모델 아키텍처의 주요 구성요소
 
 # **모델 아키텍처**는 모델 설계방식을 의미하며
 # 딥러닝 모델을 구성할 때 매우 중요하다.
