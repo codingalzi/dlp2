@@ -214,9 +214,9 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# ## CNN 모델 아키텍처의 주요 구성요소
+# ## CNN 아키텍처 주요 구성요소
 
-# **모델 아키텍처**는 모델 설계방식을 의미하며
+# **모델 아키텍처**<font size='2'>model architecture</font>는 모델 설계방식을 의미하며
 # 딥러닝 모델을 구성할 때 매우 중요하다.
 # 주어진 데이터셋과 해결해야 문제에 따라 적절한 층을 적절하게 구성해서
 # 모델을 구현해야 한다.
@@ -226,22 +226,22 @@
 # 많은 경험을 통한 직관이 보다 중요한 역할을 수행한다. 
 # 
 # 여기서는 실전에서 최고 성능을 발휘한 합성곱 신경망 몇 개를 이용하여
-# 주요 합성곱 신경망 모델의 기본이 되는 아키텍처 3 개를 살펴본다.
+# CNN 아키텍처의 기본 구성요소 세 개를 살펴본다.
 # 
-# - 잔차 연결(residual connections)
-# - 배치 정규화(batch normalization)
-# - 채널 분리 합성곱(depthwise separable convolutions)
+# - 잔차 연결<font size='2'>residual connections</font>
+# - 배치 정규화<font size='2'>batch normalization</font>
+# - 채널 분리 합성곱<font size='2'>depthwise separable convolutions</font>
 
 # ### 블록, 계층, 재활용
 
-# 모든 유명한 합성곱 신경망 모델은 **블록(모듈)**을 **계층**적으로 쌓아 올린 구조를 갖는다.
-# 여기서 블록(모듈)은 여러 개의 층(레이어)으로 구성되며, 하나의 블록(모듈)이 여러 번 **재활용**되기도 한다. 
-# 예를 들어, 8장에서 다룬 VGG16 모델은 "Conv2D, Conv2D, MaxPooling2D" 로 구성된 블록(모듈)을 
+# 합성곱 신경망 모델은 기본적으로 **블록**(**모듈**)을 **계층**적으로 쌓아 올린 구조를 갖는다.
+# 여기서 블록(모듈)은 여러 개의 층<font size='2'>layer</font>으로 구성되며, 하나의 블록(모듈)이 여러 번 **재활용**되기도 한다. 
+# 예를 들어, {numref}`%s절 <ch:computer-vision-intro>`에서 다룬 VGG16 모델은 "Conv2D, Conv2D, MaxPooling2D" 로 구성된 블록(모듈)을 
 # 계층적으로 구성하였다. 
 # 
 # 대부분의 합성곱 신경망 모델의 또다른 특징는 **특성 피라미드** 형식의 계층적 구조를 사용하는 점이다.
-# VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면에 특성맵(feature maps)의 
-# 크기는 그에 상응하게 줄여 나간다(아래 그림 참조).
+# VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면에 특성맵<font size='2'>feature maps</font>의 
+# 크기는 그에 상응하게 줄여 나간다(아래 그림 참고).
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/09-08.png" style="width:80%;"></div>
 # 
