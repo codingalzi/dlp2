@@ -38,9 +38,12 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
@@ -261,12 +264,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cnn">
-   9.3. CNN 아키텍처 주요 구성요소
+   9.3. CNN 아키텍처 주요 유형
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     9.3.1. 블록, 계층, 재활용
+     9.3.1. 모듈, 계층, 재활용
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -323,12 +326,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#cnn">
-   9.3. CNN 아키텍처 주요 구성요소
+   9.3. CNN 아키텍처 주요 유형
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
-     9.3.1. 블록, 계층, 재활용
+     9.3.1. 모듈, 계층, 재활용
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -579,135 +582,94 @@ const thebe_selector_output = ".output, .cell_output"
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/09-06.png" style="width:700px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
 <div class="section" id="cnn">
-<h2><span class="section-number">9.3. </span>CNN 아키텍처 주요 구성요소<a class="headerlink" href="#cnn" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">9.3. </span>CNN 아키텍처 주요 유형<a class="headerlink" href="#cnn" title="Permalink to this headline">¶</a></h2>
 <p><strong>모델 아키텍처</strong><font size='2'>model architecture</font>는 모델 설계방식을 의미하며
-딥러닝 모델을 구성할 때 매우 중요하다.
+심층 신경망 모델을 구성할 때 매우 중요하다.
 주어진 데이터셋과 해결해야 문제에 따라 적절한 층을 적절하게 구성해서
 모델을 구현해야 한다.
 좋은 모델 아키텍처를 사용할 수록 적은 양의 데이터을 이용하여 보다 빠르게
 좋은 성능의 모델을 얻을 가능성이 높아진다.
 아쉽게도 좋은 모델 아키텍처와 관련된 이론은 없으며
 많은 경험을 통한 직관이 보다 중요한 역할을 수행한다.</p>
-<p>여기서는 실전에서 최고 성능을 발휘한 합성곱 신경망 몇 개를 이용하여
-CNN 아키텍처의 기본 구성요소 세 개를 살펴본다.</p>
+<p>여기서는 실전에서 최고 성능을 발휘한 합성곱 신경망 아키텍처의 주요 유형 몇 개를 살펴본다.</p>
 <ul class="simple">
 <li><p>잔차 연결<font size='2'>residual connections</font></p></li>
 <li><p>배치 정규화<font size='2'>batch normalization</font></p></li>
 <li><p>채널 분리 합성곱<font size='2'>depthwise separable convolutions</font></p></li>
 </ul>
 <div class="section" id="id4">
-<h3><span class="section-number">9.3.1. </span>블록, 계층, 재활용<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<p>합성곱 신경망 모델은 기본적으로 <strong>블록</strong>(<strong>모듈</strong>)을 <strong>계층</strong>적으로 쌓아 올린 구조를 갖는다.
-여기서 블록(모듈)은 여러 개의 층<font size='2'>layer</font>으로 구성되며, 하나의 블록(모듈)이 여러 번 <strong>재활용</strong>되기도 한다.
-예를 들어, <a class="reference internal" href="computer_vision_intro.html#ch-computer-vision-intro"><span class="std std-numref">8절</span></a>에서 다룬 VGG16 모델은 “Conv2D, Conv2D, MaxPooling2D” 로 구성된 블록(모듈)을
-계층적으로 구성하였다.</p>
-<p>대부분의 합성곱 신경망 모델의 또다른 특징는 <strong>특성 피라미드</strong> 형식의 계층적 구조를 사용하는 점이다.
+<h3><span class="section-number">9.3.1. </span>모듈, 계층, 재활용<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>합성곱 신경망 모델 아키텍처는 다음 두 가지 특징을 갖는다.</p>
+<p>첫째, 깊게 쌓아 올린 합성곱 신경망 모델은 기본적으로 <strong>모듈</strong><font size='2'>module</font>을
+<strong>계층</strong><font size='2'>hierarchy</font>으로 쌓아 올린 구조를 갖는다.
+여기서 모듈은 여러 개의 층<font size='2'>layer</font>으로 구성되며, 하나의 모듈이 여러 번
+<strong>재활용</strong><font size='2'>reuse</font>되기도 한다.
+예를 들어, <a class="reference internal" href="computer_vision_intro.html#ch-computer-vision-intro"><span class="std std-numref">8장</span></a>에서 다룬 VGG16 모델은 “Conv2D, Conv2D, MaxPooling2D” 로 구성된 모듈을
+계층으로 구성하였다.</p>
+<p>둘째, 대부분의 합성곱 신경망 모델은 <strong>특성 피라미드</strong> 형식의 계층적 구조를 사용하는 점이다.
 VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면에 특성맵<font size='2'>feature maps</font>의
 크기는 그에 상응하게 줄여 나간다(아래 그림 참고).</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/09-08.png" style="width:80%;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
-<p><strong>좁은 층 깊은 신경망 모델</strong></p>
-<p>일반적으로 많은 유닛이 포함된 층을 몇 게 쌓는 것보다
-적은 유닛이 포함된 층을 높이 쌓을 때 모델의 성능이 좋아진다.
-하지만 층을 높이 쌓을 수록
-전달되어야 하는 손실값(오차)의 <strong>그레이디언트 소실 문제</strong>(vanishing gradient problem)가
-발생하여 이를 극복해야 하는 아키텍처(설계방식)을 사용해야 한다.
-이를 위한 대표적인 아키텍처는 <strong>잔차 연결</strong>(residual connections)이다.</p>
-<p><strong>참고</strong>: 층을 통과할 때 어쩔 수 없이 발생하는 노이즈(잡음) 때문에 그레이디언트 소실 문제가 발생한다.</p>
-</div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
 <div class="section" id="id5">
 <h3><span class="section-number">9.3.2. </span>잔차 연결<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
-<p>블록(모듈)의 입력값을 블록을 통과하여 생성된 출력값과 합쳐서 다음 블록으로 전달하는 아키텍처이다(아래 그림 참조).
-이 방식을 통해 블록의 입력값에 대한 정보가 보다 정확하게 상위 블록에 전달되어,
+<p>일반적으로 많은 유닛이 포함된 층을 몇 개 쌓는 것보다
+적은 유닛이 포함된 층을 높이 쌓을 때 모델의 성능이 좋아진다.
+하지만 층을 높이 쌓을 수록
+전달되어야 하는 손실값(오차)의 <strong>그레이디언트 소실 문제</strong><font size='2'>vanishing gradient problem</font>가
+발생하여 이를 극복해야 하는 아키텍처(설계방식)을 사용해야 한다.
+즉, 역전파가 제대로 작동하지 못한다.
+이를 위한 대표적인 아키텍처는 <strong>잔차 연결</strong><font size='2'>residual connections</font>이다.</p>
+<p>모듈의 입력값을 모델을 통과하여 생성된 출력값과 합쳐서 다음 모델으로 전달하는 아키텍처이다(아래 그림 참고).
+이 방식을 통해 모델의 입력값에 대한 정보가 보다 정확하게 상위 모델에 전달되어,
 그레이디언트 소실 문제를 해결하는 데에 많은 도움을 준다.
-실제로 잔차 연결을 이용하면 블록을 매우 높게 쌓아도 모델 훈련이 가능하다.</p>
-<p><strong>참고</strong>: 잔차 연결 아키텍처는 2015년에 소개된 ResNet 계열의 모델에서 처음 사용되었으며,
-2015년 ILSVRC 이미지 분류 경진대회에서 1등을 차지했다.</p>
+실제로 잔차 연결을 이용하면 모델을 매우 높게 쌓아도 모델 훈련이 가능해질 수 있다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/09-09.png" style="width:30%;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
-<p><strong>잔차 연결 핵심: 모양(shape) 맞추기</strong></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="info admonition">
+<p class="admonition-title">ResNet 모델</p>
+<p>잔차 연결 아키텍처는 2015년에 소개된 ResNet 계열의 모델에서 처음 사용되었으며,
+2015년 ILSVRC 이미지 분류 경진대회에서 1등을 차지했다.</p>
+</div>
+<p><strong>잔차 연결 핵심: 모양<font size='2'>shape</font> 맞추기</strong></p>
 <p>잔차 연결을 사용할 때 주의해야할 기본사항은 블록의 입력텐서와 출력테서의 모양을 맞추는 일이다.
 이때 맥스풀링 사용여부에 따라 보폭(<code class="docutils literal notranslate"><span class="pre">strides</span></code>)의 크기가 달라진다.</p>
-<p>먼저, 맥스풀링을 사용하지 않는 경우엔 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>에서 사용된 필터 수를 맞추는 데에만 주의하면 된다.</p>
+<ul>
+<li><p>맥스풀링을 사용하지 않는 경우: <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>에서 사용된 필터 수를 맞추는 데에만 주의하면 된다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층: <code class="docutils literal notranslate"><span class="pre">padding=&quot;same&quot;</span></code> 옵션을 사용하여 모양을 유지</p></li>
 <li><p>필터 수가 변하는 경우: 잔차에 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층을 이용하여 필터 수를 맞춤. 필터 크기는 <code class="docutils literal notranslate"><span class="pre">1x1</span></code> 사용.
 활성화 함수는 없음.</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
-
-<span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-
 <span class="n">residual</span> <span class="o">=</span> <span class="n">x</span>
-
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># padding 사용</span>
-
 <span class="n">residual</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">)(</span><span class="n">residual</span><span class="p">)</span>                       <span class="c1"># 필터 수 맞추기</span>
-
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">add</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">residual</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">369166326.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<p>맥스풀링을 사용하는 경우엔 보폭을 활용해야 한다.</p>
+</li>
+</ul>
+<ul>
+<li><p>맥스풀링을 사용하는 경우: 보폭을 활용해야 한다.</p>
 <ul class="simple">
 <li><p>잔차에 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층을 적용할 때 보폭 사용</p></li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-
 <span class="n">residual</span> <span class="o">=</span> <span class="n">x</span>
-
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>                   <span class="c1"># 맥스풀링</span>
-
 <span class="n">residual</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">)(</span><span class="n">residual</span><span class="p">)</span>            <span class="c1"># 보폭 사용</span>
-
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">add</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">residual</span><span class="p">])</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">1097641437.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">residual</span> <span class="o">=</span> <span class="n">x</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-
-<span class="ne">NameError</span>: name &#39;keras&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
+</li>
+</ul>
 <p><strong>예제</strong></p>
 <p>아래 코드는 잔차 연결을 사용하는 활용법을 보여준다.
 맥스풀링과 필터 수에 따른 구분을 사용함에 주의하라.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 입력층</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 입력층</span>
 <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Rescaling</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mi">255</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
 
@@ -739,65 +701,32 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">649844402.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># 입력층</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Rescaling</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mi">255</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># 은닉층</span>
-
-<span class="ne">NameError</span>: name &#39;keras&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<p>모델 구성 요약은 다음과 같다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">3470139634.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;model&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="section" id="id6">
 <h3><span class="section-number">9.3.3. </span>배치 정규화<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p><strong>정규화</strong>(normalization)는 다양한 모양의 샘플을 정규화를 통해 보다 유사하게 만들어
+<p><strong>정규화</strong><font size='2'>normalization</font>는 다양한 모양의 샘플을 정규화를 통해 보다 유사하게 만들어
 모델의 학습을 도와주고 훈련된 모델의 일반화 성능을 올려준다.
 지금까지 살펴 본 정규화는 모델의 입력 데이터를 전처리 과정에서 평균을 0으로,
 표준편차를 1로 만드는 방식이었다.
 이는 데이터셋이 정규분포를 따른다는 가정 하에 진행된 정규화였다.
 아래 그림은 주택가격 예측 데이터의 특성 중에 주택가격과 건축년수를 정규화한 경우(오른편)와 그렇지 않는 경우(왼편)의
 데이터 분포의 변화를 보여준다.</p>
-<p><strong>참고</strong>: 정규분포를 따르지 않는 데이터에 대한 분석은 기본적으로 머신러닝(딥러닝) 기법을 적용할 수 없다.</p>
 <div align="center"><img src="https://miro.medium.com/max/770/1*4T4y3kI0R9Alk_2pe6B4Pg.png" style="width:70%;"></div>
-<p>그림 출처: <a class="reference external" href="https://medium.com/&#64;ilango100/batch-normalization-speed-up-neural-network-training-245e39a62f85">Batch Normalization — Speed up Neural Network Training</a></p>
-<p>하지만 입력 데이터셋에 대한 정규화는 출력값의 정규화를 전혀 보장하지 않는다.
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://medium.com/@ilango100/batch-normalization-speed-up-neural-network-training-245e39a62f85">Batch Normalization — Speed up Neural Network Training</a>&gt;</div></p><div class="info admonition">
+<p class="admonition-title">정규분포와 머신러닝</p>
+<p>정규분포를 따르지 않는 데이터에 대한 분석은 기본적으로 머신러닝(딥러닝) 기법을 적용할 수 없다.</p>
+</div>
+<p>하지만 입력 데이터셋에 대한 정규화가 층을 통과한 출력값의 정규화를 보장하는 것은 아니다.
 따라서 다음 층으로 넘겨주기 전에 정규화를 먼저 진행하면 보다 훈련이 잘 될 수 있다.
 더 나아가 출력값을 먼저 정규화한 후에 활성화 함수를 적용할 때 보다 좋은 성능의 모델이 구현될 수 있음이
 발혀지기도 했다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/notebooks/images/batchNormalization.jpg" style="width:70%;"></div>
-<p>그림 출처: <a class="reference external" href="https://medium.com/&#64;ilango100/batch-normalization-speed-up-neural-network-training-245e39a62f85">Batch Normalization — Speed up Neural Network Training</a></p>
-<p><strong>배치 정규화</strong>(batch normalization)가 바로 앞서 설명한 기능을 대신 처리하며,
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://medium.com/@ilango100/batch-normalization-speed-up-neural-network-training-245e39a62f85">Batch Normalization — Speed up Neural Network Training</a>&gt;</div></p><p><strong>배치 정규화</strong><font size='2'>batch normalization</font>가 바로 앞서 설명한 기능을 대신 처리하며,
 2015년에 발표된 한 논문에서 소개되었다.
 케라스의 경우 <code class="docutils literal notranslate"><span class="pre">layers.BatchNormalization</span></code> 층이 배치 정규하를 지원한다.</p>
 <p>배치 정규화로 인한 모델 성능 향상에 대한 구체적인 이론은 아직 존재하지 않는다.
 다만 경험적으로 많은 합성곱 신경망 모델의 성능에 도움을 준다는 사실만 알려져 있을 뿐이다.
 잔차 연결과 함께 배치 정규화 또한 모델 훈련과정에 그레이디언트 역전파에 도움을 주어
-매우 깊은 딥러닝 모델의 훈련에 도움을 준다.
+매우 깊은 심층 신경망 모델의 훈련에 도움을 준다.
 예를 들어, ResNet50, EfficientNet, Xception 모델 등은 배치 정규화 없이는 제대로 훈련되지 않는다.</p>
 <p><strong>배치 정규화 사용법</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">BatchNormalization</span></code> 층을 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>, <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 등 임의의 층 다음에 사용할 수 있다.
@@ -810,13 +739,13 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">use_bias=False</span></code> 옵션: 배치 정규화에 의해 어차피 데이터의 평균값을 0으로 만들기에 굳이 편향(bias) 파라미터를
+<li><p><code class="docutils literal notranslate"><span class="pre">use_bias=False</span></code> 옵션: 배치 정규화에 의해 어차피 데이터의 평균값을 0으로 만들기에 굳이 편향<font size='2'>bias</font> 파라미터를
 훈련 과정 중에 따로 학습시킬 이유가 없다. 따라서 학습되어야 할 파라미터 수가 아주 조금 줄어들어
 학습 속도가 그만큼 빨라진다.</p></li>
 <li><p>활성화 함수 사용 위치: 배치 정규화 이후에 활성화 함수를 실행한다.
 이를 통해 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 활성화 함수의 기능을 극대화할 수 있다(고 주장된다).</p></li>
 </ul>
-<p><strong>모델 미세조정(fine-tuning)과 배치 정규화</strong></p>
+<p><strong>모델 미세조정<font size='2'>fine-tuning</font>과 배치 정규화</strong></p>
 <p>배치 정규화 층이 포함된 모델을 미세조정할 때 해당 배치 정규화 층을 동결(freeze)할 것을 추천한다.
 미세조정의 경우 모델 파라미터가 급격하게 변하지 않기에 배치 정규화에 사용된 평균값과 표준편차를 굳이
 업데이트할 필요는 없기 때문이다(라고 추정된다).</p>
@@ -824,8 +753,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <p>아래 그림은 2017년에 소개된 Xception 모델의 구조를 보여준다.
 빨강색 사각형으로 표시된 부분에 <code class="docutils literal notranslate"><span class="pre">BatchNormalization</span></code> 층이 사용되었다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/notebooks/images/xception.jpg" style="width:100%;"></div>
-<p>그림 출처: <a class="reference external" href="https://arxiv.org/abs/1610.02357">Xception: Deep Learning with Depthwise Separable Convolutions</a></p>
-</div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://arxiv.org/abs/1610.02357">Xception: Deep Learning with Depthwise Separable Convolutions</a>&gt;</div></p></div>
 <div class="section" id="id7">
 <h3><span class="section-number">9.3.4. </span>채널 분리 합성곱<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">SeparableConv2D</span></code> 층은 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층보다
@@ -840,8 +768,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 이렇게 작동하는 층이 <strong>채널 분리 합성곱</strong>(depthwise separable convolution) 층이며
 아래 그림처럼 채널 별로 생성된 결과를 합친 후 <code class="docutils literal notranslate"><span class="pre">1x1</span></code> 합성곱 신경망을 통과시킨다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/09-10.png" style="width:70%;"></div>
-<p>그림 출처: <a class="reference external" href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
-<p><strong>SeparableConv2D 작동 원리</strong></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>SeparableConv2D 작동 원리</strong></p>
 <p>이미지에 저장된 정보가 채널 별로 서로 독립적이라는 가정을 사용한다.
 따라서 채널 별로 서로 다른 필터를 사용한 후 결과들을 <code class="docutils literal notranslate"><span class="pre">1x1</span></code> 모양의 필터를 사용하여 합친다.
 이때 원하는 종류의 채널 수 만큼의 <code class="docutils literal notranslate"><span class="pre">1x1</span></code> 모양의 필터를 사용하여
@@ -864,8 +791,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </li>
 </ul>
 <div align="center"><img src="https://miro.medium.com/max/604/1*JwCJCgN2UreEn3U1nwVj8Q.png" style="width:60%;"></div>
-<p>그림 출처: <a class="reference external" href="https://medium.com/&#64;zurister/depth-wise-convolution-and-depth-wise-separable-convolution-37346565d4ec">Depth-wise Convolution and Depth-wise Separable Convolution</a></p>
-<p><strong>학습가능한 파라미터 수 비교</strong></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://medium.com/@zurister/depth-wise-convolution-and-depth-wise-separable-convolution-37346565d4ec">Depth-wise Convolution and Depth-wise Separable Convolution</a>&gt;</div></p><p><strong>학습가능한 파라미터 수 비교</strong></p>
 <p>채널 분리 합성곱 신경망이 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층을 사용하는 경우보다 몇 배 이상 적은 수의
 파라미터를 사용한다.</p>
 <p>경우 1(위 그림): <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 모양의 필터 64개를 3개의 채널을 갖는
@@ -887,7 +813,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <li><p><code class="docutils literal notranslate"><span class="pre">SeparableConv2D</span></code>의 경우: <code class="docutils literal notranslate"><span class="pre">3*3*64</span> <span class="pre">+</span> <span class="pre">64*64</span> <span class="pre">=</span> <span class="pre">4,672</span></code></p></li>
 </ul>
 <p><strong>SeparableConv2D의 약점</strong></p>
-<p>채널 분리 합성곱에 사용되는 알고리즘이 CUDA에서 지원되지 않는다.
+<p>채널 분리 합성곱에 사용되는 알고리즘이 CUDA에서 제대로 지원되지 않는다.
 따라서 GPU를 사용하더라도 기존 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층만을 사용한 모델에 비해
 학습 속도에 별 차이가 없다.
 즉 채널 분리 합성곱이 비록 훨씬 적은 수의 파라미터를 학습에 사용하지만
@@ -912,50 +838,12 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <p>케라스에서 지원하는 Xception 모델의 구성은 2017년 모델과 조금 다르지만
 기본적으로 <code class="docutils literal notranslate"><span class="pre">SeparableConv2D</span></code>와 <code class="docutils literal notranslate"><span class="pre">BatchNormalizaiton</span></code> 층을 효율적으로 활용한
 블록을 잔차 연결과 함께 사용하여 깊게 쌓은 모델이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">Xception</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">Xception</span><span class="p">(</span>
     <span class="n">include_top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">input_tensor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">input_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pooling</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
     <span class="n">classifier_activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span>
 <span class="p">)</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">3217585964.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">Xception</span><span class="p">(</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">include_top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">input_tensor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">3470139634.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;model&#39; is not defined
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="xception">
@@ -975,201 +863,12 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 예를 들어 <a class="reference external" href="https://arxiv.org/abs/1802.02611">DeepLabV3 모델</a>은
 Xception 모델을 이용하는 2021년 기준 최고의 이미지 분할 모델이다.</p>
 <p><strong>이미지 다운로드 및 데이터 적재</strong></p>
-<p>사용하는 데이터셋은 <a class="reference external" href="https://codingalzi.github.io/dlp/notebooks/dlp08_intro_to_dl_for_computer_vision.html">8장</a>에서
-사용한 캐글(kaggle)의 강아지-고양이 데이터셋이며,
-이미지 다운로드와 훈련셋 등의 적재는 8장에서 사용한 방식과 동일하다.</p>
-<ul class="simple">
-<li><p>캐글 인증서 업로드: 구글 코랩 사용하는 경우</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 구글 코랩: 캐글 인증서 업로드</span>
-<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
-    <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">files</span>
-    <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;이어지는 코드는 kaggle.json 파일이 현재 디렉토리에 있다고 가정함.&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>이어지는 코드는 kaggle.json 파일이 현재 디렉토리에 있다고 가정함.
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>캐글 인증서 저장: kaggle.json 파일이 현재 작업 디렉토리에 있다고 가정함.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">pathlib</span>
-
-<span class="c1"># kaggle 인증서 현재 저장 위치</span>
-<span class="n">where_kaggle_json</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;kaggle.json&quot;</span><span class="p">)</span>
-
-<span class="c1"># kaggle 인증서를 사용자 홈디렉토리의 &quot;.kaggle/&quot; 디렉토리로 옮기기</span>
-<span class="k">if</span> <span class="n">where_kaggle_json</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-    <span class="c1"># 홈디렉토리 경로 지정</span>
-    <span class="n">homeDir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span>
-    <span class="n">kaggleDir</span> <span class="o">=</span> <span class="n">homeDir</span> <span class="o">/</span> <span class="s2">&quot;.kaggle&quot;</span>
-    <span class="n">kaggleJsonFile</span> <span class="o">=</span> <span class="n">kaggleDir</span> <span class="o">/</span> <span class="s2">&quot;kaggle.json&quot;</span>
-
-    <span class="c1"># &quot;.kaggle&quot; 디렉토리 존재 여부 확인. 없으면 생성.</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">kaggleDir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">kaggleDir</span><span class="p">)</span>
-
-    <span class="c1"># &quot;kaggle.json&quot; 파일 존재 여부 확인. 없으면 복사.</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">kaggleJsonFile</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">where_kaggle_json</span><span class="p">,</span> 
-                        <span class="n">dst</span><span class="o">=</span><span class="n">kaggleJsonFile</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">kaggleJsonFile</span><span class="p">,</span> <span class="mo">0o600</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;kaggle.json 파일을 지정된 사용자 홈폴더의 &#39;.kaggle&#39; 폴더에 저장하세요!&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kaggle.json 파일을 지정된 사용자 홈폴더의 &#39;.kaggle&#39; 폴더에 저장하세요!
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>강아지-고양이 이미지셋 다운로드 및 압축 해제</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span> 
-    <span class="o">!</span>kaggle competitions download -c dogs-vs-cats
-<span class="k">except</span><span class="p">:</span> 
-    <span class="o">!</span>pip install kaggle
-    <span class="o">!</span>kaggle competitions download -c dogs-vs-cats
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/bin/bash: kaggle: command not found
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zipfile</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;train.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
-        <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
-<span class="k">except</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;dogs-vs-cats.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
-        <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;train.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
-        <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">3115933484.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">----&gt; </span><span class="mi">4</span>     <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;train.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>         <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
-
-<span class="nn">~/anaconda3/lib/python3.9/zipfile.py</span> in <span class="ni">__init__</span><span class="nt">(self, file, mode, compression, allowZip64, compresslevel, strict_timestamps)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1238</span>                 <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1239</span>                     <span class="bp">self</span><span class="o">.</span><span class="n">fp</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">filemode</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1240</span>                 <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;train.zip&#39;
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">3115933484.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>         <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="k">except</span><span class="p">:</span>
-<span class="ne">----&gt; </span><span class="mi">7</span>     <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;dogs-vs-cats.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>         <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;train.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
-
-<span class="nn">~/anaconda3/lib/python3.9/zipfile.py</span> in <span class="ni">__init__</span><span class="nt">(self, file, mode, compression, allowZip64, compresslevel, strict_timestamps)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1237</span>             <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1238</span>                 <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1239</span>                     <span class="bp">self</span><span class="o">.</span><span class="n">fp</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">filemode</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1240</span>                 <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1241</span>                     <span class="k">if</span> <span class="n">filemode</span> <span class="ow">in</span> <span class="n">modeDict</span><span class="p">:</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;dogs-vs-cats.zip&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>강아지-고양이 데이터셋 분류 저장 및 적재</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 이미지셋 분류 저장 경로 지정</span>
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">pathlib</span>
-<span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">image_dataset_from_directory</span>
-
-<span class="n">original_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
-<span class="n">new_base_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;cats_vs_dogs_small&quot;</span><span class="p">)</span>
-
-<span class="c1"># 이미지셋 분류 저장</span>
-<span class="k">def</span> <span class="nf">make_subset</span><span class="p">(</span><span class="n">subset_name</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">):</span>
-        <span class="nb">dir</span> <span class="o">=</span> <span class="n">new_base_dir</span> <span class="o">/</span> <span class="n">subset_name</span> <span class="o">/</span> <span class="n">category</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="nb">dir</span><span class="p">)</span>
-        <span class="n">fnames</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">category</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">.jpg&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">)]</span>
-        <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">fnames</span><span class="p">:</span>
-            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">original_dir</span> <span class="o">/</span> <span class="n">fname</span><span class="p">,</span>
-                            <span class="n">dst</span><span class="o">=</span><span class="nb">dir</span> <span class="o">/</span> <span class="n">fname</span><span class="p">)</span>
-
-<span class="n">make_subset</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end_index</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<span class="n">make_subset</span><span class="p">(</span><span class="s2">&quot;validation&quot;</span><span class="p">,</span> <span class="n">start_index</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">end_index</span><span class="o">=</span><span class="mi">1500</span><span class="p">)</span>
-<span class="n">make_subset</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">start_index</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">end_index</span><span class="o">=</span><span class="mi">2500</span><span class="p">)</span>
-
-<span class="c1"># 데이터셋 적재</span>
-<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">image_dataset_from_directory</span><span class="p">(</span>
-    <span class="n">new_base_dir</span> <span class="o">/</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span>
-    <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
-    <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-<span class="n">validation_dataset</span> <span class="o">=</span> <span class="n">image_dataset_from_directory</span><span class="p">(</span>
-    <span class="n">new_base_dir</span> <span class="o">/</span> <span class="s2">&quot;validation&quot;</span><span class="p">,</span>
-    <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
-    <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-<span class="n">test_dataset</span> <span class="o">=</span> <span class="n">image_dataset_from_directory</span><span class="p">(</span>
-    <span class="n">new_base_dir</span> <span class="o">/</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
-    <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
-    <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">3398519650.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># 이미지셋 분류 저장 경로 지정</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">pathlib</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">image_dataset_from_directory</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">original_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
-</pre></div>
-</div>
-</div>
-</div>
+<p>사용하는 데이터셋은 <a class="reference internal" href="computer_vision_intro.html#ch-computer-vision-intro"><span class="std std-numref">8장</span></a>에서
+사용한 캐글(kaggle)의 강아지-고양이 데이터셋이다.</p>
 <p><strong>모델 구현</strong></p>
-<ul class="simple">
-<li><p>데이터 증식 층</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_augmentation</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+<ul>
+<li><p>데이터 증식 층</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_augmentation</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
     <span class="p">[</span>
         <span class="n">layers</span><span class="o">.</span><span class="n">RandomFlip</span><span class="p">(</span><span class="s2">&quot;horizontal&quot;</span><span class="p">),</span>
         <span class="n">layers</span><span class="o">.</span><span class="n">RandomRotation</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span>
@@ -1178,28 +877,11 @@ Xception 모델을 이용하는 2021년 기준 최고의 이미지 분할 모델
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">1440100548.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">data_augmentation</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="p">[</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>         <span class="n">layers</span><span class="o">.</span><span class="n">RandomFlip</span><span class="p">(</span><span class="s2">&quot;horizontal&quot;</span><span class="p">),</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>         <span class="n">layers</span><span class="o">.</span><span class="n">RandomRotation</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>         <span class="n">layers</span><span class="o">.</span><span class="n">RandomZoom</span><span class="p">(</span><span class="mf">0.2</span><span class="p">),</span>
-
-<span class="ne">NameError</span>: name &#39;keras&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>미니 Xception 모델 구성</p></li>
+</li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 입력층</span>
+<ul>
+<li><p>미니 Xception 모델 구성</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 입력층</span>
 <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data_augmentation</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
 
@@ -1239,47 +921,13 @@ Xception 모델을 이용하는 2021년 기준 최고의 이미지 분할 모델
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">3308582725.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># 입력층</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">x</span> <span class="o">=</span> <span class="n">data_augmentation</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Rescaling</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mi">255</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;keras&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">3470139634.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;model&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>모델 훈련</p></li>
+</li>
 </ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
-              <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+<ul>
+<li><p>모델 훈련</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
+            <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+            <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
 
 <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span>
@@ -1295,93 +943,15 @@ Xception 모델을 이용하는 2021년 기준 최고의 이미지 분할 모델
     <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">3608434896.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>               <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
-
-<span class="ne">NameError</span>: name &#39;model&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
+</li>
+</ul>
 <p>과대적합은 50번 정도의 에포크 실행 후에 발생한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="n">accuracy</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]</span>
-<span class="n">val_accuracy</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">]</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span>
-<span class="n">val_loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_loss&quot;</span><span class="p">]</span>
-
-<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-
-<span class="c1"># 정확도 그래프</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_accuracy</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Training and validation accuracy&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="c1"># 손실 그래프</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training loss&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation loss&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Training and validation loss&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">2762063169.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">accuracy</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">val_accuracy</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;history&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_9-11.png" style="width:70%;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><ul class="simple">
 <li><p>훈련 성능 평가</p></li>
 </ul>
-<p>직접 구현한 모델이지만 테스트셋에 대한 정확도가 90% 정도 나온다.
-8장에서 직접 구현해서 훈련시켰을 때의 성능인 83% 정도보다 훨씬 높게 나온다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;mini_xception.keras&quot;</span><span class="p">)</span>
-
-<span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">test_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test accuracy: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_797</span><span class="o">/</span><span class="mf">3508450707.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">test_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;mini_xception.keras&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">test_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_dataset</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test accuracy: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;keras&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
+<p>직접 구현한 모델이지만 테스트셋에 대한 정확도가 90% 정도 나오며,
+<a class="reference internal" href="computer_vision_intro.html#ch-computer-vision-intro"><span class="std std-numref">8장</span></a>에서 직접 구현해서 훈련시켰을 때의 성능인 83% 정도보다 훨씬 높게 나온다.</p>
 <p><strong>성능 높이기</strong></p>
 <p>보다 성능을 높이려면 하이퍼파라미터 미세조정 및 앙상블 학습을 활용해야 한다(13장 참조).</p>
 <ul class="simple">
