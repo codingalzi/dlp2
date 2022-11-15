@@ -477,11 +477,11 @@ const thebe_selector_output = ".output, .cell_output"
 <div align="center"><img src="https://www.robots.ox.ac.uk/~vgg/data/pets/pet_annotations.jpg" style="width:100%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>이미지 분할 모델 구성</strong></p>
 <p>이미지 분할 모델의 구성은 기본적으로 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층으로 구성된
-<strong>다운샘플링</strong> 블록(downsampling block)과
+<strong>다운샘플링</strong> 모듈(downsampling module)과
 <code class="docutils literal notranslate"><span class="pre">Conv2DTranspose</span></code> 층으로 구성된
-<strong>업샘플링</strong> 블록(upsampling block)으로 이루어진다.</p>
+<strong>업샘플링</strong> 모듈(upsampling module)으로 이루어진다.</p>
 <ul class="simple">
-<li><p>다운샘플링 블록: <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층 활용</p>
+<li><p>다운샘플링 모듈: <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층 활용</p>
 <ul>
 <li><p>이미지 분류 모델과 동일한 기능.</p></li>
 <li><p>보폭(<code class="docutils literal notranslate"><span class="pre">strides=2</span></code>)을 사용하는 경우와 그렇지 않은 경우를 연속으로 적용.
@@ -491,7 +491,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>채널 수는 동일한 방식으로 2배로 증가시킴.</p></li>
 </ul>
 </li>
-<li><p>업샘플링 블록: <code class="docutils literal notranslate"><span class="pre">Conv2DTranspose</span></code> 층 활용</p>
+<li><p>업샘플링 모듈: <code class="docutils literal notranslate"><span class="pre">Conv2DTranspose</span></code> 층 활용</p>
 <ul>
 <li><p>이미지 분할 모델의 최종 출력값은 원본 이미지의 트라이맵 분할 이미지임.
 따라서 동일한 크기의 넘파이 어레이를 출력해야 함.</p></li>
@@ -631,7 +631,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 2015년 ILSVRC 이미지 분류 경진대회에서 1등을 차지했다.</p>
 </div>
 <p><strong>잔차 연결 핵심: 모양<font size='2'>shape</font> 맞추기</strong></p>
-<p>잔차 연결을 사용할 때 주의해야할 기본사항은 블록의 입력텐서와 출력테서의 모양을 맞추는 일이다.
+<p>잔차 연결을 사용할 때 주의해야할 기본사항은 모듈의 입력텐서와 출력테서의 모양을 맞추는 일이다.
 이때 맥스풀링 사용여부에 따라 보폭(<code class="docutils literal notranslate"><span class="pre">strides</span></code>)의 크기가 달라진다.</p>
 <ul>
 <li><p>맥스풀링을 사용하지 않는 경우: <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>에서 사용된 필터 수를 맞추는 데에만 주의하면 된다.</p>
@@ -837,7 +837,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <p><strong>예제</strong>: Xception 모델</p>
 <p>케라스에서 지원하는 Xception 모델의 구성은 2017년 모델과 조금 다르지만
 기본적으로 <code class="docutils literal notranslate"><span class="pre">SeparableConv2D</span></code>와 <code class="docutils literal notranslate"><span class="pre">BatchNormalizaiton</span></code> 층을 효율적으로 활용한
-블록을 잔차 연결과 함께 사용하여 깊게 쌓은 모델이다.</p>
+모듈을 잔차 연결과 함께 사용하여 깊게 쌓은 모델이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">Xception</span><span class="p">(</span>
     <span class="n">include_top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">input_tensor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">input_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pooling</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
@@ -851,9 +851,9 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <p>미니 Xception 모델을 직접 구현하여 강아지-고양이 이항분류 작업을 실행해본다.</p>
 <p>모델 구현에 사용되는 기법을 정리하면 다음과 같다.</p>
 <ul class="simple">
-<li><p>적절한 층으로 구성된 블록을 쌓아 모델을 구성한다.</p></li>
-<li><p>블록을 쌓을 수록 필터 수는 증가시키고, 텐서 크기는 감소시킨다.</p></li>
-<li><p>층의 유닛은 적게 유지하고 블록은 높게 쌓는다.</p></li>
+<li><p>적절한 층으로 구성된 모듈을 쌓아 모델을 구성한다.</p></li>
+<li><p>모듈을 쌓을 수록 필터 수는 증가시키고, 텐서 크기는 감소시킨다.</p></li>
+<li><p>층의 유닛은 적게 유지하고 모듈은 높게 쌓는다.</p></li>
 <li><p>잔차 연결을 활용한다.</p></li>
 <li><p>모든 합성곱 층 이후에는 배치 정규화를 적용한다.</p></li>
 <li><p>채널 분리 합성곱 신경망을 활용한다.</p></li>
@@ -890,7 +890,7 @@ Xception 모델을 이용하는 2021년 기준 최고의 이미지 분할 모델
 <span class="c1"># 하나의 Conv2D 은닉층</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="c1"># SeparableConv2D, BatchNormalization, MaxPooling2D 층으로 구성된 블록 쌓기</span>
+<span class="c1"># SeparableConv2D, BatchNormalization, MaxPooling2D 층으로 구성된 모듈 쌓기</span>
 <span class="c1"># 잔차 연결 활용</span>
 <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">]:</span>   <span class="c1"># 필터 수</span>
     <span class="n">residual</span> <span class="o">=</span> <span class="n">x</span>
