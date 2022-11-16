@@ -286,33 +286,28 @@
 
 # ## 순환 신경망 이해
 
-# **순방향 신경망**
+# **순전파 신경망 대 순환 신경망**
 
-# 밀집 연결 모델은 시퀀스 샘플을 모두 풀어서 시퀀스 내의 순서를 무시한다.
-# 합성곱 신경망 모델은 시퀀스 샘플을 통으로 하나의 값으로 처리하면서
-# 시퀀스에 포함된 값들 사이의 순서 특성을 제대로 활용하지 못한다. 
-# 즉, 두 모델 모두 모델에 입력된 이전 샘플의 정보를 이후 샘플이 전혀 활용하지 못하고,
-# 하나의 샘플이 입력되면 바로 변환하고 다음 층으로 전달한다.
-# 이런 이유로 밀집 연결 모델과 합성곱 신경망과 
-# 같이 작동하는 모델을 **순방향 신경망**(feedforward network)라 부른다.
-
-# **순환 신경망(recurrent neural network)**
-
-# 순환 신경망 모델은 시퀀스을 한 번에 처리하는 대신
-# 포함된 항목들을 차례대로 처리할 때마다 얻은 정보를 바로 다음 층에
-# 그대로 전달하지 않고 다음 항목을 처리할 때 함께 활용한다.
-# 즉, 아래 그림이 보여주듯이 시퀀스 샘플을 항목에 대한 
-# 일종의 반복작업(loop)으로 처리하며, 
+# 밀집층 `Dense`와 합성곱층 `Conv2D` 샘플들 사이의 순서와 같은 관계를 고려하지 않으며,
+# 입력 샘플이 중어지면 그 샘플에 대한 출력값을 계산해서 다음 층으로 바로 전달한다.
+# 이렇게 작동하는 층을 이용하는 신경망을 **순전파 신경망**<font size='2'>feedforward network</font>이라 부른다.
+# 반면에 글을 읽으면서 이전 문장의 내용과 단어를 기억해야 하고,
+# 날씨 예측을 위해 이전 며칠 동안의 날씨가 중요하듯이
+# 데이터 사이의 순서를 함께 고려해야하는 경우에는 
+# 순환 신경망을 사용해야 한다.
+# 
+# **순환 신경망**<font size='2'>recurrent neural network</font>은
+# 입력 시퀀스를 하나의 샘플로 한 번에 처리하는 대신
+# 시퀀스에 포함된 항목들을 차례대로 하나씩 처리해서 얻은 정보를 시퀀스의 다음 항목을 처리할 때 함께 활용한다.
+# 아래 그림이 보여주듯이 시퀀스 샘플을 항목에 대한 일종의 반복작업<font size='2'>loop</font>으로 처리하며, 
 # 하나의 항목을 처리할 때 이전 항목을 처리한 결과를 활용한다. 
 # 
-# 시퀀스 항목을 하나 처리할 때마다 다음 항목에 활용되는 정보를 
-# **상태**(state)라 부른다.
-# 상태는 하나의 시퀀스를 처리할 때마다 초기화되며,
-# 이런 식으로 순환 신경망의 입력값은 시퀀스 샘플 단위로 처리된다.
+# 시퀀스 항목을 하나 처리할 때마다 다음 항목에 활용되는 정보를 **상태**<font size='2'>state</font>라 부른다.
+# 상태는 하나의 시퀀스를 처리할 때마다 초기화된다.
 
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-06.png" style="width:25%;"></div>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch10-rnn01.png" style="width:75%;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">Hands-on machine learning(3판)</a>&gt;</div></p>
 
 # **`SimpleRNN` 층 작동법**
 
@@ -327,72 +322,17 @@
 #         
 # - `Wo`, `Uo`, `bo`는 학습되어야 하는 파라미터들이다.
 
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_10-7.png" style="width:80%;"></div>
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_10-7.png" style="width:70%;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
-
-# **케라스 순환층 기본 사용법**
-
-# 순환층은 임의의 길이의 시퀀스를 처리할 수 있다.
-
-# In[1]:
-
-
-num_features = 14
-inputs = keras.Input(shape=(None, num_features)) # 임의의 길이의 시퀀스 처리
-outputs = layers.SimpleRNN(16)(inputs)
-
-
-# 하지만 일정한 길이의 시퀀스만을 다룬다면 시퀀스 길이(steps)를 지정하는 것이 좋다.
-# 이유는 모델을 구성한 후에 `summary()` 메서드를 활용하여
-# 모델 훈련과정에 변환되는 텐서들의 모양을 정확히 추적할 수 있기 때문이다.
-# 
-# 순환층의 출력값은 층 생성자의 `return_sequences` 키워드 인자의 값에 따라
-# 시퀀스의 마지막 항목에 대한 출력값만 출력할지를 지정한다. 
-
-# - `return_sequences=False`인 경우: 시퀀스의 마지막 항목에 대한 출력값만 출력
-
-# In[2]:
-
-
-num_features = 14  # 특성 수
-steps = 120        # 시퀀스 길이 지정
-inputs = keras.Input(shape=(steps, num_features))
-outputs = layers.SimpleRNN(16, return_sequences=False)(inputs)  # 마지막 항목의 출력값만 사용
-print(outputs.shape)
-
-
-# - `return_sequences=True`인 경우: 시퀀스의 모든 항목에 대한 출력값을 출력
-
-# In[3]:
-
-
-num_features = 14  # 특성 수
-steps = 120        # 시퀀스 길이 지정
-inputs = keras.Input(shape=(steps, num_features))
-outputs = layers.SimpleRNN(16, return_sequences=True)(inputs)  # 모든 항목의 출력값 사용
-print(outputs.shape)
-
-
-# 순환층 또한 스택으로 쌓을 수 있다.
-# - 마지막 순환층을 제외한 모든 순환층은 `return_sequences=True`로 설정해야 함.
-
-# In[4]:
-
-
-inputs = keras.Input(shape=(steps, num_features))
-x = layers.SimpleRNN(16, return_sequences=True)(inputs)
-x = layers.SimpleRNN(16, return_sequences=True)(x)
-outputs = layers.SimpleRNN(16)(x)
-
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # **`LSTM` 층 작동법**
 
 # `SimpleRNN` 층은 실전에서 거의 사용되지 않는다.
-# 이유는 이론과는 달리 시퀀스 내의 초기 상태(state)가 제대로 전달되지 않기 때문이다.
+# 이유는 이론과는 달리 시퀀스 내의 초기 상태가 제대로 전달되지 않기 때문이다.
 # 이 또한 역전파 과정에서 그레이디언트 소실이 발생하기 때문이다.
 # 이에 대한 해결책으로 잔차 연결과 유사한 아이디어가 적용된
-# **LSTM**(Long Short Term Memory) 층이 1997년에 제시되었다. 
+# **LSTM**<font size='2'>Long Short Term Memory</font> 층이 1997년에 제시되었다. 
 # 
 # LSTM 층은 아래 그림에서 보듯이 장단기 메모리 모두 항목의 훈련에 활용된다. 
 # 
@@ -413,10 +353,77 @@ outputs = layers.SimpleRNN(16)(x)
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-10.png" style="width:80%;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# **참고**: `c_t` 계산에 사용되는 값들의 의미와 기능 확정적이지 않기에
-# 세세한 내용 보다는 장단기 메모리가 순환층에서 어떻게 활용되는가에 대한 기본적인 이해가 중요하다.
+# **RNN의 입력값과 출력값**
+
+# RNN은 사용되는 층의 입력값과 출력값의 종류에 따라 아래 네 가지 유형으로 나뉜다.
+# 
+# - sequence-to-sequence 신경망(아래 그림 상단 왼편)
+#     - 입력 시퀀스를 이용하여 출력 시퀀스를 생성하여 다음 층으로 전달
+#     - 예제: 시계열 데이터 예측. 지난 5일 동안의 온도를 이용하여 다음 날 온도 예측. 따라서 지난 4일과 하루 다음 날의 온도를 예측해야 함.
+# - sequence-to-vector 신경망(아래 그림 상단 오른편)
+#     - 예제: 영화 후기를 입력값으로 사용해서 영화에 대한 긍정/부정 결과를 예측하도록 함.
+#         (문장을 시퀀스 데이터로 다룸)
+# - vector-to-sequence 신경망(아래 그림 하단 왼편)
+#     - 예제: 사진을 입력하면 사진 설명을 출력값으로 생성하도록 함.
+# - encoder-decoder: sequence-to-vector 신경망과 vector-to-sequence 신경망을 이어붙힌 신경망(아래 그림 하단 오른편)
+#     - 예제: 문장 번역. 인코더는 한국어로 작성된 문장을 먼저 하나의 값으로 변환하고,
+#         디코더는 생성된 값으로부터 영어로 된 문장을 생성함.
+
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch10-rnn02.png" style="width:75%;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">Hands-on machine learning(3판)</a>&gt;</div></p>
+
+# :::{prf:example} 케라스 순환층 기본 사용법
+# :label: exc-rnn-basic
+# 
+# 순환층은 임의의 길이의 시퀀스를 처리할 수 있다.
+# 
+# ```python
+# num_features = 14
+# inputs = keras.Input(shape=(None, num_features)) # 임의의 길이의 시퀀스 처리
+# outputs = layers.SimpleRNN(16)(inputs)
+# ```
+# 
+# 하지만 일정한 길이의 시퀀스만을 다룬다면 시퀀스 길이(steps)를 지정하는 것이 좋다.
+# 이유는 모델을 구성한 후에 `summary()` 메서드를 활용하여
+# 모델 훈련과정에 변환되는 텐서들의 모양을 정확히 추적할 수 있기 때문이다.
+# 
+# 순환층의 출력값은 층 생성자의 `return_sequences` 키워드 인자의 값에 따라
+# 시퀀스의 마지막 항목에 대한 출력값만 출력할지를 지정한다. 
+# 
+# - `return_sequences=False`인 경우: 시퀀스의 마지막 항목에 대한 출력값만 출력
+#     ```python
+#     >>> num_features = 14  # 특성 수
+#     >>> steps = 120        # 시퀀스 길이 지정
+#     >>> inputs = keras.Input(shape=(steps, num_features))
+#     >>> outputs = layers.SimpleRNN(16, return_sequences=False)(inputs)  # 마지막 항목의 출력값만 사용
+#     >>> print(outputs.shape)
+#     (None, 16)
+#     ```
+# 
+# - `return_sequences=True`인 경우: 시퀀스의 모든 항목에 대한 출력값을 출력
+# 
+#     ```python
+#     >>> num_features = 14  # 특성 수
+#     >>> steps = 120        # 시퀀스 길이 지정
+#     >>> inputs = keras.Input(shape=(steps, num_features))
+#     >>> outputs = layers.SimpleRNN(16, return_sequences=True)(inputs)  # 모든 항목의 출력값 사용
+#     >>> print(outputs.shape)
+#     (None, 120, 16)
+#     ```
+# 
+# 순환층 또한 스택으로 쌓을 수 있다.
+# 단, 마지막 순환층을 제외한 모든 순환층은 `return_sequences=True`로 설정해야 함.
+# 
+# ```python
+# inputs = keras.Input(shape=(steps, num_features))
+# x = layers.SimpleRNN(16, return_sequences=True)(inputs)
+# x = layers.SimpleRNN(16, return_sequences=True)(x)
+# outputs = layers.SimpleRNN(16)(x)
+# ```
+# :::
 
 # ## 순환 신경망 고급 활용법
 
@@ -442,43 +449,13 @@ outputs = layers.SimpleRNN(16)(x)
 # - 드랍아웃을 사용하기에 층의 유닛 수를 이전보다 두 배 늘림.
 # - 과대적합이 보다 늦게 발생할 것을 대비해 에포크 수를 50으로 늘림.
 
-# **주의사항**: 아래 코드를 실행하면 이전보다 훈련시간이 훨씬 오래 걸린다. 
-# 단순히 에포크 수가 늘어나서가 아니라 하나의 에포크에 걸리는 시간이 몇 십배 느려진다.
-# 이유는 드랍아웃을 사용하는 LSTM, GRU 모델은 cuDNN에서 제대로 지원되지 않는다.
-# 이유는 순환층에 사용되는 `for` 반복문이 기본 설정에 대해서만 최적화되었기 때문이다.
-# 기타 옵션을 사용하는 경우 `unroll=True` 옵션을 사용하면 
-# 제한적(타임스텝이 100 이하로 지정된 경우)으로 cuDNN을 잘 활용할 수 있다. 
-# 사용법은 다음과 같다. 
-# 
 # ```python
-# inputs = keras.Input(shape=(sequence_length, num_features))
-# x = layers.LSTM(32, recurrent_dropout=0.2, unroll=True)(inputs)
+# inputs = keras.Input(shape=(sequence_length, raw_data.shape[-1]))
+# x = layers.LSTM(32, recurrent_dropout=0.25)(inputs)
+# x = layers.Dropout(0.5)(x)
+# outputs = layers.Dense(1)(x)
+# model = keras.Model(inputs, outputs)
 # ```
-
-# In[5]:
-
-
-inputs = keras.Input(shape=(sequence_length, raw_data.shape[-1]))
-x = layers.LSTM(32, recurrent_dropout=0.25)(inputs)
-x = layers.Dropout(0.5)(x)
-outputs = layers.Dense(1)(x)
-model = keras.Model(inputs, outputs)
-
-callbacks = [
-    keras.callbacks.ModelCheckpoint("jena_lstm_dropout.keras",
-                                    save_best_only=True)
-]
-
-model.compile(optimizer="rmsprop", loss="mse", metrics=["mae"])
-
-history = model.fit(train_dataset,
-                    epochs=50,
-                    validation_data=val_dataset,
-                    callbacks=callbacks)
-
-model = keras.models.load_model("jena_lstm_dropout.keras")
-print(f"Test MAE: {model.evaluate(test_dataset)[1]:.2f}")
-
 
 # 학습과정을 그래프로 나타내면 다음과 같으며, 과대적합이 20 에포크 이후에 
 # 발생함을 확인할 수 있다.
@@ -486,38 +463,40 @@ print(f"Test MAE: {model.evaluate(test_dataset)[1]:.2f}")
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-11.png" style="width:55%;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# :::{admonition} RNN 층 실행시간 가속화
+# :class: info
+# 
+# 드랍아웃을 적용한 순환층을 실행하면 이전보다 훈련시간이 훨씬 오래 걸린다. 
+# 단순히 에포크 수가 늘어나서가 아니라 하나의 에포크에 걸리는 시간이 몇 십배 느려지기 때문이다.
+# 이유는 드랍아웃을 사용하는 LSTM, GRU 모델은 cuDNN에서 제대로 지원되지 않는다.
+# 이유는 순환층에 사용되는 `for` 반복문이 기본 설정에 대해서만 최적화되었기 때문이다.
+# 
+# 하지만 타임스텝이 100 이하로 지정된 경우에 `unroll=True` 옵션을 사용하면
+# cuDNN을 잘 활용할 수는 있지만 메모리가 훨씬 많이 더 요구된다는 단점이 발생한다.
+# 
+# 
+# ```python
+# inputs = keras.Input(shape=(sequence_length, num_features))
+# x = layers.LSTM(32, recurrent_dropout=0.2, unroll=True)(inputs)
+# ```
+# :::
 
 # **순환층 쌓기**
 
-# 순환층으로 스택으로 쌓아서 활용할 수도 있다.
 # 아래 모델은 LSTM의 변종이면서 좀 더 가벼운 GRU(Gated Recurrent Unit) 층을 사용한다.
 # 마지막 순환층을 제외한 모든 순환층에서 `return_sequences=True` 옵션을 
 # 지정해야 함에 주의해야 한다. 
 
-# In[6]:
-
-
-inputs = keras.Input(shape=(sequence_length, raw_data.shape[-1]))
-x = layers.GRU(32, recurrent_dropout=0.5, return_sequences=True)(inputs)
-x = layers.GRU(32, recurrent_dropout=0.5)(x)
-x = layers.Dropout(0.5)(x)
-outputs = layers.Dense(1)(x)
-model = keras.Model(inputs, outputs)
-
-callbacks = [
-    keras.callbacks.ModelCheckpoint("jena_stacked_gru_dropout.keras",
-                                    save_best_only=True)
-]
-model.compile(optimizer="rmsprop", loss="mse", metrics=["mae"])
-history = model.fit(train_dataset,
-                    epochs=50,
-                    validation_data=val_dataset,
-                    callbacks=callbacks)
-
-model = keras.models.load_model("jena_stacked_gru_dropout.keras")
-print(f"Test MAE: {model.evaluate(test_dataset)[1]:.2f}")
-
+# ```python
+# inputs = keras.Input(shape=(sequence_length, raw_data.shape[-1]))
+# x = layers.GRU(32, recurrent_dropout=0.5, return_sequences=True)(inputs)
+# x = layers.GRU(32, recurrent_dropout=0.5)(x)
+# x = layers.Dropout(0.5)(x)
+# outputs = layers.Dense(1)(x)
+# model = keras.Model(inputs, outputs)
+# ```
 
 # 학습과정을 그래프로 나타내면 다음과 같으며 모델의 성능이 좀 더 좋아졌다.
 # 하지만 층을 더 이상 쌓는다고 해서 성능이 반드시 더 좋아진다는 보장은 없으며
@@ -525,34 +504,18 @@ print(f"Test MAE: {model.evaluate(test_dataset)[1]:.2f}")
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-12.png" style="width:55%;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # **양방향 RNN 적용**
 
 # 자연어 처리(NLP, Natural language processing) 등에서는 한쪽 방향으로 뿐만 아니라 
 # 반대 방향으로 시퀀스의 타임스텝을 처리하는 과정을 동시에 진행하는
 # 양방향 RNN(bidirectional RNN) 층이 매우 효율적으로 적용된다.
+# 하지만 날씨 예측 등과 같이 시간의 순서가 결정적인 경우에는 별 도움되지 않는다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-14.png" style="width:50%;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
-
-# 하지만 날씨 예측 등과 같이 시간의 순서가 결정적인 경우에는 별 도움되지 않음을
-# 아래 코드를 통해 확인할 수 있다.
-
-# In[7]:
-
-
-inputs = keras.Input(shape=(sequence_length, raw_data.shape[-1]))
-x = layers.Bidirectional(layers.LSTM(16))(inputs)
-outputs = layers.Dense(1)(x)
-model = keras.Model(inputs, outputs)
-
-model.compile(optimizer="rmsprop", loss="mse", metrics=["mae"])
-history = model.fit(train_dataset,
-                    epochs=10,
-                    validation_data=val_dataset)
-
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # **성능 최대한 끌어올리기**
 
