@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>9. 고급 컴퓨터 비전 &#8212; Deep Learning with Python(2판)</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,21 +20,17 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -40,12 +38,13 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -54,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="10. 시계열 데이터 처리" href="dl_for_timeseries.html" />
+    <link rel="next" title="10. 시계열 분석" href="dl_for_timeseries.html" />
     <link rel="prev" title="8. 컴퓨터 비전 기초: 합성곱 신경망" href="computer_vision_intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -63,7 +62,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -72,9 +85,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
       
@@ -135,7 +149,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="dl_for_timeseries.html">
-   10. 시계열 데이터 처리
+   10. 시계열 분석
   </a>
  </li>
  <li class="toctree-l1">
@@ -151,107 +165,209 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/computer_vision_advanced.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/codingalzi/dlp2"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fcomputer_vision_advanced.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/computer_vision_advanced.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/computer_vision_advanced.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/codingalzi/dlp2"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fcomputer_vision_advanced.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/computer_vision_advanced.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    9.1. 컴퓨터 비전 주요 과제
@@ -296,12 +412,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>고급 컴퓨터 비전</h1>
@@ -362,11 +477,12 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="ch-computer-vision-advanced">
-<span id="id1"></span><h1><span class="section-number">9. </span>고급 컴퓨터 비전<a class="headerlink" href="#ch-computer-vision-advanced" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ch-computer-vision-advanced">
+<span id="id1"></span><h1><span class="section-number">9. </span>고급 컴퓨터 비전<a class="headerlink" href="#ch-computer-vision-advanced" title="Permalink to this headline">#</a></h1>
 <p><strong>감사의 글</strong></p>
 <p>아래 내용은 프랑소와 숄레의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
@@ -393,8 +509,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-<div class="section" id="id2">
-<h2><span class="section-number">9.1. </span>컴퓨터 비전 주요 과제<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">9.1. </span>컴퓨터 비전 주요 과제<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <p>컴퓨터 비전 분야에서 가장 주요한 연구 주제는 다음 세 가지이다.</p>
 <ul class="simple">
 <li><p>이미지 분류(image classification): 이미지에 포함된 사물(들)의 클래스 분류</p>
@@ -439,9 +555,9 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>객체 탐지 참고 자료: <a class="reference external" href="https://keras.io/examples/vision/retinanet/">RetinaNet 활용 객체 탐지</a></p></li>
 </ul>
 <p>아래에서는 이미지 분할을 예제를 활용하여 좀 더 상세하게 설명한다.</p>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">9.2. </span>이미지 분할<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">9.2. </span>이미지 분할<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
 <p>이미지 분할은 크게 두 종류 방식을 사용한다.</p>
 <ul class="simple">
 <li><p>시맨틱 분할(semantic segmentation): 클래스 별 분할.</p>
@@ -580,9 +696,9 @@ const thebe_selector_output = ".output, .cell_output"
 원본 이미지에 포함된 다른 요소들 때문에 약간의 잡음이 있지만
 대략적으로 이미지 분할을 잘 적용함을 알 수 있다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/09-06.png" style="width:700px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
-<div class="section" id="cnn">
-<h2><span class="section-number">9.3. </span>CNN 아키텍처 주요 유형<a class="headerlink" href="#cnn" title="Permalink to this headline">¶</a></h2>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
+<section id="cnn">
+<h2><span class="section-number">9.3. </span>CNN 아키텍처 주요 유형<a class="headerlink" href="#cnn" title="Permalink to this headline">#</a></h2>
 <p><strong>모델 아키텍처</strong><font size='2'>model architecture</font>는 모델 설계방식을 의미하며
 심층 신경망 모델을 구성할 때 매우 중요하다.
 주어진 데이터셋과 해결해야 문제에 따라 적절한 층을 적절하게 구성해서
@@ -597,8 +713,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>배치 정규화<font size='2'>batch normalization</font></p></li>
 <li><p>채널 분리 합성곱<font size='2'>depthwise separable convolutions</font></p></li>
 </ul>
-<div class="section" id="id4">
-<h3><span class="section-number">9.3.1. </span>모듈, 계층, 재활용<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<section id="id4">
+<h3><span class="section-number">9.3.1. </span>모듈, 계층, 재활용<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
 <p>합성곱 신경망 모델 아키텍처는 다음 두 가지 특징을 갖는다.</p>
 <p>첫째, 깊게 쌓아 올린 합성곱 신경망 모델은 기본적으로 <strong>모듈</strong><font size='2'>module</font>을
 <strong>계층</strong><font size='2'>hierarchy</font>으로 쌓아 올린 구조를 갖는다.
@@ -610,9 +726,9 @@ const thebe_selector_output = ".output, .cell_output"
 VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면에 특성맵<font size='2'>feature maps</font>의
 크기는 그에 상응하게 줄여 나간다(아래 그림 참고).</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/09-08.png" style="width:80%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
-<div class="section" id="id5">
-<h3><span class="section-number">9.3.2. </span>잔차 연결<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
+<section id="id5">
+<h3><span class="section-number">9.3.2. </span>잔차 연결<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
 <p>일반적으로 많은 유닛이 포함된 층을 몇 개 쌓는 것보다
 적은 유닛이 포함된 층을 높이 쌓을 때 모델의 성능이 좋아진다.
 하지만 층을 높이 쌓을 수록
@@ -700,9 +816,9 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">9.3.3. </span>배치 정규화<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id6">
+<h3><span class="section-number">9.3.3. </span>배치 정규화<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
 <p><strong>정규화</strong><font size='2'>normalization</font>는 다양한 모양의 샘플을 정규화를 통해 보다 유사하게 만들어
 모델의 학습을 도와주고 훈련된 모델의 일반화 성능을 올려준다.
 지금까지 살펴 본 정규화는 모델의 입력 데이터를 전처리 과정에서 평균을 0으로,
@@ -753,9 +869,9 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <p>아래 그림은 2017년에 소개된 Xception 모델의 구조를 보여준다.
 빨강색 사각형으로 표시된 부분에 <code class="docutils literal notranslate"><span class="pre">BatchNormalization</span></code> 층이 사용되었다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/notebooks/images/xception.jpg" style="width:100%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://arxiv.org/abs/1610.02357">Xception: Deep Learning with Depthwise Separable Convolutions</a>&gt;</div></p></div>
-<div class="section" id="id7">
-<h3><span class="section-number">9.3.4. </span>채널 분리 합성곱<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://arxiv.org/abs/1610.02357">Xception: Deep Learning with Depthwise Separable Convolutions</a>&gt;</div></p></section>
+<section id="id7">
+<h3><span class="section-number">9.3.4. </span>채널 분리 합성곱<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h3>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">SeparableConv2D</span></code> 층은 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층보다
 적은 수의 가중치 파라미터를 사용하여 보다 적은 양의 계산으로 성능이 좀 더 좋은 모델을 생성한다.
 2017년 Xception 모델 논문에서 소개되었으며 당시 최고의 이미지 분류 성능을 보였다.</p>
@@ -845,9 +961,9 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="xception">
-<h3><span class="section-number">9.3.5. </span>예제: 미니 Xception 모델<a class="headerlink" href="#xception" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="xception">
+<h3><span class="section-number">9.3.5. </span>예제: 미니 Xception 모델<a class="headerlink" href="#xception" title="Permalink to this headline">#</a></h3>
 <p>미니 Xception 모델을 직접 구현하여 강아지-고양이 이항분류 작업을 실행해본다.</p>
 <p>모델 구현에 사용되는 기법을 정리하면 다음과 같다.</p>
 <ul class="simple">
@@ -958,9 +1074,9 @@ Xception 모델을 이용하는 2021년 기준 최고의 이미지 분할 모델
 <li><p>하이퍼파라미터 미세조정: <a class="reference external" href="https://www.tensorflow.org/tutorials/keras/keras_tuner">케라스튜너(KerasTuner)</a> 활용</p></li>
 <li><p>앙상블 학습: <a class="reference external" href="https://codingalzi.github.io/handson-ml2/notebooks/handson-ml2-07.html">그레이디언트 부스팅(gradient boosting)</a> 활용</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -984,9 +1100,11 @@ Xception 모델을 이용하는 2021년 기준 최고의 이미지 분할 모델
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="computer_vision_intro.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -997,28 +1115,32 @@ Xception 모델을 이용하는 2021년 기준 최고의 이미지 분할 모델
     <a class='right-next' id="next-link" href="dl_for_timeseries.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">10. </span>시계열 데이터 처리</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>시계열 분석</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By 코딩알지<br/>
+  
+</p>
+        </footer>
+    </div>
     
-      By 코딩알지<br/>
-    
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

@@ -50,7 +50,7 @@
 # - 이상치 탐지<font size='2'>anomaly detection</font>: 생산라인 중에 발생하는 특이현상, 회사 네트워크 상에 발생하는 특이 활동 등 탐지.
 #     비지도 학습 활용.
 
-# ## 시게열 분석 사례: 온도 예측
+# ## 시계열 분석 사례: 온도 예측
 
 # 24시간 이후의 온도를 예측하는 **순환 신경망**<font size='2'>recurrent neural network>(RNN) 모델을 구현한다.
 
@@ -70,36 +70,33 @@
 
 # 15개의 특성을 갖는 총 420,451 개의 데이터로 구성된다.
 # 첫째 데이터는 2009년 1월 1일 0시 10분에 측정되었다.
+# 아래 이미지는 예나 날씨 데이터셋을 엑셀로 열었을 때의 첫 20개의 데이터 샘플을 보여준다.
 
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch10-jena_dataset.jpg" style="width:95%;"></div>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch10-jena_dataset.jpg" style="width:100%;"></div>
 
 # **온도 변화 그래프**
 
-# In[1]:
+# 온도의 변화를 선그래프로 그리면 다음과 같다.
 
-
-from matplotlib import pyplot as plt
-
-plt.plot(range(len(temperature)), temperature)
-
-
-# **처음 10일동안의 온도 변화**
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-01.png" style="width:65%;"></div>
 # 
-# 한 시간에 6번, 하루 24시간, 10일동안 측정 횟수는 `6 * 24 * 10 = 1,440`이다.
-# 
-# - 1월 1일 - 1월 10일 기간동안 측정된 온도라 상당히 낮다.
-# - 마지막 4일 동안은 일 단위 온도 변화가 주기성을 띈다. 
-# 
-# **주기성**(periodicity)은 시계열 데이터의 기본 특성 중 하나이다.
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# **주기성**은 시계열 데이터의 기본 특성 중 하나이다.
 # 월별 주기성은 매우 일관성을 갖는다. 
 # 지난 몇 달동안의 데이터를 이용하여 다음 달의 평균 온도를 예측하는 일은 상대적으로 쉽다.
 # 반면에 일 단위의 예측은 아래 그래프에서 보듯이 훨씬 혼잡하다. 
 
-# In[2]:
+# **처음 10일동안의 온도 변화**
+# 
+# 한 시간에 6번, 하루 24시간, 10일동안 측정 횟수는 `6 * 24 * 10 = 1,440` 회이다.
+# 
+# - 1월 1일 - 1월 10일 기간동안 측정된 온도라 상당히 낮다.
+# - 마지막 4일 동안은 일 단위 온도 변화가 주기성을 띈다. 
 
-
-plt.plot(range(1440), temperature[:1440])
-
+# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-02.png" style="width:65%;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # **훈련셋, 검증셋, 테스트셋 크기**
 # 
@@ -110,44 +107,37 @@ plt.plot(range(1440), temperature[:1440])
 # 미래에 대한 예측을 실행하므로 훈련셋, 검증셋, 테스트셋 순으로 
 # 보다 오래된 데이터를 사용한다. 
 
-# In[3]:
-
-
-num_train_samples = int(0.5 * len(raw_data))     # 전체의 50%
-num_val_samples   = int(0.25 * len(raw_data))    # 전체의 25%
-num_test_samples  = len(raw_data) - num_train_samples - num_val_samples
-
-print("num_train_samples:\t", num_train_samples)
-print("num_val_samples:\t", num_val_samples)
-print("num_test_samples:\t", num_test_samples)
-
+# ```python
+# num_train_samples = int(0.5 * len(raw_data))     # 전체의 50%
+# num_val_samples   = int(0.25 * len(raw_data))    # 전체의 25%
+# num_test_samples  = len(raw_data) - num_train_samples - num_val_samples
+# ```
 
 # **데이터 전처리**
 
 # 시계열 데이터를 전처리 하려면 해결해야 할 문제를 명확히 지정해야 한다.
 # 여기서는 지난 5일치의 날씨 데이터를 이용하여 앞으로 24시간 후의 온도를 예측하는 모델을 구현하고자 한다.
-# 따라서 이 목적을 위한 시계열 데이터의 입력 샘플은 지난 5일치의 날씨 데이터를 하나의 시퀀스로 묶은 데이터이고,
+# 따라서 이 목적을 위한 시계열 데이터의 입력 샘플은 
+# 지난 5일치의 날씨 데이터를 하나의 시퀀스로 묶은 데이터이고,
 # 타깃은 해당 시퀀스보다 24시간 앞선 데이터의 온도이어야 한다. 
-# 
-# 5일 단위의 시퀀스와 타깃을 정하기 전에 먼저 기존 데이터셋을 정규화 한다.
-# 즉, 특성별로 평균은 0, 표준편차는 1로 변환한다.
-# 
-# **주의사항**: 훈련셋의 평균값과 표준편차를 이용하여 모든 데이터셋을 정규화해야 한다.
-# 앞서 언급한 것처럼 시계열 데이터의 훈련셋은 이른 시점에서의 데이터를 활용한다.
 
 # **데이터 정규화**
 
-# In[4]:
+# 5일 단위의 시퀀스와 타깃을 정하기 전에 먼저 기존 데이터셋을 정규화 한다.
+# 즉, 특성별로 평균은 0, 표준편차는 1로 변환한다.
+# 
+# 그런데 훈련셋의 평균값과 표준편차를 이용하여 모든 데이터셋을 정규화해야 한다.
+# 앞서 언급한 것처럼 시계열 데이터의 훈련셋은 이른 시점에서의 데이터를 활용한다.
 
-
-# 훈련셋의 평균
-mean = raw_data[:num_train_samples].mean(axis=0)
-raw_data -= mean
-
-# 훈련셋의 표준편차
-std = raw_data[:num_train_samples].std(axis=0)
-raw_data /= std
-
+# ```python
+# # 훈련셋의 평균
+# mean = raw_data[:num_train_samples].mean(axis=0)
+# raw_data -= mean
+# 
+# # 훈련셋의 표준편차
+# std = raw_data[:num_train_samples].std(axis=0)
+# raw_data /= std
+# ```
 
 # **5일 단위 시퀀스 데이터 준비**
 
@@ -165,55 +155,30 @@ raw_data /= std
 # - `start_index`: 표본 추출 대상 시작 구간
 # - `end_index`: 표본 추출 대상 끝 구간
 
-# In[5]:
-
-
-from tensorflow import keras
-
-# 1시간에 하나의 데이터 선택
-sampling_rate = 6
-
-# 입력 데이터 시퀀스: 지난 5일치(120시간) 온도 데이터
-sequence_length = 120
-
-# 타깃 설정:24시간 이후의 온도. 지연(delay)을 6일치로 지정
-delay = sampling_rate * (sequence_length + 24 - 1)
-
-# 배치 크기
-batch_size = 256
-
-# 훈련셋
-train_dataset = keras.utils.timeseries_dataset_from_array(
-    data=raw_data[:-delay],
-    targets=temperature[delay:],
-    sampling_rate=sampling_rate,
-    sequence_length=sequence_length,
-    shuffle=True, # 생성된 시퀀스들의 순서 무작위화
-    batch_size=batch_size,
-    start_index=0,
-    end_index=num_train_samples)
-
-# 검증셋
-val_dataset = keras.utils.timeseries_dataset_from_array(
-    data=raw_data[:-delay],
-    targets=temperature[delay:],
-    sampling_rate=sampling_rate,
-    sequence_length=sequence_length,
-    shuffle=True,
-    batch_size=batch_size,
-    start_index=num_train_samples,
-    end_index=num_train_samples + num_val_samples)
-
-# 테스트셋
-test_dataset = keras.utils.timeseries_dataset_from_array(
-    data=raw_data[:-delay],
-    targets=temperature[delay:],
-    sampling_rate=sampling_rate,
-    sequence_length=sequence_length,
-    shuffle=True,
-    batch_size=batch_size,
-    start_index=num_train_samples + num_val_samples)
-
+# ```python
+# # 1시간에 하나의 데이터 선택
+# sampling_rate = 6
+# 
+# # 입력 데이터 시퀀스: 지난 5일치(120시간) 온도 데이터
+# sequence_length = 120
+# 
+# # 타깃 설정:24시간 이후의 온도. 지연(delay)을 6일치로 지정
+# delay = sampling_rate * (sequence_length + 24 - 1)
+# 
+# # 배치 크기
+# batch_size = 256
+# 
+# # 훈련셋
+# train_dataset = keras.utils.timeseries_dataset_from_array(
+#     data=raw_data[:-delay],
+#     targets=temperature[delay:],
+#     sampling_rate=sampling_rate,
+#     sequence_length=sequence_length,
+#     shuffle=True, # 생성된 시퀀스들의 순서 무작위화
+#     batch_size=batch_size,
+#     start_index=0,
+#     end_index=num_train_samples)
+# ```
 
 # 생성된 새로운 데이터셋은 훈련셋의 샘플과 타깃을 함께 배치 단위로 묶여있다.
 # 예를 들어, 훈련셋의 첫째 배치의 모양은 다음과 같다.
@@ -222,7 +187,7 @@ test_dataset = keras.utils.timeseries_dataset_from_array(
 # - 시퀀스 샘플 모양: `(120, 14)`
 #     - 14개의 특성을 갖는 날씨 데이터 5일치
 
-# In[6]:
+# In[1]:
 
 
 for samples, targets in train_dataset:
@@ -236,14 +201,14 @@ for samples, targets in train_dataset:
 # 아래 코드는 넘파이 어레이를 이용하여 
 # `timeseries_dataset_from_array()` 함수의 작동법을 설명한다.
 
-# In[7]:
+# In[2]:
 
 
 int_sequence = np.arange(10)
 int_sequence
 
 
-# In[8]:
+# In[3]:
 
 
 dummy_dataset = keras.utils.timeseries_dataset_from_array(
@@ -256,7 +221,7 @@ dummy_dataset = keras.utils.timeseries_dataset_from_array(
 
 # 길이가 3인 시퀀스 샘플을 2개씩 묶은 배치 3개가 만들어진다. 
 
-# In[9]:
+# In[4]:
 
 
 i = 0
@@ -270,7 +235,7 @@ for inputs, targets in dummy_dataset:
 
 # 배치 별 샘플과 타깃을 확인하면 다음과 같다.
 
-# In[10]:
+# In[5]:
 
 
 i = 0
@@ -289,7 +254,7 @@ for inputs, targets in dummy_dataset:
 # 즉, 내일 이 시간 온도가 현재 온도와 별 차이가 없다는 가정을 이용한다. 
 # 그러면 검증셋과 테스트셋에 대한 평균절대오차는 각각 2.44와 2.62이다.
 
-# In[11]:
+# In[6]:
 
 
 def evaluate_naive_method(dataset):
@@ -313,7 +278,7 @@ print(f"테스트셋 평균절대오차(MAE): {evaluate_naive_method(test_datase
 # - 손실함수는 (미분가능한 함수인) 평균제곱근오차를 사용한다.
 # - 첫째 층으로 사용된 `Flatten`에 의해 시간 흐름에 대한 정보를 사실상 잃어버린다. 
 
-# In[12]:
+# In[7]:
 
 
 from tensorflow import keras
@@ -349,7 +314,7 @@ print(f"Test MAE: {model.evaluate(test_dataset)[1]:.2f}")
 # 하루 사이에 온도가 그리 급격히 바뀌지 않는다는
 # 베이스라인 모델에 사용된 직관이 활용된 것 같아 보이지는 않다.
 
-# In[13]:
+# In[8]:
 
 
 import matplotlib.pyplot as plt
@@ -378,7 +343,7 @@ plt.show()
 # - 첫 `Conv1D`에 사용된 필터의 크기는 24이다. 이유는 24시간 이후의 온도를 예측하기 때문이다. 
 # - 이후 `MaxPooling1D`를 사용하면서 동시에 필터의 크기도 절반씩 줄여 나간다. 
 
-# In[14]:
+# In[9]:
 
 
 # 모델 구성
@@ -418,7 +383,7 @@ print(f"Test MAE: {model.evaluate(test_dataset)[1]:.2f}")
 # - 날씨 데이터는 시간의 흐름에 민감하다. 오래된 데이터보다 최근 데이터가 보다 예측에 중요하다.
 #     하지만 `Conv1D` 층은 이런 점을 활용하지 못한다. 
 
-# In[15]:
+# In[10]:
 
 
 import matplotlib.pyplot as plt
@@ -441,7 +406,7 @@ plt.show()
 # 
 # - LSTM (장단기 메모리, Long Short Term Memory) 층: 시간 순서, 원인과 결과의 관계를 고려함.
 
-# In[16]:
+# In[11]:
 
 
 # 모델 구성
@@ -474,7 +439,7 @@ print(f"Test MAE: {model.evaluate(test_dataset)[1]:.2f}")
 # 학습과정을 그래프로 나타내면 다음과 같으며, 드디어 베이스라인보다 (조금이나마) 
 # 좋은 성능을 보인다. 
 
-# In[17]:
+# In[12]:
 
 
 import matplotlib.pyplot as plt
@@ -542,7 +507,7 @@ plt.show()
 
 # 순환층은 임의의 길이의 시퀀스를 처리할 수 있다.
 
-# In[18]:
+# In[13]:
 
 
 num_features = 14
@@ -559,7 +524,7 @@ outputs = layers.SimpleRNN(16)(inputs)
 
 # - `return_sequences=False`인 경우: 시퀀스의 마지막 항목에 대한 출력값만 출력
 
-# In[19]:
+# In[14]:
 
 
 num_features = 14  # 특성 수
@@ -571,7 +536,7 @@ print(outputs.shape)
 
 # - `return_sequences=True`인 경우: 시퀀스의 모든 항목에 대한 출력값을 출력
 
-# In[20]:
+# In[15]:
 
 
 num_features = 14  # 특성 수
@@ -584,7 +549,7 @@ print(outputs.shape)
 # 순환층 또한 스택으로 쌓을 수 있다.
 # - 마지막 순환층을 제외한 모든 순환층은 `return_sequences=True`로 설정해야 함.
 
-# In[21]:
+# In[16]:
 
 
 inputs = keras.Input(shape=(steps, num_features))
@@ -662,7 +627,7 @@ outputs = layers.SimpleRNN(16)(x)
 # x = layers.LSTM(32, recurrent_dropout=0.2, unroll=True)(inputs)
 # ```
 
-# In[22]:
+# In[17]:
 
 
 inputs = keras.Input(shape=(sequence_length, raw_data.shape[-1]))
@@ -702,7 +667,7 @@ print(f"Test MAE: {model.evaluate(test_dataset)[1]:.2f}")
 # 마지막 순환층을 제외한 모든 순환층에서 `return_sequences=True` 옵션을 
 # 지정해야 함에 주의해야 한다. 
 
-# In[23]:
+# In[18]:
 
 
 inputs = keras.Input(shape=(sequence_length, raw_data.shape[-1]))
@@ -747,7 +712,7 @@ print(f"Test MAE: {model.evaluate(test_dataset)[1]:.2f}")
 # 하지만 날씨 예측 등과 같이 시간의 순서가 결정적인 경우에는 별 도움되지 않음을
 # 아래 코드를 통해 확인할 수 있다.
 
-# In[24]:
+# In[19]:
 
 
 inputs = keras.Input(shape=(sequence_length, raw_data.shape[-1]))
