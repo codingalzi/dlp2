@@ -40,33 +40,31 @@
 # - 웹사이트 방문자수
 # - 국내총생산(GDP)
 
-# 시계열 분석과 관련된 대표적인 과제는 **예측**<font size='2'>forcasting</font>이다. 
-# 예를 들어, 몇 시간 후의 소비 전력, 몇 달 후의 영업 이익, 며칠 뒤의 날씨 등을 예측하는 일이다. 
+# 시계열 분석의 주요 목적은 **예측**<font size='2'>forcasting</font>이다.
+# 예를 들어, 몇 시간 후의 소비 전력, 몇 달 후의 영업 이익, 며칠 뒤의 날씨 등을 예측할 때 사용한다.
 # 이외에 시계열 분석과 관련된 과제는 다음과 같다.
 # 
-# - 분류<font size='2'>classification</font>: 웹사이트 방문자의 활동 이력을 보고 사람인지 여부 판단
-# - 이벤트 탐지<font size='2'>event detection</font>: 오디오 스트림 감시 도중 "Ok Google", "Hey Alexa", "시리야" 등 
-#     핫워드<font size='2'>hotword</font> 탐지
-# - 이상치 탐지<font size='2'>anomaly detection</font>: 생산라인 중에 발생하는 특이현상, 회사 네트워크 상에 발생하는 특이 활동 등 탐지.
-#     비지도 학습 활용.
+# - 분류<font size='2'>classification</font>: 웹사이트 방문자의 활동 이력을 보고 사람인지 기계인지 여부 판단
+# - 이벤트 탐지<font size='2'>event detection</font>: 오디오 스트림 감시 도중 "Ok Google", "Hey Alexa", "시리야" 등 핫워드<font size='2'>hotword</font> 탐지
+# - 이상치 탐지<font size='2'>anomaly detection</font>: 생산라인 중에 발생하는 특이현상, 회사 네트워크 상에 발생하는 특이 활동 등 탐지. 비지도 학습 활용.
 
 # ## 시계열 분석 사례: 온도 예측
 
-# 24시간 이후의 온도를 예측하는 **순환 신경망**<font size='2'>recurrent neural network>(RNN) 모델을 구현한다.
+# 24시간 이후의 온도를 예측하는 **순환 신경망**<font size='2'>recurrent neural network</font>(RNN) 모델을 구현한다.
 
-# **데이터셋 준비**
+# ### 데이터셋 준비
 
-# 독일 예나<font size='2'>Jena</font>시에 위치한 막스-플랑크<font size='2'>Max-Planck</font>의
-# 생지화확<font size='2'>Biogeochemistry</font> 연구소가
+# 독일 예나<font size='2'>Jena</font>시에 위치한 
+# 막스-플랑크 생지화확<font size='2'>Max-Planck Biogeochemistry</font> 연구소가
 # 온도, 기압, 풍향 등 14 종류의 기상 데이터를 10분 단위로 측정해서 수집한 데이터셋이다. 
-# 원래 2003년부터 측정하였지만 여기서는 2009-2016년 데이터만 이용한다. 
+# 원래 2003년부터 측정하였지만 여기서는 2009-2016년 데이터를 이용한다. 
 
 # **zip 파일 다운로드 및 압축풀기**
 # 
 # [jena_climate_2009_2016.csv.zip](https://s3.amazonaws.com/keras-datasets/jena_climate_2009_2016.csv.zip) 파일을
 # 다운로드해서 압축을 풀면 `jena_climate_2009_2016.csv` 파일이 생성된다.
 
-# **예나(Jena) 날씨 데이터셋 살펴보기**
+# **예나 날씨 데이터셋 살펴보기**
 
 # 측정 시간을 제외한 14개의 날씨 관련 특성을 갖는 총 420,451 개의 데이터로 구성된다.
 # 첫째 데이터는 2009년 1월 1일 0시 10분에 측정되었다.
@@ -87,25 +85,22 @@
 # 지난 몇 달동안의 데이터를 이용하여 다음 달의 평균 온도를 예측하는 일은 상대적으로 쉽다.
 # 반면에 일 단위의 예측은 아래 그래프에서 보듯이 훨씬 혼잡하다. 
 
-# **처음 10일동안의 온도 변화**
-# 
-# 한 시간에 6번, 하루 24시간, 10일동안 측정 횟수는 `6 * 24 * 10 = 1,440` 회이다.
-# 
-# - 1월 1일 - 1월 10일 기간동안 측정된 온도라 상당히 낮다.
-# - 마지막 4일 동안은 일 단위 온도 변화가 주기성을 띈다. 
+# 아래 그래프는 2009년 1월 1일부터 1월 10일까지 열흘동안 측정된 온도의 선그래프이다.
+# 10분에 한 번 측정되어서 열흘동안 총 `6 * 24 * 10 = 1,440` 개의 데이터 샘플이 
+# x-축에 사용되었다.
+# 그래프 상으로 마지막 4일 동안 일 단위 온도 변화가 어느 정도의 주기성을 보이기는 하지만
+# 그런 주기성이 일반적이다 라고 말하기는 어렵다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-02.png" style="width:65%;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# **훈련셋, 검증셋, 테스트셋 크기**
-# 
-# - 훈련셋: 전체의 50%
-# - 검증셋: 전체의 25%
-# - 테스트셋: 전체의 25%
-# 
-# 미래에 대한 예측을 실행하므로 훈련셋, 검증셋, 테스트셋 순으로 
+# **훈련셋, 검증셋, 테스트셋 지정하기**
+
+# 훈련셋, 검증셋, 테스셋의 비율을 각각 50%, 25%, 25%로 지정한다.
+# 시계열 분석은 미래에 대한 예측을 실행하므로 훈련셋, 검증셋, 테스트셋 순으로
 # 보다 오래된 데이터를 사용한다. 
+# 따라서 데이터셋을 섞지 않고 주어진 시간 순서대로 그대로 이용한다.
 
 # ```python
 # num_train_samples = int(0.5 * len(raw_data))     # 전체의 50%
@@ -113,9 +108,8 @@
 # num_test_samples  = len(raw_data) - num_train_samples - num_val_samples
 # ```
 
-# **데이터 전처리**
+# **입력 데이터셋과 타깃**
 
-# 시계열 데이터를 전처리 하려면 해결해야 할 문제를 명확히 지정해야 한다.
 # 여기서는 지난 5일치의 날씨 데이터를 이용하여 앞으로 24시간 후의 온도를 예측하는 모델을 구현하고자 한다.
 # 따라서 이 목적을 위한 시계열 데이터의 입력 샘플은 
 # 지난 5일치의 날씨 데이터를 하나의 시퀀스로 묶은 데이터이고,
@@ -210,12 +204,13 @@
 # - `data`: 선택 대상 데이터셋 전체
 # - `targets`: 선택 대상 데이터셋 전체
 # - `sampling_rate`: 표본 비율. 몇 개 중에 하나를 선택할 것인지 지정. 
-#     아래 코드에서는 한 시간에 한 개 선택 사용. 60분에 한 개.
 # - `sequence_length`: 시퀀스 샘플 길이
 # - `shuffle=True`: 생성된 시퀀스들의 순서를 무작위하게 섞음.
 # - `batch_size`: 배치 크기. 생성된 시퀀스들을 배치로 묶음.
 # - `start_index`: 표본 추출 대상 시작 구간
 # - `end_index`: 표본 추출 대상 끝 구간
+
+# `sampling_rate=6`으로 지정한 이유는 10분 사이에는 온도의 변화가 거의 없기에 한 시간 단위로 표본을 추출하기 위함이다. 
 
 # ```python
 # # 1시간에 하나의 데이터 선택
@@ -254,17 +249,18 @@
 # 타깃 모양: (256,)
 # ```
 
-# **베이스라인 설정**
+# 모델 성능의 최저 기준선으로 24시간 후의 온도를 현재 온도로 예측하는 것을 사용한다.
+# 즉, 내일 이 시간 온도가 현재 온도와 별 차이가 없다는 가정을 이용한다. 
+# 그러면 검증셋과 테스트셋에 대한 평균절대오차는 각각 2.44와 2.62이다.
+
+# ### 간단한 순환 모델 성능
 
 # 모델 성능의 최저 기준선으로 24시간 후의 온도를 현재 온도로 예측하는 것을 사용한다.
 # 즉, 내일 이 시간 온도가 현재 온도와 별 차이가 없다는 가정을 이용한다. 
 # 그러면 검증셋과 테스트셋에 대한 평균절대오차는 각각 2.44와 2.62이다.
 
-# **간단한 순환 모델 성능**
-
-# 가장 간단한 순환 신경망 모델이더라도 베이스라인보다 좋은 성능을 보여준다는 것을 확인할 수 있다.
-# 
-# - LSTM (장단기 메모리, Long Short Term Memory) 층: 시간 순서, 원인과 결과의 관계를 고려함.
+# 아래 코드는 가장 간단한 순환 신경망 모델이더라도 베이스라인보다 좋은 성능을 보여준다는 것을 확인할 수 있다.
+# 모델에 사용된 `LSTM` 층은 장 기간의 정보를 잘 기억해서 활용하는 순환 신경망 층이다. 
 
 # ```python
 # # 입력층
@@ -288,8 +284,8 @@
 
 # **순전파 신경망 대 순환 신경망**
 
-# 밀집층 `Dense`와 합성곱층 `Conv2D` 샘플들 사이의 순서와 같은 관계를 고려하지 않으며,
-# 입력 샘플이 중어지면 그 샘플에 대한 출력값을 계산해서 다음 층으로 바로 전달한다.
+# 밀집층 `Dense`와 합성곱층 `Conv2D`는 샘플들 사이의 순서를 고려하지 않으며,
+# 입력 샘플이 주어지면 그 샘플에 대한 출력값을 계산해서 다음 층으로 바로 전달한다.
 # 이렇게 작동하는 층을 이용하는 신경망을 **순전파 신경망**<font size='2'>feedforward network</font>이라 부른다.
 # 반면에 글을 읽으면서 이전 문장의 내용과 단어를 기억해야 하고,
 # 날씨 예측을 위해 이전 며칠 동안의 날씨가 중요하듯이
@@ -299,11 +295,8 @@
 # **순환 신경망**<font size='2'>recurrent neural network</font>은
 # 입력 시퀀스를 하나의 샘플로 한 번에 처리하는 대신
 # 시퀀스에 포함된 항목들을 차례대로 하나씩 처리해서 얻은 정보를 시퀀스의 다음 항목을 처리할 때 함께 활용한다.
-# 아래 그림이 보여주듯이 시퀀스 샘플을 항목에 대한 일종의 반복작업<font size='2'>loop</font>으로 처리하며, 
-# 하나의 항목을 처리할 때 이전 항목을 처리한 결과를 활용한다. 
-# 
-# 시퀀스 항목을 하나 처리할 때마다 다음 항목에 활용되는 정보를 **상태**<font size='2'>state</font>라 부른다.
-# 상태는 하나의 시퀀스를 처리할 때마다 초기화된다.
+# 시퀀스의 항목을 하나 처리할 때마다 다음 항목에 활용되는 정보를 **상태**<font size='2'>state</font>라 부른다.
+# 새로운 시퀀스를 다룰 때마다 시퀀스는 초기화된다.
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch10-rnn01.png" style="width:75%;"></div>
 # 
@@ -313,14 +306,14 @@
 
 # 앞서 설명한 순환 신경망 아이디어를 가장 간단하게 구현한 모델이며 작동과정은 아래 그림과 같다. 
 # 
-# - `t`: 타임스텝(time step). 하나의 시퀀스에서 항목의 순서를 가리킴.
+# - `t`: 타임스텝<font size='2'>time step</font>. 하나의 시퀀스에서 항목의 순서를 가리킴.
 # - `input_t`: 시퀀스의 `t` 번째 항목.
 # - `state_t`: 시퀀스의 `t-1` 번째 항목에 대한 출력값.
 # - `output_t`: `t` 번째 항목에 대한 출력값
 # 
 #         output_t = activation(dot(Wo, input_t) + dot(Uo, state_t) + bo)
 #         
-# - `Wo`, `Uo`, `bo`는 학습되어야 하는 파라미터들이다.
+# - `Wo`, `Uo`, `bo`는 학습되어야 하는 파라미터
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_10-7.png" style="width:70%;"></div>
 # 
@@ -329,8 +322,8 @@
 # **`LSTM` 층 작동법**
 
 # `SimpleRNN` 층은 실전에서 거의 사용되지 않는다.
-# 이유는 이론과는 달리 시퀀스 내의 초기 상태가 제대로 전달되지 않기 때문이다.
-# 이 또한 역전파 과정에서 그레이디언트 소실이 발생하기 때문이다.
+# 이유는 이론과는 달리 시퀀스 내의 초기 상태가 제대로 전달되지 않기 때문인데,
+# 이는 역전파 과정에서 그레이디언트 소실이 발생하기 때문이다.
 # 이에 대한 해결책으로 잔차 연결과 유사한 아이디어가 적용된
 # **LSTM**<font size='2'>Long Short Term Memory</font> 층이 1997년에 제시되었다. 
 # 
@@ -375,10 +368,9 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">Hands-on machine learning(3판)</a>&gt;</div></p>
 
-# :::{prf:example} 케라스 순환층 기본 사용법
-# :label: exc-rnn-basic
-# 
-# 순환층은 임의의 길이의 시퀀스를 처리할 수 있다.
+# **케라스 순환층 기본 사용법**
+
+# 첫째, 순환층은 임의의 길이의 시퀀스를 처리할 수 있다.
 # 
 # ```python
 # num_features = 14
@@ -389,33 +381,34 @@
 # 하지만 일정한 길이의 시퀀스만을 다룬다면 시퀀스 길이(steps)를 지정하는 것이 좋다.
 # 이유는 모델을 구성한 후에 `summary()` 메서드를 활용하여
 # 모델 훈련과정에 변환되는 텐서들의 모양을 정확히 추적할 수 있기 때문이다.
-# 
-# 순환층의 출력값은 층 생성자의 `return_sequences` 키워드 인자의 값에 따라
+
+# 둘째, 순환층의 출력값은 층 생성자의 `return_sequences` 키워드 인자의 값에 따라
 # 시퀀스의 마지막 항목에 대한 출력값만 출력할지를 지정한다. 
 # 
-# - `return_sequences=False`인 경우: 시퀀스의 마지막 항목에 대한 출력값만 출력
-#     ```python
-#     >>> num_features = 14  # 특성 수
-#     >>> steps = 120        # 시퀀스 길이 지정
-#     >>> inputs = keras.Input(shape=(steps, num_features))
-#     >>> outputs = layers.SimpleRNN(16, return_sequences=False)(inputs)  # 마지막 항목의 출력값만 사용
-#     >>> print(outputs.shape)
-#     (None, 16)
-#     ```
+# 만약 `return_sequences=False`, 즉 기본값으로 설정하면 시퀀스의 마지막 항목에 대한 출력값만 생성한다.
 # 
-# - `return_sequences=True`인 경우: 시퀀스의 모든 항목에 대한 출력값을 출력
+# ```python
+# num_features = 14  # 특성 수
+# steps = 120        # 시퀀스 길이 지정
+# inputs = keras.Input(shape=(steps, num_features))
+# outputs = layers.SimpleRNN(16, return_sequences=False)(inputs)  # 마지막 항목의 출력값만 사용
+# print(outputs.shape)
+# (None, 16)
+# ```
 # 
-#     ```python
-#     >>> num_features = 14  # 특성 수
-#     >>> steps = 120        # 시퀀스 길이 지정
-#     >>> inputs = keras.Input(shape=(steps, num_features))
-#     >>> outputs = layers.SimpleRNN(16, return_sequences=True)(inputs)  # 모든 항목의 출력값 사용
-#     >>> print(outputs.shape)
-#     (None, 120, 16)
-#     ```
+# `return_sequences=True`로 지정하면 시퀀스의 모든 항목에 대한 출력값을 갖는 시퀀스를 생성한다.
 # 
-# 순환층 또한 스택으로 쌓을 수 있다.
-# 단, 마지막 순환층을 제외한 모든 순환층은 `return_sequences=True`로 설정해야 함.
+# ```python
+# num_features = 14  # 특성 수
+# steps = 120        # 시퀀스 길이 지정
+# inputs = keras.Input(shape=(steps, num_features))
+# outputs = layers.SimpleRNN(16, return_sequences=True)(inputs)  # 모든 항목의 출력값 사용
+# print(outputs.shape)
+# (None, 120, 16)
+# ```
+
+# 셋째, 순환층 또한 스택으로 쌓을 수 있다.
+# 단, 마지막 순환층을 제외한 모든 순환층은 `return_sequences=True`로 설정해야 한다.
 # 
 # ```python
 # inputs = keras.Input(shape=(steps, num_features))
@@ -423,15 +416,14 @@
 # x = layers.SimpleRNN(16, return_sequences=True)(x)
 # outputs = layers.SimpleRNN(16)(x)
 # ```
-# :::
 
 # ## 순환 신경망 고급 활용법
 
 # 순환 신경망의 성능을 끌어 올리는 세 가지 기법을 소개한다. 
 # 
-# - 순환 드랍아웃(recurrent dropout) 적용
+# - 순환 드랍아웃<font size='2'>recurrent dropout</font> 적용
 # - 순환층 쌓기
-# - 양방향 순환층(bidirectional recurrent layer) 활용
+# - 양방향 순환층<font size='2'>bidirectional recurrent layer</font> 활용
 
 # **순환 드랍아웃 적용**
 
@@ -485,8 +477,8 @@
 
 # **순환층 쌓기**
 
-# 아래 모델은 LSTM의 변종이면서 좀 더 가벼운 GRU(Gated Recurrent Unit) 층을 사용한다.
-# 마지막 순환층을 제외한 모든 순환층에서 `return_sequences=True` 옵션을 
+# 아래 모델은 LSTM의 변종이면서 좀 더 가벼운 GRU<font size='2'>Gated Recurrent Unit</font> 층을 사용한다.
+# 앞서 언급한 대로 마지막 순환층을 제외한 모든 순환층에서 `return_sequences=True` 옵션을 
 # 지정해야 함에 주의해야 한다. 
 
 # ```python
@@ -508,9 +500,9 @@
 
 # **양방향 RNN 적용**
 
-# 자연어 처리(NLP, Natural language processing) 등에서는 한쪽 방향으로 뿐만 아니라 
-# 반대 방향으로 시퀀스의 타임스텝을 처리하는 과정을 동시에 진행하는
-# 양방향 RNN(bidirectional RNN) 층이 매우 효율적으로 적용된다.
+# 자연어 처리<font size='2'>Natural language processing</font>(NLP) 등에서는
+# 한쪽 방향으로 뿐만 아니라 반대 방향으로 시퀀스의 타임스텝을 처리하는 과정을 동시에 진행하는
+# 양방향 RNN<font size='2'>bidirectional RNN</font> 층이 매우 효율적으로 적용된다.
 # 하지만 날씨 예측 등과 같이 시간의 순서가 결정적인 경우에는 별 도움되지 않는다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-14.png" style="width:50%;"></div>
@@ -522,6 +514,6 @@
 # 모델의 성능을 끌어 올리는 기본적인 접근법은 다음과 같다.
 # 
 # - 층의 유닛 개수 및 드랍아웃 비율 조정
-# - RMSprop 등의 옵티마이저의 학습률 조정 및 다른 옵티마이저 활용
+# - `RMSprop` 등의 옵티마이저의 학습률 조정 및 다른 옵티마이저 활용
 # - 순환층 이후에 여러 개의 밀집층 적용
 # - 시퀀스 길이 조정, 샘플 선택 비율 조정 등 기타 특성 엔지니어링 시도.
