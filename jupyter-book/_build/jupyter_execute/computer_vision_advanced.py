@@ -632,10 +632,10 @@
 
 # **성능 높이기**
 
-# 보다 성능을 높이려면 하이퍼파라미터 미세조정 및 앙상블 학습을 활용해야 한다(13장 참조).
+# 보다 성능을 높이려면 하이퍼파라미터 미세조정 및 앙상블 학습을 활용해야 한다.
 # 
-# - 하이퍼파라미터 미세조정: [케라스튜너(KerasTuner)](https://www.tensorflow.org/tutorials/keras/keras_tuner) 활용
-# - 앙상블 학습: [그레이디언트 부스팅(gradient boosting)](https://codingalzi.github.io/handson-ml2/notebooks/handson-ml2-07.html) 활용
+# - [하이퍼파라미터 미세조성: 그리드 탐색, 랜덤 탐색](https://codingalzi.github.io/handson-ml3/end2end_ml_project.html#id25)
+# - [앙상블 학습](https://codingalzi.github.io/handson-ml3/ensemble_learning_random_forests.html)
 
 # ## 연습 문제
 
