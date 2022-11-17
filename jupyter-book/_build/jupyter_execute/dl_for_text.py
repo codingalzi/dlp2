@@ -30,10 +30,10 @@
 # ## 자연어처리 소개
 
 # 파이썬, 자바, C, C++, C#, 자바스크립트 등 컴퓨터 프로그래밍언어와 구분하기 위해 
-# 일상에서 사용되는 한국어, 영어 등을 __자연어__(natural language)라 부른다. 
+# 일상에서 사용되는 한국어, 영어 등을 **자연어**<font size='2'>natural language</font>라 부른다. 
 # 
 # 자연어의 특성상 정확한 분석을 위한 알고리즘을 구현하는 일은 사실상 매우 어렵다. 
-# 딥러닝 기법이 활용되기 이전깢지 적절한 규칙을 구성하여 자연어를 이해하려는 
+# 딥러닝 기법이 활용되기 이전까지는 적절한 규칙을 구성하여 자연어를 이해하려는 
 # 수 많은 시도가 있어왔지만 별로 성공적이지 않았다.
 # 
 # 1990년대부터 인터넷으로부터 구해진 엄청난 양의 텍스트 데이터에 머신러닝 기법을
@@ -48,9 +48,8 @@
 # - 번역: "이거를 한국어로 어떻게 말해?"
 # - 요약: "이 기사를 한 줄로 요약하면?"
 # 
-# 이와 같은 분석을 **자연어처리**(NLP, Natural Language Processing)이라 하며
-# 단어(words), 문장(sentences), 문단(paragraphs) 등에서 찾을 수 있는
-# 패턴(pattern)을  인식하려 시도한다. 
+# 이와 같은 분석을 **자연어 처리**<font size='2'>Natural Language Processing</font>이라 하며
+# 단어, 문장, 문단 등에서 찾을 수 있는 패턴을  인식하려 시도한다. 
 
 # **머신러닝 활용**
 
@@ -63,26 +62,25 @@
 # 
 # - 2015-2017: (양방향) 순환신경망이 기본적으로 활용됨.
 # 
-# - 2017-2018: 트랜스포머(Transformer) 모델이 최고의 성능 발휘하며, 
+# - 2017-2018: 트랜스포머<font size='2'> transformer</font> 모델이 최고의 성능 발휘하며, 
 #     많은 난제들을 해결함. 현재 가장 많이 활용되는 모델임.
 
 # ## 텍스트 벡터화
 
 # 딥러닝 모델은 텍스트 자체를 처리할 수 없다.
-# 따라서 택스트를 수치형 텐서(numeric tensors)로 변환하는 
-# **텍스트 벡터화**(text vectorization) 과정이 요구되며
+# 따라서 텍스트를 수치형 텐서로 변환하는 **텍스트 벡터화**<font size='2'>text vectorization</font> 과정이 요구되며
 # 보통 다음 세 단계를 따른다.
 # 
-# 1. **텍스트 표준화**(text standardization): 소문자화, 마침표 제거 등등
-# 1. **토큰화**(tokenization): 기본 단위의 **유닛**(units)으로 쪼개기
-#     - 토큰 예제: 문자, 단어, 단언들의 집합 등등
-# 1. **어휘 색인화**(vocabulary indexing): 토큰 각각을 하나의 수치형 벡터(numerical vector)로 변환.
+# 1. **텍스트 표준화**<font size='2'>text standardization</font>: 소문자화, 마침표 제거 등등
+# 1. **토큰화**<font size='2'>tokenization</font>: 기본 단위의 **유닛**<font size='2'>units</font>으로 쪼개기
+#     - 토큰 예제: 문자, 단어, 단어 집합 등등
+# 1. **어휘 색인화**<font size='2'>vocabulary indexing</font>: 토큰 각각을 하나의 수치형 벡터로 변환.
 # 
 # 아래 그림은 텍스트 벡터화의 기본적인 과정을 잘 보여준다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-01.png" style="width:60%;"></div>
 # 
-# 그림 출처: [Deep Learning with Python(Manning MEAP)](https://www.manning.com/books/deep-learning-with-python-second-edition)
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
 # **텍스트 표준화**
 
@@ -123,18 +121,18 @@
 #     - 문장 생성, 음성 인식 등에서 활용됨.
 
 # 일반적으로 문자 기준 토큰화는 잘 사용되지 않는다. 
-# 여기서도 단어 기준 또는 N-그램 토큰화만 이용한다.
+# 여기서도 단어 기준과 N-그램 토큰화만 이용한다.
 # 
-# - 단어 기준 토큰화: 단어들의 순서를 중요시하는 **순차 모델**(sequence models)을 사용할 경우 활용
-# - N-그램 토큰화: 단언들의 순서를 별로 상관하지 않는 **단어주머니(bag-of-words, BOW)** 
+# - 단어 기준 토큰화: 단어들의 순서를 중요시하는 **순차 모델**<font size='2'>sequence models</font>을 사용할 경우 활용
+# - N-그램 토큰화: 단언들의 순서를 별로 상관하지 않는 **단어 주머니**<font size='2'>bag-of-words</font> 
 #     모델을 사용할 경우 활용
-#     - N-그램: 단어들 사이의 순서에 대한 지역 정보를 어느 정도 유지함.
-#     - 일종의 특성 공학(feature engineering) 기법이며 따라서 
-#         얕은 학습 기반의 언어처리(shallow language-processing) 모델에 활용됨.
+#     - N-그램: 단어들 사이의 순서에 대한 지엽적 정보를 어느 정도 유지함.
+#     - 일종의 특성 공학<font size='2'>feature engineering</font> 기법이며 따라서 
+#         얕은 학습 기반의 언어처리 모델에 활용됨.
 #     - 1차원 합성곱 신경망, 순환 신경망, 트랜스포머 등은 이 기법을 사용하지 않아도 됨.
 
-# **단어주머니(bag-of-words)**는 N-토큰으로 구성된 집합을 의미하며 
-# **N-그램 주머니(bag-of-N-grams)**라고 불리기도 한다.
+# 단어주머니(bag-of-words)는 N-토큰으로 구성된 집합을 의미하며 
+# **N-그램 주머니**라고도 불린다.
 # 예를 들어 "the cat sat on the mat." 문장에 대한 
 # 2-그램 집합과 3-그램 집합은 각각 다음과 같다.
 
@@ -155,21 +153,20 @@
 
 # **어휘 색인화**
 
-# 일반적으로 먼저 훈련셋에 포함된 모든 토큰들의 색인(인덱스)을 작성한다.
-# 생성된 색인을 각 토큰을 바탕으로 원-핫, 멀티-핫 인코딩 등의 방식을 사용하여
-# 수치형 텐서로 변환한다.
+# 일반적으로 먼저 훈련셋에 포함된 모든 토큰들의 색인(인덱스)을 생성한 다음에
+# 원-핫, 멀티-핫 인코딩 등의 방식을 사용하여 수치형 텐서로 변환한다.
 # 
-# [4장](https://codingalzi.github.io/dlp/notebooks/dlp04_getting_started_with_neural_networks.html)과 
-# [5장](https://codingalzi.github.io/dlp/notebooks/dlp05_fundamentals_of_ml.html)에서 
-# 설명한 대로 보통 사용 빈도수가 높은 2만 또는 3만 개의 단어만을 대상으로 어휘 색인화를 진행한다.
-# 당시에 `num_words=10000`을 사용하여 사용 빈도수가 상위 1만 등 안에 드는 단어만을
-# 대상으로 훈련셋을 구성하였다.
+# {numref}`%s장 <ch:getting_started_with_neural_networks>`에서 언급한 대로 
+# 보통 사용 빈도가 높은 2만 또는 3만 개의 단어만을 대상으로 어휘 색인화를 진행한다.
+# 당시에 IMDB 영화 후기 데이터셋을 불러올 때
+# `num_words=10000`을 사용하여 사용 빈도수가 상위 1만 등 안에 들지 않는 단어는
+# 영화 후기에서 삭제하도록 하였다.
 # 
 # ```python
 # from tensorflow.keras.datasets import imdb
 # (train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=10000)
 # ```
-# 
+
 # 케라스의 imdb 데이터셋은 이미 정수들의 시퀀스로 전처리가 되어 있다. 
 # 하지만 여기서는 원본 imdb 데이터셋을 대상으로 전처리를 직접 수행하는 단계부터 살펴볼 것이다.
 # 이를 위해 아래 사항을 기억해 두어야 한다.
@@ -178,23 +175,26 @@
 #     일반 문장으로 번역되는 경우 "[UNK]" 으로 처리됨.
 #     - OOV = Out Of Vocabulary
 #     - UNK = Unknown
-# - 마스크(mask) 토큰: 무신되어야 하는 토큰을 나타냄. 모두 0으로 처리.
-#     - 예를 들어, 문장의 길이를 맞추기 위해 사용되는 패딩으로 0으로 채워줄 수 있음.
+# - 마스크(mask) 토큰: 무시되어야 하는 토큰을 나타냄. 모두 0으로 처리.
+#     예를 들어, 문장의 길이를 맞추기 위해 패딩으로 0 사용 가능.
 #     
 #     ```
-#     [[5,  7, 124, 4, 89]
-#        [8, 34,  21, 0,  0]]
-#      ```
+#     [[5,  7, 124, 4, 89],
+#      [8, 34,  21, 0,  0]]
+#     ```
 
 # **케라스의 `TextVectorization` 층 활용**
 
 # 지금까지 설명한 텍스트 벡터화를 위해 케라스의 `TextVectorization` 층을 활용할 수 있으며
 # 기본 사용법은 다음과 같다.
 
+# ```python
 # from tensorflow.keras.layers import TextVectorization
+# 
 # text_vectorization = TextVectorization(
 #     output_mode="int",
 #     )
+# ```
 
 # `TextVectorization` 층 구성에 사용되는 주요 기본 설정은 다음과 같다.
 # 
@@ -206,64 +206,57 @@
 # - 출력 모드: 출력 텐서의 형식
 #     - `output_mode="int"`
 
-# 표준화와 토큰화 방식을 임의로 지정해서 활용할 수도 있다.
-# 다만, 파이썬의 기본 문자열 자료형인 `str` 대신에 `tf.string` 텐서를 활용해야 함에 주의해야 한다. 
-# 표준화와 토큰화의 기본값은 아래 두 함수를 활용하는 것과 동일하다.
-# 
-# - `custom_standardization_fn()`
-# - `custom_split_fn()`
-
-# import re
-# import string
-# import tensorflow as tf
-# 
-# # 표준화: 소문자화 및 마침표 제거
-# def custom_standardization_fn(string_tensor):
-#     lowercase_string = tf.strings.lower(string_tensor)
-#     return tf.strings.regex_replace(
-#         lowercase_string, f"[{re.escape(string.punctuation)}]", "")
-# 
-# # 공백 기준으로 쪼개기
-# def custom_split_fn(string_tensor):
-#     return tf.strings.split(string_tensor)
-# 
-# # 사용자 정의 표준화 및 쪼개기 활용
-# text_vectorization = TextVectorization(
-#     output_mode="int",
-#     standardize=custom_standardization_fn,
-#     split=custom_split_fn,
-# )
-
 # **예제**
 
 # 아래 데이터셋을 대상으로 텍스트 벡터화를 진행해보자.
 
+# ```python
 # dataset = [
 #     "I write, erase, rewrite",
 #     "Erase again, and then",
 #     "A poppy blooms.",
 # ]
-
+# 
 # text_vectorization.adapt(dataset)
+# ```
 
 # 생성된 어휘 색인은 다음과 같다.
 
-# vocabulary = text_vectorization.get_vocabulary()
-# vocabulary
+# ```python
+# >>> vocabulary = text_vectorization.get_vocabulary()
+# >>> vocabulary
+# ['',
+#  '[UNK]',
+#  'erase',
+#  'write',
+#  'then',
+#  'rewrite',
+#  'poppy',
+#  'i',
+#  'blooms',
+#  'and',
+#  'again',
+#  'a']
+# ```
 
 # 생성된 어휘 색인을 활용하여 새로운 문장을 벡터화 해보자.
 
-# test_sentence = "I write, rewrite, and still rewrite again"
-
-# encoded_sentence = text_vectorization(test_sentence)
-# print(encoded_sentence)
+# ```python
+# >>> test_sentence = "I write, rewrite, and still rewrite again"
+# >>> encoded_sentence = text_vectorization(test_sentence)
+# >>> print(encoded_sentence)
+# tf.Tensor([ 7  3  5  9  1  5 10], shape=(7,), dtype=int64)
+# ```
 
 # 벡터화된 텐서로부터 문장을 복원하면 표준화된 문장이 생성된다.
 
-# inverse_vocab = dict(enumerate(vocabulary))
+# ```python
+# >>> inverse_vocab = dict(enumerate(vocabulary))
 # 
-# decoded_sentence = " ".join(inverse_vocab[int(i)] for i in encoded_sentence)
-# print(decoded_sentence)
+# >>> decoded_sentence = " ".join(inverse_vocab[int(i)] for i in encoded_sentence)
+# >>> print(decoded_sentence)
+# i write rewrite and [UNK] rewrite again
+# ```
 
 # **`TextVectorization` 층 사용법**
 
@@ -1092,6 +1085,7 @@ print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
 
 # - GloVe 임베딩 활용 모델 구성 및 훈련
 
+# ```python
 # inputs = keras.Input(shape=(None,), dtype="int64")
 # 
 # # GloVe 단어 임베딩 활용
@@ -1120,3 +1114,4 @@ print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
 # model = keras.models.load_model("glove_embeddings_sequence_model.keras")
 # 
 # print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
+# ```
