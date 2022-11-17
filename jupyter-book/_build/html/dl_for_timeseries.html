@@ -860,8 +860,7 @@ x-축에 사용되었다.
 <p class="admonition-title">RNN 층 실행시간 가속화</p>
 <p>드랍아웃을 적용한 순환층을 실행하면 이전보다 훈련시간이 훨씬 오래 걸린다.
 단순히 에포크 수가 늘어나서가 아니라 하나의 에포크에 걸리는 시간이 몇 십배 느려지기 때문이다.
-이유는 드랍아웃을 사용하는 LSTM, GRU 모델은 cuDNN에서 제대로 지원되지 않는다.
-이유는 순환층에 사용되는 <code class="docutils literal notranslate"><span class="pre">for</span></code> 반복문이 기본 설정에 대해서만 최적화되었기 때문이다.</p>
+이유는 드랍아웃을 사용하는 LSTM, GRU 모델은 cuDNN에서 지원되지 않기 때문이다.</p>
 <p>하지만 타임스텝이 100 이하로 지정된 경우에 <code class="docutils literal notranslate"><span class="pre">unroll=True</span></code> 옵션을 사용하면
 cuDNN을 잘 활용할 수는 있지만 메모리가 훨씬 많이 더 요구된다는 단점이 발생한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">sequence_length</span><span class="p">,</span> <span class="n">num_features</span><span class="p">))</span>
@@ -891,7 +890,18 @@ cuDNN을 잘 활용할 수는 있지만 메모리가 훨씬 많이 더 요구된
 양방향 RNN<font size='2'>bidirectional RNN</font> 층이 매우 효율적으로 적용된다.
 하지만 날씨 예측 등과 같이 시간의 순서가 결정적인 경우에는 별 도움되지 않는다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-14.png" style="width:50%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>성능 최대한 끌어올리기</strong></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">sequence_length</span><span class="p">,</span> <span class="n">raw_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Bidirectional</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">16</span><span class="p">))(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;mse&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mae&quot;</span><span class="p">])</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="n">val_dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>성능 최대한 끌어올리기</strong></p>
 <p>모델의 성능을 끌어 올리는 기본적인 접근법은 다음과 같다.</p>
 <ul class="simple">
 <li><p>층의 유닛 개수 및 드랍아웃 비율 조정</p></li>
