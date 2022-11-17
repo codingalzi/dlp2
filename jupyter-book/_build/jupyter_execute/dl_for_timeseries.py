@@ -513,11 +513,7 @@
 # x = layers.Bidirectional(layers.LSTM(16))(inputs)
 # outputs = layers.Dense(1)(x)
 # model = keras.Model(inputs, outputs)
-# 
 # model.compile(optimizer="rmsprop", loss="mse", metrics=["mae"])
-# history = model.fit(train_dataset,
-#                     epochs=10,
-#                     validation_data=val_dataset)
 # ```
 
 # **성능 최대한 끌어올리기**
