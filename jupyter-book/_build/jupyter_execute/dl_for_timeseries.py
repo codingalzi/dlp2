@@ -274,7 +274,7 @@
 # model.compile(optimizer="rmsprop", loss="mse", metrics=["mae"])
 # ```
 
-# 학습과정을 그래프로 확인해보면 베이스라인보다 좀 더 좋은 성능을 보인다. 
+# 학습과정을 그래프로 확인해보면 베이스라인과 유사하거나 좀 더 좋은 성능을 보인다. 
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/10-05.png" style="width:65%;"></div>
 # 
