@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>6. 머신러닝 작업 흐름 일반 &#8212; Deep Learning with Python(2판)</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,21 +20,17 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -40,12 +38,13 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -63,7 +62,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -72,9 +85,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
       
@@ -145,113 +159,215 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="generative_dl.html">
-   17. 생성 모델
+   12. 생성 모델
   </a>
  </li>
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/unversal_workflow_of_ml.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/codingalzi/dlp2"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Funversal_workflow_of_ml.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/unversal_workflow_of_ml.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/unversal_workflow_of_ml.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/codingalzi/dlp2"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Funversal_workflow_of_ml.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/unversal_workflow_of_ml.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    6.1. 머신러닝 문제 정의하기
@@ -340,12 +456,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>머신러닝 작업 흐름 일반</h1>
@@ -450,11 +565,12 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="ch-unversal-workflow-of-ml">
-<span id="id1"></span><h1><span class="section-number">6. </span>머신러닝 작업 흐름 일반<a class="headerlink" href="#ch-unversal-workflow-of-ml" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ch-unversal-workflow-of-ml">
+<span id="id1"></span><h1><span class="section-number">6. </span>머신러닝 작업 흐름 일반<a class="headerlink" href="#ch-unversal-workflow-of-ml" title="Permalink to this headline">#</a></h1>
 <p><strong>감사의 글</strong></p>
 <p>아래 내용은 프랑소와 숄레의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
@@ -484,10 +600,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>모델 구현</p></li>
 <li><p>모델 실전 배치</p></li>
 </ul>
-<div class="section" id="id2">
-<h2><span class="section-number">6.1. </span>머신러닝 문제 정의하기<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id3">
-<h3><span class="section-number">6.1.1. </span>문제 확인<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<section id="id2">
+<h2><span class="section-number">6.1. </span>머신러닝 문제 정의하기<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<section id="id3">
+<h3><span class="section-number">6.1.1. </span>문제 확인<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>훈련 데이터셋은 무엇? 예측값은 무엇? 필요한 데이터셋과 타깃셋을 직접 구해야 함.
 그렇지 못하면 머신러닝 모델을 훈련시킬 수 없음.
@@ -526,9 +642,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p>위 사항들을 모두 확인했다 하더라도 준비된 데이터셋의 유효성을 확인해야 함. 즉, 적절한 훈련셋인지, 입력 데이터셋을 이용하여 적절한 예측값을 생성할 수 있는지 등등.
 예를 들어 지난 시간 동안의 증권시장의 가격 데이터를 이용하여 미래의 증권시장 동향을 예측하는 일은 별로 성공적이지 않을 것이다.</p>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">6.1.2. </span>데이터셋 수집<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">6.1.2. </span>데이터셋 수집<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
 <p>문제해결에 필요한 입력 데이터셋과 타깃 데이터셋을 수집하는 일이 가장 어렵고,
 가장 많은 시간을 요하며, 가장 비용이 많이 든다.</p>
 <ul class="simple">
@@ -618,9 +734,9 @@ const thebe_selector_output = ".output, .cell_output"
 <p>이후로 표집 편향을 최대한 피하면서 여론조사를 진행해야 함을 인지하게 되었다.
 물론 표집 편향이 완전히 사라졌다고는 말할 수 없다.
 특히 정치 관련 여론조사가 그렇다.</p>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">6.1.3. </span>데이터 이해하기<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id5">
+<h3><span class="section-number">6.1.3. </span>데이터 이해하기<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
 <p>훈련 시작 전에 데이터를 시각화 등을 이용하여 살펴보고
 무엇을 이용하여 예측할 것인지, 특성을 어떻게 조저어할 것인지,
 발생할 수 있는 문제들을 예측해야 한다.</p>
@@ -637,9 +753,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">6.1.4. </span>모델 성능 지표 선택<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id6">
+<h3><span class="section-number">6.1.4. </span>모델 성능 지표 선택<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
 <p>얼마나 성공적으로 모델 훈련을 완성했는지 평가해야 한다.
 해결해야 하는 문제에 따라 모델의 성능 지표가 달라지며,
 모델 제작을 의뢰한 고객의 사업 성공과 밀접하게 연관된 일이기도 하다.</p>
@@ -648,13 +764,13 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 범주가 한 쪽으로 쏠린 경우엔 정밀도, 재현율, 가중치가 적용된 정확도와 AUC가
 활용된다.</p>
 <p>또한 사용자가 직접 평가 지표를 정의해야 하는 경우도 일반적으로 발생한다.</p>
-</div>
-</div>
-<div class="section" id="id7">
-<h2><span class="section-number">6.2. </span>모델 구현<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="id7">
+<h2><span class="section-number">6.2. </span>모델 구현<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h2>
 <p>모델 훈련에 필요한 데이터 준비하기와 완성된 모델을 시제품으로 만들어 관리 유지하는 일보다 어렵다고 말할 수는 없음에도 불구하고 대부분의 머시러닝 관련 정보는 모델 구현에 한정된다.</p>
-<div class="section" id="id8">
-<h3><span class="section-number">6.2.1. </span>데이터 준비<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<section id="id8">
+<h3><span class="section-number">6.2.1. </span>데이터 준비<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
 <p>수집된 데이터를 그대로 모델 훈련에 사용하는 경우는 매우 드물다.
 훈련시킬 모델에 맞추어 데이터셋을 전처리 해야 할 수도 있지만
 일반적인 전처리 기법은 다음과 같다.</p>
@@ -692,9 +808,9 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 훈련도 해당 특성에 결측치가 있도록 해야 한다.
 그렇지 않으면 테스트셋에 포함된 결측치를 모델이 제대로
 처리하지 못할 수 있다.</p>
-</div>
-<div class="section" id="id9">
-<h3><span class="section-number">6.2.2. </span>훈련중 모델 평가<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id9">
+<h3><span class="section-number">6.2.2. </span>훈련중 모델 평가<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
 <p>훈련중인 모델의 일반화 성능을 검증하기 위한 평가지표를 사용한다.
 이때 일반적으로 아래 세 가지 방식 중의 하나를 사용한다.</p>
 <ul class="simple">
@@ -704,9 +820,9 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 </ul>
 <p>훈련셋과 검증셋에 데이터가 중복되지 않도록 조심해야 하며
 두 데이터셋의 대표성에 대해서 항상 신경써야 한다.</p>
-</div>
-<div class="section" id="id10">
-<h3><span class="section-number">6.2.3. </span>기준선 깨기<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id10">
+<h3><span class="section-number">6.2.3. </span>기준선 깨기<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h3>
 <p>모델 훈련을 시작하면 우선적으로 통계적으로 의미 있는 성능을 보여줄 수 있어야 한다.
 즉, 일단은 아직 개선의 여지가 많음에도 불구하고 통계적으로 유의미한 기준선을 넘어서는
 성능의 모델을 훈련시킬 수 있어야 한다.
@@ -763,9 +879,9 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 즉, 모델 훈련에 사용되는 입력 데이터셋이 타깃을 예측하기에
 충분한 정보를 제공하지 못할 가능성이 높거나
 아니면 모델이 데이터셋에 내지된 정보를 끄집어내지 못하는 것이다.</p>
-</div>
-<div class="section" id="id11">
-<h3><span class="section-number">6.2.4. </span>과대적합 모델 구현<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id11">
+<h3><span class="section-number">6.2.4. </span>과대적합 모델 구현<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h3>
 <p>기준선을 넘어서는 모델을 구현한 경우 이제는 모델의 성능을 키워 과대적합을 발생시킬 수 있어야 한다.
 모델의 성능을 키우는 일반적인 방법 세 가지는 다음과 같다.</p>
 <ul class="simple">
@@ -777,9 +893,9 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 더 이상 좋아지지 않거나 나빠지는 지점에 발생한다.
 그런 지점을 찾게 되면 모델 훈련이 그 지점에서 멈추고 그때까지의 최고의 성능을
 보였던 가중치를 이용하여 좋은 성능의 모델을 얻어야 한다.</p>
-</div>
-<div class="section" id="id12">
-<h3><span class="section-number">6.2.5. </span>모델 규제와 튜닝<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id12">
+<h3><span class="section-number">6.2.5. </span>모델 규제와 튜닝<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h3>
 <p>과대 적합 모델을 구현한 후에는 일반화 성능이 가장 좋은 모델을 찾는다.
 일반화 성능이 좋은 모델을 찾는 일반적인 기법은 다음과 같다.</p>
 <ul class="simple">
@@ -799,12 +915,12 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 나쁠 수 있다.</p>
 <p>따라서 적절할 모델 튜닝 기법을 사용해야 하며 너무 많은 튜닝은 피해야 한다.
 또한 K-겹 검증과 같은 보다 신뢰할만한 검증 기법을 사용해야 한다.</p>
-</div>
-</div>
-<div class="section" id="id13">
-<h2><span class="section-number">6.3. </span>모델 실전 배치<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id14">
-<h3><span class="section-number">6.3.1. </span>의뢰인에게 개발된 시스템의 성능 설명하기<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="id13">
+<h2><span class="section-number">6.3. </span>모델 실전 배치<a class="headerlink" href="#id13" title="Permalink to this headline">#</a></h2>
+<section id="id14">
+<h3><span class="section-number">6.3.1. </span>의뢰인에게 개발된 시스템의 성능 설명하기<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h3>
 <p>머신러닝 모델을 사용하는 시스템을 완성해서 제품 의뢰인에게 인수인계하는 단계가
 프로젝트 전체 과정의 절반을 차지할 정도로 중요하다.</p>
 <p>첫째, 비전문가 의뢰인이 인공지능 시스템에 대한 기대치가 너무 높다.</p>
@@ -824,9 +940,9 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 <p>예를 들어, 신용카드 부정사용 감지 모델의 양성 판단 근거의 확률값 기준을 얼마로 정할지를 논의해야 한다.
 확률값 기준을 정할 때마다 정확도, 정밀도, 재현율 등이 어떻게 달라지고
 그에 따른 제품 활용도의 장단점을 명확히 해야 한다.</p>
-</div>
-<div class="section" id="id15">
-<h3><span class="section-number">6.3.2. </span>인퍼런스 모델 활용<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id15">
+<h3><span class="section-number">6.3.2. </span>인퍼런스 모델 활용<a class="headerlink" href="#id15" title="Permalink to this headline">#</a></h3>
 <p><strong>인퍼런스 모델</strong><font size='2'>inference model</font>은
 훈련이 완성되어 실전에서 예측을 위해 사용되는 모델을 가리킨다.
 그런데 훈련에서 완성된 모델을 있는 그대로 실전에서 사용하는 일은 매우 드물다.
@@ -933,9 +1049,9 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 모델 예측의 정확도는 별로 변하지 않는다.</p></li>
 </ul>
 <p><a class="reference external" href="https://www.tensorflow.org/model_optimization">케라스가 인퍼런스 모델 최적화</a>를 지원한다.</p>
-</div>
-<div class="section" id="id16">
-<h3><span class="section-number">6.3.3. </span>실전 배치 모델 모니터링<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id16">
+<h3><span class="section-number">6.3.3. </span>실전 배치 모델 모니터링<a class="headerlink" href="#id16" title="Permalink to this headline">#</a></h3>
 <p>모델의 실전 배치를 완료한 이후에도 아래 사항들을 확인하기 위해 지속적으로 모델의 성능을 지켜봐야 한다.</p>
 <ul class="simple">
 <li><p>옳바른 작동 여부</p></li>
@@ -953,9 +1069,9 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 <li><p>직접 확인이 불가능하다면 시스템 활용자들의 활용 데이터를 수집할 수 있다.
 예를 들어, 스팸 필터, 공격적인 내용을 담은 메일 확인 시스템 등에 대해 이 방식을 사용한다.</p></li>
 </ul>
-</div>
-<div class="section" id="id17">
-<h3><span class="section-number">6.3.4. </span>모델 유지 보수<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id17">
+<h3><span class="section-number">6.3.4. </span>모델 유지 보수<a class="headerlink" href="#id17" title="Permalink to this headline">#</a></h3>
 <p>어떤 모델도 영원히 사용될 수 없다.
 이유는 시간 흐르고 환경이 변하면 모델의 입력 데이터에 포함된 정보도 함께 변하기 때문이다.
 이런 현상을 콘셉 드리프트<font size='2'>concept drift</font>라 한다.</p>
@@ -968,9 +1084,9 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 <li><p>데이터 수집과 레이블링을 지속해야 한다. 또한 레이블링 파이프라인을 계속해서 개선해야 한다.
 특히, 현재 모델이 어려워하는 샘플을 수집해서 모델의 성능을 개선하는 데에 사용해야 한다.</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -994,9 +1110,11 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="fundamentals_of_ml.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1012,23 +1130,27 @@ AUC<font size='2'>Area Under the ROC curve</font>가 성능 지표로 사용된�
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By 코딩알지<br/>
+  
+</p>
+        </footer>
+    </div>
     
-      By 코딩알지<br/>
-    
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
