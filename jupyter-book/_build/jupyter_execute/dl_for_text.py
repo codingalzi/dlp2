@@ -73,8 +73,8 @@
 # 보통 다음 세 단계를 따른다.
 # 
 # 1. **텍스트 표준화**<font size='2'>text standardization</font>: 소문자화, 마침표 제거 등등
-# 1. **토큰화**<font size='2'>tokenization</font>: 기본 단위의 **유닛**<font size='2'>units</font>으로 쪼개기
-#     - 토큰 예제: 문자, 단어, 단어 집합 등등
+# 1. **토큰화**<font size='2'>tokenization</font>: 기본 단위의 **유닛**<font size='2'>units</font>으로 쪼개기.
+#     문자, 단어, 단어 집합 등이 토큰으로 활용됨.
 # 1. **어휘 색인화**<font size='2'>vocabulary indexing</font>: 토큰 각각을 하나의 수치형 벡터로 변환.
 # 
 # 아래 그림은 텍스트 벡터화의 기본적인 과정을 잘 보여준다.
@@ -83,7 +83,7 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# **텍스트 표준화**
+# ### 텍스트 표준화
 
 # 다음 두 문장을 표준화를 통해 동일한 문장으로 변환해보자.
 # 
@@ -106,7 +106,7 @@
 # 하지만 분석 목적에 따라 표준화 기법은 경우에 따라 달라질 수 있음에 주의해야 한다. 
 # 예를 들어 인터뷰 기사의 경우 물음표(`?`)는 제거하면 안된다.
 
-# **토큰화**
+# ### 토큰화
 
 # 텍스트 표준화 이후 데이터 분석의 기본 단위인 토큰으로 쪼개야 한다.
 # 보통 아래 세 가지 방식 중에 하나를 사용한다.
@@ -139,20 +139,20 @@
 
 # - 2-그램 집합
 # 
-# ```
-# {"the", "the cat", "cat", "cat sat", "sat",
-#  "sat on", "on", "on the", "the mat", "mat"}
-# ```
+#     ```
+#     {"the", "the cat", "cat", "cat sat", "sat",
+#     "sat on", "on", "on the", "the mat", "mat"}
+#     ```
 
 # - 3-그램 집합
 # 
-# ```
-# {"the", "the cat", "cat", "cat sat", "the cat sat",
-#  "sat", "sat on", "on", "cat sat on", "on the",
-#  "sat on the", "the mat", "mat", "on the mat"}
-#  ```
+#     ```
+#     {"the", "the cat", "cat", "cat sat", "the cat sat",
+#     "sat", "sat on", "on", "cat sat on", "on the",
+#     "sat on the", "the mat", "mat", "on the mat"}
+#     ```
 
-# **어휘 색인화**
+# ### 어휘 색인화
 
 # 일반적으로 먼저 훈련셋에 포함된 모든 토큰들의 색인(인덱스)을 생성한 다음에
 # 원-핫, 멀티-핫 인코딩 등의 방식을 사용하여 수치형 텐서로 변환한다.
@@ -170,46 +170,42 @@
 
 # 케라스의 imdb 데이터셋은 이미 정수들의 시퀀스로 전처리가 되어 있다. 
 # 하지만 여기서는 원본 imdb 데이터셋을 대상으로 전처리를 직접 수행하는 단계부터 살펴볼 것이다.
-# 이를 위해 아래 사항을 기억해 두어야 한다.
+# 이를 위해 아래 사항을 기억해 두자.
 # 
-# - OOV 인덱스 활용: 어휘 색인에 포함되지 않는 단어는 모두 1로 처리. 
-#     일반 문장으로 번역되는 경우 "[UNK]" 으로 처리됨.
-#     - OOV = Out Of Vocabulary
-#     - UNK = Unknown
-# - 마스크(mask) 토큰: 무시되어야 하는 토큰을 나타냄. 모두 0으로 처리.
-#     예를 들어, 문장의 길이를 맞추기 위해 패딩으로 0 사용 가능.
-#     
+# - OOV 인덱스 활용: 어휘 색인에 포함되지 않는 단어는 모두 1로 처리됨. 
+#     일반 문장으로 재번역되는 경우 "[UNK]" 으로 처리됨.
+#     - OOV = Out Of Vocabulary (미동록 어휘)
+#     - UNK = Unknown (미확인)
+# - 마스크 토큰<font size='2'>mask token</font>: 문장의 길이를 맞추기 위한 패딩으로 사용되는 0을
+#     가리키며, 훈련 과정에서 무시됨.    
 #     ```
 #     [[5,  7, 124, 4, 89],
 #      [8, 34,  21, 0,  0]]
 #     ```
 
-# **케라스의 `TextVectorization` 층 활용**
+# ### `TextVectorization` 층 활용
 
-# 지금까지 설명한 텍스트 벡터화를 위해 케라스의 `TextVectorization` 층을 활용할 수 있으며
-# 기본 사용법은 다음과 같다.
+# 케라스의 `TextVectorization` 층을 이용하여 텍스트 벡터화를 진행할 수 있다.
+# 
+# 아래 코드는 `TextVectorization` 층 구성에 사용되는 주요 기본 설정을 보여준다.
+# 표준화와 토큰화 방식을 임의로 지정해서 활용할 수도 있지만 여기서는 자세히 다루지 않는다.
+# 
+# - 표준화: `standardize='lower_and_strip_punctuation'` (소문자화와 마침표 등 제거)
+# - 토큰화: `split='whitespace'` (단어 기준 쪼개기), `ngrams=None` (n-그램 미사용)
+# - 출력 모드: `output_mode="int"` (정수 인코딩)
 
 # ```python
 # from tensorflow.keras.layers import TextVectorization
 # 
 # text_vectorization = TextVectorization(
-#     output_mode="int",
-#     )
+#     standardize='lower_and_strip_punctuation',
+#     split='whitespace',
+#     ngrams=None,
+#     output_mode='int',
+# )
 # ```
 
-# `TextVectorization` 층 구성에 사용되는 주요 기본 설정은 다음과 같다.
-# 
-# - 표준화: 소문자화와 마침표 등 제거
-#     - `standardize='lower_and_strip_punctuation'`
-# - 토큰화: 단어 기준 쪼개기
-#     - `ngrams=None`
-#     - `split='whitespace'`
-# - 출력 모드: 출력 텐서의 형식
-#     - `output_mode="int"`
-
-# **예제**
-
-# 아래 데이터셋을 대상으로 텍스트 벡터화를 진행해보자.
+# 예를 들어, 아래 데이터셋을 이용하여 텍스트 벡터화를 해보자.
 
 # ```python
 # dataset = [
@@ -217,8 +213,12 @@
 #     "Erase again, and then",
 #     "A poppy blooms.",
 # ]
-# 
-# text_vectorization.adapt(dataset)
+# ```
+
+# 어휘 색인화를 위해 먼저 `adapt()` 메서드를 이용하여 어휘 색인을 만든다.
+
+# ```python
+# >>> text_vectorization.adapt(dataset)
 # ```
 
 # 생성된 어휘 색인은 다음과 같다.
@@ -253,14 +253,14 @@
 
 # ```python
 # >>> inverse_vocab = dict(enumerate(vocabulary))
-# 
 # >>> decoded_sentence = " ".join(inverse_vocab[int(i)] for i in encoded_sentence)
 # >>> print(decoded_sentence)
 # i write rewrite and [UNK] rewrite again
 # ```
 
-# **`TextVectorization` 층 사용법**
-
+# :::{admonition} `TextVectorization` 층 사용법
+# :class: info
+# 
 # `TextVectorization` 층은 GPU 또는 TPU에서 지원되지 않는다.
 # 따라서 모델 구성에 직접 사용하는 방식은 모델의 훈련을
 # 늦출 수 있기에 권장되지 않는다.
@@ -268,9 +268,9 @@
 # 
 # 하지만 훈련이 완성된 모델을 실전에 배치할 경우 `TextVectorization` 층을
 # 완성된 모델에 추가해서 사용하는 게 좋다.
-# 이에 대한 자세한 설명은 잠시 뒤에 부록에서 설명한다.
+# :::
 
-# ## 단어 모음 표현법: 집합과 시퀀스
+# ## 문장 표현법: 집합 대 시퀀스
 
 # 앞서 언급한 대로 자연어처리 모델에 따라 단어 모음을 다루는 방식이 다르다. 
 # 
@@ -278,12 +278,10 @@
 #     - 단어들의 순서를 무시. 단어 모음을 단어들의 집합으로 다룸.
 #     - 2015년 이전까지 주로 사용됨.
 # - 시퀀스(sequence) 모델
-#     - 순환(recurrent) 모델
-#         - 단어들의 순서를 시계열 데이터의 스텝처럼 간주.
-#         - 2015-2016에 주로 사용됨.
-#     - 트랜스포머(Transformer) 아키텍처
-#         - 기본적으로 순서를 무시하지만 단어 위치를 학습할 수 있는 능력을 가짐.
-#         - 2017년 이후 기본적으로 활용됨.
+#     - RNN: 단어들의 순서를 시계열 데이터의 스텝처럼 간주. 2015-2016에 주로 사용됨.
+#     - 트랜스포머<font size='2'>Transformer</font> 아키텍처. 
+#         기본적으로 순서를 무시하지만 단어 위치를 학습할 수 있는 능력을 가짐.
+#         2017년 이후 많이 활용됨.
 
 # 여기서는 IMDB 영화 리뷰 데이터를 이용하여 두 모델 방식의 
 # 활용법과 차이점을 소개한다.
@@ -294,8 +292,9 @@
 # 과정을 살펴본다. 
 
 # 준비 과정 1: 데이터셋 다운로드 압축 풀기
-# 
-# 압축을 풀면 아래 구조의 디렉토리가 생성된다.
+
+# [aclIMDB_v1.tar](https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz) 파일을 
+# 다운로드 한 후에 압축을 풀면 아래 구조의 디렉토리가 생성된다.
 # 
 # ```
 # aclImdb/
@@ -308,68 +307,29 @@
 # ```
 # 
 # `train`의 `pos`와 `neg` 서브디렉토리에 각각 12,500개의 긍정과 부정 리뷰가
-# 포함되어 있다. 
-# 
-# *주의사항*: 아래 코드는 윈도우의 경우 10 최신 버전 또는 11부터 지원된다.
-
-# ```
-# !curl -O https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
-# !tar -xf aclImdb_v1.tar.gz
-# ```
-
-# `aclImdb/train/unsup` 서브디렉토리는 필요 없기에 삭제한다.
-
-# if 'google.colab' in str(get_ipython()):
-#     !rm -r aclImdb/train/unsup
-# else: 
-#     import shutil
-#     unsup_path = './aclImdb/train/unsup'
-#     shutil.rmtree(unsup_path)
+# 포함되어 있다. `aclImdb/train/unsup` 서브디렉토리는 필요 없기에 삭제한다.
 
 # 긍정 리뷰 하나의 내용을 살펴보자.
 # 모델 구성 이전에 훈련 데이터셋을 살펴 보고
 # 모델에 대한 직관을 갖는 과정이 항상 필요하다.
 
-# if 'google.colab' in str(get_ipython()):
-#     !cat aclImdb/train/pos/4077_10.txt
-# else:
-#     with open('aclImdb/train/pos/4077_10.txt', 'r') as f:
-#         text = f.read()
-#         print(text)
+# ```
+# I first saw this back in the early 90s on UK TV, i did like it then but i missed the chance to tape it, many years passed but the film always stuck with me and i lost hope of seeing it TV again, the main thing that stuck with me was the end, the hole castle part really touched me, its easy to watch, has a great story, great music, the list goes on and on, its OK me saying how good it is but everyone will take there own best bits away with them once they have seen it, yes the animation is top notch and beautiful to watch, it does show its age in a very few parts but that has now become part of it beauty, i am so glad it has came out on DVD as it is one of my top 10 films of all time. Buy it or rent it just see it, best viewing is at night alone with drink and food in reach so you don't have to stop the film.<br /><br />Enjoy
+# ```
 
 # 준비 과정 2: 검증셋 준비
-# 
+
 # 훈련셋의 20%를 검증셋으로 떼어낸다.
 # 이를 위해 `aclImdb/val` 디렉토리를 생성한 후에
 # 긍정과 부정 훈련셋 모두 무작위로 섞은 후 그중 20%를 검증셋 디렉토리로 옮긴다.
 
-# import os, pathlib, shutil, random
-# 
-# base_dir = pathlib.Path("aclImfdb")
-# val_dir = base_dir / "val"
-# train_dir = base_dir / "train"
-# 
-# for category in ("neg", "pos"):
-#     os.makedirs(val_dir / category)            # val 디렉토리 생성
-#     files = os.listdir(train_dir / category)
-#     
-#     random.Random(1337).shuffle(files)         # 훈련셋 무작위 섞기
-#     
-#     num_val_samples = int(0.2 * len(files))    # 20% 지정 후 검증셋으로 옮기기
-#     val_files = files[-num_val_samples:]
-#     
-#     for fname in val_files:
-#         shutil.move(train_dir / category / fname,
-#                     val_dir / category / fname)
-
 # 준비 과정 3: 텐서 데이터셋 준비
-# 
+
 # `text_dataset_from_directory()` 함수를 이용하여 
 # 훈련셋, 검증셋, 테스트셋을 준비한다. 
 # 자료형은 모두 `Dataset`이며, 배치 크기는 32를 사용한다.
 
-# from tensorflow import keras
-# 
+# ```python
 # batch_size = 32
 # 
 # train_ds = keras.utils.text_dataset_from_directory(
@@ -383,27 +343,24 @@
 # test_ds = keras.utils.text_dataset_from_directory(
 #     "aclImdb/test", batch_size=batch_size
 #     )
+# ```
 
 # 각 데이터셋은 배치로 구분되며
-# 입력은 `tf.string` 텐서이고, 타깃은 `int32` 텐서이다.
-# 크기는 모두 32이며 지정된 배치 크기이다.
-# 예를 들어, 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.
+# 배치의 각 입력 데이터 샘플은 텐서플로우의 문자열 자료형인 `tf.string` 텐서이고, 
+# 타깃은 0 또는 1의 `int32` 텐서로 지정된다. 
+# 0은 부정을, 1은 긍정을 나타낸다.
+# 
+# 배치의 크기는 32이며, 예를 들어, 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.
 
-# In[1]:
-
-
-for inputs, targets in train_ds:
-    print("inputs.shape:", inputs.shape)
-    print("inputs.dtype:", inputs.dtype)
-    print("targets.shape:", targets.shape)
-    print("targets.dtype:", targets.dtype)
-    
-    # 예제: 첫째 배치의 첫째 리뷰
-    print("inputs[0]:", inputs[0])
-    print("targets[0]:", targets[0])
-    
-    break
-
+# ```python
+# >>> for inputs, targets in train_ds:
+# ...     # 예제: 첫째 배치의 첫째 리뷰
+# ...     print("inputs[0]:", inputs[0])
+# ...     print("targets[0]:", targets[0])    
+# ...     break
+# inputs[0]: tf.Tensor(b'The film begins with a bunch of kids in reform school and focuses on a kid named \'Gabe\', who has apparently worked hard to earn his parole. Gabe and his sister move to a new neighborhood to make a fresh start and soon Gabe meets up with the Dead End Kids. The Kids in this film are little punks, but they are much less antisocial than they\'d been in other previous films and down deep, they are well-meaning punks. However, in this neighborhood there are also some criminals who are perpetrating insurance fraud through arson and see Gabe as a convenient scapegoat--after all, he\'d been to reform school and no one would believe he was innocent once he was framed. So, when Gabe is about ready to be sent back to "The Big House", it\'s up to the rest of the gang to save him and expose the real crooks.<br /><br />The "Dead End Kids" appeared in several Warner Brothers films in the late 1930s and the films were generally very good (particularly ANGELS WITH DIRTY FACES). However, after the boys\' contracts expired, they went on to Monogram Studios and the films, to put it charitably, were very weak and formulaic--with Huntz Hall and Leo Gorcey being pretty much the whole show and the group being renamed "The Bowery Boys". Because ANGELS WASH THEIR FACES had the excellent writing and production values AND Hall and Gorcey were not constantly mugging for the camera, it\'s a pretty good film--and almost earns a score of 7 (it\'s REAL close). In fact, while this isn\'t a great film aesthetically, it\'s sure a lot of fun to watch, so I will give it a 7! Sure, it was a tad hokey-particularly towards the end when the kids take the law into their own hands and Reagan ignores the Bill of Rights--but it was also quite entertaining. The Dead End Kids are doing their best performances and Ronald Reagan and Ann Sheridan provided excellent support. Sure, this part of the film was illogical and impossible but somehow it was still funny and rather charming--so if you can suspend disbelief, it works well.', shape=(), dtype=string)
+# targets[0]: tf.Tensor(1, shape=(), dtype=int32)
+# ```
 
 # ### 단어주머니 기법
 
@@ -447,7 +404,7 @@ for inputs, targets in train_ds:
 
 # 생성된 어휘색인을 이용하여 훈련셋, 검증셋, 테스트셋 모두 벡터화한다. 
 
-# In[2]:
+# In[1]:
 
 
 binary_1gram_train_ds = train_ds.map(lambda x, y: (text_vectorization(x), y))
@@ -458,7 +415,7 @@ binary_1gram_test_ds = test_ds.map(lambda x, y: (text_vectorization(x), y))
 # 변환된 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.
 # `max_tokens=20000`으로 지정하였기에 모든 문장은 길이가 2만인 벡터로 변환되었다.
 
-# In[3]:
+# In[2]:
 
 
 for inputs, targets in binary_1gram_train_ds:
@@ -478,7 +435,7 @@ for inputs, targets in binary_1gram_train_ds:
 # 모델의 출력값은 긍정일 확률이며, 
 # 최상위 층의 활성화 함수로 `sigmoid`를 사용한다.
 
-# In[4]:
+# In[3]:
 
 
 from tensorflow import keras
@@ -499,7 +456,7 @@ def get_model(max_tokens=20000, hidden_dim=16):
     return model
 
 
-# In[5]:
+# In[4]:
 
 
 model = get_model()
@@ -513,7 +470,7 @@ model.summary()
 # 최고 성능의 모델이 테스트셋에 대해 95% 정도 정확도를 내는 것보다는 낮지만
 # 무작위로 찍는 모델보다는 훨씬 좋은 모델이다.
 
-# In[6]:
+# In[5]:
 
 
 callbacks = [
@@ -544,7 +501,7 @@ print(f"Test acc: {model.evaluate(binary_1gram_test_ds)[1]:.3f}")
 # `TextVectorization` 클래스의 `ngrams=N` 옵션을 이용하면
 # N-그램들로 이루어진 어휘색인을 생성할 수 있다.
 
-# In[7]:
+# In[6]:
 
 
 text_vectorization = TextVectorization(
@@ -556,7 +513,7 @@ text_vectorization = TextVectorization(
 
 # 어휘색인 생성과 훈련셋, 검증셋, 테스트셋의 벡터화 과정은 동일하다. 
 
-# In[8]:
+# In[7]:
 
 
 text_vectorization.adapt(text_only_train_ds)
@@ -568,7 +525,7 @@ binary_2gram_test_ds = test_ds.map(lambda x, y: (text_vectorization(x), y))
 
 # 훈련 후 테스트셋에 대한 정확도가 90%를 조금 웃돌 정도로 많이 향상되었다.
 
-# In[9]:
+# In[8]:
 
 
 model = get_model()
@@ -593,7 +550,7 @@ print(f"Test acc: {model.evaluate(binary_2gram_test_ds)[1]:.3f}")
 # 단어의 사용 빈도가 아무래도 문장 평가에 중요한 역할을 수행할 것이기 때문이다.
 # 아래 코드에서처럼 `output_mode="count"` 옵션을 사용하면 된다.
 
-# In[10]:
+# In[9]:
 
 
 text_vectorization = TextVectorization(
@@ -632,7 +589,7 @@ text_vectorization = TextVectorization(
 
 # `output_mode="tf_idf"` 옵션을 사용하면 TF-IDF 인코딩을 지원한다.
 
-# In[11]:
+# In[10]:
 
 
 text_vectorization = TextVectorization(
@@ -648,7 +605,7 @@ text_vectorization = TextVectorization(
 # **주의사항**: 아래 코드는 현재(Tensorflow 2.6과 2.7) GPU를 사용하지 않는 경우에만 작동한다. 
 # 이유는 아직 모른다([여기 참조](https://github.com/fchollet/deep-learning-with-python-notebooks/issues/190)).
 
-# In[12]:
+# In[11]:
 
 
 text_vectorization.adapt(text_only_train_ds)
@@ -677,7 +634,7 @@ print(f"Test acc: {model.evaluate(tfidf_2gram_test_ds)[1]:.3f}")
 # 훈련된 모델을 실전에 배치하려면 텍스트 벡터화도 모델과 함께 내보내야 한다.
 # 이를 위해 `TextVectorization` 층의 결과를 재활용만 하면 된다.
 
-# In[13]:
+# In[12]:
 
 
 inputs = keras.Input(shape=(1,), dtype="string")
@@ -694,7 +651,7 @@ inference_model = keras.Model(inputs, outputs)
 # 예를 들어 "That was an excellent movie, I loved it."라는 리뷰는
 # 긍정일 확률이 매우 높다고 예측된다.
 
-# In[14]:
+# In[13]:
 
 
 import tensorflow as tf
@@ -794,7 +751,7 @@ print(f"{float(predictions[0] * 100):.2f} percent positive")
 # 리뷰 문장의 길이를 600개의 단어로 제한한 이유는 리뷰가 평균적으로 233개의 단어를 사용하기 때문이다.
 # 그리고 600 단어 이상을 사용하는 리뷰는 전체의 5% 정도에 불과하다.
 
-# In[15]:
+# In[14]:
 
 
 for inputs, targets in int_train_ds:
@@ -834,7 +791,7 @@ for inputs, targets in int_train_ds:
 # - 양방향 LSTM 모델 활용
 #     - 1차원 합성곱 신경망도 경우에 따라 유사한 성능을 발휘하지만 거의 사용되지 않음.
 
-# In[16]:
+# In[15]:
 
 
 import tensorflow as tf
@@ -875,7 +832,7 @@ model.summary()
 # **주의사항**: 모델 훈련과정을 한 번 보기만 하려면 `epochs=1`로 설정하는 것을 권장한다.
 # 책에서는 원래 `epochs=10`을 사용하였는데 컴퓨터 성능에 따라 몇 시간이 소요될 수 있다.
 
-# In[17]:
+# In[16]:
 
 
 callbacks = [
@@ -939,7 +896,7 @@ print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
 # 아래 코드는 단어 임베딩을 모델 구성에 직접 활용하는 것을 보여준다.
 # 여전히 양방향 LSTM 층을 사용한다.
 
-# In[18]:
+# In[17]:
 
 
 inputs = keras.Input(shape=(None,), dtype="int64")
@@ -986,7 +943,7 @@ print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
 # 
 # - `mask_zero=True` 옵션: 마스킹 옵션 켜기
 
-# In[19]:
+# In[18]:
 
 
 inputs = keras.Input(shape=(None,), dtype="int64")

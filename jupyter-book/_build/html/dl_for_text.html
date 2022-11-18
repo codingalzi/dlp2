@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>11. 자연어 처리 &#8212; Deep Learning with Python(2판)</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,21 +20,17 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -40,12 +38,13 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -63,7 +62,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -72,9 +85,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
       
@@ -151,107 +165,209 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/dl_for_text.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/codingalzi/dlp2"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        <a class="issues-button"
-            href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fdl_for_text.html&body=Your%20issue%20content%20here."><button
-                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
-                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/dl_for_text.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/dl_for_text.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/codingalzi/dlp2"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fdl_for_text.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/dl_for_text.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    11.1. 자연어처리 소개
@@ -261,10 +377,38 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id3">
    11.2. 텍스트 벡터화
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     11.2.1. 텍스트 표준화
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     11.2.2. 토큰화
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     11.2.3. 어휘 색인화
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#textvectorization">
+     11.2.4.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       TextVectorization
+      </span>
+     </code>
+     층 활용
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   11.3. 단어 모음 표현법: 집합과 시퀀스
+  <a class="reference internal nav-link" href="#id7">
+   11.3. 문장 표현법: 집합 대 시퀀스
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -273,12 +417,12 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id8">
      11.3.2. 단어주머니 기법
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id9">
      11.3.3. 시퀀스 모델 기법
     </a>
    </li>
@@ -286,12 +430,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>자연어 처리</h1>
@@ -313,10 +456,38 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#id3">
    11.2. 텍스트 벡터화
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     11.2.1. 텍스트 표준화
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id5">
+     11.2.2. 토큰화
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     11.2.3. 어휘 색인화
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#textvectorization">
+     11.2.4.
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       TextVectorization
+      </span>
+     </code>
+     층 활용
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   11.3. 단어 모음 표현법: 집합과 시퀀스
+  <a class="reference internal nav-link" href="#id7">
+   11.3. 문장 표현법: 집합 대 시퀀스
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -325,12 +496,12 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
+    <a class="reference internal nav-link" href="#id8">
      11.3.2. 단어주머니 기법
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id9">
      11.3.3. 시퀀스 모델 기법
     </a>
    </li>
@@ -342,11 +513,12 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="ch-nlp">
-<span id="id1"></span><h1><span class="section-number">11. </span>자연어 처리<a class="headerlink" href="#ch-nlp" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ch-nlp">
+<span id="id1"></span><h1><span class="section-number">11. </span>자연어 처리<a class="headerlink" href="#ch-nlp" title="Permalink to this headline">#</a></h1>
 <p><strong>감사의 글</strong></p>
 <p>아래 내용은 프랑소와 숄레의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
@@ -372,8 +544,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>트랜스포머(Transformer) 활용</p></li>
 <li><p>시퀀스-투-시퀀스(seq2seq) 모델 활용</p></li>
 </ul>
-<div class="section" id="id2">
-<h2><span class="section-number">11.1. </span>자연어처리 소개<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">11.1. </span>자연어처리 소개<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <p>파이썬, 자바, C, C++, C#, 자바스크립트 등 컴퓨터 프로그래밍언어와 구분하기 위해
 일상에서 사용되는 한국어, 영어 등을 <strong>자연어</strong><font size='2'>natural language</font>라
 부른다.</p>
@@ -404,24 +576,22 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>2017-2018: 트랜스포머<font size='2'> transformer</font> 모델이 최고의 성능 발휘하며,
 많은 난제들을 해결함. 현재 가장 많이 활용되는 모델임.</p></li>
 </ul>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">11.2. </span>텍스트 벡터화<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">11.2. </span>텍스트 벡터화<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
 <p>딥러닝 모델은 텍스트 자체를 처리할 수 없다.
 따라서 텍스트를 수치형 텐서로 변환하는 <strong>텍스트 벡터화</strong><font size='2'>text vectorization</font> 과정이 요구되며
 보통 다음 세 단계를 따른다.</p>
 <ol class="simple">
 <li><p><strong>텍스트 표준화</strong><font size='2'>text standardization</font>: 소문자화, 마침표 제거 등등</p></li>
-<li><p><strong>토큰화</strong><font size='2'>tokenization</font>: 기본 단위의 <strong>유닛</strong><font size='2'>units</font>으로 쪼개기</p>
-<ul class="simple">
-<li><p>토큰 예제: 문자, 단어, 단어 집합 등등</p></li>
-</ul>
-</li>
+<li><p><strong>토큰화</strong><font size='2'>tokenization</font>: 기본 단위의 <strong>유닛</strong><font size='2'>units</font>으로 쪼개기.
+문자, 단어, 단어 집합 등이 토큰으로 활용됨.</p></li>
 <li><p><strong>어휘 색인화</strong><font size='2'>vocabulary indexing</font>: 토큰 각각을 하나의 수치형 벡터로 변환.</p></li>
 </ol>
 <p>아래 그림은 텍스트 벡터화의 기본적인 과정을 잘 보여준다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-01.png" style="width:60%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>텍스트 표준화</strong></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><section id="id4">
+<h3><span class="section-number">11.2.1. </span>텍스트 표준화<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
 <p>다음 두 문장을 표준화를 통해 동일한 문장으로 변환해보자.</p>
 <ul class="simple">
 <li><p>“sunset came. i was staring at the Mexico sky. Isnt nature splendid??”</p></li>
@@ -442,7 +612,9 @@ const thebe_selector_output = ".output, .cell_output"
 학습해야할 내용을 줄여 일반화 성능이 보다 좋은 모델을 훈련시키는 장점이 있다.
 하지만 분석 목적에 따라 표준화 기법은 경우에 따라 달라질 수 있음에 주의해야 한다.
 예를 들어 인터뷰 기사의 경우 물음표(<code class="docutils literal notranslate"><span class="pre">?</span></code>)는 제거하면 안된다.</p>
-<p><strong>토큰화</strong></p>
+</section>
+<section id="id5">
+<h3><span class="section-number">11.2.2. </span>토큰화<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
 <p>텍스트 표준화 이후 데이터 분석의 기본 단위인 토큰으로 쪼개야 한다.
 보통 아래 세 가지 방식 중에 하나를 사용한다.</p>
 <ul class="simple">
@@ -483,22 +655,26 @@ const thebe_selector_output = ".output, .cell_output"
 <strong>N-그램 주머니</strong>라고도 불린다.
 예를 들어 “the cat sat on the mat.” 문장에 대한
 2-그램 집합과 3-그램 집합은 각각 다음과 같다.</p>
-<ul class="simple">
-<li><p>2-그램 집합</p></li>
-</ul>
+<ul>
+<li><p>2-그램 집합</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;the cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat sat&quot;</span><span class="p">,</span> <span class="s2">&quot;sat&quot;</span><span class="p">,</span>
- <span class="s2">&quot;sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;on the&quot;</span><span class="p">,</span> <span class="s2">&quot;the mat&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">}</span>
+<span class="s2">&quot;sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;on the&quot;</span><span class="p">,</span> <span class="s2">&quot;the mat&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>3-그램 집합</p></li>
+</li>
 </ul>
+<ul>
+<li><p>3-그램 집합</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;the cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat sat&quot;</span><span class="p">,</span> <span class="s2">&quot;the cat sat&quot;</span><span class="p">,</span>
- <span class="s2">&quot;sat&quot;</span><span class="p">,</span> <span class="s2">&quot;sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;cat sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on the&quot;</span><span class="p">,</span>
- <span class="s2">&quot;sat on the&quot;</span><span class="p">,</span> <span class="s2">&quot;the mat&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">,</span> <span class="s2">&quot;on the mat&quot;</span><span class="p">}</span>
+<span class="s2">&quot;sat&quot;</span><span class="p">,</span> <span class="s2">&quot;sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;cat sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on the&quot;</span><span class="p">,</span>
+<span class="s2">&quot;sat on the&quot;</span><span class="p">,</span> <span class="s2">&quot;the mat&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">,</span> <span class="s2">&quot;on the mat&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p><strong>어휘 색인화</strong></p>
+</li>
+</ul>
+</section>
+<section id="id6">
+<h3><span class="section-number">11.2.3. </span>어휘 색인화<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
 <p>일반적으로 먼저 훈련셋에 포함된 모든 토큰들의 색인(인덱스)을 생성한 다음에
 원-핫, 멀티-핫 인코딩 등의 방식을 사용하여 수치형 텐서로 변환한다.</p>
 <p><a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">4장</span></a>에서 언급한 대로
@@ -512,61 +688,54 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <p>케라스의 imdb 데이터셋은 이미 정수들의 시퀀스로 전처리가 되어 있다.
 하지만 여기서는 원본 imdb 데이터셋을 대상으로 전처리를 직접 수행하는 단계부터 살펴볼 것이다.
-이를 위해 아래 사항을 기억해 두어야 한다.</p>
+이를 위해 아래 사항을 기억해 두자.</p>
 <ul>
-<li><p>OOV 인덱스 활용: 어휘 색인에 포함되지 않는 단어는 모두 1로 처리.
-일반 문장으로 번역되는 경우 “[UNK]” 으로 처리됨.</p>
+<li><p>OOV 인덱스 활용: 어휘 색인에 포함되지 않는 단어는 모두 1로 처리됨.
+일반 문장으로 재번역되는 경우 “[UNK]” 으로 처리됨.</p>
 <ul class="simple">
-<li><p>OOV = Out Of Vocabulary</p></li>
-<li><p>UNK = Unknown</p></li>
+<li><p>OOV = Out Of Vocabulary (미동록 어휘)</p></li>
+<li><p>UNK = Unknown (미확인)</p></li>
 </ul>
 </li>
-<li><p>마스크(mask) 토큰: 무시되어야 하는 토큰을 나타냄. 모두 0으로 처리.
-예를 들어, 문장의 길이를 맞추기 위해 패딩으로 0 사용 가능.</p>
+<li><p>마스크 토큰<font size='2'>mask token</font>: 문장의 길이를 맞추기 위한 패딩으로 사용되는 0을
+가리키며, 훈련 과정에서 무시됨.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="mi">5</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">89</span><span class="p">],</span>
  <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span>  <span class="mi">21</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]]</span>
 </pre></div>
 </div>
 </li>
 </ul>
-<p><strong>케라스의 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 활용</strong></p>
-<p>지금까지 설명한 텍스트 벡터화를 위해 케라스의 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층을 활용할 수 있으며
-기본 사용법은 다음과 같다.</p>
+</section>
+<section id="textvectorization">
+<h3><span class="section-number">11.2.4. </span><code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 활용<a class="headerlink" href="#textvectorization" title="Permalink to this headline">#</a></h3>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층을 이용하여 텍스트 벡터화를 진행할 수 있다.</p>
+<p>아래 코드는 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 구성에 사용되는 주요 기본 설정을 보여준다.
+표준화와 토큰화 방식을 임의로 지정해서 활용할 수도 있지만 여기서는 자세히 다루지 않는다.</p>
+<ul class="simple">
+<li><p>표준화: <code class="docutils literal notranslate"><span class="pre">standardize='lower_and_strip_punctuation'</span></code> (소문자화와 마침표 등 제거)</p></li>
+<li><p>토큰화: <code class="docutils literal notranslate"><span class="pre">split='whitespace'</span></code> (단어 기준 쪼개기), <code class="docutils literal notranslate"><span class="pre">ngrams=None</span></code> (n-그램 미사용)</p></li>
+<li><p>출력 모드: <code class="docutils literal notranslate"><span class="pre">output_mode=&quot;int&quot;</span></code> (정수 인코딩)</p></li>
+</ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">TextVectorization</span>
 
 <span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
-    <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="n">standardize</span><span class="o">=</span><span class="s1">&#39;lower_and_strip_punctuation&#39;</span><span class="p">,</span>
+    <span class="n">split</span><span class="o">=</span><span class="s1">&#39;whitespace&#39;</span><span class="p">,</span>
+    <span class="n">ngrams</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_mode</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 구성에 사용되는 주요 기본 설정은 다음과 같다.</p>
-<ul class="simple">
-<li><p>표준화: 소문자화와 마침표 등 제거</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">standardize='lower_and_strip_punctuation'</span></code></p></li>
-</ul>
-</li>
-<li><p>토큰화: 단어 기준 쪼개기</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">ngrams=None</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">split='whitespace'</span></code></p></li>
-</ul>
-</li>
-<li><p>출력 모드: 출력 텐서의 형식</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">output_mode=&quot;int&quot;</span></code></p></li>
-</ul>
-</li>
-</ul>
-<p><strong>예제</strong></p>
-<p>아래 데이터셋을 대상으로 텍스트 벡터화를 진행해보자.</p>
+<p>예를 들어, 아래 데이터셋을 이용하여 텍스트 벡터화를 해보자.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;I write, erase, rewrite&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Erase again, and then&quot;</span><span class="p">,</span>
     <span class="s2">&quot;A poppy blooms.&quot;</span><span class="p">,</span>
 <span class="p">]</span>
-
-<span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>어휘 색인화를 위해 먼저 <code class="docutils literal notranslate"><span class="pre">adapt()</span></code> 메서드를 이용하여 어휘 색인을 만든다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>생성된 어휘 색인은 다음과 같다.</p>
@@ -595,23 +764,24 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <p>벡터화된 텐서로부터 문장을 복원하면 표준화된 문장이 생성된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">inverse_vocab</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulary</span><span class="p">))</span>
-
 <span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_sentence</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">inverse_vocab</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">encoded_sentence</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">decoded_sentence</span><span class="p">)</span>
 <span class="go">i write rewrite and [UNK] rewrite again</span>
 </pre></div>
 </div>
-<p><strong><code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 사용법</strong></p>
+<div class="info admonition">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 사용법</p>
 <p><code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층은 GPU 또는 TPU에서 지원되지 않는다.
 따라서 모델 구성에 직접 사용하는 방식은 모델의 훈련을
 늦출 수 있기에 권장되지 않는다.
 여기서는 대신에 데이터셋 전처리를 모델 구성과 독립적으로 처리하는 방식을 이용한다.</p>
 <p>하지만 훈련이 완성된 모델을 실전에 배치할 경우 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층을
-완성된 모델에 추가해서 사용하는 게 좋다.
-이에 대한 자세한 설명은 잠시 뒤에 부록에서 설명한다.</p>
+완성된 모델에 추가해서 사용하는 게 좋다.</p>
 </div>
-<div class="section" id="id4">
-<h2><span class="section-number">11.3. </span>단어 모음 표현법: 집합과 시퀀스<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="id7">
+<h2><span class="section-number">11.3. </span>문장 표현법: 집합 대 시퀀스<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h2>
 <p>앞서 언급한 대로 자연어처리 모델에 따라 단어 모음을 다루는 방식이 다르다.</p>
 <ul class="simple">
 <li><p>단어주머니(bag-of-words) 모델</p>
@@ -622,29 +792,22 @@ const thebe_selector_output = ".output, .cell_output"
 </li>
 <li><p>시퀀스(sequence) 모델</p>
 <ul>
-<li><p>순환(recurrent) 모델</p>
-<ul>
-<li><p>단어들의 순서를 시계열 데이터의 스텝처럼 간주.</p></li>
-<li><p>2015-2016에 주로 사용됨.</p></li>
-</ul>
-</li>
-<li><p>트랜스포머(Transformer) 아키텍처</p>
-<ul>
-<li><p>기본적으로 순서를 무시하지만 단어 위치를 학습할 수 있는 능력을 가짐.</p></li>
-<li><p>2017년 이후 기본적으로 활용됨.</p></li>
-</ul>
-</li>
+<li><p>RNN: 단어들의 순서를 시계열 데이터의 스텝처럼 간주. 2015-2016에 주로 사용됨.</p></li>
+<li><p>트랜스포머<font size='2'>Transformer</font> 아키텍처.
+기본적으로 순서를 무시하지만 단어 위치를 학습할 수 있는 능력을 가짐.
+2017년 이후 많이 활용됨.</p></li>
 </ul>
 </li>
 </ul>
 <p>여기서는 IMDB 영화 리뷰 데이터를 이용하여 두 모델 방식의
 활용법과 차이점을 소개한다.</p>
-<div class="section" id="imdb">
-<h3><span class="section-number">11.3.1. </span>IMDB 영화 리뷰 데이터 준비<a class="headerlink" href="#imdb" title="Permalink to this headline">¶</a></h3>
+<section id="imdb">
+<h3><span class="section-number">11.3.1. </span>IMDB 영화 리뷰 데이터 준비<a class="headerlink" href="#imdb" title="Permalink to this headline">#</a></h3>
 <p>이전과는 달리 여기서는 IMDB 데이터셋을 직접 다운로드하여 전처리하는
 과정을 살펴본다.</p>
 <p>준비 과정 1: 데이터셋 다운로드 압축 풀기</p>
-<p>압축을 풀면 아래 구조의 디렉토리가 생성된다.</p>
+<p><a class="reference external" href="https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">aclIMDB_v1.tar</a> 파일을
+다운로드 한 후에 압축을 풀면 아래 구조의 디렉토리가 생성된다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aclImdb</span><span class="o">/</span>
 <span class="o">...</span><span class="n">train</span><span class="o">/</span>
 <span class="o">......</span><span class="n">pos</span><span class="o">/</span>
@@ -655,102 +818,53 @@ const thebe_selector_output = ".output, .cell_output"
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">train</span></code>의 <code class="docutils literal notranslate"><span class="pre">pos</span></code>와 <code class="docutils literal notranslate"><span class="pre">neg</span></code> 서브디렉토리에 각각 12,500개의 긍정과 부정 리뷰가
-포함되어 있다.</p>
-<p><em>주의사항</em>: 아래 코드는 윈도우의 경우 10 최신 버전 또는 11부터 지원된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!curl -O https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
-!tar -xf aclImdb_v1.tar.gz
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">aclImdb/train/unsup</span></code> 서브디렉토리는 필요 없기에 삭제한다.</p>
-<p>if ‘google.colab’ in str(get_ipython()):
-!rm -r aclImdb/train/unsup
-else:
-import shutil
-unsup_path = ‘./aclImdb/train/unsup’
-shutil.rmtree(unsup_path)</p>
+포함되어 있다. <code class="docutils literal notranslate"><span class="pre">aclImdb/train/unsup</span></code> 서브디렉토리는 필요 없기에 삭제한다.</p>
 <p>긍정 리뷰 하나의 내용을 살펴보자.
 모델 구성 이전에 훈련 데이터셋을 살펴 보고
 모델에 대한 직관을 갖는 과정이 항상 필요하다.</p>
-<p>if ‘google.colab’ in str(get_ipython()):
-!cat aclImdb/train/pos/4077_10.txt
-else:
-with open(‘aclImdb/train/pos/4077_10.txt’, ‘r’) as f:
-text = f.read()
-print(text)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="n">first</span> <span class="n">saw</span> <span class="n">this</span> <span class="n">back</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">early</span> <span class="mi">90</span><span class="n">s</span> <span class="n">on</span> <span class="n">UK</span> <span class="n">TV</span><span class="p">,</span> <span class="n">i</span> <span class="n">did</span> <span class="n">like</span> <span class="n">it</span> <span class="n">then</span> <span class="n">but</span> <span class="n">i</span> <span class="n">missed</span> <span class="n">the</span> <span class="n">chance</span> <span class="n">to</span> <span class="n">tape</span> <span class="n">it</span><span class="p">,</span> <span class="n">many</span> <span class="n">years</span> <span class="n">passed</span> <span class="n">but</span> <span class="n">the</span> <span class="n">film</span> <span class="n">always</span> <span class="n">stuck</span> <span class="k">with</span> <span class="n">me</span> <span class="ow">and</span> <span class="n">i</span> <span class="n">lost</span> <span class="n">hope</span> <span class="n">of</span> <span class="n">seeing</span> <span class="n">it</span> <span class="n">TV</span> <span class="n">again</span><span class="p">,</span> <span class="n">the</span> <span class="n">main</span> <span class="n">thing</span> <span class="n">that</span> <span class="n">stuck</span> <span class="k">with</span> <span class="n">me</span> <span class="n">was</span> <span class="n">the</span> <span class="n">end</span><span class="p">,</span> <span class="n">the</span> <span class="n">hole</span> <span class="n">castle</span> <span class="n">part</span> <span class="n">really</span> <span class="n">touched</span> <span class="n">me</span><span class="p">,</span> <span class="n">its</span> <span class="n">easy</span> <span class="n">to</span> <span class="n">watch</span><span class="p">,</span> <span class="n">has</span> <span class="n">a</span> <span class="n">great</span> <span class="n">story</span><span class="p">,</span> <span class="n">great</span> <span class="n">music</span><span class="p">,</span> <span class="n">the</span> <span class="nb">list</span> <span class="n">goes</span> <span class="n">on</span> <span class="ow">and</span> <span class="n">on</span><span class="p">,</span> <span class="n">its</span> <span class="n">OK</span> <span class="n">me</span> <span class="n">saying</span> <span class="n">how</span> <span class="n">good</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">but</span> <span class="n">everyone</span> <span class="n">will</span> <span class="n">take</span> <span class="n">there</span> <span class="n">own</span> <span class="n">best</span> <span class="n">bits</span> <span class="n">away</span> <span class="k">with</span> <span class="n">them</span> <span class="n">once</span> <span class="n">they</span> <span class="n">have</span> <span class="n">seen</span> <span class="n">it</span><span class="p">,</span> <span class="n">yes</span> <span class="n">the</span> <span class="n">animation</span> <span class="ow">is</span> <span class="n">top</span> <span class="n">notch</span> <span class="ow">and</span> <span class="n">beautiful</span> <span class="n">to</span> <span class="n">watch</span><span class="p">,</span> <span class="n">it</span> <span class="n">does</span> <span class="n">show</span> <span class="n">its</span> <span class="n">age</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">very</span> <span class="n">few</span> <span class="n">parts</span> <span class="n">but</span> <span class="n">that</span> <span class="n">has</span> <span class="n">now</span> <span class="n">become</span> <span class="n">part</span> <span class="n">of</span> <span class="n">it</span> <span class="n">beauty</span><span class="p">,</span> <span class="n">i</span> <span class="n">am</span> <span class="n">so</span> <span class="n">glad</span> <span class="n">it</span> <span class="n">has</span> <span class="n">came</span> <span class="n">out</span> <span class="n">on</span> <span class="n">DVD</span> <span class="k">as</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">one</span> <span class="n">of</span> <span class="n">my</span> <span class="n">top</span> <span class="mi">10</span> <span class="n">films</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">time</span><span class="o">.</span> <span class="n">Buy</span> <span class="n">it</span> <span class="ow">or</span> <span class="n">rent</span> <span class="n">it</span> <span class="n">just</span> <span class="n">see</span> <span class="n">it</span><span class="p">,</span> <span class="n">best</span> <span class="n">viewing</span> <span class="ow">is</span> <span class="n">at</span> <span class="n">night</span> <span class="n">alone</span> <span class="k">with</span> <span class="n">drink</span> <span class="ow">and</span> <span class="n">food</span> <span class="ow">in</span> <span class="n">reach</span> <span class="n">so</span> <span class="n">you</span> <span class="n">don</span><span class="s1">&#39;t have to stop the film.&lt;br /&gt;&lt;br /&gt;Enjoy</span>
+</pre></div>
+</div>
 <p>준비 과정 2: 검증셋 준비</p>
 <p>훈련셋의 20%를 검증셋으로 떼어낸다.
 이를 위해 <code class="docutils literal notranslate"><span class="pre">aclImdb/val</span></code> 디렉토리를 생성한 후에
 긍정과 부정 훈련셋 모두 무작위로 섞은 후 그중 20%를 검증셋 디렉토리로 옮긴다.</p>
-<p>import os, pathlib, shutil, random</p>
-<p>base_dir = pathlib.Path(“aclImfdb”)
-val_dir = base_dir / “val”
-train_dir = base_dir / “train”</p>
-<p>for category in (“neg”, “pos”):
-os.makedirs(val_dir / category)            # val 디렉토리 생성
-files = os.listdir(train_dir / category)</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>random.Random(1337).shuffle(files)         # 훈련셋 무작위 섞기
-
-num_val_samples = int(0.2 * len(files))    # 20% 지정 후 검증셋으로 옮기기
-val_files = files[-num_val_samples:]
-
-for fname in val_files:
-    shutil.move(train_dir / category / fname,
-                val_dir / category / fname)
-</pre></div>
-</div>
 <p>준비 과정 3: 텐서 데이터셋 준비</p>
 <p><code class="docutils literal notranslate"><span class="pre">text_dataset_from_directory()</span></code> 함수를 이용하여
 훈련셋, 검증셋, 테스트셋을 준비한다.
 자료형은 모두 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>이며, 배치 크기는 32를 사용한다.</p>
-<p>from tensorflow import keras</p>
-<p>batch_size = 32</p>
-<p>train_ds = keras.utils.text_dataset_from_directory(
-“aclImdb/train”, batch_size=batch_size
-)</p>
-<p>val_ds = keras.utils.text_dataset_from_directory(
-“aclImdb/val”, batch_size=batch_size
-)</p>
-<p>test_ds = keras.utils.text_dataset_from_directory(
-“aclImdb/test”, batch_size=batch_size
-)</p>
-<p>각 데이터셋은 배치로 구분되며
-입력은 <code class="docutils literal notranslate"><span class="pre">tf.string</span></code> 텐서이고, 타깃은 <code class="docutils literal notranslate"><span class="pre">int32</span></code> 텐서이다.
-크기는 모두 32이며 지정된 배치 크기이다.
-예를 들어, 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">train_ds</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs.shape:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs.dtype:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets.shape:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets.dtype:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-    
-    <span class="c1"># 예제: 첫째 배치의 첫째 리뷰</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs[0]:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets[0]:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    
-    <span class="k">break</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">3157354209.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">train_ds</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs.shape:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs.dtype:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets.shape:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets.dtype:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
 
-<span class="ne">NameError</span>: name &#39;train_ds&#39; is not defined
+<span class="n">train_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
+    <span class="s2">&quot;aclImdb/train&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
+    <span class="p">)</span>
+
+<span class="n">val_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
+    <span class="s2">&quot;aclImdb/val&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
+    <span class="p">)</span>
+
+<span class="n">test_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
+    <span class="s2">&quot;aclImdb/test&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
+<p>각 데이터셋은 배치로 구분되며
+배치의 각 입력 데이터 샘플은 텐서플로우의 문자열 자료형인 <code class="docutils literal notranslate"><span class="pre">tf.string</span></code> 텐서이고,
+타깃은 0 또는 1의 <code class="docutils literal notranslate"><span class="pre">int32</span></code> 텐서로 지정된다.
+0은 부정을, 1은 긍정을 나타낸다.</p>
+<p>배치의 크기는 32이며, 예를 들어, 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">train_ds</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="c1"># 예제: 첫째 배치의 첫째 리뷰</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs[0]:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets[0]:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>    
+<span class="gp">... </span>    <span class="k">break</span>
+<span class="go">inputs[0]: tf.Tensor(b&#39;The film begins with a bunch of kids in reform school and focuses on a kid named \&#39;Gabe\&#39;, who has apparently worked hard to earn his parole. Gabe and his sister move to a new neighborhood to make a fresh start and soon Gabe meets up with the Dead End Kids. The Kids in this film are little punks, but they are much less antisocial than they\&#39;d been in other previous films and down deep, they are well-meaning punks. However, in this neighborhood there are also some criminals who are perpetrating insurance fraud through arson and see Gabe as a convenient scapegoat--after all, he\&#39;d been to reform school and no one would believe he was innocent once he was framed. So, when Gabe is about ready to be sent back to &quot;The Big House&quot;, it\&#39;s up to the rest of the gang to save him and expose the real crooks.&lt;br /&gt;&lt;br /&gt;The &quot;Dead End Kids&quot; appeared in several Warner Brothers films in the late 1930s and the films were generally very good (particularly ANGELS WITH DIRTY FACES). However, after the boys\&#39; contracts expired, they went on to Monogram Studios and the films, to put it charitably, were very weak and formulaic--with Huntz Hall and Leo Gorcey being pretty much the whole show and the group being renamed &quot;The Bowery Boys&quot;. Because ANGELS WASH THEIR FACES had the excellent writing and production values AND Hall and Gorcey were not constantly mugging for the camera, it\&#39;s a pretty good film--and almost earns a score of 7 (it\&#39;s REAL close). In fact, while this isn\&#39;t a great film aesthetically, it\&#39;s sure a lot of fun to watch, so I will give it a 7! Sure, it was a tad hokey-particularly towards the end when the kids take the law into their own hands and Reagan ignores the Bill of Rights--but it was also quite entertaining. The Dead End Kids are doing their best performances and Ronald Reagan and Ann Sheridan provided excellent support. Sure, this part of the film was illogical and impossible but somehow it was still funny and rather charming--so if you can suspend disbelief, it works well.&#39;, shape=(), dtype=string)</span>
+<span class="go">targets[0]: tf.Tensor(1, shape=(), dtype=int32)</span>
+</pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">11.3.2. </span>단어주머니 기법<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id8">
+<h3><span class="section-number">11.3.2. </span>단어주머니 기법<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
 <p>단어주머니에 채울 토큰으로 어떤 N-그램을 사용할지 먼저 지정해야 한다.</p>
 <ul class="simple">
 <li><p>유니그램(unigrams): 하나의 단어가 한의 토큰</p></li>
@@ -795,7 +909,7 @@ for fname in val_files:
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">3216769543.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">binary_1gram_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">binary_1gram_val_ds</span> <span class="o">=</span> <span class="n">val_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">binary_1gram_test_ds</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
@@ -823,12 +937,10 @@ for fname in val_files:
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">3445560410.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">binary_1gram_train_ds</span><span class="p">:</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs.shape:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs.dtype:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets.shape:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets.dtype:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 
 <span class="ne">NameError</span>: name &#39;binary_1gram_train_ds&#39; is not defined
 </pre></div>
@@ -864,12 +976,10 @@ for fname in val_files:
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">1882536754.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [3],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">max_tokens</span><span class="p">,))</span>
 
 <span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
 </pre></div>
@@ -886,7 +996,7 @@ for fname in val_files:
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">3386008781.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [4],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 
@@ -920,12 +1030,16 @@ for fname in val_files:
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">1689536330.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [5],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
 <span class="ne">----&gt; </span><span class="mi">2</span>     <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="s2">&quot;binary_1gram.keras&quot;</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>                                     <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">binary_1gram_train_ds</span><span class="o">.</span><span class="n">cache</span><span class="p">(),</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span>           <span class="n">validation_data</span><span class="o">=</span><span class="n">binary_1gram_val_ds</span><span class="o">.</span><span class="n">cache</span><span class="p">(),</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span>           <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>           <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;binary_1gram.keras&quot;</span><span class="p">)</span>
 
 <span class="ne">NameError</span>: name &#39;keras&#39; is not defined
 </pre></div>
@@ -955,7 +1069,7 @@ N-그램들로 이루어진 어휘색인을 생성할 수 있다.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">4065658736.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">ngrams</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
@@ -981,12 +1095,10 @@ N-그램들로 이루어진 어휘색인을 생성할 수 있다.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">3358490992.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [7],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">text_only_train_ds</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">binary_2gram_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">binary_2gram_val_ds</span> <span class="o">=</span> <span class="n">val_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">binary_2gram_test_ds</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
 
 <span class="ne">NameError</span>: name &#39;text_vectorization&#39; is not defined
 </pre></div>
@@ -1016,12 +1128,16 @@ N-그램들로 이루어진 어휘색인을 생성할 수 있다.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">2369364838.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [8],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="s2">&quot;binary_2gram.keras&quot;</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span>                                     <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">binary_2gram_train_ds</span><span class="o">.</span><span class="n">cache</span><span class="p">(),</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>           <span class="n">validation_data</span><span class="o">=</span><span class="n">binary_2gram_val_ds</span><span class="o">.</span><span class="n">cache</span><span class="p">(),</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span>           <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span>           <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span>
 
 <span class="ne">NameError</span>: name &#39;get_model&#39; is not defined
 </pre></div>
@@ -1045,7 +1161,7 @@ N-그램들로 이루어진 어휘색인을 생성할 수 있다.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">1640647737.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">ngrams</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
@@ -1101,7 +1217,7 @@ N-그램들로 이루어진 어휘색인을 생성할 수 있다.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">1713900795.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [10],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="n">ngrams</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
@@ -1144,12 +1260,10 @@ N-그램들로 이루어진 어휘색인을 생성할 수 있다.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">4195309818.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [11],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">text_only_train_ds</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">tfidf_2gram_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">tfidf_2gram_val_ds</span> <span class="o">=</span> <span class="n">val_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">tfidf_2gram_test_ds</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
 
 <span class="ne">NameError</span>: name &#39;text_vectorization&#39; is not defined
 </pre></div>
@@ -1175,12 +1289,10 @@ N-그램들로 이루어진 어휘색인을 생성할 수 있다.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">2908029198.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [12],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># 텍스트 벡터화 추가</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">processed_inputs</span> <span class="o">=</span> <span class="n">text_vectorization</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># 훈련된 모델에 적용</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">processed_inputs</span><span class="p">)</span>
 
 <span class="ne">NameError</span>: name &#39;keras&#39; is not defined
 </pre></div>
@@ -1206,21 +1318,21 @@ N-그램들로 이루어진 어휘색인을 생성할 수 있다.</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">3832117927.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [13],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">raw_text_data</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">([</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="p">[</span><span class="s2">&quot;That was an excellent movie, I loved it.&quot;</span><span class="p">],</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">predictions</span> <span class="o">=</span> <span class="n">inference_model</span><span class="p">(</span><span class="n">raw_text_data</span><span class="p">)</span>
 
 <span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">11.3.3. </span>시퀀스 모델 기법<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="id9">
+<h3><span class="section-number">11.3.3. </span>시퀀스 모델 기법<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
 <p>앞서 살펴본 대로 바이그램(bigrams) 등을 이용하여 단어들 사이의 순서 정보를 함께 활용하면 기본적으로 훈련된 모델의 성능이 향상된다.
 하지만 N-그램 등은 일종의 수동으로 진행하는 일종의 특성공학(feature engineering)이며,
 딥러닝은 그런 특성공학을 가능하면 진행하지 않는 방향으로 발전해왔다.
@@ -1305,12 +1417,10 @@ int_test_ds = test_ds.map(lambda x, y: (text_vectorization(x), y))</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">398220861.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [14],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">int_train_ds</span><span class="p">:</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs.shape:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs.dtype:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets.shape:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets.dtype:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 
 <span class="ne">NameError</span>: name &#39;int_train_ds&#39; is not defined
 </pre></div>
@@ -1369,11 +1479,9 @@ int_test_ds = test_ds.map(lambda x, y: (text_vectorization(x), y))</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">1737952228.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [15],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># 원-핫 인코딩</span>
 
 <span class="ne">ModuleNotFoundError</span>: No module named &#39;tensorflow&#39;
@@ -1413,12 +1521,13 @@ int_test_ds = test_ds.map(lambda x, y: (text_vectorization(x), y))</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">520559861.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [16],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
 <span class="ne">----&gt; </span><span class="mi">2</span>     <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="s2">&quot;one_hot_bidir_lstm.keras&quot;</span><span class="p">,</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>                                     <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">int_train_ds</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">int_val_ds</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;one_hot_bidir_lstm.keras&quot;</span><span class="p">)</span>
 
 <span class="ne">NameError</span>: name &#39;keras&#39; is not defined
 </pre></div>
@@ -1503,12 +1612,10 @@ int_test_ds = test_ds.map(lambda x, y: (text_vectorization(x), y))</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">2234366925.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [17],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># 단어 임베딩</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">embedded</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">256</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
 
 <span class="ne">NameError</span>: name &#39;keras&#39; is not defined
 </pre></div>
@@ -1563,9 +1670,8 @@ int_test_ds = test_ds.map(lambda x, y: (text_vectorization(x), y))</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_259</span><span class="o">/</span><span class="mf">1830929262.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="nn">Input In [18],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> 
 <span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># 마스킹 활용 단어 임베딩</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">embedded</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">input_dim</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">mask_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
@@ -1665,9 +1771,9 @@ mask_zero=True,
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test acc: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">int_test_ds</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1691,9 +1797,11 @@ mask_zero=True,
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="dl_for_timeseries.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1709,23 +1817,27 @@ mask_zero=True,
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By 코딩알지<br/>
+  
+</p>
+        </footer>
+    </div>
     
-      By 코딩알지<br/>
-    
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
