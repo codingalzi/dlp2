@@ -296,7 +296,7 @@
 # 입력 시퀀스를 하나의 샘플로 한 번에 처리하는 대신
 # 시퀀스에 포함된 항목들을 차례대로 하나씩 처리해서 얻은 정보를 시퀀스의 다음 항목을 처리할 때 함께 활용한다.
 # 시퀀스의 항목을 하나 처리할 때마다 다음 항목에 활용되는 정보를 **상태**<font size='2'>state</font>라 부른다.
-# 새로운 시퀀스를 다룰 때마다 시퀀스는 초기화된다.
+# 새로운 시퀀스를 다룰 때마다 상태는 초기화된다.
 
 # <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch10-rnn01.png" style="width:75%;"></div>
 # 
@@ -378,15 +378,12 @@
 # outputs = layers.SimpleRNN(16)(inputs)
 # ```
 # 
-# 하지만 일정한 길이의 시퀀스만을 다룬다면 시퀀스 길이(steps)를 지정하는 것이 좋다.
-# 이유는 모델을 구성한 후에 `summary()` 메서드를 활용하여
-# 모델 훈련과정에 변환되는 텐서들의 모양을 정확히 추적할 수 있기 때문이다.
+# 하지만 일정한 길이의 시퀀스만을 다룬다면 시퀀스의 길이<font size='2'>steps</font>를 지정하는 것이 좋다.
 
 # 둘째, 순환층의 출력값은 층 생성자의 `return_sequences` 키워드 인자의 값에 따라
 # 시퀀스의 마지막 항목에 대한 출력값만 출력할지를 지정한다. 
-# 
 # 만약 `return_sequences=False`, 즉 기본값으로 설정하면 시퀀스의 마지막 항목에 대한 출력값만 생성한다.
-# 
+
 # ```python
 # num_features = 14  # 특성 수
 # steps = 120        # 시퀀스 길이 지정
@@ -395,9 +392,9 @@
 # print(outputs.shape)
 # (None, 16)
 # ```
-# 
+
 # `return_sequences=True`로 지정하면 시퀀스의 모든 항목에 대한 출력값을 갖는 시퀀스를 생성한다.
-# 
+
 # ```python
 # num_features = 14  # 특성 수
 # steps = 120        # 시퀀스 길이 지정
