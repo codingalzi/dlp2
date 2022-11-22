@@ -20,7 +20,7 @@
 # **주요 내용**
 
 # - 자연어처리(Natural Language Processing) 소개
-#     - 단어주머니(bag-of-words) 모델
+#     - 단어 주머니(bag-of-words) 모델
 #     - 순차(sequence) 모델
 # - 순차 모델 활용
 #     - 양방향 순환신경망(bidirectional LSTM) 적용
@@ -131,7 +131,7 @@
 #     - 일종의 특성 공학<font size='2'>feature engineering</font> 기법임.
 #         트랜스포머 등 최신 기법에는 활용되지 않음.
 
-# 단어주머니(bag-of-words)는 N-토큰으로 구성된 집합을 의미하며 
+# 단어 주머니(bag-of-words)는 N-토큰으로 구성된 집합을 의미하며 
 # **N-그램 주머니**라고도 불린다.
 # 예를 들어 "the cat sat on the mat." 문장에 대한 
 # 2-그램 집합과 3-그램 집합은 각각 다음과 같다.
@@ -160,68 +160,72 @@
 # 보통 사용 빈도가 높은 2만 또는 3만 개의 단어만을 대상으로 어휘 색인화를 진행한다.
 # 당시에 IMDB 영화 후기 데이터셋을 불러올 때
 # `num_words=10000`을 사용하여 사용 빈도수가 상위 1만 등 안에 들지 않는 단어는
-# 영화 후기에서 삭제하도록 하였다.
+# 영화 후기에서 무시되도록 하였다.
 # 
 # ```python
 # from tensorflow.keras.datasets import imdb
 # (train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=10000)
 # ```
 
-# 케라스의 imdb 데이터셋은 이미 정수들의 시퀀스로 전처리가 되어 있다. 
-# 하지만 여기서는 원본 imdb 데이터셋을 대상으로 전처리를 직접 수행하는 단계부터 살펴볼 것이다.
-# 이를 위해 먼저 0과 1은 아래 설명과 연관된 특별한 기능을 수행함을 기억해 둔다.
+# 케라스의 imdb 데이터셋은 이미 텍스트 벡터화 전처리가 완료된 상태였다.
+# 즉 영화 후기가 정수들의 리스트로 이미 변환된 상태였다.
+# 하지만 여기서는 영어 문장으로 작성된 원본 영화후기로 구성된 imdb 데이터셋을 
+# 다운로드하여 텍스트 벡터화 전처리를 직접 수행하는 단계부터 살펴보려 한다.
+
+# **0과 1의 특별한 기능**
+
+# 텍스트 벡터에 사용되는 0과 1은 특별한 기능을 수행한다. 
 # 
-# - OOV 인덱스 활용: 어휘 색인에 포함되지 않는 단어는 모두 1로 처리됨. 
-#     일반 문장으로 재번역되는 경우 "[UNK]" 으로 처리됨.
-#     - OOV = Out Of Vocabulary (미동록 어휘)
-#     - UNK = Unknown (미확인)
-# - 마스크 토큰<font size='2'>mask token</font>: 문장의 길이를 맞추기 위한 패딩으로 사용되는 0을
-#     가리키며, 훈련 과정에서 무시됨.    
+# - OOV 인덱스 기능: 어휘 색인에 포함되지 않는(out-of-vocabulary, OOV) 단어는 모두 1로 지정된다.
+#     그런 단어는 일반 문장으로 재번역되는 경우 "[UNK]", 즉 모르는 단어로 처리된다.
+# - 마스크 토큰 기능: 문장의 길이를 통일시키기 위해 0을 패딩으로 사용한다.
+#     마스크 토큰<font size='2'>mask token</font>은 모델 훈련 과정에서 무시된다.
+#     
 #     ```
-#     [[5,  7, 124, 4, 89],
-#      [8, 34,  21, 0,  0]]
+#     [[5,  7, 124, 4, 89, 65],
+#      [8, 34,  21, 0,  0,  0]]
 #     ```
 
-# ### `TextVectorization` 층 활용
-
+# :::{prf:example} `TextVectorization` 층 활용법
+# :label: exp-textvectorization
+# 
 # 케라스의 `TextVectorization` 층을 이용하여 텍스트 벡터화를 진행할 수 있다.
-# 
 # 아래 코드는 `TextVectorization` 층 구성에 사용되는 주요 기본 설정을 보여준다.
 # 표준화와 토큰화 방식을 임의로 지정해서 활용할 수도 있지만 여기서는 자세히 다루지 않는다.
 # 
 # - 표준화: `standardize='lower_and_strip_punctuation'` (소문자화와 마침표 등 제거)
 # - 토큰화: `split='whitespace'` (단어 기준 쪼개기), `ngrams=None` (n-그램 미사용)
 # - 출력 모드: `output_mode="int"` (정수 인코딩)
-
-# ```python
-# from tensorflow.keras.layers import TextVectorization
 # 
-# text_vectorization = TextVectorization(
-#     standardize='lower_and_strip_punctuation',
-#     split='whitespace',
-#     ngrams=None,
-#     output_mode='int',
-# )
-# ```
-
-# 예를 들어, 아래 데이터셋을 이용하여 텍스트 벡터화를 해보자.
-
 # ```python
-# dataset = [
-#     "I write, erase, rewrite",
-#     "Erase again, and then",
-#     "A poppy blooms.",
-# ]
+# >>> from tensorflow.keras.layers import TextVectorization
+# 
+# >>> text_vectorization = TextVectorization(
+# ...     standardize='lower_and_strip_punctuation',  # 기본값
+# ...     split='whitespace',                         # 기본값
+# ...     ngrams=None,                                # 기본값
+# ...     output_mode='int',
+# ... )
 # ```
-
+# 
+# 예를 들어, 아래 데이터셋을 이용하여 텍스트 벡터화를 해보자.
+# 
+# ```python
+# >>> dataset = [
+# ...     "I write, erase, rewrite",
+# ...     "Erase again, and then",
+# ...     "A poppy blooms.",
+# ... ]
+# ```
+# 
 # 어휘 색인화를 위해 먼저 `adapt()` 메서드를 이용하여 어휘 색인을 만든다.
-
+# 
 # ```python
 # >>> text_vectorization.adapt(dataset)
 # ```
-
+# 
 # 생성된 어휘 색인은 다음과 같다.
-
+# 
 # ```python
 # >>> vocabulary = text_vectorization.get_vocabulary()
 # >>> vocabulary
@@ -238,27 +242,28 @@
 #  'again',
 #  'a']
 # ```
-
+# 
 # 생성된 어휘 색인을 활용하여 새로운 문장을 벡터화 해보자.
-
+# 
 # ```python
 # >>> test_sentence = "I write, rewrite, and still rewrite again"
 # >>> encoded_sentence = text_vectorization(test_sentence)
 # >>> print(encoded_sentence)
 # tf.Tensor([ 7  3  5  9  1  5 10], shape=(7,), dtype=int64)
 # ```
-
+# 
 # 벡터화된 텐서로부터 문장을 복원하면 표준화된 문장이 생성된다.
-
+# 
 # ```python
 # >>> inverse_vocab = dict(enumerate(vocabulary))
 # >>> decoded_sentence = " ".join(inverse_vocab[int(i)] for i in encoded_sentence)
 # >>> print(decoded_sentence)
 # i write rewrite and [UNK] rewrite again
 # ```
+# :::
 
-# :::{admonition} `TextVectorization` 층 사용법
-# :class: info
+# :::{admonition} `TextVectorization` 층과 GPU
+# :class: warning
 # 
 # `TextVectorization` 층은 GPU 또는 TPU에서 지원되지 않는다.
 # 따라서 모델 구성에 직접 사용하는 방식은 모델의 훈련을
@@ -269,14 +274,14 @@
 # 완성된 모델에 추가해서 사용하는 게 좋다.
 # :::
 
-# ## 문장 표현법: 집합 대 시퀀스
+# ## 문장 변환법
 
-# 앞서 언급한 대로 자연어처리 모델에 따라 단어 모음을 다루는 방식이 다르다. 
+# 훈련시키려 하는 자연어 처리 모델에 따라 문장을 변환하는 방식이 달라진다.
 # 
-# - 단어주머니<font size='2'>bag-of-words</font> 모델
-#     - 단어들의 순서를 무시. 단어 모음을 단어들의 집합으로 다룸.
+# - 단어 주머니<font size='2'>bag-of-words</font> 사용 모델
+#     - 단어들의 순서를 무시. 문장을 단어들의 집합으로 다룸.
 #     - 2015년 이전까지 주로 사용됨.
-# - 시퀀스<font size='2'>sequence</font> 모델
+# - 시퀀스<font size='2'>sequence</font> 사용 모델
 #     - RNN: 단어들의 순서를 시계열 데이터의 스텝처럼 간주. 2015-2016에 주로 사용됨.
 #     - 트랜스포머<font size='2'>Transformer</font> 아키텍처. 
 #         기본적으로 순서를 무시하지만 단어 위치를 학습할 수 있는 능력을 가짐.
@@ -306,14 +311,6 @@
 # 
 # `train`의 `pos`와 `neg` 서브디렉토리에 각각 12,500개의 긍정과 부정 리뷰가
 # 포함되어 있다. `aclImdb/train/unsup` 서브디렉토리는 필요 없기에 삭제한다.
-
-# 긍정 리뷰 하나의 내용을 살펴보자.
-# 모델 구성 이전에 훈련 데이터셋을 살펴 보고
-# 모델에 대한 직관을 갖는 과정이 항상 필요하다.
-
-# ```
-# I first saw this back in the early 90s on UK TV, i did like it then but i missed the chance to tape it, many years passed but the film always stuck with me and i lost hope of seeing it TV again, the main thing that stuck with me was the end, the hole castle part really touched me, its easy to watch, has a great story, great music, the list goes on and on, its OK me saying how good it is but everyone will take there own best bits away with them once they have seen it, yes the animation is top notch and beautiful to watch, it does show its age in a very few parts but that has now become part of it beauty, i am so glad it has came out on DVD as it is one of my top 10 films of all time. Buy it or rent it just see it, best viewing is at night alone with drink and food in reach so you don't have to stop the film.<br /><br />Enjoy
-# ```
 
 # **준비 과정 2: 검증셋 준비**
 
@@ -347,8 +344,9 @@
 # 배치의 각 입력 데이터 샘플은 텐서플로우의 문자열 자료형인 `tf.string` 텐서이고, 
 # 타깃은 0 또는 1의 `int32` 텐서로 지정된다. 
 # 0은 부정을, 1은 긍정을 나타낸다.
+# 배치의 크기는 32이다.
 # 
-# 배치의 크기는 32이며, 예를 들어, 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.
+# 예를 들어, 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.
 
 # ```python
 # >>> for inputs, targets in train_ds:
@@ -360,9 +358,10 @@
 # targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 # ```
 
-# ### 단어주머니 기법
+# ### 단어 주머니 사용법
 
-# 단어주머니에 채울 토큰으로 어떤 N-그램을 사용할지 먼저 지정해야 한다. 
+# 단어 주머니에 채울 토큰으로 어떤 N-그램을 사용할지 먼저 지정해야 한다. 
+# N-그램의 종류는 다음과 같다.
 # 
 # - 유니그램(unigrams): 하나의 단어가 하나의 토큰
 # - N-그램(N-grams): 최대 N 개의 이어지는 단어로 이루어진 문구가 하나의 토큰
@@ -370,7 +369,7 @@
 # **방식 1: 유니그램 멀티-핫 인코딩**
 
 # 예를 들어, "the cat sat on the mat" 문장을 유니그램으로 처리하면 다음 
-# 단어주머니가 생성된다.
+# 단어 주머니가 생성된다.
 # 
 # ```
 # {"cat", "mat", "on", "sat", "the"}
@@ -381,34 +380,33 @@
 
 # 유니그램 멀티-핫 인코딩을 `TextVectorization` 클래스를 이용하면 간단하게 처리할 수 있다.
 # 
-# - `max_tokens=20000" 옵션: 빈도가 20,000 등 안에 드는 단어만 멀티-핫 인코딩 적용
+# - `max_tokens=20000` 옵션: 빈도가 20,000 등 안에 드는 단어만 멀티-핫 인코딩 적용
 # - `output_mode="multi_hot"` 옵션: 유니그램을 멀티-핫 인코딩하기
 
 # ```python
-# from tensorflow.keras.layers import TextVectorization
-# 
 # text_vectorization = TextVectorization(
 #     max_tokens=20000,
 #     output_mode="multi_hot",
 # )
 # ```
 
-# 훈련셋의 후기에 포함된 단어들을 이용하여 어휘 색인을 생성한다.
-# 먼저 훈련섹에 포함된 후기만 따로 떼어낸다. 이 데이터셋은 이후에도 계속해서 사용된다.
+# 이제 훈련셋의 후기에 포함된 단어들을 이용하여 어휘 색인을 생성한다.
+# 이를 위해 훈련셋에 포함된 후기만 따로 떼어낸다.
+# 이 데이터셋은 이후에도 다른 종류의 어휘 색인을 생성하는 데에 계속 사용된다.
 
 # ```python
 # # 어휘 색인 생성 대상 훈련셋 후기 문장 데이터셋
 # text_only_train_ds = train_ds.map(lambda x, y: x)
 # ```
 
-# 이제 유니그램으로 인코딩에 사용될 어휘 색인을 생성한다.
+# 이제 `adapt()` 메서드를 이용하여 유니그램 토큰을 멀티-핫 인코딩 하기 위해 필요한 어휘 색인을 생성한다.
 
 # ```python
 # # 어휘색인 생성
 # text_vectorization.adapt(text_only_train_ds)
 # ```
 
-# 생성된 어휘색인을 이용하여 훈련셋, 검증셋, 테스트셋 모두 벡터화한다. 
+# 생성된 어휘 색인을 이용하여 훈련셋, 검증셋, 테스트셋 모두 멀티-핫 인코딩, 즉 벡터화한다. 
 
 # ```python
 # binary_1gram_train_ds = train_ds.map(lambda x, y: (text_vectorization(x), y))
@@ -416,21 +414,24 @@
 # binary_1gram_test_ds = test_ds.map(lambda x, y: (text_vectorization(x), y))
 # ```
 
-# 변환된 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.
-# `max_tokens=20000`으로 지정하였기에 모든 문장은 길이가 2만인 벡터로 변환되었다.
+# 첫째 배치의 첫째 샘플의 입력과 타깃 데이터는 다음과 같다.
+# `max_tokens=20000`으로 지정하였기에 모든 문장은 길이가 2만인 멀티-핫 벡터로 변환된다.
+# 예를 들어, n 번 인덱스의 값이 1이면 인덱스에 해당하는 단어가 영화 후기에 사용되었음을 나타낸다.
 
 # ```python
-# inputs[0]: tf.Tensor([1. 1. 1. ... 0. 0. 0.], shape=(20000,), dtype=float32)
-# targets[0]: tf.Tensor(0, shape=(), dtype=int32)
+# 첫째 배치의 첫째 데이터 입력값: tf.Tensor([1. 1. 1. ... 0. 0. 0.], shape=(20000,), dtype=float32)
+# 첫째 배치의 첫째 데이터 타깃:   tf.Tensor(0, shape=(), dtype=int32)
 # ```
 
 # *밀집 모델 활용*
 
 # 단어 주머니 형식으로 전처리된 데이터를 이용하는 모델은 기본적으로 
 # 밀집 모델을 사용한다. 
-# 이유는 토큰들 사이의 순서가 중요하지 않기 때문이다.
+# 이유는 단어 주머니에 포함된 토큰들 사이에는 순서가 없기에
+# 모델도 굳이 순서를 고려할 필요가 없기 때문이다.
 # 
-# 아래 `get_model()` 함수는 앞으로 자주 사용할 매운 단순하며 컴파일된 밀집 모델을 반환한다.
+# 아래 `get_model()` 함수는 단어 주머니로 전처리된 데이터셋을 이용하는 경우
+# 활용될 매우 단순하며 컴파일된 밀집 모델을 반환한다.
 # 모델의 출력값은 긍정일 확률이며, 
 # 최상위 층의 활성화 함수로 `sigmoid`를 사용한다.
 
@@ -459,7 +460,7 @@
 
 # 바이그램(2-grams)을 유니그램 대신 이용해보자. 
 # 예를 들어 "the cat sat on the mat" 문장을 바이그램으로 처리하면 다음 
-# 단어주머니가 생성된다.
+# 단어 주머니가 생성된다.
 # 
 # ```
 # {"the", "the cat", "cat", "cat sat", "sat",
@@ -529,7 +530,7 @@
 #     - 데이터셋 전체 문장에서 사용된 단어의 빈도
 #     - 낮을 수록 중요. 
 #     - "the", "a", "is" 등의 `IDF` 값은 높지만 별로 중요하지 않음.
-# - `TF-IDF = TF / IDF`
+# - `TF-IDF = TF/IDF`
 
 # `output_mode="tf_idf"` 옵션을 사용하면 TF-IDF 인코딩을 지원한다.
 
@@ -554,10 +555,10 @@
 # 훈련 후 테스트셋에 대한 정확도가 다시 89% 아래로 내려간다.
 # 여기서는 별 도움이 되지 않았지만 많은 텍스트 분류 모델에서는 1% 정도의 성능 향상을 가져온다.
 
-# :::{admonition} 문자열 벡터화 전처리를 함께 처리하는 모델 내보내기
+# :::{admonition} 문자열을 입력받는 모델 실전 배치하기
 # :class: info
 # 
-# 훈련된 모델을 실전에 배치하려면 텍스트 벡터화도 모델과 함께 내보내야 한다.
+# 훈련된 모델을 실전에 배치하려면 텍스트 벡터화 기능을 전처리 과정에 포함시켜야 한다.
 # 이를 위해 `TextVectorization` 층의 결과를 재활용만 하면 된다.
 # 
 # ```python
@@ -571,7 +572,7 @@
 # inference_model = keras.Model(inputs, outputs)
 # ```
 # 
-# `inference_model`은 일반 텍스트 문장을 직접 인자로 받을 수 있다.
+# 이제 위 `inference_model`은 일반 텍스트 문장을 직접 인자로 받을 수 있다.
 # 예를 들어 "That was an excellent movie, I loved it."라는 리뷰는
 # 긍정일 확률이 매우 높다고 예측된다.
 # 
