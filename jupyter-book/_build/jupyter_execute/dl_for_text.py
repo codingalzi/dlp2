@@ -797,6 +797,13 @@
 # layers.Embedding(input_dim=20000, output_dim=256, mask_zero=True)
 # ```
 
+# :::{admonition} `Embedding` 층과 `mask_zero` 옵션
+# :class: warning
+# 
+# 입력 벡터에 사용되는 0이 특별한 의미를 갖는 경우 `mask_zero` 옵션을 기본값인 `False`로 지정해야 한다.
+# `mask_zero=True`는 입력 벡터의 길이가 달라 0을 패딩으로 사용해야 하는 경우에만 사용한다.
+# :::
+
 # 아래 코드는 양방향 LSTM을 사용하는 순환 신경망 모델에 
 # 마스킹을 활용 단어 임베딩 방식을 적용하는 것을 보여준다.
 
@@ -816,25 +823,18 @@
 # 훈련은 원-핫 인코딩 방식보다 훨씬 빠르게 이루어지며 성능은 88% 정도로 살짝 향상된다. 
 # 바이그램 모델보다 성능이 여전히 떨어지는 이유 중에 하나는 리뷰에 사용된 단어의 수를 600 개로 제한하였기 때문이다.
 
-# :::{admonition} `Embedding` 층과 `mask_zero` 옵션
-# :class: warning
-# 
-# 입력 벡터에 사용되는 0이 특별한 의미를 갖는 경우 `mask_zero` 옵션을 기본값인 `False`로 지정해야 한다.
-# `mask_zero=True`는 입력 벡터의 길이가 달라 0을 패딩으로 사용해야 하는 경우에만 사용한다.
-# :::
-
 # **시퀀스 생성법 3: GloVe 단어 임베딩 활용**
 
-# 합성곱 신경망에서 이미지넷 등의 대용량 데이터셋을 활용하여 잘 훈련된 모델을 재활용했던 것처럼
-# 잘 구성된 대용량의 어휘 색인으로 훈련된 단어 임베딩을 활용할 수 있다.
+# 합성곱 신경망에서 이미지넷<font size='2'>ImageNet</font> 데이터셋을 이용하여 
+# 잘 훈련된 모델을 재활용했던 것처럼 대량의 문장을 분석하여 훈련된 단어 임베딩을 활용할 수 있다.
 # 
-# 여기서는 2014년에 스탠포드 대학교의 연구자들이 수 백만 개의 단어를 이용하여 생성한 
+# 여기서는 2014년에 스탠포드 대학교의 연구자들이 위키피디아에 사용된 수 많은 문장을 분석하여 생성한 
 # [GloVe(Gloval Vectors for Word Representation)](https://nlp.stanford.edu/projects/glove/)
 # 단어 임베딩을 활용한다.
 
 # *준비 과정 1*
 
-# [GloVe 단어 임베딩 파일](http://nlp.stanford.edu/data/glove.6B.ziphttp://nlp.stanford.edu/data/glove.6B.zip)을 다운로드한다.
+# [glove.6B.zip 파일](http://nlp.stanford.edu/data/glove.6B.zip)을 다운로드한 후에 압축을 풀면 `glove.6B.100d.txt` 파일이 생성된다. 압축파일의 크기는 822 MB이다.
 
 # *준비 과정 2*
 
