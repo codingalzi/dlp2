@@ -412,7 +412,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     11.3.3. 순차 모델 활용법
+     11.3.3. 시퀀스 활용법
     </a>
    </li>
   </ul>
@@ -480,7 +480,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id9">
-     11.3.3. 순차 모델 활용법
+     11.3.3. 시퀀스 활용법
     </a>
    </li>
   </ul>
@@ -1027,15 +1027,16 @@ N-그램의 종류는 다음과 같다.</p>
 </div>
 </section>
 <section id="id9">
-<h3><span class="section-number">11.3.3. </span>순차 모델 활용법<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.3.3. </span>시퀀스 활용법<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
 <p>바이그램, 3-그램 등을 이용하여 단어들 사이의 순서 정보를 함께 활용하면 기본적으로 모델의 훈련 성능이 향상된다.
 하지만 이와 같은 방식은 일종의 특성 공학<font size='2'>feature engineering</font>이며,
 딥러닝은 어떤 형식의 특성 공학도 하지 않는 방향으로 발전해왔다.</p>
-<p>문장에 포함된 단어들의 순서를 있는 그대로 전달받아 문장에 포함된 특성을 스스로
-찾아내는 다양한 딥러닝 순차 모델의 활용법을 소개한다.</p>
-<p><strong>순차 모델 예제 1: 순환 신경망 활용</strong></p>
-<p>양방향 LSTM 층으로 구성된 순차 모델을 IMDB 영화 후기 데이터셋으로 훈련시켜 보자.
-그러려면 먼저 영화 후기 문장을 적절한 시퀀스로 변환해야 한다.</p>
+<p>여기서는 양방향 LSTM 층으로 구성된 순환 신경망 모델을 훈련시키기 위해
+문장에 포함된 단어들의 순서를 있는 그대로 전달하는 방식을 알아 본다.
+훈련셋은 IMDB 영화 후기 데이터셋이다.</p>
+<p><strong>시퀀스 생성법 1: 원-핫 인코딩 활용</strong></p>
+<p>영화 후기 문장을 원-핫 인코딩 기법으로 적절한 시퀀스로 변환해서
+훈련셋으로 활용하는 방법을 알아본다.</p>
 <p><em>1단계: 정수 시퀀스 데이터셋 준비</em></p>
 <p>훈련셋의 모든 리뷰 문장을 정수들의 벡터로 변환한다.
 단, 리뷰 문장이 최대 600개의 단어만 포함하도록 한다.
@@ -1131,28 +1132,27 @@ N-그램의 종류는 다음과 같다.</p>
 생성되는 원-핫 벡터로 이루어진 시퀀스가 생성된다.
 단, 벡터에 사용된 정수는 0에서 4까지라고 가정한다.</p>
 <p>따라서 원-핫 벡터 하나의 길이는 5가 되며,
-<code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">1,</span> <span class="pre">4,</span> <span class="pre">0,</span> <span class="pre">0]</span></code>의 각 항목을 원-핫 벡터로 변환한 값들로 이뤄진 시퀀스는 다음과 같다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>      <span class="c1"># 2</span>
- <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>      <span class="c1"># 1</span>
- <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>      <span class="c1"># 4</span>
- <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>      <span class="c1"># 0</span>
- <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>      <span class="c1"># 0</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">tf.one_hot()</span></code> 함수를 다음과 같이 호출하면 위 결과를 생성한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">1,</span> <span class="pre">4,</span> <span class="pre">0,</span> <span class="pre">0]</span></code>의 각 항목을 원-핫 벡터로 변환한 값들로 이뤄진 시퀀스는 다음과 같으며,
+<code class="docutils literal notranslate"><span class="pre">tf.one_hot()</span></code> 함수를 이용하면 된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">[[0, 0, 1, 0, 0],      # 2</span>
+<span class="go"> [0, 1, 0, 0, 0],      # 1</span>
+<span class="go"> [0, 0, 0, 0, 1],      # 4</span>
+<span class="go"> [1, 0, 0, 0, 0],      # 0</span>
+<span class="go"> [1, 0, 0, 0, 0]]      # 0</span>
 </pre></div>
 </div>
 </section>
 </div><p><em>3단계: 모델 훈련</em></p>
 <p>아래 코드는 <code class="docutils literal notranslate"><span class="pre">tf.one_hot()</span></code> 함수를 전처리로 활용하는 순환 신경망 모델을 정의한다.
-이렇게 하면 정수 벡터를 바로 모델의 입력값으로 사용해서 훈련을 시킬 수 있다.</p>
+이렇게 하면 정수 벡터를 바로 모델의 입력값으로 사용할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
 <span class="c1"># 원-핫 인코딩</span>
 <span class="n">embedded</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">)</span>  <span class="c1"># (600, 20000) 모양의 출력값 생성</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Bidirectional</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">32</span><span class="p">))(</span><span class="n">embedded</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1163,28 +1163,30 @@ N-그램의 종류는 다음과 같다.</p>
 가중치가 훈련되어야 한다.
 이에 더해 양방향 LSTM은 엄청난 양의 반복을 실행하기에 그만큼 훈련 시간이 길어질 수밖에 없다.</p>
 <p>게다가 훈련된 모델의 성능이 별로 좋지 않다.
-테스테셋에 대한 정확도가 87% 정도에 불과해서 바이그램 모델보다 성능이 낮다.</p>
-<p><strong>순차 모델 예제 2: 단어 임베딩 활용</strong></p>
+테스트셋에 대한 정확도가 87% 정도에 불과해서 바이그램 모델보다 성능이 낮다.</p>
+<p><strong>시퀀스 생성법 2: 단어 임베딩 활용</strong></p>
 <p>앞서 보았듯이 원-핫 인코딩은 별로 적절하지 않다.
-원-핫 인코딩은 단어들의 순서는 잘 반영하지만 단어들 사이의 관계는 전혀 반형하지 못한다.</p>
+원-핫 인코딩은 단어들의 순서는 잘 반영하지만 단어들 사이의 관계는 전혀 반영하지 못한다.</p>
 <ul class="simple">
-<li><p>“movie”와 “film”, “비디오”와 “동영상”, “강아지”와 “개” 등이 사실상 동일하다는 사실</p></li>
+<li><p>“movie”와 “film”, “비디오”와 “동영상”, “강아지”와 “개” 등이 사실상 동일하다는 동의어 관계</p></li>
 <li><p>“왕”(남자)과 “여왕”(여자), “boy”와 “girl” 등의 성별 관계</p></li>
-<li><p>“king”의 복수는 “kings” 등 문법 관계</p></li>
-<li><p>“고양이”와 “호랑이”는 고양이과, “개”와 “늑대”는 개과, “고양이”와 “개”는 애완동물, “늑대”와 “호랑이”는 야생동물 등의 관계</p></li>
+<li><p>“king”의 복수는 “kings” 등 문법 규칙 관계</p></li>
+<li><p>“고양이”와 “호랑이”는 고양이과, “개”와 “늑대”는 개과, “고양이”와 “개”는 애완동물, “늑대”와 “호랑이”는 야생동물 등의 생물 분류 관계</p></li>
 </ul>
-<p>반면에 <strong>단어 임베딩</strong>(word embedding)은 단어들 사이의 관계를 모델 스스로 학습과정에서 찾도록 유도한다.
-단어 임베딩을 활용하는 방법은 일반적으로 다음 두 가지이다.</p>
+<p>반면에 <strong>단어 임베딩</strong><font size='2'>word embedding</font>은
+단어들 사이의 관계를 모델 스스로 학습을 통해 찾도록 유도한다.
+단어 임베딩을 활용하는 방식은 일반적으로 다음 두 가지이다.</p>
 <ul class="simple">
-<li><p>모델 훈련과 동시에 단어 임베딩 학습도 진행하는 방식</p>
-<ul>
-<li><p>자연어 종류와 모델 훈련 목적에 따라 기본적으로 서로 다른 단어 사이의 관계가 학습되어야 함.</p></li>
-<li><p>예를 들어, 영화 리뷰 분석과 재판 판결문을 분석할 때 사용되는 단어 임베딩은 많이 다름.</p></li>
+<li><p>단어 임베딩 학습을 모델 훈련과 동시에 진행:
+언어 종류와 모델 훈련 목적에 따라 기본적으로 서로 다른 단어 사이의 관계가 학습되어야 한다.
+예를 들어, 영화 후기 감성 분석과 재판 판결문 분석은 서로 다른 단어 임베딩을 사용할 수밖에 없다.</p></li>
+<li><p>기존에 잘 훈련된 워드 임베딩 활용:
+합성곱 신경망에서 이미지넷 등의 대용량 데이터셋을 활용하여 잘 훈련된 모델을 재활용하는 것처럼
+잘 구성된 대용량의 어휘 색인을 이용하여 생성된 단어 임베딩을 활용한다.</p></li>
 </ul>
-</li>
-<li><p>기존에 잘 훈련된 워드 임베딩 활용 방식</p></li>
-</ul>
-<p><strong>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층 활용</strong></p>
+<p>먼저 케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 모델에 추가하여 단어 임베딩 학습을
+모델 훈련과 함께 진행하는 방식을 살펴본다.</p>
+<p><em>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층 활용</em></p>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층은 일종의 사전처럼 작동한다.
 하나의 문장에 해당하는 정수들의 벡터가 입력값으로 들어오면 단어들간에 존재하는 연관성을 (어떤식으로라도) 담은
 부동소수점들의 벡터로 이루어진 시퀀스를 반환한다.
@@ -1223,7 +1225,7 @@ N-그램의 종류는 다음과 같다.</p>
 </div>
 <p>훈련은 원-핫 인코딩 방식보다 훨씬 빠르게 이루어지며 성능은 87% 정도로 비슷하다.
 바이그램 모델보다 성능이 여전히 떨어지는 이유 중에 하나는 리뷰에 사용된 단어의 수를 600개로 제한하였기 때문이다.</p>
-<p><strong>패딩과 마스킹</strong></p>
+<p><em>패딩과 마스킹</em></p>
 <p>반면에 리뷰 문장의 길이가 600이 되지 않는 경우 나머지는
 <strong>패딩</strong><font size='2'>padding</font>에 의해 0으로 채워진다.
 하지만 이렇게 의미 없이 추가된 0이 훈련에 좋지 않은 영향을 미친다.
@@ -1249,7 +1251,7 @@ N-그램의 종류는 다음과 같다.</p>
 </pre></div>
 </div>
 <p>모델 성능이 88% 정도로 살짝 향상된다.</p>
-<p><strong>훈련된 단어 임베딩 활용</strong></p>
+<p><strong>시퀀스 생성법 3: GloVe 단어 임베딩 활용</strong></p>
 <p>합성곱 신경망에서 이미지넷 등의 대용량 데이터셋을 활용하여 잘 훈련된 모델을 재활용하였던 것처럼
 잘 구성된 대용량의 어휘 색인을 활용할 수 있다.
 여기서는 수 백만 개의 단어를 활용하여 생성된 2014년에 스탠포드 대학교의 연구자들이 생성한
@@ -1258,7 +1260,7 @@ N-그램의 종류는 다음과 같다.</p>
 <li><p><a class="reference external" href="http://nlp.stanford.edu/data/glove.6B.ziphttp://nlp.stanford.edu/data/glove.6B.zip">GloVe 단어 임베딩 파일</a>다운로드</p></li>
 </ul>
 <ul class="simple">
-<li><p>GloVe 워드 임베딩 파일 파싱</p></li>
+<li><p>GloVe 단어 임베딩 파일 파싱</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">path_to_glove_file</span> <span class="o">=</span> <span class="s2">&quot;glove.6B.100d.txt&quot;</span>
