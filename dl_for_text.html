@@ -4,13 +4,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>11. 자연어 처리 &#8212; Deep Learning with Python(2판)</title>
     
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -20,17 +18,21 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
+    
+      
+
+    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -38,13 +40,12 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -62,21 +63,7 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
-
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -85,10 +72,9 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
       
@@ -165,17 +151,12 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
-    </div>
-    <div id="rtd-footer-container"></div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
 </div>
 
 
@@ -183,191 +164,94 @@ const thebe_selector_output = ".output, .cell_output"
 
 
           
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="header-article row sticky-top noprint">
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
         
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/dl_for_text.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/codingalzi/dlp2"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fdl_for_text.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/dl_for_text.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/dl_for_text.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/codingalzi/dlp2"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fdl_for_text.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
     </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/dl_for_text.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    11.1. 소개
@@ -402,7 +286,7 @@ title="Print to PDF"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#imdb">
-     11.3.1. IMDB 영화 리뷰 데이터 준비
+     11.3.1. IMDB 영화 후기 데이터 준비
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -419,11 +303,12 @@ title="Print to PDF"
  </li>
 </ul>
 
-    </nav>
-</div>
+            </nav>
+        </div>
     </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>자연어 처리</h1>
@@ -470,7 +355,7 @@ title="Print to PDF"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#imdb">
-     11.3.1. IMDB 영화 리뷰 데이터 준비
+     11.3.1. IMDB 영화 후기 데이터 준비
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -491,12 +376,11 @@ title="Print to PDF"
                     </div>
                 </div>
             </div>
-            <main id="main-content" role="main">
-                
+            
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="ch-nlp">
-<span id="id1"></span><h1><span class="section-number">11. </span>자연어 처리<a class="headerlink" href="#ch-nlp" title="Permalink to this headline">#</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="ch-nlp">
+<span id="id1"></span><h1><span class="section-number">11. </span>자연어 처리<a class="headerlink" href="#ch-nlp" title="Permalink to this headline">¶</a></h1>
 <p><strong>감사의 글</strong></p>
 <p>아래 내용은 프랑소와 숄레의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
@@ -512,8 +396,8 @@ title="Print to PDF"
 <li><p>시퀀스 사용 모델</p></li>
 <li><p>트랜스포머</p></li>
 </ul>
-<section id="id2">
-<h2><span class="section-number">11.1. </span>소개<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<div class="section" id="id2">
+<h2><span class="section-number">11.1. </span>소개<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>파이썬, 자바, C, C++, C#, 자바스크립트 등 컴퓨터 프로그래밍언어와 구분하기 위해
 일상에서 사용되는 한국어, 영어 등을 <strong>자연어</strong><font size='2'>natural language</font>라
 부른다.</p>
@@ -544,9 +428,9 @@ title="Print to PDF"
 <li><p>2017-2018: 트랜스포머<font size='2'>transformer</font> 모델이 최고의 성능 발휘하며,
 많은 난제들을 해결함. 현재 가장 많이 활용되는 모델임.</p></li>
 </ul>
-</section>
-<section id="id3">
-<h2><span class="section-number">11.2. </span>텍스트 데이터 전처리<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
+</div>
+<div class="section" id="id3">
+<h2><span class="section-number">11.2. </span>텍스트 데이터 전처리<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>딥러닝 모델은 문장 자체를 처리할 수 없다.
 따라서 문장을 수치형 텐서로 변환하는 <strong>문장 벡터화</strong><font size='2'>text vectorization</font> 과정이 요구되며
 보통 다음 세 단계를 따른다.</p>
@@ -558,8 +442,8 @@ title="Print to PDF"
 </ol>
 <p>아래 그림은 문장 벡터화의 기본적인 과정을 잘 보여준다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-01.png" style="width:60%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><section id="id4">
-<h3><span class="section-number">11.2.1. </span>문장 표준화<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="section" id="id4">
+<h3><span class="section-number">11.2.1. </span>문장 표준화<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>다음 두 문장을 표준화를 통해 동일한 문장으로 변환해보자.</p>
 <ul class="simple">
 <li><p>“sunset came. i was staring at the Mexico sky. Isnt nature splendid??”</p></li>
@@ -580,9 +464,9 @@ title="Print to PDF"
 학습해야할 내용을 줄여 일반화 성능이 보다 좋은 모델을 훈련시키는 장점이 있다.
 하지만 분석 목적에 따라 사용되는 표준화 기법이 달라질 수 있음에 주의해야 한다.
 예를 들어 인터뷰 기사의 경우 물음표(<code class="docutils literal notranslate"><span class="pre">?</span></code>)는 제거하면 안된다.</p>
-</section>
-<section id="id5">
-<h3><span class="section-number">11.2.2. </span>토큰화<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="id5">
+<h3><span class="section-number">11.2.2. </span>토큰화<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>문장 표준화 이후 데이터 분석의 기본 단위인 토큰으로 쪼개야 한다.
 보통 아래 세 가지 방식 중에 하나를 사용한다.</p>
 <ul class="simple">
@@ -639,9 +523,9 @@ title="Print to PDF"
 </div>
 </li>
 </ul>
-</section>
-<section id="id6">
-<h3><span class="section-number">11.2.3. </span>어휘 색인화<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="id6">
+<h3><span class="section-number">11.2.3. </span>어휘 색인화<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>일반적으로 먼저 훈련셋에 포함된 모든 토큰들의 색인(인덱스)을 생성한 다음에
 원-핫, 멀티-핫 인코딩 등의 방식을 사용하여 수치형 텐서로 변환한다.</p>
 <p><a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">4장</span></a>에서 언급한 대로
@@ -673,7 +557,7 @@ title="Print to PDF"
 </ul>
 <div class="proof example admonition" id="exp-textvectorization">
 <p class="admonition-title"><span class="caption-number">Example 11.1 </span> (<code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 활용법)</p>
-<section class="example-content" id="proof-content">
+<div class="example-content section" id="proof-content">
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층을 이용하여 문장 벡터화를 진행할 수 있다.
 아래 코드는 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 구성에 사용되는 주요 기본 설정을 보여준다.
 표준화와 토큰화 방식을 임의로 지정해서 활용할 수도 있지만 여기서는 자세히 다루지 않는다.</p>
@@ -735,7 +619,7 @@ title="Print to PDF"
 <span class="go">i write rewrite and [UNK] rewrite again</span>
 </pre></div>
 </div>
-</section>
+</div>
 </div><div class="warning admonition">
 <p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층과 GPU</p>
 <p><code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층은 GPU 또는 TPU에서 지원되지 않는다.
@@ -745,10 +629,10 @@ title="Print to PDF"
 <p>하지만 훈련이 완성된 모델을 실전에 배치할 경우 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층을
 완성된 모델에 추가해서 사용하는 게 좋다.</p>
 </div>
-</section>
-</section>
-<section id="id7">
-<h2><span class="section-number">11.3. </span>텍스트 데이터 변환<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h2>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><span class="section-number">11.3. </span>텍스트 데이터 변환<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>훈련시키려 하는 자연어 처리 모델에 따라 문장(텍스트)을 변환하는 방식이 달라진다.</p>
 <ul class="simple">
 <li><p>단어 주머니<font size='2'>bag-of-words</font> 사용 모델</p>
@@ -766,10 +650,10 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-<p>여기서는 IMDB 영화 리뷰 데이터를 이용하여 두 모델 방식의
+<p>여기서는 IMDB 영화 후기 데이터를 이용하여 두 모델 방식의
 활용법과 차이점을 소개한다.</p>
-<section id="imdb">
-<h3><span class="section-number">11.3.1. </span>IMDB 영화 리뷰 데이터 준비<a class="headerlink" href="#imdb" title="Permalink to this headline">#</a></h3>
+<div class="section" id="imdb">
+<h3><span class="section-number">11.3.1. </span>IMDB 영화 후기 데이터 준비<a class="headerlink" href="#imdb" title="Permalink to this headline">¶</a></h3>
 <p>IMDB 데이터셋을 직접 다운로드하여 전처리하는 과정을 자세히 살펴본다.</p>
 <p><strong>준비 과정 1: 데이터셋 다운로드 압축 풀기</strong></p>
 <p><a class="reference external" href="https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">aclIMDB_v1.tar</a> 파일을
@@ -783,7 +667,7 @@ title="Print to PDF"
 <span class="o">......</span><span class="n">neg</span><span class="o">/</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">train</span></code>의 <code class="docutils literal notranslate"><span class="pre">pos</span></code>와 <code class="docutils literal notranslate"><span class="pre">neg</span></code> 서브디렉토리에 각각 12,500 개의 긍정과 부정 리뷰가
+<p><code class="docutils literal notranslate"><span class="pre">train</span></code>의 <code class="docutils literal notranslate"><span class="pre">pos</span></code>와 <code class="docutils literal notranslate"><span class="pre">neg</span></code> 서브디렉토리에 각각 12,500 개의 긍정과 부정 후기가
 포함되어 있다. <code class="docutils literal notranslate"><span class="pre">aclImdb/train/unsup</span></code> 서브디렉토리는 필요 없기에 삭제한다.</p>
 <p><strong>준비 과정 2: 검증셋 준비</strong></p>
 <p>훈련셋의 20%를 검증셋으로 떼어낸다.
@@ -815,7 +699,7 @@ title="Print to PDF"
 배치의 크기는 32이다.</p>
 <p>예를 들어, 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">train_ds</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="c1"># 예제: 첫째 배치의 첫째 리뷰</span>
+<span class="gp">... </span>    <span class="c1"># 예제: 첫째 배치의 첫째 후기</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs[0]:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets[0]:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>    
 <span class="gp">... </span>    <span class="k">break</span>
@@ -823,9 +707,9 @@ title="Print to PDF"
 <span class="go">targets[0]: tf.Tensor(1, shape=(), dtype=int32)</span>
 </pre></div>
 </div>
-</section>
-<section id="id8">
-<h3><span class="section-number">11.3.2. </span>단어 주머니 활용법<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="id8">
+<h3><span class="section-number">11.3.2. </span>단어 주머니 활용법<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>단어 주머니에 채울 토큰으로 어떤 N-그램을 사용할지 먼저 지정해야 한다.
 N-그램의 종류는 다음과 같다.</p>
 <ul class="simple">
@@ -960,8 +844,8 @@ N-그램의 종류는 다음과 같다.</p>
 <ul>
 <li><p>하나의 문장에서 사용되는 단어의 빈도</p></li>
 <li><p>높을 수록 중요</p></li>
-<li><p>예를 들어, 하나의 리뷰에 “terrible” 이 많이 사용되었다면
-해당 리뷰는 부정일 가능성 높음.</p></li>
+<li><p>예를 들어, 하나의 후기에 “terrible” 이 많이 사용되었다면
+해당 후기는 부정일 가능성 높음.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">IDF</span></code>(Inverse Document Frequency)</p>
@@ -1006,7 +890,7 @@ N-그램의 종류는 다음과 같다.</p>
 </pre></div>
 </div>
 <p>이제 위 <code class="docutils literal notranslate"><span class="pre">inference_model</span></code>은 일반 문장을 직접 인자로 받을 수 있다.
-예를 들어 “That was an excellent movie, I loved it.”라는 리뷰는
+예를 들어 “That was an excellent movie, I loved it.”라는 후기는
 긍정일 확률이 매우 높다고 예측된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raw_text_data</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">([</span>
     <span class="p">[</span><span class="s2">&quot;That was an excellent movie, I loved it.&quot;</span><span class="p">],</span>
@@ -1016,9 +900,9 @@ N-그램의 종류는 다음과 같다.</p>
 </pre></div>
 </div>
 </div>
-</section>
-<section id="id9">
-<h3><span class="section-number">11.3.3. </span>시퀀스 활용법<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">11.3.3. </span>시퀀스 활용법<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>바이그램, 3-그램 등을 이용하여 단어들 사이의 순서 정보를 함께 활용하면 기본적으로 모델의 훈련 성능이 향상된다.
 하지만 이와 같은 방식은 일종의 특성 공학<font size='2'>feature engineering</font>이며,
 딥러닝은 어떤 형식의 특성 공학도 하지 않는 방향으로 발전해왔다.</p>
@@ -1026,10 +910,10 @@ N-그램의 종류는 다음과 같다.</p>
 문장에 포함된 단어들의 순서를 있는 그대로 전달하는 방식을 알아 본다.
 훈련셋은 IMDB 영화 후기 데이터셋이다.</p>
 <p><em>정수 벡터 데이터셋 준비</em></p>
-<p>먼저 훈련셋의 모든 리뷰 문장을 정수들의 벡터로 변환한다.
-단, 리뷰 문장이 최대 600 개의 단어만 포함하도록 한다.
+<p>먼저 훈련셋의 모든 후기 문장을 정수들의 벡터로 변환한다.
+단, 후기 문장이 최대 600 개의 단어만 포함하도록 한다.
 또한 사용되는 어휘는 빈도 기준 최대 2만 개로 제한한다.
-후기의 길이를 600 개의 단어로 제한한 이유는 리뷰가 평균적으로 233 개의 단어를 사용하고,
+후기의 길이를 600 개의 단어로 제한한 이유는 후기가 평균적으로 233 개의 단어를 사용하고,
 600 단어 이상을 사용하는 후기는 전체의 5% 정도에 불과하기 때문이다.</p>
 <p>모든 후기는 최대 600 개의 단어만 포함하도록 하며, 그보다 긴 문장은 잘라서 사용한다.
 따라서 생성되는 정수들의 벡터는 모두 길이가 600으로 지정된다.
@@ -1115,7 +999,7 @@ N-그램의 종류는 다음과 같다.</p>
 원-핫 벡터로 이루어진 시퀀스가 생성되고 이를 순환 신경망 모델의 입력값으로 사용한다.</p>
 <div class="proof example admonition" id="exp-one-hot-sequence">
 <p class="admonition-title"><span class="caption-number">Example 11.2 </span> (<code class="docutils literal notranslate"><span class="pre">tf.one_hot()</span></code> 함수)</p>
-<section class="example-content" id="proof-content">
+<div class="example-content section" id="proof-content">
 <p>정수 벡터 <code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">1,</span> <span class="pre">4,</span> <span class="pre">0,</span> <span class="pre">0]</span></code>의 각 항목에 원-핫 인코딩을 적용하여
 생성되는 원-핫 벡터로 이루어진 시퀀스가 생성된다.
 단, 벡터에 사용된 정수는 0에서 4까지라고 가정한다.</p>
@@ -1130,7 +1014,7 @@ N-그램의 종류는 다음과 같다.</p>
 <span class="go"> [1, 0, 0, 0, 0]]      # 0</span>
 </pre></div>
 </div>
-</section>
+</div>
 </div><p>아래 코드는 <code class="docutils literal notranslate"><span class="pre">tf.one_hot()</span></code> 함수를 전처리로 활용하는 순환 신경망 모델을 정의한다.
 이렇게 하면 정수 벡터를 바로 모델의 입력값으로 사용할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
@@ -1231,7 +1115,7 @@ N-그램의 종류는 다음과 같다.</p>
 </pre></div>
 </div>
 <p>훈련은 원-핫 인코딩 방식보다 훨씬 빠르게 이루어지며 성능은 88% 정도로 살짝 향상된다.
-바이그램 모델보다 성능이 여전히 떨어지는 이유 중에 하나는 리뷰에 사용된 단어의 수를 600 개로 제한하였기 때문이다.</p>
+바이그램 모델보다 성능이 여전히 떨어지는 이유 중에 하나는 후기에 사용된 단어의 수를 600 개로 제한하였기 때문이다.</p>
 <p><strong>시퀀스 생성법 3: GloVe 단어 임베딩 활용</strong></p>
 <p>합성곱 신경망에서 이미지넷<font size='2'>ImageNet</font> 데이터셋을 이용하여
 잘 훈련된 모델을 재활용했던 것처럼 대량의 문장을 분석하여 훈련된 단어 임베딩을 활용할 수 있다.</p>
@@ -1317,9 +1201,9 @@ N-그램의 종류는 다음과 같다.</p>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test acc: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">int_test_ds</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -1343,11 +1227,9 @@ N-그램의 종류는 다음과 같다.</p>
 
               </div>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="dl_for_timeseries.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -1363,27 +1245,23 @@ N-그램의 종류는 다음과 같다.</p>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            </footer>
+            
         </div>
     </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By 코딩알지<br/>
-  
-</p>
-        </footer>
-    </div>
+    <footer class="footer">
+  <p>
     
-</div>
+      By 코딩알지<br/>
+    
+  </p>
+</footer>
+</main>
 
 
       </div>
     </div>
   
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
   </body>
 </html>
