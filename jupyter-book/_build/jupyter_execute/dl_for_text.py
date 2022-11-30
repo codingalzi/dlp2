@@ -19,8 +19,8 @@
 
 # **주요 내용**
 
-# - 단어 주머니 사용 모델
-# - 시퀀스 사용 모델
+# - 단어 주머니
+# - 단어 임베딩
 # - 트랜스포머
 
 # ## 소개
@@ -45,7 +45,7 @@
 # - 번역: "이거를 한국어로 어떻게 말해?"
 # - 요약: "이 기사를 한 줄로 요약하면?"
 # 
-# 이와 같은 분석을 **자연어 처리**<font size='2'>Natural Language Processing</font>이라 하며
+# 이와 같은 분석을 **자연어 처리**<font size='2'>Natural Language Processing</font>라 하며
 # 단어, 문장, 문단 등에서 찾을 수 있는 패턴을  인식하려 시도한다. 
 
 # **머신러닝 활용**
@@ -287,7 +287,7 @@
 # 여기서는 IMDB 영화 후기 데이터를 이용하여 두 모델 방식의 
 # 활용법과 차이점을 소개한다.
 
-# ### IMDB 영화 후기 데이터 준비
+# ### IMDB 영화 후기 데이터셋 준비
 
 # IMDB 데이터셋을 직접 다운로드하여 전처리하는 과정을 자세히 살펴본다. 
 
@@ -592,7 +592,7 @@
 # 문장에 포함된 단어들의 순서를 있는 그대로 전달하는 방식을 알아 본다.
 # 훈련셋은 IMDB 영화 후기 데이터셋이다.
 
-# *정수 벡터 데이터셋 준비*
+# **정수 벡터 데이터셋 준비**
 
 # 먼저 훈련셋의 모든 후기 문장을 정수들의 벡터로 변환한다.
 # 단, 후기 문장이 최대 600 개의 단어만 포함하도록 한다. 
@@ -612,7 +612,7 @@
 # max_tokens = 20000
 # 
 # text_vectorization = layers.TextVectorization(
-#     max_tokens=max_tokens,              # 후기에 사용되는 단어는 총 2만 개
+#     max_tokens=max_tokens,              # 후기에 사용되는 단어의 종류는 총 2만 종류
 #     output_mode="int",
 #     output_sequence_length=max_length,  # 하나의 후기에 포함된 최대 단어는 최대 600 개
 # )
@@ -682,7 +682,7 @@
 #      0     0     0     0     0     0     0     0     0     0     0     0], shape=(600,), dtype=int64)
 # ```
 
-# **시퀀스 생성법 1: 원-핫 단어 벡터 활용**
+# #### 원-핫 단어 벡터
 
 # 정수 벡터를 순차 모델의 입력값으로 그대로 사용할 수는 없다.
 # 대신 정수 벡터에 포함된 각각의 정수에 원-핫 인코딩을 적용하면
@@ -733,7 +733,7 @@
 # 게다가 훈련된 모델의 성능이 별로 좋지 않다. 
 # 테스트셋에 대한 정확도가 87% 정도에 불과해서 바이그램 모델보다 성능이 낮다.
 
-# **시퀀스 생성법 2: 단어 임베딩 활용**
+# #### 단어 임베딩
 
 # 앞서 보았듯이 정수 벡터를 원-핫 인코딩해서 원-핫 워드 벡터로 구성된 시퀀스를 생성하는 방식은 별로 적절하지 않다. 
 # 변환된 벡터의 특성이 너무 많으며, 단어들 사이의 다음과 같은 유기적 관계도 제대로 반영되지 못한다.
@@ -744,8 +744,8 @@
 # - "고양이"와 "호랑이"는 고양이과, "개"와 "늑대"는 개과, "고양이"와 "개"는 애완동물, "늑대"와 "호랑이"는 야생동물 등의 생물 분류 관계
 
 # 반면에 **단어 임베딩**<font size='2'>word embedding</font>은 
-# 단어들 사이의 유기적 관계를 모델 스스로 학습을 통해 찾도록 유도한다.
-# 단어 임베딩을 보통 다음 두 가지 방식으로 활용한다.
+# 단어들 사이의 유기적 관계를 모델 스스로 학습을 통해 찾도록 유도하며,
+# 보통 다음 두 가지 방식으로 활용된다.
 # 
 # - 모델 훈련과 단어 임베딩 학습 동시 진행: 
 #     언어 종류와 모델 훈련 목적에 따라 기본적으로 서로 다른 단어 사이의 관계가 학습되어야 한다.
@@ -757,13 +757,15 @@
 # 먼저 케라스의 `Embedding` 층을 모델에 추가하여 단어 임베딩 학습을
 # 모델 훈련과 함께 진행하는 방식을 살펴본다.
 
-# *케라스의 `Embedding` 층 활용*
+# **케라스의 `Embedding` 층 활용**
 
 # 케라스의 `Embedding` 층은 일종의 사전처럼 작동하며, 
-# 하나의 문장이 입력되면 문장에 포함된 단어들간에 존재하는 연관성을 담은 
-# 부동소수점들의 벡터로 이루어진 시퀀스를 생성한다.
+# 하나의 문장이 입력되면 문장에 포함된 단어들 사이에 존재하는 숨은 연관성을 학습해서 담는
+# 벡터로 이루어진 시퀀스를 생성한다.
+# 벡터는 부동소수점으로 구성된다.
+# 단어들 사이의 연관성은 256 개, 512 개, 1024 개 등 지정된 개수만큼 찾도록 한다.
+# 즉, 각각의 단어를 길이가 256, 512, 또는 1024 크기의 벡터로 변환한다.
 # 
-# 단어들 사이의 연관성은 일반적으로 256 개, 512 개, 1024 개 정도 수준에서 찾도록 한다.
 # 아래 그림은 원-핫 인코딩 방식과 단어 임베딩 방식의 차이점을 보여준다. 
 # 
 # | 원-핫 단어 벡터 | 단어 임베딩 |
@@ -816,10 +818,35 @@
 # model = keras.Model(inputs, outputs)
 # ```
 
-# 훈련은 원-핫 인코딩 방식보다 훨씬 빠르게 이루어지며 성능은 88% 정도로 살짝 향상된다. 
+# `Embedding` 층을 통과하면 후기 문장에 사용된 600개 단어 각각이 총 256개의 특성으로 구성된
+# 벡터로 변환되었음을 `summary()` 를 통해 확인할 수 있다.
+
+# ```python
+# >>> model.summary()
+# _________________________________________________________________
+#  Layer (type)                Output Shape              Param #   
+# =================================================================
+#  input_7 (InputLayer)        [(None, 600)]            0         
+#                                                                  
+#  embedding_1 (Embedding)     (None, 600, 256)         5120000   
+#                                                                  
+#  bidirectional_2 (Bidirectio  (None, 64)               73984     
+#  nal)                                                            
+#                                                                  
+#  dropout_5 (Dropout)         (None, 64)                0         
+#                                                                  
+#  dense_8 (Dense)             (None, 1)                 65        
+#                                                                  
+# =================================================================
+# Total params: 5,194,049
+# Trainable params: 5,194,049
+# Non-trainable params: 0
+# ```
+
+# 모델의 훈련은 원-핫 인코딩 방식보다 훨씬 빠르게 이루어지며 성능은 88% 정도로 살짝 향상된다. 
 # 바이그램 모델보다 성능이 여전히 떨어지는 이유 중에 하나는 후기에 사용된 단어의 수를 600 개로 제한하였기 때문이다.
 
-# **시퀀스 생성법 3: GloVe 단어 임베딩 활용**
+# #### GloVe 단어 임베딩
 
 # 합성곱 신경망에서 이미지넷<font size='2'>ImageNet</font> 데이터셋을 이용하여 
 # 잘 훈련된 모델을 재활용했던 것처럼 대량의 문장을 분석하여 훈련된 단어 임베딩을 활용할 수 있다.
@@ -828,46 +855,35 @@
 # [GloVe(Gloval Vectors for Word Representation)](https://nlp.stanford.edu/projects/glove/)
 # 단어 임베딩을 활용한다.
 
-# *준비 과정 1*
+# **임베딩 파일 다운로드**
 
-# [glove.6B.zip 파일](http://nlp.stanford.edu/data/glove.6B.zip)을 다운로드한 후에 압축을 풀면 `glove.6B.100d.txt` 파일이 생성된다. 압축파일의 크기는 822 MB이다.
-
-# *준비 과정 2*
-
-# GloVe 단어 임베딩 파일 파싱
-
-# ```python
-# import numpy as np
-# path_to_glove_file = "glove.6B.100d.txt"
+# [glove.6B.zip](http://nlp.stanford.edu/data/glove.6B.zip) 파일을 다운로드한다. 
+# 압축파일의 크기는 822 MB이다.
+# 다운로드한 파이릐 압축을 풀면 다음 세 개의 파일이 생성된다.
 # 
-# embeddings_index = {}
-# 
-# with open(path_to_glove_file) as f:
-#     for line in f:
-#         word, coefs = line.split(maxsplit=1)
-#         coefs = np.fromstring(coefs, "f", sep=" ")
-#         embeddings_index[word] = coefs
-# 
-# print(f"Found {len(embeddings_index)} word vectors.")
-# ```
+# - `glove.6B.50d.txt` (약 1 GB)
+# - `glove.6B.100d.txt` (약 670 MB)
+# - `glove.6B.200d.txt` (약 330 MB)
+# - `glove.6B.300d.txt` (약 160 MB)
 
-# - GloVe 단어 임베딩 행렬 준비
+# 예를 들어 `glove.6B.100d.txt` 파일의 첫 20줄은 다음과 같다.
+# 단어별로 100개의 부동소수점이 지정되어 있지만 화면상 10여 개의 값만 보여지고 나머지는 화면에서 잘렸다.
 
-# ```python
-# embedding_dim = 100
-# 
-# vocabulary = text_vectorization.get_vocabulary()
-# word_index = dict(zip(vocabulary, range(len(vocabulary))))
-# 
-# embedding_matrix = np.zeros((max_tokens, embedding_dim))
-# for word, i in word_index.items():
-#     if i < max_tokens:
-#         embedding_vector = embeddings_index.get(word)
-#     if embedding_vector is not None:
-#         embedding_matrix[i] = embedding_vector
-# ```
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-glove01.jpg" style="width:80%;"></div>
 
-# - 임베딩 층 준비
+# **임베딩 층 지정**
+
+# 총 40만 개의 단어 정보를 포함한 `glove.6B.100d.txt` 파일을 이용하여 단어 임베딩을 실행하려면
+# 임베딩 층을 다음과 같이 설정한다.
+# 
+# - `max_tokens = 20000`: 빈도가 2만등 안에 드는 단어만 대상으로 함.
+# - `embedding_dim = 100`: 단어별로 총 100개의 특성을 갖는 벡터가 연결된다.
+# - `embedding_matrix`: `glove.6B.100d.txt` 파일을 참고하여 생성된 `(20000, 100)` 모양의 임베딩 행렬이다.
+#     이 행렬을 참조하여 후기에 사용된 각 단어에 대해 하나의 벡터를 연결한다.
+#     즉, 최대 600 개의 단어로 구성된 문장이 입력되면 해당 문장을 `(600,100)` 모양의 시퀀스로 변환한다.
+# - `Constant`: 단어 임베딩의 기준으로 사용될 행렬을 상수로 지정한다.
+# - `trainable=False`: 단어 임베딩의 기준이 모델 훈련 과정 내내 고정시킨다. 
+#     즉, 단어 임베딩에 대한 별도 훈련은 시키지 않는다.
 
 # ```python
 # embedding_layer = layers.Embedding(
@@ -879,35 +895,46 @@
 # )
 # ```
 
-# - GloVe 임베딩 활용 모델 구성 및 훈련
+# **모델 지정 및 훈련**
+
+# 모델 구성은 임베딩 층만 제외하고 이전과 동일하다.
 
 # ```python
 # inputs = keras.Input(shape=(None,), dtype="int64")
-# 
 # # GloVe 단어 임베딩 활용
 # embedded = embedding_layer(inputs)
-# 
 # x = layers.Bidirectional(layers.LSTM(32))(embedded)
 # x = layers.Dropout(0.5)(x)
-# 
 # outputs = layers.Dense(1, activation="sigmoid")(x)
-# 
 # model = keras.Model(inputs, outputs)
-# 
-# model.compile(optimizer="rmsprop",
-#               loss="binary_crossentropy",
-#               metrics=["accuracy"])
-# 
-# model.summary()
-# 
-# callbacks = [
-#     keras.callbacks.ModelCheckpoint("glove_embeddings_sequence_model.keras",
-#                                     save_best_only=True)
-# ]
-# 
-# model.fit(int_train_ds, validation_data=int_val_ds, epochs=10, callbacks=callbacks)
-# 
-# model = keras.models.load_model("glove_embeddings_sequence_model.keras")
-# 
-# print(f"Test acc: {model.evaluate(int_test_ds)[1]:.3f}")
 # ```
+
+# `Embedding` 층을 통과하면 후기 문장에 사용된 600개 단어 각각이 총 100개의 특성으로 구성된
+# 벡터로 변환되었음을 `summary()` 를 통해 확인할 수 있다.
+
+# ```python
+# >>> model.summary()
+# _________________________________________________________________
+#  Layer (type)                Output Shape              Param #   
+# =================================================================
+#  input_8 (InputLayer)        [(None, 600)]            0         
+#                                                                  
+#  embedding_2 (Embedding)     (None, 600, 100)         2000000   
+#                                                                  
+#  bidirectional_3 (Bidirectio  (None, 64)               34048     
+#  nal)                                                            
+#                                                                  
+#  dropout_6 (Dropout)         (None, 64)                0         
+#                                                                  
+#  dense_9 (Dense)             (None, 1)                 65        
+#                                                                  
+# =================================================================
+# Total params: 2,034,113
+# Trainable params: 34,113
+# Non-trainable params: 2,000,000
+# _________________________________________________________________
+# ```
+
+# 훈련 결과가 특별히 나아지지는 않는다. 이유는 훈련 데이터셋이 충분히 크기에 굳이 외부 임베딩 파일을
+# 이용하지 않아도 자체적으로 단어들 사이의 관계를 잘 찾기 때문이다.
+# 하지만 훈련셋이 더 작은 경우 잘 훈련된 임베딩 파일을 이용하면 보다 효율적으로 훈련이 진행된다.
