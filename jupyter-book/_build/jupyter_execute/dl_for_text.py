@@ -14,16 +14,25 @@
 # **소스코드**
 # 
 # 여기서 언급되는 코드를
-# [(구글 코랩) 자연어 처리](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-dl_for_text.ipynb)에서 
+# [(구글 코랩) 자연어 처리 1부](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-dl_for_text_1.ipynb)와
+# [(구글 코랩) 자연어 처리 2부](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-dl_for_text_2.ipynb)에서 
 # 직접 실행할 수 있다.
 
 # **주요 내용**
-
+# 
+# 1부:
 # - 단어 주머니
 # - 단어 임베딩
-# - 트랜스포머
+# 
+# 2부:
+# - 트랜스포머 아키텍처
+# - 시퀀스-투-시퀀스 학습
 
-# ## 소개
+# <h1>1부</h1>
+
+# 단어 주머니와 단어 임베딩을 활용하는 모델을 알아본다.
+
+# ## 자연어 처리 소개
 
 # 파이썬, 자바, C, C++, C#, 자바스크립트 등 컴퓨터 프로그래밍언어와 구분하기 위해 
 # 일상에서 사용되는 한국어, 영어 등을 **자연어**<font size='2'>natural language</font>라 
@@ -271,7 +280,7 @@
 # 완성된 모델에 추가해서 사용하는 게 좋다.
 # :::
 
-# ## 텍스트 데이터 변환
+# ## 단어 주머니와 단어 임베딩
 
 # 훈련시키려 하는 자연어 처리 모델에 따라 문장(텍스트)을 변환하는 방식이 달라진다.
 # 
@@ -939,6 +948,10 @@
 # 이용하지 않아도 자체적으로 단어들 사이의 관계를 잘 찾기 때문이다.
 # 하지만 훈련셋이 더 작은 경우 잘 훈련된 임베딩 파일을 이용하면 보다 효율적으로 훈련이 진행된다.
 
+# <h1>2부</h1>
+
+# 트랜스포머 아키텍처와 시퀀스-투-시퀀스 학습을 알아본다.
+
 # ## 트랜스포머 아키텍처
 
 # 2017년 논문 ["Attention is all you need"](https://arxiv.org/abs/1706.03762)에서
@@ -1252,3 +1265,7 @@
 # 앞서 설명한 경험 법칙은은 텍스트 분류에 한정된다. 
 # 예를 들어 기계 번역<font size='2'>machine translation</font>의 경우 매우 긴 문장을 다룰 때 
 # 트랜스포머가 가본적으로 가장 강력한 성능의 모델을 생성한다. 
+
+# ## 시퀀스-투-시퀀스 학습
+
+# 준비중 ...
