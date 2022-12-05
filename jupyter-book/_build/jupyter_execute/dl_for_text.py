@@ -959,17 +959,22 @@
 # 트랜스포머는 "**뉴럴 어텐션**<font size='2'>Neural Attention</font>" 기법을 이용하여 
 # 순환층과는 다르게 작동하는 순차 모델<font size='2'>sequence model</font>을 지원한다.
 # 
-# 여기서는 뉴럴 어텐션의 작동법을 설명한 후에 트랜스포머 인코더를 이용하여 IMDB 영화 후기 모델을 구현한다. 
+# 여기서는 뉴럴 어텐션의 작동법을 설명한 후에 트랜스포머 인코더를 이용하여 IMDB 영화 후기 분류 모델을 구현한다. 
 
 # ### 셀프 어텐션
 
 # 입력값의 특성 중에 보다 중요한 특성에 **집중**<font size='2'>attention</font>하면 보다 효율적으로
-# 훈련이 진행될 수 있다. 
-# 아래 그림이 집중이 어떻게 활용되는지 잘 보여준다.
+# 훈련이 진행될 수 있다.
+
+# **집중의 중요성**
+
+# 아래 그림에서 볼 수 있듯이 이미지의 주요 부분에 집중하여 보다 효율적인 이미지 분석을 진행할 수 있다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-05.png" style="width:70%;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
+
+# **유사 아이디어**
 
 # 앞서 유사한 아이디어를 활용한 적이 있다.
 # 
@@ -977,69 +982,107 @@
 # - TF-IDF 정규화: 텍스트 벡터화를 위해 사용되는 TF-IDF 정규화는
 #     사용되는 토큰에 포함된 정보의 중요도를 평가하여 보다 중요한 정보를 담은 토큰에 집중한다. 
 
-# 자연어 처리에서의 **셀프 어텐션**<font size='2'>self-attention</font> 기법은 
-# 주어진 문장에 사용된 단어들의 연관성을 평가하여, 즉 **문맥**<font size='2'>context</font>을 파악하여
-# 문장을 시퀀스로 변환하는 데에 사용된다.
+# **자연어 처리에서의 셀프 어텐션**
+
+# 자연어 처리에서의 **셀프 어텐션**<font size='2'>self-attention</font> 기법은
+# 문장을 시퀀스로 변환 할 때
+# 주어진 문장에 사용된 단어들 사이의 연관성, 즉 **문맥**<font size='2'>context</font>을 파악하여
+# 활용한다.
 # 
 # 아래 그림은 "The train  left the station on time." 이라는 문장에
-# 셀프 어텐션을 적용하여 입력값을 변환하는 과정을 보여준다.
+# 셀프 어텐션을 적용하여 입력 문장을 하나의 시퀀스로 변환하는 과정을 보여준다.
 # 
-# - 1단계: 문장에 사용된 각 토큰들 사이의 연관성 계산.
-# - 2단계: 계산된 연관성을 (토큰) 벡터와 결합시킨 후 새로운 토큰 벡터들의 시퀀스 생성.
-#     아래 그림에서는 "station" 단어에 해당하는 벡터가 변환되는 과정을 보여줌.
+# - 문장을 `Embedding` 층을 이용하여 단어 임베딩시킨다.
+# - 생성된 벡터 시퀀스에 셀프 어텐션을 적용하여 문맥이 적용된 동일 모양의 새로운 벡터 시퀀스를 생성한다.
+#     - 1단계: 문장에 사용된 각 토큰들 사이의 연관성 계산.
+#     - 2단계: 계산된 연관성을 (토큰) 벡터와 결합시킨 후 새로운 토큰 벡터들의 시퀀스 생성.
+#         
+#         
+# 아래 그림에서는 "station" 단어에 해당하는 벡터가 새로운 벡터로 변환되는 과정을 보여준다.
 
-# <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-06.png" style="width:100%;"></div>
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-self_attention.jpg" style="width:100%;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# **질문-열쇠-값 모델**
+# 셀프 어텐션이 작동하는 과정을 직접 구현한다면 아래 `self_attention()` 함수와
+# 유사하다.
+# 함수의 입력값으로 임베딩 단어 벡터가 사용된다.
 
-# 셀프 어텐션의 작동 과정을 식으로 표현하면 다음과 같다. 
+# ```python
+# def self_attention(input_sequence):
+#     # 변환된 시퀀스 저장용
+#     output = np.zeros(shape=input_sequence.shape)
+#     
+#     # 단어 임베딩된 시퀀스의 단어 벡터 각각에 대해 셀프 어텐션 실행. 위 그림 참고.
+#     for i, pivot_vector in enumerate(input_sequence):
 # 
-#     outputs = sum(inputs * pairwise_scores(inputs, inputs))
-#                     |                        |      |
-#                    (C)                      (A)    (B)
+#         # 주어진 단어 벡터 pivot_vector와 다른 단어 벡터들 사이의 문맥 점수 계산
+#         scores = np.zeros(shape=(len(input_sequence),))
+#         # 계산된 점수를 스케일링 후 소프트맥스 적용
+#         for j, vector in enumerate(input_sequence):
+#             scores[j] = np.dot(pivot_vector, vector.T)
+#         scores /= np.sqrt(input_sequence.shape[1])
+#         scores = softmax(scores)
 # 
-# 위 식은 원래 검색 엔진 또는 추천 시스템에 사용되는 
-# 보다 일반화된 셀프 어텐션의 작동과정을 표현한 식의 특별한 경우를 보여준다. 
-# 
-#     outputs = sum(values * pairwise_scores(query, keys))
-#                     |                        |      |
-#                    (C)                      (A)    (B)
+#         # 문맥이 반영된 단어 벡터로 변환: 각 단어 벡터와 점수를 곱한 결과를 더함.
+#         new_pivot_representation = np.zeros(shape=pivot_vector.shape)
+#         for j, vector in enumerate(input_sequence):
+#             new_pivot_representation += vector * scores[j]
+#         
+#         output[i] = new_pivot_representation
+#     return output
+# ```
 
+# **`MultiHeadAttention` 층 활용**
+
+# 케라스의 `MultiHeadAttention` 층이 `self_attention()` 함수의 셀프 어텐션 기능을 
+# 포함한다.
+
+# ```python
+# num_heads = 4 # 네 개의 셀프 어텐션을 동시에 진행. 각각 다른 문맥을 파악하도록 유도.
+# embed_dim = 256 
+# 
+# mha_layer = MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
+# outputs = mha_layer(inputs, inputs, inputs)
+# ```
+
+# :::{admonition} 질문-열쇠-값
+# :class: info
+# 
+# `mha_layer(inputs, inputs, inputs)`, 즉 셀프 어텐션의 작동 과정을 
+# 식으로 표현하면 다음과 같다. 
+# 
+# ```
+# outputs = sum(inputs * pairwise_scores(inputs, inputs))
+# ```
+# 
+# 위 식은 원래 검색 엔진 또는 추천 시스템에 사용되며,
+# 질문-열쇠-값<font size='2'>query-key-value</font> 
+# 세 개의 입력값을 받는 보다 일반화된 어텐션의 작동과정을 표현한 식의 특별한 경우이다.
+# 
+# ```
+# outputs = sum(values * pairwise_scores(query, keys))
+# ```
+# 
 # 예를 들어, 아래 그림은 "dogs on the beach." **질문**<font size='2'>query</font>에 가장 
-# 적절한 사신을 검색한다면 각 사진과의 **핵심 연관성**<font size='2'>key</font> 점수를
-# 해당 사진<font size='2'>value</font>과 결합하여 가장 높은 점수를 갖는 사진을
+# 적절한 사진을 검색한다면 각 사진과의 **핵심 연관성**<font size='2'>key</font> 점수를
+# **해당 사진**<font size='2'>value</font>과 결합하여 가장 높은 점수를 갖는 사진을
 # 추천하는 것을 보여준다. 
-
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-07.png" style="width:80%;"></div>
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
-
-# 질문-열쇠-값<font size='2'>query-key-value</font> 모델을 실전에 적용할 때 
-# 열쇠<font size='2'>key</font>와 값<font size='2'>value</font>이 동일한 경우가 많다. 
-# 
-# - 기계 번역:
-#     "How's the weather today?"를 스페인어로 기계 번역하려 할 경우
-#     스페인어로 날씨에 해당하는 "tiempo"를 열쇠로 해서 주어진 영어 문장(query)에 
-#     사용된 단어들과 비교해야 한다. 
-# - 텍스트 분류:
-#     앞서 셀프 어텐션 설명을 위해 사용된 그림에서처럼 query, keys, values 모두 동일하다.
+# :::
 
 # ### 멀티헤드 어텐션
 
-# 단어들 사이의 연관성을 다양한 방식으로 알아내기 위해 셀프 어텐션을 수행하는 
-# **헤드**<font size='2'>head</font>를 여러 개 병렬로 처리한 후에 다시 합치는 기법을
+# 어텐션 변환을 수행하는 **헤드**<font size='2'>head</font>를 여러 개 사용해서 
+# 단어들 사이의 다양한 연관성을 알아낸 후에 결과를 합치는 기법이
 # **멀티헤드 어텐션**<font size='2'>multi-head attention</font>이다.
-# 아래 그림은 두 개의 헤드를 사용하는 것을 보여주며 각각의 헤드가 하는 일은 다음과 같다.
+# 아래 그림은 두 개의 헤드를 사용하는 것을 보여준다.
 # 
-# - 질문, 키, 값을 각각 서로 다른 밀집 밀집 층으로 구성된 블록을 통과 시킨다.
-# - 이후 변환된 질문, 키, 값에 셀프 어텐션을 적용한다.
-# 
-# 각 헤드에 포함된 밀집 층 블록으로 인해 멀티헤드 어텐션 층에서도
-# 학습이 이루어진다.
-# 
-# **참고**: 채널 분리 합성곱 층의 알고리즘과 기본 아이디어가 유사하다.
+# 각각의 헤드는 질문, 열쇠, 값을 어텐션에 넣어 주기 전에 먼저
+# 각각을 서로 다른 밀집층을 통과시켜서 
+# 모델 스스로 질문, 열쇠, 값을 먼저 적절하게 변환하도록 유도한다.
 
 # <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-08.png" style="width:70%;"></div>
 # 
