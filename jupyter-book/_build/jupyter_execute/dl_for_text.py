@@ -1049,7 +1049,7 @@
 # :::{admonition} 질문-열쇠-값
 # :class: info
 # 
-# `mha_layer(inputs, inputs, inputs)`, 즉 셀프 어텐션의 작동 과정을 
+# 동일한 값을 인자로 세 번 사용하는 `mha_layer(inputs, inputs, inputs)`, 즉 셀프 어텐션의 작동 과정을 
 # 식으로 표현하면 다음과 같다. 
 # 
 # ```
@@ -1101,7 +1101,15 @@
 # 
 # <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 
-# **트랜스포머 구현**
+# :::{admonition} 트랜스포머 디코더
+# :class: info
+# 
+# 영화 후기 등의 분석 모델은 트랜스포머 인코더만 사용한다.
+# 반면에 예를 들어 번역 모델은  시퀀스-투-시퀀스 학습을 이용하며
+# 이때 트랜스포커 디코더를 활용한다.
+# :::
+
+# **트랜스포머 인코더 구현**
 
 # 위 그림에서 설명된 트랜스포머 인코더를 층으로 구현하면 다음과 같다.
 # 생성자의 입력값을 예를 들어 설명하면 다음과 같다.
@@ -1188,6 +1196,17 @@
 
 # 훈련 과정은 특별한 게 없다.
 # 테스트셋에 대한 정확도가 87.5% 정도로 바이그램 모델보다 좀 더 낮다.
+
+# :::{admonition} GlobalMaxPooling1D 대 MaxPooling1D
+# :class: info
+# 
+# `GlobalMaxPooling1D` 층이 작동하는 방식은 다음과 같다.
+# 비교를 위해 `MaxPooling1D` 층의 작동 방식도 함께 보여준다.
+# 
+# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-globalmaxpooling.png" style="width:100%;"></div>
+# 
+# <p><div style="text-align: center">&lt;그림 출처: <a href="https://pythontechworld.com/article/detail/PNIn2CBD4Eno">GlobalMaxPooling vs. MaxPooling</a>&gt;</div></p>
+# :::
 
 # **모델 비교**
 
