@@ -603,11 +603,11 @@ title="Print to PDF"
 <div align="center"><img src="https://www.robots.ox.ac.uk/~vgg/data/pets/pet_annotations.jpg" style="width:100%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>이미지 분할 모델 구성</strong></p>
 <p>이미지 분할 모델의 구성은 기본적으로 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층으로 구성된
-<strong>다운샘플링</strong> 모듈(downsampling module)과
+<strong>다운샘플링</strong> 블록(downsampling block)과
 <code class="docutils literal notranslate"><span class="pre">Conv2DTranspose</span></code> 층으로 구성된
-<strong>업샘플링</strong> 모듈(upsampling module)으로 이루어진다.</p>
+<strong>업샘플링</strong> 블록(upsampling block)으로 이루어진다.</p>
 <ul class="simple">
-<li><p>다운샘플링 모듈: <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층 활용</p>
+<li><p>다운샘플링 블록: <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층 활용</p>
 <ul>
 <li><p>이미지 분류 모델과 동일한 기능.</p></li>
 <li><p>보폭(<code class="docutils literal notranslate"><span class="pre">strides=2</span></code>)을 사용하는 경우와 그렇지 않은 경우를 연속으로 적용.
@@ -617,7 +617,7 @@ title="Print to PDF"
 <li><p>채널 수는 동일한 방식으로 2배로 증가시킴.</p></li>
 </ul>
 </li>
-<li><p>업샘플링 모듈: <code class="docutils literal notranslate"><span class="pre">Conv2DTranspose</span></code> 층 활용</p>
+<li><p>업샘플링 블록: <code class="docutils literal notranslate"><span class="pre">Conv2DTranspose</span></code> 층 활용</p>
 <ul>
 <li><p>이미지 분할 모델의 최종 출력값은 원본 이미지의 트라이맵 분할 이미지임.
 따라서 동일한 크기의 넘파이 어레이를 출력해야 함.</p></li>
@@ -728,9 +728,9 @@ title="Print to PDF"
 <p>합성곱 신경망 모델 아키텍처는 다음 두 가지 특징을 갖는다.</p>
 <p>첫째, 깊게 쌓아 올린 합성곱 신경망 모델은 기본적으로 <strong>모듈</strong><font size='2'>module</font>을
 <strong>계층</strong><font size='2'>hierarchy</font>으로 쌓아 올린 구조를 갖는다.
-여기서 모듈은 여러 개의 층<font size='2'>layer</font>으로 구성되며, 하나의 모듈이 여러 번
-<strong>재활용</strong><font size='2'>reuse</font>되기도 한다.
-예를 들어, <a class="reference internal" href="computer_vision_intro.html#ch-computer-vision-intro"><span class="std std-numref">8장</span></a>에서 다룬 VGG16 모델은 “Conv2D, Conv2D, MaxPooling2D” 로 구성된 모듈을
+여기서 모듈은 여러 개의 층<font size='2'>layer</font>으로 구성되며 <strong>블록</strong><font size='2'>block</font>이라 불리기도 한다.
+하나의 모듈(블록)이 여러 번 <strong>재활용</strong><font size='2'>reuse</font>되기도 한다.
+예를 들어, <a class="reference internal" href="computer_vision_intro.html#ch-computer-vision-intro"><span class="std std-numref">8장</span></a>에서 다룬 VGG16 모델은 “Conv2D, Conv2D, MaxPooling2D” 로 구성된 모듈(블록)을
 계층으로 구성하였다.</p>
 <p>둘째, 대부분의 합성곱 신경망 모델은 <strong>특성 피라미드</strong> 형식의 계층적 구조를 사용하는 점이다.
 VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면에 특성맵<font size='2'>feature maps</font>의
@@ -746,7 +746,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 발생하여 이를 극복해야 하는 아키텍처(설계방식)을 사용해야 한다.
 즉, 역전파가 제대로 작동하지 못한다.
 이를 위한 대표적인 아키텍처는 <strong>잔차 연결</strong><font size='2'>residual connections</font>이다.</p>
-<p>모듈의 입력값을 모델을 통과하여 생성된 출력값과 합쳐서 다음 모델으로 전달하는 아키텍처이다(아래 그림 참고).
+<p>블록(모듈)의 입력값을 모델을 통과하여 생성된 출력값과 합쳐서 다음 모델으로 전달하는 아키텍처이다(아래 그림 참고).
 이 방식을 통해 모델의 입력값에 대한 정보가 보다 정확하게 상위 모델에 전달되어,
 그레이디언트 소실 문제를 해결하는 데에 많은 도움을 준다.
 실제로 잔차 연결을 이용하면 모델을 매우 높게 쌓아도 모델 훈련이 가능해질 수 있다.</p>
@@ -963,7 +963,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <p><strong>예제</strong>: Xception 모델</p>
 <p>케라스에서 지원하는 Xception 모델의 구성은 2017년 모델과 조금 다르지만
 기본적으로 <code class="docutils literal notranslate"><span class="pre">SeparableConv2D</span></code>와 <code class="docutils literal notranslate"><span class="pre">BatchNormalizaiton</span></code> 층을 효율적으로 활용한
-모듈을 잔차 연결과 함께 사용하여 깊게 쌓은 모델이다.</p>
+블록(모듈)을 잔차 연결과 함께 사용하여 깊게 쌓은 모델이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">Xception</span><span class="p">(</span>
     <span class="n">include_top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">input_tensor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">input_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pooling</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
