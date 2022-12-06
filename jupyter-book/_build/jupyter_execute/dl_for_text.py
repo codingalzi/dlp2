@@ -1202,8 +1202,11 @@
 # :::{admonition} GlobalMaxPooling1D
 # :class: info
 # 
-# 벡터 시퀀스가 `GlobalMaxPooling1D` 층을 통과하면 벡터의 특성별로 최댓값만 추출해서 사용한다.
+# 벡터(1차원 텐서)로 구성된 시퀀스가 `GlobalMaxPooling1D` 층을 통과하면 벡터의 특성별로 최댓값만 추출해서 사용한다.
 # 따라서 벡터의 길이에 해당하는 하나의 벡터가 생성된다.
+# 
+# 예를 들어, (4, 2, 3) 모양의 텐서, 즉, 길이가 3인 두 개의 벡터로 구성된 시퀀스 네 개를 묶은 배치가 `GlobalMaxPooling1D` 층을
+# 통과해서 (4, 3) 모양의 텐서가 생성된다.
 # 
 # ```python
 # >>> x = tf.constant(
@@ -1212,14 +1215,17 @@
 # ...        [[ 7.,  8.,  12.],
 # ...         [10., 11., 9.]],
 # ...        [[16., 14., 15.],
-# ...         [13., 17., 18.]]])
+# ...         [13., 17., 18.]],
+# ...        [[19., 20., 21.],
+# ...         [22., 23., 24.]]])
 # 
 # >>> max_pool_1d = tf.keras.layers.GlobalMaxPooling1D()
 # >>> max_pool_1d(x)
-# <tf.Tensor: shape=(3, 3), dtype=float32, numpy=
+# <tf.Tensor: shape=(4, 3), dtype=float32, numpy=
 # array([[ 4.,  5.,  6.],
 #        [10., 11., 12.],
-#        [16., 17., 18.]], dtype=float32)>
+#        [16., 17., 18.],
+#        [22., 23., 24.]], dtype=float32)>
 # ```
 # :::
 
