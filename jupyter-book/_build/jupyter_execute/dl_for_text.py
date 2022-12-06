@@ -1181,7 +1181,7 @@
 # x = layers.Embedding(vocab_size, embed_dim)(inputs)
 # x = TransformerEncoder(embed_dim, dense_dim, num_heads)(x)
 # 
-# # 길이가 600인 1차원 어레이로 변환.
+# # 길이가 256인 1차원 어레이로 변환.
 # x = layers.GlobalMaxPooling1D()(x)
 # x = layers.Dropout(0.5)(x)
 # 
@@ -1199,15 +1199,28 @@
 # 훈련 과정은 특별한 게 없다.
 # 테스트셋에 대한 정확도가 87.5% 정도로 바이그램 모델보다 좀 더 낮다.
 
-# :::{admonition} GlobalMaxPooling1D 대 MaxPooling1D
+# :::{admonition} GlobalMaxPooling1D
 # :class: info
 # 
-# `GlobalMaxPooling1D` 층이 작동하는 방식은 다음과 같다.
-# 비교를 위해 `MaxPooling1D` 층의 작동 방식도 함께 보여준다.
+# 벡터 시퀀스가 `GlobalMaxPooling1D` 층을 통과하면 벡터의 특성별로 최댓값만 추출해서 사용한다.
+# 따라서 벡터의 길이에 해당하는 하나의 벡터가 생성된다.
 # 
-# <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-globalmaxpooling.png" style="width:100%;"></div>
+# ```python
+# >>> x = tf.constant(
+# ...       [[[ 1.,  5.,  3.],
+# ...         [ 4.,  2.,  6.]],
+# ...        [[ 7.,  8.,  12.],
+# ...         [10., 11., 9.]],
+# ...        [[16., 14., 15.],
+# ...         [13., 17., 18.]]])
 # 
-# <p><div style="text-align: center">&lt;그림 출처: <a href="https://pythontechworld.com/article/detail/PNIn2CBD4Eno">GlobalMaxPooling vs. MaxPooling</a>&gt;</div></p>
+# >>> max_pool_1d = tf.keras.layers.GlobalMaxPooling1D()
+# >>> max_pool_1d(x)
+# <tf.Tensor: shape=(3, 3), dtype=float32, numpy=
+# array([[ 4.,  5.,  6.],
+#        [10., 11., 12.],
+#        [16., 17., 18.]], dtype=float32)>
+# ```
 # :::
 
 # **모델 비교**
