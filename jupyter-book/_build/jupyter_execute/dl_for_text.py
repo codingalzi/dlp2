@@ -870,10 +870,10 @@
 # 압축파일의 크기는 822 MB이다.
 # 다운로드한 파이릐 압축을 풀면 다음 세 개의 파일이 생성된다.
 # 
-# - `glove.6B.50d.txt` (약 1 GB)
-# - `glove.6B.100d.txt` (약 670 MB)
-# - `glove.6B.200d.txt` (약 330 MB)
-# - `glove.6B.300d.txt` (약 160 MB)
+# - `glove.6B.50d.txt` (약 160 MB)
+# - `glove.6B.100d.txt` (약 330 MB)
+# - `glove.6B.200d.txt` (약 670 MB)
+# - `glove.6B.300d.txt` (약 1 GB)
 
 # 예를 들어 `glove.6B.100d.txt` 파일의 첫 20줄은 다음과 같다.
 # 단어별로 100개의 부동소수점이 지정되어 있지만 화면상 10여 개의 값만 보여지고 나머지는 화면에서 잘렸다.
@@ -1037,7 +1037,7 @@
 # 포함한다.
 
 # ```python
-# num_heads = 4 # 네 개의 셀프 어텐션을 동시에 진행. 각각 다른 문맥을 파악하도록 유도.
+# num_heads = 2 # 두 개의 셀프 어텐션을 동시에 진행. 각각 다른 문맥을 파악하도록 유도.
 # embed_dim = 256 
 # 
 # mha_layer = MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
