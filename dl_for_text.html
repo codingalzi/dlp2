@@ -1264,10 +1264,10 @@ N-그램의 종류는 다음과 같다.</p>
 압축파일의 크기는 822 MB이다.
 다운로드한 파이릐 압축을 풀면 다음 세 개의 파일이 생성된다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.50d.txt</span></code> (약 1 GB)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.100d.txt</span></code> (약 670 MB)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.200d.txt</span></code> (약 330 MB)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.300d.txt</span></code> (약 160 MB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.50d.txt</span></code> (약 160 MB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.100d.txt</span></code> (약 330 MB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.200d.txt</span></code> (약 670 MB)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.300d.txt</span></code> (약 1 GB)</p></li>
 </ul>
 <p>예를 들어 <code class="docutils literal notranslate"><span class="pre">glove.6B.100d.txt</span></code> 파일의 첫 20줄은 다음과 같다.
 단어별로 100개의 부동소수점이 지정되어 있지만 화면상 10여 개의 값만 보여지고 나머지는 화면에서 잘렸다.</p>
@@ -1403,7 +1403,7 @@ N-그램의 종류는 다음과 같다.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">MultiHeadAttention</span></code> 층 활용</strong></p>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">MultiHeadAttention</span></code> 층이 <code class="docutils literal notranslate"><span class="pre">self_attention()</span></code> 함수의 셀프 어텐션 기능을
 포함한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_heads</span> <span class="o">=</span> <span class="mi">4</span> <span class="c1"># 네 개의 셀프 어텐션을 동시에 진행. 각각 다른 문맥을 파악하도록 유도.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_heads</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># 두 개의 셀프 어텐션을 동시에 진행. 각각 다른 문맥을 파악하도록 유도.</span>
 <span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">256</span> 
 
 <span class="n">mha_layer</span> <span class="o">=</span> <span class="n">MultiHeadAttention</span><span class="p">(</span><span class="n">num_heads</span><span class="o">=</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">key_dim</span><span class="o">=</span><span class="n">embed_dim</span><span class="p">)</span>
