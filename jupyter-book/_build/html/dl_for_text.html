@@ -1631,7 +1631,7 @@ N-그램의 종류는 다음과 같다.</p>
 </div>
 <p><strong>트랜스포머 인코더 활용 모델</strong></p>
 <p>훈련셋이 입력되면 먼저 단어 임베딩을 통과시켜 하나의 단어가 가질 수 있는 일반적인 특성을 찾는다.
-이후 트랜스포머 인코더로 셀프 어텐션을 적용하여 단어가 사용되는 문장에서의 문맥상의 특징을 추가한다.</p>
+이후 트랜스포머 인코더로 셀프 어텐션을 적용하여 단어가 사용되는 문장에서의 문맥상의 특성을 추가한다.</p>
 <p>사용되는 변수들은 다음과 같다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">vocab_size</span> <span class="pre">=</span> <span class="pre">20000</span></code>: 어휘 색인 크기</p></li>
@@ -1783,11 +1783,11 @@ N-그램의 종류는 다음과 같다.</p>
 <h3><span class="section-number">11.4.4. </span>트랜스포머 사용 기준<a class="headerlink" href="#id16" title="Permalink to this headline">#</a></h3>
 <p>단어주머니 모델이 여전히 유용하게 활용된다.
 실제로 IMDB 데이터셋에 대한 성능도 단어주머니 모델이 가장 좋았다.
-그리고 많은 실험 결과 “훈련셋의 크기”와 “텍스트의 평균 단어 수”의 비율이 모델 선택에
+그리고 많은 실험 결과 “훈련셋의 크기”와 “문장의 평균 단어 수”의 비율이 모델 선택에
 결정적인 역할을 수행한다는 경험 법칙이 알려졌다.</p>
 <ul class="simple">
-<li><p>(“훈련셋의 크기” <span class="math notranslate nohighlight">\(/\)</span> “텍스트의 평균 단어 수”) <span class="math notranslate nohighlight">\(&gt;\)</span> 1500 인 경우: 트랜스포머 등 순차 모델</p></li>
-<li><p>(“훈련셋의 크기” <span class="math notranslate nohighlight">\(/\)</span> “텍스트의 평균 단어 수”) <span class="math notranslate nohighlight">\(&lt;\)</span> 1500 인 경우: 바이그램 단어주머니 모델</p></li>
+<li><p>(“훈련셋의 크기” <span class="math notranslate nohighlight">\(/\)</span> “문장의 단어 수 평균”) <span class="math notranslate nohighlight">\(&gt;\)</span> 1500 인 경우: 트랜스포머 등 순차 모델</p></li>
+<li><p>(“훈련셋의 크기” <span class="math notranslate nohighlight">\(/\)</span> “문장의 단어 수 평균”) <span class="math notranslate nohighlight">\(&lt;\)</span> 1500 인 경우: 바이그램 단어주머니 모델</p></li>
 </ul>
 <p><strong>예제 1</strong></p>
 <p>1천개의 단어를 포함한 텍스트 십만 개로 이루어진 훈련셋을 사용하는 경우 비율이 100이기에 바이그램 모델을 사용하는 것이 좋다.</p>
