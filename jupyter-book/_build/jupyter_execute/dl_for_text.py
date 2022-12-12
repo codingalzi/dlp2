@@ -1356,3 +1356,7 @@
 # ## 시퀀스-투-시퀀스 학습
 
 # 준비중 ...
+
+# ## 연습 문제
+
+# 1. [(실습) 자연어 처리](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-dl_for_text.ipynb)

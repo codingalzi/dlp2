@@ -521,3 +521,7 @@
 # - `RMSprop` 등의 옵티마이저의 학습률 조정 및 다른 옵티마이저 활용
 # - 순환층 이후에 여러 개의 밀집층 적용
 # - 시퀀스 길이 조정, 샘플 선택 비율 조정 등 기타 특성 엔지니어링 시도.
+
+# ## 연습 문제
+
+# 1. [(실습) 시계열 분석](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-dl_for_timeseries.ipynb)
