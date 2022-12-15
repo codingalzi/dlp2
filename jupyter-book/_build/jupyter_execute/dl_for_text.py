@@ -1252,10 +1252,30 @@
 # 하지만 단어 인코딩 과정에서 단어순서 정보를 활용하도록 하는 기능을 추가하면
 # 트랜스포머가 알아서 단어위치 정보를 활용한다.
 # 
-# 다음 `PositionalEmbedding` 층 클래스는 두 개의 임베딩 클래스를 사용한다.
-# 하나는 보통의 단어 임베딩이며,
-# 다른 하나는 단어의 위치 정보를 임베딩한다. 
-# 각 임베딩의 출력값을 합친 값을 트랜스포머에게 전달하는 역할을 수행한다.
+# 다음 `PositionalEmbedding` 층 클래스는 두 개의 임베딩 클래스를 순전파에 사용한다.
+# 
+# - 단어 임베딩
+#     ```python
+#     self.token_embeddings = layers.Embedding(input_dim=input_dim, output_dim=output_dim)
+#     ```
+# 
+# 
+# - 위치 임베딩
+# 
+#     ```python
+#     self.position_embeddings = layers.Embedding(input_dim=sequence_length, output_dim=output_dim)
+#     ```
+# 
+# 순전파를 담당하는 `call()` 메서드가 호출되면
+# `self.token_embeddings`는 보통의 단어 임베딩을 수행하고,
+# `self.position_embeddings`는 단어의 위치 정보를 임베딩한다. 
+# 
+# ```python
+# embedded_tokens = self.token_embeddings(inputs)
+# embedded_positions = self.position_embeddings(positions)
+# ```
+# 
+# 최종적으로 각 임베딩의 출력값을 합친 값이 반환된다.
 
 # ```python
 # class PositionalEmbedding(layers.Layer):
