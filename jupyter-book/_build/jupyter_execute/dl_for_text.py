@@ -1377,6 +1377,11 @@
 
 # 준비중 ...
 
+# ## 참고 문헌
+
+# 1. [Transformers from Scratch](https://e2eml.school/transformers.html): 
+#     트랜스포머 내부의 작동과정 자세한 설명
+
 # ## 연습 문제
 
 # 1. [(실습) 자연어 처리](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-dl_for_text.ipynb)
