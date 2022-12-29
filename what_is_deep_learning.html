@@ -4,13 +4,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>1. 딥러닝 소개 &#8212; Deep Learning with Python(2판)</title>
     
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -20,39 +18,39 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
+    
+      
+
+    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="2. 신경망 구성 요소" href="building_blocks_of_NN.html" />
@@ -64,21 +62,7 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
-
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -87,10 +71,9 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
       
@@ -167,17 +150,12 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
-    </div>
-    <div id="rtd-footer-container"></div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
 </div>
 
 
@@ -185,191 +163,94 @@ const thebe_selector_output = ".output, .cell_output"
 
 
           
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="header-article row sticky-top noprint">
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
         
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/what_is_deep_learning.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/codingalzi/dlp2"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fwhat_is_deep_learning.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/what_is_deep_learning.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/what_is_deep_learning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/codingalzi/dlp2"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fwhat_is_deep_learning.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
     </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/what_is_deep_learning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
    1.1. 인공지능, 머신러닝, 딥러닝
@@ -419,11 +300,12 @@ title="Print to PDF"
  </li>
 </ul>
 
-    </nav>
-</div>
+            </nav>
+        </div>
     </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>딥러닝 소개</h1>
@@ -489,20 +371,19 @@ title="Print to PDF"
                     </div>
                 </div>
             </div>
-            <main id="main-content" role="main">
-                
+            
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1><span class="section-number">1. </span>딥러닝 소개<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h1>
-<section id="id2">
-<h2><span class="section-number">1.1. </span>인공지능, 머신러닝, 딥러닝<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1><span class="section-number">1. </span>딥러닝 소개<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2><span class="section-number">1.1. </span>인공지능, 머신러닝, 딥러닝<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p><strong>관계 1: 연구 분야 관점</strong></p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ai-ml-relation.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="http://www.kyobobook.co.kr/readIT/readITColumnView.laf?thmId=00198&sntnId=14142">교보문고(에이지 오브 머신러닝)</a>&gt;</div></p><p><strong>관계 2: 역사</strong></p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ai-ml-relation2.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/">NVIDIA 블로그</a>&gt;</div></p><section id="id3">
-<h3><span class="section-number">1.1.1. </span>인공지능<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/">NVIDIA 블로그</a>&gt;</div></p><div class="section" id="id3">
+<h3><span class="section-number">1.1.1. </span>인공지능<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>인공지능: 인간의 지적 활동을 모방하여 컴퓨터로 자동화하려는 시도. 머신러닝과 딥러닝을 포괄함.</p></li>
 <li><p>(1950년대) 컴퓨터가 생각할 수 있는가? 라는 질문에서 출발</p></li>
@@ -518,9 +399,9 @@ title="Print to PDF"
 </ul>
 </li>
 </ul>
-</section>
-<section id="id4">
-<h3><span class="section-number">1.1.2. </span>머신러닝<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="id4">
+<h3><span class="section-number">1.1.2. </span>머신러닝<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>머신러닝은 1990년대에 본격적으로 발전했다.
 기본적으로 통계학과 연관되어 출발했지만 다음 두 측면에서 통계학과 다르다.</p>
 <p>첫째, 아주 큰 데이터(빅데이터)를 단순히 통계학적으로 다룰 수는 없다.
@@ -546,9 +427,9 @@ title="Print to PDF"
 </li>
 </ul>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-a-new-programming-paradigm.png" style="width:400px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
-<section id="id5">
-<h3><span class="section-number">1.1.3. </span>학습 규칙과 데이터 표현법<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
+<div class="section" id="id5">
+<h3><span class="section-number">1.1.3. </span>학습 규칙과 데이터 표현법<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p><strong>머신러닝 모델 학습의 필수 요소</strong></p>
 <ul class="simple">
 <li><p><strong>입력 데이터셋(훈련셋)</strong>: 음성 인식 모델을 위한 음성 파일, 이미지 태깅 모델을 위한 사진 등.</p></li>
@@ -573,7 +454,7 @@ title="Print to PDF"
 데이터를 사용해야 한다.</p>
 <div class="proof example admonition" id="exp-lin-reg">
 <p class="admonition-title"><span class="caption-number">Example 1.1 </span> (선형 분류)</p>
-<section class="example-content" id="proof-content">
+<div class="example-content section" id="proof-content">
 <p>흑점과 백점이 아래 왼쪽 그림에서첨 분포되어 있다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-learning_representations.png" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
@@ -589,7 +470,7 @@ title="Print to PDF"
 간단하게 판단할 수 있다.
 즉, 새로운 축을 사용하여 각 점의 좌표를 새롭게 표현하도록 변환하는 머신러닝 알고리즘을
 구현하면 백점과 흑점을 매우 간단하게 선형적으로 분류하는 머신러닝 모델을 구현할 수 있다.</p>
-</section>
+</div>
 </div><p><strong>데이터 변환 자동화</strong></p>
 <p>위 예제의 경우 수동으로 데이터 변환 방식을 어렵지 않게 알아낼 수 있었다.
 반면에 MNIST 손글씨의 경우처럼 각 숫자를 구분하는 쉽게 구분하는
@@ -619,9 +500,9 @@ title="Print to PDF"
 즉, 머신러닝 모델이 정해지면 모델은
 <strong>주어진 입력 데이터셋과 타깃 데이터셋을 이용하여 입력이 주어지면 타깃을 예측하고, 예측 성능을 평가지표을 이용하여 측정하는 과정을 반복 훈련</strong>하면서
 지정된 가설 공간 내에서 가장 적절한 데이터 변환법을 학습한다.</p>
-</section>
-<section id="id6">
-<h3><span class="section-number">1.1.4. </span>딥러닝<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="id6">
+<h3><span class="section-number">1.1.4. </span>딥러닝<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p><strong>딥<font size='2'>deep</font>의 의미</strong></p>
 <p>딥러닝의 딥<font size='2'>deep</font>은
 데이터 변환을 지원하는 <strong>층</strong><font size='2'>layer</font>을
@@ -638,7 +519,7 @@ title="Print to PDF"
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch14/homl14-15b.png" width="600"/></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">ImageNet Classification with Deep Convolutional Neural Networks</a>&gt;</div></p><div class="proof example admonition" id="exc-minist-transform">
 <p class="admonition-title"><span class="caption-number">Example 1.2 </span> (손글씨 숫자 인식)</p>
-<section class="example-content" id="proof-content">
+<div class="example-content section" id="proof-content">
 <p>아래 이미지는 네 개의 층을 사용하는 딥러닝 모델이
 MNIST 손글씨 이미지를 변환해서 최종적으로
 이미지가 가리키는 숫자를 예측하는 과정을 보여준다.</p>
@@ -648,10 +529,10 @@ MNIST 손글씨 이미지를 변환해서 최종적으로
 모델은 쉽게 적절한 값을 예측할 수 있는 데이터로 변환한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-mnist_representations.png" style="width:550px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
-</section>
-</div></section>
-<section id="id7">
-<h3><span class="section-number">1.1.5. </span>딥러닝 작동 원리<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h3>
+</div>
+</div></div>
+<div class="section" id="id7">
+<h3><span class="section-number">1.1.5. </span>딥러닝 작동 원리<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>딥러닝 모델이 사용하는 심층 신경망은
 입력 데이터를 여러 층을 통과시키는 방식으로 변환시킨다.
 딥러닝 모델의 심층 신경망의 핵심 요소는 다음 네 가지이다.</p>
@@ -703,9 +584,9 @@ MNIST 손글씨 이미지를 변환해서 최종적으로
 <p>딥러닝 모델의 학습은 훈련 루프를 적게는 몇 십번, 많게는 몇 백, 몇 천 번 이상
 반복해야 최소 손실값을 갖는 가중치를 찾을 때까지 반복한다.</p>
 <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch01-deep-learning-in-3-figures-3-a.png?raw=true" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
-<section id="id8">
-<h3><span class="section-number">1.1.6. </span>딥러닝의 성과와 전망<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></div>
+<div class="section" id="id8">
+<h3><span class="section-number">1.1.6. </span>딥러닝의 성과와 전망<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <p>지난 10여년 동안 다양한 분야에서 다음과 같은 혁명적 성과가 딥러닝에 의해 이루어졌으며
 거의 모든 산업 분야로 딥러닝의 활용이 확대되고 있다.</p>
 <ul class="simple">
@@ -723,10 +604,10 @@ MNIST 손글씨 이미지를 변환해서 최종적으로
 여전히 딥러닝의 능력을 평가하는 정도라고 할 수 있다.
 그럼에도 불구하고 장기적으로 딥러닝이 가져올 가능성은 무궁무진하다고 말할 수 있으며
 인간의 삶을 획기적으로 변화시킬 것으로 기대된다.</p>
-</section>
-</section>
-<section id="id9">
-<h2><span class="section-number">1.2. </span>머신러닝 역사<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h2>
+</div>
+</div>
+<div class="section" id="id9">
+<h2><span class="section-number">1.2. </span>머신러닝 역사<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>산업계에서 사용되는 머신러닝 알고리즘의 대부분은 딥러닝 알고리즘이 아니다.
 딥러닝 모델의 훈련에 필요한 데이터가 너무 적을 수도 있고,
 아니면 딥러닝이 아닌 다른 알고리즘이 보다 좋은 성능을 발휘하기 때문이다.
@@ -823,9 +704,9 @@ top-1 정확도는 가장 높은 확률을 갖는 범주가 정답일 확율을 
 같은 딥러닝 프레임워크가 일반적으로 사용되고,
 그 이외의 경우엔 사이킷런과 XGBoost, LightGBM 등 그레이디언트 부스팅 기법의 조합이
 많이 활용된다.</p>
-</section>
-<section id="id10">
-<h2><span class="section-number">1.3. </span>딥러닝 발전 동력<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h2>
+</div>
+<div class="section" id="id10">
+<h2><span class="section-number">1.3. </span>딥러닝 발전 동력<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>이미지 분석과 시계열 데이터 분석이 2012년 이후 획기적으로 발전하였지만
 이런 획기적 발전에 기여한 아래 기법은 이미 1990년대에 제시되었다.</p>
 <ul class="simple">
@@ -871,8 +752,8 @@ YouTube(동영상), Flickr(이미지), Wikipedia(문서) 등이 컴퓨터 비전
 <li><p>파이토치 등등</p></li>
 </ul>
 <p>여기서는 텐서플로우와 케라스를 주로 활용한다.</p>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -896,11 +777,9 @@ YouTube(동영상), Flickr(이미지), Wikipedia(문서) 등이 컴퓨터 비전
 
               </div>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -916,27 +795,23 @@ YouTube(동영상), Flickr(이미지), Wikipedia(문서) 등이 컴퓨터 비전
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            </footer>
+            
         </div>
     </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By 코딩알지<br/>
-  
-</p>
-        </footer>
-    </div>
+    <footer class="footer">
+  <p>
     
-</div>
+      By 코딩알지<br/>
+    
+  </p>
+</footer>
+</main>
 
 
       </div>
     </div>
   
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
   </body>
 </html>
