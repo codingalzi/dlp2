@@ -1381,6 +1381,7 @@
 
 # 1. [Transformers from Scratch](https://e2eml.school/transformers.html): 
 #     트랜스포머 내부의 작동과정 자세한 설명
+# 1. [KerasNLP](https://keras.io/guides/keras_nlp/getting_started/): KerasNLP 소개
 
 # ## 연습 문제
 

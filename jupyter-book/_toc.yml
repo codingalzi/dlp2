@@ -19,3 +19,4 @@ chapters:
 - file: dl_for_timeseries
 - file: dl_for_text
 - file: generative_dl
+- file: best_practices

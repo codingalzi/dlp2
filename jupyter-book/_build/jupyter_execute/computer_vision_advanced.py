@@ -637,6 +637,11 @@
 # - [하이퍼파라미터 미세조성: 그리드 탐색, 랜덤 탐색](https://codingalzi.github.io/handson-ml3/end2end_ml_project.html#id25)
 # - [앙상블 학습](https://codingalzi.github.io/handson-ml3/ensemble_learning_random_forests.html)
 
+# ## 참고 문헌
+
+# 1. [KerasCV](https://keras.io/guides/keras_cv/): KerasCV 소개
+# 1. [High-performance image generation using Stable Diffusion in KerasCV](https://keras.io/guides/keras_cv/generate_images_with_stable_diffusion/): StableDiffusion model in KerasCV
+
 # ## 연습 문제
 
 # 1. [(실습) 고급 컴퓨터 비전](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-computer_vision_advanced.ipynb)
