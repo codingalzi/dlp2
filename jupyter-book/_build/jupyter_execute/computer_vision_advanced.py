@@ -641,7 +641,9 @@
 
 # 1. [KerasCV](https://keras.io/guides/keras_cv/): KerasCV 소개
 # 1. [High-performance image generation using Stable Diffusion in KerasCV](https://keras.io/guides/keras_cv/generate_images_with_stable_diffusion/): StableDiffusion model in KerasCV
+# 1. [ink detection with Keras](https://www.kaggle.com/code/aritrag/0-11-keras-starter-unet-tf-data-pipeline/notebook): 이미지 분할에 특화된 합성곱 신경망인 U-net을 문서 인식(ink detection)에 활용하는 방법을 소개하는 튜토리얼
 
 # ## 연습 문제
 
 # 1. [(실습) 고급 컴퓨터 비전](https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-computer_vision_advanced.ipynb)
+# 1. [ink detection with Keras](https://www.kaggle.com/code/aritrag/0-11-keras-starter-unet-tf-data-pipeline/notebook) 내용을 학습한 다음에 깃허브 페이지에 블로그를 작성하라.
