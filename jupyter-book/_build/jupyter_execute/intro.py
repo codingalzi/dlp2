@@ -44,3 +44,7 @@
 # - [파이썬 왕기초](https://hj617kim.github.io/core_pybook/)
 # - [파이썬 데이터 분석](https://codingalzi.github.io/datapy/)
 # - [핸즈온 머신러닝(3판)](https://codingalzi.github.io/handson-ml3/)
+
+# ## 참고 문헌
+
+# - 자연어처리: [CS224N: Natural Language Processing with Deep Learning](https://web.stanford.edu/class/cs224n/)
