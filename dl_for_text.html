@@ -1,49 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>11. 자연어 처리 &#8212; Deep Learning with Python(2판)</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -53,575 +64,335 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'dl_for_text';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="12. 생성 모델" href="generative_dl.html" />
     <link rel="prev" title="10. 시계열 분석" href="dl_for_timeseries.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-    <div class="container-fluid" id="banner"></div>
-
     
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">Deep Learning with Python(2판)</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning with Python(2판)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="what_is_deep_learning.html">
-   1. 딥러닝 소개
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="building_blocks_of_NN.html">
-   2. 신경망 구성 요소
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="keras_and_tf.html">
-   3. 케라스와 텐서플로우
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="getting_started_with_neural_networks.html">
-   4. 신경망 활용 처음부터 끝까지: 분류와 회귀
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="fundamentals_of_ml.html">
-   5. 머신러닝 모델 훈련 기법
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="unversal_workflow_of_ml.html">
-   6. 머신러닝 작업 흐름 일반
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="working_with_keras.html">
-   7. 케라스 모델 고급 활용법
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="computer_vision_intro.html">
-   8. 컴퓨터 비전 기초: 합성곱 신경망
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="computer_vision_advanced.html">
-   9. 고급 컴퓨터 비전
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="dl_for_timeseries.html">
-   10. 시계열 분석
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   11. 자연어 처리
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="generative_dl.html">
-   12. 생성 모델
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="best_practices.html">
-   13. 딥러닝 실전 적용
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 구성 요소</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">3. 케라스와 텐서플로우</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_neural_networks.html">4. 신경망 활용 처음부터 끝까지: 분류와 회귀</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">5. 머신러닝 모델 훈련 기법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">6. 머신러닝 작업 흐름 일반</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">7. 케라스 모델 고급 활용법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_intro.html">8. 컴퓨터 비전 기초: 합성곱 신경망</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_advanced.html">9. 고급 컴퓨터 비전</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dl_for_timeseries.html">10. 시계열 분석</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. 자연어 처리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative_dl.html">12. 생성 모델</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">13. 딥러닝 실전 적용</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/codingalzi/dlp2/master?urlpath=tree/jupyter-book/dl_for_text.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/codingalzi/dlp2" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fdl_for_text.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/dl_for_text.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
 
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/codingalzi/dlp2"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fdl_for_text.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/dl_for_text.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   11.1. 자연어 처리 소개
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   11.2. 텍스트 데이터 전처리
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     11.2.1. 문장 표준화
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     11.2.2. 토큰화
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     11.2.3. 어휘 색인화
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   11.3. 단어 주머니와 단어 임베딩
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#imdb">
-     11.3.1. IMDB 영화 후기 데이터셋 준비
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     11.3.2. 단어 주머니 활용법
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     11.3.3. 시퀀스 활용법
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id10">
-       11.3.3.1. 원-핫 단어 벡터
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id11">
-       11.3.3.2. 단어 임베딩
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#glove">
-       11.3.3.3. GloVe 단어 임베딩
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id12">
-   11.4. 트랜스포머 아키텍처
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     11.4.1. 셀프 어텐션
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
-     11.4.2. 멀티헤드 어텐션
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id15">
-     11.4.3. 트랜스포머 인코더
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
-     11.4.4. 트랜스포머 사용 기준
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id17">
-   11.5. 시퀀스-투-시퀀스 학습
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id18">
-   11.6. 참고 문헌
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id19">
-   11.7. 연습 문제
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>자연어 처리</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   11.1. 자연어 처리 소개
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   11.2. 텍스트 데이터 전처리
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
-     11.2.1. 문장 표준화
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id5">
-     11.2.2. 토큰화
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
-     11.2.3. 어휘 색인화
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id7">
-   11.3. 단어 주머니와 단어 임베딩
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#imdb">
-     11.3.1. IMDB 영화 후기 데이터셋 준비
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id8">
-     11.3.2. 단어 주머니 활용법
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id9">
-     11.3.3. 시퀀스 활용법
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id10">
-       11.3.3.1. 원-핫 단어 벡터
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#id11">
-       11.3.3.2. 단어 임베딩
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#glove">
-       11.3.3.3. GloVe 단어 임베딩
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id12">
-   11.4. 트랜스포머 아키텍처
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id13">
-     11.4.1. 셀프 어텐션
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id14">
-     11.4.2. 멀티헤드 어텐션
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id15">
-     11.4.3. 트랜스포머 인코더
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id16">
-     11.4.4. 트랜스포머 사용 기준
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id17">
-   11.5. 시퀀스-투-시퀀스 학습
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id18">
-   11.6. 참고 문헌
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id19">
-   11.7. 연습 문제
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>자연어 처리</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.1. 자연어 처리 소개</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.2. 텍스트 데이터 전처리</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.2.1. 문장 표준화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.2.2. 토큰화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">11.2.3. 어휘 색인화</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3. 단어 주머니와 단어 임베딩</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이터셋 준비</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.3.2. 단어 주머니 활용법</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">11.3.3. 시퀀스 활용법</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">11.3.3.1. 원-핫 단어 벡터</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.3.3.2. 단어 임베딩</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#glove">11.3.3.3. GloVe 단어 임베딩</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.4.1. 셀프 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">11.4.2. 멀티헤드 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">11.4.3. 트랜스포머 인코더</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">11.4.4. 트랜스포머 사용 기준</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">11.5. 시퀀스-투-시퀀스 학습</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">11.6. 참고 문헌</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">11.7. 연습 문제</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="ch-nlp">
-<span id="id1"></span><h1><span class="section-number">11. </span>자연어 처리<a class="headerlink" href="#ch-nlp" title="Permalink to this headline">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">11. </span>자연어 처리<a class="headerlink" href="#ch-nlp" title="Permalink to this heading">#</a></h1>
 <p><strong>감사의 글</strong></p>
 <p>아래 내용은 프랑소와 숄레의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
@@ -645,7 +416,7 @@ title="Print to PDF"
 </ul>
 <h1>1부</h1><p>단어 주머니와 단어 임베딩을 활용하는 모델을 알아본다.</p>
 <section id="id2">
-<h2><span class="section-number">11.1. </span>자연어 처리 소개<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">11.1. </span>자연어 처리 소개<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>파이썬, 자바, C, C++, C#, 자바스크립트 등 컴퓨터 프로그래밍언어와 구분하기 위해
 일상에서 사용되는 한국어, 영어 등을 <strong>자연어</strong><font size='2'>natural language</font>라
 부른다.</p>
@@ -678,11 +449,11 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="id3">
-<h2><span class="section-number">11.2. </span>텍스트 데이터 전처리<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">11.2. </span>텍스트 데이터 전처리<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <p>딥러닝 모델은 문장 자체를 처리할 수 없다.
 따라서 문장을 수치형 텐서로 변환하는 <strong>문장 벡터화</strong><font size='2'>text vectorization</font> 과정이 요구되며
 보통 다음 세 단계를 따른다.</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><strong>문장 표준화</strong><font size='2'>text standardization</font>: 소문자화, 마침표 제거 등등</p></li>
 <li><p><strong>토큰화</strong><font size='2'>tokenization</font>: 기본 단위의 <strong>유닛</strong><font size='2'>units</font>으로 쪼개기.
 문자, 단어, 단어 집합 등이 토큰으로 활용됨.</p></li>
@@ -691,7 +462,7 @@ title="Print to PDF"
 <p>아래 그림은 문장 벡터화의 기본적인 과정을 잘 보여준다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-01.png" style="width:60%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><section id="id4">
-<h3><span class="section-number">11.2.1. </span>문장 표준화<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.2.1. </span>문장 표준화<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>다음 두 문장을 표준화를 통해 동일한 문장으로 변환해보자.</p>
 <ul class="simple">
 <li><p>“sunset came. i was staring at the Mexico sky. Isnt nature splendid??”</p></li>
@@ -714,7 +485,7 @@ title="Print to PDF"
 예를 들어 인터뷰 기사의 경우 물음표(<code class="docutils literal notranslate"><span class="pre">?</span></code>)는 제거하면 안된다.</p>
 </section>
 <section id="id5">
-<h3><span class="section-number">11.2.2. </span>토큰화<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.2.2. </span>토큰화<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <p>문장 표준화 이후 데이터 분석의 기본 단위인 토큰으로 쪼개야 한다.
 보통 아래 세 가지 방식 중에 하나를 사용한다.</p>
 <ul class="simple">
@@ -773,7 +544,7 @@ title="Print to PDF"
 </ul>
 </section>
 <section id="id6">
-<h3><span class="section-number">11.2.3. </span>어휘 색인화<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.2.3. </span>어휘 색인화<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>일반적으로 먼저 훈련셋에 포함된 모든 토큰들의 색인(인덱스)을 생성한 다음에
 원-핫, 멀티-핫 인코딩 등의 방식을 사용하여 수치형 텐서로 변환한다.</p>
 <p><a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">4장</span></a>에서 언급한 대로
@@ -880,7 +651,7 @@ title="Print to PDF"
 </section>
 </section>
 <section id="id7">
-<h2><span class="section-number">11.3. </span>단어 주머니와 단어 임베딩<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">11.3. </span>단어 주머니와 단어 임베딩<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <p>훈련시키려 하는 자연어 처리 모델에 따라 문장(텍스트)을 변환하는 방식이 달라진다.</p>
 <ul class="simple">
 <li><p>단어 주머니<font size='2'>bag-of-words</font> 사용 모델</p>
@@ -901,7 +672,7 @@ title="Print to PDF"
 <p>여기서는 IMDB 영화 후기 데이터를 이용하여 두 모델 방식의
 활용법과 차이점을 소개한다.</p>
 <section id="imdb">
-<h3><span class="section-number">11.3.1. </span>IMDB 영화 후기 데이터셋 준비<a class="headerlink" href="#imdb" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.3.1. </span>IMDB 영화 후기 데이터셋 준비<a class="headerlink" href="#imdb" title="Permalink to this heading">#</a></h3>
 <p>IMDB 데이터셋을 직접 다운로드하여 전처리하는 과정을 자세히 살펴본다.</p>
 <p><strong>준비 과정 1: 데이터셋 다운로드 압축 풀기</strong></p>
 <p><a class="reference external" href="https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">aclIMDB_v1.tar</a> 파일을
@@ -957,7 +728,7 @@ title="Print to PDF"
 </div>
 </section>
 <section id="id8">
-<h3><span class="section-number">11.3.2. </span>단어 주머니 활용법<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.3.2. </span>단어 주머니 활용법<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <p>단어 주머니에 채울 토큰으로 어떤 N-그램을 사용할지 먼저 지정해야 한다.
 N-그램의 종류는 다음과 같다.</p>
 <ul class="simple">
@@ -1150,7 +921,7 @@ N-그램의 종류는 다음과 같다.</p>
 </div>
 </section>
 <section id="id9">
-<h3><span class="section-number">11.3.3. </span>시퀀스 활용법<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.3.3. </span>시퀀스 활용법<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p>바이그램, 3-그램 등을 이용하여 단어들 사이의 순서 정보를 함께 활용하면 기본적으로 모델의 훈련 성능이 향상된다.
 하지만 이와 같은 방식은 일종의 특성 공학<font size='2'>feature engineering</font>이며,
 딥러닝은 어떤 형식의 특성 공학도 하지 않는 방향으로 발전해왔다.</p>
@@ -1242,7 +1013,7 @@ N-그램의 종류는 다음과 같다.</p>
 </pre></div>
 </div>
 <section id="id10">
-<h4><span class="section-number">11.3.3.1. </span>원-핫 단어 벡터<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h4>
+<h4><span class="section-number">11.3.3.1. </span>원-핫 단어 벡터<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
 <p>정수 벡터를 순차 모델의 입력값으로 그대로 사용할 수는 없다.
 대신 정수 벡터에 포함된 각각의 정수에 원-핫 인코딩을 적용하면
 원-핫 벡터로 이루어진 시퀀스가 생성되고 이를 순환 신경망 모델의 입력값으로 사용한다.</p>
@@ -1286,7 +1057,7 @@ N-그램의 종류는 다음과 같다.</p>
 테스트셋에 대한 정확도가 87% 정도에 불과해서 바이그램 모델보다 성능이 낮다.</p>
 </section>
 <section id="id11">
-<h4><span class="section-number">11.3.3.2. </span>단어 임베딩<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h4>
+<h4><span class="section-number">11.3.3.2. </span>단어 임베딩<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
 <p>앞서 보았듯이 정수 벡터를 원-핫 인코딩해서 원-핫 워드 벡터로 구성된 시퀀스를 생성하는 방식은 별로 적절하지 않다.
 변환된 벡터의 특성이 너무 많으며, 단어들 사이의 다음과 같은 유기적 관계도 제대로 반영되지 못한다.</p>
 <ul class="simple">
@@ -1318,21 +1089,21 @@ N-그램의 종류는 다음과 같다.</p>
 이는 모델로 하여금 한 단어에 대해 256 개, 512 개, 또는 1024 개 등 지정된 개수만큼의
 단어 특성을 찾도록 유도한다.</p>
 <p>아래 그림은 원-핫 인코딩 방식과 단어 임베딩 방식의 차이점을 보여준다.</p>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
-<tr class="row-odd"><th class="text-align:left head"><p>원-핫 단어 벡터</p></th>
-<th class="text-align:left head"><p>단어 임베딩</p></th>
+<tr class="row-odd"><th class="head text-left"><p>원-핫 단어 벡터</p></th>
+<th class="head text-left"><p>단어 임베딩</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:left"><p>희소 벡터</p></td>
-<td class="text-align:left"><p>밀집 벡터</p></td>
+<tr class="row-even"><td class="text-left"><p>희소 벡터</p></td>
+<td class="text-left"><p>밀집 벡터</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:left"><p>매우 많은 특성</p></td>
-<td class="text-align:left"><p>적절한 양의 특성</p></td>
+<tr class="row-odd"><td class="text-left"><p>매우 많은 특성</p></td>
+<td class="text-left"><p>적절한 양의 특성</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:left"><p>직접 전처리</p></td>
-<td class="text-align:left"><p>모델 스스로 훈련</p></td>
+<tr class="row-even"><td class="text-left"><p>직접 전처리</p></td>
+<td class="text-left"><p>모델 스스로 훈련</p></td>
 </tr>
 </tbody>
 </table>
@@ -1396,7 +1167,7 @@ N-그램의 종류는 다음과 같다.</p>
 바이그램 모델보다 성능이 여전히 떨어지는 이유 중에 하나는 후기에 사용된 단어의 수를 600 개로 제한하였기 때문이다.</p>
 </section>
 <section id="glove">
-<h4><span class="section-number">11.3.3.3. </span>GloVe 단어 임베딩<a class="headerlink" href="#glove" title="Permalink to this headline">#</a></h4>
+<h4><span class="section-number">11.3.3.3. </span>GloVe 단어 임베딩<a class="headerlink" href="#glove" title="Permalink to this heading">#</a></h4>
 <p>합성곱 신경망에서 이미지넷<font size='2'>ImageNet</font> 데이터셋을 이용하여
 잘 훈련된 모델을 재활용했던 것처럼 대량의 문장을 분석하여 훈련된 단어 임베딩을 활용할 수 있다.</p>
 <p>여기서는 2014년에 스탠포드 대학교의 연구자들이 위키피디아에 사용된 수 많은 문장을 분석하여 생성한
@@ -1480,14 +1251,14 @@ N-그램의 종류는 다음과 같다.</p>
 </section>
 </section>
 <section id="id12">
-<h2><span class="section-number">11.4. </span>트랜스포머 아키텍처<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">11.4. </span>트랜스포머 아키텍처<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
 <p>2017년 논문 <a class="reference external" href="https://arxiv.org/abs/1706.03762">“Attention is all you need”</a>에서
 소개된 <strong>트랜스포머</strong><font size='2'>Transformer</font> 아키텍처는 자연어처리 분야에서 혁명을 불러왔다.
 트랜스포머는 “<strong>뉴럴 어텐션</strong><font size='2'>Neural Attention</font>” 기법을 이용하여
 순환층과는 다르게 작동하는 순차 모델<font size='2'>sequence model</font>을 지원한다.</p>
 <p>여기서는 뉴럴 어텐션의 작동법을 설명한 후에 트랜스포머 인코더를 이용하여 IMDB 영화 후기 분류 모델을 구현한다.</p>
 <section id="id13">
-<h3><span class="section-number">11.4.1. </span>셀프 어텐션<a class="headerlink" href="#id13" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.4.1. </span>셀프 어텐션<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <p>입력값의 특성 중에 보다 중요한 특성에 <strong>집중</strong><font size='2'>attention</font>하면 보다 효율적으로
 훈련이 진행될 수 있다.</p>
 <p><strong>집중의 중요성</strong></p>
@@ -1576,7 +1347,7 @@ N-그램의 종류는 다음과 같다.</p>
 </div>
 </section>
 <section id="id14">
-<h3><span class="section-number">11.4.2. </span>멀티헤드 어텐션<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.4.2. </span>멀티헤드 어텐션<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
 <p>어텐션 변환을 수행하는 <strong>헤드</strong><font size='2'>head</font>를 여러 개 사용해서
 다양한 관점에서 단어들 사이의 연관성을 알아낸 후에 알아낸 결과를 합치는 기법이
 <strong>멀티헤드 어텐션</strong><font size='2'>multi-head attention</font>이다.
@@ -1587,7 +1358,7 @@ N-그램의 종류는 다음과 같다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-08.png" style="width:70%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
 <section id="id15">
-<h3><span class="section-number">11.4.3. </span>트랜스포머 인코더<a class="headerlink" href="#id15" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.4.3. </span>트랜스포머 인코더<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
 <p>헤드에 사용된 밀집층의 역할이 중요하며 크다는 사실이 알려지면서
 멀티헤드 어텐션 층 이후에 밀집층을 더 사용하는 아키텍처가 개발되었다.
 멀티헤드 어텐션 층, 밀집<font size='2'>dense</font> 층, 정규화 층, 잔차 연결을
@@ -1714,33 +1485,33 @@ N-그램의 종류는 다음과 같다.</p>
 </div>
 <p><strong>모델 비교</strong></p>
 <p>자연어처리와 관련된 모델을 단어 순서 인식과 문맥 이해 차원에서 비교하면 다음과 같다.</p>
-<table class="colwidths-auto table">
+<table class="table">
 <thead>
-<tr class="row-odd"><th class="text-align:center head"><p></p></th>
-<th class="text-align:center head"><p>단어순서 인식</p></th>
-<th class="text-align:center head"><p>문맥 이해</p></th>
+<tr class="row-odd"><th class="head text-center"><p></p></th>
+<th class="head text-center"><p>단어순서 인식</p></th>
+<th class="head text-center"><p>문맥 이해</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-align:center"><p>유니그램 주머니 모델</p></td>
-<td class="text-align:center"><p>X</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-even"><td class="text-center"><p>유니그램 주머니 모델</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>바이그램 주머니 모델</p></td>
-<td class="text-align:center"><p><span class="math notranslate nohighlight">\(\triangle\)</span></p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-odd"><td class="text-center"><p>바이그램 주머니 모델</p></td>
+<td class="text-center"><p><span class="math notranslate nohighlight">\(\triangle\)</span></p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>RNN</p></td>
-<td class="text-align:center"><p>O</p></td>
-<td class="text-align:center"><p>X</p></td>
+<tr class="row-even"><td class="text-center"><p>RNN</p></td>
+<td class="text-center"><p>O</p></td>
+<td class="text-center"><p>X</p></td>
 </tr>
-<tr class="row-odd"><td class="text-align:center"><p>셀프 어텐션</p></td>
-<td class="text-align:center"><p>X</p></td>
-<td class="text-align:center"><p>O</p></td>
+<tr class="row-odd"><td class="text-center"><p>셀프 어텐션</p></td>
+<td class="text-center"><p>X</p></td>
+<td class="text-center"><p>O</p></td>
 </tr>
-<tr class="row-even"><td class="text-align:center"><p>트랜스포머</p></td>
-<td class="text-align:center"><p>O</p></td>
-<td class="text-align:center"><p>O</p></td>
+<tr class="row-even"><td class="text-center"><p>트랜스포머</p></td>
+<td class="text-center"><p>O</p></td>
+<td class="text-center"><p>O</p></td>
 </tr>
 </tbody>
 </table>
@@ -1822,7 +1593,7 @@ N-그램의 종류는 다음과 같다.</p>
 </div>
 </section>
 <section id="id16">
-<h3><span class="section-number">11.4.4. </span>트랜스포머 사용 기준<a class="headerlink" href="#id16" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">11.4.4. </span>트랜스포머 사용 기준<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
 <p>단어주머니 모델이 여전히 유용하게 활용된다.
 실제로 IMDB 데이터셋에 대한 성능도 단어주머니 모델이 가장 좋았다.
 그리고 많은 실험 결과 “훈련셋의 크기”와 “문장의 평균 단어 수”의 비율이 모델 선택에
@@ -1854,20 +1625,20 @@ N-그램의 종류는 다음과 같다.</p>
 </section>
 </section>
 <section id="id17">
-<h2><span class="section-number">11.5. </span>시퀀스-투-시퀀스 학습<a class="headerlink" href="#id17" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">11.5. </span>시퀀스-투-시퀀스 학습<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h2>
 <p>준비중 …</p>
 </section>
 <section id="id18">
-<h2><span class="section-number">11.6. </span>참고 문헌<a class="headerlink" href="#id18" title="Permalink to this headline">#</a></h2>
-<ol class="simple">
+<h2><span class="section-number">11.6. </span>참고 문헌<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
 <li><p><a class="reference external" href="https://e2eml.school/transformers.html">Transformers from Scratch</a>:
 트랜스포머 내부의 작동과정 자세한 설명</p></li>
 <li><p><a class="reference external" href="https://keras.io/guides/keras_nlp/getting_started/">KerasNLP</a>: KerasNLP 소개</p></li>
 </ol>
 </section>
 <section id="id19">
-<h2><span class="section-number">11.7. </span>연습 문제<a class="headerlink" href="#id19" title="Permalink to this headline">#</a></h2>
-<ol class="simple">
+<h2><span class="section-number">11.7. </span>연습 문제<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-dl_for_text.ipynb">(실습) 자연어 처리</a></p></li>
 </ol>
 </section>
@@ -1885,7 +1656,7 @@ N-그램의 종류는 다음과 같다.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1893,49 +1664,125 @@ N-그램의 종류는 다음과 같다.</p>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="dl_for_timeseries.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">10. </span>시계열 분석</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="dl_for_timeseries.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>시계열 분석</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="generative_dl.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="generative_dl.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title"><span class="section-number">12. </span>생성 모델</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By 코딩알지<br/>
-  
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.1. 자연어 처리 소개</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.2. 텍스트 데이터 전처리</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.2.1. 문장 표준화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.2.2. 토큰화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">11.2.3. 어휘 색인화</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3. 단어 주머니와 단어 임베딩</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이터셋 준비</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.3.2. 단어 주머니 활용법</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">11.3.3. 시퀀스 활용법</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">11.3.3.1. 원-핫 단어 벡터</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.3.3.2. 단어 임베딩</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#glove">11.3.3.3. GloVe 단어 임베딩</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.4.1. 셀프 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">11.4.2. 멀티헤드 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">11.4.3. 트랜스포머 인코더</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">11.4.4. 트랜스포머 사용 기준</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">11.5. 시퀀스-투-시퀀스 학습</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">11.6. 참고 문헌</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">11.7. 연습 문제</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 코딩알지
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
