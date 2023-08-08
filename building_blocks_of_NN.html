@@ -640,17 +640,25 @@ MNIST 모델의 경우 지도 학습이기에 입력 데이터셋과 타깃 데�
 <span class="go">array([5.6115879e-10, 6.5201892e-11, 3.8620074e-06, 2.0421362e-04,</span>
 <span class="go">       2.3715735e-13, 1.0822280e-08, 3.6126845e-15, 9.9979085e-01,</span>
 <span class="go">       2.0998414e-08, 1.0214288e-06], dtype=float32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span> 
+<span class="go">7 </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">7</span><span class="p">]</span> 
+<span class="go">0.99999106</span>
 </pre></div>
 </div>
 <p>위 예측값의 7번 인덱스의 값이 0.998 정도로 가장 높으며, 이는
 0번 이미지 입력 샘플이 숫자 7을 담고 있을 확률이 거의 100% 라고 예측했음을 의미한다.
 실제로도 0번 이미지는 숫자 7을 담고 있어서 이 경우는 정확하게 예측되었다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
+<span class="go">7</span>
+</pre></div>
+</div>
 <p><strong>모델 성능 테스트</strong></p>
 <p>훈련에 사용되지 않은 테스트셋 전체에 대한 성능 평가를 위해
 <code class="docutils literal notranslate"><span class="pre">evaluate()</span></code> 메서드를 테스트셋과 테스트셋의 레이블셋을 인자로 해서 호출한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;test_acc: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="go">313/313 [==============================] - 1s 3ms/step - loss: 0.0635 - accuracy: 0.9811</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;test_acc: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="go">test_acc: 0.9811000227928162</span>
 </pre></div>
 </div>
