@@ -414,84 +414,129 @@ document.write(`
 <p class="admonition-title">샘플, 타깃, 레이블, 예측값, 클래스</p>
 <p>머신러닝 모델 학습에 사용되는 데이터셋과 관련된 기본 용어는 다음과 같다.</p>
 <ul class="simple">
-<li><p>샘플<font size='2'>sample</font>: 개별 데이터</p></li>
-<li><p>타깃<font size='2'>target</font>: 개별 샘플과 연관된 값. 모델이 맞춰야 하는 값</p></li>
-<li><p>레이블<font size='2'>label</font>: 분류 과제의 경우 타깃 대신에 레이블 용어 사용</p></li>
-<li><p>예측값<font size='2'>prediction</font>: 개별 샘플에 대해 모델이 예측한 값</p></li>
-<li><p>클래스<font size='2'>class</font>: 분류 모델이 예측할 수 있는 레이블들의 집합. 범주<font size='2'>category</font>라고도 함. 파이썬 프로그래밍 언어의 클래스 개념과 다름에 주의할 것.</p></li>
+<li><p>샘플<font size='2'>sample</font>: 개별 데이터를 가리킴.</p></li>
+<li><p>타깃<font size='2'>target</font>과 레이블(라벨)<font size='2'>label</font></p>
+<ul>
+<li><p>타깃: 개별 샘플과 연관된 값이며, 샘플이 주어지면 머신러닝 모델이 맞춰야 하는 값임.</p></li>
+<li><p>레이블(라벨): 분류 과제의 경우 타깃 대신 레이블이라 부름.</p></li>
+</ul>
+</li>
+<li><p>예측과 예측값: 개별 샘플에 대해 머신러닝 모델이 타깃에 가까운 값을 예측할 수록 좋은 성능의 모델임. 예측값은 모델이 입력 샘플들에 대해 예측한 값.</p></li>
+<li><p>클래스<font size='2'>class</font>: 분류 모델의 에측값으로 사용될 수 있는 레이블(타깃)들의 집합. 범주<font size='2'>category</font>라고도 함.
+객체지향 프로그래밍 언어의 클래스 개념과 다름에 주의할 것.</p></li>
 </ul>
 </div>
-<p><strong>신경망 모델의 구조 지정</strong></p>
-<p>MNIST 분류 모델로 다음 신경망을 사용한다.</p>
+<p><strong>신경망 모델 지정</strong></p>
+<p>MNIST 분류 모델로 다음과 같이 구성된 신경망을 사용한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
+
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
-<span class="p">])</span>
+    <span class="p">])</span>
 </pre></div>
 </div>
 <p>위 신경망 구조에 사용된 요소들은 다음과 같다.</p>
 <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스</p>
+<ul>
+<li><p>1개 이상의 층을 순차적으로 연결하여 모델 객체를 생성하는 (파이썬) 클래스.</p></li>
+<li><p>앞으로 다른 방식으로 모델 객체를 생성하는 다양한 클래스를 접할 것임.</p></li>
+</ul>
+</li>
 <li><p>층<font size='2'>layer</font></p>
 <ul>
-<li><p>2개의 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층 사용. 다른 종류의 층도 사용 가능.</p></li>
-<li><p>입력 데이터 변환 후 이어지는 층으로 전달</p></li>
+<li><p>데이터가 입력되면 적절한 방식으로 변환 후 이어지는 층으로 전달함.</p></li>
+<li><p>여기서는 2개의 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층 사용.</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Sequential</span></code> (자료형) 클래스 활용</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층</p>
 <ul>
-<li><p>층을 연결하는 방식 지정. 다른 층 연결 방식 클래스도 사용 가능.</p></li>
-<li><p>완전 연결(fully connected). 조밀(densely)하게 연결되었다고 함.</p></li>
+<li><p>입력 샘플의 모든 특성을 이용하여 층의 출력값을 생성함.
+이런 방식으로 연결된 층들을 <strong>조밀하게 연결된</strong><font size='2'>densely connected</font>
+또는 <strong>완전하게 연결된</strong><font size='2'>fully-connected</font> 층이라고 함.
+<code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층은 항상 조밀하게 다음 층과 연결됨.</p></li>
+<li><p>첫째 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층</p>
+<ul>
+<li><p>512개의 유닛 사용. 784개의 픽셀값으로부터 512개의 값을 생성.
+즉, 한 장의 MNIST 손글씨 숫자 이미지에 해당하는 길이가 784인 1차원 어레이가 입력되면
+길이가 512인 1차원 어레이를 생성함.</p></li>
+<li><p>렐루<font size='2'>Relu</font> 함수: 활성화 함수로 사용됨.
+생성된 512개의 값 중에서 음수는 모두 0으로 처리하는 함수.</p></li>
 </ul>
 </li>
-<li><p>첫째 층</p>
+<li><p>둘째 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층</p>
 <ul>
-<li><p>512개의 유닛<font size='2'>unit</font> 사용. 즉 512개의 특성으로 구성된 데이터로 변환</p></li>
-<li><p>활성화 함수<font size='2'>activation function</font>: 렐루<font size='2'>Relu</font> 함수</p></li>
+<li><p>10개의 유닛 사용. 입력된 512개의 값으로부터 10개의 값을 생성.</p></li>
+<li><p>소프트맥스<font size='2'>Softmax</font> 함수가 활성화 함수로 사용됨.</p></li>
+<li><p>계산된 10개의 값을 이용하여 0부터 9까지 10개의 범주 각각에 속할 확률을 계산함. 모든 확률의 합은 1.</p></li>
 </ul>
 </li>
-<li><p>둘째 층</p>
+</ul>
+</li>
+<li><p>유닛<font size='2'>unit</font></p>
 <ul>
-<li><p>10개의 유닛 사용. 10개의 범주를 대상으로 해당 범부에 속할 확률 계산.</p></li>
-<li><p>활성화 함수: 소프트맥스<font size='2'>Softmax</font> 함수. 모든 확률의 합이 1이 되도록 함.</p></li>
+<li><p>생성된 값을 저장하는 장치.</p></li>
+<li><p>하나의 유닛에 하나의 값이 저장됨.</p></li>
+</ul>
+</li>
+<li><p>활성화 함수<font size='2'>activation function</font></p>
+<ul>
+<li><p>생성되어 유닛에 저장된 값을 이용하여 새로운 개수의 다른 값을 생성하는 함수.</p></li>
+<li><p>활성화 함수를 통과한 값이 다음 층으로 전달됨.</p></li>
 </ul>
 </li>
 </ul>
 <p><strong>신경망 모델 컴파일</strong></p>
-<p>선언된 신경망을 학습이 가능한 모델로 만들기 위해
+<p>지정된 신경망을 학습이 가능한 모델로 만들기 위해서
 옵티마이저, 손실 함수, 성능 평가 지표를 설정하는 컴파일 과정을 실행한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
+<p>위 컴파일 과정에 사용된 요소들은 다음과 같다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">optimizer</span></code>:
-모델의 성능을 향상시키는 방향으로 가중치를 업데이트하는 알고리즘 지정.
-옵티마이저라 불리며 경사하강법(백워드 패스, 역전파) 업무를 처리함.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">loss</span></code>: <strong>손실 함수</strong><font size='2'>loss function</font> 지정.
-학습 중에 있는 모델의 성능을 손실값으로 측정. 손실값이 작을 수록 좋음.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">metrics</span></code>:
-훈련과 테스트 과정을 모니터링 할 때 사용되는 평가 지표<font size='2'>metric</font> 지정.
-손실 함수값을 사용할 수도 있고 아닐 수도 있음.
-여러 개의 지표를 사용할 수 있지만 분류 모델의 경우 일반적으로 정확도<font size='2'>accuracy</font> 활용.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">optimizer</span></code></p>
+<ul>
+<li><p>경사하강법(백워드 패스, 역전파) 업무를 처리하는 옵티마이저 지정.</p></li>
+<li><p>여기서는 <code class="docutils literal notranslate"><span class="pre">rmsprop</span></code> 옵티마이저 사용.</p></li>
+<li><p>앞으로 다양한 옵티마이저를 접할 것임.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss</span></code></p>
+<ul>
+<li><p>손실 함수<font size='2'>loss function</font> 지정.</p></li>
+<li><p>손실 함수: 모델 학습 도중에 모델의 성능을 손실값으로 측정. 손실값이 작을 수록 좋음.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metrics</span></code></p>
+<ul>
+<li><p>훈련과 테스트 과정을 모니터링 할 때 사용되는 한 개 이상의 평가 지표<font size='2'>metric</font>를 포함하는 리스트로 지정.</p></li>
+<li><p>손실 함수값, 정확도 등 모델의 종류에 따라 다양한 평가 지표를 사용할 수 있음.</p></li>
+<li><p>분류 모델의 경우 일반적으로 정확도<font size='2'>accuracy</font>를 평가지표로 포함시킴.</p></li>
+</ul>
+</li>
 </ul>
 <p><strong>이미지 데이터 전처리</strong></p>
-<p>모델 학습에 좋은 방식으로 데이터를 변환하는 과정이다.
-MNIST 데이터의 경우
-0부터 255 사이의 8비트 정수(<code class="docutils literal notranslate"><span class="pre">uint8</span></code>)로 이루어진 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28)</span></code> 모양의 2차원 어레이로 표현된 이미지를
-0부터 1 사이의 32비트 부동소수점(<code class="docutils literal notranslate"><span class="pre">float32</span></code>)으로 이루어진 <code class="docutils literal notranslate"><span class="pre">(28*28,</span> <span class="pre">)</span></code> 모양의 1차원 어레이로 변환한다.</p>
+<p>머신러닝 모델에 따라 입력값이 적절한 형식을 갖춰야 한다.
+앞서 두 개의 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층과 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스로 지정된 모델의
+입력값은 1차원 어레이 형식을 갖춰야 한다.</p>
+<p>그런데 MNIST 데이터 샘플의 경우
+0부터 255 사이의 8비트 정수(<code class="docutils literal notranslate"><span class="pre">uint8</span></code>)로 이루어진 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28)</span></code> 모양의 2차원 어레이로 표현되었다.
+이를 1차원 어레이로 변환하기 위해 <code class="docutils literal notranslate"><span class="pre">(28*28,</span> <span class="pre">)</span></code> 모양의 1차원 어레이로 변환한다.
+또한 어레이의 각 항목을 0부터 1 사이의 32비트 부동소수점(<code class="docutils literal notranslate"><span class="pre">float32</span></code>)으로 변환한다.
+이는 머신러닝 모델이 일반적으로 정수가 아닌 부동소수점 계산을 사용하기 때문이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">))</span>
 <span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>   <span class="c1"># 0과 1사이의 값</span>
 <span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">))</span>
 <span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>     <span class="c1"># 0과 1사이의 값</span>
 </pre></div>
 </div>
-<p>전처리된 데이터가 신경망에 전달되는 과정을 묘사하면 다음과 같다.</p>
-<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist_2layers_arch.png?raw=true" style="width:600px;"></div><p><strong>모델 훈련</strong></p>
+<p><strong>모델 훈련</strong></p>
 <p>모델 훈련은 컴파일된 모델의 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메소드를 호출하면 된다.
-MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 첫째와 둘째 인자로 사용한다.</p>
+MNIST 모델의 경우 지도 학습이기에 입력 데이터셋과 타깃 데이터셋을 각각 첫째와 둘째 인자로 사용한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -515,14 +560,47 @@ MNIST 모델의 경우 지도 학습이기에 입력값과 타깃값을 각각 �
 <span class="mi">469</span><span class="o">/</span><span class="mi">469</span> <span class="p">[</span><span class="o">==============================</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="n">s</span> <span class="mi">3</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.0378</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9885</span>
 </pre></div>
 </div>
-<div class="info admonition">
+<div class="note admonition">
 <p class="admonition-title">배치 크기와 스텝</p>
-<p><strong>스텝</strong><font size='2'>step</font>은 하나의 배치(묶음)을 학습하는 과정을 의미한다.
-배치 크기(<code class="docutils literal notranslate"><span class="pre">batch_size</span></code>)를 128로 정하면 총 6만개의 훈련 샘플을 128개씩 묶어
-총 469(60,000/128 = 468.75)개의 배치가 매 에포크마다 생성된다.
-따라서 에포크 한 번 동안 총 469번의 스텝이 실행되고 그럴 때마다 손실값과 정확도가 계산되며
-이를 평균해서 훈련 과정중에 보여지게 된다.
-위 훈련의 경우 학습된 모델의 훈련셋에 대한 정확도는 98.9% 정도로 계산되었다.</p>
+<p><strong>스텝</strong><font size='2'>step</font>은 하나의 배치(묶음)에 대해 학습하는 과정을 가리킨다.
+위 코드에서 배치 크기(<code class="docutils literal notranslate"><span class="pre">batch_size</span></code>)가 128이기에 총 6만개의 훈련 샘플을 128개씩 묶는다.
+따라서 469(60,000/128 = 468.75)개의 배치가 생성되며,
+하나의 에포크 동안 총 469번의 스텝이 실행된다.
+스텝이 끝날 때마다 사용된 배치 묶음에 대한 손실값과 정확도가 계산되어
+에포크 단위로 평균값이 훈련 과정중에 보여지게 된다.
+위 훈련은 총 5번의 훈련 에포크가 진행되며 최종적으로 훈련셋에 대한 정확도는 98.85%로 계산되었다.</p>
+</div>
+<p><strong>모델 훈련과정</strong></p>
+<p>전처리된 데이터가 신경망에 전달되는 과정을 묘사하면 다음과 같다.</p>
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist_2layers_arch.png?raw=true" style="width:600px;"></div><ul class="simple">
+<li><p>손글씨 데이터 샘플 입력</p>
+<ul>
+<li><p>위 이미지에서는 8을 가리키는 이미지 샘플이 입력값으로 사용됨.</p></li>
+<li><p>784 개의 픽셀값으로 구성된 1차원 어레이로 변환</p></li>
+</ul>
+</li>
+<li><p>첫째 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층</p>
+<ul>
+<li><p>입력된 784개의 픽셀값을 이용하여 512개의 값 생성.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relu()</span></code> 활성화 함수로 인해 음수는 모두 0으로 처리됨.</p></li>
+</ul>
+</li>
+<li><p>둘째 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층</p>
+<ul>
+<li><p>첫째 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층에서 생성된 512개의 값을 이용하여 10개의 값 생성.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 활성화 함수로 인해 모두 0과 1사이의 값으로 변환됨.
+모든 값의 합이 1이 되며, 각각의 범주에 속할 확률을 가리킴.</p></li>
+</ul>
+</li>
+</ul>
+<div class="note admonition">
+<p class="admonition-title">모델의 입력값</p>
+<p>위 그림에서는 하나의 입력 샘플이 변환되는 과정을 보여준다.
+하지만 모델의 훈련은 배치 단위로 이루어지며
+배치에 포함된 모든 샘플에 대해 동시에 모델의 예측값을 계산한다.</p>
+<p>예를 들어, 배치 크기가 128이면, 위 머신러닝 모델은 <code class="docutils literal notranslate"><span class="pre">128x784</span></code> 모양의 2차원 어레이를 입력값으로 사용하며,
+각각의 층에서 이뤄지는 데이터 변환은 행렬 연산으로 계산된다.
+최정적으로 활성화 함수는 생성된 어레이의 각각의 항목에 적용하는 <a class="reference external" href="https://codingalzi.github.io/datapy/numpy_3.html">유니버설 함수</a>로 작동한다.</p>
 </div>
 <p><strong>모델 활용: 예측하기</strong></p>
 <p>훈련에 사용되지 않은 손글씨 숫자 이미지 10장에 대한 학습된 모델의 예측값을
