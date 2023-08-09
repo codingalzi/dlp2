@@ -728,7 +728,7 @@ MNIST 모델의 경우 지도 학습이기에 입력 데이터셋과 타깃 데�
 <li><p>3차원(3D) 텐서 (랭크-3 텐서)</p>
 <ul class="simple">
 <li><p>행, 열, 깊이 세 개의 축 사용.</p></li>
-<li><p>동일 모양의 2D 텐서 또는 동일한 길이의 벡터를 항목으로 사용하는 2D 텐서로 이해 가능.</p></li>
+<li><p>동일 모양의 2D 텐서로 구성된 벡터로 이해 가능</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
              <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
@@ -741,18 +741,28 @@ MNIST 모델의 경우 지도 학습이기에 입력 데이터셋과 타깃 데�
              <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]])</span>
 </pre></div>
 </div>
+<ul>
+<li><p>또는 동일한 길이의 벡터를 항목으로 사용하는 2D 텐서로 이해 가능.
+예를 들어, RGB로 구성된 이미지 데이터가 3D 텐서로 표현됨. 아래 그림 참고.
+<br><br></p>
+  <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-rgb-3d-1.jpg?raw=true" style="width:600px;"></div>
+  <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-rgb-3d-2.jpg?raw=true" style="width:600px;"></div>
+  <p><div style="text-align: center">&lt;그림 출처: <a href="https://dev.to/sandeepbalachandran/machine-learning-going-furthur-with-cnn-part-2-41km">Machine Learning - Going Furthur with CNN Part 2</a>&gt;</div></p>
+</li>
+</ul>
 </li>
 </ul>
 <p>4D 텐서는 3D 텐서로 이루어진 벡터, 5D 텐서는 4D 텐서로 이루어진 벡터 등등
-임의의 차원의 텐서를 정의할 수 있지만 딥러닝에서는 일반적으로 4D 텐서 정도까지 사용한다.</p>
+임의의 차원의 텐서를 정의할 수 있지만 딥러닝에서는 일반적으로 4D 텐서 정도까지 사용한다.
+예를 들어 컬러 이미지 데이터로 구성된 훈련셋 등이 4D 텐서로 표현된다.</p>
 <div class="caution admonition">
 <p class="admonition-title">벡터의 차원</p>
-<p><strong>벡터의 길이</strong>를 <strong>차원</strong>이라 부르기도 하는 점에 주의해야 한다.
-예를 들어, <code class="docutils literal notranslate"><span class="pre">np.array([12,</span> <span class="pre">3,</span> <span class="pre">6,</span> <span class="pre">14,</span> <span class="pre">7])</span></code>는 5차원 벡터다.</p>
+<p><strong>벡터의 길이</strong>를 <strong>차원</strong>이라 부르기도 한다.
+예를 들어, <code class="docutils literal notranslate"><span class="pre">np.array([12,</span> <span class="pre">3,</span> <span class="pre">6,</span> <span class="pre">14,</span> <span class="pre">7])</span></code>는 5차원 벡터다.
+따라서 벡터의 차원인지, 텐서의 차원인지 명확히 구분할 필요가 있다.</p>
 </div>
 <p><strong>텐서 주요 속성</strong></p>
-<p>텐서의 주요 속성 세 가지는 다음과 같으며, 넘파이 어레이의 경우와
-동일한 기능을 갖는다.</p>
+<p>텐서의 주요 속성 세 가지는 다음과 같으며, 넘파이 어레이의 경우와 동일하다.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">ndim</span></code> 속성: 차원 수(랭크) 저장.
 예를 들어 MNIST 훈련셋 어레이의 차원은 3.</p>
@@ -780,7 +790,7 @@ MNIST 모델의 경우 지도 학습이기에 입력 데이터셋과 타깃 데�
 <code class="docutils literal notranslate"><span class="pre">float16</span></code>, <code class="docutils literal notranslate"><span class="pre">float32</span></code>,<code class="docutils literal notranslate"><span class="pre">float64</span></code>, <code class="docutils literal notranslate"><span class="pre">int8</span></code>, <code class="docutils literal notranslate"><span class="pre">uint8</span></code>, <code class="docutils literal notranslate"><span class="pre">string</span></code> 등이
 가장 많이 사용됨.
 예를 들어, MNIST 훈련셋에 포함된 이미지의 픽셀 정보는 0과 255 사이의
-정수로 표현되며 따라서 <code class="docutils literal notranslate"><span class="pre">unit8</span></code> 자료형을 사용.</p>
+정수로 표현되며 따라서 <code class="docutils literal notranslate"><span class="pre">unit8</span></code> 자료형을 사용함.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_images</span><span class="o">.</span><span class="n">dtype</span>
 <span class="go">uint8</span>
 </pre></div>
