@@ -724,7 +724,10 @@ MNIST 모델의 경우 지도 학습이기에 입력 데이터셋과 타깃 데�
 </pre></div>
 </div>
 </li>
-<li><p>흑백 사진 데이터를 2D 텐서로 표현 가능.</p></li>
+<li><p>흑백 사진 데이터를 2D 텐서로 표현 가능. 아래 그림 참고.
+<br></p>
+  <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist05.png?raw=true" style="width:600px;"></div>
+  <p><div style="text-align: center">&lt;그림 출처: <a href="https://towardsdatascience.com/exploring-how-neural-networks-work-and-making-them-interactive-ed67adbf9283">Towards data science: Mikkel Duif(2019)</a>&gt;</div></p></li>
 </ul>
 </li>
 </ul>
@@ -732,7 +735,8 @@ MNIST 모델의 경우 지도 학습이기에 입력 데이터셋과 타깃 데�
 <li><p>3차원(3D) 텐서 (랭크-3 텐서)</p>
 <ul>
 <li><p>행, 열, 깊이 세 개의 축 사용.</p></li>
-<li><p>동일 모양의 2D 텐서로 구성된 벡터로 이해 가능</p>
+<li><p>동일 모양의 2D 텐서로 구성된 벡터로 이해 가능.
+예를 들어 흑백 사진 샘프로 구성된 데이터셋이 3D 텐서로 표현됨.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
             <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
@@ -747,7 +751,7 @@ MNIST 모델의 경우 지도 학습이기에 입력 데이터셋과 타깃 데�
 </li>
 <li><p>또는 동일한 길이의 벡터를 항목으로 사용하는 2D 텐서로 이해 가능.
 예를 들어, RGB로 구성된 사진 데이터가 3D 텐서로 표현됨. 아래 그림 참고.
-<br><br></p>
+<br></p>
   <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-rgb-3d-1.jpg?raw=true" style="width:600px;"></div>
   <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-rgb-3d-2.jpg?raw=true" style="width:600px;"></div>
   <p><div style="text-align: center">&lt;그림 출처: <a href="https://dev.to/sandeepbalachandran/machine-learning-going-furthur-with-cnn-part-2-41km">Machine Learning - Going Furthur with CNN Part 2</a>&gt;</div></p>
@@ -755,9 +759,16 @@ MNIST 모델의 경우 지도 학습이기에 입력 데이터셋과 타깃 데�
 </ul>
 </li>
 </ul>
-<p>4D 텐서는 3D 텐서로 이루어진 벡터, 5D 텐서는 4D 텐서로 이루어진 벡터 등등
-임의의 차원의 텐서를 정의할 수 있지만 딥러닝에서는 일반적으로 4D 텐서 정도까지 사용한다.
-예를 들어 컬러 사진 데이터로 구성된 훈련셋 등이 4D 텐서로 표현된다.</p>
+<ul class="simple">
+<li><p>4D 텐서 (랭크-4 텐서)</p>
+<ul>
+<li><p>3D 텐서로 이루어진 벡터</p></li>
+<li><p>예를 들어 컬러 사진 데이터로 구성된 훈련셋 등이 4D 텐서로 표현됨.</p></li>
+</ul>
+</li>
+</ul>
+<p>5D 텐서는 4D 텐서로 이루어진 벡터, 6D 텐서는 5D 텐서로 구성된 벡터 등으로 임의의 차원의 텐서를 정의할 수 있지만
+딥러닝에서는 일반적으로 4D 텐서 정도까지만 다룬다.</p>
 <div class="caution admonition">
 <p class="admonition-title">벡터의 차원</p>
 <p><strong>벡터의 길이</strong>를 <strong>차원</strong>이라 부르기도 한다.
@@ -779,9 +790,8 @@ MNIST 모델의 경우 지도 학습이기에 입력 데이터셋과 타깃 데�
 <li><p><code class="docutils literal notranslate"><span class="pre">shape</span></code> 속성: 튜플로 저장된 축 별 크기.
 예를 들어 MNIST의 훈련셋은 3개의 축으로 구성됨.
 0번 축은 6만개의 샘플 데이터를,
-1번 축은 각 사진에 사용된 28개의 세로 픽셀 데이터를
-2번 축은 각 사진에 사용된 28개의 가로 픽셀 데이터를
-담음.</p>
+1번 축은 각 사진에 사용된 28개의 세로 픽셀 데이터를,
+2번 축은 각 사진에 사용된 28개의 가로 픽셀 데이터를 가리킴.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_images</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(60000, 28, 28)</span>
 </pre></div>
