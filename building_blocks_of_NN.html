@@ -368,8 +368,12 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.2.3. 텐서 실전 예제</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3. 텐서 연산</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.4. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3. 텐서 연산</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.3.1. 신경망 모델의 주요 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.3.2. 텐서 연산의 기하학적 의미</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2.4. 연습문제</a></li>
 </ul>
             </nav>
         </div>
@@ -413,7 +417,7 @@ document.write(`
 </div>
 <ul class="simple">
 <li><p>손글씨 숫자 인식 용도 데이터셋. 28x28 픽셀 크기의 사진 70,000개의 샘플로 구성
-레이블: 0부터 9까지 10개의 클래스 중 하나</p></li>
+라벨: 0부터 9까지 10개의 클래스 중 하나</p></li>
 <li><p>훈련셋: 샘플 60,000개 (모델 훈련용)</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">train_images</span></code></p></li>
@@ -429,18 +433,18 @@ document.write(`
 </ul>
 <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist-7.png?raw=true" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://towardsdatascience.com/exploring-how-neural-networks-work-and-making-them-interactive-ed67adbf9283">Towards data science: Mikkel Duif(2019)</a>&gt;</div></p><div class="info admonition">
-<p class="admonition-title">샘플, 타깃, 레이블, 예측값, 클래스</p>
+<p class="admonition-title">샘플, 타깃, 라벨, 예측값, 클래스</p>
 <p>머신러닝 모델의 훈련에 사용되는 데이터셋과 관련된 기본 용어는 다음과 같다.</p>
 <ul class="simple">
 <li><p>샘플<font size='2'>sample</font>: 개별 데이터를 가리킴.</p></li>
-<li><p>타깃<font size='2'>target</font>과 레이블(라벨)<font size='2'>label</font></p>
+<li><p>타깃<font size='2'>target</font>과 라벨<font size='2'>label</font></p>
 <ul>
 <li><p>타깃: 개별 샘플과 연관된 값이며, 샘플이 주어지면 머신러닝 모델이 맞춰야 하는 값임.</p></li>
-<li><p>레이블(라벨): 분류 과제의 경우 타깃 대신 레이블이라 부름.</p></li>
+<li><p>라벨: 분류 과제의 경우 타깃 대신 라벨이라 부름.</p></li>
 </ul>
 </li>
 <li><p>예측과 예측값: 개별 샘플에 대해 머신러닝 모델이 타깃에 가까운 값을 예측할 수록 좋은 성능의 모델임. 예측값은 모델이 입력 샘플들에 대해 예측한 값.</p></li>
-<li><p>클래스<font size='2'>class</font>: 분류 모델의 에측값으로 사용될 수 있는 레이블(타깃)들의 집합. 범주<font size='2'>category</font>라고도 함.
+<li><p>클래스<font size='2'>class</font>: 분류 모델의 에측값으로 사용될 수 있는 라벨(타깃)들의 집합. 범주<font size='2'>category</font>라고도 함.
 객체지향 프로그래밍 언어의 클래스 개념과 다름에 주의할 것.</p></li>
 </ul>
 </div>
@@ -568,7 +572,7 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 </div>
 <ul class="simple">
 <li><p>첫째 인자: 훈련 데이터셋</p></li>
-<li><p>둘째 인자: 훈련 레이블셋</p></li>
+<li><p>둘째 인자: 훈련 라벨셋</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">epoths</span></code>: 에포크. 전체 훈련 세트 대상 반복 훈련 횟수.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">batch_size</span></code>: 배치 크기. 배치 크기만큼의 훈련 데이터셋로 훈련할 때 마다 가중치 업데이트.</p></li>
 </ul>
@@ -621,13 +625,12 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 </ul>
 <p><strong>가중치 행렬과 출력값 계산</strong></p>
 <p>아래 그림은 3개의 유닛으로 구성된 두 개의 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층 사이에서 이뤄지는 데이터 변환을 한눈에 보여준다.</p>
-<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist01.png?raw=true" style="width:400px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://datascienceplus.com/mnist-for-machine-learning-beginners-with-softmax-regression/">MNIST For Machine Learning Beginners With Softmax Regression</a>&gt;</div></p>
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist01.png?raw=true" style="width:500px;"></div>
 <p>하나의 샘플에 대한 데이터 변환은 다음과 같이 계산된다.</p>
-<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist02.png?raw=true" style="width:400px;"></div>
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist02.png?raw=true" style="width:500px;"></div>
 <p>행렬 연산으로 표현하면 다음과 같다.</p>
-<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist03.png?raw=true" style="width:400px;"></div>
-<div class="info admonition">
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist03a.png?raw=true" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://datascienceplus.com/mnist-for-machine-learning-beginners-with-softmax-regression/">MNIST For Machine Learning Beginners With Softmax Regression</a>&gt;</div></p><div class="info admonition">
 <p class="admonition-title">선형 회귀 모델의 예측값 계산</p>
 <p>아래 식은 선형회귀 모델이 가중치 벡터와 편향을 이용하여 예측값을 계산하는 방식을 보여주는데,
 신경망 모델에 포함된 하나의 유닛에 저장될 하나의 값을 계산하는 것과 동일하다.
@@ -684,7 +687,7 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 <section id="id9">
 <h3><span class="section-number">2.1.7. </span>훈련된 모델 성능 평가<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p>훈련에 사용되지 않은 테스트셋 전체에 대한 성능 평가를 위해
-<code class="docutils literal notranslate"><span class="pre">evaluate()</span></code> 메서드를 테스트셋과 테스트셋의 레이블셋을 인자로 해서 호출한다.</p>
+<code class="docutils literal notranslate"><span class="pre">evaluate()</span></code> 메서드를 테스트셋과 테스트셋의 라벨셋을 인자로 해서 호출한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
 <span class="go">313/313 [==============================] - 1s 3ms/step - loss: 0.0635 - accuracy: 0.9811</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;test_acc: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -861,12 +864,26 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 </pre></div>
 </div>
 <img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist4.png?raw=true" style="width:250px;">
-<br><br>
+<br><p>위 사진은 숫자 9를 가리키는 것으로 보인다.
+실제 해당 샘플의 라벨이 9로 확인된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_labels</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> 
+<span class="go">9</span>
+</pre></div>
+</div>
+<br>
 <p><strong>슬라이싱</strong></p>
 <p>케라스를 포함하여 대부분의 딥러닝 모델은 훈련 세트 전체를 한꺼번에 처리하지 않고
 지정된 크기(<code class="docutils literal notranslate"><span class="pre">batch_size</span></code>)의 배치를 이용하여 스텝 단위로 훈련한다.
 앞서 살펴본 모델의 배치 크기는 128이었다.
-다음은 훈련셋의 <code class="docutils literal notranslate"><span class="pre">n</span></code>번째 배치를 지정하는 코드이다.</p>
+크기가 128인 첫째 배치는 다음과 같이 지정한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span> <span class="o">=</span> <span class="n">train_images</span><span class="p">[:</span><span class="mi">128</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>다음은 둘째 배치를 지정한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span> <span class="o">=</span> <span class="n">train_images</span><span class="p">[</span><span class="mi">128</span><span class="p">:</span> <span class="mi">256</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>훈련셋의 <code class="docutils literal notranslate"><span class="pre">n</span></code>번째 배치는 다음과 같이 지정할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">batch</span> <span class="o">=</span> <span class="n">train_images</span><span class="p">[</span><span class="mi">128</span> <span class="o">*</span> <span class="n">n</span><span class="p">:</span><span class="mi">128</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
 </pre></div>
 </div>
@@ -964,31 +981,37 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 </section>
 <section id="id14">
 <h2><span class="section-number">2.3. </span>텐서 연산<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
-<p><strong>신경망 모델의 주요 연산</strong></p>
+<section id="id15">
+<h3><span class="section-number">2.3.1. </span>신경망 모델의 주요 연산<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
 <p>신경망 모델의 훈련은 기본적으로 텐서와 관련된 몇 가지 연산으로 이루어진다.
 예를 들어 이전 신경망에 사용된 층을 살펴보자.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
 <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>첫째층이 하는 일은 데이터셋의 변환이며 실제로 이루어지는 연산은 다음과 같다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">output1</span> <span class="pre">=</span> <span class="pre">relu(np.dot(input1,</span> <span class="pre">W1)</span> <span class="pre">+</span> <span class="pre">b1)</span></code></p>
+<p>첫째 층이 하는 일은 데이터 변환이며 실제로 이루어지는 연산은 다음과 같다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">W1</span></code>: 첫째 층에서 학습되는 가중치 행렬</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b1</span></code>: 첫째 층에서 학습되는 편향 벡터</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">output1</span> <span class="pre">=</span> <span class="pre">relu(np.dot(input,</span> <span class="pre">W1)</span> <span class="pre">+</span> <span class="pre">b1)</span></code></p>
 <p>사용된 세부 연산은 다음과 같다.</p>
 <ul class="simple">
-<li><p>텐서 점곱: <code class="docutils literal notranslate"><span class="pre">np.dot()</span></code></p></li>
-<li><p>텐서 덧셈: <code class="docutils literal notranslate"><span class="pre">+</span></code></p></li>
-<li><p>활성화 함수: <code class="docutils literal notranslate"><span class="pre">relu()</span></code></p></li>
+<li><p>텐서 점곱: <code class="docutils literal notranslate"><span class="pre">np.dot()</span></code> 함수에 의해 행렬 곲 계산</p></li>
+<li><p>텐서 덧셈: <code class="docutils literal notranslate"><span class="pre">+</span></code>. 텐서 대상 항목별 덧셈.</p></li>
+<li><p>활성화 함수: <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수. 음수 항목을 모두 0으로 대체함.</p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수는 텐서에 포함된 음수를 모두 0으로 대체하는 활성화 함수로 사용된다.</p>
-<p>둘째층이 하는 일은 또 다른 데이터셋의 변환이다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">output2</span> <span class="pre">=</span> <span class="pre">softmax(np.dot(input1,</span> <span class="pre">W1)</span> <span class="pre">+</span> <span class="pre">b1)</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수는 분류 신경망 모델의 마지막 층, 즉 출력층에서 사용되는 활성화 함수이며
-클래스별 확률을 계산한다.
+<p>둘째 층은 다른 가중치 행렬과 편향을 학습하여 데이터를 변환한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">W2</span></code>: 둘째 층에서 학습되는 가중치 행렬</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b2</span></code>: 둘째 층에서 학습되는 편향 벡터</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">output2</span> <span class="pre">=</span> <span class="pre">softmax(np.dot(input,</span> <span class="pre">W2)</span> <span class="pre">+</span> <span class="pre">b2)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수는 분류 신경망 모델의 마지막 층인 <strong>출력층</strong>에서 사용되는 활성화 함수이며
+입력 샘플이 클래스별로 해당 클래스에 속할 확률을 계산한다.
 위 모델의 경우 10개 유닛에서 계산된 값들을 이용하여 10개 각 클래스별로 속할
 확률을 계산하며, 확률값의 합은 1이 되도록 한다.</p>
-<p>모든 연산은 텐서 연산으로 계산되며 기본적으로 아래 그림처럼 작동한다.</p>
-<div align="center"><img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3653/9363.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a>&gt;</div></p><p><strong>항목별 연산과 브로드캐스팅</strong></p>
+<p><strong>항목별 연산과 브로드캐스팅</strong></p>
 <p>앞서 언급된 연산과 함수 중에서 덧셈 연산은 텐서에 포함된 항목별로 연산이 이뤄진다.
 아래 그림은 텐서의 항목별 덧셈과 브로드캐스팅이 작동하는 방식을 보여준다.</p>
 <div align="center"><img src="https://scipy-lectures.org/_images/numpy_broadcasting.png" style="width:750px;"></div>
@@ -997,18 +1020,17 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 자동으로 적용되는 과정을 보여준다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:300px;"></div><p><strong>유니버설 함수</strong></p>
 <p>덧셈, 뺄셈, 곱셈, 나눗셈의 사칙 연산 이외에 다른 많은 연산과 함수도 항목별로 적용된다.
-예를 들어, <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수의 정의에 사용된 <code class="docutils literal notranslate"><span class="pre">np.maximum()</span></code> 함수가
-텐서 인자의 항목을 대상으로 작동하는 과정을 보여준다.
-이와 같이 항목별로 적용가능항 함수를 <strong>유니버설</strong><font size='2'>universal</font> 함수라 부른다.</p>
+예를 들어, <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수가 0보다 작은 항목을 0으로 대체하는 데에 사용하는 <code class="docutils literal notranslate"><span class="pre">np.maximum()</span></code> 함수가
+텐서의 항목 각각에 대해 작동하는 과정을 보여준다.
+이와 같이 항목별로 작동하는 함수를 <strong>유니버설</strong><font size='2'>universal</font> 함수라 부른다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">relu</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch01-universal_functions01.jpg" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.sharpsightlabs.com/blog/numpy-maximum/">Sharp Sight - How to Use the Numpy Maximum Function</a>&gt;</div></p><div class="warning admonition">
 <p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수</p>
-<p><code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수는 유니버설 함수가 아니다.
-대신 각 유닛에서 계산된 값들의 상대적 크기를 계산한다.
-계산된 값들은 각 유닛이 상징하는 클래스에 속할 확률로 사용된다.</p>
+<p>유니버설 함수만 활성화 함수로 사용되는 것은 아니다.
+<code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수는 유니버설 함수가 아니며, 각 유닛에서 계산된 값들의 상대적 크기를 계산한다.</p>
 </div>
 <p><strong>텐서 점곱</strong></p>
 <p><strong>텐서 점곱</strong><font size='2'>tensor dot product</font> 함수는
@@ -1051,7 +1073,8 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 </div>
 <p><strong>텐서 모양 변형</strong></p>
 <p>머신러닝 모델은 입력 텐서의 모양을 제한한다.
-앞서 사용한 <code class="docutils literal notranslate"><span class="pre">model</span></code>은 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층으로 구성되었기에 입력값으로 2차원 텐서를 요구한다.</p>
+앞서 사용한 MNIST 데이터셋 분류 모델은 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층으로 구성되었는데,
+입력값으로 사용되는 데이터셋은 2차원 텐서로 표현되어 있어야 한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
@@ -1060,7 +1083,7 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 </div>
 <p>반면에 <code class="docutils literal notranslate"><span class="pre">tensorflow.keras.datasets</span></code>에서 불러온
 <code class="docutils literal notranslate"><span class="pre">train_images</span></code>와 <code class="docutils literal notranslate"><span class="pre">test_images</span></code> 는 각각
-<code class="docutils literal notranslate"><span class="pre">(60000,</span> <span class="pre">28,</span> <span class="pre">28)</span></code>와 <code class="docutils literal notranslate"><span class="pre">(10000,</span> <span class="pre">28,</span> <span class="pre">28)</span></code> 모양의 2차원 텐서다.</p>
+<code class="docutils literal notranslate"><span class="pre">(60000,</span> <span class="pre">28,</span> <span class="pre">28)</span></code>와 <code class="docutils literal notranslate"><span class="pre">(10000,</span> <span class="pre">28,</span> <span class="pre">28)</span></code> 모양의 3차원 텐서다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
 <span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
 </pre></div>
@@ -1073,21 +1096,15 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>행렬(2D 텐서)의 행과 열을 서로 바꾼 <strong>전치 행렬</strong> 또한 텐서의 모양을 변형하는 방법이며,
-<code class="docutils literal notranslate"><span class="pre">transpose()</span></code> 메서드가 이를 지원한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">300</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">shape</span>
-<span class="go">(20, 300)</span>
-</pre></div>
-</div>
 <div class="info admonition">
 <p class="admonition-title">넘파이 어레이 연산</p>
 <p>텐서 연산의 기본이 되는 넘파이 어레이 연산, 유니버설 함수, 텐서 모양 변형 등에 대한
 보다 자세한 설명은
-<a class="reference external" href="https://codingalzi.github.io/datapy/intro.html">파이썬 데이터 분석</a> 4장에서 7장을 참고한다.</p>
+<a class="reference external" href="https://codingalzi.github.io/datapy/intro.html">파이썬 데이터 분석</a>을 참고한다.</p>
 </div>
-<p><strong>텐서 연산의 기하학적 의미</strong></p>
+</section>
+<section id="id16">
+<h3><span class="section-number">2.3.2. </span>텐서 연산의 기하학적 의미<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
 <p>신경망 모델에 사용되는 연산과 함수들의 기능을
 기하학적으로 설명할 수 있다.</p>
 <ul class="simple">
@@ -1120,8 +1137,9 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 방법을 알아낸다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-geometric_interpretation_4.png" style="width:400px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
-<section id="id15">
-<h2><span class="section-number">2.4. </span>연습문제<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="id17">
+<h2><span class="section-number">2.4. </span>연습문제<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-building_blocks_of_NN.ipynb">(실습) 신경망 구성 요소</a></p></li>
 </ol>
@@ -1211,8 +1229,12 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.2.3. 텐서 실전 예제</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3. 텐서 연산</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.4. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3. 텐서 연산</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">2.3.1. 신경망 모델의 주요 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">2.3.2. 텐서 연산의 기하학적 의미</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">2.4. 연습문제</a></li>
 </ul>
   </nav></div>
 
