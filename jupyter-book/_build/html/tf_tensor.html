@@ -1,0 +1,2002 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>2.6. 부록: 텐서플로우 텐서 &#8212; Deep Learning with Python(2판)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tf_tensor';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="3. 케라스와 텐서플로우" href="keras_and_tf.html" />
+    <link rel="prev" title="2.5. 부록: 텐서 소개" href="tensor_intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning with Python(2판)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="tensor_intro.html">2.5. 부록: 텐서 소개</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.6. 부록: 텐서플로우 텐서</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">3. 케라스와 텐서플로우</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_neural_networks.html">4. 신경망 활용 처음부터 끝까지: 분류와 회귀</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">5. 머신러닝 모델 훈련 기법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">6. 머신러닝 작업 흐름 일반</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">7. 케라스 모델 고급 활용법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_intro.html">8. 컴퓨터 비전 기초: 합성곱 신경망</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_advanced.html">9. 고급 컴퓨터 비전</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dl_for_timeseries.html">10. 시계열 분석</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dl_for_text.html">11. 자연어 처리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative_dl.html">12. 생성 모델</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">13. 딥러닝 실전 적용</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/codingalzi/dlp2" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Ftf_tensor.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/tf_tensor.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>부록: 텐서플로우 텐서</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.6.1. 텐서 기초</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.6.1.1. 랭크(차원)와 축</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.6.1.2. 넘파이 어레이로의 변환</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.6.1.3. 텐서 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.6.1.4. 텐서로의 자동 변환</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.6.2. 텐서의 모양, 랭크, 축, 크기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.6.3. 인덱싱/슬라이싱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.6.4. 모양 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype">2.6.5. 텐서 항목의 자료형(<code class="docutils literal notranslate"><span class="pre">dtype</span></code>) 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.6.6. 브로드캐스팅</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.6.7. 다양한 종류의 텐서</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.6.7.1. 비정형 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.7.2. 문자열 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.6.7.3. 희소 텐서</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">2.6. </span>부록: 텐서플로우 텐서<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>텐서플로우 라이브러리가 제공하는
+텐서 자료형은 동일한 자료형의 항목으로 구성된 다차원 배열들의 자료형이다.
+넘파리의 어레이 자료형인 <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>와 매우 유사하다.</p>
+<p>텐서플로우의 텐서는 문자열 처럼 항목을 수정할 수 없는
+불변 자료형이다.
+즉, 한번 생성된 텐서는 수정될 수 없다.
+반면에 넘파이 어레이의 항목은 수정이 가능한 가변 자료형이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-08-25 16:42:44.164062: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-08-25 16:42:44.208318: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-08-25 16:42:44.209474: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-08-25 16:42:45.042022: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h2><span class="section-number">2.6.1. </span>텐서 기초<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="id3">
+<h3><span class="section-number">2.6.1.1. </span>랭크(차원)와 축<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>텐서는 사용되는 축<font size='2'>axis</font>의 개수에 따라
+랭크<font size='2'>rank</font>가 정해진다.
+랭크를 차원<font size='2'>dimension</font>이라 부르기도 한다.
+텐서는 보통 <code class="docutils literal notranslate"><span class="pre">tf.constant()</span></code> 함수를 이용하여 생성한다.</p>
+<p><strong>스칼라: 랭크-0 텐서</strong></p>
+<p>스칼라는 하나의 정수 또는 하나의 부동소수점만 포함하며 따라서 축이 없다.
+스칼라는 랭크-0 텐서라고도 불린다.
+아래 <code class="docutils literal notranslate"><span class="pre">rank_0_tensor</span></code>는 int32 자료형인 정수 4를 포함한 스칼라를 가리킨다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_0_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rank_0_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(4, shape=(), dtype=int32)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2023-08-25 16:42:46.415402: I tensorflow/compiler/xla/stream_executor/cuda/cuda_gpu_executor.cc:981] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
+Your kernel may have been built without NUMA support.
+2023-08-25 16:42:46.416035: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1960] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>벡터: 랭크-1 텐서</strong></p>
+<p>벡터는 하나의 축을 가지며 여러 개의 값을 포함한다.
+아래 <code class="docutils literal notranslate"><span class="pre">rank_1_tensor</span></code>는 세 개의 부동소수점으로 구성된 벡터를 가리킨다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_1_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rank_1_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor([2. 3. 4.], shape=(3,), dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>행렬: 랭크-2 텐서</strong></p>
+<p>행렬에는 두 개의 축이 있다.
+아래 <code class="docutils literal notranslate"><span class="pre">rank_2_tensor</span></code>는 랭크-2 텐서를 가리킨다.
+또한 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 키워드 인자를 이용하여 자료형을 <code class="docutils literal notranslate"><span class="pre">float16</span></code>으로 지정하였다.
+지정하지 않았다면 <code class="docutils literal notranslate"><span class="pre">rank_0_tensor</span></code>의 경우처럼 <code class="docutils literal notranslate"><span class="pre">float32</span></code>로
+<code class="docutils literal notranslate"><span class="pre">dtype</span></code>으로 자동 지정되었을 것이다.
+참고로 <code class="docutils literal notranslate"><span class="pre">float32</span></code>는 <code class="docutils literal notranslate"><span class="pre">float16</span></code> 보다 보다 큰 정수를 다룰 수 있으며
+따라서 보다 많은 메모리와 계산 시간이 소비된다.</p>
+<p>딥러닝 모델은 경우에 따라 매우 큰 텐서 연산을 실행해야 하기에
+계산의 시간적, 공간적 효율성이 매우 중요하다.
+따라서 반드시 필요한 만큼의 메모리를 확보하는
+<code class="docutils literal notranslate"><span class="pre">dtype</span></code>을 지정하는 일이 중요하다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_2_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                             <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                             <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rank_2_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
+[[1. 2.]
+ [3. 4.]
+ [5. 6.]], shape=(3, 2), dtype=float16)
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>스칼라, 벡터, 행렬의 모양</strong></p>
+<p>텐서의 모양<font size='2'>shape</font>은 텐서의 축 별로 포함된
+항목의 수에 대한 정보를 담는다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rank_0_tensor</span></code> 스칼라의 모양: 스칼라는 축이 없기에 모양 정보도 없음</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_0_tensor</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TensorShape([])
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rank_1_tensor</span></code> 벡터의 모양: 0번 축에 3개의 항목</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_1_tensor</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TensorShape([3])
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">rank_2_tensor</span></code> 행렬의 모양: 0번 축에 3개의 항목, 1번 축에 2개의 항목</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_2_tensor</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TensorShape([3, 2])
+</pre></div>
+</div>
+</div>
+</div>
+<p>그림으로 나타내면 다음과 같다.</p>
+<table>
+<tr>
+  <th>스칼라, 모양: <code>[]</code> </th>
+  <th>벡터, 모양: <code>[3]</code> </th>
+  <th>행렬, 모양: <code>[3, 2]</code> </th>
+</tr>
+<tr>
+  <td>    <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/scalar.png" alt="A scalar, the number 4"> </td>
+  <td>    <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/vector.png" alt="The line with 3 sections, each one containing a number.">   </td>
+  <td>    <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/matrix.png" alt="A 3x2 grid, with each cell containing a number.">   </td>
+</tr>
+</table>
+<p><strong>랭크-3 텐서</strong></p>
+<p>세 개의 축을 사용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_3_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span>
+  <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+   <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]],</span>
+  <span class="p">[[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">],</span>
+   <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">]],</span>
+  <span class="p">[[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span>
+   <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">29</span><span class="p">]]</span>
+  <span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">rank_3_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
+[[[ 0  1  2  3  4]
+  [ 5  6  7  8  9]]
+
+ [[10 11 12 13 14]
+  [15 16 17 18 19]]
+
+ [[20 21 22 23 24]
+  [25 26 27 28 29]]], shape=(3, 2, 5), dtype=int32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>모양은 다음과 같이 세 개의 축 각각에 사용된 항목의 수로 구성된
+길이가 3인 리스트처럼 생겼다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_3_tensor</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TensorShape([3, 2, 5])
+</pre></div>
+</div>
+</div>
+</div>
+<p>랭크-3 텐서를 여러 가지 방식으로 시각화할 수 있다.</p>
+<table>
+<tr>
+  <th colspan="3">rank_3_tensor의 모양: <code>[3, 2, 5]</code> </th>
+</tr>
+<tr>
+</tr>
+<tr>
+  <td>    <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/3-axis_numpy.png">   </td>
+  <td>    <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/3-axis_front.png">   </td>
+  <td>    <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/3-axis_block.png">   </td>
+</tr>
+</table></section>
+<section id="id4">
+<h3><span class="section-number">2.6.1.2. </span>넘파이 어레이로의 변환<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">np.array()</span></code> 함수 또는 <code class="docutils literal notranslate"><span class="pre">tensor.numpy()</span></code> 메서드를 이용하여
+<code class="docutils literal notranslate"><span class="pre">tf.tensor</span></code>를 <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> 로 변환할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rank_2_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1., 2.],
+       [3., 4.],
+       [5., 6.]], dtype=float16)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_2_tensor</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1., 2.],
+       [3., 4.],
+       [5., 6.]], dtype=float16)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h3><span class="section-number">2.6.1.3. </span>텐서 연산<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<p>텐서의 덧셈과 곱셈은 항목별로 이루어진다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span> <span class="c1"># Could have also said `tf.ones([2,2])`</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>항목별 덧셈: <code class="docutils literal notranslate"><span class="pre">tf.add()</span></code> 함수 또는 <code class="docutils literal notranslate"><span class="pre">+</span></code> 연산자 이용</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[2, 3],
+       [4, 5]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[2, 3],
+       [4, 5]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>항목별 곱셈: <code class="docutils literal notranslate"><span class="pre">tf.multiply()</span></code> 함수 또는 <code class="docutils literal notranslate"><span class="pre">+</span></code> 연산자 이용</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[1, 2],
+       [3, 4]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[1, 2],
+       [3, 4]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>행렬(랭크-2 텐서) 연산은 항목별 연산과 다르다.</p>
+<ul class="simple">
+<li><p>행렬 연산: <code class="docutils literal notranslate"><span class="pre">tf.matmul()</span></code> 함수 또는 <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> 연산자 이용</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[3, 3],
+       [7, 7]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">@</span> <span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
+array([[3, 3],
+       [7, 7]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>이외에도 텐서는 다양한 종류의 연산에 활용된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>최대 항목 찾기</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_max</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=float32, numpy=10.0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>최대 항목의 인덱스 확인</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2,), dtype=int64, numpy=array([1, 0])&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수 적용</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=float32, numpy=
+array([[2.6894143e-01, 7.3105860e-01],
+       [9.9987662e-01, 1.2339458e-04]], dtype=float32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id6">
+<h3><span class="section-number">2.6.1.4. </span>텐서로의 자동 변환<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>텐서플로우의 함수가 <code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code>를 인자로 입력받아야 하는데
+인자가 <code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code> 자료형이 아니지만 텐서로 변환될 수 있으면
+<code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code>로 자동 변환되어 처리된다.
+이유는 내부적으로 <code class="docutils literal notranslate"><span class="pre">tf.convert_to_tensor()</span></code> 함수가
+형변환을 실행하기 때문이다.
+예를 들어, 리스트와 넘파이 어레이가 이에 해당한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=int32, numpy=array([1, 2, 3], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_max</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=int32, numpy=3&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">argmax</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=int64, numpy=2&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=float64, numpy=array([1.26641655e-14, 7.58256042e-10, 9.99999999e-01])&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2><span class="section-number">2.6.2. </span>텐서의 모양, 랭크, 축, 크기<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<p>다음 네 개념이 텐서의 모양을 설명한다.</p>
+<ul class="simple">
+<li><p><strong>모양</strong>: 텐서에 사용된 각각의 축에 사용된 항목의 개수로 구성된 벡터</p></li>
+<li><p><strong>랭크</strong> 또는 <strong>차원</strong>: 텐서에 사용된 축의 개수</p>
+<ul>
+<li><p>스칼라의 랭크는 0,</p></li>
+<li><p>벡터의 랭크는 1,</p></li>
+<li><p>행렬의 랭크는 2.</p></li>
+</ul>
+</li>
+<li><p><strong>축</strong>: 텐서 구성에 사용된 축</p></li>
+<li><p><strong>크기</strong>: 텐서에 포함된 항목의 개수</p></li>
+</ul>
+<p>예를 들어 아래 그림은 <code class="docutils literal notranslate"><span class="pre">rank_4_tensor</span></code>가 가리키는
+랭크-4 텐서의 모양과 관련된 정보를 보여준다.
+<code class="docutils literal notranslate"><span class="pre">tf.zeros()</span></code> 함수는 인자로 주어진 모양의 정보를 이용하여
+모든 항목이 0으로 채워진 지정된 모양의 텐서를 생성한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_4_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">rank_4_tensor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 2, 4, 5), dtype=float32, numpy=
+array([[[[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]],
+
+        [[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]]],
+
+
+       [[[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]],
+
+        [[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]]],
+
+
+       [[[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]],
+
+        [[0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.],
+         [0., 0., 0., 0., 0.]]]], dtype=float32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<table>
+<tr>
+  <th colspan="2">랭크-4 텐서, 모양: <code>[3, 2, 4, 5]</code> </th>
+</tr>
+<tr>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/shape.png" alt="A tensor shape is like a vector.">     </td>
+<td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/4-axis_block.png" alt="A 4-axis tensor">   </td>
+  </tr>
+</table>
+<ul class="simple">
+<li><p>항목의 자료형</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_4_tensor</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.float32
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>텐서의 차원(랭크)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_4_tensor</span><span class="o">.</span><span class="n">ndim</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>텐서의 모양</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_4_tensor</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TensorShape([3, 2, 4, 5])
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>0번 축에 사용되는 항목의 개수</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_4_tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>-1번 축, 즉 마지막 축에 사용되는 항목의 개수</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_4_tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>텐서의 크기</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">rank_4_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=int32, numpy=120&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ndim</span></code>과 <code class="docutils literal notranslate"><span class="pre">shape</span></code> 속성에 저장된 값은 <code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code> 객체가 아니다.
+반면에  <code class="docutils literal notranslate"><span class="pre">tf.rank()</span></code> 함수 또는 <code class="docutils literal notranslate"><span class="pre">tf.shape()</span></code> 함수는 동일한 정보를
+텐서로 반환한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">rank_4_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=int32, numpy=4&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">rank_4_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(4,), dtype=int32, numpy=array([3, 2, 4, 5], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>아래 그림은 랭크-4 텐서에 사용된 축 각각의 의미를 설명한다.
+축은 텐서의 겉모양에서부터 출발하여 각각의 항목이 포함된 벡터까지
+차례대로 배치<font size='2'>batch</font>,
+높이<font size='2'>height</font>,
+폭<font size='2'>width</font>,
+특성<font size='2'>features</font>의
+정보를 가리킨다.</p>
+<table>
+<tr>
+<th>축의 순서 이해</th>
+</tr>
+<tr>
+    <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/shape2.png" alt="Keep track of what each axis is. A 4-axis tensor might be: Batch, Width, Height, Features">   </td>
+</tr>
+</table></section>
+<section id="id8">
+<h2><span class="section-number">2.6.3. </span>인덱싱/슬라이싱<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<p>예를 들어 아래 랭크-3 텐서를 이용한 인덱싱/슬라이싱 예를 하나 살펴보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_3_tensor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 2, 5), dtype=int32, numpy=
+array([[[ 0,  1,  2,  3,  4],
+        [ 5,  6,  7,  8,  9]],
+
+       [[10, 11, 12, 13, 14],
+        [15, 16, 17, 18, 19]],
+
+       [[20, 21, 22, 23, 24],
+        [25, 26, 27, 28, 29]]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">rank_3_tensor</span></code> 텐서는 세 개의 축을 사용하는 랭크-3 텐서이며
+모양은 다음과 같다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_3_tensor</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TensorShape([3, 2, 5])
+</pre></div>
+</div>
+</div>
+</div>
+<p>즉, 0번 축은 3 개의 항목을,
+1번 축은 2 개의 항목을,
+2번 축은 5 개의 항목을 각각 갖는다.</p>
+<p>아래 코드는 0번 축과 1번 축의 모든 항목에 대해
+2번 축의 4번 인덱스에 해당하는 값만 추출한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_3_tensor</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 2), dtype=int32, numpy=
+array([[ 4,  9],
+       [14, 19],
+       [24, 29]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<table>
+<tr>
+<th colspan="2">배치에서 각 예의 모든 위치에서 마지막 특성 선택하기</th>
+</tr>
+<tr>
+    <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/index1.png" alt="A 3x2x5 tensor with all the values at the index-4 of the last axis selected.">   </td>
+      <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/index2.png" alt="The selected values packed into a 2-axis tensor.">   </td>
+</tr>
+</table></section>
+<section id="id9">
+<h2><span class="section-number">2.6.4. </span>모양 변환<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<p>주어진 텐서의 모양을 변환해서 새로운 모양의 텐서를 생성할 수 있다.
+단, 새로운 텐서를 위해 메모리를 더 사용하는 것은 아니며
+단지 주어진 텐서의 정보를 활용하기에 매우 빠르고 메모리
+효율적으로 작동한다.
+이렇게 새로운 텐서를 생성하는 방식을 <strong>뷰</strong><font size='2'>view</font>라 부른다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 1), dtype=int32, numpy=
+array([[1],
+       [2],
+       [3]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TensorShape([3, 1])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reshaped</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">reshaped</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(1, 3), dtype=int32, numpy=array([[1, 2, 3]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reshaped</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TensorShape([1, 3])
+</pre></div>
+</div>
+</div>
+</div>
+<p>모양을 변환할 때 -1을 사용하면 그것은 해당 축의 항목의 개수는
+다른 축의 항목의 개수에 맞춰서 자동으로 지정된다는 의미다.
+이것이 가능한 이유는
+텐서의 모양 변환을 통해 생성된 텐서는 기존의 텐서와
+동일한 크기, 동일한 항목의 수를 가져야만 하기 때문이다.</p>
+<p>예를 들어 아래 코드에서 사용된 -1은 3을 가리킨다.
+이유는 총 세 개의 항목이 있는데 0번 축에 1개의 항목이 있어야 한다면
+1번 축엔 세 개의 항목이 있어야 하기 때문이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">reshaped</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">reshaped</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(1, 3), dtype=int32, numpy=array([[1, 2, 3]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>항목 저장 순서</strong></p>
+<p>임의의 텐서를 rank-1 텐서로 만들면 텐서의 항목들이 메모리상에서
+저장되는 순서를 확인할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rank_3_tensor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 2, 5), dtype=int32, numpy=
+array([[[ 0,  1,  2,  3,  4],
+        [ 5,  6,  7,  8,  9]],
+
+       [[10, 11, 12, 13, 14],
+        [15, 16, 17, 18, 19]],
+
+       [[20, 21, 22, 23, 24],
+        [25, 26, 27, 28, 29]]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>랭크-1 텐서로 변환하려면 모양을 <code class="docutils literal notranslate"><span class="pre">[-1]</span></code>로 지정하면 된다.
+그러면 1개의 축만 사용하고, -1은 자동으로 전체 항목의 개수를
+가기키기 때문이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rank_3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(30,), dtype=int32, numpy=
+array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16,
+       17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>축의 순서를 고려하는 좋은 모양 변환</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tf.reshape()</span></code> 함수는 앞서 확인한 항목들의 순서를 그대로 유지하며
+단순히 인접한 두 개의 축을 합치거나, 하나의 축을 두 개의 축으로 나누거나,
+또는 새로운 축을 추가하는 기능을 수행한다.</p>
+<p><strong>주의사항:</strong> 모양 변환은 축의 순서를 바꾸지는 않는다.
+축의 순서를 바꾸러면 <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/transpose"><code class="docutils literal notranslate"><span class="pre">tf.transpose()</span></code></a> 함수를 이용해야 하는데,
+여기서는 자세히 다루지 않는다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">3x2x5</span></code> 텐서 =&gt; <code class="docutils literal notranslate"><span class="pre">(3x2)x5</span></code> 텐서</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rank_3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(6, 5), dtype=int32, numpy=
+array([[ 0,  1,  2,  3,  4],
+       [ 5,  6,  7,  8,  9],
+       [10, 11, 12, 13, 14],
+       [15, 16, 17, 18, 19],
+       [20, 21, 22, 23, 24],
+       [25, 26, 27, 28, 29]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">3x2x5</span></code> 텐서 =&gt; <code class="docutils literal notranslate"><span class="pre">3x(2x5)</span></code> 텐서</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rank_3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 10), dtype=int32, numpy=
+array([[ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9],
+       [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+       [20, 21, 22, 23, 24, 25, 26, 27, 28, 29]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<table>
+<th colspan="3">축의 순서를 반영하는 좋은 변환</th>
+<tr>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-before.png" alt="A 3x2x5 tensor">   </td>
+  <td>   <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-good1.png" alt="The same data reshaped to (3x2)x5">   </td>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-good2.png" alt="The same data reshaped to 3x(2x5)">   </td>
+</tr>
+</table>
+<p><strong>축의 순서를 고려하지 않는 나쁜 모양 변환</strong></p>
+<p>축의 순서를 고려하지 않으면
+완전히 엉뚱한 텐서가 생성되거
+모양 변환이 되지 않고 실행오류가 발생한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rank_3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 3, 5), dtype=int32, numpy=
+array([[[ 0,  1,  2,  3,  4],
+        [ 5,  6,  7,  8,  9],
+        [10, 11, 12, 13, 14]],
+
+       [[15, 16, 17, 18, 19],
+        [20, 21, 22, 23, 24],
+        [25, 26, 27, 28, 29]]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rank_3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(5, 6), dtype=int32, numpy=
+array([[ 0,  1,  2,  3,  4,  5],
+       [ 6,  7,  8,  9, 10, 11],
+       [12, 13, 14, 15, 16, 17],
+       [18, 19, 20, 21, 22, 23],
+       [24, 25, 26, 27, 28, 29]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+  <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rank_3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>InvalidArgumentError: {{function_node __wrapped__Reshape_device_/job:localhost/replica:0/task:0/device:CPU:0}} Input to reshape is a tensor with 30 values, but the requested shape requires a multiple of 7 [Op:Reshape]
+</pre></div>
+</div>
+</div>
+</div>
+<p>아래 그림이 축의 순서를 고려하지 않은 잘못된 모양 변환의
+결과를 보여준다.</p>
+<table>
+<th colspan="3">몇 가지 잘못된 재구성</th>
+<tr>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-bad.png" alt="You can't reorder axes, use tf.transpose for that">   </td>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-bad4.png" alt="Anything that mixes the slices of data together is probably wrong.">   </td>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-bad2.png" alt="The new shape must fit exactly.">   </td>
+</tr>
+</table></section>
+<section id="dtype">
+<h2><span class="section-number">2.6.5. </span>텐서 항목의 자료형(<code class="docutils literal notranslate"><span class="pre">dtype</span></code>) 변환<a class="headerlink" href="#dtype" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">tf.cast()</span></code> 함수를 이용하여 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 속성에 저장된
+항목들의 자료형을 강제로 형변환하여
+새로운 텐서를 생성할 수 있다.</p>
+<ul class="simple">
+<li><p>예제: 64비트 부동소수점 항목으로 구성된 텐서 선언</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">the_f64_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">the_f64_tensor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=float64, numpy=array([2.2, 3.3, 4.4])&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>16비트 부동소수점 항목으로 구성된 텐서로 형변환하여 텐서 선언</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">the_f16_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">the_f64_tensor</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+<span class="n">the_f16_tensor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=float16, numpy=array([2.2, 3.3, 4.4], dtype=float16)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>8비트 부호 없는 정수<font size='2'>unsigned int</font>로 구성된 텐서로 형변환</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">the_u8_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">the_f16_tensor</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+<span class="n">the_u8_tensor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=uint8, numpy=array([2, 3, 4], dtype=uint8)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h2><span class="section-number">2.6.6. </span>브로드캐스팅<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<p>예를 들어 벡터에 스칼라를 더하려 하면 스칼라가 벡터와 모양을 맞춘 후 항목별 덧셈이 실행된다. 이때 새로 생성되는 벡터의 항목은 모두 스칼라로 지정된다.
+이처럼 두 연산자의 모양을 자동으로 맞춘 후 연산이 실행되도록 하는 것을
+<strong>브로드캐스팅</strong><font size='2'>broadcasting</font>이라 하며 넘파이 어레이 연산에 적용디는 그것과 동일하게 작동한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>다음 세 개의 연산 결과가 모두 동일하다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor([2 4 6], shape=(3,), dtype=int32)
+tf.Tensor([2 4 6], shape=(3,), dtype=int32)
+tf.Tensor([2 4 6], shape=(3,), dtype=int32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>벡터와 행렬의 연산도 유사하게 작동한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="p">,[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 1), dtype=int32, numpy=
+array([[1],
+       [2],
+       [3]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(4,), dtype=int32, numpy=array([1, 2, 3, 4], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>아래 곱셈 연산은 먼저 <code class="docutils literal notranslate"><span class="pre">x</span></code>와 <code class="docutils literal notranslate"><span class="pre">y</span></code>를 모두
+<code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">4]</span></code> 모양의 행렬로 브로드캐스팅을 한 다음에
+항목별 곱셈을 실행한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 4), dtype=int32, numpy=
+array([[ 1,  2,  3,  4],
+       [ 2,  4,  6,  8],
+       [ 3,  6,  9, 12]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<table>
+<tr>
+  <th>추가 시 브로드캐스팅: <code>[1, 4]</code>와 <code>[3, 1]</code>의 곱하기는 <code>[3,4]</code>입니다.</th>
+</tr>
+<tr>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/broadcasting.png" alt="Adding a 3x1 matrix to a 4x1 matrix results in a 3x4 matrix">   </td>
+</tr>
+</table>
+<p>실제로 내부적으로 아래 연산과 동일하게 작동한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_stretch</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+
+<span class="n">y_stretch</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">x_stretch</span> <span class="o">*</span> <span class="n">y_stretch</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
+[[ 1  2  3  4]
+ [ 2  4  6  8]
+ [ 3  6  9 12]], shape=(3, 4), dtype=int32)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id11">
+<h2><span class="section-number">2.6.7. </span>다양한 종류의 텐서<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<section id="id12">
+<h3><span class="section-number">2.6.7.1. </span>비정형 텐서<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<p><strong>비정형 텐서</strong><font size='2'>raggedn tensor</font>는
+벡터의 길이가 일정하지 않은 축이 사용되는 텐서를 가리킨다.
+<code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code> 자료형으로는 선언할 수 없으며
+대신 <code class="docutils literal notranslate"><span class="pre">tf.ragged.RaggedTensor</span></code> 자료형으로 선언한다.</p>
+<p>예를 들어, 아래 그림은 0번 축의 길이는 4이지만 1번 축의
+길이가 일정하지 않는 비정형 텐서를 보여준다.
+아래 비정형 텐서의 모양은 <code class="docutils literal notranslate"><span class="pre">[4,</span> <span class="pre">None]</span></code>으로 표시한다.
+<code class="docutils literal notranslate"><span class="pre">None</span></code>은 해당 축에 포함된 벡터들의 길이가 일정하지 않음을 의미한다.</p>
+<table>
+<tr>
+  <th><code>[4, None]</code> 모양의 비정형 텐서 </th>
+</tr>
+<tr>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/ragged.png" alt="A 2-axis ragged tensor, each row can have a different length.">   </td>
+</tr>
+</table><p>위 그림 모양의 비정형 텐서를 선언해 보자.
+이를 위해 아래 리스트를 이용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ragged_list</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">9</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>정규 텐서로는 선언할 수 없다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+  <span class="n">tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">ragged_list</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ValueError: Can&#39;t convert non-rectangular Python sequence to Tensor.
+</pre></div>
+</div>
+</div>
+</div>
+<p>대신 <code class="docutils literal notranslate"><span class="pre">tf.ragged.constant</span></code>를 사용하여 <code class="docutils literal notranslate"><span class="pre">tf.RaggedTensor</span></code>로 선언할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ragged_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ragged</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">ragged_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ragged_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.RaggedTensor [[0, 1, 2, 3], [4, 5], [6, 7, 8], [9]]&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tf.RaggedTensor</span></code>의 모양에서 축의 길이를 알 수 없는 축은 <code class="docutils literal notranslate"><span class="pre">None</span></code>으로 나타낸다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ragged_tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4, None)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id13">
+<h3><span class="section-number">2.6.7.2. </span>문자열 텐서<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<p>문자열로 구성된 텐서를 사용할 수 있으며,
+<code class="docutils literal notranslate"><span class="pre">dtype</span></code>으로 <code class="docutils literal notranslate"><span class="pre">tf.string</span></code>이 사용된다.
+단, 파이썬 문자열의 인덱싱/슬라이싱은 지원되지 않는다.</p>
+<ul class="simple">
+<li><p>문자열 스칼라: 아래 <code class="docutils literal notranslate"><span class="pre">scalar_string_tensor</span></code> 변수는 <code class="docutils literal notranslate"><span class="pre">&quot;회색</span> <span class="pre">늑대&quot;</span></code> 라는
+문자열 하나를 포함한 스칼라를 가리킨다.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scalar_string_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s2">&quot;회색 늑대&quot;</span><span class="p">)</span>
+<span class="n">scalar_string_tensor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=string, numpy=b&#39;\xed\x9a\x8c\xec\x83\x89 \xeb\x8a\x91\xeb\x8c\x80&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>그런데 한글 문자열이 제대로 보이지 않는다.
+이유는 문자열이 사람이 읽을 수 있는 유니코드 방식이 아니라 컴퓨터에
+저장되어 컴퓨터가 이해할 수 있는 utf-8 방식으로 인코딩된 바이트 문자열로 처리되기 때문이다.
+문자열 앞에 붙은 <code class="docutils literal notranslate"><span class="pre">b</span></code> 접두사가 이를 반영한다.</p>
+<p>바이트 코드로 인코딩된 문자열을 디코딩 하면
+유니코드 형식의 문자열을 얻는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xed\x9a\x8c\xec\x83\x89</span><span class="s1"> </span><span class="se">\xeb\x8a\x91\xeb\x8c\x80</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;회색 늑대&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>영어 알파벳을 사용하면 그래도 제대로 보이긴 하지만 여전히
+바이트 문자열로 처리된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scalar_string_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s2">&quot;Grey wolf&quot;</span><span class="p">)</span>
+<span class="n">scalar_string_tensor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=string, numpy=b&#39;Grey wolf&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>문자열의 벡터: 세 개의 문자열로 구성된 벡터는
+다음과 같이 정의된다.
+각 항목에 사용되는 문자열의 길이는 달라도 된다.</p></li>
+</ul>
+<table>
+<tr>
+  <th>문자열의 벡터, 모양: <code>[3,]</code> </th>
+</tr>
+<tr>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/strings.png" alt="The string length is not one of the tensor's axes.">   </td>
+</tr>
+</table><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tensor_of_strings</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="s2">&quot;Gray wolf&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;Quick brown fox&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;Lazy dog&quot;</span><span class="p">])</span>
+<span class="n">tensor_of_strings</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=string, numpy=array([b&#39;Gray wolf&#39;, b&#39;Quick brown fox&#39;, b&#39;Lazy dog&#39;], dtype=object)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>텐서의 모양에는 문자열 항목의 길이 정보는 포함하지 않는다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tensor_of_strings</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TensorShape([3])
+</pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/strings"><code class="docutils literal notranslate"><span class="pre">tf.strings</span></code></a> 모듈이 문자열 텐서를 활용하는 다양한 함수를 제공한다.
+여기서는 가장 많이 활용되는 함수 두 개만 소개한다.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">tf.strings.split()</span></code> 함수</strong></p>
+<p>문자열 텐서에 포함된 각 문자열을 지정된 기준으로 쪼개서 벡터는 생성한다.</p>
+<ul class="simple">
+<li><p>스칼라 문자열 텐서 쪼개기: 벡터 생성</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">scalar_string_tensor</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2,), dtype=string, numpy=array([b&#39;Grey&#39;, b&#39;wolf&#39;], dtype=object)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>벡터 문자열 텐서 쪼개기: (비정형) 텐서 생성.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tensor_of_strings</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.RaggedTensor [[b&#39;Gray&#39;, b&#39;wolf&#39;], [b&#39;Quick&#39;, b&#39;brown&#39;, b&#39;fox&#39;], [b&#39;Lazy&#39;, b&#39;dog&#39;]]&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>일반적으로 비정형 텐서가 생성되는 이유는 각 문자열의 길이가 다르기 때문이다.</p>
+<table>
+<tr>
+  <th>세 개의 분할된 문자열, 모양: <code>[3, None]</code> </th>
+</tr>
+<tr>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/string-split.png" alt="Splitting multiple strings returns a tf.RaggedTensor">   </td>
+</tr>
+</table><p><strong><code class="docutils literal notranslate"><span class="pre">tf.string.to_number()</span></code> 함수</strong></p>
+<p>숫자 모양의 문자열을 실제 숫자로 변환한다.
+예를 들어 아래 <code class="docutils literal notranslate"><span class="pre">number_text</span></code> 변수는
+세 개의 정수로 구성된 스칼라 문자열 텐서를 가리키며,
+세 개의 숫자는 공백으로 구분된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_text</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s2">&quot;1 10 100&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tf.strings.split()</span></code> 함수를 이용하여
+공백 기준으로 문자열을 쪼갠 후,
+<code class="docutils literal notranslate"><span class="pre">tf.strings.to_number()</span></code> 함수를 항목별로 적용하면
+정수로 구성된 벡터가 생성된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">to_number</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">number_text</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=float32, numpy=array([  1.,  10., 100.], dtype=float32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id14">
+<h3><span class="section-number">2.6.7.3. </span>희소 텐서<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<p>텐서의 크기가 매우 큰 반면에 0이 아닌 항목의 개수가 상대적으로
+적을 때 희소 텐서<font size='2'>sparse tensor</font>를
+사용하면 메모리를 보다 효율적으로 활용할 수 있다.
+희소 텐서는 <code class="docutils literal notranslate"><span class="pre">tf.sparse.SparseTensor</span></code> 자료형이 지원한다.</p>
+<p>아래 그림은 <code class="docutils literal notranslate"><span class="pre">[3,</span> <span class="pre">4]</span></code> 모양의 텐서 단 두 개의 값을 제외한 나머지는
+0인 희소 텐서를 보여준다.</p>
+<table>
+<tr>
+  <th>`tf.SparseTensor`, 모양: <code>[3, 4]</code> </th>
+</tr>
+<tr>
+  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/sparse.png" alt="An 3x4 grid, with values in only two of the cells.">   </td>
+</tr>
+</table><p>아래 <code class="docutils literal notranslate"><span class="pre">sparse_tensor</span></code> 변수는 위 그림으로 표현된
+희소 텐서를 가리킨다.
+<code class="docutils literal notranslate"><span class="pre">tf.sparse.SparseTensor</span></code> 객체를 선언할 때
+다음 세 개의 인자를 지정한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">indices</span></code>: 0이 아닌 항목들의 인덱스로 구성된 리스트</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code>: 지정된 인덱스에 위치하는 항목들의 리스트</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dense_shape</span></code>: 텐서의 모양</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sparse_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">SparseTensor</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span>
+                                       <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                                       <span class="n">dense_shape</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">sparse_tensor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparseTensor(indices=tf.Tensor(
+[[0 0]
+ [1 2]], shape=(2, 2), dtype=int64), values=tf.Tensor([1 2], shape=(2,), dtype=int32), dense_shape=tf.Tensor([3 4], shape=(2,), dtype=int64))
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>밀집 텐서 대 희소 텐서</strong></p>
+<p>일반적인 텐서를 <strong>밀집 텐서</strong><font size='2'>dense tensor</font>라
+부른다.
+텐서플로우는 내부적으로 희소 텐서와 밀집 텐서를 모두 다룰 수 있으며
+필요에 따라 변환해서 사용한다.</p>
+<p>희소 텐서를 밀집 텐서로 직접 변환하려면
+<code class="docutils literal notranslate"><span class="pre">tf.sparse.to_dense()</span></code> 함수를 이용하면 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dense_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">to_dense</span><span class="p">(</span><span class="n">sparse_tensor</span><span class="p">)</span>
+<span class="n">dense_tensor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 4), dtype=int32, numpy=
+array([[1, 0, 0, 0],
+       [0, 0, 2, 0],
+       [0, 0, 0, 0]], dtype=int32)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>반면에 <code class="docutils literal notranslate"><span class="pre">tf.sparse.from_dense()</span></code> 함수는 밀집 텐서를 희소 텐서로 변환한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">from_dense</span><span class="p">(</span><span class="n">dense_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SparseTensor(indices=tf.Tensor(
+[[0 0]
+ [1 2]], shape=(2, 2), dtype=int64), values=tf.Tensor([1 2], shape=(2,), dtype=int32), dense_shape=tf.Tensor([3 4], shape=(2,), dtype=int64))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="tensor_intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2.5. </span>부록: 텐서 소개</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="keras_and_tf.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>케라스와 텐서플로우</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.6.1. 텐서 기초</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.6.1.1. 랭크(차원)와 축</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.6.1.2. 넘파이 어레이로의 변환</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.6.1.3. 텐서 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.6.1.4. 텐서로의 자동 변환</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.6.2. 텐서의 모양, 랭크, 축, 크기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.6.3. 인덱싱/슬라이싱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.6.4. 모양 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype">2.6.5. 텐서 항목의 자료형(<code class="docutils literal notranslate"><span class="pre">dtype</span></code>) 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.6.6. 브로드캐스팅</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.6.7. 다양한 종류의 텐서</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.6.7.1. 비정형 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.7.2. 문자열 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.6.7.3. 희소 텐서</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 코딩알지
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
