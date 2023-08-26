@@ -383,15 +383,15 @@ document.write(`
 <a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-getting_started_with_neural_networks.ipynb">(구글 코랩) 신경망 활용 처음부터 끝까지: 분류와 회귀</a>에서
 직접 실행할 수 있다.</p>
 <p><strong>주요 내용</strong></p>
-<p>간단한 실전 예제을 이용하여 신경망 모델을
-이진 분류, 다중 클래스 분류, 회귀 문제에 적용하는 방법을 소개한다.</p>
+<p>실전 데이터 세 개를 이용하여
+이진 분류 신경망 모델,
+다중 클래스 분류 신경망 모델,
+회귀 신경망 모델을 지정하고 훈련시키는 방법을 소개한다.</p>
 <ul class="simple">
 <li><p>이진 분류: 영화 후기 분류</p></li>
 <li><p>다중 클래스 분류: 뉴스 기사 분류</p></li>
 <li><p>회귀: 주택 가격 예측</p></li>
 </ul>
-<p>이를 통해 데이터 전처리, 모델 구조 설계, 모델 훈렬과 평가 과정으로 진행되는
-딥러닝 모델 학습의 전체 과정을 자세히 살펴본다.</p>
 <p><strong>머신러닝 주요 용어</strong></p>
 <p>아래 용어의 정의를 명확히 알아야 한다.</p>
 <table class="table">
@@ -412,27 +412,27 @@ document.write(`
 </tr>
 <tr class="row-even"><td class="text-left"><p>타깃</p></td>
 <td class="text-left"><p>target</p></td>
-<td class="text-left"><p>모델이 예측해야 하는 값</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>예측 오류, 손실값, 비용</p></td>
-<td class="text-left"><p>prediction error, loss value</p></td>
-<td class="text-left"><p>타깃과 예측값 사이의 오차. 문제 유형에 따라 오차 측정법 다름.</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>손실 함수, 비용 함수</p></td>
-<td class="text-left"><p>loss function</p></td>
-<td class="text-left"><p>손실값(비용)을 계산하는 함수</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>클래스</p></td>
-<td class="text-left"><p>class</p></td>
-<td class="text-left"><p>분류 문제에서 샘플이 속하는 범주</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>레이블</p></td>
-<td class="text-left"><p>label</p></td>
-<td class="text-left"><p>분류 문제에서 타깃 대신 사용</p></td>
+<td class="text-left"><p>모델이 맞춰야 하는 값</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>타깃셋</p></td>
 <td class="text-left"><p>ground-truth/annotations</p></td>
-<td class="text-left"><p>타깃셋</p></td>
+<td class="text-left"><p>타깃으로 구성된 데이터셋</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>손실값, 비용, 예측 오차</p></td>
+<td class="text-left"><p>prediction error, loss value</p></td>
+<td class="text-left"><p>타깃과 예측값 사이의 오차. 문제 유형에 따라 측정법 다름.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>손실 함수, 비용 함수</p></td>
+<td class="text-left"><p>loss function</p></td>
+<td class="text-left"><p>손실값(비용)을 계산하는 함수.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>클래스</p></td>
+<td class="text-left"><p>class</p></td>
+<td class="text-left"><p>분류 모델의 훈련 데이터셋에서 각각의 샘플이 속하는 범주(클래스)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>레이블</p></td>
+<td class="text-left"><p>label</p></td>
+<td class="text-left"><p>분류 모델을 훈련시킬 때 모델이 맞춰야 하는 타깃</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>이진 분류</p></td>
 <td class="text-left"><p>binary classification</p></td>
@@ -444,15 +444,15 @@ document.write(`
 </tr>
 <tr class="row-even"><td class="text-left"><p>다중 레이블 분류</p></td>
 <td class="text-left"><p>multilabel classification</p></td>
-<td class="text-left"><p>샘플에 두 종류 이상의 레이블을 지정하는 분류. 사진 속 여러 마리 동물 탐지 등.</p></td>
+<td class="text-left"><p>샘플에 두 종류 이상의 레이블을 지정하는 분류. 사진 속 다양한 종류의 동물 탐지 등.</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>스칼라 회귀</p></td>
 <td class="text-left"><p>scalar regression</p></td>
-<td class="text-left"><p>샘플 별로 하나의 수치 예측하기. 주택 가격 예측 등.</p></td>
+<td class="text-left"><p>샘플 별로 하나의 값 예측하기. 주택 가격 예측 등.</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>벡터 회귀</p></td>
 <td class="text-left"><p>vector regression</p></td>
-<td class="text-left"><p>샘플 별로 두 개 이상의 수치 예측하기. 네모 상자의 좌표 등.</p></td>
+<td class="text-left"><p>샘플 별로 두 종류 이상의 값 예측하기. 네모 상자의 좌표 등.</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>(미니)배치</p></td>
 <td class="text-left"><p>mini-batch/batch</p></td>

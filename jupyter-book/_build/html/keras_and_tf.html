@@ -859,7 +859,7 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려진다.
 </section>
 <section id="id10">
 <h2><span class="section-number">3.6. </span>순수 텐서플로우 사용법 기초<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
-<p>케라스를 전혀 이용하지 않으면서 신경망 모델을 지정하고 훈련시킬 수 있다.
+<p>케라스 없이 텐서플로우만 이용해서 신경망 모델을 지정하고 훈련시킬 수 있다.
 하지만 아래에 언급된 개념, 기능, 도구를 모두 직접 구현해야 한다.</p>
 <ul class="simple">
 <li><p>가중치, 편향 등을 저장할 텐서 지정</p></li>
@@ -873,31 +873,32 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려진다.
 </ul>
 <section id="id11">
 <h3><span class="section-number">3.6.1. </span>상수 텐서와 변수 텐서<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
-<p>텐서플로우 자체로 두 종류의 새로운 텐서 자료형을 지원한다.
-사용법은 기본적으로 넘파이 어레이와 유사하지만 GPU 연산과 그레이디언트 자동계산 등
-신경망 모델 훈련에 최적화된 기능을 제공한다.</p>
+<p>텐서플로우는 두 종류의 텐서 자료형을 지원한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code> 자료형</p>
 <ul>
 <li><p>상수 텐서</p></li>
-<li><p>입출력 데이터 등 변하지 않는 텐서로 사용.</p></li>
+<li><p>입출력 데이터 등 변하지 않는 값을 다룰 때 사용.</p></li>
 <li><p>불변 자료형</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tf.Variable</span></code> 자료형</p>
 <ul>
 <li><p>변수 텐서</p></li>
-<li><p>모델의 가중치, 편향 등 업데이트가 되는 텐서로 사용.</p></li>
+<li><p>모델의 가중치, 편향 등 항목의 업데이트가 필요할 때 사용되는 텐서.</p></li>
 <li><p>가변 자료형</p></li>
 </ul>
 </li>
 </ul>
+<p>사용법은 기본적으로 넘파이 어레이와 유사하며, GPU 연산과 그레이디언트 자동계산 등
+신경망 모델 훈련에 최적화된 기능을 제공한다.</p>
 </section>
 <section id="id12">
 <h3><span class="section-number">3.6.2. </span>텐서 연산<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
 <p>덧셈, relu, 점곱 등 텐서 연산은 기본적으로 넘파이 어레이 연산과 동일하다.
 텐서 연산에 대한 자세한 설명은
-<a class="reference external" href="https://colab.research.google.com/drive/1uE85otT0gaDBRXB3LqwZE1U0q-_72b9c?usp=sharing">텐서 소개(Introduction to Tensors)</a>를 참고하라.</p>
+<a class="reference internal" href="tensor_intro.html#appendix-tensor-intro"><span class="std std-numref">2.5절</span></a>과 <a class="reference internal" href="tf_tensor.html#appendix-tf-tensor"><span class="std std-numref">2.6절</span></a>을
+참고하라.</p>
 </section>
 <section id="gradienttape">
 <h3><span class="section-number">3.6.3. </span><code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 활용<a class="headerlink" href="#gradienttape" title="Permalink to this heading">#</a></h3>
