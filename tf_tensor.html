@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>2.6. 부록: 텐서플로우 텐서 &#8212; Deep Learning with Python(2판)</title>
+    <title>2.5. 부록: 텐서플로우 텐서 &#8212; Deep Learning with Python(2판)</title>
   
   
   
@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="3. 케라스와 텐서플로우" href="keras_and_tf.html" />
-    <link rel="prev" title="2.5. 부록: 텐서 소개" href="tensor_intro.html" />
+    <link rel="prev" title="2.4. 부록: 텐서 소개" href="tensor_intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -146,8 +146,8 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="tensor_intro.html">2.5. 부록: 텐서 소개</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.6. 부록: 텐서플로우 텐서</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensor_intro.html">2.4. 부록: 텐서 소개</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.5. 부록: 텐서플로우 텐서</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">3. 케라스와 텐서플로우</a></li>
@@ -354,22 +354,22 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.6.1. 텐서 기초</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.6.1.1. 랭크(차원)와 축</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.6.1.2. 넘파이 어레이로의 변환</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.6.1.3. 텐서 연산</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.6.1.4. 텐서로의 자동 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.5.1. 텐서 기초</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.5.1.1. 랭크(차원)와 축</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.5.1.2. 넘파이 어레이로의 변환</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.5.1.3. 텐서 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.5.1.4. 텐서로의 자동 변환</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.6.2. 텐서의 모양, 랭크, 축, 크기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.6.3. 인덱싱/슬라이싱</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.6.4. 모양 변환</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype">2.6.5. 텐서 항목의 자료형(<code class="docutils literal notranslate"><span class="pre">dtype</span></code>) 변환</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.6.6. 브로드캐스팅</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.6.7. 다양한 종류의 텐서</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.6.7.1. 비정형 텐서</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.7.2. 문자열 텐서</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.6.7.3. 희소 텐서</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.5.2. 텐서의 모양, 랭크, 축, 크기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.5.3. 인덱싱/슬라이싱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.5.4. 모양 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype">2.5.5. 텐서 항목의 자료형(<code class="docutils literal notranslate"><span class="pre">dtype</span></code>) 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.5.6. 브로드캐스팅</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.5.7. 다양한 종류의 텐서</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.5.7.1. 비정형 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.5.7.2. 문자열 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.5.7.3. 희소 텐서</a></li>
 </ul>
 </li>
 </ul>
@@ -384,7 +384,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="appendix-tf-tensor">
-<span id="id1"></span><h1><span class="section-number">2.6. </span>부록: 텐서플로우 텐서<a class="headerlink" href="#appendix-tf-tensor" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">2.5. </span>부록: 텐서플로우 텐서<a class="headerlink" href="#appendix-tf-tensor" title="Permalink to this heading">#</a></h1>
 <p>텐서플로우 라이브러리가 제공하는
 텐서 자료형은 동일한 자료형의 항목으로 구성된 다차원 배열들의 자료형이다.
 넘파리의 어레이 자료형인 <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>와 매우 유사하다.</p>
@@ -401,9 +401,9 @@ document.write(`
 </div>
 </div>
 <section id="id2">
-<h2><span class="section-number">2.6.1. </span>텐서 기초<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5.1. </span>텐서 기초<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <section id="id3">
-<h3><span class="section-number">2.6.1.1. </span>랭크(차원)와 축<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1.1. </span>랭크(차원)와 축<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>텐서는 사용되는 축<font size='2'>axis</font>의 개수에 따라
 랭크<font size='2'>rank</font>가 정해진다.
 랭크를 차원<font size='2'>dimension</font>이라 부르기도 한다.
@@ -591,7 +591,7 @@ document.write(`
 </tr>
 </table></section>
 <section id="id4">
-<h3><span class="section-number">2.6.1.2. </span>넘파이 어레이로의 변환<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1.2. </span>넘파이 어레이로의 변환<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">np.array()</span></code> 함수 또는 <code class="docutils literal notranslate"><span class="pre">tensor.numpy()</span></code> 메서드를 이용하여
 <code class="docutils literal notranslate"><span class="pre">tf.tensor</span></code>를 <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> 로 변환할 수 있다.</p>
 <div class="cell docutils container">
@@ -624,7 +624,7 @@ document.write(`
 </div>
 </section>
 <section id="id5">
-<h3><span class="section-number">2.6.1.3. </span>텐서 연산<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1.3. </span>텐서 연산<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <p>텐서의 덧셈과 곱셈은 항목별로 이루어진다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -793,7 +793,7 @@ array([[2.6894143e-01, 7.3105860e-01],
 </div>
 </section>
 <section id="id6">
-<h3><span class="section-number">2.6.1.4. </span>텐서로의 자동 변환<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1.4. </span>텐서로의 자동 변환<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>텐서플로우의 함수가 <code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code>를 인자로 입력받아야 하는데
 인자가 <code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code> 자료형이 아니지만 텐서로 변환될 수 있으면
 <code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code>로 자동 변환되어 처리된다.
@@ -851,7 +851,7 @@ array([[2.6894143e-01, 7.3105860e-01],
 </section>
 </section>
 <section id="id7">
-<h2><span class="section-number">2.6.2. </span>텐서의 모양, 랭크, 축, 크기<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5.2. </span>텐서의 모양, 랭크, 축, 크기<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <p>다음 네 개념이 텐서의 모양을 설명한다.</p>
 <ul class="simple">
 <li><p><strong>모양</strong>: 텐서에 사용된 각각의 축에 사용된 항목의 개수로 구성된 벡터</p></li>
@@ -1055,7 +1055,7 @@ array([[[[0., 0., 0., 0., 0.],
 </tr>
 </table></section>
 <section id="id8">
-<h2><span class="section-number">2.6.3. </span>인덱싱/슬라이싱<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5.3. </span>인덱싱/슬라이싱<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
 <p>예를 들어 아래 랭크-3 텐서를 이용한 인덱싱/슬라이싱 예를 하나 살펴보자.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1121,7 +1121,7 @@ array([[ 4,  9],
 </tr>
 </table></section>
 <section id="id9">
-<h2><span class="section-number">2.6.4. </span>모양 변환<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5.4. </span>모양 변환<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
 <p>주어진 텐서의 모양을 변환해서 새로운 모양의 텐서를 생성할 수 있다.
 단, 새로운 텐서를 위해 메모리를 더 사용하는 것은 아니며
 단지 주어진 텐서의 정보를 활용하기에 매우 빠르고 메모리
@@ -1361,7 +1361,7 @@ array([[ 0,  1,  2,  3,  4,  5],
 </tr>
 </table></section>
 <section id="dtype">
-<h2><span class="section-number">2.6.5. </span>텐서 항목의 자료형(<code class="docutils literal notranslate"><span class="pre">dtype</span></code>) 변환<a class="headerlink" href="#dtype" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5.5. </span>텐서 항목의 자료형(<code class="docutils literal notranslate"><span class="pre">dtype</span></code>) 변환<a class="headerlink" href="#dtype" title="Permalink to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">tf.cast()</span></code> 함수를 이용하여 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 속성에 저장된
 항목들의 자료형을 강제로 형변환하여
 새로운 텐서를 생성할 수 있다.</p>
@@ -1415,7 +1415,7 @@ array([[ 0,  1,  2,  3,  4,  5],
 </div>
 </section>
 <section id="id10">
-<h2><span class="section-number">2.6.6. </span>브로드캐스팅<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5.6. </span>브로드캐스팅<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
 <p>예를 들어 벡터에 스칼라를 더하려 하면 스칼라가 벡터와 모양을 맞춘 후 항목별 덧셈이 실행된다. 이때 새로 생성되는 벡터의 항목은 모두 스칼라로 지정된다.
 이처럼 두 연산자의 모양을 자동으로 맞춘 후 연산이 실행되도록 하는 것을
 <strong>브로드캐스팅</strong><font size='2'>broadcasting</font>이라 하며 넘파이 어레이 연산에 적용디는 그것과 동일하게 작동한다.</p>
@@ -1527,9 +1527,9 @@ array([[ 1,  2,  3,  4],
 </div>
 </section>
 <section id="id11">
-<h2><span class="section-number">2.6.7. </span>다양한 종류의 텐서<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5.7. </span>다양한 종류의 텐서<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
 <section id="id12">
-<h3><span class="section-number">2.6.7.1. </span>비정형 텐서<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.7.1. </span>비정형 텐서<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
 <p><strong>비정형 텐서</strong><font size='2'>raggedn tensor</font>는
 벡터의 길이가 일정하지 않은 축이 사용되는 텐서를 가리킨다.
 <code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code> 자료형으로는 선언할 수 없으며
@@ -1603,7 +1603,7 @@ array([[ 1,  2,  3,  4],
 </div>
 </section>
 <section id="id13">
-<h3><span class="section-number">2.6.7.2. </span>문자열 텐서<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.7.2. </span>문자열 텐서<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <p>문자열로 구성된 텐서를 사용할 수 있으며,
 <code class="docutils literal notranslate"><span class="pre">dtype</span></code>으로 <code class="docutils literal notranslate"><span class="pre">tf.string</span></code>이 사용된다.
 단, 파이썬 문자열의 인덱싱/슬라이싱은 지원되지 않는다.</p>
@@ -1769,7 +1769,7 @@ array([[ 1,  2,  3,  4],
 </div>
 </section>
 <section id="id14">
-<h3><span class="section-number">2.6.7.3. </span>희소 텐서<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.7.3. </span>희소 텐서<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
 <p>텐서의 크기가 매우 큰 반면에 0이 아닌 항목의 개수가 상대적으로
 적을 때 희소 텐서<font size='2'>sparse tensor</font>를
 사용하면 메모리를 보다 효율적으로 활용할 수 있다.
@@ -1888,7 +1888,7 @@ array([[1, 0, 0, 0],
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">2.5. </span>부록: 텐서 소개</p>
+        <p class="prev-next-title"><span class="section-number">2.4. </span>부록: 텐서 소개</p>
       </div>
     </a>
     <a class="right-next"
@@ -1918,22 +1918,22 @@ array([[1, 0, 0, 0],
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.6.1. 텐서 기초</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.6.1.1. 랭크(차원)와 축</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.6.1.2. 넘파이 어레이로의 변환</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.6.1.3. 텐서 연산</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.6.1.4. 텐서로의 자동 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.5.1. 텐서 기초</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.5.1.1. 랭크(차원)와 축</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.5.1.2. 넘파이 어레이로의 변환</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.5.1.3. 텐서 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.5.1.4. 텐서로의 자동 변환</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.6.2. 텐서의 모양, 랭크, 축, 크기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.6.3. 인덱싱/슬라이싱</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.6.4. 모양 변환</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype">2.6.5. 텐서 항목의 자료형(<code class="docutils literal notranslate"><span class="pre">dtype</span></code>) 변환</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.6.6. 브로드캐스팅</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.6.7. 다양한 종류의 텐서</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.6.7.1. 비정형 텐서</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.7.2. 문자열 텐서</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.6.7.3. 희소 텐서</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.5.2. 텐서의 모양, 랭크, 축, 크기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.5.3. 인덱싱/슬라이싱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.5.4. 모양 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype">2.5.5. 텐서 항목의 자료형(<code class="docutils literal notranslate"><span class="pre">dtype</span></code>) 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.5.6. 브로드캐스팅</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.5.7. 다양한 종류의 텐서</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.5.7.1. 비정형 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.5.7.2. 문자열 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.5.7.3. 희소 텐서</a></li>
 </ul>
 </li>
 </ul>
