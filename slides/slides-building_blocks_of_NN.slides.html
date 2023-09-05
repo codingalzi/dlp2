@@ -71,6 +71,25 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
   </style>
+<style type="text/css">
+    
+
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            /*preferredFont: "TeX",*/
+            /*availableFonts: ["TeX", "STIX"],*/
+            styles: {
+                scale: 100,
+                ".MathJax_Display": {
+                    "font-size": "100%",
+                }
+            }
+        }
+    });
+</script>
+    
+  </style>
 
 
 
@@ -14495,9 +14514,6 @@ a.anchor-link {
 .reveal {
   font-size: 160%;
 }
-.reveal table {
-  font-size: var(--jp-ui-font-size1);
-}
 .reveal pre {
   width: inherit;
   padding: 0.4em;
@@ -14541,23 +14557,6 @@ div.jp-OutputPrompt {
   margin: 5px 5px 0 0;
 }
 
-.reveal div.highlight {
-  margin: 0;
-}
-
-.reveal div.highlight > pre {
-  margin: 0;
-  width: 100%;
-  font-size: var(--jp-code-font-size);
-}
-
-.reveal div.jp-OutputArea-output > pre {
-  margin: 0;
-  width: 90%;
-  font-size: var(--jp-code-font-size);
-  box-shadow: none;
-}
-
 /* Reveal navigation controls */
 
 .reveal .controls .navigate-left,
@@ -14598,14 +14597,17 @@ div.jp-OutputPrompt {
 
 /* Scrollbars */
 
-::-webkit-scrollbar {
+::-webkit-scrollbar
+{
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar * {
-  background: transparent;
+::-webkit-scrollbar *
+{
+  background:transparent;
 }
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb
+{
   background: #727272 !important;
 }
 </style>
@@ -14632,12 +14634,12 @@ div.jp-OutputPrompt {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: {
-                    automatic: true
+                    linebreaks: { 
+                    automatic: true 
                     }
                 }
             });
-
+        
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -15024,7 +15026,7 @@ Epoch 5/5
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EB%B0%B0%EC%B9%98-%ED%81%AC%EA%B8%B0%EC%99%80-%EC%8A%A4%ED%85%9D">&#48176;&#52824; &#53356;&#44592;&#50752; &#49828;&#53597;<a class="anchor-link" href="#%EB%B0%B0%EC%B9%98-%ED%81%AC%EA%B8%B0%EC%99%80-%EC%8A%A4%ED%85%9D">&#182;</a></h3>
+<h3 id="%EB%B0%B0%EC%B9%98-%ED%81%AC%EA%B8%B0,-%EC%8A%A4%ED%85%9D,-%EC%97%90%ED%8F%AC%ED%81%AC">&#48176;&#52824; &#53356;&#44592;, &#49828;&#53597;, &#50640;&#54252;&#53356;<a class="anchor-link" href="#%EB%B0%B0%EC%B9%98-%ED%81%AC%EA%B8%B0,-%EC%8A%A4%ED%85%9D,-%EC%97%90%ED%8F%AC%ED%81%AC">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15036,7 +15038,25 @@ Epoch 5/5
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><strong>스텝</strong><font size='2'>step</font>: 하나의 배치(묶음)에 대해 훈련하는 과정</li>
+<li><strong>스텝</strong><font size='2'>step</font><ul>
+<li>하나의 배치(묶음)에 대해 훈련하는 과정</li>
+<li>스텝이 끝날 때마다 사용된 배치 묶음에 대한 손실값과 정확도가 계산</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li><strong>에포크</strong><font size='2'>epoch</font>: 훈련셋 전체에 대해 한 번 모델 예측과 가중치 조정을 실행하는 과정</li>
 </ul>
 
 </div>
@@ -15056,20 +15076,6 @@ Epoch 5/5
 <li>하나의 에포크 동안 총 469번의 스텝이 실행</li>
 </ul>
 </li>
-</ul>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>스텝이 끝날 때마다 사용된 배치 묶음에 대한 손실값과 정확도가 계산</li>
 </ul>
 
 </div>
@@ -15116,6 +15122,90 @@ Epoch 5/5
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist01.png?raw=true" style="width:500px;"></div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist02.png?raw=true" style="width:500px;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-mnist03a.png?raw=true" style="width:500px;"></div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%EC%8A%A4%ED%85%9D%EA%B3%BC-%ED%9B%88%EB%A0%A8">&#49828;&#53597;&#44284; &#54984;&#47144;<a class="anchor-link" href="#%EC%8A%A4%ED%85%9D%EA%B3%BC-%ED%9B%88%EB%A0%A8">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li><p>배치 단위로 입력 데이터를 변환함</p>
+</li>
+<li><p>예제: 마지막 층에서의 변환</p>
+<div class="highlight"><pre><span></span><span class="n">softmax</span><span class="p">(</span><span class="n">W</span> <span class="n">X</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</li>
+<li><p>훈련: 배치 단위로 예측 결과의 오차를 이용하여 가중치 행렬 <code>W</code> 조정</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%EC%95%84%ED%95%80-%EB%B3%80%ED%99%98%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B3%80%ED%99%98">&#50500;&#54592; &#48320;&#54872;&#44284; &#45936;&#51060;&#53552; &#48320;&#54872;<a class="anchor-link" href="#%EC%95%84%ED%95%80-%EB%B3%80%ED%99%98%EA%B3%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B3%80%ED%99%98">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li><p>아핀 변환</p>
+
+<pre><code>  W X + b</code></pre>
+</li>
+<li><p>신경망 모델에서 층과 층 사이의 데이터 변환: 아핀 변환 + 활성화 함수</p>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
