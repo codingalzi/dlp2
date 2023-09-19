@@ -15218,7 +15218,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="2D-%ED%85%90%EC%84%9C-%EC%98%88%EC%A0%9C:-%EC%BA%98%EB%A6%AC%ED%8F%AC%EB%8B%88%EC%95%84-%EA%B5%AC%EC%97%AD%EB%B3%84-%EC%9D%B8%EA%B5%AC%EC%A1%B0%EC%82%AC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B">2D &#53584;&#49436; &#50696;&#51228;: &#52888;&#47532;&#54252;&#45768;&#50500; &#44396;&#50669;&#48324; &#51064;&#44396;&#51312;&#49324; &#45936;&#51060;&#53552;&#49483;<a class="anchor-link" href="#2D-%ED%85%90%EC%84%9C-%EC%98%88%EC%A0%9C:-%EC%BA%98%EB%A6%AC%ED%8F%AC%EB%8B%88%EC%95%84-%EA%B5%AC%EC%97%AD%EB%B3%84-%EC%9D%B8%EA%B5%AC%EC%A1%B0%EC%82%AC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B">&#182;</a></h3>
+<h3 id="2D-%ED%85%90%EC%84%9C-%EC%98%88%EC%A0%9C">2D &#53584;&#49436; &#50696;&#51228;<a class="anchor-link" href="#2D-%ED%85%90%EC%84%9C-%EC%98%88%EC%A0%9C">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15230,6 +15230,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
+<li>예제 1: 캘리포니아 구역별 인구조사 데이터셋</li>
 <li>20,640개의 구역별 데이터 포함. 따라서 <code>(20640, 10)</code> 모양의 2D 텐서로 표현 가능.</li>
 </ul>
 
@@ -15255,6 +15256,48 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>예제 2: 샘플: 문장에 사용된 단어들의 빈도를 모아놓은 벡터. </li>
+<li>사용 가능 단어 2만 개</li>
+<li>단어 각각이 지정된 문장에 사용된 빈도 측정</li>
+<li>하나의 문장: <code>(20000,)</code> 모양의 벡터로 표현        </li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-1D-01.png?raw=true" style="width:450px;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>데이터셋: 10만 개의 문장으로 구성된 데이터셋은 <code>(100000, 20000)</code> 모양의 2D 텐서로 표현</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="3D-%ED%85%90%EC%84%9C-%EC%98%88%EC%A0%9C">3D &#53584;&#49436; &#50696;&#51228;<a class="anchor-link" href="#3D-%ED%85%90%EC%84%9C-%EC%98%88%EC%A0%9C">&#182;</a></h3>
 </div>
 </div>
@@ -15267,10 +15310,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>시계열 데이터</li>
-<li>샘플: 1분마다 하루 총 390번 (현재 증시가, 지난 1분 동안 최고가, 지난 1분 동안 최저가)를 
-  측정한 데이터. <code>(390, 3)</code> 모양의 2D 텐서로 표현.        </li>
-<li>데이터셋: 250일 동안 측정한 데이터셋은 <code>(250, 390, 3)</code> 모양의 3D 텐서로 표현.</li>
+<li>시계열 데이터와 순차 데이터</li>
 </ul>
 
 </div>
@@ -15284,6 +15324,88 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-timeseries_data.png" style="width:350px;"></div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>예제 1: 1분마다 하루 총 390번 (현재 증시가, 지난 1분 동안 최고가, 지난 1분 동안 최저가)를 
+  측정한 데이터 샘플</li>
+<li><code>(390, 3)</code> 모양의 2D 텐서로 표현.        </li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-2D-1.png?raw=true" style="width:170px;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>250일 동안 측정한 데이터셋은 <code>(250, 390, 3)</code> 모양의 3D 텐서로 표현.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>예제 2: 하나의 트위터 데이터(트윗)는 최대 280개의 문자로 구성되고, 사용할 수 있는 문자가 총 128 개</li>
+<li>트위터 샘플: <code>(280, 128)</code> 모양의 2D 텐서로 표현 가능함. </li>
+<li>각각의 항목은 128개의 문자 각각의 사용여부를 확인해주는 0 또는 1.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch02-2D-2.png?raw=true" style="width:250px;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>데이터셋: 백만 개의 샘플로 구성된 트위터 데이터셋은 <code>(1000000, 280, 128)</code> 모양의 3D 텐서로 표현 가능.</li>
+</ul>
+
 </div>
 </div>
 </div>
