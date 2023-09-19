@@ -715,20 +715,53 @@ document.write(`
 <p>유니버설 함수만 활성화 함수로 사용되는 것은 아니다.
 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수는 유니버설 함수가 아니며, 각 유닛에서 계산된 값들의 상대적 크기를 계산한다.</p>
 </div>
-<p><strong>텐서 점곱</strong></p>
-<p><strong>텐서 점곱</strong><font size='2'>tensor dot product</font> 함수는
-두 벡터의 내적 또는 두 행렬의 곱을 계산할 때 사용된다.
+<p><strong>텐서 점곱 대 텐서 곱셈</strong></p>
+<p><strong>텐서 점곱</strong><font size='2'>tensor dot product</font> 함수인
+<code class="docutils literal notranslate"><span class="pre">np.dot()</span></code>는 두 벡터의 내적 또는 두 행렬의 곱을 계산할 때 사용된다.
 아래 그림에서 보여지는 것처럼 두 인자의 유형에 따라 다르게 작동한다.</p>
 <ul class="simple">
 <li><p>1D와 스칼라의 점곱: 항목 별 배수 곱셈</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="go">array([10, 20, 30])</span>
+</pre></div>
+</div>
+<ul class="simple">
 <li><p>1D와 1D의 점곱: 벡터 내적</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="go">-14</span>
+</pre></div>
+</div>
+<ul class="simple">
 <li><p>1D와 2D의 점곱: 행렬 곱셈</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>              <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="go">array([1, 1, 1])</span>
+</pre></div>
+</div>
+<ul class="simple">
 <li><p>2D와 2D의 점곱: 행렬 곱셈</p></li>
 </ul>
-<div align="center"><img src="https://blog.finxter.com/wp-content/uploads/2021/01/numpy_dot-1-scaled.jpg" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://blog.finxter.com/dot-product-numpy/">finxter - NumPy Dot Product</a>&gt;</div></p><div class="warning admonition">
-<p class="admonition-title">텐서의 곱셈(<code class="docutils literal notranslate"><span class="pre">*</span></code>)</p>
-<p>텐서 점곱(<code class="docutils literal notranslate"><span class="pre">np.dot()</span></code>)과 텐서 곱셈(<code class="docutils literal notranslate"><span class="pre">*</span></code>)은 다르다.
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="gp">... </span>     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="gp">... </span>     <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="go">array([[0, 0],</span>
+<span class="go">       [0, 0]])</span>
+</pre></div>
+</div>
+<p><strong>텐서 곱셈</strong>(<code class="docutils literal notranslate"><span class="pre">*</span></code>)은 텐서 점곱(<code class="docutils literal notranslate"><span class="pre">np.dot()</span></code>)과  다르다.
 텐서 곱셈은 앞서 브로드캐스팅과 연관지어 설명된 것처럼 동일 모양의 두 텐서를
 항목별로 곱해서 동일 모양의 새로운 텐서를 생성한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
@@ -753,6 +786,8 @@ document.write(`
 <span class="go">       [30., 60., 90.]])</span>
 </pre></div>
 </div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 <p><strong>텐서 모양 변형</strong></p>
 <p>머신러닝 모델은 입력 텐서의 모양을 제한한다.
@@ -779,8 +814,8 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="info admonition">
-<p class="admonition-title">넘파이 어레이 연산</p>
+<div class="note admonition">
+<p class="admonition-title">참고 문헌</p>
 <p>텐서 연산의 기본이 되는 넘파이 어레이 연산, 유니버설 함수, 텐서 모양 변형 등에 대한
 보다 자세한 설명은
 <a class="reference external" href="https://codingalzi.github.io/datapy/intro.html">파이썬 데이터 분석</a>을 참고한다.</p>
