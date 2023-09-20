@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'building_blocks_of_NN';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="2.4. 부록: 텐서 소개" href="tensor_intro.html" />
+    <link rel="next" title="2.5. 부록: 텐서 소개" href="tensor_intro.html" />
     <link rel="prev" title="1. 딥러닝 소개" href="what_is_deep_learning.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -148,8 +148,8 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">2. 신경망 기본 구성 요소</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="tensor_intro.html">2.4. 부록: 텐서 소개</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tf_tensor.html">2.5. 부록: 텐서플로우 텐서</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensor_intro.html">2.5. 부록: 텐서 소개</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tf_tensor.html">2.6. 부록: 텐서플로우 텐서</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">3. 케라스와 텐서플로우</a></li>
@@ -366,6 +366,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.2. 신경망 모델 훈련의 핵심 요소</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.3. 훈련된 모델 활용과 평가</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.4. 연습문제</a></li>
 </ul>
             </nav>
         </div>
@@ -771,6 +772,39 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 이는 모델이 훈련 세트에 대해 약간의 <strong>과대 적합</strong><font size='2'>overfitting</font>이 발생했음을 의미한다.
 과대적합과 과대적합을 해결하는 다양한 방법에 대해서는 나중에 보다 자세히 다룬다.</p>
 </section>
+<section id="id10">
+<h2><span class="section-number">2.4. </span>연습문제<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>아래 링크의 내용을 구글 코랩에서 정리한 후에 링크를 제출하라.</p>
+<ul>
+<li><p>링크: <a class="reference external" href="https://www.kaggle.com/code/prashant111/mnist-deep-neural-network-with-keras">https://www.kaggle.com/code/prashant111/mnist-deep-neural-network-with-keras</a></p></li>
+<li><p>설명</p>
+<ul class="simple">
+<li><p>MNIST 데이터셋을 대상으로 분류를 진행하는 모델</p></li>
+<li><p>지정된 모델이 앞서 소개한 모델과 다름</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="n">input_size</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_labels</span><span class="p">))</span>
+<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</li>
+<li><p>새롭게 사용된 층:</p>
+<ul class="simple">
+<li><p>Dropout 층 참고: <a class="reference external" href="https://codingalzi.github.io/dlp2/fundamentals_of_ml.html#id13">https://codingalzi.github.io/dlp2/fundamentals_of_ml.html#id13</a></p></li>
+<li><p>Activation 층: 이전 층에서 활성화 함수를 지정하지 않은 경우 활용</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -820,7 +854,7 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">2.4. </span>부록: 텐서 소개</p>
+        <p class="prev-next-title"><span class="section-number">2.5. </span>부록: 텐서 소개</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -852,6 +886,7 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.2. 신경망 모델 훈련의 핵심 요소</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.3. 훈련된 모델 활용과 평가</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.4. 연습문제</a></li>
 </ul>
   </nav></div>
 

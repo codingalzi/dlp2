@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>2.4. 부록: 텐서 소개 &#8212; Deep Learning with Python(2판)</title>
+    <title>2.5. 부록: 텐서 소개 &#8212; Deep Learning with Python(2판)</title>
   
   
   
@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'tensor_intro';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="2.5. 부록: 텐서플로우 텐서" href="tf_tensor.html" />
+    <link rel="next" title="2.6. 부록: 텐서플로우 텐서" href="tf_tensor.html" />
     <link rel="prev" title="2. 신경망 기본 구성 요소" href="building_blocks_of_NN.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -146,8 +146,8 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.4. 부록: 텐서 소개</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tf_tensor.html">2.5. 부록: 텐서플로우 텐서</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.5. 부록: 텐서 소개</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tf_tensor.html">2.6. 부록: 텐서플로우 텐서</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">3. 케라스와 텐서플로우</a></li>
@@ -354,15 +354,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.4.1. 텐서</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4.1.1. 텐서의 차원</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.4.1.2. 텐서 주요 속성</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.4.1.3. 텐서 실전 예제</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.4.1.4. 텐서 연산</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.4.1.5. 텐서 연산의 기하학적 의미</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.5.1. 텐서</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.5.1.1. 텐서의 차원</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.5.1.2. 텐서 주요 속성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.5.1.3. 텐서 실전 예제</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.5.1.4. 텐서 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.5.1.5. 텐서 연산의 기하학적 의미</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.4.2. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.5.2. 연습문제</a></li>
 </ul>
             </nav>
         </div>
@@ -375,7 +375,7 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="appendix-tensor-intro">
-<span id="id1"></span><h1><span class="section-number">2.4. </span>부록: 텐서 소개<a class="headerlink" href="#appendix-tensor-intro" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">2.5. </span>부록: 텐서 소개<a class="headerlink" href="#appendix-tensor-intro" title="Permalink to this heading">#</a></h1>
 <p><strong>소스코드</strong></p>
 <p>여기서 언급되는 코드를
 <a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-tensor_intro.ipynb">(구글 코랩) 텐서 소개</a>에서
@@ -383,7 +383,7 @@ document.write(`
 <p><strong>슬라이드</strong></p>
 <p>본문 내용을 요약한 <a class="reference external" href="https://github.com/codingalzi/dlp2/raw/master/slides/slides-tensor_intro.pdf">슬라이드</a>를 다운로드할 수 있다.</p>
 <section id="id2">
-<h2><span class="section-number">2.4.1. </span>텐서<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5.1. </span>텐서<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>MNIST 손글씨 데이터 분류 모델의 훈련에 사용된 훈련셋과 테스트셋은
 넘파이 어레이, 즉 <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>(이하 <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>) 자료형으로 저장된다.
 머신러닝에 사용되는 데이터셋은 일반적으로 넘파이 어레이와 같은
@@ -397,7 +397,7 @@ document.write(`
 케라스 신경망 모델의 입력, 출력값으로 넘파이 어레이를 기본으로 사용한다.
 따라서 특별한 경우가 아니라면 넘파이 어레이를 데이터셋을 다룰 때 사용하면 된다.</p>
 <section id="id3">
-<h3><span class="section-number">2.4.1.1. </span>텐서의 차원<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1.1. </span>텐서의 차원<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>텐서의 <strong>차원</strong>은 텐서의 표현에 사용된 <strong>축</strong><font size='2'>axis</font>의 수로
 결정되며 <strong>랭크</strong><font size='2'>rank</font>라 불리기도 한다.</p>
 <ul>
@@ -499,7 +499,7 @@ document.write(`
 </div>
 </section>
 <section id="id4">
-<h3><span class="section-number">2.4.1.2. </span>텐서 주요 속성<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1.2. </span>텐서 주요 속성<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>텐서의 주요 속성 세 가지는 다음과 같으며, 넘파이 어레이의 경우와 동일하다.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">ndim</span></code> 속성: 텐서의 차원 저장.
@@ -571,7 +571,7 @@ document.write(`
 </div>
 </section>
 <section id="id5">
-<h3><span class="section-number">2.4.1.3. </span>텐서 실전 예제<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1.3. </span>텐서 실전 예제<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <p><strong>(1) 2D 텐서 실전 예제</strong></p>
 <p>각각의 샘플이 지정된 개수의 특성으로 구성된 벡터로 표현된다.
 전체 데이터셋은 <code class="docutils literal notranslate"><span class="pre">(샘플</span> <span class="pre">수,</span> <span class="pre">특성</span> <span class="pre">수)</span></code> 모양의 2D 텐서로 표현된다.</p>
@@ -684,7 +684,7 @@ document.write(`
 따라서 동영상 10 편으로 구성된 데이터셋은 <code class="docutils literal notranslate"><span class="pre">(10,</span> <span class="pre">240,</span> <span class="pre">144,</span> <span class="pre">256,</span> <span class="pre">3)</span></code> 모양의 5D 텐서로 표현된다.</p>
 </section>
 <section id="id6">
-<h3><span class="section-number">2.4.1.4. </span>텐서 연산<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1.4. </span>텐서 연산<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>신경망 모델의 훈련은 기본적으로 텐서와 관련된 몇 가지 연산으로 이루어진다.
 예를 들어 이전 신경망에 사용된 층을 살펴보자.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
@@ -841,7 +841,7 @@ document.write(`
 </div>
 </section>
 <section id="id7">
-<h3><span class="section-number">2.4.1.5. </span>텐서 연산의 기하학적 의미<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.5.1.5. </span>텐서 연산의 기하학적 의미<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <p>신경망 모델에 사용되는 연산과 함수들의 기능을
 기하학적으로 설명할 수 있다.</p>
 <ul class="simple">
@@ -875,7 +875,7 @@ document.write(`
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
 </section>
 <section id="id8">
-<h2><span class="section-number">2.4.2. </span>연습문제<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.5.2. </span>연습문제<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/datapy/blob/master/practices/practice-numpy_1.ipynb">(실습) 넘파이 어레이</a></p></li>
 </ol>
@@ -927,7 +927,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">2.5. </span>부록: 텐서플로우 텐서</p>
+        <p class="prev-next-title"><span class="section-number">2.6. </span>부록: 텐서플로우 텐서</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -949,15 +949,15 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.4.1. 텐서</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.4.1.1. 텐서의 차원</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.4.1.2. 텐서 주요 속성</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.4.1.3. 텐서 실전 예제</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.4.1.4. 텐서 연산</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.4.1.5. 텐서 연산의 기하학적 의미</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">2.5.1. 텐서</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.5.1.1. 텐서의 차원</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.5.1.2. 텐서 주요 속성</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.5.1.3. 텐서 실전 예제</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">2.5.1.4. 텐서 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.5.1.5. 텐서 연산의 기하학적 의미</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.4.2. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.5.2. 연습문제</a></li>
 </ul>
   </nav></div>
 
