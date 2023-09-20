@@ -774,35 +774,8 @@ MNIST 모델의 경우 지도 학습 모델이기에 입력 데이터셋과 타�
 </section>
 <section id="id10">
 <h2><span class="section-number">2.4. </span>연습문제<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
-<ol class="arabic">
-<li><p>아래 링크의 내용을 구글 코랩에서 정리한 후에 링크를 제출하라.</p>
-<ul>
-<li><p>링크: <a class="reference external" href="https://www.kaggle.com/code/prashant111/mnist-deep-neural-network-with-keras">https://www.kaggle.com/code/prashant111/mnist-deep-neural-network-with-keras</a></p></li>
-<li><p>설명</p>
-<ul class="simple">
-<li><p>MNIST 데이터셋을 대상으로 분류를 진행하는 모델</p></li>
-<li><p>지정된 모델이 앞서 소개한 모델과 다름</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="n">input_size</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_labels</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;softmax&#39;</span><span class="p">))</span>
-</pre></div>
-</div>
-</li>
-<li><p>새롭게 사용된 층:</p>
-<ul class="simple">
-<li><p>Dropout 층 참고: <a class="reference external" href="https://codingalzi.github.io/dlp2/fundamentals_of_ml.html#id13">https://codingalzi.github.io/dlp2/fundamentals_of_ml.html#id13</a></p></li>
-<li><p>Activation 층: 이전 층에서 활성화 함수를 지정하지 않은 경우 활용</p></li>
-</ul>
-</li>
-</ul>
-</li>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-building_blocks_of_NN.ipynb">(실습) 신경망 기본 구성 요소</a></p></li>
 </ol>
 </section>
 <div class="toctree-wrapper compound">
