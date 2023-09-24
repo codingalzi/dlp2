@@ -368,8 +368,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.6.6. 브로드캐스팅</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.6.7. 다양한 종류의 텐서</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.6.7.1. 비정형 텐서</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.7.2. 문자열 텐서</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.6.7.3. 희소 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.7.2. 희소 텐서</a></li>
 </ul>
 </li>
 </ul>
@@ -387,6 +386,10 @@ document.write(`
 <span id="id1"></span><h1><span class="section-number">2.6. </span>부록: 텐서플로우 텐서<a class="headerlink" href="#appendix-tf-tensor" title="Permalink to this heading">#</a></h1>
 <p><strong>참고</strong></p>
 <p><a class="reference external" href="https://www.tensorflow.org/guide/tensor">Introduction to Tensors</a>를 요약, 정리한 내용입니다.</p>
+<p><strong>슬라이드</strong></p>
+<p>본문 내용을 요약한 <a class="reference external" href="https://github.com/codingalzi/dlp2/raw/master/slides/slides-tf_tensor.pdf">슬라이드</a>를 다운로드할 수 있다.</p>
+<section id="id2">
+<h2><span class="section-number">2.6.1. </span>텐서 기초<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>텐서플로우 라이브러리가 제공하는
 텐서 자료형은 동일한 자료형의 항목으로 구성된 다차원 배열들의 자료형이다.
 넘파리의 어레이 자료형인 <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>와 매우 유사하다.</p>
@@ -402,8 +405,6 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="id2">
-<h2><span class="section-number">2.6.1. </span>텐서 기초<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <section id="id3">
 <h3><span class="section-number">2.6.1.1. </span>랭크(차원)와 축<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>텐서는 사용되는 축<font size='2'>axis</font>의 개수에 따라
@@ -1399,7 +1400,7 @@ array([[ 0,  1,  2,  3,  4,  5],
 </div>
 </div>
 <ul class="simple">
-<li><p>8비트 부호 없는 정수<font size='2'>unsigned int</font>로 구성된 텐서로 형변환</p></li>
+<li><p>8비트 음이 아닌 정수<font size='2'>unsigned int</font>로 구성된 텐서로 형변환</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1604,173 +1605,7 @@ array([[ 1,  2,  3,  4],
 </div>
 </section>
 <section id="id13">
-<h3><span class="section-number">2.6.7.2. </span>문자열 텐서<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
-<p>문자열로 구성된 텐서를 사용할 수 있으며,
-<code class="docutils literal notranslate"><span class="pre">dtype</span></code>으로 <code class="docutils literal notranslate"><span class="pre">tf.string</span></code>이 사용된다.
-단, 파이썬 문자열의 인덱싱/슬라이싱은 지원되지 않는다.</p>
-<ul class="simple">
-<li><p>문자열 스칼라: 아래 <code class="docutils literal notranslate"><span class="pre">scalar_string_tensor</span></code> 변수는 <code class="docutils literal notranslate"><span class="pre">&quot;회색</span> <span class="pre">늑대&quot;</span></code> 라는
-문자열 하나를 포함한 스칼라를 가리킨다.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scalar_string_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s2">&quot;회색 늑대&quot;</span><span class="p">)</span>
-<span class="n">scalar_string_tensor</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=string, numpy=b&#39;\xed\x9a\x8c\xec\x83\x89 \xeb\x8a\x91\xeb\x8c\x80&#39;&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<p>그런데 한글 문자열이 제대로 보이지 않는다.
-이유는 문자열이 사람이 읽을 수 있는 유니코드 방식이 아니라 컴퓨터에
-저장되어 컴퓨터가 이해할 수 있는 utf-8 방식으로 인코딩된 바이트 문자열로 처리되기 때문이다.
-문자열 앞에 붙은 <code class="docutils literal notranslate"><span class="pre">b</span></code> 접두사가 이를 반영한다.</p>
-<p>바이트 코드로 인코딩된 문자열을 디코딩 하면
-유니코드 형식의 문자열을 얻는다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xed\x9a\x8c\xec\x83\x89</span><span class="s1"> </span><span class="se">\xeb\x8a\x91\xeb\x8c\x80</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;회색 늑대&#39;
-</pre></div>
-</div>
-</div>
-</div>
-<p>영어 알파벳을 사용하면 그래도 제대로 보이긴 하지만 여전히
-바이트 문자열로 처리된다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scalar_string_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s2">&quot;Grey wolf&quot;</span><span class="p">)</span>
-<span class="n">scalar_string_tensor</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=string, numpy=b&#39;Grey wolf&#39;&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>문자열의 벡터: 세 개의 문자열로 구성된 벡터는
-다음과 같이 정의된다.
-각 항목에 사용되는 문자열의 길이는 달라도 된다.</p></li>
-</ul>
-<table>
-<tr>
-  <th>문자열의 벡터, 모양: <code>[3,]</code> </th>
-</tr>
-<tr>
-  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/strings.png" alt="The string length is not one of the tensor's axes.">   </td>
-</tr>
-</table><div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tensor_of_strings</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="s2">&quot;Gray wolf&quot;</span><span class="p">,</span>
-                                 <span class="s2">&quot;Quick brown fox&quot;</span><span class="p">,</span>
-                                 <span class="s2">&quot;Lazy dog&quot;</span><span class="p">])</span>
-<span class="n">tensor_of_strings</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=string, numpy=array([b&#39;Gray wolf&#39;, b&#39;Quick brown fox&#39;, b&#39;Lazy dog&#39;], dtype=object)&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<p>텐서의 모양에는 문자열 항목의 길이 정보는 포함하지 않는다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tensor_of_strings</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TensorShape([3])
-</pre></div>
-</div>
-</div>
-</div>
-<p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/strings"><code class="docutils literal notranslate"><span class="pre">tf.strings</span></code></a> 모듈이 문자열 텐서를 활용하는 다양한 함수를 제공한다.
-여기서는 가장 많이 활용되는 함수 두 개만 소개한다.</p>
-<p><strong><code class="docutils literal notranslate"><span class="pre">tf.strings.split()</span></code> 함수</strong></p>
-<p>문자열 텐서에 포함된 각 문자열을 지정된 기준으로 쪼개서 벡터는 생성한다.</p>
-<ul class="simple">
-<li><p>스칼라 문자열 텐서 쪼개기: 벡터 생성</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">scalar_string_tensor</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2,), dtype=string, numpy=array([b&#39;Grey&#39;, b&#39;wolf&#39;], dtype=object)&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p>벡터 문자열 텐서 쪼개기: (비정형) 텐서 생성.</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">tensor_of_strings</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.RaggedTensor [[b&#39;Gray&#39;, b&#39;wolf&#39;], [b&#39;Quick&#39;, b&#39;brown&#39;, b&#39;fox&#39;], [b&#39;Lazy&#39;, b&#39;dog&#39;]]&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<p>일반적으로 비정형 텐서가 생성되는 이유는 각 문자열의 길이가 다르기 때문이다.</p>
-<table>
-<tr>
-  <th>세 개의 분할된 문자열, 모양: <code>[3, None]</code> </th>
-</tr>
-<tr>
-  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/string-split.png" alt="Splitting multiple strings returns a tf.RaggedTensor">   </td>
-</tr>
-</table><p><strong><code class="docutils literal notranslate"><span class="pre">tf.string.to_number()</span></code> 함수</strong></p>
-<p>숫자 모양의 문자열을 실제 숫자로 변환한다.
-예를 들어 아래 <code class="docutils literal notranslate"><span class="pre">number_text</span></code> 변수는
-세 개의 정수로 구성된 스칼라 문자열 텐서를 가리키며,
-세 개의 숫자는 공백으로 구분된다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_text</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="s2">&quot;1 10 100&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">tf.strings.split()</span></code> 함수를 이용하여
-공백 기준으로 문자열을 쪼갠 후,
-<code class="docutils literal notranslate"><span class="pre">tf.strings.to_number()</span></code> 함수를 항목별로 적용하면
-정수로 구성된 벡터가 생성된다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">to_number</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">number_text</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=float32, numpy=array([  1.,  10., 100.], dtype=float32)&gt;
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="id14">
-<h3><span class="section-number">2.6.7.3. </span>희소 텐서<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.6.7.2. </span>희소 텐서<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <p>텐서의 크기가 매우 큰 반면에 0이 아닌 항목의 개수가 상대적으로
 적을 때 희소 텐서<font size='2'>sparse tensor</font>를
 사용하면 메모리를 보다 효율적으로 활용할 수 있다.
@@ -1933,8 +1768,7 @@ array([[1, 0, 0, 0],
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.6.6. 브로드캐스팅</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.6.7. 다양한 종류의 텐서</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.6.7.1. 비정형 텐서</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.7.2. 문자열 텐서</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.6.7.3. 희소 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.6.7.2. 희소 텐서</a></li>
 </ul>
 </li>
 </ul>
