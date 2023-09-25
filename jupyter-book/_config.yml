@@ -43,5 +43,5 @@ sphinx:
     - sphinx_proof
 
 # Add a launch on Google Colab button
-launch_buttons:
-  colab_url: "https://colab.research.google.com"
+# launch_buttons:
+#   colab_url: "https://colab.research.google.com"
