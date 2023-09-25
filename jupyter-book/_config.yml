@@ -41,3 +41,7 @@ sphinx:
     html_show_copyright: false
   extra_extensions:
     - sphinx_proof
+
+# Add a launch on Google Colab button
+launch_buttons:
+  colab_url: "https://colab.research.google.com"
