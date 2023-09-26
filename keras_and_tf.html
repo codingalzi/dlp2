@@ -715,43 +715,83 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
     <span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cov</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">size</span><span class="o">=</span><span class="n">num_samples_per_class</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">np.random.multivariate.normal()</span></code> 함수는 다변량 정규 분포를 이용하여 지정된 크기의 데이터셋을 생성하며,
+사용된 인자의 의미는 다음과 같다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mean</span></code>: 데이터셋의 평균값</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cov</span></code>: 공분산 지정. 0번 특성과 1번 특성의 분포를 1대 0.5 비율로 지정. 따라서 0번 특성의 축(x-축)으로 보다 넓게 분포됨.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: 생성되는 데이터셋의 크기</p></li>
+</ul>
 <p>두 데이터셋을 합쳐서 훈련셋, 즉, 모델의 입력값으로 지정한다.
+<code class="docutils literal notranslate"><span class="pre">np.vstack()</span></code> 함수는 여러 개의 데이터셋을 직렬 방식으로 쌓는다.
 자료형을 <code class="docutils literal notranslate"><span class="pre">np.float32</span></code>로 지정함에 주의하라.
 그렇게 하지 않으면 <code class="docutils literal notranslate"><span class="pre">np.float64</span></code>로 지정되어 보다 많은 메모리와 실행시간을 요구한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">negative_samples</span><span class="p">,</span> <span class="n">positive_samples</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">negative_sample</span></code>: (1000, 2) 모양의 텐서</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">positive_sample</span></code>: (1000, 2) 모양의 텐서</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inputs</span> <span class="pre">=</span> <span class="pre">np.vstack(negative_sample,</span> <span class="pre">positive_sample)</span></code>: (2000, 2) 모양의 텐서</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">negative_sample</span></code> 데이터셋이 0번부터 999번까지 인덱스.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">positive_sample</span></code> 데이터셋이 1000번부터 1999번까지 인덱스.</p></li>
+</ul>
+</li>
+</ul>
 <p>음성 샘플의 레이블은 0, 양성 샘플의 레이블은 1로 지정한다.
-레이블 데이터셋 또한 2차원 어레이로 지정됨에 주의하라.</p>
+레이블 데이터셋 또한 2차원 어레이로 지정됨에 주의하라.
+이유는 하나의 입력 샘플에 대해 여러 종류의 예측값을 게산해야 하는 경우도 있기 때문에
+일반적으로 하나의 출력값을 벡터로 반환한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_samples_per_class</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span>
                      <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">num_samples_per_class</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float32&quot;</span><span class="p">)))</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">np.zeros((num_samples_per_class,</span> <span class="pre">1),</span> <span class="pre">dtype=&quot;float32&quot;)</span></code>: (1000, 1) 모양의 어레이. 0으로 채워짐. 모든 음성 데이터의 타깃은 0임.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">np.ones((num_samples_per_class,</span> <span class="pre">1),</span> <span class="pre">dtype=&quot;float32&quot;)</span></code>: (1000, 1) 모양의 어레이. 1로 채워짐. 모든 양성 데이터의 타깃은 1임.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">targets</span></code>: (2000, 1) 모양의 어레이.</p></li>
+</ul>
 <p><strong>2단계: 선형 회귀 모델 훈련에 필요한 가중치와 편향 변수 텐서 생성</strong></p>
+<p>선형 분류기 모델의 예측값 계산은 다음과 같이 이뤄진다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">inputs</span></code>: (2000, 2) 모양의 입력 데이터셋 행렬</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">W</span></code>: (2, 1) 모양의 가중치 행렬</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inputs</span> <span class="pre">&#64;</span> <span class="pre">W</span></code>: (2000, 1) 모양의 행렬</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: (1,) 모양의 벡터</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inputs</span> <span class="pre">&#64;</span> <span class="pre">W</span> <span class="pre">+</span> <span class="pre">b</span></code>: (2000, 1) 모양의 출력값 행렬. 즉, 2000 개의 입력 데이터 각각에 대해 하나의 값의 계산됨.</p></li>
+</ul>
 <p>모델 학습에 사용될 가중치와 편향을 변수 텐서로 선언한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">input_dim</span> <span class="o">=</span> <span class="mi">2</span>     <span class="c1"># 입력 샘플의 특성이 2개</span>
-<span class="n">output_dim</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># 하나의 값으로 출력</span>
+<span class="n">output_dim</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># 각각의 입력 샘플에 대해 하나의 부동소수점을 예측값으로 계산</span>
 
-<span class="c1"># 가중치: 무작위 초기화</span>
+<span class="c1"># 가중치: (2, 1) 모양의 가중치 행렬을 균등분포를 이용한 무작위 초기화</span>
 <span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)))</span>
 
-<span class="c1"># 편향: 0으로 초기화</span>
+<span class="c1"># 편향: (1,) 모양의 벡터를 0으로 초기화</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">output_dim</span><span class="p">,)))</span>
 </pre></div>
 </div>
 <p><strong>3단계: 모델 선언(포워드 패스 담당)</strong></p>
 <p>신경망 모델을 훈련할 때 입력값에 대한 예측값을 계산하는 과정인
 포워드 패스를 함수로 구현한다.
-간단한 모델 표현을 위해 활성화 함수는 사용하지 않는다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">tf.matmul()</span></code> 함수는 넘파이의 점 곱 함수처럼 작동하며 아래 코드에서는
-행렬의 곱을 나타낸다.</p>
+간단한 모델 표현을 위해 활성화 함수는 사용하지 않는다.
+<code class="docutils literal notranslate"><span class="pre">&#64;</span></code> 연산자는 행렬의 곱을 나타낸다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">inputs</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span>
 </pre></div>
 </div>
 <p><strong>4단계: 손실 함수 지정</strong></p>
 <p>타깃과 예측값 사이의 평균 제곱 오차를 손실값으로 사용한다.
-아래 코드에서 <code class="docutils literal notranslate"><span class="pre">tf.reduce_mean()</span></code> 함수는 넘파이의 <code class="docutils literal notranslate"><span class="pre">np.mean()</span></code>처럼
+아래 식에서 <span class="math notranslate nohighlight">\(m\)</span>은 배치 데이터셋의 크기를 가리킨다.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{m}\sum (y - \hat y)^2
+\]</div>
+<p>아래 코드에서 <code class="docutils literal notranslate"><span class="pre">tf.reduce_mean()</span></code> 함수는 넘파이의 <code class="docutils literal notranslate"><span class="pre">np.mean()</span></code>처럼
 평균값을 계산하지만 텐서플로우의 텐서를 대상으로 한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">square_loss</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">):</span>
     <span class="n">per_sample_losses</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">targets</span> <span class="o">-</span> <span class="n">predictions</span><span class="p">)</span>
@@ -768,9 +808,12 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
     <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
         <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">square_loss</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+
     <span class="n">grad_loss_wrt_W</span><span class="p">,</span> <span class="n">grad_loss_wrt_b</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="p">[</span><span class="n">W</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
-    <span class="n">W</span><span class="o">.</span><span class="n">assign_sub</span><span class="p">(</span><span class="n">grad_loss_wrt_W</span> <span class="o">*</span> <span class="n">learning_rate</span><span class="p">)</span>
-    <span class="n">b</span><span class="o">.</span><span class="n">assign_sub</span><span class="p">(</span><span class="n">grad_loss_wrt_b</span> <span class="o">*</span> <span class="n">learning_rate</span><span class="p">)</span>
+    
+    <span class="n">W</span><span class="o">.</span><span class="n">assign_sub</span><span class="p">(</span><span class="n">grad_loss_wrt_W</span> <span class="o">*</span> <span class="n">learning_rate</span><span class="p">)</span> <span class="c1"># 가중치 행렬 업데이트</span>
+    <span class="n">b</span><span class="o">.</span><span class="n">assign_sub</span><span class="p">(</span><span class="n">grad_loss_wrt_b</span> <span class="o">*</span> <span class="n">learning_rate</span><span class="p">)</span> <span class="c1"># 편향 업데이트</span>
+    
     <span class="k">return</span> <span class="n">loss</span>
 </pre></div>
 </div>
