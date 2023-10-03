@@ -356,24 +356,31 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.1. 텐서플로우</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.2. 케라스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3.3. 딥러닝 주요 라이브러리 약력</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.4. 딥러닝 개발환경</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3.5. 순수 텐서플로우 사용법 기초</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3.5.1. 상수 텐서와 변수 텐서</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradienttape">3.5.2. <code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">3.5.3. 순수 텐서플로우 활용 선형 분류기 구현 예제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.1. 딥러닝 주요 라이브러리</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.1.1. 텐서플로우</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3.1.2. 케라스</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.1.3. 딥러닝 주요 라이브러리 약력</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3.1.4. 딥러닝 개발환경</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api">3.6. 케라스 신경망 모델의 핵심 API</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">3.6.1. 층</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3.6.2. 모델</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3.6.3. 훈련 루프</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.6.4. 예측</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3.2. 텐서플로우 텐서</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">3.2.1. 상수 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">3.2.2. 변수 텐서</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.7. 연습 문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3.3. 텐서플로우 활용법 기초</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3.3.1. 그레이디언트 테이프</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.3.2. 예제: 선형 분류기</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api">3.4. 케라스 신경망 모델의 핵심 API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.4.1. 층</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3.4.2. 모델</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">3.4.3. 훈련 루프</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3.4.4. 예측</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3.5. 연습 문제</a></li>
 </ul>
             </nav>
         </div>
@@ -401,7 +408,9 @@ document.write(`
 <p><strong>주요 내용</strong></p>
 <p>케라스와 텐서플로우를 이용한 딥러닝의 활용법을 소개한다.</p>
 <section id="id2">
-<h2><span class="section-number">3.1. </span>텐서플로우<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.1. </span>딥러닝 주요 라이브러리<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="id3">
+<h3><span class="section-number">3.1.1. </span>텐서플로우<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>텐서플로우는 파이썬 기본 머신러닝 플랫폼이며,
 머신러닝 모델의 훈련에 필요한 텐서 연산을 지원한다.
 넘파이<font size='2'>Numpy</font> 패키지와 유사하지만 보다 많은 기능을 제공한다.</p>
@@ -419,8 +428,8 @@ document.write(`
 <li><p>TensorFlow-Hub: 사전 훈련된 머신러닝 모델 제공</p></li>
 </ul>
 </section>
-<section id="id3">
-<h2><span class="section-number">3.2. </span>케라스<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<section id="id4">
+<h3><span class="section-number">3.1.2. </span>케라스<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>딥러닝 모델 구성 및 훈련에 효율적으로 사용될 수 있는 다양한 수준의 API를 제공하며,
 텐서플로우의 프론트엔드<font size='2'>front end</font> 인터페이스 기능을 수행한다.
 원래 텐서플로우와 독립적으로 개발되었지만 텐서플로우 2.0부터 텐서플로우 라이브러리의 최상위 프레임워크<font size='2'>framework</font>로 포함됐다.</p>
@@ -440,8 +449,8 @@ document.write(`
 </ul>
 </div>
 </section>
-<section id="id4">
-<h2><span class="section-number">3.3. </span>딥러닝 주요 라이브러리 약력<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<section id="id5">
+<h3><span class="section-number">3.1.3. </span>딥러닝 주요 라이브러리 약력<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>2007년: 씨아노<font size='2'>Theano</font> 공개.
 텐서를 이용한 계산 그래프, 미분 자동화 등을 최초로 지원한 딥러닝 라이브러리.</p></li>
@@ -466,8 +475,8 @@ document.write(`
 <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch03-keras-core.png?raw=true" style="width:500px;"></div>
 </div>
 </section>
-<section id="id5">
-<h2><span class="section-number">3.4. </span>딥러닝 개발환경<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<section id="id6">
+<h3><span class="section-number">3.1.4. </span>딥러닝 개발환경<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>딥러닝 신경망 모델의 훈련을 위해서 GPU를 활용할 것을 강력히 추천한다.
 GPU를 사용하지 않으면 모델의 훈련이 너무 느려진다.
 <a class="reference external" href="https://colab.research.google.com/?hl=ko">구글 코랩</a>을 이용하면
@@ -489,8 +498,9 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려진다.
 고성능 클라우드 컴퓨팅 서비스를 활용하는 것이
 경우에 따라 상대적으로 많이 저렴할 수 있다.</p>
 </section>
-<section id="id6">
-<h2><span class="section-number">3.5. </span>순수 텐서플로우 사용법 기초<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="id7">
+<h2><span class="section-number">3.2. </span>텐서플로우 텐서<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <p>케라스 없이 텐서플로우만 이용해서 신경망 모델을 지정하고 훈련시킬 수 있다.
 하지만 아래에 언급된 개념, 기능, 도구를 모두 직접 구현해야 한다.</p>
 <ul class="simple">
@@ -503,8 +513,6 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려진다.
 <li><p>평가지표</p></li>
 <li><p>훈련 루프</p></li>
 </ul>
-<section id="id7">
-<h3><span class="section-number">3.5.1. </span>상수 텐서와 변수 텐서<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <p>텐서플로우는 두 종류의 텐서 자료형을 지원한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">tf.Tensor</span></code> 자료형</p>
@@ -524,7 +532,8 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려진다.
 </ul>
 <p>사용법은 기본적으로 넘파이 어레이와 유사하며, GPU 연산과 그레이디언트 자동계산 등
 신경망 모델 훈련에 최적화된 기능을 제공한다.</p>
-<p><strong>상수 텐서</strong></p>
+<section id="id8">
+<h3><span class="section-number">3.2.1. </span>상수 텐서<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <p>상수 텐서를 다양한 방식으로 생성할 수 있다.
 아래 코드는 직접 상수 텐서의 모양과 항목을 지정한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">]])</span>
@@ -602,7 +611,9 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려진다.
 <span class="go">tensorflow.python.framework.ops.EagerTensor</span>
 </pre></div>
 </div>
-<p><strong>변수 텐서</strong></p>
+</section>
+<section id="id9">
+<h3><span class="section-number">3.2.2. </span>변수 텐서<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">tf.Variaible</span></code> 객체는 항목을 수정할 수 있는 가변 텐서이다.
 아래 코드는 정규 분포를 이용하여 (3. 1) 모양의 변수 텐서를 생성한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
@@ -672,10 +683,13 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려진다.
 </pre></div>
 </div>
 </section>
-<section id="gradienttape">
-<h3><span class="section-number">3.5.2. </span><code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 활용<a class="headerlink" href="#gradienttape" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id10">
+<h2><span class="section-number">3.3. </span>텐서플로우 활용법 기초<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<section id="id11">
+<h3><span class="section-number">3.3.1. </span>그레이디언트 테이프<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
 <p>넘파이 어레이와의 가장 큰 차이점은
-그레이디언트 테이프 기능을 이용하여 변수 텐서에 의존하는 미분가능한
+<strong>그레이디언트 테이프</strong><font size='2'>GradientTape</font> 기능을 이용하여 변수 텐서에 의존하는 미분가능한
 함수의 그레이디언트 자동 계산이다.
 예를 들어 아래 코드는 제곱 함수의 <span class="math notranslate nohighlight">\(x = 3\)</span>에서의 미분값인 6을 계산한다.</p>
 <div class="math notranslate nohighlight">
@@ -694,8 +708,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 </pre></div>
 </div>
 </section>
-<section id="id8">
-<h3><span class="section-number">3.5.3. </span>순수 텐서플로우 활용 선형 분류기 구현 예제<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<section id="id12">
+<h3><span class="section-number">3.3.2. </span>예제: 선형 분류기<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
 <p>케라스를 전혀 사용하지 않으면서 간단한 선형 분류기를 구현하는 과정을 통해
 텐서플로우 API의 기본 기능을 살펴 본다.</p>
 <p><strong>1단계: 데이터셋 생성</strong></p>
@@ -803,17 +817,24 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">output_dim</span><span class="p">,)))</span>
 </pre></div>
 </div>
-<p><strong>3단계: 모델 선언(포워드 패스 담당)</strong></p>
+<p><strong>3단계: 모델 선언(포워드 패스)</strong></p>
+<p>아래 <code class="docutils literal notranslate"><span class="pre">dense()</span></code> 함수는 밀집층(dense layer)에서의 아핀 변환을 담당한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dense</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="k">if</span> <span class="n">activation</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">activation</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">outputs</span>
+</pre></div>
+</div>
 <p>신경망 모델을 훈련할 때 입력값에 대한 예측값을 계산하는 과정인
 포워드 패스를 함수로 구현한다.
 여기서는 간단한 모델 표현을 위해 하나의 유닛으로 구성된 층 하나로 구성된 모델을 설정한다.
 즉, 앞서 언급한 아핀 변환으로 바로 모델의 출력값을 계산하는 모델을 사용한다.
 또한 보다 간단한 설명을 위해 활성화 함수는 사용하지 않는다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dense_1</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">inputs</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span>
-
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">dense_1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">dense</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">outputs</span>
 </pre></div>
 </div>
 <p><strong>4단계: 손실 함수 지정</strong></p>
@@ -843,7 +864,7 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <li><p>가중치 행렬과 편향 벡터 업데이트</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    - inputs: 입력 데이터 배치</span>
 <span class="sd">    - targets: 타깃 배치</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -891,16 +912,13 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch03-bin_classification.png?raw=true" style="width:500px;"></div></section>
 </section>
 <section id="api">
-<h2><span class="section-number">3.6. </span>케라스 신경망 모델의 핵심 API<a class="headerlink" href="#api" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.4. </span>케라스 신경망 모델의 핵심 API<a class="headerlink" href="#api" title="Permalink to this heading">#</a></h2>
 <p>신경망 모델은 층<font size='2'>layer</font>으로 구성된다.
 모델에 사용되는 층의 종류와 층을 쌓는 방식에 따라
-모델이 처리할 수 있는 데이터와 훈련 방식이 달라진다.
-모델과 훈련 방식을 정한 후에 구체적인 훈련 계회을 작성하는 데에도
-이또한 많은 선택이 필요하지만
-이를 위애 케라스가
-쉽고 간단하게 활용할 수 있는 다양한 API를 제공한다.</p>
-<section id="id9">
-<h3><span class="section-number">3.6.1. </span>층<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+모델이 처리할 수 있는 데이터와 훈련 방식이 달라지는데
+케라스 라이브러리가 층을 구성하고 훈련 방식을 관장하는 다양한 API를 제공한다.</p>
+<section id="id13">
+<h3><span class="section-number">3.4.1. </span>층<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <p><strong>층의 기능</strong></p>
 <p>층은 입력 데이터를 지정된 방식에 따라 다른 모양의 데이터로 변환하는
 <strong>포워드 패스</strong><font size='2'>forward pass</font> 기능을 담당하는 함수다.
@@ -911,31 +929,31 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 클래스</p>
 <ul>
-<li><p>밀집층<font size='2'>dense layer</font> 생성에 사용</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">(배치</span> <span class="pre">크기,</span> <span class="pre">특성</span> <span class="pre">수)</span></code> 모양의 2D 텐서 배치 데이터셋 처리.</p></li>
+<li><p>밀집층 생성</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(배치</span> <span class="pre">크기,</span> <span class="pre">특성</span> <span class="pre">수)</span></code> 모양의 2D 텐서로 입력된 데이터셋 처리.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">LSTM</span></code> 또는 <code class="docutils literal notranslate"><span class="pre">Conv1D</span></code> 클래스</p>
 <ul>
-<li><p>순차 데이터 및 시계열 데이터 분석에 사용되는 순환층</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">(배치</span> <span class="pre">크기,</span> <span class="pre">타임스텝</span> <span class="pre">수,</span> <span class="pre">특성</span> <span class="pre">수)</span></code> 모양의 3D 텐서로 제공된 순차 데이터셋 처리.</p></li>
+<li><p>순차 데이터와 시계열 데이터 분석에 사용되는 순환층 생성</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(배치</span> <span class="pre">크기,</span> <span class="pre">타임스텝</span> <span class="pre">수,</span> <span class="pre">특성</span> <span class="pre">수)</span></code> 모양의 3D 텐서로 입력된 순차 데이터셋 처리.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 클래스</p>
 <ul>
-<li><p>합성곱 신경망(CNN) 구성에 사용되는 합성곱층</p></li>
+<li><p>합성곱 신경망(CNN) 구성에 사용되는 합성곱층 생성</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">(배치</span> <span class="pre">크기,</span> <span class="pre">가로,</span> <span class="pre">세로,</span> <span class="pre">채널</span> <span class="pre">수)</span></code> 모양의 4D 텐서로 제공된 이미지 데이터셋 처리.</p></li>
 </ul>
 </li>
 </ul>
-<p>케라스를 활용하여 딥러닝 모델을 구성하는 것은 호환 가능한 층들을 적절하게 연결하여 층을 쌓는 것을 의미한다.</p>
+<p>케라스를 활용하여 딥러닝 모델을 구성하는 일은 호환 가능한 층들을 적절하게 연결하여 층을 쌓는 것을 의미한다.</p>
 <p><strong><code class="docutils literal notranslate"><span class="pre">tf.keras.layers.Layer</span></code> 클래스</strong></p>
-<p>케라스에서 사용되는 모든 층 클래스는 <code class="docutils literal notranslate"><span class="pre">tf.keras.layers.Layer</span></code> 클래스를 상속하며,
-이를 통해 상속받는 <code class="docutils literal notranslate"><span class="pre">__call__()</span></code> 메서드가
-가중치와 편향 텐서를 생성 후 초기화 하고 입력 데이터를 출력 데이터로 변환하는
+<p>케라스에서 사용되는 모든 층 클래스는 <code class="docutils literal notranslate"><span class="pre">tf.keras.layers.Layer</span></code> 클래스를 상속한다.
+그리고 상속되는 <code class="docutils literal notranslate"><span class="pre">__call__()</span></code> 메서드가
+가중치와 편향 텐서를 초기화하고 입력 데이터셋을 출력 데이터셋으로 변환하는
 포워드 패스를 수행한다.
-단, 가중치와 편향이 이미 생성되어 있다면 새로 생성하지 않고 그대로 사용한다.
-<code class="docutils literal notranslate"><span class="pre">tf.keras.layers.Layer</span></code> 클래스에서 선언된 <code class="docutils literal notranslate"><span class="pre">__call__()</span></code> 메서드가 하는 일을 간략하게 나타내면 다음과 같다.</p>
+단, 가중치와 편향이 이미 생성되어 있다면 새로 생성하지 않고 그대로 사용한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tf.keras.layers.Layer</span></code> 클래스에서 선언된 <code class="docutils literal notranslate"><span class="pre">__call__()</span></code> 메서드가 하는 일을 간략하게 나타내면 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">built</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -943,18 +961,19 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>위 코드에 사용된 인스턴스 변수와 메서드는 다음과 같다.</p>
+<p>위 코드에 사용된 인스턴스 변수와 메서드는 다음과 같으며 모두
+<code class="docutils literal notranslate"><span class="pre">tf.keras.layers.Layer</span></code>로부터 상속된다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">self.build(inputs_shape)</span></code>: 입력 배치 데이터셋의 모양 정보를 이용하여
+<li><p><code class="docutils literal notranslate"><span class="pre">self.built</span></code>: 모델 훈련에 사용될 가중치와 편향이 준비되어 있는지 여부 기억</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.build(inputs.shape)</span></code>: 입력 데이터셋의 모양 정보를 이용하여
 적절한 모양의 가중치 텐서와 편향 텐서를 생성하고 초기화한다.</p>
 <ul>
-<li><p>가중치 텐서 초기화: 무작위적(<code class="docutils literal notranslate"><span class="pre">random_normal</span></code>)</p></li>
-<li><p>편향 텐서 초기화: 0 벡터(<code class="docutils literal notranslate"><span class="pre">zeros</span></code>)</p></li>
+<li><p>가중치 텐서 초기화: 정규 분포를 이용한 무작위 초기화</p></li>
+<li><p>편향 텐서 초기화: 0 벡터로 초기화</p></li>
 </ul>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">self.built</span></code>: 모델 훈련에 사용될 가중치와 편향이 준비돼 있는지 여부 기억</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">self.call(inputs)</span></code>: 아핀 변환, 활성화 함수 등을 이용한 포워드 패스.
-즉 입력 데이터셋을 변환하여 출력 텐서 계산</p></li>
+즉 입력 데이터셋을 출력 텐서로 변환해서 반환</p></li>
 </ul>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 클래스 직접 구현하기</strong></p>
 <p><a class="reference internal" href="building_blocks_of_NN.html#sec-nn-mnist"><span class="std std-numref">2.1절</span></a>에서 MNIST 데이터셋을 이용한 분류 모델에 사용된
@@ -969,28 +988,6 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 상속해야 하는 <code class="docutils literal notranslate"><span class="pre">keras.layers.Layer</span></code> 클래스의 <code class="docutils literal notranslate"><span class="pre">__call()__</span></code> 메서드에 의해 호출되는
 <code class="docutils literal notranslate"><span class="pre">build()</span></code> 메서드와 <code class="docutils literal notranslate"><span class="pre">call()</span></code> 메서드를 구현해야 한다.
 아래 <code class="docutils literal notranslate"><span class="pre">SimpleDense</span></code> 클래스가 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 클래스의 기능을 단순화하여 구현한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
-
-<span class="k">class</span> <span class="nc">SimpleDense</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">activation</span> <span class="o">=</span> <span class="n">activation</span>
-
-    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">):</span>
-        <span class="n">input_dim</span> <span class="o">=</span> <span class="n">input_shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1"># 입력 샘플의 특성 수</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">),</span>
-                                 <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;random_normal&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,),</span>
-                                 <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">y</span>
-</pre></div>
-</div>
 <p>두 메서드의 정의에 사용된 매개변수와 메서드는 다음과 같다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">units</span></code>: 출력 샘플의 특성 수 지정</p></li>
@@ -998,20 +995,55 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <li><p><code class="docutils literal notranslate"><span class="pre">input_shape</span></code>: 입력값(<code class="docutils literal notranslate"><span class="pre">inputs</span></code>)으로 얻은 입력 배치의 2D 모양 정보. 둘째 항목이 입력 샘플의 특성 수.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">add_weight(모양,</span> <span class="pre">초기화방법)</span></code>: 지정된 모양의 텐서 생성 및 초기화. <code class="docutils literal notranslate"><span class="pre">Layer</span></code> 클래스에서 상속.</p></li>
 </ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+
+<span class="k">class</span> <span class="nc">SimpleDense</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>           <span class="c1"># 유닛 개수 지정</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activation</span> <span class="o">=</span> <span class="n">activation</span> <span class="c1"># 활성화 함수 지정</span>
+
+    <span class="c1"># 가중치와 편향 초기화</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">):</span>
+        <span class="n">input_dim</span> <span class="o">=</span> <span class="n">input_shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1"># 입력 샘플의 특성 수</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">),</span>
+                                 <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;random_normal&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,),</span>
+                                 <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">)</span>
+
+    <span class="c1"># 데이터 변환(포워드 패스)</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">activation</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y</span>
+</pre></div>
+</div>
 <div class="proof example admonition" id="simpledense">
 <p class="admonition-title"><span class="caption-number">Example 3.1 </span> (<code class="docutils literal notranslate"><span class="pre">SimpleDense</span></code> 층의 데이터 변환)</p>
 <section class="example-content" id="proof-content">
-<p>아래 코드는 <code class="docutils literal notranslate"><span class="pre">SimpleDense</span></code> 층을 하나 생성한다.
-층은 입렵값을 처리할 때 입력값의 모양을 확인하기 때문에
-입력 데이터에 대한 정보를 미리 요구하지 않는다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_dense</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
+<p>모델 훈련 과정에서 포워드 패스는 층에서 층으로 이어지는 연속된 데이터 변환으로 이뤄진다.
+<code class="docutils literal notranslate"><span class="pre">SimpleDense</span></code> 층을 이용하여 입력 데이터셋이 어떻게 변환되어 다음 층으로 전달되는 과정을 살펴본다.</p>
+<p>아래 코드에서 <code class="docutils literal notranslate"><span class="pre">my_dense</span></code> 변수는 하나의 <code class="docutils literal notranslate"><span class="pre">SimpleDense</span></code> 층을 가리킨다.</p>
+<ul class="simple">
+<li><p>유닛 수: 32개</p></li>
+<li><p>활성화 함수: <code class="docutils literal notranslate"><span class="pre">relu</span></code></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_dense</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>784 개의 특성을 갖는 128 개의 샘플로 구성된 데이터셋을 입력값으로 지정한다.</p>
+<p>아래 코드는 입력 배치 데이터셋으로 사용할 (128, 784) 모양의 텐서를 생성한다.</p>
+<ul class="simple">
+<li><p>128: 배치 크기</p></li>
+<li><p>784: MNIST 데이터셋의 손글씨 이미지 한 장의 특성 수(<code class="docutils literal notranslate"><span class="pre">28</span> <span class="pre">*</span> <span class="pre">28</span> <span class="pre">=</span> <span class="pre">128</span></code>)</p></li>
+</ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">input_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">784</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">my_dense</span></code>를 함수 호출하듯이 사용하면 출력값이 계산된다.</p>
+<p>이제 <code class="docutils literal notranslate"><span class="pre">my_dense</span></code>를 함수 호출하듯이 사용하면 출력값이 계산된다.
+즉, 포워드 패스가 실행된다.
+층은 입렵 데이터셋을 처리할 때 입력 데이터셋의 모양을 확인하기에
+굳이 입력 데이터셋에 대한 정보를 미리 요구하지 않는다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">output_tensor</span> <span class="o">=</span> <span class="n">my_dense</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1019,50 +1051,47 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <ul class="simple">
 <li><p>가중치 텐서와 와 편향 텐서가 생성되지 않은 경우</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">(784,</span> <span class="pre">32)</span></code> 모양의 가중치 텐서 <code class="docutils literal notranslate"><span class="pre">W</span></code> 생성 및 무작위 초기화</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">(32,</span> <span class="pre">)</span></code> 모양의 편향 텐서 <code class="docutils literal notranslate"><span class="pre">b</span></code> 생성 및 <code class="docutils literal notranslate"><span class="pre">0</span></code>으로 초기화.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(784,</span> <span class="pre">512)</span></code> 모양의 가중치 텐서 <code class="docutils literal notranslate"><span class="pre">W</span></code> 생성 및 무작위 초기화. 782는 입력 샘플의 특성 수, 512는 층의 유닛 수.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(512,</span> <span class="pre">)</span></code> 모양의 편향 텐서 <code class="docutils literal notranslate"><span class="pre">b</span></code> 생성 및 <code class="docutils literal notranslate"><span class="pre">0</span></code>으로 초기화. 512는 층의 유닛 수.</p></li>
+<li><p>포워드 패스: 생성된 가중치와 편향을 이용하여 출력값 계산.</p></li>
 </ul>
 </li>
-<li><p>포워드 패스: 생성된 가중치와 편향을 이용하여 출력값 계산</p></li>
+<li><p>가중치 텐서와 와 편향 텐서가 생성되어 있는 경우. 즉 훈련이 반복되는 경우.</p>
+<ul>
+<li><p>포워드 패스: 역전파로 업데이트된 가중치와 편향을 이용하여 출력값 계산.</p></li>
 </ul>
-<p>층의 출력값은 <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">32)</span></code> 모양의 텐서다.
-이유는 784개의 특성이 32개의 특성으로 변환되었기 때문이다.</p>
+</li>
+</ul>
+<p>층의 출력값은 <code class="docutils literal notranslate"><span class="pre">(128,</span> <span class="pre">32)</span></code> 모양의 텐서다.
+이유는 각 데이터 샘플의 784개의 특성이 32개의 특성으로 변환되었기 때문이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">output_tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="go">(128, 32)</span>
+<span class="go">(128, 512)</span>
 </pre></div>
 </div>
 </section>
 </div></section>
-<section id="id10">
-<h3><span class="section-number">3.6.2. </span>모델<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
-<p>앞서 살펴 본 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델은 층을 일렬로 쌓은 모델이며
-각각의 층은 아래 층에서 전달한 값을 받아 변환해서 다음 층으로 전달한다.
-앞으로 보다 복잡하고 다양한 방식으로 층을 구성하는 방식들을 살펴볼 것이다.
-예를 들어, 아래 그림은 <a class="reference internal" href="dl_for_text.html#ch-nlp"><span class="std std-numref">11장 자연어 처리</span></a>에서 소개하는
-트랜스포머<font size='2'>Transformer</font> 모델의 복잡한 층 구조를 보여준다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/transformer0001.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong><code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> 클래스</strong></p>
-<p>케라스의 모든 모델 클래스는 <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> 클래스를 상속한다.
-예를 들어 앞서 <a class="reference internal" href="building_blocks_of_NN.html#ch-building-blocks"><span class="std std-numref">2장</span></a>에서 MNist 데이터셋 분류를 위해 사용된 모델은 다음과 같다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
-    <span class="p">])</span>
-</pre></div>
-</div>
-<p>위 모델을 앞서 정의한 <code class="docutils literal notranslate"><span class="pre">SimpleDense</span></code> 층을 이용하여 직접 다음과 같이 정의할 수 있다.</p>
+<section id="id14">
+<h3><span class="section-number">3.4.2. </span>모델<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<p>앞서 살펴 본 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델은 층을 일렬로 쌓는 모델이며
+각각의 층은 이전 층에서 전달된 배치 데이터셋을 변환해서 다음 층으로 전달한다.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> 클래스</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스를 포함하여 케라스에서 지원되는 모든 모델 클래스는 <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> 클래스를 상속한다.
+예를 들어 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스를 이용하여 정의된 MNIST 분류 모델을 <code class="docutils literal notranslate"><span class="pre">SimpleDense</span></code> 층을 이용하여 직접 다음과 같이 정의할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMNistModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>   <span class="c1"># 첫째 밀집층</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span> <span class="c1"># 둘째 밀집층</span>
 
+    <span class="c1"># 포워드 패스: 층과 층을 연결하는 방식으로 구현</span>
     <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
         <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
         <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">outputs</span>
 </pre></div>
 </div>
+<div class="note admonition">
+<p class="admonition-title">직접 구현한 <code class="docutils literal notranslate"><span class="pre">SimpleDense</span></code> 층과 케라스의 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층의 차이점</p>
 <p><code class="docutils literal notranslate"><span class="pre">keras.layers.Dense</span></code> 층을 이용한다면 다음과 같이 활성화 함수를 문자열로 지정할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMNistModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1076,19 +1105,22 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
         <span class="k">return</span> <span class="n">outputs</span>
 </pre></div>
 </div>
-<p><strong>모델 vs. 층</strong></p>
-<p>기존에 정의된 모델을
-다른 모델에 하나의 층으로 활용할 수도 있다.
+</div>
+<p><strong>모델을 하나의 층으로 활용하기</strong></p>
+<p>기존에 정의된 모델을 다른 모델을 구성할 때 하나의 층으로 활용할 수도 있다.
 이런 이유로 <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> 클래스는 <code class="docutils literal notranslate"><span class="pre">tf.keras.layers.Layer</span></code> 클래스를
 상속하도록 설계되어 있다.
 <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> 클래스의 활용법에 대한 보다 자세한 설명은 <a class="reference internal" href="working_with_keras.html#ch-working-with-keras"><span class="std std-numref">7장</span></a>을 참고한다.</p>
 <p><strong>모델의 학습과정과 층의 구성</strong></p>
 <p>모델의 학습과정은 전적으로 층의 구성방식에 의존한다.
 그리고 층의 구성 방식은 주어진 데이터셋과 모델이 해결해야 하는 문제에 따라 달라진다.
-특별히 따라야 하는 정해진 규칙은 없지만
-해결해야 하는 문제의 특성에 따른 권장 모델이 많이 개발되었다.
-앞으로 많은 예제를 통해 다양한 모델을 구성하는 방식을 배울 것이다.</p>
-<p><strong>모델 컴파일</strong></p>
+층을 구성할 때 특별히 정해진 규칙은 없지만
+문제 유형에 따른 권장 모델이 다양하게 개발되어 있다.</p>
+<p>앞으로 보다 복잡하고 다양한 방식으로 층을 구성하는 방식들을 살펴볼 것이다.
+예를 들어, 아래 그림은 <a class="reference internal" href="dl_for_text.html#ch-nlp"><span class="std std-numref">11장 자연어 처리</span></a>에서 소개하는
+트랜스포머<font size='2'>Transformer</font> 모델의 복잡한 층 연결 구조를 보여준다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/transformer0001.png" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>모델 컴파일</strong></p>
 <p>선언된 모델을 훈련시키려면 다음 세 가지 설정을 추가로 지정해야 한다.</p>
 <ul class="simple">
 <li><p>손실 함수</p>
@@ -1186,8 +1218,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <li><p>Recall</p></li>
 </ul>
 </section>
-<section id="id11">
-<h3><span class="section-number">3.6.3. </span>훈련 루프<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
+<section id="id15">
+<h3><span class="section-number">3.4.3. </span>훈련 루프<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
 <p>모델을 컴파일한 다음에 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드를 호출하면
 모델은 스텝 단위로 반복되는 <strong>훈련 루프</strong><font size='2'>training loop</font>가 작동한다.
 지정된 에포크 만큼 또는 학습이 충분히 이루어졌다는 평가가 내려질 때까지
@@ -1261,8 +1293,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 </pre></div>
 </div>
 </section>
-<section id="id12">
-<h3><span class="section-number">3.6.4. </span>예측<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<section id="id16">
+<h3><span class="section-number">3.4.4. </span>예측<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
 <p>모델의 훈련과 검증이 완료되면 실전에서 새로운 데이터에 대한 예측을 진행한다.
 데이터셋에 포함된 모든 데이터에 대한 예측을 한 번에 실행할 수 있으며
 두 가지 방식이 존재한다.</p>
@@ -1285,8 +1317,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 </div>
 </section>
 </section>
-<section id="id13">
-<h2><span class="section-number">3.7. </span>연습 문제<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
+<section id="id17">
+<h2><span class="section-number">3.5. </span>연습 문제<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-keras_and_tf.ipynb">(실습) 케라스와 텐서플로우</a></p></li>
 </ol>
@@ -1360,24 +1392,31 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.1. 텐서플로우</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.2. 케라스</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3.3. 딥러닝 주요 라이브러리 약력</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.4. 딥러닝 개발환경</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3.5. 순수 텐서플로우 사용법 기초</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3.5.1. 상수 텐서와 변수 텐서</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradienttape">3.5.2. <code class="docutils literal notranslate"><span class="pre">GradientTape</span></code> 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">3.5.3. 순수 텐서플로우 활용 선형 분류기 구현 예제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">3.1. 딥러닝 주요 라이브러리</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.1.1. 텐서플로우</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">3.1.2. 케라스</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.1.3. 딥러닝 주요 라이브러리 약력</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3.1.4. 딥러닝 개발환경</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api">3.6. 케라스 신경망 모델의 핵심 API</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">3.6.1. 층</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3.6.2. 모델</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3.6.3. 훈련 루프</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.6.4. 예측</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3.2. 텐서플로우 텐서</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">3.2.1. 상수 텐서</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">3.2.2. 변수 텐서</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.7. 연습 문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">3.3. 텐서플로우 활용법 기초</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">3.3.1. 그레이디언트 테이프</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.3.2. 예제: 선형 분류기</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api">3.4. 케라스 신경망 모델의 핵심 API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.4.1. 층</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3.4.2. 모델</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">3.4.3. 훈련 루프</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3.4.4. 예측</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3.5. 연습 문제</a></li>
 </ul>
   </nav></div>
 
