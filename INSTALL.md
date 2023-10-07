@@ -14,14 +14,14 @@
     
     - 둘째: libcudnn8 관련 설치할 때 8.8.1.3-1+cuda12.0 사용하면 안됨. 
     
-        - 먼저 cuDNN 8.8.1 library 가 아닌 cuDNN 8.9.4 for CUDA 12.x (for ubuntu 20.04) 다운로드해서 설치할 것.
+        - 먼저 cuDNN 8.8.1 library 가 아닌 cuDNN 8.9.5 for CUDA 12.2 (for ubuntu 20.04) 다운로드해서 설치할 것.
             - cuDNN 8.8.1을 설치해도 문제되지 않았지만 그게 맞을 것 같음.
         
         - 아래 명령문 실행하여 설치가능 패키지 확인할 것
         
                 apt-cache policy libcudnn8
       
-        - 그런 다음 cuDNN 8.9.4와의 최신 조합 사용할 것:  8.9.4.25-1+cuda12.2
+        - 그런 다음 cuDNN 8.9.5와의 최신 조합 사용할 것:  8.9.5.29-1+cuda12.2
            
        
 - 이제 miniconda(또는 anaconda), jupyter, tensorflow 설치
