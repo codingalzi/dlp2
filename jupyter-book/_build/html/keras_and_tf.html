@@ -924,7 +924,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 또한 데이터 변환에 사용되는 가중치<font size='2'>weight</font>와 편향<font size='2'>bias</font>도
 저장한다.</p>
 <p><strong>층의 종류</strong></p>
-<p>층의 종류에 따라 입력 배치 데이터셋 텐서의 모양이 달라진다.</p>
+<p>층의 종류에 따라 입력 배치 데이터셋 텐서의 모양이 달라진다.
+많이 사용되는 층 클래스는 다음과 같다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 클래스</p>
 <ul>
@@ -1076,32 +1077,33 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <p><strong><code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> 클래스</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스를 포함하여 케라스에서 지원되는 모든 모델 클래스는 <code class="docutils literal notranslate"><span class="pre">tf.keras.Model</span></code> 클래스를 상속한다.
 예를 들어 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스를 이용하여 정의된 MNIST 분류 모델을 <code class="docutils literal notranslate"><span class="pre">SimpleDense</span></code> 층을 이용하여 직접 다음과 같이 정의할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMNistModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MySequential</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_layers</span><span class="p">):</span> <span class="c1"># 층들의 리스트 지정</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>   <span class="c1"># 첫째 밀집층</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span> <span class="c1"># 둘째 밀집층</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_layers</span> <span class="o">=</span> <span class="n">list_layers</span>
 
     <span class="c1"># 포워드 패스: 층과 층을 연결하는 방식으로 구현</span>
     <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_layers</span><span class="p">:</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">outputs</span>
 </pre></div>
 </div>
-<div class="note admonition">
-<p class="admonition-title">직접 구현한 <code class="docutils literal notranslate"><span class="pre">SimpleDense</span></code> 층과 케라스의 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층의 차이점</p>
-<p><code class="docutils literal notranslate"><span class="pre">keras.layers.Dense</span></code> 층을 이용한다면 다음과 같이 활성화 함수를 문자열로 지정할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMNistModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<p>아래 두 개의 층을 이용하여 모델을 지정하고 다중 클래스 분류 모델에 맞게 모델을 컴파일한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>   <span class="c1"># 첫째 밀집층</span>
+<span class="n">layer_2</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span> <span class="c1"># 둘째 밀집층</span>
 
-    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">outputs</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MySequential</span><span class="p">([</span><span class="n">layer_1</span><span class="p">,</span> <span class="n">layer_2</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">직접 구현한 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층과 케라스의 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층의 차이점</p>
+<p><code class="docutils literal notranslate"><span class="pre">keras.layers.Dense</span></code> 층을 이용한다면 다음과 같이 활성화 함수를 문자열로 지정할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)</span>   <span class="c1"># 첫째 밀집층</span>
+<span class="n">layer_2</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)</span> <span class="c1"># 둘째 밀집층</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MySequential</span><span class="p">([</span><span class="n">layer_1</span><span class="p">,</span> <span class="n">layer_2</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1143,7 +1145,7 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 </ul>
 </li>
 </ul>
-<p>케라스를 이용하면 옵티마이저, 손실 함수, 평가지표를 문자열로 지정할 수 있다.</p>
+<p>케라스에서 기본으로 제공하는 옵티마이저, 손실 함수, 평가지표는 문자열로 지정할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)])</span>
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;mean_squared_error&quot;</span><span class="p">,</span>
