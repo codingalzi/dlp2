@@ -14826,7 +14826,7 @@ div.jp-OutputPrompt {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
 <li>딥러닝 모델 구성 및 훈련에 효율적으로 사용될 수 있는 다양한 수준의 API를 제공</li>
-<li>텐서플로우의 프론트엔드<font size='2'>front end</font> 인터페이스 기능 수행</li>
+<li>텐서플로우의 프론트엔드front end 인터페이스 기능 수행</li>
 </ul>
 
 </div>
@@ -14862,14 +14862,12 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>2007년: 씨아노<font size='2'>Theano</font> 공개. 
-  텐서를 이용한 계산 그래프, 미분 자동화 등을 최초로 지원한 딥러닝 라이브러리.</li>
+<li>2007년: 씨아노Theano 공개. 텐서를 이용한 계산 그래프, 미분 자동화 등을 최초로 지원한 딥러닝 라이브러리.</li>
 <li>2015년 3월: 케라스 라이브러리 공개. Theano를 백앤드로 사용하는 고수준 패키지.</li>
 <li>2015년 11월: 텐서플로우 라이브러리 공개.</li>
 <li>2016년: 텐서플로우가 케라스의 기본 백엔드로 지정됨.</li>
-<li>2016년 9월: 페이스북이 개발한 파이토치<font size='2'>PyTorch</font> 공개.</li>
-<li>2017년: Theano, 텐서플로우, CNTK(마이크로소프트), MXNet(아마존)이 케라스의 백엔드로 지원됨.
-  현재 Theano, CNTK 등은 더 이상 개발되지 않으며, MXNet은 아마존에서만 주로 사용됨.</li>
+<li>2016년 9월: 페이스북이 개발한 파이토치PyTorch 공개.</li>
+<li>2017년: Theano, 텐서플로우, CNTK(마이크로소프트), MXNet(아마존)이 케라스의 백엔드로 지원됨. 현재 Theano, CNTK 등은 더 이상 개발되지 않으며, MXNet은 아마존에서만 주로 사용됨.</li>
 <li>2018년 3월: PyTorch와 Caffe2를 합친 PyTorch 출시(페이스북+마이크로소프트)</li>
 <li>2019년 9월: 텐서플로우 2부터 케라스를 텐서플로우의 최상위 프레임워크로 사용</li>
 <li>2023년 가을: Keras Core가 케라스 3.0으로 출시 예정. 텐서플로우, PyTorch, JAX의 프론트엔드 기능 지원.</li>
@@ -14956,28 +14954,36 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li><p>다양한 방식으로 상수 텐서 생성</p>
+<p>다양한 방식으로 상수 텐서를 생성할 수 있다.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">]])</span>
-  <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
-  <span class="p">[[</span><span class="mf">1.</span> <span class="mf">2.</span><span class="p">]</span>
-   <span class="p">[</span><span class="mf">3.</span> <span class="mf">4.</span><span class="p">]],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+<span class="p">[[</span><span class="mf">1.</span> <span class="mf">2.</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">3.</span> <span class="mf">4.</span><span class="p">]],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+<span class="p">[[</span><span class="mf">1.</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">1.</span><span class="p">]],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+<span class="p">[[</span><span class="mf">0.</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">0.</span><span class="p">]],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
 </pre></div>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-  <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
-  <span class="p">[[</span><span class="mf">1.</span><span class="p">]</span>
-   <span class="p">[</span><span class="mf">1.</span><span class="p">]],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
-</pre></div>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-  <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-  <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
-  <span class="p">[[</span><span class="mf">0.</span><span class="p">]</span>
-   <span class="p">[</span><span class="mf">0.</span><span class="p">]],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
-</pre></div>
-</li>
-</ul>
 
 </div>
 </div>
@@ -14992,7 +14998,8 @@ div.jp-OutputPrompt {
 <ul>
 <li><p><code>normal()</code> 함수: 정규 분포 활용</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">mean</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">stddev</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
-  <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
   <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
   <span class="p">[[</span><span class="o">-</span><span class="mf">0.5644841</span> <span class="p">]</span>
    <span class="p">[</span><span class="o">-</span><span class="mf">0.76016265</span><span class="p">]</span>
@@ -15014,7 +15021,8 @@ div.jp-OutputPrompt {
 <ul>
 <li><p><code>uniform()</code> 함수: 균등 분포 활용</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">minval</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">maxval</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
-  <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
   <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
   <span class="p">[[</span><span class="mf">0.33661604</span><span class="p">]</span>
    <span class="p">[</span><span class="mf">0.09824598</span><span class="p">]</span>
@@ -15145,23 +15153,33 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><p>대체하는 텐서의 모양(shape)이 기존 텐서의 모양과 동일해야 함.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
-  <span class="ne">ValueError</span>                                <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
-  <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">13</span><span class="o">-</span><span class="n">e381ab0c94e6</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-  <span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">v</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
-
-  <span class="o">~</span>\<span class="n">anaconda3</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tensorflow</span>\<span class="n">python</span>\<span class="n">ops</span>\<span class="n">resource_variable_ops</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">use_locking</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">read_value</span><span class="p">)</span>
-      <span class="mi">886</span>         <span class="k">else</span><span class="p">:</span>
-      <span class="mi">887</span>           <span class="n">tensor_name</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-  <span class="o">--&gt;</span> <span class="mi">888</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-      <span class="mi">889</span>             <span class="p">(</span><span class="s2">&quot;Cannot assign to variable</span><span class="si">%s</span><span class="s2"> due to variable shape </span><span class="si">%s</span><span class="s2"> and value &quot;</span>
-      <span class="mi">890</span>              <span class="s2">&quot;shape </span><span class="si">%s</span><span class="s2"> are incompatible&quot;</span><span class="p">)</span> <span class="o">%</span>
-
-  <span class="ne">ValueError</span><span class="p">:</span> <span class="n">Cannot</span> <span class="n">assign</span> <span class="n">to</span> <span class="n">variable</span> <span class="n">Variable</span><span class="p">:</span><span class="mi">0</span> <span class="n">due</span> <span class="n">to</span> <span class="n">variable</span> <span class="n">shape</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span> <span class="n">shape</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="n">are</span> <span class="n">incompatible</span>
-</pre></div>
-</li>
+<li>대체하는 텐서의 모양(shape)이 기존 텐서의 모양과 동일해야 함</li>
 </ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+<span class="ne">ValueError</span>                                <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">13</span><span class="o">-</span><span class="n">e381ab0c94e6</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">v</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+
+<span class="o">~</span>\<span class="n">anaconda3</span>\<span class="n">lib</span>\<span class="n">site</span><span class="o">-</span><span class="n">packages</span>\<span class="n">tensorflow</span>\<span class="n">python</span>\<span class="n">ops</span>\<span class="n">resource_variable_ops</span><span class="o">.</span><span class="n">py</span> <span class="ow">in</span> <span class="n">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">use_locking</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">read_value</span><span class="p">)</span>
+    <span class="mi">886</span>         <span class="k">else</span><span class="p">:</span>
+    <span class="mi">887</span>           <span class="n">tensor_name</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="o">--&gt;</span> <span class="mi">888</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+    <span class="mi">889</span>             <span class="p">(</span><span class="s2">&quot;Cannot assign to variable</span><span class="si">%s</span><span class="s2"> due to variable shape </span><span class="si">%s</span><span class="s2"> and value &quot;</span>
+    <span class="mi">890</span>              <span class="s2">&quot;shape </span><span class="si">%s</span><span class="s2"> are incompatible&quot;</span><span class="p">)</span> <span class="o">%</span>
+
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">Cannot</span> <span class="n">assign</span> <span class="n">to</span> <span class="n">variable</span> <span class="n">Variable</span><span class="p">:</span><span class="mi">0</span> <span class="n">due</span> <span class="n">to</span> <span class="n">variable</span> <span class="n">shape</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span> <span class="n">shape</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="n">are</span> <span class="n">incompatible</span>
+</pre></div>
 
 </div>
 </div>
@@ -15213,8 +15231,8 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><code>assign_sub()</code> 메서드는 <code>-=</code> 연산자 </li>
-<li><p><code>assign_add()</code> 메서드는 <code>+=</code> 연산자</p>
+<li><code>assign_sub()</code> 메서드: <code>-=</code> 연산자</li>
+<li><p><code>assign_add()</code> 메서드: <code>+=</code> 연산자</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">v</span><span class="o">.</span><span class="n">assign_sub</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
   <span class="o">&lt;</span><span class="n">tf</span><span class="o">.</span><span class="n">Variable</span> <span class="s1">&#39;UnreadVariable&#39;</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">,</span> <span class="n">numpy</span><span class="o">=</span>
   <span class="n">array</span><span class="p">([[</span><span class="mf">2.</span><span class="p">],</span>
@@ -15272,7 +15290,7 @@ $$
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">input_var</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
-<span class="o">...</span> <span class="n">result</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">input_var</span><span class="p">)</span>
+<span class="o">...</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">input_var</span><span class="p">)</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">gradient</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">input_var</span><span class="p">)</span>
 
@@ -15333,7 +15351,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/03-07.png" style="width:400px;"></div>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/03-07.png" style="width:500px;"></div>
 </div>
 </div>
 </div>
@@ -15345,17 +15363,6 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>음성 데이터셋과 양성 데이터셋을 합쳐서 훈련셋을 생성한다.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
 <li><code>negative_sample</code>: (1000, 2) 모양의 텐서</li>
 <li><code>positive_sample</code>: (1000, 2) 모양의 텐서</li>
@@ -15390,17 +15397,6 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>음성 샘플의 레이블은 0, 양성 샘플의 레이블은 1로 지정한다.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
 <li><code>np.zeros((num_samples_per_class, 1), dtype="float32")</code>: (1000, 1) 모양의 어레이. 0으로 채워짐. 
   0번부터 999번 인덱스까지의 모든 음성 데이터의 타깃은 0임.</li>
@@ -15447,44 +15443,15 @@ $$
 <p>선형 분류기 모델의 예측값 계산은 다음과 같이 아핀 변환으로 이뤄진다.</p>
 <div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">@</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span>
 </pre></div>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div class="highlight"><pre><span></span><span class="n">input_dim</span> <span class="o">=</span> <span class="mi">2</span>     <span class="c1"># 입력 샘플의 특성이 2개</span>
 <span class="n">output_dim</span> <span class="o">=</span> <span class="mi">1</span>    <span class="c1"># 각각의 입력 샘플에 대해 하나의 부동소수점을 예측값으로 계산</span>
-</pre></div>
-<div class="highlight"><pre><span></span><span class="c1"># 가중치: (2, 1) 모양의 가중치 행렬을 균등분포를 이용한 무작위 초기화</span>
+
+<span class="c1"># 가중치: (2, 1) 모양의 가중치 행렬을 균등분포를 이용한 무작위 초기화</span>
 <span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)))</span>
 
 <span class="c1"># 편향: (1,) 모양의 벡터를 0으로 초기화</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">output_dim</span><span class="p">,)))</span>
 </pre></div>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li><code>inputs</code>: (2000, 2) 모양의 입력 데이터셋 행렬</li>
-<li><code>W</code>: (2, 1) 모양의 가중치 행렬</li>
-<li><code>inputs @ W</code>: (2000, 1) 모양의 행렬</li>
-<li><code>b</code>: (1,) 모양의 편향 벡터</li>
-<li><code>inputs @ W + b</code>: (2000, 1) 모양의 출력값 행렬. 즉, 2000 개의 입력 데이터 각각에 대해 하나의 값의 계산됨.</li>
-</ul>
 
 </div>
 </div>
@@ -15634,23 +15601,13 @@ $$
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
 <li>반복해서 훈련한 내용을 출력</li>
-<li>설명을 간단하게 하기 위해 전체 데이터셋을 하나의 배치로 사용하는 훈련 구현</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<li><p>설명을 간단하게 하기 위해 전체 데이터셋을 하나의 배치로 사용하는 훈련 구현</p>
 <div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="n">training_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loss at step </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+      <span class="n">loss</span> <span class="o">=</span> <span class="n">training_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">)</span>
+      <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loss at step </span><span class="si">{</span><span class="n">step</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
+</li>
+</ul>
 
 </div>
 </div>
@@ -15767,7 +15724,8 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>입력 데이터를 지정된 방식에 따라 다른 모양의 데이터로 변환하는 <strong>포워드 패스</strong><font size='2'>forward pass</font> 담당</li>
+<li>입력 데이터를 지정된 방식에 따라 다른 모양의 데이터로 변환하는 
+  <strong>포워드 패스</strong><font size='2'>forward pass</font> 담당</li>
 </ul>
 
 </div>
@@ -15805,18 +15763,8 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>층의 종류에 따라 입력 배치 데이터셋 텐서의 모양이 달라진다.</p>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>층의 종류에 따라 입력 배치 데이터셋 텐서의 모양이 달라진다.
+예를 들어:</p>
 <ul>
 <li><code>Dense</code> 클래스<ul>
 <li>밀집층 생성</li>
@@ -15897,9 +15845,9 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>상속되는 <code>__call__()</code> 메서드: <ul>
-<li>가중치와 편향 텐서의 초기화. 가중치와 편향이 이미 생성되어 있다면 새로 생성하지 않고 그대로 사용.</li>
-<li>입력 데이터셋을 출력 데이터셋으로 변환하는 포워드 패스를 수행    </li>
+<li>상속되는 <code>__call__()</code> 메서드:<ul>
+<li>가중치와 편향 텐서 초기화: 가중치와 편향이 이미 생성되어 있다면 새로 생성하지 않고 그대로 사용</li>
+<li>입력 데이터셋을 출력 데이터셋으로 변환하는 포워드 패스를 수행</li>
 </ul>
 </li>
 </ul>
@@ -15957,9 +15905,10 @@ $$
     <span class="c1"># 가중치와 편향 초기화</span>
     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">):</span>
         <span class="n">input_dim</span> <span class="o">=</span> <span class="n">input_shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   <span class="c1"># 입력 샘플의 특성 수</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">),</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">),</span>
                                  <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;random_normal&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,),</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">units</span><span class="p">,),</span>
+                                 <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">)</span>
 
     <span class="c1"># 데이터 변환(포워드 패스)</span>
     <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
@@ -15996,40 +15945,16 @@ $$
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">my_dense</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
 </pre></div>
 </li>
-</ul>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>128: 배치 크기</li>
+<li><p>128: 배치 크기</p>
+</li>
 <li><p>784: MNIST 데이터셋의 손글씨 이미지 한 장의 특성 수(<code>28 * 28 = 128</code>)</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">784</span><span class="p">))</span>
 </pre></div>
 </li>
-</ul>
-
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li><p>층의 데이터 변환 결과</p>
+<li><p>층의 데이터 변환 결롸</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">output_tensor</span> <span class="o">=</span> <span class="n">my_dense</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)</span>
-  <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">output_tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">output_tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
   <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
 </pre></div>
 </li>
@@ -16046,19 +15971,39 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>내부적으로는 <code>__call__()</code> 메서드가 호출됨:</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><p>가중치 텐서와 와 편향 텐서가 생성되지 않은 경우</p>
-<ul>
-<li><code>(784, 512)</code> 모양의 가중치 텐서 <code>W</code> 생성 및 무작위 초기화. 782는 입력 샘플의 특성 수, 512는 층의 유닛 수.</li>
-<li><code>(512, )</code> 모양의 편향 텐서 <code>b</code> 생성 및 <code>0</code>으로 초기화. 512는 층의 유닛 수.</li>
+<li>가중치 텐서와 와 편향 텐서가 생성되지 않은 경우<ul>
+<li>(784, 512) 모양의 가중치 텐서 W 생성 및 무작위 초기화. 782는 입력 샘플의 특성 수, 512는 층의 유닛 수.
+(512, ) 모양의 편향 텐서 b 생성 및 0으로 초기화. 512는 층의 유닛 수.</li>
 <li>포워드 패스: 생성된 가중치와 편향을 이용하여 출력값 계산.</li>
+<li>가중치 텐서와 와 편향 텐서가 생성되어 있는 경우. 즉 훈련이 반복되는 경우.</li>
 </ul>
 </li>
-<li><p>가중치 텐서와 와 편향 텐서가 생성되어 있는 경우. 즉 훈련이 반복되는 경우.</p>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
 <li>포워드 패스: 역전파로 업데이트된 가중치와 편향을 이용하여 출력값 계산.</li>
-</ul>
-</li>
 </ul>
 
 </div>
@@ -16083,13 +16028,13 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><p>케라스의 모든 모델 클래스는 <code>tf.keras.Model</code> 클래스를 상속</p>
+<li><p>케라스의 모든 모델 클래스는 tf.keras.Model 클래스를 상속</p>
 </li>
-<li><p>아래 모델 직접 구현</p>
+<li><p>예제: 아래 모델 직접 구현하기</p>
 <div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
-      <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-      <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
-      <span class="p">])</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+        <span class="p">])</span>
 </pre></div>
 </li>
 </ul>
@@ -16104,18 +16049,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMNistModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">outputs</span>
-</pre></div>
-
+<h3 id="Sequential-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%A7%81%EC%A0%91-%EA%B5%AC%ED%98%84"><code>Sequential</code> &#53364;&#47000;&#49828; &#51649;&#51217; &#44396;&#54788;<a class="anchor-link" href="#Sequential-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%A7%81%EC%A0%91-%EA%B5%AC%ED%98%84">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -16126,7 +16060,17 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">MyMNistModel</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MySequential</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_layers</span><span class="p">):</span> <span class="c1"># 층들의 리스트 지정</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_layers</span> <span class="o">=</span> <span class="n">list_layers</span>
+
+    <span class="c1"># 포워드 패스: 층과 층을 연결하는 방식으로 구현</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_layers</span><span class="p">:</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">outputs</span>
 </pre></div>
 
 </div>
@@ -16139,17 +16083,49 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><code>keras.layers.Dense</code> 층을 이용한다면 다음과 같이 활성화 함수를 문자열로 지정할 수 있다.</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyMNistModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<h3 id="MNIST-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%ED%98%84">MNIST &#47784;&#45944; &#44396;&#54788;<a class="anchor-link" href="#MNIST-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%ED%98%84">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>   <span class="c1"># 첫째 밀집층</span>
+<span class="n">layer_2</span> <span class="o">=</span> <span class="n">SimpleDense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">)</span> <span class="c1"># 둘째 밀집층</span>
 
-    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
-        <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_1</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_2</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">outputs</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MySequential</span><span class="p">([</span><span class="n">layer_1</span><span class="p">,</span> <span class="n">layer_2</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%EC%BC%80%EB%9D%BC%EC%8A%A4%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4">&#52992;&#46972;&#49828;&#50752; &#47928;&#51088;&#50676;<a class="anchor-link" href="#%EC%BC%80%EB%9D%BC%EC%8A%A4%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><code>keras.layers.Dense</code> 층을 이용한다면 다음과 같이 활성화 함수를 문자열로 지정할 수 있다.</p>
+<div class="highlight"><pre><span></span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)</span>   <span class="c1"># 첫째 밀집층</span>
+<span class="n">layer_2</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span><span class="p">)</span> <span class="c1"># 둘째 밀집층</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">MySequential</span><span class="p">([</span><span class="n">layer_1</span><span class="p">,</span> <span class="n">layer_2</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -16188,8 +16164,7 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>이런 이유로 <code>tf.keras.Model</code> 클래스는 <code>tf.keras.layers.Layer</code> 클래스를 
-상속하도록 설계되어 있다.</li>
+<li>이런 이유로 <code>tf.keras.Model</code> 클래스는 <code>tf.keras.layers.Layer</code> 클래스를 상속하도록 설계되어 있다.</li>
 </ul>
 
 </div>
@@ -16214,7 +16189,7 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>모델의 학습과정은 전적으로 층의 구성방식에 의존한다. </li>
+<li>모델의 학습과정은 전적으로 층의 구성방식에 의존한다.</li>
 </ul>
 
 </div>
@@ -16269,7 +16244,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%98%88%EC%A0%9C:-%EC%9E%90%EC%97%B0%EC%96%B4-%EC%B2%98%EB%A6%AC%EC%97%90-%EC%82%AC%EC%9A%A9%EB%90%98%EB%8A%94-%ED%8A%B8%EB%9E%9C%EC%8A%A4%ED%8F%AC%EB%A8%B8Transformer-%EB%AA%A8%EB%8D%B8">&#50696;&#51228;: &#51088;&#50672;&#50612; &#52376;&#47532;&#50640; &#49324;&#50857;&#46104;&#45716; &#53944;&#47004;&#49828;&#54252;&#47672;<font size="2">Transformer</font> &#47784;&#45944;<a class="anchor-link" href="#%EC%98%88%EC%A0%9C:-%EC%9E%90%EC%97%B0%EC%96%B4-%EC%B2%98%EB%A6%AC%EC%97%90-%EC%82%AC%EC%9A%A9%EB%90%98%EB%8A%94-%ED%8A%B8%EB%9E%9C%EC%8A%A4%ED%8F%AC%EB%A8%B8Transformer-%EB%AA%A8%EB%8D%B8">&#182;</a></h3>
+<h3 id="%EC%98%88%EC%A0%9C:-%EC%9E%90%EC%97%B0%EC%96%B4-%EC%B2%98%EB%A6%AC%EC%97%90-%EC%82%AC%EC%9A%A9%EB%90%98%EB%8A%94-%ED%8A%B8%EB%9E%9C%EC%8A%A4%ED%8F%AC%EB%A8%B8-%EB%AA%A8%EB%8D%B8">&#50696;&#51228;: &#51088;&#50672;&#50612; &#52376;&#47532;&#50640; &#49324;&#50857;&#46104;&#45716; &#53944;&#47004;&#49828;&#54252;&#47672; &#47784;&#45944;<a class="anchor-link" href="#%EC%98%88%EC%A0%9C:-%EC%9E%90%EC%97%B0%EC%96%B4-%EC%B2%98%EB%A6%AC%EC%97%90-%EC%82%AC%EC%9A%A9%EB%90%98%EB%8A%94-%ED%8A%B8%EB%9E%9C%EC%8A%A4%ED%8F%AC%EB%A8%B8-%EB%AA%A8%EB%8D%B8">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -16280,7 +16255,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/transformer0001.png" style="width:500px;"></div>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/transformer0001.png" style="width:500px;"></div><p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 </div>
 </div>
 </div>
@@ -16310,6 +16285,17 @@ $$
 </div>
 </div>
 </div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%EC%BC%80%EB%9D%BC%EC%8A%A4%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4">&#52992;&#46972;&#49828;&#50752; &#47928;&#51088;&#50676;<a class="anchor-link" href="#%EC%BC%80%EB%9D%BC%EC%8A%A4%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4">&#182;</a></h3>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -16329,7 +16315,7 @@ $$
 <td style="text-align:left"><code>keras.optimizers.RMSprop()</code></td>
 </tr>
 <tr>
-<td style="text-align:left"><code>"mean_squared_error"</code></td>
+<td style="text-align:left"><code>"sparse_categorical_crossentropy"</code></td>
 <td style="text-align:left"><code>keras.losses.sparse_categorical_crossentropy()</code></td>
 </tr>
 <tr>
@@ -16342,14 +16328,14 @@ $$
 </div>
 </div>
 </div>
-</div></section></section><section><section>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>지정된 문자열을 사용하는 대신 파이썬 객체를 직접 지정해도 된다.</p>
+<p>문자열과 연결된 객체를 직접 지정할 수도 있다.</p>
 
 </div>
 </div>
@@ -16387,10 +16373,10 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>아래와 같은 경우에도 문자열 대신 해당 객체를 지정해야 한다.</p>
+<p>다음 두 가지의 경우엔 문자열 대신 해당 객체를 지정해야 한다.</p>
 <ul>
-<li>기본값과 다른 학습률(<code>learning_rate</code>)을 사용하는 옵티마이저를 지정하는 경우</li>
-<li>사용자가 직접 구현한 옵티마이저, 손실 함수, 평가지표 등을 사용하는 경우</li>
+<li>예를 들어, 기본값과 다른 학습률(<code>learning_rate</code>)을 사용하는 옵티마이저를 지정하는 경우</li>
+<li>사용자가 직접 정의한 객체를 사용하는 경우</li>
 </ul>
 
 </div>
@@ -16480,7 +16466,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%ED%8F%89%EA%B0%80-%EC%A7%80%ED%91%9C-%EC%A2%85%EB%A5%98">&#54217;&#44032; &#51648;&#54364; &#51333;&#47448;<a class="anchor-link" href="#%ED%8F%89%EA%B0%80-%EC%A7%80%ED%91%9C-%EC%A2%85%EB%A5%98">&#182;</a></h3>
+<h3 id="%ED%8F%89%EA%B0%80%EC%A7%80%ED%91%9C-%EC%A2%85%EB%A5%98">&#54217;&#44032;&#51648;&#54364; &#51333;&#47448;<a class="anchor-link" href="#%ED%8F%89%EA%B0%80%EC%A7%80%ED%91%9C-%EC%A2%85%EB%A5%98">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -16611,19 +16597,20 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>모델의 훈련 결과 <code>History</code> 객체</li>
+<li><p>모델의 훈련 결과ㅇ:로 <code>History</code> 객체</p>
+</li>
 <li><p><code>History</code> 객체의 <code>history</code> 속성: 에포크별로 계산된 손실값과 평가지표값 저장</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">training_history</span><span class="o">.</span><span class="n">history</span>
-  <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.2772371768951416</span><span class="p">,</span>
-    <span class="mf">0.11135932803153992</span><span class="p">,</span>
-    <span class="mf">0.07323136925697327</span><span class="p">,</span>
-    <span class="mf">0.05248244106769562</span><span class="p">,</span>
-    <span class="mf">0.03955799713730812</span><span class="p">],</span>
-   <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9214833378791809</span><span class="p">,</span>
-    <span class="mf">0.9670000076293945</span><span class="p">,</span>
-    <span class="mf">0.9781500101089478</span><span class="p">,</span>
-    <span class="mf">0.9845499992370605</span><span class="p">,</span>
-    <span class="mf">0.988349974155426</span><span class="p">]}</span>
+  <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">9.07500171661377</span><span class="p">,</span>
+    <span class="mf">8.722702980041504</span><span class="p">,</span>
+    <span class="mf">8.423994064331055</span><span class="p">,</span>
+    <span class="mf">8.137178421020508</span><span class="p">,</span>
+    <span class="mf">7.8575215339660645</span><span class="p">],</span>
+   <span class="s1">&#39;binary_accuracy&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.07800000160932541</span><span class="p">,</span>
+    <span class="mf">0.07999999821186066</span><span class="p">,</span>
+    <span class="mf">0.08049999922513962</span><span class="p">,</span>
+    <span class="mf">0.08449999988079071</span><span class="p">,</span>
+    <span class="mf">0.0860000029206276</span><span class="p">]}</span>
 </pre></div>
 </li>
 </ul>
@@ -16683,6 +16670,18 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>검증셋을 지정하고 모델을 훈련시킨다.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
     <span class="n">training_inputs</span><span class="p">,</span>
     <span class="n">training_targets</span><span class="p">,</span>
@@ -16696,6 +16695,18 @@ $$
 </div>
 </div>
 </div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>검증셋에 대한 에포크별 손실값과 평가지표도 함께 출력한다.</p>
+
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16746,11 +16757,11 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">loss_and_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">loss_and_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">val_inputs</span><span class="p">,</span> <span class="n">val_targets</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
 <span class="mi">79</span><span class="o">/</span><span class="mi">79</span> <span class="p">[</span><span class="o">==============================</span><span class="p">]</span> <span class="o">-</span> <span class="mi">0</span><span class="n">s</span> <span class="mi">2</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.0619</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9819</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">loss_and_metrics</span><span class="p">)</span>
-<span class="p">[</span><span class="mf">0.06193564459681511</span><span class="p">,</span> <span class="mf">0.9818999767303467</span><span class="p">]</span>
+<span class="p">[</span><span class="mf">0.29411643743515015</span><span class="p">,</span> <span class="mf">0.5333333611488342</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -16763,21 +16774,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%98%88%EC%B8%A1">&#50696;&#52769;<a class="anchor-link" href="#%EC%98%88%EC%B8%A1">&#182;</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>방식 1: 모델 적용</li>
-</ul>
-
+<h3 id="%EC%98%88%EC%B8%A1:-%EB%B0%A9%EC%8B%9D-1">&#50696;&#52769;: &#48169;&#49885; 1<a class="anchor-link" href="#%EC%98%88%EC%B8%A1:-%EB%B0%A9%EC%8B%9D-1">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -16790,7 +16787,7 @@ $$
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
 <li><p>모델을 마치 함수처럼 이용</p>
-<div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">test_images</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">new_inputs</span><span class="p">)</span>
 </pre></div>
 </li>
 </ul>
@@ -16820,7 +16817,7 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>배치 사용하지 않음. </li>
+<li>하지만 배치 사용하지 않음</li>
 </ul>
 
 </div>
@@ -16833,9 +16830,21 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%EC%98%88%EC%B8%A1:-%EB%B0%A9%EC%8B%9D-2">&#50696;&#52769;: &#48169;&#49885; 2<a class="anchor-link" href="#%EC%98%88%EC%B8%A1:-%EB%B0%A9%EC%8B%9D-2">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><p>방식 2: <code>predict()</code> 메서드 호출</p>
-<div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<li><code>predict()</code> 메서드 호출</li>
+<li><p>배치 사용</p>
+<div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">new_inputs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
 </pre></div>
 </li>
 </ul>
