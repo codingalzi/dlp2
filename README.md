@@ -2,7 +2,7 @@
 
 ## 텐서플로우 + GPU 세팅
 
-1. (2023년 10월 기준) 최신 버전으로 설치하는 방법
+1. WSL2 활용 최신 버전으로 설치하는 방법
 
     - 참고: [WSL2에 NVIDIA CUDA 드라이버 12.0, Toolkit 과 cuDNN 설치](./INSTALL.md)
 
