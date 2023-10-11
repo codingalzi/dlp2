@@ -5,9 +5,9 @@
 1. 필수 준비 사항: 윈도우 11, WSL2, Ubuntu 20.04
 
 1. Ubuntu 22.04 대상 설치: [Windows 11, WSL2, Ubuntu-22.04](https://qiita.com/rk01234/items/54f7b0a107377f1152f2) 참고
-    - 위 사이트 내용 그대로 따라하면 된다.
-    - 반면에 cuda tookit, python, tensorflow 최신 버전이 아니다. 
-    - cuda toolkit 12 등 최신 버전과의 작동여부 확인은 어렵다.
+    - 위 사이트 내용 그대로 따라하면 됨
+    - 설치 버전: cuda toolkit 11.8, cudnn 8.6, python 3.9, 텐서플로우 2.12 활용
+    - cuda toolkit 12, python 11 등 최신 버전과의 작동여부 확인 어려움.
 
 ## NVIDIA CUDA 드라이버 다운로드
 
@@ -163,7 +163,7 @@ TensorFlow, PyTorch 및 Caffe와 같은 인기 있는 딥러닝 프레임워크�
 
 파이썬 설치는 miniconda를 이용한다.
 
-# miniconda와 파이썬, 주피터 노트북 설치
+### miniconda와 파이썬, 주피터 노트북 설치
 
 - 참고: [tensorflow-install-march-2023](https://github.com/codingalzi/t81_558_deep_learning/blob/master/install/tensorflow-install-march-2023.ipynb)
 
@@ -233,7 +233,7 @@ export TF_CPP_MIN_LOG_LEVEL="2"
 
 ### 추가 파이썬 패키지 설치
 
-필요에 따라 `conda` 또는 `pip` 을 이용하여 설치한다.
+필요에 따라 `conda` 또는 `pip` 을 이용하여 추가 패키지를 설치한다.
 일반적으로 텐서플로우 관련해서는 `pip`으로, 그 이외의 경우엔 `conda`를 이용한다.
 각 패키지의 설치 방법은 `conda install pandas`와 같은 방식으로 인터넷에서 검색하여 확인한다.
 
@@ -241,7 +241,7 @@ export TF_CPP_MIN_LOG_LEVEL="2"
 참고로 numpy는 이전 과정에서 이미 설치된다.
 
 | 패키지 | 설치 명령문 |
-| :---: | :--- |
+| :--- | :--- |
 | pandas | `conda install -c anaconda pandas` |
 | scikit-learn | `conda install -c anaconda scikit-learn` |
 | matplotlib | `conda install -c conda-forge matplotlib` |
