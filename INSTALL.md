@@ -2,12 +2,12 @@
 
 1. [How to Install the NVIDIA CUDA Driver 12.0, Toolkit & cuDNN-8.8.1.3 on WSL2 in The Year 2023](https://medium.com/@soji4u2c/how-to-install-the-nvidia-cuda-driver-12-0-toolkit-cudnn-8-8-1-3-on-wsl2-in-year-2023-23165024dc16) 사이트의 내용을 최신 버전으로 업데이트 하였다.
 
-1. 전제: 윈도우 11, WSL2, Ubuntu 20.04
+1. 필수 준비 사항: 윈도우 11, WSL2, Ubuntu 20.04
 
 1. Ubuntu 22.04 대상 설치: [Windows 11, WSL2, Ubuntu-22.04](https://qiita.com/rk01234/items/54f7b0a107377f1152f2) 참고
     - 위 사이트 내용 그대로 따라하면 된다.
     - 반면에 cuda tookit, python, tensorflow 최신 버전이 아니다. 
-    - 최신 버전과의 작동여부 확인은 어렵다.
+    - cuda toolkit 12 등 최신 버전과의 작동여부 확인은 어렵다.
 
 ## NVIDIA CUDA 드라이버 다운로드
 
@@ -228,17 +228,20 @@ python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'
 export TF_CPP_MIN_LOG_LEVEL="2"
 ```
 
-위와 같이 저장한 다음에 리눅스 터미널을 새로 열기만 하면 된다.
+위와 같이 저장한 다음에 리눅스 터미널을 새로 열어 파이썬과 텐서플로우를 실생하면 경고문이 보이지 않는다.
+경고문을 다시 보이게 하려면 숫자 2를 0으로 대체하면 된다.
 
 ### 추가 파이썬 패키지 설치
 
 필요에 따라 `conda` 또는 `pip` 을 이용하여 설치한다.
 일반적으로 텐서플로우 관련해서는 `pip`으로, 그 이외의 경우엔 `conda`를 이용한다.
-각 패키지의 설치 방법은 `conda pandas` 등으로 검색하여 확인한다.
+각 패키지의 설치 방법은 `conda install pandas`와 같은 방식으로 인터넷에서 검색하여 확인한다.
 
 데이터분석에 필요한 추가 필수 패키지는 다음과 같다.
 참고로 numpy는 이전 과정에서 이미 설치된다.
 
-- pandas: `conda install -c anaconda pandas`
-- scikit-learn: `conda install -c anaconda scikit-learn`
-- matplotlib: `conda install -c conda-forge matplotlib`
+| 패키지 | 설치 명령문 |
+| :---: | :--- |
+| pandas | `conda install -c anaconda pandas` |
+| scikit-learn | `conda install -c anaconda scikit-learn` |
+| matplotlib | `conda install -c conda-forge matplotlib` |
