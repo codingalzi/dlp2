@@ -9,6 +9,11 @@
 
 **텐서플로우 + GPU 세팅**
 
+## (2023년 10월 기준) 최신 버전으로 설치하는 방법
+
+[WSL2에 NVIDIA CUDA 드라이버 12.0, Toolkit 과 cuDNN 설치](./INSTALL.md)를 참고한다.
+
+### WSL2 없이 윈도우 상에서 텐서플로우 2.1을 이용하는 방법
 텐서플로우와 GPU를 이용하도록 하는 설정을 가장 간단하게 하는 방법은 다음과 같다.
 
 1. [Microsoft Visual C++ Redistributable](https://docs.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist?view=msvc-170) 설치.
