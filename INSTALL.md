@@ -1,14 +1,13 @@
 # WSL2에 NVIDIA CUDA 드라이버 12.0, Toolkit 과 cuDNN 설치 (2023년 10월 기준)
 
-**참고**
+1. [How to Install the NVIDIA CUDA Driver 12.0, Toolkit & cuDNN-8.8.1.3 on WSL2 in The Year 2023](https://medium.com/@soji4u2c/how-to-install-the-nvidia-cuda-driver-12-0-toolkit-cudnn-8-8-1-3-on-wsl2-in-year-2023-23165024dc16) 사이트의 내용을 최신 버전으로 업데이트 하였다.
 
-1. 윈도우 11과 WSL2, Ubuntu 20.04 를 이용하는 설명서입니다.
-    따라서 윈도우 11 최신 업데이트와 WSL2가 설치되어 있다고 가정합니다.
-    - WSL2 설치 참고 자료: [Windows 11 WSL2 설치하기](https://blog.dalso.org/article/windows-11-wsl2-%ec%84%a4%ec%b9%98%ed%95%98%ea%b8%b0)
+1. 전제: 윈도우 11, WSL2, Ubuntu 20.04
 
-1. 아래 설명은 [How to Install the NVIDIA CUDA Driver 12.0, Toolkit & cuDNN-8.8.1.3 on WSL2 in The Year 2023](https://medium.com/@soji4u2c/how-to-install-the-nvidia-cuda-driver-12-0-toolkit-cudnn-8-8-1-3-on-wsl2-in-year-2023-23165024dc16) 사이트를 참고한다.
-
-1. Ubuntu 22.04 에서의 설치는 [https://qiita.com/rk01234/items/54f7b0a107377f1152f2](https://qiita.com/rk01234/items/54f7b0a107377f1152f2)를 참고한다.
+1. Ubuntu 22.04 대상 설치: [Windows 11, WSL2, Ubuntu-22.04](https://qiita.com/rk01234/items/54f7b0a107377f1152f2) 참고
+    - 위 사이트 내용 그대로 따라하면 된다.
+    - 반면에 cuda tookit, python, tensorflow 최신 버전이 아니다. 
+    - 최신 버전과의 작동여부 확인은 어렵다.
 
 ## NVIDIA CUDA 드라이버 다운로드
 
@@ -21,20 +20,26 @@ CUDA(Compute Unified Device Architecture)는 병렬 처리를 사용하여 계�
 
         5xx.xx-desktop-win10-win11–64bit-international-dch-whql.exe
 
-## WSL2 업데이트
+## WSL2 설치 및 업데이트
 
 1. Windows PowerShell을 관리자 모드로 연다.
-1. 최신 리누슥 커널을 다운로드 하기 위해 먼저 wsl을 업데이트 한다.
+1. 아래 명령문 실행
 
-        wsl --updte
+   ```bash
+   wsl --install
+   ```
+
+1. 최신 리눅스 커널을 다운로드 하기 위해 먼저 wsl을 업데이트 한다.
+
+    ```bash
+    wsl --updte
+    ```
         
 1. 아래 명령문을 이용하여 설치된 wsl 버전이 5.15.90.1 이상이어야 함
 
-        wsl uname -r
-
-1. 아래 명령문을 이용하여 wsl 종료
-
-        wsl --shutdown
+    ```bash
+    wsl uname -r
+    ```
 
 ## 우분투 20.04 LTS 설치
 
@@ -42,29 +47,36 @@ CUDA(Compute Unified Device Architecture)는 병렬 처리를 사용하여 계�
 
 - 방식 1: Windows Powershell을 다시 관리자 모드로 연 다음 아래 명령문 활용
 
-        wsl --install -d Ubuntu-20.04
+    ```bash
+    wsl --install -d Ubuntu-20.04
+    ```
 
 - 방식 2:  MS Store에서 우분투 20.04 검색 후 설치
-
 
 어떤 방식으로든 설치가 끝난 후 우분투를 실행할 때 요구되는 사용자 아이디와 패스워드를 지정하면
 모든 설정이 끝난다.
 
 ## NVIDIA CUDA 패키지 저장소 추가
 
-이제부터는 모든 명령문을 우분투 20.04의 터미널에서 실행한다.
+이제부터는 모든 명령문을 **우분투 20.04의 터미널**에서 실행한다.
 
 - NVIDIA 공개 키를 저장한다. NVIDIA 공개 키는 NVIDIA에서 출시한 소프트웨어 패키지를 다운로드하고 업데이트 하는 데에 필요한 암호화 키이다.
 
-        sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+    ```bash
+    sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+    ```
 
 - 패키지 저장소 목록을 관리하는 `/etc/apt/sources.list` 에 NVIDIA CUDA 패키지 저장소 주소를 추가한다.
 
-        sudo sh -c 'echo "deb  http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/cuda.list'
+    ```bash
+    sudo sh -c 'echo "deb  http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/cuda.list'
+    ```
 
 - 우분투에서 사용 가능한 패키지들의 정보를 업데이트 한다. 
         
-        sudo apt-get update
+    ```bash
+    sudo apt-get update
+    ```
 
 ## NVIDIA CUDA Toolkit 12 설치
 
@@ -105,70 +117,73 @@ TensorFlow, PyTorch 및 Caffe와 같은 인기 있는 딥러닝 프레임워크�
     Download cuDNN v8.9.5 (September 12th, 2023), for CUDA 12.x
     ```
 
-- 아래 파일을 다운로드 한다. (Intel 프로세서 기준)
-        
+- 아래 버튼을 선택하여 지정된 파일을 다운로드 한다. (Intel 프로세서 기준)
 
     ```bash
     Local Installer for Ubuntu20.04 x86_64 (Deb)
     ```
 
-이어서 아래 설명에 따라 설치한다.
-
 - 앞서 다운로드한 파일이 저장된 곳으로 이동한 후 아래 명령문을 실행한다.
 
-        sudo dpkg -i cudnn-local-repo-ubuntu2004–8.9.5.29_1.0–1_amd64.deb
+    ```bash
+    sudo dpkg -i cudnn-local-repo-ubuntu2004–8.9.5.29_1.0–1_amd64.deb
+    ```
 
 - CUDA GPG 키를 불러온다.
 
-        sudo cp /var/cudnn-local-repo-*/cudnn-local-*-keyring.gpg /usr/share/keyrings/
+    ```bash
+    sudo cp /var/cudnn-local-repo-*/cudnn-local-*-keyring.gpg /usr/share/keyrings/
+    ```
 
 - 패키지 저장소 정도 업데이트
 
-        sudo apt-get update
+    ```bash
+    sudo apt-get update
+    ```
 
 - 런타임 라이브러리를 설치한다.  아래 명령문 실행하여 설치가능 패키지를 확인할 수도 있다. 
         
-        apt-cache policy libcudnn8
+    ```bash
+    apt-cache policy libcudnn8
+    ```
 
     여기서는 아래 버전을 선택한다.
     
-        sudo apt-get install libcudnn8=8.9.5.29-1+cuda12.2
+    ```bash
+    sudo apt-get install libcudnn8=8.9.5.29-1+cuda12.2
+    ```
 
 - 개발자 라이브러리 설치
 
-        sudo apt-get install libcudnn8-dev=8.9.5.29-1+cuda12.2
-
-- 코드 샘플 추가
-
-        sudo apt-get install libcudnn8-samples=8.9.5.29-1+cuda12.2
+    ```bash
+    sudo apt-get install libcudnn8-dev=8.9.5.29-1+cuda12.2
+    ```
 
 ## 파이썬과 텐서플로우 설치
 
-- 파이썬 설치는 miniconda 또는 anaconda를 이용한다.
+파이썬 설치는 miniconda를 이용한다.
 
-### miniconda 와 jupyter 설치
+# miniconda와 파이썬, 주피터 노트북 설치
 
-아래 단계에 따라 miniconda와 파이썬, 주피터 노트북을 설치한다.
+- 참고: [tensorflow-install-march-2023](https://github.com/codingalzi/t81_558_deep_learning/blob/master/install/tensorflow-install-march-2023.ipynb)
 
-- 참고: https://github.com/codingalzi/t81_558_deep_learning/blob/master/install/tensorflow-install-march-2023.ipynb
+1. miniconda 다운로드
 
-- 설치 단계
+    ```bash
+    curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh
+    ```
 
-    1. miniconda 다운로드
-    
-            curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o Miniconda3-latest-Linux-x86_64.sh
+2. minoconda 설치
 
-    2. minoconda 설치
-    
-            bash Miniconda3-latest-Linux-x86_64.sh
+    ```bash
+    bash Miniconda3-latest-Linux-x86_64.sh
+    ```
 
-    3. jupyter notebook 설치
+3. jupyter notebook 설치
 
-            conda install -y jupyter
-
-### anaconda 설치
-
-miniconda 대신에 anaconda를 설치하면 jupyter notebook 등을 따로 설치할 필요가 없다.
+    ```bash
+    conda install -y jupyter
+    ```
 
 ### 텐서플로우 설치
 
@@ -177,19 +192,27 @@ miniconda 대신에 anaconda를 설치하면 jupyter notebook 등을 따로 설�
 
 - pip 업데이트
 
-        pip install --upgrade pip
+    ```bash
+    pip install --upgrade pip
+    ```
 
 - GPU 지원 텐서플로우 설치
 
-        pip install tensorflow[and-cuda]
+    ```bash
+    pip install tensorflow[and-cuda]
+    ```
 
 이제 아래 명령문으로 GPU가 제대로 작동하는지 확인한다.
 
-    python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+```bash
+python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+```
 
 오류 없이 몇 개의 경고문과 함께 최종적으로 아래와 같은 내용이 출력되면 정상적으로 작동하는 것이다.
 
-    [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+```bash
+[PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+```
 
 `tensforslow` 라이브러리를 불러올 때 여러 종류의 경고(warning)가 함께 표기될 수도 있다.
 하지만 다음 두 종류의 경고는 무시해도 된다.
