@@ -1,10 +1,10 @@
 # WSL2에 NVIDIA CUDA 드라이버 12.0, Toolkit 과 cuDNN 설치 (2023년 10월 기준)
 
-1. [How to Install the NVIDIA CUDA Driver 12.0, Toolkit & cuDNN-8.8.1.3 on WSL2 in The Year 2023](https://medium.com/@soji4u2c/how-to-install-the-nvidia-cuda-driver-12-0-toolkit-cudnn-8-8-1-3-on-wsl2-in-year-2023-23165024dc16) 사이트의 내용을 최신 버전으로 업데이트 하였다.
+- [How to Install the NVIDIA CUDA Driver 12.0, Toolkit & cuDNN-8.8.1.3 on WSL2 in The Year 2023](https://medium.com/@soji4u2c/how-to-install-the-nvidia-cuda-driver-12-0-toolkit-cudnn-8-8-1-3-on-wsl2-in-year-2023-23165024dc16) 사이트의 내용을 최신 버전으로 업데이트 하였다.
 
-1. 필수 준비 사항: 윈도우 11, WSL2, Ubuntu 20.04
+- 필수 준비 사항: 윈도우 11, WSL2, Ubuntu 20.04
 
-1. Ubuntu 22.04 대상 설치: [Windows 11, WSL2, Ubuntu-22.04](https://qiita.com/rk01234/items/54f7b0a107377f1152f2) 참고
+- Ubuntu 22.04 대상 설치: [Windows 11, WSL2, Ubuntu-22.04](https://qiita.com/rk01234/items/54f7b0a107377f1152f2) 참고
     - 위 사이트 내용 그대로 따라하면 됨
     - 설치 버전: cuda toolkit 11.8, cudnn 8.6, python 3.9, 텐서플로우 2.12 활용
     - cuda toolkit 12, python 11 등 최신 버전과의 작동여부 확인 어려움.
@@ -60,19 +60,17 @@ CUDA(Compute Unified Device Architecture)는 병렬 처리를 사용하여 계�
 
 이제부터는 모든 명령문을 **우분투 20.04의 터미널**에서 실행한다.
 
-- NVIDIA 공개 키를 저장한다. NVIDIA 공개 키는 NVIDIA에서 출시한 소프트웨어 패키지를 다운로드하고 업데이트 하는 데에 필요한 암호화 키이다.
+1. NVIDIA 공개 키를 저장한다. NVIDIA 공개 키는 NVIDIA에서 출시한 소프트웨어 패키지를 다운로드하고 업데이트 하는 데에 필요한 암호화 키이다.
 
     ```bash
     sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
     ```
-
-- 패키지 저장소 목록을 관리하는 `/etc/apt/sources.list` 에 NVIDIA CUDA 패키지 저장소 주소를 추가한다.
+1. 패키지 저장소 목록을 관리하는 `/etc/apt/sources.list` 에 NVIDIA CUDA 패키지 저장소 주소를 추가한다.
 
     ```bash
     sudo sh -c 'echo "deb  http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64 /" > /etc/apt/sources.list.d/cuda.list'
     ```
-
-- 우분투에서 사용 가능한 패키지들의 정보를 업데이트 한다. 
+1. 우분투에서 사용 가능한 패키지들의 정보를 업데이트 한다. 
         
     ```bash
     sudo apt-get update
@@ -109,39 +107,34 @@ TensorFlow, PyTorch 및 Caffe와 같은 인기 있는 딥러닝 프레임워크�
 구심층 신경망을 구축하고 훈련하는 데 일반적으로 사용되는 최적화된 연산들을 제공한다.
 예를 들어 합성곱, 활성화 함수, 정규화, 풀링 연산을 지원한다.
 
-- 면저 [NVIDIA Developer](https://developer.nvidia.com/rdp/cudnn-download)에서 로그인 한다.
+1. 면저 [NVIDIA Developer](https://developer.nvidia.com/rdp/cudnn-download)에서 로그인 한다.
 
-- 2023년 10월 기준으로 최신 NVIDA 그래픽 드라이버가 설치되었다는 전제 하여 아래 파일의 링크를 선택한다.
+1. 2023년 10월 기준으로 최신 NVIDA 그래픽 드라이버가 설치되었다는 전제 하여 아래 파일의 링크를 선택한다.
 
     ```bash
     Download cuDNN v8.9.5 (September 12th, 2023), for CUDA 12.x
     ```
-
-- 아래 버튼을 선택하여 지정된 파일을 다운로드 한다. (Intel 프로세서 기준)
+1. 아래 버튼을 선택하여 지정된 파일을 다운로드 한다. (Intel 프로세서 기준)
 
     ```bash
     Local Installer for Ubuntu20.04 x86_64 (Deb)
     ```
-
-- 앞서 다운로드한 파일이 저장된 곳으로 이동한 후 아래 명령문을 실행한다.
+1. 앞서 다운로드한 파일이 저장된 곳으로 이동한 후 아래 명령문을 실행한다.
 
     ```bash
     sudo dpkg -i cudnn-local-repo-ubuntu2004–8.9.5.29_1.0–1_amd64.deb
     ```
-
-- CUDA GPG 키를 불러온다.
+1. CUDA GPG 키를 불러온다.
 
     ```bash
     sudo cp /var/cudnn-local-repo-*/cudnn-local-*-keyring.gpg /usr/share/keyrings/
     ```
-
-- 패키지 저장소 정도 업데이트
+1. 패키지 저장소 정도 업데이트
 
     ```bash
     sudo apt-get update
     ```
-
-- 런타임 라이브러리를 설치한다.  아래 명령문 실행하여 설치가능 패키지를 확인할 수도 있다. 
+1. 런타임 라이브러리를 설치한다.  아래 명령문 실행하여 설치가능 패키지를 확인할 수도 있다. 
         
     ```bash
     apt-cache policy libcudnn8
@@ -152,8 +145,7 @@ TensorFlow, PyTorch 및 Caffe와 같은 인기 있는 딥러닝 프레임워크�
     ```bash
     sudo apt-get install libcudnn8=8.9.5.29-1+cuda12.2
     ```
-
-- 개발자 라이브러리 설치
+1. 개발자 라이브러리 설치
 
     ```bash
     sudo apt-get install libcudnn8-dev=8.9.5.29-1+cuda12.2
@@ -165,7 +157,8 @@ TensorFlow, PyTorch 및 Caffe와 같은 인기 있는 딥러닝 프레임워크�
 
 ### miniconda와 파이썬, 주피터 노트북 설치
 
-- 참고: [tensorflow-install-march-2023](https://github.com/codingalzi/t81_558_deep_learning/blob/master/install/tensorflow-install-march-2023.ipynb)
+[tensorflow-install-march-2023](https://github.com/codingalzi/t81_558_deep_learning/blob/master/install/tensorflow-install-march-2023.ipynb)를 참고한 내용이다. 
+이 사이트에서는 2023년 3월 기준으로 최신 텐서플로우를 설치하는 방법이 설명되어 있다.
 
 1. miniconda 다운로드
 
