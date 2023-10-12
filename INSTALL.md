@@ -4,10 +4,13 @@
 
 - 필수 준비 사항: 윈도우 11, WSL2, Ubuntu 20.04
 
-- Ubuntu 22.04 대상 설치: [Windows 11, WSL2, Ubuntu-22.04](https://qiita.com/rk01234/items/54f7b0a107377f1152f2) 참고
-    - 위 사이트 내용 그대로 따라하면 됨
-    - 설치 버전: cuda toolkit 11.8, cudnn 8.6, python 3.9, 텐서플로우 2.12 활용
-    - cuda toolkit 12, python 11 등 최신 버전과의 작동여부 확인 어려움.
+- Windows 11 + WSL2 + Ubuntu 22.04 대상: 
+    - [Windows 11, WSL2, Ubuntu-22.04](https://qiita.com/rk01234/items/54f7b0a107377f1152f2) 내용 그대로 따라할 것
+    - 하지만 최신 버전 설치 아님: cuda toolkit 11.8, cudnn 8.6, python 3.9, 텐서플로우 2.12 활용
+    - cuda toolkit 12, python 11 등 최신 버전과의 작동여부는 아직 확인되지 않음.
+
+- WSL2가 아닌 우분투 운영체제에 직접 설치하는 방법은 보다 쉬움.
+    - [pip으로 Tensorflow 설치](https://www.tensorflow.org/install/pip?hl=ko) 내용을 그대로 따라하면 될 것으로 기대함.
 
 ## NVIDIA CUDA 드라이버 다운로드
 
