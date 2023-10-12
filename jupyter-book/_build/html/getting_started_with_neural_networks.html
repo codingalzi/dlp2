@@ -358,14 +358,14 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-imdb">4.1. 영화 후기: 이진 분류</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">4.1.1. 데이터 준비: IMDB 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.1.2. 데이터 전처리: 벡터화, 멀티-핫-인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.1.2. 데이터 전처리: 벡터화와 멀티-핫 인코딩</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.1.3. 모델 구성과 컴파일</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.1.4. 모델 훈련과 활용</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.2. 뉴스 기사: 다중 클래스 분류</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.2.1. 데이터 준비: 로이터 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.2.2. 데이터 전처리: 원-핫-인코딩, 멀티-핫-인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.2.2. 데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.2.3. 모델 구성과 컴파일</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4.2.4. 모델 훈련과 활용</a></li>
 </ul>
@@ -401,14 +401,11 @@ document.write(`
 <a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-getting_started_with_neural_networks.ipynb">(구글 코랩) 신경망 활용 처음부터 끝까지: 분류와 회귀</a>에서
 직접 실행할 수 있다.</p>
 <p><strong>주요 내용</strong></p>
-<p>실전 데이터 세 개를 이용하여
-이진 분류 신경망 모델,
-다중 클래스 분류 신경망 모델,
-회귀 신경망 모델을 지정하고 훈련시키는 방법을 소개한다.</p>
+<p>세 종류의 문제를 해결하는 모델을 실전 데이터셋을 이용하여 훈련시키는 방법을 소개한다.</p>
 <ul class="simple">
-<li><p>이진 분류: 영화 후기 분류</p></li>
-<li><p>다중 클래스 분류: 뉴스 기사 분류</p></li>
-<li><p>회귀: 주택 가격 예측</p></li>
+<li><p>이진 분류 신경망 모델: 영화 후기 분류</p></li>
+<li><p>다중 클래스 분류 신경망 모델: 뉴스 기사 분류</p></li>
+<li><p>회귀 신경망 모델: 주택 가격 예측</p></li>
 </ul>
 <p><strong>머신러닝 주요 용어</strong></p>
 <p>아래 용어의 정의를 명확히 알아야 한다.</p>
@@ -432,49 +429,45 @@ document.write(`
 <td class="text-left"><p>target</p></td>
 <td class="text-left"><p>모델이 맞춰야 하는 값</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>타깃셋</p></td>
-<td class="text-left"><p>ground-truth/annotations</p></td>
-<td class="text-left"><p>타깃으로 구성된 데이터셋</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>손실값, 비용, 예측 오차</p></td>
-<td class="text-left"><p>prediction error, loss value</p></td>
+<tr class="row-odd"><td class="text-left"><p>손실값, 비용, 예측 오차</p></td>
+<td class="text-left"><p>loss value</p></td>
 <td class="text-left"><p>타깃과 예측값 사이의 오차. 문제 유형에 따라 측정법 다름.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>손실 함수, 비용 함수</p></td>
+<tr class="row-even"><td class="text-left"><p>손실 함수, 비용 함수</p></td>
 <td class="text-left"><p>loss function</p></td>
 <td class="text-left"><p>손실값(비용)을 계산하는 함수.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>클래스</p></td>
+<tr class="row-odd"><td class="text-left"><p>클래스</p></td>
 <td class="text-left"><p>class</p></td>
-<td class="text-left"><p>분류 모델의 훈련 데이터셋에서 각각의 샘플이 속하는 범주(클래스)</p></td>
+<td class="text-left"><p>분류 모델에서 각각의 샘플이 속하는 범주(클래스)</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>레이블</p></td>
+<tr class="row-even"><td class="text-left"><p>레이블</p></td>
 <td class="text-left"><p>label</p></td>
-<td class="text-left"><p>분류 모델을 훈련시킬 때 모델이 맞춰야 하는 타깃</p></td>
+<td class="text-left"><p>분류 모델에서 타깃 대신 사용하는 표현</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>이진 분류</p></td>
+<tr class="row-odd"><td class="text-left"><p>이진 분류</p></td>
 <td class="text-left"><p>binary classification</p></td>
-<td class="text-left"><p>샘플을 두 개의 클래스로 분류. 양성/음성, 긍정/부정 등.</p></td>
+<td class="text-left"><p>양성/음성, 긍정/부정 등 샘플을 두 개의 클래스로 분류.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>다중 클래스 분류</p></td>
+<tr class="row-even"><td class="text-left"><p>다중 클래스 분류</p></td>
 <td class="text-left"><p>multiclass classification</p></td>
-<td class="text-left"><p>샘플을 세 개 이상의 클래스로 분류. 손글씨 숫자 등.</p></td>
+<td class="text-left"><p>샘플을 세 개 이상의 클래스로 분류. 손글씨 숫자 분류 등.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>다중 레이블 분류</p></td>
+<tr class="row-odd"><td class="text-left"><p>다중 레이블 분류</p></td>
 <td class="text-left"><p>multilabel classification</p></td>
-<td class="text-left"><p>샘플에 두 종류 이상의 레이블을 지정하는 분류. 사진 속 다양한 종류의 동물 탐지 등.</p></td>
+<td class="text-left"><p>샘플에 대해 두 종류 이상의 레이블을 지정하는 분류. 한 장의 사진에 강아지, 고양이, 토끼 등 여러 종의 포함 여부 확인. 각각의 종에 대해 범부를 맞춰야 함.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>스칼라 회귀</p></td>
-<td class="text-left"><p>scalar regression</p></td>
-<td class="text-left"><p>샘플 별로 하나의 값 예측하기. 주택 가격 예측 등.</p></td>
+<tr class="row-even"><td class="text-left"><p>(스칼라) 회귀</p></td>
+<td class="text-left"><p>(scalar) regression</p></td>
+<td class="text-left"><p>샘플 별로 하나의 값만 예측하기. 주택 가격 예측 등.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>벡터 회귀</p></td>
+<tr class="row-odd"><td class="text-left"><p>벡터 회귀</p></td>
 <td class="text-left"><p>vector regression</p></td>
 <td class="text-left"><p>샘플 별로 두 종류 이상의 값 예측하기. 네모 상자의 좌표 등.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>(미니)배치</p></td>
+<tr class="row-even"><td class="text-left"><p>(미니)배치</p></td>
 <td class="text-left"><p>mini-batch/batch</p></td>
-<td class="text-left"><p>보통 8개에서 128개의 샘플로 구성된 묶음(배치). 훈련 루프의 스텝 크기에 해당됨. 2의 제곱수 사용이 GPU 활용에 좋음.</p></td>
+<td class="text-left"><p>보통 16, 32, 64, 128 등의 개수의 샘플로 구성된 묶음(배치). 훈련 루프의 스텝에 사용되는 훈련셋.</p></td>
 </tr>
 </tbody>
 </table>
@@ -485,25 +478,25 @@ document.write(`
 <h3><span class="section-number">4.1.1. </span>데이터 준비: IMDB 데이터셋<a class="headerlink" href="#imdb" title="Permalink to this heading">#</a></h3>
 <p>긍정 후기와 부정 후기 각각 25,000개씩 총 50,000개의 영화 후기 샘플로 구성되었으며
 <a class="reference external" href="https://www.imdb.com/">IMDB(Internet Moview Database)</a> 영화 후기 사이트에서
-얻어진 데이터셋이다.</p>
+구한 데이터셋이다.</p>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">imdb</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 불러올 수 있는 IMDB 데이터셋은
 이미 훈련셋과 테스트셋으로 구분되어 있다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">train_data</span></code>: 훈련용 입력 데이터셋</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">train_labels</span></code>: 훈련용 타깃 데이터셋</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">test_data</span></code>: 테스트용 입력 데이터셋</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">test_labels</span></code>: 테스트용 타깃 데이터셋</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train_data</span></code>: 훈련용 입력 데이터셋. 25,000개의 리스트로 구성된 1차원 어레이.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train_labels</span></code>: 훈련용 타깃 데이터셋. 0과 1로 구성된 길이가 25,000인 1차원 어레이.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_data</span></code>: 테스트용 입력 데이터셋. 25,000개의 리스트로 구성된 1차원 어레이.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_labels</span></code>: 테스트용 타깃 데이터셋. 0과 1로 구성된 길이가 25,000인 1차원 어레이.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">imdb</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>후기 데이터셋 전체에서 원래 총 88,585개의 단어가 최소 한 번 이상 사용되지만 가장 많이 사용되는
-10,000개 단어 이외에는 사용 빈도가 너무 낮아서 클래스 분류에 별 도움이 되지 않거나
-오히려 악형향을 끼치기도 한다.
+10,000개 단어 이외에는 사용 빈도가 너무 낮다.
+그런 단어는 클래스 분류 훈련에 별 도움이 되지 않거나 오히려 악형향을 끼치기도 한다.
 따라서 그런 단어들은 무시하는 것이 좋다.
 <code class="docutils literal notranslate"><span class="pre">imdb.load_data()</span></code> 함수의 <code class="docutils literal notranslate"><span class="pre">num_words=10000</span></code> 키워드 인자는
-가장 많이 사용되는 10,000개의 이외의 단어는 특정 기호로 처리하여
+가장 많이 사용되는 10,000개의 이외의 단어는 특정 숫자로 처리하여
 신경망 모델을 훈련시킬 때 무시되도록 한다.</p>
 <p><strong>데이터 살펴보기</strong></p>
 <p>후기 샘플 하나에 사용되는 단어의 수는 일정하지 않다.</p>
@@ -513,8 +506,8 @@ document.write(`
 <span class="go">189</span>
 </pre></div>
 </div>
-<p>각각의 입력 샘플은 정수로 이뤄진 텐서이며,
-각 정수는 특정 단어를 가리킨다.
+<p>각각의 입력 샘플은 정수로 구성된 벡터, 즉 1차원 텐서다.
+각각의 정수는 특정 단어를 가리킨다.
 예를 들어, 530은 영화 후기에서 530번째로 많이 사용되는 어떤 단어를 가리킨다.</p>
 <p>훈련셋의 0번 입력 샘플의 처음 10개 값은 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
@@ -532,7 +525,7 @@ document.write(`
 <div class="tip admonition">
 <p class="admonition-title">영화 후기 내용</p>
 <p><strong>모델 훈련을 위해 반드시 필요한 사항은 아니지만</strong>
-필요한 경우 정수와 단어 사이의 관계를 담은 사전을 이용하여
+필요한 경우 단어와 정수(빈도) 사이의 관계를 담은 사전을 이용하여
 후기 내용을 확인할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">word_index</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">get_word_index</span><span class="p">()</span>
 </pre></div>
@@ -553,8 +546,13 @@ document.write(`
 </div>
 <p>아래 코드는 첫째 후기의 내용을 확인한다.
 단어 인덱스에서 3을 빼야 함에 주의하라.
-이유는 인덱스 0, 1, 2는 각각 여백, 문장 시작, 불분명을 의미하기 때문이다.
-앞서 10,000개의 가장 많이 사용되는 단어만을 대상으로 하였기에
+이유는 인덱스 0, 1, 2는 아래의 의미로 지정되었기 때문이다.</p>
+<ul class="simple">
+<li><p>0: 여백</p></li>
+<li><p>1: 문장의 시작</p></li>
+<li><p>2: 불분명</p></li>
+</ul>
+<p>앞서 10,000개의 가장 많이 사용되는 단어만을 대상으로 하였기에
 그 이외의 단어는 모두 2로 처리된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_word_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">first_review</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -569,14 +567,27 @@ document.write(`
 </div>
 </section>
 <section id="id3">
-<h3><span class="section-number">4.1.2. </span>데이터 전처리: 벡터화, 멀티-핫-인코딩<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<p>정수들의 리스트, 그것도 길이가 다른 여러 개의 리스트를 신경망의 입력값으로 사용할 수 없다.
-따라서 각 샘플을 지정된 크기의 1차원 어레이로 변환하는
-<strong>벡터화</strong><font size='2'>vectorization</font>를 먼저 실행한다.</p>
-<p>그런데 서로 길이가 다른 정수들의 리스트의 길이를 통일시킨다 하더라도
-정수들의 리스트를 직접 신경망 모델의 입력값으로 사용하는 일은 가급적 피해야 한다.
-여기서는 대신에 <strong>멀티-핫-인코딩</strong>을 이용하여 정수들의 리스트를
-0과 1로만 이루어진 일정한 길이의 벡터(1차원 어레이)로 변환한다.</p>
+<h3><span class="section-number">4.1.2. </span>데이터 전처리: 벡터화와 멀티-핫 인코딩<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>정수들의 리스트, 그것도 길이가 다른 여러 개의 리스트로 구성된 데이터셋은
+신경망의 입력값으로 사용할 수 없다.
+이 문제를 해결하기 위해 일반적으로 아래 두 방식중에 하나를 적용한다.</p>
+<ul class="simple">
+<li><p><strong>벡터화</strong><font size='2'>vectorization</font></p>
+<ul>
+<li><p>가장 긴 길이의 샘플 길이를 확인한다.</p></li>
+<li><p>확인된 길이에 맞춰 모든 샘플을 확장한다.</p></li>
+<li><p>확장에 사용되는 값은 기존 샘플에 사용되지 않은 값을 사용한다.</p></li>
+<li><p>여기서는 예를 들어 여백을 의미하는 0을 사용할 수 있다.</p></li>
+</ul>
+</li>
+<li><p><strong>멀티-핫 인코딩</strong><font size='2'>multi-hot encoding</font></p>
+<ul>
+<li><p>0과 1로만 이루어진 일정한 길이의 벡터(1차원 어레이)로 변환한다.</p></li>
+</ul>
+</li>
+</ul>
+<p>여기서는 멀티-핫 인코딩 방식을 사용한다.
+벡터화 방식은 <a class="reference internal" href="dl_for_text.html#ch-nlp"><span class="std std-numref">11장 자연어 처리</span></a>에서 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 사용할 때 자세히 설명한다.</p>
 <p>후기 리스트에 사용된 숫자들은 0부터 9999 사이의 값이다.
 이 정보를 이용하여 후기 샘플을 길이가 10,000인 벡터(1차원 어레이)로 변환한다.</p>
 <ul class="simple">
@@ -585,16 +596,15 @@ document.write(`
 <li><p>후기 샘플에 포함된 정수에 해당하는 인덱스의 항목만 1로 지정</p></li>
 </ul>
 <p>예를 들어, <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">18,</span> <span class="pre">13]</span></code>은 길이가 10,000인 1차원 어레이(벡터)로 변환되는데
-1번, 18번, 13번 인덱스의 항목만 1이고 나머지는 0으로 채워진다.
-이러한 변환을 <strong>멀티-핫-인코딩</strong><font size='2'>multi-hot-encoding</font>이라 부른다.</p>
-<p>아래 <code class="docutils literal notranslate"><span class="pre">vectorize_sequences()</span></code> 함수는 앞서 설명한 멀티-핫-인코딩을
+1번, 18번, 13번 인덱스의 항목만 1이고 나머지는 0으로 채워진다.</p>
+<p>아래 <code class="docutils literal notranslate"><span class="pre">vectorize_sequences()</span></code> 함수는 앞서 설명한 멀티-핫 인코딩을
 모든 주어진 샘플에 대해 실행하여 최종적으로
 데이터셋을 표현하는 넘파이 어레이를 반환한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">vectorize_sequences</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">sequences</span><span class="p">),</span> <span class="n">dimension</span><span class="p">))</span>
     
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sequence</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sequences</span><span class="p">):</span>    <span class="c1"># 모든 샘플에 대한 멀티-핫-인코딩</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">seq</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sequences</span><span class="p">):</span>    <span class="c1"># 모든 샘플에 대한 멀티-핫 인코딩</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
             <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
     <span class="k">return</span> <span class="n">results</span>
 </pre></div>
@@ -606,12 +616,15 @@ document.write(`
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_test</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>첫째 훈련 샘플의 변환 결과는 다음과 같다.</p>
+<p>첫째 훈련 샘플의 변환 결과는 다음과 같다.
+결과를 보면 원래의 첫째 훈련 샘플에 0은 포함되지 않았지만 1과 2는 사용되었음을 알 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">array([0., 1., 1., ..., 0., 0., 0.], dtype=float32)</span>
 </pre></div>
 </div>
-<p>레이블 또한 <code class="docutils literal notranslate"><span class="pre">float32</span></code> 자료형으로 변환해서 자료형을 일치시킨다.</p>
+<p>레이블은 멀티-핫 인코딩을 적용하지 않는다.
+다만 <code class="docutils literal notranslate"><span class="pre">float32</span></code> 자료형으로 변환해서 훈련 샘플의 자료형과 일치시킬 필요는 있다.
+그래야 손실값을 계산하기 위해 예측값과 레이블을 서로 비교할 수 있기 때문이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span>
 <span class="go">array([1., 0., 0., ..., 0., 1., 0.], dtype=float32)</span>
@@ -636,6 +649,8 @@ document.write(`
 </pre></div>
 </div>
 </li>
+</ul>
+<ul>
 <li><p>이진 분류 모델의 최상위 출력층의 활성화 함수: 0과 1사이의 확률값을 계삲하는 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
@@ -643,16 +658,19 @@ document.write(`
 </div>
 </li>
 </ul>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/slides/images/relu_sigmoid.png" style="width:600px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="hint admonition">
-<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">relu()</span></code> 활성화 함수</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/slides/images/relu_sigmoid.png" style="width:600px;"></div><div class="hint admonition">
+<p class="admonition-title">활성화 함수</p>
 <p>은닉층의 활성화 함수로 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수와 유사한 함수들이 사용된다.
 대표적으로 <code class="docutils literal notranslate"><span class="pre">prelu()</span></code>, <code class="docutils literal notranslate"><span class="pre">elu()</span></code>, <code class="docutils literal notranslate"><span class="pre">tanh()</span></code> 등이 많이 활용된다.
 하지만 여기서는 기본적으로 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수만 사용한다.
 기타 활성화 함수에 대한 활용과 설명은
 오렐리앙 제롱의 <a class="reference external" href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">핸즈온 머신러닝 (3판)</a> 11장을 참고하면 좋다.</p>
+<p>마지막 출력층의 활성화 함수는 모델의 종류에 따라 결정된다.
+회귀 모델의 경우 일반적으로 활성화 함수를 사용하지 않으며,
+이진 분류 모델은 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수를
+다중 클래스 분류 모델은 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수를 사용한다.</p>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층으로 신경말을 구성할 때 다음 두 가지를 정해야 한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층으로 신경망을 구성할 때 다음 두 가지를 정해야 한다.</p>
 <ul class="simple">
 <li><p>몇 개의 층을 사용하는가?</p></li>
 <li><p>각 층마다 몇 개의 유닛<font size='2'>unit</font>을 사용하는가?</p></li>
@@ -661,15 +679,15 @@ document.write(`
 <a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">5장 머신러닝 핵심 이슈</span></a>에서 다룬다.
 여기서는 일단 아래 구성을 사용한다.</p>
 <ul class="simple">
-<li><p>세 개의 연속된 밀집층</p></li>
-<li><p>은칙층: 각각 16개의 유닛 사용. 활성화 함수는 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수</p></li>
+<li><p>세 개의 밀집층</p></li>
+<li><p>은닉층: 각각 16개의 유닛 사용. 활성화 함수는 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수</p></li>
 <li><p>출력층: 1개의 유닛 사용. 활성화 함수는 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)</span>
-<span class="p">])</span>
+    <span class="p">])</span>
 </pre></div>
 </div>
 <p>이진 분류 모델의 최상위 층은 긍정과 부정 중의 하나,
@@ -681,45 +699,45 @@ document.write(`
 <p>위 모델을 시각화하면 다음과 같다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-01.png" style="width:200px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>모델 컴파일</strong></p>
-<p>신경망 모델을 훈련시키기 위해서
-먼저 훈련 과정에 필요한 옵티마이저, 손실 함수, 평가지표를 지정해야 하며,
-여기서는 다음과 같이 지정한다.</p>
+<p>모델 훈련에 필요한 옵티마이저, 손실 함수, 평가지표를 다음과 같이 지정한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">optimizer=&quot;rmsprop&quot;</span></code>: 일반적으로 추천되는 옵티마이저.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;binary_crossentropy&quot;</span></code>: 이진 분류 모델의 확률 예측값의 오차 정도를 가리키는
-로그 손실을 계산.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;binary_crossentropy&quot;</span></code>: 이진 분류 모델의 확률 예측값의 오차에 해당하는 로그 손실 계산.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">metrics=&quot;accuracy&quot;</span></code>: 정확도가 분류 모델의 일반적인 평가지표로 사용됨.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]</span>
+             <span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="id5">
 <h3><span class="section-number">4.1.4. </span>모델 훈련과 활용<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <p>훈련 중인 모델을 에포크마다 검증하기 위해 검증셋을 따로 지정한다.
-여기서는 10,000개의 샘플을 검증셋으로 활용한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]</span>
-<span class="n">partial_x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="mi">10000</span><span class="p">:]</span>
-<span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]</span>
-<span class="n">partial_y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="mi">10000</span><span class="p">:]</span>
+여기서는 <code class="docutils literal notranslate"><span class="pre">x_train</span></code>에서 10,000개의 샘플을 검증셋으로 활용한다.
+즉, 실제 훈련에 사용되는 데이터는 15,000개로 줄어든다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]</span>            <span class="c1"># 검증용</span>
+<span class="n">partial_x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="mi">10000</span><span class="p">:]</span>  <span class="c1"># 훈련용</span>
+<span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]</span>            <span class="c1"># 검증용 타깃셋</span>
+<span class="n">partial_y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="mi">10000</span><span class="p">:]</span>  <span class="c1"># 훈련용 타깃셋</span>
 
 <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_x_train</span><span class="p">,</span>
                     <span class="n">partial_y_train</span><span class="p">,</span>
                     <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                     <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
-                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">))</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span> <span class="c1"># 검증 데이터셋 지정</span>
+                   <span class="p">)</span>
 </pre></div>
 </div>
 <p><strong><code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드 반환값: <code class="docutils literal notranslate"><span class="pre">History</span></code> 객체</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드가 반환하는 값은
-<code class="docutils literal notranslate"><span class="pre">History</span></code> 클래스의 객체이며 모델 훈련과정 중에 계산되는 다양한 정보를 저장한다.</p>
-<p><code class="docutils literal notranslate"><span class="pre">History</span></code> 클래스는 <code class="docutils literal notranslate"><span class="pre">Callback</span></code> 클래스를 상속하는데
-신경망 모델의 훈련 과정중에 생성되는 정보를 기록한다.
-콜백(<code class="docutils literal notranslate"><span class="pre">Callback</span></code>) 클래스의 다양한 활용법에 대해서는
-<a class="reference internal" href="working_with_keras.html#ch-working-with-keras"><span class="std std-numref">7장</span></a>에서 자세히 살펴본다.</p>
-<p>예르 들어,
+<p><code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드는 훈련과정 중에 계산된 다양한 정보를 저장한 <code class="docutils literal notranslate"><span class="pre">History</span></code> 클래스의 객체를
+반환한다.
+<code class="docutils literal notranslate"><span class="pre">History</span></code> 클래스는 <code class="docutils literal notranslate"><span class="pre">Callback</span></code> 클래스를 상속하는데
+신경망 모델의 훈련 과정중에 생성되는 다양한 정보를 기록하도록 설계되었다.</p>
+<p>콜백(<code class="docutils literal notranslate"><span class="pre">Callback</span></code>) 클래스의 다양한 활용법에 대해서는
+<a class="reference internal" href="working_with_keras.html#ch-working-with-keras"><span class="std std-numref">7장 케라스 모델 고급 활용법</span></a>에서 자세히 살펴볼 것이다.</p>
+<p>예를 들어,
 <code class="docutils literal notranslate"><span class="pre">History</span></code> 객체에 포함된 <code class="docutils literal notranslate"><span class="pre">history</span></code> 속성은 훈련중에 에포크 단위로 측정된 손실값과 평가지표를 사전으로 저장한다.
 아래 코드는 훈련 과정중에 기록된
 훈련셋과 검증셋에 대한 에포크별 손실값과 정확도가
@@ -732,48 +750,59 @@ document.write(`
 <p><strong>손실값의 변화</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">history</span></code> 속성에 저장된 훈련셋과 검증 세트에 대한 에포크별 손실값의 변화를 보면
 훈련셋에 대해서는 손실값이 계속 감소하지만
-검증셋에 대해서는 9번째 에포크 전후 정체하다가 상승한다.</p>
+검증셋에 대해서는 5번째 에포크 전후 정체하다가 상승한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-04.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>정확도의 변화</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">history</span></code> 속성에 저장된 훈련셋과 검증셋에 대한 에포크별 정확도의 경우엔
 훈련셋에 대해서는 정확도가 계속 증가하지만,
-검증셋에 대해서는 역시 9번째 에포크 전후 정체하다가 감소한다.</p>
+검증셋에 대해서는 역시 5번째 에포크 전후 정체하다가 감소한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-05.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>과대적합</strong></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>과대적합 방지</strong></p>
 <p>과대적합<font size='2'>overfitting</font>은 모델이 훈련셋에 익숙해져서
 훈련셋에 대한 예측 성능이 처음 보는 데이터에 대해서 보다 많이 좋은 현상을 가리킨다.
-따라서 앞서 살펴본 모델도 4번째 에포크 이후로 과대적합 현상을 겪기 시작했다.</p>
-<p><strong>모델 재훈련</strong></p>
-<p>앞서 확인한 대로 4번의 에포크만 훈련 반복을 진행하면 과대적합되지
-않은 모델을 얻게 된다.
-과대적합을 방지하기 위한 기타 다양한 기법은
-<a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">5장</span></a>에서 다룬다.</p>
-<p>모델 구성부터, 컴파일, 훈련을 모두 다시 시작해야
-가중치와 편향이 초기화된 상태로 훈련을 시작한다.</p>
+따라서 앞서 살펴본 모델도 5번째 에포크 이후로 과대적합 현상을 겪기 시작했다.
+이는 4번의 에포크만 훈련 반복을 진행하면 과대적합되지
+않은 모델이 훈련됨을 의미한다.</p>
+<p>여기서는 과대적합되지 않는 모델을 얻기위해 모델을 재훈련시킨다.
+모델을 재훈련 시키려면
+모델 구성부터, 컴파일, 훈련을 모두 처음부터 다시 시작해야 한다.
+그래야 가중치와 편향이 초기화된 상태로 훈련이 시작되기 때문이다.
+그렇지 않으면 이전 훈련 결과를 이어 받아 훈련된다.</p>
+<p><a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">5장 머신러닝 모델 훈련 기법</span></a>에서
+과대적합을 방지하기 위한 기타 다양한 기법을 소개한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)</span>
 <span class="p">])</span>
+
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>테스트셋에 대한 성능은 아래와 같이 88% 정도의 정확도를 보인다. 모델의 손실값은 0.31 정도.
-앞으로 보다 좋은 성능의 모델을 살펴볼 것이며, 현존하는 가장 좋은 모델의 정확도는 95% 정도이다.</p>
+<p><strong>훈련 결과 테스트</strong></p>
+<p>훈련 결과를 테스트하기 위해 훈련에 전혀 사용되지 않은 테스트셋을 이용하여
+정확도를 계산한다.
+이를 훈련된 모델의 <code class="docutils literal notranslate"><span class="pre">evaluate()</span></code> 메서드를 이용한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">results</span>
 <span class="go">[0.3139097988605499, 0.8770800232887268]</span>
 </pre></div>
 </div>
+<p>테스트셋에 대한 성능은 아래와 같이 88% 정도의 정확도를 보인다. 모델의 손실값은 0.31 정도.
+앞으로 보다 좋은 성능의 모델을 살펴볼 것이며,
+현존하는 가장 좋은 모델의 정확도는 95% 정도로 알려져 있다.</p>
 <p><strong>모델 활용</strong></p>
 <p>훈련된 모델을 활용하려면 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 이용한다.
-그러면 큰 데이터셋에 대해서도 미니배치 단위로 예측할 수 있다.</p>
-<p>예측값이 0 또는 1에 많이 가까울 수록 신경망 모델이
-자신의 예측값에 대한 확신이 높다.
-즉, 예측값에 대한 신뢰도가 높다고 할 수 있다.</p>
+그러면 큰 데이터셋에 대해서도 지정된 배치 단위로 예측값을 계산한다.</p>
+<p>이진 분류 모델이고 출력층에 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수를 사용하였기에
+예측값이 부정 샘플에 대해서는 0을, 긍정 샘플에 대해서는 1에 가까울 수록
+신경망 모델이 자신의 예측값에 대한 확신이 높다고 할 수 있다.</p>
+<p>앞서 훈련셋의 <code class="docutils literal notranslate"><span class="pre">dtype</span></code>을 <code class="docutils literal notranslate"><span class="pre">float32</span></code>로 지정하였기에 예측값도 동일한 자료형으로
+계산되었음을 확인할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 <span class="go">array([[0.25440323],</span>
 <span class="go">       [0.9999424 ],</span>
@@ -790,18 +819,20 @@ document.write(`
 <h2><span class="section-number">4.2. </span>뉴스 기사: 다중 클래스 분류<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
 <section id="id7">
 <h3><span class="section-number">4.2.1. </span>데이터 준비: 로이터 데이터셋<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
-<p>로이터<font size='2'>Reuter</font> 통신사가 1986년에 작성한 짧은 기사 모음집이다.
-총 11,228개의 기사로 구성되었으며 훈련셋과 테스트셋으로 이미 구분되어 있다.</p>
+<p>로이터<font size='2'>Reuter</font> 통신사가 1986년에 작성한 단문 기사 모음집이다.
+총 11,228개의 단문 기사로 구성되었으며 훈련셋과 테스트셋으로 이미 구분되어 있다.</p>
 <ul class="simple">
 <li><p>훈련셋 크기: 8,982</p></li>
 <li><p>테스트셋 크기: 2,246</p></li>
 </ul>
-<p>기사의 주제는 46개로 구분되며, 각각의 기사에 하나의 주제가 할당되어 있다.
-여기서 훈련시키는 모델은 기사별로 46개 중의 하나의 주제를 예측해는
-분류 모델이며, 클래스가 3개 이상이기에
-<strong>다중 클래스 분류</strong><font size='2'>multiclass classification</font> 모델이라 부른다.</p>
+<p>기사에서 다루는 주제는 총 46 개로 구분되며, 각각의 기사는 하나의 주제와 연관된다.
+여기서 훈련시키는 모델은 각각의 기사에 대해 46개 중의 하나의 주제를 예측하는
+분류 모델이다.
+레이블의 범주(클래스)가 3개 이상이기에
+<strong>다중 클래스 분류</strong><font size='2'>multiclass classification</font> 모델이다.</p>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">reuters</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 데이터셋을 불러올 수 있다.
-영화 후기의 경우처럼 사용 빈도에서 상위 10,000등 이내의 단어만 사용하도록 한다.</p>
+불러올 때 영화 후기의 경우처럼 단어 사용빈도에서 상위 10,000등 이내의 단어만 대상으로 한다.
+그렇지 않은 단어는 모두 특정 숫자로 대체된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">reuters</span>
 <span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 </pre></div>
@@ -819,90 +850,170 @@ document.write(`
 <span class="go">3</span>
 </pre></div>
 </div>
+<p>3번 주제는 소득(earn)을 가리킨다.</p>
 <div class="tip admonition">
 <p class="admonition-title">로이터 기사 주제</p>
-<p>기사 주제 3은 ‘earn’(수익)과 연관된다.
-언급된 46개의 주제와 번호 사이의 관계는
+<p>언급된 46개의 주제와 번호 사이의 관계는
 <a class="reference external" href="https://github.com/keras-team/keras/issues/12072">GitHub: Where can I find topics of reuters dataset #12072</a>에서 확인할 수 있다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;cocoa&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="s1">&#39;grain&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="s1">&#39;veg-oil&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-<span class="s1">&#39;earn&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-<span class="s1">&#39;acq&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-<span class="s1">&#39;wheat&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-<span class="s1">&#39;copper&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-<span class="s1">&#39;housing&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-<span class="s1">&#39;money-supply&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-<span class="s1">&#39;coffee&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-<span class="s1">&#39;sugar&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-<span class="s1">&#39;trade&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
-<span class="s1">&#39;reserves&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-<span class="s1">&#39;ship&#39;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
-<span class="s1">&#39;cotton&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
-<span class="s1">&#39;carcass&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-<span class="s1">&#39;crude&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-<span class="s1">&#39;nat-gas&#39;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
-<span class="s1">&#39;cpi&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
-<span class="s1">&#39;money-fx&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
-<span class="s1">&#39;interest&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-<span class="s1">&#39;gnp&#39;</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
-<span class="s1">&#39;meal-feed&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
-<span class="s1">&#39;alum&#39;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
-<span class="s1">&#39;oilseed&#39;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
-<span class="s1">&#39;gold&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
-<span class="s1">&#39;tin&#39;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span>
-<span class="s1">&#39;strategic-metal&#39;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
-<span class="s1">&#39;livestock&#39;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-<span class="s1">&#39;retail&#39;</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span>
-<span class="s1">&#39;ipi&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
-<span class="s1">&#39;iron-steel&#39;</span><span class="p">:</span> <span class="mi">31</span><span class="p">,</span>
-<span class="s1">&#39;rubber&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-<span class="s1">&#39;heat&#39;</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
-<span class="s1">&#39;jobs&#39;</span><span class="p">:</span> <span class="mi">34</span><span class="p">,</span>
-<span class="s1">&#39;lei&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>
-<span class="s1">&#39;bop&#39;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span>
-<span class="s1">&#39;zinc&#39;</span><span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
-<span class="s1">&#39;orange&#39;</span><span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
-<span class="s1">&#39;pet-chem&#39;</span><span class="p">:</span> <span class="mi">39</span><span class="p">,</span>
-<span class="s1">&#39;dlr&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
-<span class="s1">&#39;gas&#39;</span><span class="p">:</span> <span class="mi">41</span><span class="p">,</span>
-<span class="s1">&#39;silver&#39;</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-<span class="s1">&#39;wpi&#39;</span><span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
-<span class="s1">&#39;hog&#39;</span><span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
-<span class="s1">&#39;lead&#39;</span><span class="p">:</span> <span class="mi">45</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>실제로 10번 기사 내용을 확인해보면 ‘earn’과 관련되어 있어 보인다.
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>번호</p></th>
+<th class="head text-center"><p>주제</p></th>
+<th class="head text-center"><p>번호</p></th>
+<th class="head text-center"><p>주제</p></th>
+<th class="head text-center"><p>번호</p></th>
+<th class="head text-center"><p>주제</p></th>
+<th class="head text-center"><p>번호</p></th>
+<th class="head text-center"><p>주제</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>0</p></td>
+<td class="text-center"><p>cocoa</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>grain</p></td>
+<td class="text-center"><p>2</p></td>
+<td class="text-center"><p>veg-oil</p></td>
+<td class="text-center"><p>3</p></td>
+<td class="text-center"><p>earn</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>4</p></td>
+<td class="text-center"><p>acq</p></td>
+<td class="text-center"><p>5</p></td>
+<td class="text-center"><p>wheat</p></td>
+<td class="text-center"><p>6</p></td>
+<td class="text-center"><p>copper</p></td>
+<td class="text-center"><p>7</p></td>
+<td class="text-center"><p>housing</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>8</p></td>
+<td class="text-center"><p>money-supply</p></td>
+<td class="text-center"><p>9</p></td>
+<td class="text-center"><p>coffee</p></td>
+<td class="text-center"><p>10</p></td>
+<td class="text-center"><p>sugar</p></td>
+<td class="text-center"><p>11</p></td>
+<td class="text-center"><p>trade</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>12</p></td>
+<td class="text-center"><p>reserves</p></td>
+<td class="text-center"><p>13</p></td>
+<td class="text-center"><p>ship</p></td>
+<td class="text-center"><p>14</p></td>
+<td class="text-center"><p>cotton</p></td>
+<td class="text-center"><p>15</p></td>
+<td class="text-center"><p>carcass</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>16</p></td>
+<td class="text-center"><p>crude</p></td>
+<td class="text-center"><p>17</p></td>
+<td class="text-center"><p>nat-gas</p></td>
+<td class="text-center"><p>18</p></td>
+<td class="text-center"><p>cpi</p></td>
+<td class="text-center"><p>19</p></td>
+<td class="text-center"><p>money-fx</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>20</p></td>
+<td class="text-center"><p>interest</p></td>
+<td class="text-center"><p>21</p></td>
+<td class="text-center"><p>gnp</p></td>
+<td class="text-center"><p>22</p></td>
+<td class="text-center"><p>meal-feed</p></td>
+<td class="text-center"><p>23</p></td>
+<td class="text-center"><p>alum</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>24</p></td>
+<td class="text-center"><p>oilseed</p></td>
+<td class="text-center"><p>25</p></td>
+<td class="text-center"><p>gold</p></td>
+<td class="text-center"><p>26</p></td>
+<td class="text-center"><p>tin</p></td>
+<td class="text-center"><p>27</p></td>
+<td class="text-center"><p>strategic-metal</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>28</p></td>
+<td class="text-center"><p>livestock</p></td>
+<td class="text-center"><p>29</p></td>
+<td class="text-center"><p>retail</p></td>
+<td class="text-center"><p>30</p></td>
+<td class="text-center"><p>ipi</p></td>
+<td class="text-center"><p>31</p></td>
+<td class="text-center"><p>iron-steel</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>32</p></td>
+<td class="text-center"><p>rubber</p></td>
+<td class="text-center"><p>33</p></td>
+<td class="text-center"><p>heat</p></td>
+<td class="text-center"><p>34</p></td>
+<td class="text-center"><p>jobs</p></td>
+<td class="text-center"><p>35</p></td>
+<td class="text-center"><p>lei</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>36</p></td>
+<td class="text-center"><p>bop</p></td>
+<td class="text-center"><p>37</p></td>
+<td class="text-center"><p>zinc</p></td>
+<td class="text-center"><p>38</p></td>
+<td class="text-center"><p>orange</p></td>
+<td class="text-center"><p>39</p></td>
+<td class="text-center"><p>pet-chem</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>40</p></td>
+<td class="text-center"><p>dlr</p></td>
+<td class="text-center"><p>41</p></td>
+<td class="text-center"><p>gas</p></td>
+<td class="text-center"><p>42</p></td>
+<td class="text-center"><p>silver</p></td>
+<td class="text-center"><p>43</p></td>
+<td class="text-center"><p>wpi</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>44</p></td>
+<td class="text-center"><p>hog</p></td>
+<td class="text-center"><p>45</p></td>
+<td class="text-center"><p>lead</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>실제로 10번 기사 내용을 확인해보면 소득(earn)과 관련되어 있어 보인다.
 데이터를 해독(decoding)하는 방법은 IMDB 데이터셋의 경우와 동일하다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">word_index</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">get_word_index</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_word_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_newswire</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">reverse_word_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_data</span><span class="p">[</span><span class="mi">10</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_newswire</span>
-<span class="go">&#39;? period ended december 31 shr profit 11 cts vs loss 24 cts net profit 224 271 vs loss 511 349 revs 7 258 688 vs 7 200 349 reuter 3&#39;</span>
+<span class="go">? period ended december 31 shr profit 11 cts vs loss 24 cts net profit 224 271 vs loss 511 349 revs 7 258 688 vs 7 200 349 reuter 3</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="id8">
-<h3><span class="section-number">4.2.2. </span>데이터 전처리: 원-핫-인코딩, 멀티-핫-인코딩<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
-<p><strong>입력 데이터셋 벡터화: 멀티-핫-인코딩</strong></p>
-<p>IMDB의 경우와 동일하게 모든 샘플을 길이가 10,000인 벡터로 변환한다.</p>
+<h3><span class="section-number">4.2.2. </span>데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p><strong>입력 데이터셋 벡터화: 멀티-핫 인코딩</strong></p>
+<p>사용빈도가 10,000 미만인 단어만 사용하도록 하였기에
+IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,000인 멀티-핫 인코딩 한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_train</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_test</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>레이블 데이터셋 벡터화: 원-핫-인코딩</strong></p>
+<p><strong>레이블 데이터셋 벡터화: 원-핫 인코딩</strong></p>
 <p>레이블은 0부터 45 사이의 값이다.
 이런 경우 정수로 구성된 텐서를 사용하기 보다는
-<strong>원-핫-인코딩</strong><font size='2'>one-hot-encoding</font>
+<strong>원-핫 인코딩</strong><font size='2'>one-hot encoding</font>
 기법을 적용하는 게 좋다.</p>
-<p>원-핫-인코딩은 멀티-핫-인코딩 기법과 유사하다.
-원-핫-인코딩으로 생성된 텐서는 한 곳만을 제외한 모든 항목이 0이다.
+<p>원-핫 인코딩은 멀티-핫 인코딩 기법과 유사하다.
+원-핫 인코딩으로 생성된 벡터 (1차원 텐서, 여기서는 1차원 어레이)는
+한 곳에서만 1이고 나머지 인덱스에서는 모두 0을 항목으로 갖는다.
 예를 들어, 정수 3은 길이가 46인 벡터로 변환되는데
 3번 인덱스에서만 1이고 나머지 항목은 모두 0이다.</p>
-<p>아래 함수는 정수들의 어레이로 주어진 레이블 데이터셋을
-원-핫-인코딩된 원-핫-벡터로 구성된 2차원 텐서로 변환한다.
-각 원-핫-벡터의 길이(차원)는 46이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">....</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>아래 <code class="docutils literal notranslate"><span class="pre">to_ont_hot()</span></code> 함수는 정수들의 어레이로 주어진 레이블 데이터셋을
+원-핫 인코딩된 원-핫 벡터로 구성된 2차원 텐서로 변환한다.
+각 원-핫 벡터의 차원(길이)는 46이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">to_one_hot</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">46</span><span class="p">):</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">dimension</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
@@ -911,8 +1022,8 @@ document.write(`
 </pre></div>
 </div>
 <p><em><code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수</em></p>
-<p>케라스의 <code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수가 원-핫-인코딩을 지원한다.
-원-핫-벡터의 길이는 사용된 레이블의 최댓값에 1을 더한 값이다.</p>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수가 원-핫 인코딩을 지원한다.
+원-핫 벡터의 길이는 사용된 레이블의 최댓값에 1을 더한 값이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
@@ -924,10 +1035,10 @@ document.write(`
 </div>
 <div class="info admonition">
 <p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">CategoryEncoding</span></code> 층</p>
-<p>원-핫-인코딩, 멀티-핫-인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환하는
+<p>원-핫 인코딩, 멀티-핫 인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환하는
 전처리 과정을 지원하는 층<font size='2'>layer</font>이 있다.
 예를 들어 <a class="reference external" href="https://keras.io/api/layers/preprocessing_layers/categorical/category_encoding/">tf.keras.layers.CategoryEncoding</a>은
-원-핫-인코딩과 멀티-핫-인코딩을 지원한다.</p>
+원-핫 인코딩과 멀티-핫 인코딩을 지원한다.</p>
 </div>
 </section>
 <section id="id9">
@@ -1410,14 +1521,14 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-imdb">4.1. 영화 후기: 이진 분류</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">4.1.1. 데이터 준비: IMDB 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.1.2. 데이터 전처리: 벡터화, 멀티-핫-인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.1.2. 데이터 전처리: 벡터화와 멀티-핫 인코딩</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.1.3. 모델 구성과 컴파일</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.1.4. 모델 훈련과 활용</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.2. 뉴스 기사: 다중 클래스 분류</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.2.1. 데이터 준비: 로이터 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.2.2. 데이터 전처리: 원-핫-인코딩, 멀티-핫-인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.2.2. 데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.2.3. 모델 구성과 컴파일</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4.2.4. 모델 훈련과 활용</a></li>
 </ul>
