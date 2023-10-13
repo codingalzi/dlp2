@@ -441,7 +441,7 @@ document.write(`
 <td class="text-left"><p>class</p></td>
 <td class="text-left"><p>분류 모델에서 각각의 샘플이 속하는 범주(클래스)</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>레이블</p></td>
+<tr class="row-even"><td class="text-left"><p>라벨</p></td>
 <td class="text-left"><p>label</p></td>
 <td class="text-left"><p>분류 모델에서 타깃 대신 사용하는 표현</p></td>
 </tr>
@@ -453,9 +453,9 @@ document.write(`
 <td class="text-left"><p>multiclass classification</p></td>
 <td class="text-left"><p>샘플을 세 개 이상의 클래스로 분류. 손글씨 숫자 분류 등.</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>다중 레이블 분류</p></td>
+<tr class="row-odd"><td class="text-left"><p>다중 라벨 분류</p></td>
 <td class="text-left"><p>multilabel classification</p></td>
-<td class="text-left"><p>샘플에 대해 두 종류 이상의 레이블을 지정하는 분류. 한 장의 사진에 강아지, 고양이, 토끼 등 여러 종의 포함 여부 확인. 각각의 종에 대해 범부를 맞춰야 함.</p></td>
+<td class="text-left"><p>샘플에 대해 두 종류 이상의 라벨을 지정하는 분류. 한 장의 사진에 강아지, 고양이, 토끼 등 여러 종의 포함 여부 확인. 각각의 종에 대해 범부를 맞춰야 함.</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>(스칼라) 회귀</p></td>
 <td class="text-left"><p>(scalar) regression</p></td>
@@ -514,7 +514,7 @@ document.write(`
 <span class="go">[1, 14, 22, 16, 43, 530, 973, 1622, 1385, 65]</span>
 </pre></div>
 </div>
-<p>각 샘플의 레이블은 0(부정) 또는 1(긍정)이다.
+<p>각 샘플의 라벨은 0(부정) 또는 1(긍정)이다.
 예를 들어, 훈련셋 0번 샘플은 긍정 후기를, 테스트셋의 0번 샘플은 부정 후기를 가리킨다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">1</span>
@@ -622,9 +622,9 @@ document.write(`
 <span class="go">array([0., 1., 1., ..., 0., 0., 0.], dtype=float32)</span>
 </pre></div>
 </div>
-<p>레이블은 멀티-핫 인코딩을 적용하지 않는다.
+<p>라벨은 멀티-핫 인코딩을 적용하지 않는다.
 다만 <code class="docutils literal notranslate"><span class="pre">float32</span></code> 자료형으로 변환해서 훈련 샘플의 자료형과 일치시킬 필요는 있다.
-그래야 손실값을 계산하기 위해 예측값과 레이블을 서로 비교할 수 있기 때문이다.</p>
+그래야 손실값을 계산하기 위해 예측값과 라벨을 서로 비교할 수 있기 때문이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span>
 <span class="go">array([1., 0., 0., ..., 0., 1., 0.], dtype=float32)</span>
@@ -635,7 +635,7 @@ document.write(`
 <h3><span class="section-number">4.1.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p><strong>모델 구성</strong></p>
 <p>입력 샘플의 특성이 벡터(1차원 어레이)로 주어지고
-레이블이 스칼라(하나의 숫자)로 주어졌을 때
+라벨이 스칼라(하나의 숫자)로 주어졌을 때
 밀집층<font size='2'>densely-connected layer</font>인 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층과
 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델을 이용한 모델 구성을 추천한다.</p>
 <p>이진 분류 신경망 모델에 사용되는 활성화 함수는 일반적으로 다음과 같다.</p>
@@ -750,17 +750,17 @@ document.write(`
 <p><strong>손실값의 변화</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">history</span></code> 속성에 저장된 훈련셋과 검증 세트에 대한 에포크별 손실값의 변화를 보면
 훈련셋에 대해서는 손실값이 계속 감소하지만
-검증셋에 대해서는 5번째 에포크 전후 정체하다가 상승한다.</p>
+검증셋에 대해서는 4번째 에포크 다음부터 오히려 상승한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-04.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>정확도의 변화</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">history</span></code> 속성에 저장된 훈련셋과 검증셋에 대한 에포크별 정확도의 경우엔
 훈련셋에 대해서는 정확도가 계속 증가하지만,
-검증셋에 대해서는 역시 5번째 에포크 전후 정체하다가 감소한다.</p>
+검증셋에 대해서는 역시 4번째 에포크 다음부터 조금씩 감소한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-05.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>과대적합 방지</strong></p>
-<p>과대적합<font size='2'>overfitting</font>은 모델이 훈련셋에 익숙해져서
-훈련셋에 대한 예측 성능이 처음 보는 데이터에 대해서 보다 많이 좋은 현상을 가리킨다.
-따라서 앞서 살펴본 모델도 5번째 에포크 이후로 과대적합 현상을 겪기 시작했다.
+<p><strong>과대적합</strong><font size='2'>overfitting</font>은 모델이 훈련셋에 익숙해져서
+처음 보는 데이터에 대해서 성능이 더 이상 좋아지지 않거나 떨어지는 현상을 가리킨다.
+따라서 앞서 살펴본 모델도 4번째 에포크 이후로 과대적합 현상을 겪기 시작했다.
 이는 4번의 에포크만 훈련 반복을 진행하면 과대적합되지
 않은 모델이 훈련됨을 의미한다.</p>
 <p>여기서는 과대적합되지 않는 모델을 얻기위해 모델을 재훈련시킨다.
@@ -828,7 +828,7 @@ document.write(`
 <p>기사에서 다루는 주제는 총 46 개로 구분되며, 각각의 기사는 하나의 주제와 연관된다.
 여기서 훈련시키는 모델은 각각의 기사에 대해 46개 중의 하나의 주제를 예측하는
 분류 모델이다.
-레이블의 범주(클래스)가 3개 이상이기에
+라벨의 범주(클래스)가 3개 이상이기에
 <strong>다중 클래스 분류</strong><font size='2'>multiclass classification</font> 모델이다.</p>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">reuters</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 데이터셋을 불러올 수 있다.
 불러올 때 영화 후기의 경우처럼 단어 사용빈도에서 상위 10,000등 이내의 단어만 대상으로 한다.
@@ -844,7 +844,7 @@ document.write(`
 <span class="go">3554, 14, 46, 4689, 4329, 86, 61, 3499, 4795, 14, 61, 451, 4329, 17, 12]</span>
 </pre></div>
 </div>
-<p>각 샘플에 대한 레이블은 0부터 45까지의 정수로 표현된다.
+<p>각 샘플에 대한 라벨은 0부터 45까지의 정수로 표현된다.
 예를 들어, 10번 기사의 주제는 3이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_labels</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
 <span class="go">3</span>
@@ -998,8 +998,8 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_test</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>레이블 데이터셋 벡터화: 원-핫 인코딩</strong></p>
-<p>레이블은 0부터 45 사이의 값이다.
+<p><strong>라벨 데이터셋 벡터화: 원-핫 인코딩</strong></p>
+<p>라벨은 0부터 45 사이의 값이다.
 이런 경우 정수로 구성된 텐서를 사용하기 보다는
 <strong>원-핫 인코딩</strong><font size='2'>one-hot encoding</font>
 기법을 적용하는 게 좋다.</p>
@@ -1011,19 +1011,8 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">....</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>아래 <code class="docutils literal notranslate"><span class="pre">to_ont_hot()</span></code> 함수는 정수들의 어레이로 주어진 레이블 데이터셋을
-원-핫 인코딩된 원-핫 벡터로 구성된 2차원 텐서로 변환한다.
-각 원-핫 벡터의 차원(길이)는 46이다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">to_one_hot</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">46</span><span class="p">):</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">dimension</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
-        <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
-    <span class="k">return</span> <span class="n">results</span>
-</pre></div>
-</div>
-<p><em><code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수</em></p>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수가 원-핫 인코딩을 지원한다.
-원-핫 벡터의 길이는 사용된 레이블의 최댓값에 1을 더한 값이다.</p>
+원-핫 벡터의 길이는 사용된 라벨의 최댓값에 1을 더한 값이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
@@ -1033,10 +1022,20 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 <span class="go">       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32)</span>
 </pre></div>
 </div>
-<div class="info admonition">
-<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">CategoryEncoding</span></code> 층</p>
-<p>원-핫 인코딩, 멀티-핫 인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환하는
-전처리 과정을 지원하는 층<font size='2'>layer</font>이 있다.
+<div class="note admonition">
+<p class="admonition-title">원-핫 인코딩 함수</p>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수를 아래 <code class="docutils literal notranslate"><span class="pre">to_ont_hot()</span></code> 함수로 직접 구현할 수 있다.
+<code class="docutils literal notranslate"><span class="pre">dimension</span></code>은 원-핫 벡터의 길이를 지정하며, 사용된 라벨의 최댓값보다 1 크게 잡는다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">to_one_hot</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+    <span class="n">dimension</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">dimension</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+    <span class="k">return</span> <span class="n">results</span>
+</pre></div>
+</div>
+<p>또한 원-핫 인코딩, 멀티-핫 인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환하는
+전처리 과정을 지원하는 층<font size='2'>layer</font>도 있다.
 예를 들어 <a class="reference external" href="https://keras.io/api/layers/preprocessing_layers/categorical/category_encoding/">tf.keras.layers.CategoryEncoding</a>은
 원-핫 인코딩과 멀티-핫 인코딩을 지원한다.</p>
 </div>
@@ -1044,33 +1043,19 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 <section id="id9">
 <h3><span class="section-number">4.2.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p><strong>모델 구성</strong></p>
-<p>IMDB 데이터셋의 경우와는 달리 3 개 이상의 클래스로 분류하는
-<strong>다중 클래스 분류</strong> 모델의 최종 층은
-분류해야 하는 클래스의 수 만큼의 유닛과 함께
-각 클래스에 속할 확률을 계산하는
-<code class="docutils literal notranslate"><span class="pre">softmax</span></code> 활성화 함수를 이용한다.</p>
-<div class="info admonition">
-<p class="admonition-title">softmax 활성화 함수</p>
-<p>여기서 사용하는 모델의 마지막 층은 46개의 유닛을 사용하며,
-46개 클래스 각각에 속할 확률이 유닛별로 계산되어야 한다.
-<code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 활성화 함수는 유닛별로 아핀변환된 값들을 종합하여
-최종적으로 각 유닛이 대변하는 클래스에 속할 확률을 계산한다.
-클래스별 확률을 합치면 1이 되며, 가장 높은 확률을 갖는 클래스를
-모델의 최종 예측값으로 사용한다.</p>
-</div>
-<p>마지막 층을 제외한 나머지 층은 긍정/부정의 이진 분류 모델 보다 훨씬 많은 64개의
+<p>IMDB 데이터셋의 경우와는 달리 3 개 이상의 클래스(범주)로 분류하는
+<strong>다중 클래스 분류</strong> 모델을 구성하고 훈련시킨다.</p>
+<p>여기서 사용하는 층의 구성은 다음과 같다.</p>
+<ul class="simple">
+<li><p>마지막 층을 제외한 나머지 층은 긍정/부정의 이진 분류 모델 보다 훨씬 많은 64개의
 유닛을 사용하도록 한다.
 이유는 이진 분류보다 훨씬 많은 46개의 클래스로 분류하려면
 보다 많은 정보를 각 층에서 다룰 수 있어야 하기 때문이다.
-층에 사용되는 유닛이 많을 수록 보다 많은 정보를 계산한다.</p>
-<p>다중 클래스 분류 모델의 최상위 층은 클래스 수 만큼의 값으로 구성된 벡터를 출력하도록
+층에 사용되는 유닛이 많을 수록 보다 많은 정보를 계산한다.</p></li>
+<li><p>다중 클래스 분류 모델의 최상위 층은 클래스 수 만큼의 값으로 구성된 벡터를 출력하도록
 여러 개의 유닛을 사용하는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 밀집층을 사용한다.
-또한 활성화 함수로 모든 유닛에 대한 확률값의 합이 1이 되도록 하는 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code>를 활성화 함수로 사용한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">softmax</span><span class="p">(</span><span class="n">vector</span><span class="p">):</span>
-    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">e</span> <span class="o">/</span> <span class="n">e</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-</div>
+또한 활성화 함수로 모든 유닛에 대한 확률값의 합이 1이 되도록 하는 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code>를 활성화 함수로 사용한다.</p></li>
+</ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
@@ -1078,20 +1063,31 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 <span class="p">])</span>
 </pre></div>
 </div>
-<p>위 모델은 <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">사이킷런의 로지스틱 회귀<font size='2'>logistic regression</font> 모델</a>에서
-<code class="docutils literal notranslate"><span class="pre">multi_class='multinomial'</span></code> 옵션이 사용되는 경우처럼 작동한다.</p>
+<div class="info admonition">
+<p class="admonition-title">softmax 활성화 함수</p>
+<p><code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수는 다음과 같이 정의된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">softmax</span><span class="p">(</span><span class="n">vector</span><span class="p">):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">e</span> <span class="o">/</span> <span class="n">e</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 활성화 함수는 유닛별로 아핀변환된 값들을 종합하여
+최종적으로 각 유닛이 대변하는 클래스에 속할 확률을 계산한다.
+클래스별 확률을 합치면 1이 되며, 가장 높은 확률을 갖는 클래스를
+모델의 최종 예측값으로 사용한다.
+보다 자세한 설명은 <a class="reference external" href="https://codingalzi.github.io/handson-ml3/training_models.html">핸즈온 머신러닝 4장</a>을 참고한다.</p>
+</div>
 <div class="tip admonition">
 <p class="admonition-title">정보 병목현상</p>
 <p>층에 사용되는 유닛의 수를 지정할 때 병목현상이 발생하지 않도록 조심해야 한다.
 각 층은 이전 층에서 넘겨진 값만 활용할 수 있기에 이전 층이 너무 적은 수의 유닛을
 사용하면 그만큼 전달되는 정보의 양도 적다.
-따라서 아무리 많은 유닛을 사용하더라도 새로운 정보를 생성하기는 어렵다.
+따라서 이후에 아무리 많은 유닛을 사용하더라도 새로운 정보를 생성하기는 어렵다.
 이를 정보 병목현상이라 부르며 이런 일이 발생하지 않도록
-층을 구성해야 한다.
-앞으로 다양한 모델을 통해 다양한 방식의 구조의 층을 살펴볼 것이다.</p>
+층을 구성해야 한다.</p>
 </div>
 <p><strong>모델 컴파일</strong></p>
-<p>다중 클래스 분류 모델의 손실함수는 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>을 사용한다.
+<p>다중 클래스 분류 모델의 손실함수는 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>로 지정한다.
 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>는 클래스의 실제 분포와 예측 클래스의 분포 사이의
 오차를 측정하며, 보다 자세한 설명은
 <a class="reference external" href="https://codingalzi.github.io/handson-ml3/training_models.html#sec-softmax-regression">핸즈온 머신러닝(3판)의 소프트맥스 회귀의 비용 함수</a>를 참고한다.</p>
@@ -1101,9 +1097,9 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 </pre></div>
 </div>
 <div class="hint admonition">
-<p class="admonition-title">정수 레이블과 sparse_categorical_crossentropy</p>
-<p>클래스 수가 많을 경우 정수 레이블을 사용하는 게 메모리 효율적이다.
-그런데 정수 텐서 레이블(타깃)을 이용하여 훈련하려면 모델을 컴파일할 때 손실함수로
+<p class="admonition-title">정수 라벨과 sparse_categorical_crossentropy</p>
+<p>분류할 범주의 수가 많을 경우 정수 라벨을 원-핫 인코딩하지 않고 바로 사용하는 게 보다 메모리 효율적이다.
+그런데 정수 텐서 라벨(타깃)을 이용하여 훈련하려면 모델을 컴파일할 때 손실함수로
 <code class="docutils literal notranslate"><span class="pre">sparse_categorical_crossentropy</span></code>를 사용해야 한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
 <span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
@@ -1118,7 +1114,8 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 <section id="id10">
 <h3><span class="section-number">4.2.4. </span>모델 훈련과 활용<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <p>훈련 방식은 영화 후기 이진 분류 모델의 경우와 동일하다.
-다만 검증셋의 크기를 1,000으로 정한다.</p>
+대신에 검증셋의 크기를 1,000으로 지정한다.
+참고로, 검증셋의 크기는 훈련셋의 크기에 비례해서 적절하게 정한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
 <span class="n">partial_x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="mi">1000</span><span class="p">:]</span>
 <span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
@@ -1131,17 +1128,18 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
                     <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><strong><code class="docutils literal notranslate"><span class="pre">History</span></code> 객체 활용</strong></p>
-<p>이번엔 9번째 에포크 이후에 과대적합이 발생한다.</p>
-<p><em>손실값의 변화</em></p>
+<p><strong>손실값의 변화</strong></p>
+<p>9번째 에포크 이후로 검증셋에 대한 손실값이 올라간다.
+즉, 그때부터 과대적합이 발생하였다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-06.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><em>정확도의 변화</em></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>정확도의 변화</strong></p>
+<p>정확도 역시 9번째 에포크 이후로 조금씩 떨어진다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-07.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>모델 재훈련</strong></p>
 <p>9번 에포크를 지나면서 과대적합이 발생하기에
 에포크 수를 9로 줄이고 처음부터 다시 훈련시킨다.
-모델 구성부터, 컴파일, 훈련을 모두 다시 시작해야
-가중치와 편향이 초기화된 상태서 훈련을 시작한다.</p>
+IMDB 데이터셋 이진 분류에서 설명한 대로
+모델 구성부터, 컴파일, 훈련을 모두 다시 시작한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
@@ -1157,7 +1155,7 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 </pre></div>
 </div>
 <p>테스트셋에 대한 성능은 아래와 같이 80% 정도의 정확도를 보인다.
-모델의 손실값은 0.96 정도.</p>
+모델의 손실값은 0.96 정도로 계산된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">results</span>
 <span class="go">[0.9565213431445807, 0.79697239536954589]</span>
@@ -1169,17 +1167,20 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 <p><strong>모델 활용</strong></p>
 <p>훈련된 모델의 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드는 각 입력 샘플에 대해
 마지막 층에 사용된 유닛의 개수 만큼의 길이로 구성된 벡터 텐서를 반환한다.
-따라서 여기서는 46개 클래스에 솏할 확률로 구성된 길이가 46인 벡터 텐서가 반환되며
-각 확률값의 합은 1이다.
-이중에 가장 높은 확률값이 위치한 위치가 모델의 최종 예측값으로 사용된다.</p>
-<p>예를 들어, 테스트셋의 첫째 샘플에 대한 예측값은 4다.</p>
+여기서는 소프트맥스 함수에 의해 46개 클래스에 속할 확률로 구성된 길이가 46인 벡터 텐서가 반환되며
+각 확률값의 합은 1이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(46,)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="go">1.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="go">4</span>
+</pre></div>
+</div>
+<p>이중에 가장 높은 확률값이 위치한 인덱스를 모델의 최종 예측값으로 사용하면 된다.
+이를 위해 <code class="docutils literal notranslate"><span class="pre">np.argmax()</span></code> 함수를 이용한다.
+예를 들어, 테스트셋의 첫째 샘플에 대한 예측값은 3이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">3</span>
 </pre></div>
 </div>
 </section>

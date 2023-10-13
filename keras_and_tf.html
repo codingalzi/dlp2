@@ -773,8 +773,8 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">negative_samples</span><span class="p">,</span> <span class="n">positive_samples</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>음성 샘플의 레이블은 0, 양성 샘플의 레이블은 1로 지정한다.
-레이블 데이터셋 또한 2차원 어레이로 지정됨에 주의하라.
+<p>음성 샘플의 라벨은 0, 양성 샘플의 라벨은 1로 지정한다.
+라벨 데이터셋 또한 2차원 어레이로 지정됨에 주의하라.
 이유는 케라스의 신경망 모델은 하나의 입력 샘플에 대해 여러 종류의 예측값을 계산하도록 설계되어 있기 때문에
 여기서처럼 입력 샘플 각각에 대해 양성/음성 여부 하나만 예측하더라도 길이가 1인 벡터로 출력값이 계산된다.
 즉, 층에 사용되는 유닛이 하나라 하더라도 스칼라가 아닌 길이가 1인 벡터로 층의 출력값이 계산된다.</p>
@@ -894,7 +894,7 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 </div>
 <p><strong>7단계: 결정경계</strong></p>
 <p>모델의 예측값이 0.5보다 클 때 양성으로 판정한다.
-이유는 샘플들의 레이블이 0 또는 1이기 때문이다.
+이유는 샘플들의 라벨이 0 또는 1이기 때문이다.
 모델은 훈련과정 중에 음성 샘플은 최대한 0에,
 양성 샘플은 최대한 1에 가까운 값으로 예측하여 손실값을 최대한 줄여야 하는데
 <code class="docutils literal notranslate"><span class="pre">training_step()</span></code> 함수에서 구현된 경사하강법이 그렇게 유도한다.
