@@ -1,0 +1,25 @@
+channels:
+    - conda-forge
+    - anaconda
+    - defaults
+dependencies:
+    - jupyter
+    - scikit-learn
+    - scipy
+    - pandas
+    - pandas-datareader
+    - matplotlib
+    - pillow
+    - tqdm
+    - requests
+    - h5py
+    - pyyaml
+    - flask
+    - boto3
+    - pip
+    - pip:
+        - tensorflow[and-cuda]
+        - bayesian-optimization
+        - gym
+        - kaggle
+        
