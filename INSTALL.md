@@ -120,15 +120,17 @@ TensorFlow, PyTorch 및 Caffe와 같은 인기 있는 딥러닝 프레임워크�
         Download cuDNN v8.9.5 (September 12th, 2023), for CUDA 12.x
         ```
 
-    1. 아래 버튼을 선택하여 지정된 파일을 다운로드 한다. (Intel 프로세서 기준)
+    1. 아래 버튼을 선택하여 지정된 파일을 다운로드 한다.
+        여기서는 다운로드 폴더에 저장한다고 가정한다.
 
         ```bash
         Local Installer for Ubuntu20.04 x86_64 (Deb)
         ```
 
-1. (이제부터 다시 WSL2 리눅스 20.04에서) 앞서 다운로드한 파일이 저장된 곳으로 이동한 후 아래 명령문을 실행한다.
+1. (이제부터 다시 WSL2 리눅스 20.04에서) 앞서 다운로드한 파일이 저장된 곳으로 이동한 후 아래 명령문을 실행한다. 아래 명령문에서 "사용자아이디"는 자신의 윈도우 계정 영어 아이디를 입력한다.
 
     ```bash
+    cd /mnt/c/Users/사용자아이디/Downloads/
     sudo dpkg -i cudnn-local-repo-ubuntu2004–8.9.5.29_1.0–1_amd64.deb
     ```
 
