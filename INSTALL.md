@@ -112,31 +112,38 @@ TensorFlow, PyTorch 및 Caffe와 같은 인기 있는 딥러닝 프레임워크�
 
 1. 면저 [NVIDIA Developer](https://developer.nvidia.com/rdp/cudnn-download)에서 로그인 한다.
 
-1. 2023년 10월 기준으로 최신 NVIDA 그래픽 드라이버가 설치되었다는 전제 하여 아래 파일의 링크를 선택한다.
+    1. 이 부분은 윈도우11 크롬 또는 엣지 브라우저를 활용한다.
 
-    ```bash
-    Download cuDNN v8.9.5 (September 12th, 2023), for CUDA 12.x
-    ```
-1. 아래 버튼을 선택하여 지정된 파일을 다운로드 한다. (Intel 프로세서 기준)
+    1. 2023년 10월 기준으로 최신 NVIDA 그래픽 드라이버가 설치되었다는 전제 하여 아래 파일의 링크를 선택한다.
 
-    ```bash
-    Local Installer for Ubuntu20.04 x86_64 (Deb)
-    ```
-1. 앞서 다운로드한 파일이 저장된 곳으로 이동한 후 아래 명령문을 실행한다.
+        ```bash
+        Download cuDNN v8.9.5 (September 12th, 2023), for CUDA 12.x
+        ```
+
+    1. 아래 버튼을 선택하여 지정된 파일을 다운로드 한다. (Intel 프로세서 기준)
+
+        ```bash
+        Local Installer for Ubuntu20.04 x86_64 (Deb)
+        ```
+
+1. (이제부터 다시 WSL2 리눅스 20.04에서) 앞서 다운로드한 파일이 저장된 곳으로 이동한 후 아래 명령문을 실행한다.
 
     ```bash
     sudo dpkg -i cudnn-local-repo-ubuntu2004–8.9.5.29_1.0–1_amd64.deb
     ```
+
 1. CUDA GPG 키를 불러온다.
 
     ```bash
     sudo cp /var/cudnn-local-repo-*/cudnn-local-*-keyring.gpg /usr/share/keyrings/
     ```
+
 1. 패키지 저장소 정도 업데이트
 
     ```bash
     sudo apt-get update
     ```
+
 1. 런타임 라이브러리를 설치한다.  아래 명령문 실행하여 설치가능 패키지를 확인할 수도 있다. 
         
     ```bash
@@ -148,6 +155,7 @@ TensorFlow, PyTorch 및 Caffe와 같은 인기 있는 딥러닝 프레임워크�
     ```bash
     sudo apt-get install libcudnn8=8.9.5.29-1+cuda12.2
     ```
+
 1. 개발자 라이브러리 설치
 
     ```bash
