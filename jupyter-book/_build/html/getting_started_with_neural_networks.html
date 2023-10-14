@@ -1077,15 +1077,6 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 모델의 최종 예측값으로 사용한다.
 보다 자세한 설명은 <a class="reference external" href="https://codingalzi.github.io/handson-ml3/training_models.html">핸즈온 머신러닝 4장</a>을 참고한다.</p>
 </div>
-<div class="tip admonition">
-<p class="admonition-title">정보 병목현상</p>
-<p>층에 사용되는 유닛의 수를 지정할 때 병목현상이 발생하지 않도록 조심해야 한다.
-각 층은 이전 층에서 넘겨진 값만 활용할 수 있기에 이전 층이 너무 적은 수의 유닛을
-사용하면 그만큼 전달되는 정보의 양도 적다.
-따라서 이후에 아무리 많은 유닛을 사용하더라도 새로운 정보를 생성하기는 어렵다.
-이를 정보 병목현상이라 부르며 이런 일이 발생하지 않도록
-층을 구성해야 한다.</p>
-</div>
 <p><strong>모델 컴파일</strong></p>
 <p>다중 클래스 분류 모델의 손실함수는 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>로 지정한다.
 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>는 클래스의 실제 분포와 예측 클래스의 분포 사이의
@@ -1182,6 +1173,27 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="go">3</span>
 </pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">정보 병목현상</p>
+<p>층에 사용되는 유닛의 수를 지정할 때 병목현상<font size='2'>bottleneck</font>이 발생하지 않도록 조심해야 한다.
+각 층은 이전 층에서 넘겨진 값만 활용할 수 있기에 이전 층이 너무 적은 수의 유닛을
+사용하면 그만큼 전달되는 정보의 양도 적다.
+따라서 이후에 아무리 많은 유닛을 사용하더라도 새로운 정보를 생성하기는 어렵다.
+이를 정보 병목현상이라 부르며 이런 일이 발생하지 않도록
+층을 구성해야 한다.</p>
+<p>예를 들어 은닉층에 사용되는 유닛은 마지막 층의 유닛보다 많아야 한다.
+그렇지 않으면 정보전달 과정에 병목현상이 발생할 수 있다.
+아래 코드의 둘째 은닉층은 4 개의 유닛만을 사용하는데
+훈련된 모델의 성능이 많이 저하된다.
+실제로 테스트셋에 대한 정확도가 80% 정도에서 65% 정도로 낮아진다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+</pre></div>
+</div>
 </div>
 </section>
 </section>
