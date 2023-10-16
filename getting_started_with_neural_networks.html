@@ -467,15 +467,15 @@ document.write(`
 <td class="text-left"><p>vector regression</p></td>
 <td class="text-left"><p>샘플 별로 두 종류 이상의 값 예측하기. 네모 상자의 좌표 등.</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>(미니)배치</p></td>
-<td class="text-left"><p>mini-batch/batch</p></td>
+<tr class="row-even"><td class="text-left"><p>배치</p></td>
+<td class="text-left"><p>batch</p></td>
 <td class="text-left"><p>보통 16, 32, 64, 128 등의 개수의 샘플로 구성된 묶음(배치). 훈련 루프의 스텝에 사용되는 훈련셋.</p></td>
 </tr>
 </tbody>
 </table>
 <section id="sec-imdb">
 <span id="id2"></span><h2><span class="section-number">4.1. </span>영화 후기: 이진 분류<a class="headerlink" href="#sec-imdb" title="Permalink to this heading">#</a></h2>
-<p>영화 후기가 긍정적인지 부정적인지를 판단하는 이진 분류 모델을 구성한다.</p>
+<p>영화 후기의 긍정/부정 여부를 판단하는 이진 분류 모델을 구성한다.</p>
 <section id="imdb">
 <h3><span class="section-number">4.1.1. </span>데이터 준비: IMDB 데이터셋<a class="headerlink" href="#imdb" title="Permalink to this heading">#</a></h3>
 <p>긍정 후기와 부정 후기 각각 25,000개씩 총 50,000개의 영화 후기 샘플로 구성되었으며
@@ -512,9 +512,13 @@ document.write(`
 <li><p>패션 MNIST(Fashion MNIST) dataset</p></li>
 <li><p>보스턴 주택 가격(Boston Housing price) 회귀 데이터셋</p></li>
 </ul>
+<p>각 데이터셋을 담고 있는 객체의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 메서드를 이용하여 미리 구분된 훈련셋과 테스트셋을 넘파이 어레이로 불러올 수 있다.</p>
 </div>
 <p><strong>데이터 살펴보기</strong></p>
-<p>후기 샘플 하나에 사용되는 단어의 수는 일정하지 않다.</p>
+<p>후기 샘플 각각에 사용되는 단어의 수는 일정하지 않다.
+즉 각 후기 문장의 길이가 일정하지 않다.
+예를 들어, 훈련셋의 첫째 후기 문장은 218개의 단어로,
+둘째 후기 문장은 189개의 단어로 구성된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="go">218</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
@@ -530,11 +534,9 @@ document.write(`
 </pre></div>
 </div>
 <p>각 샘플의 라벨은 0(부정) 또는 1(긍정)이다.
-예를 들어, 훈련셋 0번 샘플은 긍정 후기를, 테스트셋의 0번 샘플은 부정 후기를 가리킨다.</p>
+예를 들어, 훈련셋 0번 샘플은 긍정 후기를 가리킨다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="go">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">test_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">0</span>
 </pre></div>
 </div>
 <div class="tip admonition">
@@ -589,8 +591,7 @@ document.write(`
 <ul class="simple">
 <li><p><strong>벡터화</strong><font size='2'>vectorization</font></p>
 <ul>
-<li><p>가장 긴 길이의 샘플 길이를 확인한다.</p></li>
-<li><p>확인된 길이에 맞춰 모든 샘플을 확장한다.</p></li>
+<li><p>가장 긴 길이의 샘플에 맞춰 모든 샘플을 확장한다.</p></li>
 <li><p>확장에 사용되는 값은 기존 샘플에 사용되지 않은 값을 사용한다.</p></li>
 <li><p>예를 들어 여백을 의미하는 0을 사용할 수 있다.</p></li>
 </ul>
@@ -598,6 +599,7 @@ document.write(`
 <li><p><strong>멀티-핫 인코딩</strong><font size='2'>multi-hot encoding</font></p>
 <ul>
 <li><p>0과 1로만 이루어진 일정한 길이의 벡터(1차원 어레이)로 변환한다.</p></li>
+<li><p>벡터의 길이는 사용된 단어의 총 수, 예를 들어 10,000을 사용한다.</p></li>
 </ul>
 </li>
 </ul>
@@ -1009,14 +1011,14 @@ document.write(`
 </section>
 <section id="id8">
 <h3><span class="section-number">4.2.2. </span>데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
-<p><strong>입력 데이터셋 벡터화: 멀티-핫 인코딩</strong></p>
+<p><strong>입력 데이터셋 멀티-핫 인코딩</strong></p>
 <p>사용빈도가 10,000 미만인 단어만 사용하도록 하였기에
 IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,000인 멀티-핫 인코딩 한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_train</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_test</span> <span class="o">=</span> <span class="n">vectorize_sequences</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>라벨 데이터셋 벡터화: 원-핫 인코딩</strong></p>
+<p><strong>라벨 데이터셋 원-핫 인코딩</strong></p>
 <p>라벨은 0부터 45 사이의 값이다.
 이런 경우 정수로 구성된 텐서를 사용하기 보다는
 <strong>원-핫 인코딩</strong><font size='2'>one-hot encoding</font>
@@ -1026,7 +1028,7 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 한 곳에서만 1이고 나머지 인덱스에서는 모두 0을 항목으로 갖는다.
 예를 들어, 정수 3은 길이가 46인 벡터로 변환되는데
 3번 인덱스에서만 1이고 나머지 항목은 모두 0이다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">....</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">....</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수가 원-핫 인코딩을 지원한다.
@@ -1239,44 +1241,44 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p>CRIM</p></td>
-<td class="text-left"><p>구역별 1인당 범죄율</p></td>
+<tr class="row-even"><td class="text-left"><p><font color="#FF0000">CRIM</font></p></td>
+<td class="text-left"><p><font color="#FF0000">구역별 1인당 범죄율</font></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>ZN</p></td>
 <td class="text-left"><p>25,000 평방 피트 이상의 주거 구역 비율</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>INDUS</p></td>
-<td class="text-left"><p>구역별 비 소매 사업 에이커(acre) 비율</p></td>
+<td class="text-left"><p>구역별 비 소매 사업 면적(에이커) 비율</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>CHAS</p></td>
-<td class="text-left"><p>Charles River 더미 변수(구역이 강 경계에 닿으면 1, 아니면 0)</p></td>
+<td class="text-left"><p>Charles River 경계 접촉 여부</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>NOX</p></td>
-<td class="text-left"><p>산화 질소 농도(1000만분 율)</p></td>
+<td class="text-left"><p>산화 질소 농도</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>RM</p></td>
 <td class="text-left"><p>주택 당 평균 방 수</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>AGE</p></td>
-<td class="text-left"><p>소유주가 살고 있는 1940년 이전에 지어진 건물 비율</p></td>
+<td class="text-left"><p>1940년 이전에 지어졌으면서 소유주가 살고 있는 주택 비율</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>DIS</p></td>
-<td class="text-left"><p>보스턴 고용 센터 다섯 곳 까지의 가중 거리</p></td>
+<td class="text-left"><p>보스턴 고용 센터 다섯 곳 까지의 가중(weighted) 거리</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>RAD</p></td>
 <td class="text-left"><p>방사형 고속도로 접근성 지수</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>TAX</p></td>
-<td class="text-left"><p>1만달러당 전체 가지 재산 세율</p></td>
+<td class="text-left"><p>1만달러당 재산세율</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>PTRATIO</p></td>
 <td class="text-left"><p>구역별 학생-교사 비율</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p>B</p></td>
-<td class="text-left"><p>1000(Bk - 0.63)^2 (Bk 구역별 흑인 비율)</p></td>
+<tr class="row-odd"><td class="text-left"><p><font color="#FF0000">B</font></p></td>
+<td class="text-left"><p><font color="#FF0000">1000(Bk - 0.63)^2 (Bk는구역별 흑인 비율)</font></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p>LSTAT</p></td>
-<td class="text-left"><p>구역별 낮은 지위 인구 비율</p></td>
+<tr class="row-even"><td class="text-left"><p><font color="#FF0000">LSTAT</font></p></td>
+<td class="text-left"><p><font color="#FF0000">구역별 하위 계층 인구 비율</font></p></td>
 </tr>
 </tbody>
 </table>
@@ -1284,7 +1286,8 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 훈련시켜야 한다.</p>
 <div class="hint admonition">
 <p class="admonition-title">보스턴 데이터셋의 윤리 문제</p>
-<p>구역별로 조사된 자료 중에서 흑인 비율을 사용하는 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성이 윤리적 논쟁을 일으킨다.
+<p>구역별로 조사된 자료 중에서 범죄율, 흑인 비율, 하위 계층 비율 등을 포함한다.
+특히 흑인 비율을 사용하는 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성이 윤리적 논쟁을 일으킨다.
 구역의 집값과 흑인 비율의 연관성을 암시하는 이런 통계 조사는
 1970년대 미국에서 인종 차별이 여전히 주요 쟁점이었음을 단편적으로 보여준다.
 이런 이유로 사이킷런 라이브러리는
@@ -1321,12 +1324,12 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <p><span class="math notranslate nohighlight">\(x\)</span>는 샘플의 특성값을, <span class="math notranslate nohighlight">\(\mu\)</span>와 <span class="math notranslate nohighlight">\(\sigma\)</span>는 훈련셋에 포함된 샘플들의
 특성별 평균값과 표준편차를 가리킨다.
 넘파이 어레이를 이용하면 전체 훈련셋에 대해 한 번에 다음과 같이 표준화를 진행할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 훈련셋의 평균값</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 훈련셋의 특성별 평균값/표준편차</span>
 <span class="n">mean</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">std</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># 훈련셋 표준화</span>
 <span class="n">train_data</span> <span class="o">-=</span> <span class="n">mean</span>
-<span class="n">std</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">train_data</span> <span class="o">/=</span> <span class="n">std</span>
 
 <span class="c1"># 테스트셋 표준화: 훈련셋의 평균값과 표준편차 활용</span>
@@ -1337,7 +1340,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <div class="warning admonition">
 <p class="admonition-title">테스트셋 표준화</p>
 <p>테스트셋의 표준화도 훈련셋의 평균값과 표준편차를 이용한다.
-이유는 테스트셋의 정보는 모델 훈련에 절대로 사용되지 않아야 하기 때문이다.</p>
+이유는 테스트셋에 대한 어떤 정보도 미리 알 수 없다는 전제가 실현되야 하기 때문이다.</p>
 </div>
 </section>
 <section id="id14">
@@ -1355,9 +1358,9 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <li><p>평가지표: <strong>평균절대오차</strong><font size='2'>mean absolute error</font>(mae).
 타깃과 예측값 사이의 오차의 평균값.</p></li>
 </ul>
-<p>동일한 모델을 앞으로도 계속해서 사용할 예정이기에
+<p>동일한 모델을 앞으로도 반복해서 사용할 예정이기에
 여기서는 모델 구성과 컴파일을 동시에 진행하는
-하나의 함수를 지정해서 사용한다.</p>
+하나의 함수를 선언한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_model</span><span class="p">():</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
         <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
