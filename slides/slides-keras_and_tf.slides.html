@@ -71,6 +71,25 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
   </style>
+<style type="text/css">
+    
+
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            /*preferredFont: "TeX",*/
+            /*availableFonts: ["TeX", "STIX"],*/
+            styles: {
+                scale: 100,
+                ".MathJax_Display": {
+                    "font-size": "100%",
+                }
+            }
+        }
+    });
+</script>
+    
+  </style>
 
 
 
@@ -14495,9 +14514,6 @@ a.anchor-link {
 .reveal {
   font-size: 160%;
 }
-.reveal table {
-  font-size: var(--jp-ui-font-size1);
-}
 .reveal pre {
   width: inherit;
   padding: 0.4em;
@@ -14541,23 +14557,6 @@ div.jp-OutputPrompt {
   margin: 5px 5px 0 0;
 }
 
-.reveal div.highlight {
-  margin: 0;
-}
-
-.reveal div.highlight > pre {
-  margin: 0;
-  width: 100%;
-  font-size: var(--jp-code-font-size);
-}
-
-.reveal div.jp-OutputArea-output > pre {
-  margin: 0;
-  width: 90%;
-  font-size: var(--jp-code-font-size);
-  box-shadow: none;
-}
-
 /* Reveal navigation controls */
 
 .reveal .controls .navigate-left,
@@ -14598,14 +14597,17 @@ div.jp-OutputPrompt {
 
 /* Scrollbars */
 
-::-webkit-scrollbar {
+::-webkit-scrollbar
+{
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar * {
-  background: transparent;
+::-webkit-scrollbar *
+{
+  background:transparent;
 }
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb
+{
   background: #727272 !important;
 }
 </style>
@@ -14632,12 +14634,12 @@ div.jp-OutputPrompt {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: {
-                    automatic: true
+                    linebreaks: { 
+                    automatic: true 
                     }
                 }
             });
-
+        
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -16601,16 +16603,16 @@ $$
 </li>
 <li><p><code>History</code> 객체의 <code>history</code> 속성: 에포크별로 계산된 손실값과 평가지표값 저장</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">training_history</span><span class="o">.</span><span class="n">history</span>
-  <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">9.07500171661377</span><span class="p">,</span>
-    <span class="mf">8.722702980041504</span><span class="p">,</span>
-    <span class="mf">8.423994064331055</span><span class="p">,</span>
-    <span class="mf">8.137178421020508</span><span class="p">,</span>
-    <span class="mf">7.8575215339660645</span><span class="p">],</span>
-   <span class="s1">&#39;binary_accuracy&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.07800000160932541</span><span class="p">,</span>
-    <span class="mf">0.07999999821186066</span><span class="p">,</span>
-    <span class="mf">0.08049999922513962</span><span class="p">,</span>
-    <span class="mf">0.08449999988079071</span><span class="p">,</span>
-    <span class="mf">0.0860000029206276</span><span class="p">]}</span>
+  <span class="p">{</span><span class="s1">&#39;loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.2729695439338684</span><span class="p">,</span>
+    <span class="mf">0.11179507523775101</span><span class="p">,</span>
+    <span class="mf">0.07302209734916687</span><span class="p">,</span>
+    <span class="mf">0.0526457279920578</span><span class="p">,</span>
+    <span class="mf">0.04022042825818062</span><span class="p">],</span>
+   <span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.9212833046913147</span><span class="p">,</span>
+    <span class="mf">0.9672333598136902</span><span class="p">,</span>
+    <span class="mf">0.9783666729927063</span><span class="p">,</span>
+    <span class="mf">0.9844833612442017</span><span class="p">,</span>
+    <span class="mf">0.988099992275238</span><span class="p">]}</span>
 </pre></div>
 </li>
 </ul>
@@ -16701,7 +16703,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>검증셋에 대한 에포크별 손실값과 평가지표도 함께 출력한다.</p>
+<p>검증셋에 대한 에포크별 손실값과 평가지표도 함께 저장된다.</p>
 
 </div>
 </div>
