@@ -1248,16 +1248,16 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 예를 들어 <code class="docutils literal notranslate"><span class="pre">History</span></code> 객체의 <code class="docutils literal notranslate"><span class="pre">history</span></code> 속성은 에포크별로 계산된 손실값과 평가지표값을
 사전 자료형으로 가리킨다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">training_history</span><span class="o">.</span><span class="n">history</span>
-<span class="go">{&#39;loss&#39;: [9.07500171661377,</span>
-<span class="go">  8.722702980041504,</span>
-<span class="go">  8.423994064331055,</span>
-<span class="go">  8.137178421020508,</span>
-<span class="go">  7.8575215339660645],</span>
-<span class="go"> &#39;binary_accuracy&#39;: [0.07800000160932541,</span>
-<span class="go">  0.07999999821186066,</span>
-<span class="go">  0.08049999922513962,</span>
-<span class="go">  0.08449999988079071,</span>
-<span class="go">  0.0860000029206276]}</span>
+<span class="go">{&#39;loss&#39;: [0.2729695439338684,</span>
+<span class="go">  0.11179507523775101,</span>
+<span class="go">  0.07302209734916687,</span>
+<span class="go">  0.0526457279920578,</span>
+<span class="go">  0.04022042825818062],</span>
+<span class="go"> &#39;accuracy&#39;: [0.9212833046913147,</span>
+<span class="go">  0.9672333598136902,</span>
+<span class="go">  0.9783666729927063,</span>
+<span class="go">  0.9844833612442017,</span>
+<span class="go">  0.988099992275238]}</span>
 </pre></div>
 </div>
 <p><strong>검증 데이터 활용</strong></p>
@@ -1283,6 +1283,30 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
     <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
     <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_inputs</span><span class="p">,</span> <span class="n">val_targets</span><span class="p">)</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+<p>검증셋에 대한 손실값과 정확도도 훈련중에 계산된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">training_history</span><span class="o">.</span><span class="n">history</span>
+<span class="go">{&#39;loss&#39;: [0.02950882911682129,</span>
+<span class="go">  0.021471761167049408,</span>
+<span class="go">  0.015012570656836033,</span>
+<span class="go">  0.011033009737730026,</span>
+<span class="go">  0.0080801947042346],</span>
+<span class="go"> &#39;accuracy&#39;: [0.991428554058075,</span>
+<span class="go">  0.9937618970870972,</span>
+<span class="go">  0.9962857365608215,</span>
+<span class="go">  0.9974523782730103,</span>
+<span class="go">  0.9982380867004395],</span>
+<span class="go"> &#39;val_loss&#39;: [0.029974577948451042,</span>
+<span class="go">  0.03373847156763077,</span>
+<span class="go">  0.03262251615524292,</span>
+<span class="go">  0.03768538683652878,</span>
+<span class="go">  0.03493628650903702],</span>
+<span class="go"> &#39;val_accuracy&#39;: [0.9906111359596252,</span>
+<span class="go">  0.9896666407585144,</span>
+<span class="go">  0.9901666641235352,</span>
+<span class="go">  0.9882222414016724,</span>
+<span class="go">  0.9900555610656738]}</span>
 </pre></div>
 </div>
 <p><em>훈련 후 모델 검증</em></p>
