@@ -71,25 +71,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
   </style>
-<style type="text/css">
-    
-
-<script>
-    MathJax.Hub.Config({
-        "HTML-CSS": {
-            /*preferredFont: "TeX",*/
-            /*availableFonts: ["TeX", "STIX"],*/
-            styles: {
-                scale: 100,
-                ".MathJax_Display": {
-                    "font-size": "100%",
-                }
-            }
-        }
-    });
-</script>
-    
-  </style>
 
 
 
@@ -14514,6 +14495,9 @@ a.anchor-link {
 .reveal {
   font-size: 160%;
 }
+.reveal table {
+  font-size: var(--jp-ui-font-size1);
+}
 .reveal pre {
   width: inherit;
   padding: 0.4em;
@@ -14557,6 +14541,23 @@ div.jp-OutputPrompt {
   margin: 5px 5px 0 0;
 }
 
+.reveal div.highlight {
+  margin: 0;
+}
+
+.reveal div.highlight > pre {
+  margin: 0;
+  width: 100%;
+  font-size: var(--jp-code-font-size);
+}
+
+.reveal div.jp-OutputArea-output > pre {
+  margin: 0;
+  width: 90%;
+  font-size: var(--jp-code-font-size);
+  box-shadow: none;
+}
+
 /* Reveal navigation controls */
 
 .reveal .controls .navigate-left,
@@ -14597,17 +14598,14 @@ div.jp-OutputPrompt {
 
 /* Scrollbars */
 
-::-webkit-scrollbar
-{
+::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar *
-{
-  background:transparent;
+::-webkit-scrollbar * {
+  background: transparent;
 }
-::-webkit-scrollbar-thumb
-{
+::-webkit-scrollbar-thumb {
   background: #727272 !important;
 }
 </style>
@@ -14634,12 +14632,12 @@ div.jp-OutputPrompt {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 }
             });
-        
+
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -16419,10 +16417,13 @@ $$
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>다양한 옵티마이저의 장단점에 대해서는 <a href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">Hands-on Machine Learning 3판</a>의 11장에 정리되어 있다.</p>
 <ul>
-<li>SGD (with or without momentum)</li>
+<li>SGD</li>
+<li>SGD + momentum</li>
+<li>Adagrad</li>
 <li>RMSprop</li>
 <li>Adam</li>
-<li>Adagrad</li>
+<li>Nadam</li>
+<li>AdamW</li>
 </ul>
 <p>등등.</p>
 
@@ -16448,15 +16449,43 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>일반적으로 모델의 종류에 따라 손실 함수를 선택한다.</p>
-<ul>
-<li>CategoricalCrossentropy</li>
-<li>SparseCategoricalCrossentropy</li>
-<li>BinaryCrossentropy</li>
-<li>MeanSquaredError</li>
-<li>KLDivergence</li>
-<li>CosineSimilarity</li>
-</ul>
-<p>등등.</p>
+<table>
+<thead><tr>
+<th style="text-align:center">손실 함수</th>
+<th style="text-align:center">용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CategoricalCrossentropy</td>
+<td style="text-align:center">다중 클래스 분류</td>
+</tr>
+<tr>
+<td style="text-align:center">SparseCategoricalCrossentropy</td>
+<td style="text-align:center">다중 클래스 분류. 정수형 (벡터) 타깃</td>
+</tr>
+<tr>
+<td style="text-align:center">BinaryCrossentropy</td>
+<td style="text-align:center">이진 분류</td>
+</tr>
+<tr>
+<td style="text-align:center">MeanSquaredError</td>
+<td style="text-align:center">회귀</td>
+</tr>
+<tr>
+<td style="text-align:center">KLDivergence</td>
+<td style="text-align:center">다중 클래스 분류</td>
+</tr>
+<tr>
+<td style="text-align:center">CosineSimilarity</td>
+<td style="text-align:center">회귀와 분류 모두. 문장 번역, 물건 추천, 이미지 분류 등</td>
+</tr>
+<tr>
+<td style="text-align:center">등등</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
@@ -16480,15 +16509,43 @@ $$
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>일반적으로 모델 종류와 목적에 따라 평가 지표를 선택한다.</p>
-<ul>
-<li>CategoricalAccuracy</li>
-<li>SparseCategoricalAccuracy</li>
-<li>BinaryAccuracy</li>
-<li>AUC</li>
-<li>Precision</li>
-<li>Recall</li>
-</ul>
-<p>등등.</p>
+<table>
+<thead><tr>
+<th style="text-align:center">평가지표</th>
+<th style="text-align:center">용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CategoricalAccuracy</td>
+<td style="text-align:center">다중클래스 분류 정확도  측정</td>
+</tr>
+<tr>
+<td style="text-align:center">SparseCategoricalAccuracy</td>
+<td style="text-align:center">다중클래스 분류 정확도. 정수형 (벡터) 타깃 사용</td>
+</tr>
+<tr>
+<td style="text-align:center">BinaryAccuracy</td>
+<td style="text-align:center">이진 분류 정확도 측정</td>
+</tr>
+<tr>
+<td style="text-align:center">AUC</td>
+<td style="text-align:center">다중 클래스 분류 AUC 측정</td>
+</tr>
+<tr>
+<td style="text-align:center">Precision</td>
+<td style="text-align:center">다중 클래스 분류 정밀도 측정</td>
+</tr>
+<tr>
+<td style="text-align:center">Recall</td>
+<td style="text-align:center">다중 클래스 분류 재현율 측정</td>
+</tr>
+<tr>
+<td style="text-align:center">등등</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
