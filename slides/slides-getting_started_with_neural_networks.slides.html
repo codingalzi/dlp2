@@ -14823,8 +14823,8 @@ div.jp-OutputPrompt {
 <td style="text-align:left">샘플 별로 두 종류 이상의 값 예측하기. 네모 상자의 좌표 등.</td>
 </tr>
 <tr>
-<td style="text-align:left">(미니)배치</td>
-<td style="text-align:left">mini-batch/batch</td>
+<td style="text-align:left">배치</td>
+<td style="text-align:left">batch</td>
 <td style="text-align:left">보통 16, 32, 64, 128 등의 개수의 샘플로 구성된 묶음(배치). 훈련 루프의 스텝에 사용되는 훈련셋.</td>
 </tr>
 </tbody>
@@ -14851,7 +14851,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>영화 후기가 긍정적인지 부정적인지를 판단하는 이진 분류 모델을 구성한다.</p>
+<p>영화 후기의 긍정/부정 여부를 판단하는 이진 분류 모델을 구성한다.</p>
 
 </div>
 </div>
@@ -14956,7 +14956,9 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>각 데이터셋의 <code>load_data()</code> 메서드를 활용하여 데이터셋을 불러온다.</p>
+<p>각 데이터셋의 <code>load_data()</code> 메서드를 활용하여 데이터셋을 불러온다.
+반환값은 미리 구분된 훈련셋과 테스트셋을 담고 있는
+넘파이 어레이 텐서다.</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">imdb</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
@@ -14999,7 +15001,10 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>후기 샘플 하나에 사용되는 단어의 수는 일정하지 않다.</p>
+<p>후기 샘플 각각에 사용되는 단어의 수는 일정하지 않다. 
+즉 각 후기 문장의 길이가 일정하지 않다.</p>
+<p>예를 들어, 훈련셋의 첫째 후기 문장은 218개의 단어로,
+둘째 후기 문장은 189개의 단어로 구성된다.</p>
 
 </div>
 </div>
@@ -15028,7 +15033,8 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>각각의 정수는 특정 단어를 가리킨다.</p>
+<p>각각의 정수는 특정 단어를 가리킨다.
+훈련셋의 0번 입력 샘플의 처음 10개 값(단어)은 다음과 같다.</p>
 
 </div>
 </div>
@@ -15054,7 +15060,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>훈련셋 0번 샘플은 긍정 후기를, 테스트셋의 0번 샘플은 부정 후기를 가리킨다.</p>
+<p>훈련셋 0번 샘플은 긍정 후기를 가리킨다.</p>
 
 </div>
 </div>
@@ -15068,8 +15074,6 @@ div.jp-OutputPrompt {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">train_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="mi">1</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">test_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="mi">0</span>
 </pre></div>
 
 </div>
@@ -15095,8 +15099,7 @@ div.jp-OutputPrompt {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
 <li><strong>벡터화</strong><font size='2'>vectorization</font><ul>
-<li>가장 긴 길이의 샘플 길이를 확인한다.</li>
-<li>확인된 길이에 맞춰 모든 샘플을 확장한다.</li>
+<li>가장 긴 길이의 샘플에 맞춰 모든 샘플을 확장한다.</li>
 <li>확장에 사용되는 값은 기존 샘플에 사용되지 않은 값을 사용한다.</li>
 <li>예를 들어 여백을 의미하는 0을 사용할 수 있다.</li>
 </ul>
@@ -15116,6 +15119,7 @@ div.jp-OutputPrompt {
 <ul>
 <li><strong>멀티-핫 인코딩</strong><font size='2'>multi-hot encoding</font><ul>
 <li>0과 1로만 이루어진 일정한 길이의 벡터(1차원 어레이)로 변환한다.</li>
+<li>벡터의 길이는 사용된 단어의 총 수, 예를 들어 10,000을 사용한다.</li>
 </ul>
 </li>
 </ul>
@@ -15162,7 +15166,7 @@ div.jp-OutputPrompt {
 <li>길이가 10,000인 1차원 어레이(벡터)로 변환</li>
 <li><p>1번, 5번, 9998번 인덱스의 항목만 1이고 나머지는 0</p>
 
-<pre><code>  멀티-핫-인코딩([1, 5, 9998]) =&gt; [0, 1, 0, 0, 0, 1, 0, ..., 0, 0, 1, 0]</code></pre>
+<pre><code>  [1, 5, 9998] =&gt; [0, 1, 0, 0, 0, 1, 0, ..., 0, 0, 1, 0]</code></pre>
 </li>
 </ul>
 
@@ -15170,6 +15174,17 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%EB%A9%80%ED%8B%B0-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9-%ED%95%A8%EC%88%98">&#47680;&#54000;-&#54635; &#51064;&#53076;&#46377; &#54632;&#49688;<a class="anchor-link" href="#%EB%A9%80%ED%8B%B0-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9-%ED%95%A8%EC%88%98">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15204,6 +15219,17 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%EB%9D%BC%EB%B2%A8-%EB%A9%80%ED%8B%B0-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9:-%E2%9D%8C">&#46972;&#48296; &#47680;&#54000;-&#54635; &#51064;&#53076;&#46377;: &#10060;<a class="anchor-link" href="#%EB%9D%BC%EB%B2%A8-%EB%A9%80%ED%8B%B0-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9:-%E2%9D%8C">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15499,6 +15525,18 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="%EC%86%90%EC%8B%A4%EA%B0%92%EA%B3%BC-%EC%A0%95%ED%99%95%EB%8F%84%EC%9D%98-%EB%B3%80%ED%99%94">&#49552;&#49892;&#44050;&#44284; &#51221;&#54869;&#46020;&#51032; &#48320;&#54868;<a class="anchor-link" href="#%EC%86%90%EC%8B%A4%EA%B0%92%EA%B3%BC-%EC%A0%95%ED%99%95%EB%8F%84%EC%9D%98-%EB%B3%80%ED%99%94">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><code>history</code> 속성에 저장된 정보를 이용하여 손실값과 정확도의 변화를 확인할 수 있다.</p>
+
 </div>
 </div>
 </div>
@@ -15911,7 +15949,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%9E%85%EB%A0%A5-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EB%B2%A1%ED%84%B0%ED%99%94:-%EB%A9%80%ED%8B%B0-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9">&#51077;&#47141; &#45936;&#51060;&#53552;&#49483; &#48289;&#53552;&#54868;: &#47680;&#54000;-&#54635; &#51064;&#53076;&#46377;<a class="anchor-link" href="#%EC%9E%85%EB%A0%A5-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EB%B2%A1%ED%84%B0%ED%99%94:-%EB%A9%80%ED%8B%B0-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9">&#182;</a></h3>
+<h3 id="%EC%9E%85%EB%A0%A5-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EB%A9%80%ED%8B%B0-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9">&#51077;&#47141; &#45936;&#51060;&#53552;&#49483; &#47680;&#54000;-&#54635; &#51064;&#53076;&#46377;<a class="anchor-link" href="#%EC%9E%85%EB%A0%A5-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EB%A9%80%ED%8B%B0-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15938,7 +15976,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EB%9D%BC%EB%B2%A8-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EB%B2%A1%ED%84%B0%ED%99%94:-%EC%9B%90-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9">&#46972;&#48296; &#45936;&#51060;&#53552;&#49483; &#48289;&#53552;&#54868;: &#50896;-&#54635; &#51064;&#53076;&#46377;<a class="anchor-link" href="#%EB%9D%BC%EB%B2%A8-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EB%B2%A1%ED%84%B0%ED%99%94:-%EC%9B%90-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9">&#182;</a></h3>
+<h3 id="%EB%9D%BC%EB%B2%A8-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EC%9B%90-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9">&#46972;&#48296; &#45936;&#51060;&#53552;&#49483; &#50896;-&#54635; &#51064;&#53076;&#46377;<a class="anchor-link" href="#%EB%9D%BC%EB%B2%A8-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EC%9B%90-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15949,14 +15987,9 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li><p>라벨은 0부터 45 사이의 값이다.</p>
-</li>
-<li><p><strong>원-핫 인코딩</strong><font size='2'>one-hot encoding</font> 적용</p>
-</li>
-</ul>
-<p>예를 들어, 정수 3은 길이가 46인 벡터로 변환되는데 3번 인덱스에서만 1이고 나머지 항목은 모두 0이다.</p>
-<div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">....</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<p>라벨은 0부터 45 사이의 값이다. 
+3을 길이가 46인 벡터로 원-핫 인코딩<font size='2'>one-hot encoding</font> 하는 과정은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><span class="mi">3</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">....</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -15980,9 +16013,23 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>원-핫 인코딩을 담당한다.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+
 <span class="o">&gt;&gt;&gt;</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
+
 <span class="o">&gt;&gt;&gt;</span> <span class="n">y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span>
        <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span>
@@ -16014,9 +16061,10 @@ div.jp-OutputPrompt {
 <li><p>은닉층: 64개의 유닛 사용.</p>
 <ul>
 <li>이진 분류보다 훨씬 많은 46개의 클래스로 분류하기 위해 보다 많은 정보 필요</li>
+<li>출력층의 유닛 수보다 커야 함.</li>
 </ul>
 </li>
-<li><p>다중 클래스 분류 모델의 출력층: 클래스 수 만큼의 값으로 구성된 벡터를 출력하도록 여러 개의 유닛을 사용하는 <code>Dense</code> 밀집층을 사용</p>
+<li><p>다중 클래스 분류 모델의 출력층: 클래스 수 만큼의 유닛을 사용하는 <code>Dense</code> 밀집층을 사용</p>
 <ul>
 <li>활성화 함수: 모든 유닛에 대한 확률값의 합이 1이 되도록 하는 <code>softmax()</code></li>
 </ul>
@@ -16150,7 +16198,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>9번 에포크를 지나면서 과대적합이 발생</p>
+<p>9번 에포크를 지나면서 과대적합이 발생한다.</p>
 <div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
@@ -16187,7 +16235,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>미국 보스턴<font size='2'>Boston</font> 시의 1970년대 중반의 
-주택가격을 예측하는 회귀 문제를 예제로 다룬다.</p>
+주택가격을 예측하는 회귀 모델을 훈련시킨다.</p>
 
 </div>
 </div>
@@ -16221,8 +16269,8 @@ div.jp-OutputPrompt {
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">CRIM</td>
-<td style="text-align:left">구역별 1인당 범죄율</td>
+<td style="text-align:left"><font color="#FF0000">CRIM</font></td>
+<td style="text-align:left"><font color="#FF0000">구역별 1인당 범죄율</font></td>
 </tr>
 <tr>
 <td style="text-align:left">ZN</td>
@@ -16230,15 +16278,15 @@ div.jp-OutputPrompt {
 </tr>
 <tr>
 <td style="text-align:left">INDUS</td>
-<td style="text-align:left">구역별 비 소매 사업 에이커(acre) 비율</td>
+<td style="text-align:left">구역별 비 소매 사업 면적(에이커) 비율</td>
 </tr>
 <tr>
 <td style="text-align:left">CHAS</td>
-<td style="text-align:left">Charles River 더미 변수(구역이 강 경계에 닿으면 1, 아니면 0)</td>
+<td style="text-align:left">Charles River 경계 접촉 여부</td>
 </tr>
 <tr>
 <td style="text-align:left">NOX</td>
-<td style="text-align:left">산화 질소 농도(1000만분 율)</td>
+<td style="text-align:left">산화 질소 농도</td>
 </tr>
 <tr>
 <td style="text-align:left">RM</td>
@@ -16246,11 +16294,11 @@ div.jp-OutputPrompt {
 </tr>
 <tr>
 <td style="text-align:left">AGE</td>
-<td style="text-align:left">소유주가 살고 있는 1940년 이전에 지어진 건물 비율</td>
+<td style="text-align:left">1940년 이전에 지어졌으면서 소유주가 살고 있는 주택 비율</td>
 </tr>
 <tr>
 <td style="text-align:left">DIS</td>
-<td style="text-align:left">보스턴 고용 센터 다섯 곳 까지의 가중 거리</td>
+<td style="text-align:left">보스턴 고용 센터 다섯 곳 까지의 가중(weighted) 거리</td>
 </tr>
 <tr>
 <td style="text-align:left">RAD</td>
@@ -16258,19 +16306,19 @@ div.jp-OutputPrompt {
 </tr>
 <tr>
 <td style="text-align:left">TAX</td>
-<td style="text-align:left">1만달러당 전체 가지 재산 세율</td>
+<td style="text-align:left">1만달러당 재산세율</td>
 </tr>
 <tr>
 <td style="text-align:left">PTRATIO</td>
 <td style="text-align:left">구역별 학생-교사 비율</td>
 </tr>
 <tr>
-<td style="text-align:left">B</td>
-<td style="text-align:left">1000(Bk - 0.63)^2 (Bk 구역별 흑인 비율)</td>
+<td style="text-align:left"><font color="#FF0000">B</font></td>
+<td style="text-align:left"><font color="#FF0000">1000(Bk - 0.63)^2 (Bk는구역별 흑인 비율)</font></td>
 </tr>
 <tr>
-<td style="text-align:left">LSTAT</td>
-<td style="text-align:left">구역별 낮은 지위 인구 비율</td>
+<td style="text-align:left"><font color="#FF0000">LSTAT</font></td>
+<td style="text-align:left"><font color="#FF0000">구역별 하위 계층 인구 비율</font></td>
 </tr>
 </tbody>
 </table>
@@ -16297,7 +16345,21 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>흑인 비율을 사용하는 <code>B</code> 특성이 윤리적 논쟁을 불러 일으킴.</li>
+<li>구역별로 범죄율, 흑인 비율, 하위 계층 비율 등을 포함</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>특히 흑인 비율을 사용하는 <code>B</code> 특성이 윤리적 논쟁을 불러 일으킴.</li>
 </ul>
 
 </div>
@@ -16349,7 +16411,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>총 506개의 데이터 샘플로 구성된 작은 데이터셋이다.</p>
+<p>총 506개의 데이터 샘플로 구성된 매우 작은 데이터셋이다.</p>
 
 </div>
 </div>
@@ -16412,7 +16474,8 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>표준화는 다음 식으로 계산된다.</p>
+<p>특성별 스케일을 통일시키기 위해 모든 
+특성별로 표준화를 사용한다.</p>
 $$
 \frac{x - \mu}{\sigma}
 $$
@@ -16426,15 +16489,53 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="c1"># 훈련셋의 평균값</span>
+<div class="highlight"><pre><span></span><span class="c1"># 훈련셋의 특성별 평균값/표준편차</span>
 <span class="n">mean</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">std</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># 훈련셋 표준화</span>
 <span class="n">train_data</span> <span class="o">-=</span> <span class="n">mean</span>
-<span class="n">std</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">train_data</span> <span class="o">/=</span> <span class="n">std</span>
+</pre></div>
 
-<span class="c1"># 테스트셋 표준화: 훈련셋의 평균값과 표준편차 활용</span>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%85%8B-%ED%91%9C%EC%A4%80%ED%99%94">&#53580;&#49828;&#53944;&#49483; &#54364;&#51456;&#54868;<a class="anchor-link" href="#%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%85%8B-%ED%91%9C%EC%A4%80%ED%99%94">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>테스트셋의 입력값도 표준화를 진행한다.</li>
+<li>다만 훈련셋의 평균값과 표준편차를 사용한다.</li>
+<li>이유는 테스트셋에 대한 어떤 정보도 미리 알 수 없다는 전제가 실현되야 하기 때문이다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="c1"># 테스트셋 표준화</span>
 <span class="n">test_data</span> <span class="o">-=</span> <span class="n">mean</span>
 <span class="n">test_data</span> <span class="o">/=</span> <span class="n">std</span>
 </pre></div>
@@ -16479,7 +16580,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>모델을 반복해서 재구성할 것이기에 함수로 지정한다.</p>
+<p>이번 훈련에서는 동일한 모델을 반복해서 재구성할 것이기에 모델 구성과 컴파일을 하나의 함수로 지정한다.</p>
 
 </div>
 </div>
@@ -16522,7 +16623,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>훈련셋이 작은 경우 검증셋을 별도로 지정하기 보다는 K-겹 교차검증을 이용한다.</p>
+<p>훈련셋이 너무 작은 경우 검증셋을 별도로 지정하기 보다는 K-겹 교차검증을 이용한다.</p>
 
 </div>
 </div>
@@ -16556,7 +16657,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>210번 에포크 이후로 과대적합이 발생한다.</p>
+<p>대략 200번 에포크 근처에서 과대적합이 발생한다.</p>
 
 </div>
 </div>
@@ -16590,7 +16691,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>210번의 에포크만 사용해서 모델을 재훈련 하면 좋은 성능의 모델을 얻는다.</p>
+<p>mae가 최소가 되는 에포크를 확인하여 그만큼의  에포크만 사용해서 모델을 재훈련 하면 좋은 성능의 모델을 얻는다.</p>
 
 </div>
 </div>
@@ -16602,9 +16703,16 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="c1"># 과대적합 발생하지 않는 최대 에포크</span>
+<span class="n">overfitting_epoch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">average_mae_history</span><span class="p">)</span>
+
+<span class="c1"># 모델 재훈련</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> 
+          <span class="n">train_targets</span><span class="p">,</span>
+          <span class="n">epochs</span><span class="o">=</span><span class="n">overfitting_epoch</span><span class="p">,</span> 
+          <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> 
+          <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 
 </div>
