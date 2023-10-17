@@ -71,6 +71,25 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
   </style>
+<style type="text/css">
+    
+
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            /*preferredFont: "TeX",*/
+            /*availableFonts: ["TeX", "STIX"],*/
+            styles: {
+                scale: 100,
+                ".MathJax_Display": {
+                    "font-size": "100%",
+                }
+            }
+        }
+    });
+</script>
+    
+  </style>
 
 
 
@@ -14495,9 +14514,6 @@ a.anchor-link {
 .reveal {
   font-size: 160%;
 }
-.reveal table {
-  font-size: var(--jp-ui-font-size1);
-}
 .reveal pre {
   width: inherit;
   padding: 0.4em;
@@ -14541,23 +14557,6 @@ div.jp-OutputPrompt {
   margin: 5px 5px 0 0;
 }
 
-.reveal div.highlight {
-  margin: 0;
-}
-
-.reveal div.highlight > pre {
-  margin: 0;
-  width: 100%;
-  font-size: var(--jp-code-font-size);
-}
-
-.reveal div.jp-OutputArea-output > pre {
-  margin: 0;
-  width: 90%;
-  font-size: var(--jp-code-font-size);
-  box-shadow: none;
-}
-
 /* Reveal navigation controls */
 
 .reveal .controls .navigate-left,
@@ -14598,14 +14597,17 @@ div.jp-OutputPrompt {
 
 /* Scrollbars */
 
-::-webkit-scrollbar {
+::-webkit-scrollbar
+{
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar * {
-  background: transparent;
+::-webkit-scrollbar *
+{
+  background:transparent;
 }
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb
+{
   background: #727272 !important;
 }
 </style>
@@ -14632,12 +14634,12 @@ div.jp-OutputPrompt {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: {
-                    automatic: true
+                    linebreaks: { 
+                    automatic: true 
                     }
                 }
             });
-
+        
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -16669,7 +16671,7 @@ $$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting01.png" style="width:600px;"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting01.png" style="width:500px;"></div>
 </div>
 </div>
 </div>
@@ -16714,6 +16716,336 @@ $$
           <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> 
           <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%ED%8A%B9%EC%84%B1-B-%EC%A0%9C%EC%99%B8-%ED%9B%84-%ED%9B%88%EB%A0%A8">&#53945;&#49457; <code>B</code> &#51228;&#50808; &#54980; &#54984;&#47144;<a class="anchor-link" href="#%ED%8A%B9%EC%84%B1-B-%EC%A0%9C%EC%99%B8-%ED%9B%84-%ED%9B%88%EB%A0%A8">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><code>B</code> 특성을 제외하고 훈련시킨 결과를 <code>B</code> 특성을 포함시킨 경우와 비교한다.</p>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%ED%9B%88%EB%A0%A8-1%ED%8E%B8">&#54984;&#47144; 1&#54200;<a class="anchor-link" href="#%ED%9B%88%EB%A0%A8-1%ED%8E%B8">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li><code>B</code> 특성을 제외</li>
+<li>이전과 동일한 방식: 3겹 교차검증</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting03.png" style="width:500px;"></div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="mi">4</span><span class="o">/</span><span class="mi">4</span> <span class="p">[</span><span class="o">==============================</span><span class="p">]</span> <span class="o">-</span> <span class="mi">0</span><span class="n">s</span> <span class="mi">5</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">12.2827</span> <span class="o">-</span> <span class="n">mae</span><span class="p">:</span> <span class="mf">2.6088</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">test_mae_score</span>
+<span class="mf">2.608802080154419</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%ED%9B%88%EB%A0%A8-2%ED%8E%B8">&#54984;&#47144; 2&#54200;<a class="anchor-link" href="#%ED%9B%88%EB%A0%A8-2%ED%8E%B8">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li><code>B</code> 특성을 제거</li>
+<li>4차 교차검증</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting04.png" style="width:500px;"></div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련된 모델</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="mi">4</span><span class="o">/</span><span class="mi">4</span> <span class="p">[</span><span class="o">==============================</span><span class="p">]</span> <span class="o">-</span> <span class="mi">0</span><span class="n">s</span> <span class="mi">5</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">16.2812</span> <span class="o">-</span> <span class="n">mae</span><span class="p">:</span> <span class="mf">2.4741</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">test_mae_score</span>
+<span class="mf">2.4740915298461914</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%ED%9B%88%EB%A0%A8-3%ED%8E%B8">&#54984;&#47144; 3&#54200;<a class="anchor-link" href="#%ED%9B%88%EB%A0%A8-3%ED%8E%B8">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><code>B</code> 특성을 제거한 다음에 데이터 전처리를 다르게 수행한다.</p>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%EB%B2%94%EC%A3%BC%ED%98%95-%ED%8A%B9%EC%84%B1-%EC%9B%90-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9">&#48276;&#51452;&#54805; &#53945;&#49457; &#50896;-&#54635; &#51064;&#53076;&#46377;<a class="anchor-link" href="#%EB%B2%94%EC%A3%BC%ED%98%95-%ED%8A%B9%EC%84%B1-%EC%9B%90-%ED%95%AB-%EC%9D%B8%EC%BD%94%EB%94%A9">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>특성 <code>'CHAS'</code>는 찰스강<font size='2'>Charles River</font>과의 인접성 여부를 판단하는 범주형 데이터</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li><code>CHAS</code> 특성은 원-핫 인코딩으로 변환. 또한 표준화 대상에서 제외.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>4-겹 교차검증</li>
+<li>과대적합히 훨씬 늦게 발생</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting05.png" style="width:500px;"></div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li><p>과대적합이 발생하기 이전까지의 에포크를 이용하여 재훈련</p>
+</li>
+<li><p>과대적합 없이 오랫동안 훈련한 모델일 수록 성능이 좋아짐</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="mi">4</span><span class="o">/</span><span class="mi">4</span> <span class="p">[</span><span class="o">==============================</span><span class="p">]</span> <span class="o">-</span> <span class="mi">0</span><span class="n">s</span> <span class="mi">3</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">11.8552</span> <span class="o">-</span> <span class="n">mae</span><span class="p">:</span> <span class="mf">2.2617</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">test_mae_score</span>
+<span class="mf">2.2616639137268066</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="%EA%B2%B0%EB%A1%A0">&#44208;&#47200;<a class="anchor-link" href="#%EA%B2%B0%EB%A1%A0">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>특정 특성의 유효성 여부를 확인하는 일반적인 방식을 적용</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>특성 <code>B</code>를 포함하지 않더라도 성능이 좋은 모델을 훈련시킬 수 있음</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>특성 <code>B</code>의 유효성이 그리 높지 않음</li>
+</ul>
 
 </div>
 </div>
