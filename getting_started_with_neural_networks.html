@@ -375,6 +375,9 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">4.3.2. 데이터 전처리: 표준화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">4.3.3. 모델 구성과 컴파일</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">4.3.4. 모델 훈련과 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-1">4.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 1편</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-2">4.3.6. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 2편</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-3">4.3.7. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 3편</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">4.4. 연습문제</a></li>
@@ -1290,10 +1293,8 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 특히 흑인 비율을 사용하는 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성이 윤리적 논쟁을 일으킨다.
 구역의 집값과 흑인 비율의 연관성을 암시하는 이런 통계 조사는
 1970년대 미국에서 인종 차별이 여전히 주요 쟁점이었음을 단편적으로 보여준다.
-이런 이유로 사이킷런 라이브러리는
-<a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_boston.html"><code class="docutils literal notranslate"><span class="pre">sklearn.datasets.load_boston()</span></code> 함수</a>를 이용하여 제공하던 보스턴 데이터셋을
-삭제하기로 예고했다.
-여기서는 단순히 데이터 활용 차원에서만 보스턴 데이터셋을 이용할 뿐 다른 어떤 의도도 없음을 밝힌다.</p>
+여기서는 단순히 데이터 활용 차원에서만 보스턴 데이터셋을 이용할 뿐 다른 어떤 의도도 없음을 밝힌다.
+또한 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거하더라도 좋은 성능의 회귀 모델을 훈련시킬 수 있음을 보인다.</p>
 </div>
 <p>케라스 <code class="docutils literal notranslate"><span class="pre">boston_housing</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 보스턴 데이터셋을 불러올 수 있다.
 데이터셋이 이미 404개 샘플로 구성된 훈련셋과 102개 샘플로 구성된 테스트셋으로 구분되어 있다.</p>
@@ -1321,9 +1322,8 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 \[
 \frac{x - \mu}{\sigma}
 \]</div>
-<p><span class="math notranslate nohighlight">\(x\)</span>는 샘플의 특성값을, <span class="math notranslate nohighlight">\(\mu\)</span>와 <span class="math notranslate nohighlight">\(\sigma\)</span>는 훈련셋에 포함된 샘플들의
-특성별 평균값과 표준편차를 가리킨다.
-넘파이 어레이를 이용하면 전체 훈련셋에 대해 한 번에 다음과 같이 표준화를 진행할 수 있다.</p>
+<p><span class="math notranslate nohighlight">\(x\)</span>는 샘플의 특성값을, <span class="math notranslate nohighlight">\(\mu\)</span>와 <span class="math notranslate nohighlight">\(\sigma\)</span>는 특성별 평균값과 표준편차를 가리킨다.
+넘파이 어레이를 이용하면 전체 훈련셋에 대해 다음처럼 한 번에 표준화를 진행할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 훈련셋의 특성별 평균값/표준편차</span>
 <span class="n">mean</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">std</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1331,16 +1331,14 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <span class="c1"># 훈련셋 표준화</span>
 <span class="n">train_data</span> <span class="o">-=</span> <span class="n">mean</span>
 <span class="n">train_data</span> <span class="o">/=</span> <span class="n">std</span>
-
-<span class="c1"># 테스트셋 표준화: 훈련셋의 평균값과 표준편차 활용</span>
+</pre></div>
+</div>
+<p>테스트셋의 표준화도 훈련셋의 평균값과 표준편차를 이용한다.
+이유는 테스트셋에 대한 어떤 정보도 미리 알 수 없다는 전제가 실현되야 하기 때문이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 테스트셋 표준화: 훈련셋의 평균값과 표준편차 활용</span>
 <span class="n">test_data</span> <span class="o">-=</span> <span class="n">mean</span>
 <span class="n">test_data</span> <span class="o">/=</span> <span class="n">std</span>
 </pre></div>
-</div>
-<div class="warning admonition">
-<p class="admonition-title">테스트셋 표준화</p>
-<p>테스트셋의 표준화도 훈련셋의 평균값과 표준편차를 이용한다.
-이유는 테스트셋에 대한 어떤 정보도 미리 알 수 없다는 전제가 실현되야 하기 때문이다.</p>
 </div>
 </section>
 <section id="id14">
@@ -1425,7 +1423,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
     <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">all_mae_histories</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)]</span>
 </pre></div>
 </div>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting01.png" style="width:600px;"></div><div class="proof example admonition" id="exp-k-fold">
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting02.png" style="width:600px;"></div><div class="proof example admonition" id="exp-k-fold">
 <p class="admonition-title"><span class="caption-number">Example 4.1 </span> (사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스)</p>
 <section class="example-content" id="proof-content">
 <p>사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스를 이용하면 봅다 간단하게 K-겹 교차검증을 진행할 수 있다.</p>
@@ -1453,18 +1451,25 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </div>
 </section>
 </div><p><strong>모델 재훈련</strong></p>
-<p>210번 째 에포크를 전후로 과대적합이 발생함을 확인할 수 있다.
-따라서 130번의 에포크만 사용해서 모델을 재훈련 하면 좋은 성능의 모델을 얻는다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="mi">210</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<p>대략 200번 째 에포크를 전후로 과대적합이 발생함을 확인할 수 있다.
+정확한 에포크 수는 아래와 같이 확인한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 최소의 mae가 위치한 인덱스 확인</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">overfitting_epoch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">average_mae_history</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">overfitting_epoch</span>
+<span class="mi">196</span>
+</pre></div>
+</div>
+<p>과대적합이 발생하기 이전까지의 에포크만 이용해서 모델을 처음부터 재훈련한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="n">epochs</span><span class="o">=</span><span class="n">overfitting_epoch</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>재훈련된 모델의 테스트셋에 대한 성능을 평가하면
-주택가격 예측에 있어서 평균적으로 2,500달러 정도의 차이를 갖는다.</p>
+주택가격 예측에 있어서 평균적으로 2.39, 즉 2,390달러 정도의 차이를 갖는다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
-<span class="go">2.3020875453948975</span>
+<span class="go">2.3917253017425537</span>
 </pre></div>
 </div>
 <p><strong>모델 활용</strong></p>
@@ -1472,9 +1477,67 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 집갑을 예측하는 모델이기에 하나의 수가 예측된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">array([8.1920805], dtype=float32)</span>
+<span class="go">array([9.530529], dtype=float32)</span>
 </pre></div>
 </div>
+</section>
+<section id="b-1">
+<h3><span class="section-number">4.3.5. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 1편<a class="headerlink" href="#b-1" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제외하고 이전과 동일한 방식으로 모델을 훈련시킨 결과는 다음과 같이 비슷하게 작동한다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting03.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련된 모델의 테스트셋에 대한 성능을 평가하면
+주택가격 예측에 있어서 평균적으로 2.60, 즉 2,600달러 정도의 차이를 가진다.
+즉, 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>를 추가했을 때보다 성능이 조금 떨어진다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="go">4/4 [==============================] - 0s 5ms/step - loss: 12.2827 - mae: 2.6088</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
+<span class="go">2.608802080154419</span>
+</pre></div>
+</div>
+</section>
+<section id="b-2">
+<h3><span class="section-number">4.3.6. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 2편<a class="headerlink" href="#b-2" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거한 다음에 3겹 교차검증 대신에 4차 교차검증을 이용한다.
+검증셋의 평균절대오차의 변화는 이전과 비슷하다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting04.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련된 모델의 테스트셋에 대한 성능이 조금 좋아졌다.
+주택가격 예측에 있어서 평균적으로 2.47, 즉 2,470달러 정도의 차이를 가진다.
+하지만 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>를 추가했을 때보다 성능이 조금 떨어진다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="go">4/4 [==============================] - 0s 5ms/step - loss: 16.2812 - mae: 2.4741</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
+<span class="go">2.4740915298461914</span>
+</pre></div>
+</div>
+</section>
+<section id="b-3">
+<h3><span class="section-number">4.3.7. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 3편<a class="headerlink" href="#b-3" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거한 다음에 데이터 전처리를 다르게 수행한다.</p>
+<p><strong>전처리: 범주형 특성 원-핫 인코딩</strong></p>
+<p>특성 <code class="docutils literal notranslate"><span class="pre">'CHAS'</span></code>는 찰스강<font size='2'>Charles River</font>과의 인접성 여부를 판단하는
+범주형 데이터다.
+따라서 <code class="docutils literal notranslate"><span class="pre">CHAS</span></code> 특성은 원-핫 인코딩으로 변환한다.
+또한 이 특성은 표준화를 진행하지 않는다.</p>
+<p><strong>모델 훈련</strong></p>
+<p>4-겹 교차검증을 이용한다.
+평균절대오차의 변화가 이전과 많이 다르다.
+무엇보다도 과대적합히 훨씬 늦게 발생한다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting05.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크를 이용하여 재훈련된 모델의 테스트셋에 대한 성능을 평가하면
+주택가격 예측에 있어서 평균적으로 2.26, 즉 2,260달러 정도의 차이를 가진다.
+특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>를 추가한 최초의 모델보다 성능이 많이 좋아졌다.</p>
+<p>앞서 확인한대로 이는 과대적합이 보다 늦게 발생하기 때문이다.
+즉, 과대적합 없이 오랫동안 훈련한 모델일 수록 성능이 좋아진다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="go">4/4 [==============================] - 0s 3ms/step - loss: 11.8552 - mae: 2.2617</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
+<span class="go">2.2616639137268066</span>
+</pre></div>
+</div>
+<p><strong>결론</strong></p>
+<p>특정 특성의 유효성 여부를 확인하는 일반적인 방식을 적용해 보았다.
+결과적으로 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>를 포함하지 않더라도 성능이 좋은 모델을 훈련시킬 수 있음을 확인하였다.
+이는 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 유효성이 그리 높지 않음을 알 수 있다.</p>
 </section>
 </section>
 <section id="id16">
@@ -1571,6 +1634,9 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">4.3.2. 데이터 전처리: 표준화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">4.3.3. 모델 구성과 컴파일</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">4.3.4. 모델 훈련과 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-1">4.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 1편</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-2">4.3.6. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 2편</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-3">4.3.7. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 3편</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">4.4. 연습문제</a></li>
