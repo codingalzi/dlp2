@@ -375,9 +375,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">4.3.2. 데이터 전처리: 표준화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">4.3.3. 모델 구성과 컴파일</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">4.3.4. 모델 훈련과 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-1">4.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 1편</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-2">4.3.6. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 2편</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-3">4.3.7. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 3편</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">4.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">4.4. 연습문제</a></li>
@@ -1481,8 +1479,9 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </pre></div>
 </div>
 </section>
-<section id="b-1">
-<h3><span class="section-number">4.3.5. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 1편<a class="headerlink" href="#b-1" title="Permalink to this heading">#</a></h3>
+<section id="b">
+<h3><span class="section-number">4.3.5. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련<a class="headerlink" href="#b" title="Permalink to this heading">#</a></h3>
+<p><strong>훈련 1편</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제외하고 이전과 동일한 방식으로 모델을 훈련시킨 결과는 다음과 같이 비슷하게 작동한다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting03.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련된 모델의 테스트셋에 대한 성능을 평가하면
 주택가격 예측에 있어서 평균적으로 2.60, 즉 2,600달러 정도의 차이를 가진다.
@@ -1494,9 +1493,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <span class="go">2.608802080154419</span>
 </pre></div>
 </div>
-</section>
-<section id="b-2">
-<h3><span class="section-number">4.3.6. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 2편<a class="headerlink" href="#b-2" title="Permalink to this heading">#</a></h3>
+<p><strong>훈련 2편</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거한 다음에 3겹 교차검증 대신에 4차 교차검증을 이용한다.
 검증셋의 평균절대오차의 변화는 이전과 비슷하다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting04.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련된 모델의 테스트셋에 대한 성능이 조금 좋아졌다.
@@ -1509,16 +1506,14 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <span class="go">2.4740915298461914</span>
 </pre></div>
 </div>
-</section>
-<section id="b-3">
-<h3><span class="section-number">4.3.7. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 3편<a class="headerlink" href="#b-3" title="Permalink to this heading">#</a></h3>
+<p><strong>훈련 3편</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거한 다음에 데이터 전처리를 다르게 수행한다.</p>
-<p><strong>전처리: 범주형 특성 원-핫 인코딩</strong></p>
+<p><em>전처리: 범주형 특성 원-핫 인코딩</em></p>
 <p>특성 <code class="docutils literal notranslate"><span class="pre">'CHAS'</span></code>는 찰스강<font size='2'>Charles River</font>과의 인접성 여부를 판단하는
 범주형 데이터다.
 따라서 <code class="docutils literal notranslate"><span class="pre">CHAS</span></code> 특성은 원-핫 인코딩으로 변환한다.
 또한 이 특성은 표준화를 진행하지 않는다.</p>
-<p><strong>모델 훈련</strong></p>
+<p><em>모델 훈련</em></p>
 <p>4-겹 교차검증을 이용한다.
 평균절대오차의 변화가 이전과 많이 다르다.
 무엇보다도 과대적합히 훨씬 늦게 발생한다.</p>
@@ -1634,9 +1629,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">4.3.2. 데이터 전처리: 표준화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">4.3.3. 모델 구성과 컴파일</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">4.3.4. 모델 훈련과 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-1">4.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 1편</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-2">4.3.6. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 2편</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-3">4.3.7. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련 3편</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">4.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">4.4. 연습문제</a></li>

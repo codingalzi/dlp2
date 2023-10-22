@@ -486,7 +486,7 @@ GPU를 사용하지 않으면 모델의 훈련이 너무 느려진다.
 개인용 컴퓨터를 활용하는 것이 좋다.
 운영체제는 <a class="reference external" href="https://ubuntu.com/download/desktop">Ubuntu</a> 또는 윈도우 11을 추천한다.</p>
 <ul class="simple">
-<li><p>윈도우 11에서 GPU를 지원 텐서플로우 설치: <a class="reference external" href="https://github.com/codingalzi/dlp2">conda를 활용한 gpu 지원 tensorflow 설치 요령</a> 참고</p></li>
+<li><p>윈도우 11에서 GPU를 지원 텐서플로우 설치: <a class="reference external" href="https://github.com/codingalzi/dlp2/blob/master/INSTALL.md">WSL2에 NVIDIA CUDA 드라이버 12.0, Toolkit 과 cuDNN 설치</a> 참고</p></li>
 <li><p>우분투에서 GPU 지원하는 텐서플로우 설치: <a class="reference external" href="https://github.com/ageron/handson-ml3/blob/main/INSTALL.md">Anaconda와 conda 환경 활용</a> 참고</p></li>
 </ul>
 <p>보다 전문적인 딥러닝 연구를 위해 대용량의 메모리와 고성능의 CPU, GPU가 필요한 경우
@@ -863,7 +863,7 @@ f(x) = x^2 \quad \Longrightarrow \quad \nabla f(x) = \frac{df(x)}{dx} = 2x
 <li><p>가중치 행렬과 편향 벡터 업데이트</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    - inputs: 입력 데이터 배치</span>
 <span class="sd">    - targets: 타깃 배치</span>
 <span class="sd">    &quot;&quot;&quot;</span>
