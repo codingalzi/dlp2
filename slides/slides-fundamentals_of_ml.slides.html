@@ -50,7 +50,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .m { color: var(--jp-mirror-editor-number-color) } /* Literal.Number */
 .highlight .s { color: var(--jp-mirror-editor-string-color) } /* Literal.String */
 .highlight .ow { color: var(--jp-mirror-editor-operator-color); font-weight: bold } /* Operator.Word */
-.highlight .pm { color: var(--jp-mirror-editor-punctuation-color) } /* Punctuation.Marker */
 .highlight .w { color: var(--jp-mirror-editor-variable-color) } /* Text.Whitespace */
 .highlight .mb { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Bin */
 .highlight .mf { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Float */
@@ -71,6 +70,25 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .s1 { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Single */
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
+  </style>
+<style type="text/css">
+    
+
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            /*preferredFont: "TeX",*/
+            /*availableFonts: ["TeX", "STIX"],*/
+            styles: {
+                scale: 100,
+                ".MathJax_Display": {
+                    "font-size": "100%",
+                }
+            }
+        }
+    });
+</script>
+    
   </style>
 
 
@@ -14496,9 +14514,6 @@ a.anchor-link {
 .reveal {
   font-size: 160%;
 }
-.reveal table {
-  font-size: var(--jp-ui-font-size1);
-}
 .reveal pre {
   width: inherit;
   padding: 0.4em;
@@ -14542,23 +14557,6 @@ div.jp-OutputPrompt {
   margin: 5px 5px 0 0;
 }
 
-.reveal div.highlight {
-  margin: 0;
-}
-
-.reveal div.highlight > pre {
-  margin: 0;
-  width: 100%;
-  font-size: var(--jp-code-font-size);
-}
-
-.reveal div.jp-OutputArea-output > pre {
-  margin: 0;
-  width: 90%;
-  font-size: var(--jp-code-font-size);
-  box-shadow: none;
-}
-
 /* Reveal navigation controls */
 
 .reveal .controls .navigate-left,
@@ -14599,14 +14597,17 @@ div.jp-OutputPrompt {
 
 /* Scrollbars */
 
-::-webkit-scrollbar {
+::-webkit-scrollbar
+{
   width: 6px;
   height: 6px;
 }
-::-webkit-scrollbar * {
-  background: transparent;
+::-webkit-scrollbar *
+{
+  background:transparent;
 }
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb
+{
   background: #727272 !important;
 }
 </style>
@@ -14633,12 +14634,12 @@ div.jp-OutputPrompt {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: {
-                    automatic: true
+                    linebreaks: { 
+                    automatic: true 
                     }
                 }
             });
-
+        
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14670,7 +14671,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%A3%BC%EC%9A%94-%EB%82%B4%EC%9A%A9"><strong>&#51452;&#50836; &#45236;&#50857;</strong><a class="anchor-link" href="#%EC%A3%BC%EC%9A%94-%EB%82%B4%EC%9A%A9">&#182;</a></h3>
+<h3 id="%EC%A3%BC%EC%9A%94-%EB%82%B4%EC%9A%A9">&#51452;&#50836; &#45236;&#50857;<a class="anchor-link" href="#%EC%A3%BC%EC%9A%94-%EB%82%B4%EC%9A%A9">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14762,7 +14763,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-%EB%AA%A8%EB%8D%B8-%ED%9B%88%EB%A0%A8%EC%9D%98-%ED%95%B5%EC%8B%AC:-%EC%B5%9C%EC%A0%81%ED%99%94%EB%8C%80-%EC%9D%BC%EB%B0%98%ED%99%94">&#47672;&#49888;&#47084;&#45789; &#47784;&#45944; &#54984;&#47144;&#51032; &#54645;&#49900;: &#52572;&#51201;&#54868;&#45824; &#51068;&#48152;&#54868;<a class="anchor-link" href="#%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-%EB%AA%A8%EB%8D%B8-%ED%9B%88%EB%A0%A8%EC%9D%98-%ED%95%B5%EC%8B%AC:-%EC%B5%9C%EC%A0%81%ED%99%94%EB%8C%80-%EC%9D%BC%EB%B0%98%ED%99%94">&#182;</a></h3>
+<h3 id="%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-%EB%AA%A8%EB%8D%B8-%ED%9B%88%EB%A0%A8%EC%9D%98-%ED%95%B5%EC%8B%AC:-%EC%B5%9C%EC%A0%81%ED%99%94-vs.-%EC%9D%BC%EB%B0%98%ED%99%94">&#47672;&#49888;&#47084;&#45789; &#47784;&#45944; &#54984;&#47144;&#51032; &#54645;&#49900;: &#52572;&#51201;&#54868; vs. &#51068;&#48152;&#54868;<a class="anchor-link" href="#%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D-%EB%AA%A8%EB%8D%B8-%ED%9B%88%EB%A0%A8%EC%9D%98-%ED%95%B5%EC%8B%AC:-%EC%B5%9C%EC%A0%81%ED%99%94-vs.-%EC%9D%BC%EB%B0%98%ED%99%94">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14773,11 +14774,36 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>머신러닝 모델 훈련의 주요 과제는 모델 훈련의 <strong>최적화</strong><font size='2'>optimization</font>와 
-모델 <strong>일반화</strong><font size='2'>generalization</font> 사이의 적절한 관계 찾기이다.</p>
 <ul>
-<li><strong>최적화</strong>: 훈련셋에 대해 가장 좋은 성능 이끌어내기</li>
-<li><strong>일반화</strong>: 훈련 과정에서 보지 못한 데이터를 처리하는 능력 향상시키기</li>
+<li>최적화<font size='2'>optimization</font>: 훈련셋에 대해 가장 좋은 성능 이끌어내기</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>일반화<font size='2'>generalization</font>: 훈련 과정에서 보지 못한 데이터를 처리하는 능력 향상시키기</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>모델 훈련의 핵심: 최적화 대 일반화 사이의 적절한 관계 찾기</li>
 </ul>
 
 </div>
@@ -14790,7 +14816,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EA%B3%BC%EB%8C%80%EC%A0%81%ED%95%A9-%EB%8C%80-%EA%B3%BC%EC%86%8C%EC%A0%81%ED%95%A9">&#44284;&#45824;&#51201;&#54633; &#45824; &#44284;&#49548;&#51201;&#54633;<a class="anchor-link" href="#%EA%B3%BC%EB%8C%80%EC%A0%81%ED%95%A9-%EB%8C%80-%EA%B3%BC%EC%86%8C%EC%A0%81%ED%95%A9">&#182;</a></h3>
+<h3 id="%EA%B3%BC%EB%8C%80%EC%A0%81%ED%95%A9-vs.-%EA%B3%BC%EC%86%8C%EC%A0%81%ED%95%A9">&#44284;&#45824;&#51201;&#54633; vs. &#44284;&#49548;&#51201;&#54633;<a class="anchor-link" href="#%EA%B3%BC%EB%8C%80%EC%A0%81%ED%95%A9-vs.-%EA%B3%BC%EC%86%8C%EC%A0%81%ED%95%A9">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14801,7 +14827,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/typical_overfitting.png" style="width:600px;"></div>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/typical_overfitting.png" style="width:700px;"></div>
 </div>
 </div>
 </div>
@@ -14816,6 +14842,42 @@ div.jp-OutputPrompt {
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>첫째, 훈련셋에 포함된 노이즈</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>둘째, 애매한 특성</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>셋째: 특성과 타깃 사이의 거짓 상관관계</p>
+
+</div>
+</div>
+</div>
 </div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -14823,7 +14885,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%B2%AB%EC%A7%B8,-%ED%9B%88%EB%A0%A8%EC%85%8B%EC%97%90-%ED%8F%AC%ED%95%A8%EB%90%9C-%EB%85%B8%EC%9D%B4%EC%A6%88"><strong>&#52395;&#51704;, &#54984;&#47144;&#49483;&#50640; &#54252;&#54632;&#46108; &#45432;&#51060;&#51592;</strong><a class="anchor-link" href="#%EC%B2%AB%EC%A7%B8,-%ED%9B%88%EB%A0%A8%EC%85%8B%EC%97%90-%ED%8F%AC%ED%95%A8%EB%90%9C-%EB%85%B8%EC%9D%B4%EC%A6%88">&#182;</a></h3>
+<h3 id="%EC%B2%AB%EC%A7%B8,-%ED%9B%88%EB%A0%A8%EC%85%8B%EC%97%90-%ED%8F%AC%ED%95%A8%EB%90%9C-%EB%85%B8%EC%9D%B4%EC%A6%88">&#52395;&#51704;, &#54984;&#47144;&#49483;&#50640; &#54252;&#54632;&#46108; &#45432;&#51060;&#51592;<a class="anchor-link" href="#%EC%B2%AB%EC%A7%B8,-%ED%9B%88%EB%A0%A8%EC%85%8B%EC%97%90-%ED%8F%AC%ED%95%A8%EB%90%9C-%EB%85%B8%EC%9D%B4%EC%A6%88">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14834,9 +14896,22 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>적절하지 않은 데이터 또는 잘못된 라벨을 갖는 데이터 등을 노이즈noise라 부른다.</p>
 <ul>
-<li>적절하지 않은 데이터: 다음 MNNIST 이미지들처럼 불분명하면 특성 파악이 어렵다.</li>
+<li>노이즈<font size='2'>noise</font>: 적절하지 않은 데이터 또는 잘못된 라벨을 갖는 데이터</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>예제: 불분명한 MNNIST 이미지</li>
 </ul>
 
 </div>
@@ -14861,7 +14936,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>잘못된 라벨: 예를 들어, 잘못 분류된 1처럼 생긴 이미지를 7로 잘못 분류할 가능성이 높아진다.</li>
+<li>예제: 잘못된 라벨</li>
 </ul>
 
 </div>
@@ -14885,9 +14960,13 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>노이즈 등의 이상치<font size='2'>outlier</font>를 학습하면
-아래 오른편 그림의 경우처럼 모델이 이상치의 특별한 특성을 학습하게 되어
-새루운 데이터에 대한 예측 성능이 불안정해지게 된다.</p>
+<ul>
+<li>노이즈 영향<ul>
+<li>노이즈 또는 이상치를 학습하면 일반적이지 않은 특별한 특성을 학습하게 됨</li>
+<li>일반화 성능 떨어짐</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -14910,7 +14989,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EB%91%98%EC%A7%B8,-%EC%95%A0%EB%A7%A4%ED%95%9C-%ED%8A%B9%EC%84%B1"><strong>&#46168;&#51704;, &#50528;&#47588;&#54620; &#53945;&#49457;</strong><a class="anchor-link" href="#%EB%91%98%EC%A7%B8,-%EC%95%A0%EB%A7%A4%ED%95%9C-%ED%8A%B9%EC%84%B1">&#182;</a></h3>
+<h3 id="%EB%91%98%EC%A7%B8,-%EC%95%A0%EB%A7%A4%ED%95%9C-%ED%8A%B9%EC%84%B1">&#46168;&#51704;, &#50528;&#47588;&#54620; &#53945;&#49457;<a class="anchor-link" href="#%EB%91%98%EC%A7%B8,-%EC%95%A0%EB%A7%A4%ED%95%9C-%ED%8A%B9%EC%84%B1">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14944,10 +15023,9 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>예를 들어, 붓꽃 데이터셋의 경우 꽃잎의 길이와 너비만을 활용해서는 
-버시컬러<font size='2'>versicolor</font> 품종과 
-버지니카<font size='2'>virginica</font> 품종의 완벽한 구분이
-애초에 불가능하다.</p>
+<ul>
+<li>예제: 붓꽃 데이터셋. 꽃잎의 길이와 너비만을 활용해서는 완전한 분류 불가능</li>
+</ul>
 
 </div>
 </div>
@@ -14970,9 +15048,10 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>하지만 훈련을 오래 시키면 각 샘플의 특성을 해당 라벨의 고유의 특성으로
-간주하는 정도까지 모델이 훈련되어 아래 오른편 그림과 같이
-샘플의 특성에 너무 민감하게 작동한다.</p>
+<ul>
+<li>훈련을 오래 시키면 각 샘플 고유의 특성을 일반적인 특성으로 해석.해당 라벨의 고유의 특성으로</li>
+<li>샘플의 특성에 너무 민감하게 작동</li>
+</ul>
 
 </div>
 </div>
@@ -14995,23 +15074,11 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%85%8B%EC%A7%B8:-%ED%8A%B9%EC%84%B1%EA%B3%BC-%ED%83%80%EA%B9%83-%EC%82%AC%EC%9D%B4%EC%9D%98-%EA%B1%B0%EC%A7%93-%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84"><strong>&#49483;&#51704;: &#53945;&#49457;&#44284; &#53440;&#44611; &#49324;&#51060;&#51032; &#44144;&#51667; &#49345;&#44288;&#44288;&#44228;</strong><a class="anchor-link" href="#%EC%85%8B%EC%A7%B8:-%ED%8A%B9%EC%84%B1%EA%B3%BC-%ED%83%80%EA%B9%83-%EC%82%AC%EC%9D%B4%EC%9D%98-%EA%B1%B0%EC%A7%93-%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84">&#182;</a></h3>
+<h3 id="%EC%85%8B%EC%A7%B8:-%ED%8A%B9%EC%84%B1%EA%B3%BC-%ED%83%80%EA%B9%83-%EC%82%AC%EC%9D%B4%EC%9D%98-%EA%B1%B0%EC%A7%93-%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84">&#49483;&#51704;: &#53945;&#49457;&#44284; &#53440;&#44611; &#49324;&#51060;&#51032; &#44144;&#51667; &#49345;&#44288;&#44288;&#44228;<a class="anchor-link" href="#%EC%85%8B%EC%A7%B8:-%ED%8A%B9%EC%84%B1%EA%B3%BC-%ED%83%80%EA%B9%83-%EC%82%AC%EC%9D%B4%EC%9D%98-%EA%B1%B0%EC%A7%93-%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84">&#182;</a></h3>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>특성과 타깃 사이의 거짓 상관관계를 유발하는 여러 상황이 있다.</p>
-
-</div>
-</div>
-</div>
-</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15019,13 +15086,26 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><p>매우 드문 특성을 사용하는 데이터셋으로 훈련하는 경우</p>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/cherimoya.jpg" style="width:300px;"></div><p><div style="text-align: center">체리모야 열매</div></p></li>
+<li>매우 드문 특성을 사용하는 데이터셋으로 훈련하는 경우<ul>
+<li>체리모야를 언급한 리뷰가 긍정인 경우. 체리모야를 긍정과 연계시킴.</li>
+</ul>
+</li>
 </ul>
 
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/cherimoya.jpg" style="width:300px;"></div><p><div style="text-align: center">체리모야 열매</div></p>
+</div>
+</div>
+</div>
 </div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
@@ -15034,10 +15114,10 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><p>우연에 의한 경우</p>
-<p>자주 발생하는 특성이라 하더라도 우연히 잘못된 편견을 훈련중인 모델에 심어줄 수 있다.
-  예를 들어, "너무" 라는 단어를 포함한 100개의 영화 후기 중에서 54%는 긍정,
-  나머지 46%는 부정이었다면 훈련중인 모델은 "너무"라는 단어를 긍정적으로 평가할 가능성을 높힌다.</p>
+<li>우연에 의한 경우<ul>
+<li>예제: "너무" 라는 단어를 포함한 100개의 영화 후기 중에서 54%는 긍정, 나머지 46%는 부정인 경우
+  훈련중인 모델은 "너무"라는 단어를 긍정적으로 평가할 가능성을 높힘.</li>
+</ul>
 </li>
 </ul>
 
@@ -15052,10 +15132,9 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><p>의미 없는 특성에 의한 경우</p>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise.png" style="width:400px;"></div></li>
+<li>의미 없는 특성에 의한 경우: 화이트 노이즈 추가</li>
 </ul>
-
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise.png" style="width:500px;"></div>
 </div>
 </div>
 </div>
@@ -15066,7 +15145,10 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise03.png" style="width:400px;"></div>
+<ul>
+<li>화이트 노이즈가 추가되면 성능 떨어짐</li>
+</ul>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-noise03.png" style="width:500px;"></div>
 </div>
 </div>
 </div>
@@ -15088,7 +15170,9 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>딥러닝 모델은 어떤 무엇도 학습할 수 있다.</p>
+<ul>
+<li>딥러닝 모델은 어떤 무엇도 학습할 수 있다.</li>
+</ul>
 
 </div>
 </div>
@@ -15100,7 +15184,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-shuffled.png" style="width:400px;"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-mnist-shuffled.png" style="width:500px;"></div>
 </div>
 </div>
 </div>
@@ -15160,7 +15244,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>넷째, 모델의 <strong>일반화</strong> 능력은 모델 자체보다는 <strong>훈련셋에 내재하는 정보의 구조</strong>와 
+<p>넷째, 모델의 일반화 능력은 모델 자체보다는 훈련셋에 내재하는 정보의 구조와 
 보다 밀접히 관련된다.</p>
 
 </div>
@@ -15184,8 +15268,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>다양체 가설</strong><font size='2'>manifold hypothesis</font>은 
-데이터셋에 내재하는 정보의 구조에 대한 다음과 같은 가설이다.</p>
+<p>다양체 가설<font size='2'>manifold hypothesis</font>:</p>
 <blockquote><p>일반적인 데이터셋은 고차원상에 존재하는 (저차원의) 연속이며 미분가능한 다양체를 구성한다.</p>
 </blockquote>
 
@@ -15308,7 +15391,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EB%AA%A8%EB%8D%B8-%ED%8A%9C%EB%8B%9D"><strong>&#47784;&#45944; &#53916;&#45789;</strong><a class="anchor-link" href="#%EB%AA%A8%EB%8D%B8-%ED%8A%9C%EB%8B%9D">&#182;</a></h3>
+<h3 id="%EB%AA%A8%EB%8D%B8-%ED%8A%9C%EB%8B%9D">&#47784;&#45944; &#53916;&#45789;<a class="anchor-link" href="#%EB%AA%A8%EB%8D%B8-%ED%8A%9C%EB%8B%9D">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15320,7 +15403,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>검증셋은 <strong>훈련 과정 중에 모델의 일반화 성능을 테스트</strong>하는 용도로 사용</li>
+<li>검증셋은 훈련 과정 중에 모델의 일반화 성능을 테스트하는 용도로 사용</li>
 </ul>
 
 </div>
@@ -15334,7 +15417,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>모델 튜닝: 모델의 검증셋에 대한 성능 평가를 바탕으로 모델 구성과 모델의 <strong>하이퍼파라미터</strong><font size='2'>hyperparameter</font> 설정 조정</li>
+<li>모델 튜닝: 모델의 검증셋에 대한 성능 평가를 바탕으로 모델 구성과 모델의 하이퍼파라미터<font size='2'>hyperparameter</font> 설정 조정</li>
 </ul>
 
 </div>
@@ -15347,7 +15430,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%A0%95%EB%B3%B4-%EC%9C%A0%EC%B6%9C"><strong>&#51221;&#48372; &#50976;&#52636;</strong><a class="anchor-link" href="#%EC%A0%95%EB%B3%B4-%EC%9C%A0%EC%B6%9C">&#182;</a></h3>
+<h3 id="%EB%AA%A8%EB%8D%B8-%ED%8A%9C%EB%8B%9D%EA%B3%BC-%EC%A0%95%EB%B3%B4-%EC%9C%A0%EC%B6%9C">&#47784;&#45944; &#53916;&#45789;&#44284; &#51221;&#48372; &#50976;&#52636;<a class="anchor-link" href="#%EB%AA%A8%EB%8D%B8-%ED%8A%9C%EB%8B%9D%EA%B3%BC-%EC%A0%95%EB%B3%B4-%EC%9C%A0%EC%B6%9C">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15359,7 +15442,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>모델 튜닝도 모델의 좋은 하이퍼파라미터를 찾아가는 일종의 <strong>학습</strong></li>
+<li>모델 튜닝도 모델의 좋은 하이퍼파라미터를 찾아가는 일종의 학습</li>
 </ul>
 
 </div>
@@ -15400,7 +15483,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80%EC%9A%A9-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EC%A4%80%EB%B9%84-%EA%B4%80%EB%A0%A8-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD"><strong>&#47784;&#45944; &#54217;&#44032;&#50857; &#45936;&#51060;&#53552;&#49483; &#51456;&#48708; &#44288;&#47144; &#51452;&#51032;&#49324;&#54637;</strong><a class="anchor-link" href="#%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80%EC%9A%A9-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EC%A4%80%EB%B9%84-%EA%B4%80%EB%A0%A8-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD">&#182;</a></h3>
+<h3 id="%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80%EC%9A%A9-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EC%A4%80%EB%B9%84-%EA%B4%80%EB%A0%A8-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD">&#47784;&#45944; &#54217;&#44032;&#50857; &#45936;&#51060;&#53552;&#49483; &#51456;&#48708; &#44288;&#47144; &#51452;&#51032;&#49324;&#54637;<a class="anchor-link" href="#%EB%AA%A8%EB%8D%B8-%ED%8F%89%EA%B0%80%EC%9A%A9-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EC%A4%80%EB%B9%84-%EA%B4%80%EB%A0%A8-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15412,7 +15495,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><strong>대표성</strong>: 데이터셋 무작위 섞은 후 훈련셋, 검증셋, 데이터셋 준비</li>
+<li>대표성: 데이터셋 무작위 섞은 후 훈련셋, 검증셋, 데이터셋 준비</li>
 </ul>
 
 </div>
@@ -15426,7 +15509,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><strong>순서 준수</strong>: 미래를 예측하는 모델을 훈련시킬 때, 테스트셋의 데이터는 훈련셋의 데이터보다
+<li>순서 준수: 미래를 예측하는 모델을 훈련시킬 때, 테스트셋의 데이터는 훈련셋의 데이터보다
   시간상 뒤쪽에 위치하도록 해야 함.</li>
 </ul>
 
@@ -15441,7 +15524,7 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><strong>중복 데이터 제거</strong>: 훈련셋과 테스트셋에 동일한 데이터가 들어가지 않도록 중복 데이터를 제거해야 함.</li>
+<li>중복 데이터 제거: 훈련셋과 테스트셋에 동일한 데이터가 들어가지 않도록 중복 데이터를 제거해야 함.</li>
 </ul>
 
 </div>
@@ -15465,7 +15548,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>홀드아웃<font size='2'>hold-out</font> 검증</strong></p>
+<p>홀드아웃<font size='2'>hold-out</font> 검증</p>
 
 </div>
 </div>
@@ -15488,7 +15571,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>K-겹 교차검증</strong></p>
+<p>K-겹 교차검증</p>
 
 </div>
 </div>
@@ -15575,7 +15658,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>첫째 경우: 경사하강법 관련 파라미터 조정</strong></p>
+<p>첫째 경우: 경사하강법 관련 파라미터 조정</p>
 
 </div>
 </div>
@@ -15723,7 +15806,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EB%91%98%EC%A7%B8-%EA%B2%BD%EC%9A%B0:-%EB%B3%B4%EB%8B%A4-%EC%A0%81%EC%A0%88%ED%95%9C-%EB%AA%A8%EB%8D%B8-%EC%82%AC%EC%9A%A9"><strong>&#46168;&#51704; &#44221;&#50864;: &#48372;&#45796; &#51201;&#51208;&#54620; &#47784;&#45944; &#49324;&#50857;</strong><a class="anchor-link" href="#%EB%91%98%EC%A7%B8-%EA%B2%BD%EC%9A%B0:-%EB%B3%B4%EB%8B%A4-%EC%A0%81%EC%A0%88%ED%95%9C-%EB%AA%A8%EB%8D%B8-%EC%82%AC%EC%9A%A9">&#182;</a></h3>
+<h3 id="%EB%91%98%EC%A7%B8-%EA%B2%BD%EC%9A%B0:-%EB%B3%B4%EB%8B%A4-%EC%A0%81%EC%A0%88%ED%95%9C-%EB%AA%A8%EB%8D%B8-%EC%82%AC%EC%9A%A9">&#46168;&#51704; &#44221;&#50864;: &#48372;&#45796; &#51201;&#51208;&#54620; &#47784;&#45944; &#49324;&#50857;<a class="anchor-link" href="#%EB%91%98%EC%A7%B8-%EA%B2%BD%EC%9A%B0:-%EB%B3%B4%EB%8B%A4-%EC%A0%81%EC%A0%88%ED%95%9C-%EB%AA%A8%EB%8D%B8-%EC%82%AC%EC%9A%A9">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15781,7 +15864,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%85%8B%EC%A7%B8-%EA%B2%BD%EC%9A%B0:-%EB%AA%A8%EB%8D%B8%EC%9D%98-%EC%A0%95%EB%B3%B4-%EC%A0%80%EC%9E%A5-%EB%8A%A5%EB%A0%A5-%EC%A1%B0%EC%A0%95"><strong>&#49483;&#51704; &#44221;&#50864;: &#47784;&#45944;&#51032; &#51221;&#48372; &#51200;&#51109; &#45733;&#47141; &#51312;&#51221;</strong><a class="anchor-link" href="#%EC%85%8B%EC%A7%B8-%EA%B2%BD%EC%9A%B0:-%EB%AA%A8%EB%8D%B8%EC%9D%98-%EC%A0%95%EB%B3%B4-%EC%A0%80%EC%9E%A5-%EB%8A%A5%EB%A0%A5-%EC%A1%B0%EC%A0%95">&#182;</a></h3>
+<h3 id="%EC%85%8B%EC%A7%B8-%EA%B2%BD%EC%9A%B0:-%EB%AA%A8%EB%8D%B8%EC%9D%98-%EC%A0%95%EB%B3%B4-%EC%A0%80%EC%9E%A5-%EB%8A%A5%EB%A0%A5-%EC%A1%B0%EC%A0%95">&#49483;&#51704; &#44221;&#50864;: &#47784;&#45944;&#51032; &#51221;&#48372; &#51200;&#51109; &#45733;&#47141; &#51312;&#51221;<a class="anchor-link" href="#%EC%85%8B%EC%A7%B8-%EA%B2%BD%EC%9A%B0:-%EB%AA%A8%EB%8D%B8%EC%9D%98-%EC%A0%95%EB%B3%B4-%EC%A0%80%EC%9E%A5-%EB%8A%A5%EB%A0%A5-%EC%A1%B0%EC%A0%95">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15901,7 +15984,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%96%91%EC%A7%88%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B"><strong>&#50577;&#51656;&#51032; &#45936;&#51060;&#53552;&#49483;</strong><a class="anchor-link" href="#%EC%96%91%EC%A7%88%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B">&#182;</a></h3>
+<h3 id="%EC%96%91%EC%A7%88%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B">&#50577;&#51656;&#51032; &#45936;&#51060;&#53552;&#49483;<a class="anchor-link" href="#%EC%96%91%EC%A7%88%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15983,7 +16066,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%ED%8A%B9%EC%84%B1-%EA%B3%B5%ED%95%99"><strong>&#53945;&#49457; &#44277;&#54617;</strong><a class="anchor-link" href="#%ED%8A%B9%EC%84%B1-%EA%B3%B5%ED%95%99">&#182;</a></h3>
+<h3 id="%ED%8A%B9%EC%84%B1-%EA%B3%B5%ED%95%99">&#53945;&#49457; &#44277;&#54617;<a class="anchor-link" href="#%ED%8A%B9%EC%84%B1-%EA%B3%B5%ED%95%99">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -16077,7 +16160,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-1:-%EC%8B%A0%EA%B2%BD%EB%A7%9D-%ED%81%AC%EA%B8%B0-%EC%B6%95%EC%86%8C"><strong>&#44508;&#51228; &#44592;&#48277; 1: &#49888;&#44221;&#47581; &#53356;&#44592; &#52629;&#49548;</strong><a class="anchor-link" href="#%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-1:-%EC%8B%A0%EA%B2%BD%EB%A7%9D-%ED%81%AC%EA%B8%B0-%EC%B6%95%EC%86%8C">&#182;</a></h3>
+<h3 id="%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-1:-%EC%8B%A0%EA%B2%BD%EB%A7%9D-%ED%81%AC%EA%B8%B0-%EC%B6%95%EC%86%8C">&#44508;&#51228; &#44592;&#48277; 1: &#49888;&#44221;&#47581; &#53356;&#44592; &#52629;&#49548;<a class="anchor-link" href="#%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-1:-%EC%8B%A0%EA%B2%BD%EB%A7%9D-%ED%81%AC%EA%B8%B0-%EC%B6%95%EC%86%8C">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -16116,7 +16199,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-2:-%EA%B0%80%EC%A4%91%EC%B9%98-%EA%B7%9C%EC%A0%9C"><strong>&#44508;&#51228; &#44592;&#48277; 2: &#44032;&#51473;&#52824; &#44508;&#51228;</strong><a class="anchor-link" href="#%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-2:-%EA%B0%80%EC%A4%91%EC%B9%98-%EA%B7%9C%EC%A0%9C">&#182;</a></h3>
+<h3 id="%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-2:-%EA%B0%80%EC%A4%91%EC%B9%98-%EA%B7%9C%EC%A0%9C">&#44508;&#51228; &#44592;&#48277; 2: &#44032;&#51473;&#52824; &#44508;&#51228;<a class="anchor-link" href="#%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-2:-%EA%B0%80%EC%A4%91%EC%B9%98-%EA%B7%9C%EC%A0%9C">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -16201,7 +16284,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-3:-%EB%93%9C%EB%A1%AD%EC%95%84%EC%9B%83-%EC%A0%81%EC%9A%A9"><strong>&#44508;&#51228; &#44592;&#48277; 3: &#46300;&#47213;&#50500;&#50883; &#51201;&#50857;</strong><a class="anchor-link" href="#%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-3:-%EB%93%9C%EB%A1%AD%EC%95%84%EC%9B%83-%EC%A0%81%EC%9A%A9">&#182;</a></h2>
+<h2 id="%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-3:-%EB%93%9C%EB%A1%AD%EC%95%84%EC%9B%83-%EC%A0%81%EC%9A%A9">&#44508;&#51228; &#44592;&#48277; 3: &#46300;&#47213;&#50500;&#50883; &#51201;&#50857;<a class="anchor-link" href="#%EA%B7%9C%EC%A0%9C-%EA%B8%B0%EB%B2%95-3:-%EB%93%9C%EB%A1%AD%EC%95%84%EC%9B%83-%EC%A0%81%EC%9A%A9">&#182;</a></h2>
 </div>
 </div>
 </div>
