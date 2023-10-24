@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,8 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -77,6 +78,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -316,10 +326,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -327,7 +337,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -481,6 +491,26 @@ document.write(`
 <span class="go">4</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li><p>1층의 가중치 행렬과 편향 벡터</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 가중치 행렬</span>
+<span class="go">TensorShape([3, 64])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 편향 벡터</span>
+<span class="go">TensorShape([64])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>2층의 가중치 행렬과 편향 벡터</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 가중치 행렬</span>
+<span class="go">TensorShape([64, 10])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 편향 벡터</span>
+<span class="go">TensorShape([10])</span>
+</pre></div>
+</div>
 <p><strong><code class="docutils literal notranslate"><span class="pre">summary()</span></code> 메서드</strong></p>
 <p>완성된 모델의 요악한 내용은 확인할 수 있다.</p>
 <ul class="simple">
@@ -503,29 +533,6 @@ document.write(`
 <span class="go">_________________________________________________________________</span>
 </pre></div>
 </div>
-<p><strong><code class="docutils literal notranslate"><span class="pre">name</span></code> 인자</strong></p>
-<p>모델 또는 층을 지정할 때 생성자 메서등의 <code class="docutils literal notranslate"><span class="pre">name</span></code> 키워드 인자를 이용하여 이름을 지정할 수도 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_example_model&quot;</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_first_layer&quot;</span><span class="p">))</span>
-<span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_last_layer&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">summary()</span></code> 결과에 모델과 층의 이름이 추가된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">build</span><span class="p">((</span><span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="go">Model: &quot;my_example_model&quot;</span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">Layer (type)                 Output Shape              Param #   </span>
-<span class="go">=================================================================</span>
-<span class="go">my_first_layer (Dense)       (None, 64)                256       </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">my_last_layer (Dense)        (None, 10)                650       </span>
-<span class="go">=================================================================</span>
-<span class="go">Total params: 906</span>
-<span class="go">Trainable params: 906</span>
-<span class="go">Non-trainable params: 0</span>
-</pre></div>
-</div>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Input()</span></code> 함수</strong></p>
 <p>모델 구성하는 중간에 그때까지의 모델 구성을 확인하기 위해
 <code class="docutils literal notranslate"><span class="pre">Input()</span></code>함수를 이용할 수 있다.
@@ -537,7 +544,7 @@ document.write(`
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Input()</span></code> 함수의 <code class="docutils literal notranslate"><span class="pre">shape</span></code> 키워드 인자에 사용되는 값은 각 샘플의 특성 수이며,
-앞서 <code class="docutils literal notranslate"><span class="pre">build()</span></code> 메서드의 인자와 다른 형식으로 사용됨에 주의해야 한다.</p>
+앞서 <code class="docutils literal notranslate"><span class="pre">build()</span></code> 메서드의 인자와 다른 형식으로 사용됨에 주의한다.</p>
 <p>이제 층을 추가할 때마다 <code class="docutils literal notranslate"><span class="pre">build()</span></code> 메서드를 실행할 필요 없이 바로 <code class="docutils literal notranslate"><span class="pre">summary()</span></code>를 실행할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 <span class="go">Model: &quot;sequential_2&quot;</span>
@@ -573,16 +580,7 @@ document.write(`
 <h3><span class="section-number">7.2.2. </span>모델 구성법 2: 함수형 API<a class="headerlink" href="#api" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스를 사용하면 하나의 입력과 하나의 출력만을 지원한다.
 반면에 함수형 API를 이용하면 다중 입력과 다중 출력을 지원하는 모델을 구성할 수 있다.
-가장 많이 사용되는 모델 구성법이며, 사용법이 매우 간단하다.
-사용법은 간단하다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Model</span></code>: 케라사의 기본 모델 클래스</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">inputs</span></code> 인자: 한 개 이상의 케라스텐서(<code class="docutils literal notranslate"><span class="pre">KerasTensor</span></code>) 객체 이루어진 리스트</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">outputs</span></code> 인자: 한 개 이사의 출력층으로 이루어진 리스트</p></li>
-</ul>
+가장 많이 사용되는 모델 구성법이다.</p>
 <p><strong>기본 활용법</strong></p>
 <p>앞서 살펴 본 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델을 함수형 API를 이용하여 구성하면 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_input&quot;</span><span class="p">)</span>          <span class="c1"># 입력층</span>
@@ -592,51 +590,34 @@ document.write(`
 </pre></div>
 </div>
 <p>사용된 단계들을 하나씩 살펴보자.</p>
-<p>입력층</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_input&quot;</span><span class="p">)</span>
+<ul>
+<li><p>입력층</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_input&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>생성된 값은 <code class="docutils literal notranslate"><span class="pre">KerasTensor</span></code>이다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="go">keras.engine.keras_tensor.KerasTensor</span>
+</li>
+</ul>
+<ul>
+<li><p>은닉층</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>케라스텐서(<code class="docutils literal notranslate"><span class="pre">KerasTensor</span></code>)의 모양에서 <code class="docutils literal notranslate"><span class="pre">None</span></code>은 배치 사이즈, 즉
-하나의 훈련 스텝에 사용되는 샘플의 수를 대상으로 하며,
-임의의 크기의 배치를 처리할 수 있다는 의미로 사용된다.</p>
-<p>텐서 항목의 자료형은 <code class="docutils literal notranslate"><span class="pre">float32</span></code>가 기본값으로 사용된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">inputs</span><span class="o">.</span><span class="n">dtype</span>
-<span class="go">float32</span>
+</li>
+</ul>
+<ul>
+<li><p>출력층</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>은닉층</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+</li>
+</ul>
+<ul>
+<li><p>모델 빌드: 입력층과 출력층을 이용하여 모델을 지정한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>은닉층의 결과는 항상 <code class="docutils literal notranslate"><span class="pre">KerasTensor</span></code>이다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-<span class="go">keras.engine.keras_tensor.KerasTensor</span>
-</pre></div>
-</div>
-<p>출력값의 모양은 유닛의 개수에 의존한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span>
-<span class="go">TensorShape([None, 64])</span>
-</pre></div>
-</div>
-<p>출력층</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>출력층의 결과도 <code class="docutils literal notranslate"><span class="pre">KerasTensor</span></code>이다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
-<span class="go">keras.engine.keras_tensor.KerasTensor</span>
-</pre></div>
-</div>
-<p>모델 빌드</p>
-<p>입력층과 출력층을 이용하여 모델을 지정한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
-</pre></div>
-</div>
+</li>
+</ul>
 <p><code class="docutils literal notranslate"><span class="pre">summary()</span></code> 의 실행결과는 이전과 동일하다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 <span class="go">Model: &quot;functional_1&quot; </span>
@@ -655,42 +636,59 @@ document.write(`
 <span class="go">_________________________________________________________________</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">KerasTensor</span></code>의 역할</p>
-<p>앞서 보았듯이 케라스텐서는 모델 훈련에 사용되는 텐서의 모양에 대한 정보를 제공하는
-<strong>가상의 텐서</strong>이다.
-빌드되는 모델은 입력 케라스텐서부터 출력 케라스텐서까지 각 층에 저장된
-텐서의 모양 정보를 이용하여 가중치 텐서와 편향 텐서를 생성하고 초기화한다.</p>
-<p><strong>다중 입력, 다중 출력 모델</strong></p>
+<p><strong>다중 입력, 다중 출력 모델 지정</strong></p>
 <p>다중 입력과 다중 출력을 지원하는 모델을 구성하는 방법을 예제를 이용하여 설명한다.</p>
 <div class="proof example admonition" id="exp-customer">
 <p class="admonition-title"><span class="caption-number">Example 7.1 </span> (고객 요구사항 접수 모델)</p>
 <section class="example-content" id="proof-content">
-<p>고객의 요구사항의 처리할 때 필요한 우선순위와 담당부서를 지정하는 시스템을 구현하려 한다.
-시스템에 사용될 딥러닝
-모델은 세 개의 입력과 두 개의 출력을 사용한다.</p>
+<p>고객의 요구사항이 입력되었을 때 처리 우선순위와 담당부서를 지정하는 시스템을 구현하려 한다.
+고객의 요구사항은 세 종류의 입력값으로 구성된다.
+따라서 시스템에 사용될 딥러닝 모델은 세 개의 입력값과 두 개의 출력값을 사용한다.</p>
+<p>입력 사항 세 종류는 다음과 같다.</p>
 <ul class="simple">
-<li><p>입력 사항 세 종류</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: 요구사항 제목</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: 요구사항 문자열을 0과 1로 구성된 텐서로 변환한 텐서 입력값. 최대 10,000 종류의 단어 사용.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">text_body</span></code>: 요구사항 문자열을 0과 1로 구성된 텐서로 변환한 텐서 입력값. 최대 10,000 종류의 단어 사용.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tags</span></code>: 사용자에 의한 추가 선택 사항 100개 중 여러 개 선택. 멀티-핫 인코딩된 텐서 입력값.</p></li>
+<li><p>제목 내용을  멀티-핫 인코딩한 0과 1로 구성된 길이가 1만인 벡터.</p></li>
+<li><p>1만등 이내의 사용빈도를 갖는 단어만 사용됨.</p></li>
+<li><p>IMDB 영화 후기 멀티-핫 인코딩 참고</p></li>
 </ul>
 </li>
-<li><p>출력 사항 두 종류</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">text_body</span></code>: 요구사항 내용</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">priority</span></code>: 요구사항 처리 우선순위. 0에서 1사이의 값. <code class="docutils literal notranslate"><span class="pre">sigmoid</span></code> 활성화 함수 활용.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">department</span></code>: 네 개의 요구사항 처리 담당 부서 중 하나 선택. <code class="docutils literal notranslate"><span class="pre">softmax</span></code> 활성화 함수 활용.</p></li>
+<li><p>제목 내용을  멀티-핫 인코딩한 0과 1로 구성된 길이가 1만인 벡터.</p></li>
+<li><p>1만등 이내의 사용빈도를 갖는 단어만 사용됨.</p></li>
+<li><p>IMDB 영화 후기 멀티-핫 인코딩 참고</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tags</span></code>: 사용자에 의한 추가 선택 사항</p>
+<ul>
+<li><p>100개 중 여러 개 선택.</p></li>
+<li><p>멀티-핫 인코딩된 길이가 1만인 벡터.</p></li>
+</ul>
+</li>
+</ul>
+<p>출력 사항 두 종류는 다음과 같다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">priority</span></code>: 요구사항 처리 우선순위.</p>
+<ul>
+<li><p>0에서 1사이의 값.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sigmoid</span></code> 활성화 함수 활용.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">department</span></code>: 네 개의 요구사항 처리 담당 부서 중 하나 선택.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">softmax</span></code> 활성화 함수 활용.</p></li>
 </ul>
 </li>
 </ul>
 </section>
 </div><p>고객 요구사항 접수 모델을 함수형 API를 이용하여 다음과 같이
 구현할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vocabulary_size</span> <span class="o">=</span> <span class="mi">10000</span>    <span class="c1"># 요구사항에 사용되는 단어 총 수</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vocabulary_size</span> <span class="o">=</span> <span class="mi">10000</span>    <span class="c1"># 사용빈도 1만등 인내 단어 사용</span>
 <span class="n">num_tags</span> <span class="o">=</span> <span class="mi">100</span>             <span class="c1"># 태그 수</span>
 <span class="n">num_departments</span> <span class="o">=</span> <span class="mi">4</span>        <span class="c1"># 부서 수</span>
 
-<span class="c1"># 입력층: 세 종류</span>
+<span class="c1"># 입력층: 세 개</span>
 <span class="n">title</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">vocabulary_size</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
 <span class="n">text_body</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">vocabulary_size</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;text_body&quot;</span><span class="p">)</span>
 <span class="n">tags</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">num_tags</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;tags&quot;</span><span class="p">)</span>
@@ -699,17 +697,20 @@ document.write(`
 <span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Concatenate</span><span class="p">()([</span><span class="n">title</span><span class="p">,</span> <span class="n">text_body</span><span class="p">,</span> <span class="n">tags</span><span class="p">])</span> <span class="c1"># shape=(None, 10000+10000+100)</span>
 <span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
 
-<span class="c1"># 출력층: 두 종류</span>
+<span class="c1"># 출력층: 두 개</span>
 <span class="n">priority</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;priority&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
 <span class="n">department</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span>
     <span class="n">num_departments</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;department&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
 
-<span class="c1"># 모델 빌드: 입력값과 출력값 모두 리스트 사용</span>
+<span class="c1"># 모델 빌드: 입력값으로 구성된 입력값 리스트와 출력값으로 구성된 출력값 리스트 사용</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">title</span><span class="p">,</span> <span class="n">text_body</span><span class="p">,</span> <span class="n">tags</span><span class="p">],</span> <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">priority</span><span class="p">,</span> <span class="n">department</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>모델 컴파일을 위해
-손실함수와 측정 기준은 지정된 타깃 개수만큼 지정한다.</p>
+<p>은닉층으로 사용된 <code class="docutils literal notranslate"><span class="pre">Concatenate()</span></code> 층은 여러 개의 텐서를 좌우로 이어붙이는 기능을 수행한다.
+따라서 여기서는 고객의 요구사항을 담고 있는
+길이가 각각 1만, 1만, 100인 세 개의 벡터를 이어붙여서 길이가 총 2만1백인 하나의 벡터로 변환한다.</p>
+<p><strong>모델 컴파일</strong></p>
+<p>손실함수와 평가지표 모두 출력층의 개수 개수만큼 지정한다.</p>
 <ul class="simple">
 <li><p>손실함수(loss)</p>
 <ul>
@@ -717,7 +718,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">department</span></code> 대상: <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code></p></li>
 </ul>
 </li>
-<li><p>평가지표(metrics): 평가지표는 여러 개를 사용할 수 있기에 대상 별로 리스트로 지정함.</p>
+<li><p>평가지표(metrics): 평가지표는 대상 별로 여러 개를 사용할 수 있기에 각각의 대상에 대해 평가지표 리스트 작성</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">priority</span></code> 대상: <code class="docutils literal notranslate"><span class="pre">[&quot;mean_absolute_error&quot;]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">department</span></code> 대상: <code class="docutils literal notranslate"><span class="pre">[&quot;accuracy&quot;]</span></code></p></li>
@@ -729,19 +730,22 @@ document.write(`
               <span class="n">metrics</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;mean_absolute_error&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]])</span>
 </pre></div>
 </div>
+<p><strong>모델 훈련</strong></p>
 <p>모델 훈련은 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 함수에 세 개의 훈련 텐서로 이루어진 리스트와
 두 개의 타깃 텐서로 이루어진 리스트를 지정한 후에 실행한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">([</span><span class="n">title_data</span><span class="p">,</span> <span class="n">text_body_data</span><span class="p">,</span> <span class="n">tags_data</span><span class="p">],</span>
-          <span class="p">[</span><span class="n">priority_data</span><span class="p">,</span> <span class="n">department_data</span><span class="p">],</span>
-          <span class="p">)</span>
+          <span class="p">[</span><span class="n">priority_data</span><span class="p">,</span> <span class="n">department_data</span><span class="p">]</span>
+          <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>모델 평가</strong></p>
 <p>모델 평가도 훈련과 동일한 방식의 인자가 사용된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">([</span><span class="n">title_data</span><span class="p">,</span> <span class="n">text_body_data</span><span class="p">,</span> <span class="n">tags_data</span><span class="p">],</span>
                <span class="p">[</span><span class="n">priority_data</span><span class="p">,</span> <span class="n">department_data</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>예측값은 두 개의 어레이로 구성된 리스트이다.</p>
+<p><strong>모델 활용</strong></p>
+<p>예측값은 두 개 출력층 각각에서 생성된 두 개의 어레이로 구성된 리스트이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">priority_preds</span><span class="p">,</span> <span class="n">department_preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">title_data</span><span class="p">,</span> <span class="n">text_body_data</span><span class="p">,</span> <span class="n">tags_data</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -767,7 +771,7 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;ticket_classifier.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ticket_classifier.png" style="width:400px;"></div><div class="info admonition">
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-ticket_classifier.png?raw=true" style="width:400px;"></div><div class="info admonition">
 <p class="admonition-title">층 연결 그래프 그리기</p>
 <p><code class="docutils literal notranslate"><span class="pre">keras.utils.plot_model()</span></code> 함수가 제대로 작동하려면
 <code class="docutils literal notranslate"><span class="pre">pydot</span></code> 파이썬 모듈과 graphviz 라는 프로그램이 컴퓨터에 설치되어 있어야 한다.</p>
@@ -781,7 +785,7 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;ticket_classifier_with_shape_info.png&quot;</span><span class="p">,</span> <span class="n">show_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ticket_classifier_with_shapes.png" style="width:900px;"></div><p><strong>모델 재활용</strong></p>
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-ticket_classifier_with_shapes.png?raw=true" style="width:900px;"></div><p><strong>모델 재활용</strong></p>
 <p>훈련된 모델의 특성을 이용하여 새로운 모델을 빌드할 수 있다.
 먼저 모델의 <code class="docutils literal notranslate"><span class="pre">layers</span></code> 속성을 이용하여 사용된 층에 대한 정보를 확인한다.
 <code class="docutils literal notranslate"><span class="pre">layers</span></code> 속성은 사용된 층들의 객체로 이루어진 리스트를 가리킨다.</p>
@@ -827,7 +831,7 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">new_model</span><span class="p">,</span> <span class="s2">&quot;updated_ticket_classifier.png&quot;</span><span class="p">,</span> <span class="n">show_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/updated_ticket_classifier.png" style="width:900px;"></div><p>요약 결과는 다음과 같다.</p>
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-ticket_classifier_with_shapes-02.png?raw=true" style="width:900px;"></div><p>요약 결과는 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">new_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 <span class="go">Model: &quot;model_2&quot;</span>
 <span class="go">__________________________________________________________________________________________________</span>
@@ -1004,7 +1008,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">keras.callbacks.ModelCheckpoint</span></code></p></li>
 </ul>
 </li>
-<li><p>훈련 조기 중단: 검증셋에 대한 손실이 더 이상 개선되지 않는 경우 훈련 중단시킨다.</p>
+<li><p>훈련 조기 종료: 검증셋에 대한 손실이 더 이상 개선되지 않는 경우 훈련 종료시킨다.</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">keras.callbacks.EarlyStopping</span></code></p></li>
 </ul>
@@ -1038,7 +1042,7 @@ document.write(`
         <span class="n">patience</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span>
-        <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;checkpoint_path.keras&quot;</span><span class="p">,</span>
+        <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;checkpoint_path&quot;</span><span class="p">,</span>
         <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">,</span>
         <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
@@ -1063,8 +1067,7 @@ document.write(`
 <h3><span class="section-number">7.3.4. </span>텐서보드(TensorBoard) 활용<a class="headerlink" href="#tensorboard" title="Permalink to this heading">#</a></h3>
 <p><strong>텐서보드</strong><font size='2'>TensorBoard</font>는 모델 훈련과정을 모니터링하는 최고의 어플이며
 텐서플로우와 함께 기본적으로 설치된다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/HighResolutionFigures/figure_7-7.png" style="width:600px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-tensorboard.png?raw=true" style="width:600px;"></div></section>
 </section>
 <section id="id10">
 <h2><span class="section-number">7.4. </span>훈련/평가 알고리즘 직접 구현하기<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
@@ -1111,11 +1114,10 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="unversal_workflow_of_ml.html"
@@ -1135,10 +1137,7 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1210,8 +1209,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>

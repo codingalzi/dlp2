@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,8 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -77,6 +78,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -316,10 +326,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -327,7 +337,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -372,9 +382,9 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5.4. 모델 훈련 최적화</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.5. 일반화 향상법</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.5. 모델 일반화 성능 향상 기법</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5.5.1. 조기 종료</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.5.2. 규제</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.5.2. 규제: 드롭아웃</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.6. 연습문제</a></li>
@@ -404,8 +414,9 @@ document.write(`
 <p>본문 내용을 요약한 <a class="reference external" href="https://github.com/codingalzi/dlp2/raw/master/slides/slides-fundamentals_of_ml.pdf">슬라이드</a>를 다운로드할 수 있다.</p>
 <p><strong>주요 내용</strong></p>
 <ul class="simple">
-<li><p>최적화 대 일반화</p></li>
-<li><p>머신러닝 모델 평가</p></li>
+<li><p>최적화, 일반화, 과대적합</p></li>
+<li><p>다양체 가설</p></li>
+<li><p>모델 평가</p></li>
 <li><p>모델 훈련 최적화</p></li>
 <li><p>모델 일반화 성능 향상 기법</p></li>
 </ul>
@@ -420,7 +431,7 @@ document.write(`
 <li><p><strong>일반화</strong>: 훈련 과정에서 보지 못한 데이터를 처리하는 능력 향상시키기</p></li>
 </ul>
 <p>모델 훈련의 최적화는 데이터셋 전처리, 적절한 모델 구성과 모델의 하이퍼파라미터 설정 등을 통해 이루어진다.
-반면에 모델 성능의 일반화는 훈련을 통해 조절할 수 있는 대상이 아니다.
+반면에 모델 성능의 일반화는 훈련을 통해 조정할 수 있는 대상이 아니다.
 하지만 모델 훈련의 최적화 과정에서 일부 설정을 조정하면 훈련된 모델의 일반화 성능을 끌어올릴 수 있다.</p>
 <p>모델은 훈련을 많이 할 수록 일반적으로 훈련셋에 대해 보다 좋은 성능을 보인다.
 즉, 최적화가 진행된다.
@@ -670,7 +681,7 @@ K-겹 교차 검증을 P번 반복하면 총 <code class="docutils literal notra
 <p><strong>첫째 경우: 경사하강법 관련 파라미터 조정</strong></p>
 <p>훈련셋의 손실값이 줄어들지 않거나 진동하는 등 훈련이 제대로 이루어지지 않는 경우는
 기본적으로 경사하강법이 제대로 작동하지 않아서이다.
-이럴 때는 보통 학습률과 배치 크기를 조절하면 해결된다.</p>
+이럴 때는 보통 학습률과 배치 크기를 조정하면 해결된다.</p>
 <p><em>학습률 조정</em></p>
 <ul class="simple">
 <li><p>매우 큰 학습률을 사용하는 경우: 모델이 제대로 학습되지 않는다.</p></li>
@@ -714,46 +725,13 @@ K-겹 교차 검증을 P번 반복하면 총 <code class="docutils literal notra
 모델이 보다 많은 정보를 처리하여 보다 적절한 방식으로 값을 변환할 수 있도록 한다.</p>
 </section>
 <section id="id14">
-<h2><span class="section-number">5.5. </span>일반화 향상법<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.5. </span>모델 일반화 성능 향상 기법<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
 <p>모델 훈련이 어느 정도 잘 진행되어 일반화 성능이 향상되고 과대적합이 발생하기 시작하면
 모델의 일반화 성능을 극대화하는 방법에 집중한다.
-일반적으로 다음 네 가지 사항이 모델의 일반화 성능에 도움된다.</p>
+일반적으로 다음 두 가지 사항이 모델의 일반화 성능에 도움된다.</p>
 <ul class="simple">
-<li><p>양질의 데이터셋</p></li>
-<li><p>특성 공학</p></li>
 <li><p>조기 종료</p></li>
 <li><p>규제</p></li>
-</ul>
-<p><strong>양질의 데이터셋</strong></p>
-<p>양질의 데이터를 보다 많이 수집하는 일이 보다 적절한 모델을 찾으려는 노력보다
-값어치가 높다.
-양질의 데이터는 다음 기준을 만족시켜야 한다.</p>
-<ul class="simple">
-<li><p>충분한 양의 샘플: 훈련셋이 크면 클 수록 일반화 성능이 좋아짐.</p></li>
-<li><p>타깃(라벨) 지정 오류 최소화.</p></li>
-<li><p>적절한 데이터 전처리: 데이터 클리닝과 결측치 처리.</p></li>
-<li><p>유용한 특성 선택: 주요 특성에 집중하면 훈련 시간도 줄이면서 동시에
-보다 높은 일반화 성능의 모델을 훈련시킬 수 있음.</p></li>
-</ul>
-<p><strong>특성 공학</strong></p>
-<p>유용한 특성으로 구성된 훈련셋으로 모델을 훈련하면 보다 적은 양의 데이터로
-보다 효율적인 훈련이 가능하다.
-이처럼 모델 훈련에 가장 유용한 특성으로 구성된
-데이터셋을 준비하는 과정이 <strong>특성 공학</strong>(feature engineering)이다.</p>
-<p>예를 들어 아래 그림은 현재 시간을 알아내는 모델을 학습시키려 할 때
-입력 데이터로 사용될 수 있는 세 가지 형식을 보여준다.</p>
-<ul class="simple">
-<li><p>첫째 형식: 시계 사진</p></li>
-<li><p>둘째 형식: 큰/작은 시계 바늘의 직교좌표</p></li>
-<li><p>셋째 형식: 큰/작은 시계 바늘의 극좌표</p></li>
-</ul>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/05-16.png" style="width:400px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>입력 데이터셋의 형식에 따라 현재 시간을 알아내는 프로그램을 구현하는 방식이 많이 달라질 수 있다.</p>
-<ul class="simple">
-<li><p>첫째 형식: 합성곱 신경망<font size='2'>convolutional neural network</font>(CNN) 모델 활용.
-많은 양의 훈련 데이터 필요.</p></li>
-<li><p>둘째 형식: 시계 사진에서 각 바늘의 좌표를 알아낸 후 간단한 머신러닝 모델 활용 가능.</p></li>
-<li><p>셋째 형식: 각 바늘의 극좌표를 구한 후에 간단한 수식으로 시간 확인 가능. 머신러닝 모델 불필요.</p></li>
 </ul>
 <section id="id15">
 <h3><span class="section-number">5.5.1. </span>조기 종료<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
@@ -765,77 +743,15 @@ K-겹 교차 검증을 P번 반복하면 총 <code class="docutils literal notra
 최종 모델로 사용한다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch05-early-stopping.png" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>케라스의 경우 <code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code> 이라는
-<strong>콜백</strong><font size='2'>callback</font> 기능을 이요하여 조기 종료 기능을 간단하게 지정할 수 있다.
+<strong>콜백</strong><font size='2'>callback</font> 기능을 이용하여 조기 종료 기능을 간단하게 지정할 수 있다.
 다양한 콜백 기능에 대해서는 <a class="reference internal" href="working_with_keras.html#ch-working-with-keras"><span class="std std-numref">7장</span></a> 자세히 다룬다.</p>
 </section>
 <section id="id16">
-<h3><span class="section-number">5.5.2. </span>규제<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.5.2. </span>규제: 드롭아웃<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
 <p>모델이 훈련셋에 너무 익숙해지지 않도록 방해하는 것을
-<strong>규제</strong><font size='2'>regularization</font>라 부른다.
-모델 규제에 가장 많이 사용되는 기법 세 가지는 다음과 같다.</p>
-<p><strong>규제 기법 1: 신경망 크기 축소</strong></p>
-<p>신경망 모델에 사용되는 은닉층의 수와 각 층에 포함된 유닛의 수를 줄여 모델을 단순화한다.
-그러면 모델이 처리할 수 있는 정보량이 줄어들게 되고,
-결국 데이터 특성의 세세한 정보 보다는 가장 핵심적인 정보를 활용하도록 모델을 유도한다.
-따라서 훈련셋에 세세한 특성에 덜 특화된, 반면에 일반화 성능은 향상된 모델이
-훈련된다.</p>
-<p>아래 그래프는 <a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">4장</span></a>에 다룬
-IMDB 영화 후기 분류 모델 대상으로
-신경망 모델을 단둔화하면
-과대적합이 보다 늦게 발생하고, 검증셋에 대한 손실값이 줄어드는 것을 보여준다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_smaller_model_imdb.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>아래 그래프는 IMDB 영화 후기 분류 모델 대상으로
-신경망의 크기를 아주 크게 하면
-과대적합이 매우 빠르게 발생하며, 검증셋에 대한 성능이 매우 불안정해지는 것을 보여준다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_larger_model_imdb.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>물론 모델이 너무 단순하면 아예 훈련이 제대로 되지 않을 수 있어서
-적절한 개수의 층과 유닛을 실험을 통해 찾아야 한다.
-보통 적은 수의 층과 유닛을 사용하다가 점차 수를 늘려 나가는 방식을 택한다.</p>
-<p><strong>규제 기법 2: 가중치 규제</strong></p>
-<p><strong>가중치 규제</strong><font size='2'>weight regularization</font>는
-모델이 학습하는 파라미터(가중치와 편향)가 너무 큰 값을 갖지 않도록 유도한다.
-두 가지 방식이 있다.</p>
-<ul class="simple">
-<li><p>L1 규제: 가중치들의 절댓값이 작아지도록 유도하며,
-라쏘<font size='2'>Lasso</font> 규제라고도 불린다.
-L1 규제를 사용하면 중요하지 않은 특성들에 대한 가중치가 빠르게 0으로 수렴하게 되어
-중요하지 않은 특성들을 무시하도록 모델을 유도한다.</p></li>
-<li><p>L2 규제: 가중치들의 제곱이 작은 값을 갖도록 유도하며,
-릿지<font size='2'>Ridge</font> 규제라고도 불린다.
-L2 규제를 사용하면 가중치의 절댓값이 너무 커지지 않도록 억제되어
-손실 함수가 보다 안정적으로 수렴한다.</p></li>
-</ul>
-<p>규제는 층 단위로 지정되며 아래 형식을 따른다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> 
-             <span class="n">kernel_regularizer</span><span class="o">=</span><span class="n">regularizers</span><span class="o">.</span><span class="n">l2</span><span class="p">(</span><span class="mf">0.002</span><span class="p">),</span> 
-             <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>위 코드는 L2 규제를 사용하는 층을 지정한다.
-0.002는 규제 강도를 나타내며, 클 수록 강한 강도를 의미한다.</p>
-<p>L1 규제 또는 L1 규제와 L2 규제를 함께 사용하려면 다음과 같이 규제를 지정한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> 
-             <span class="n">kernel_regularizer</span><span class="o">=</span><span class="n">regularizers</span><span class="o">.</span><span class="n">l1</span><span class="p">(</span><span class="mf">0.001</span><span class="p">),</span> 
-             <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>또는</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> 
-             <span class="n">kernel_regularizer</span><span class="o">=</span><span class="n">regularizers</span><span class="o">.</span><span class="n">l1_l2</span><span class="p">(</span><span class="n">l1</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="mf">0.002</span><span class="p">),</span> 
-             <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>아래 그래프는 IMDB 영화 후기 분류 모델 대상으로
-L2 규제를 가했을 때 검증셋에 대한 손실값이 적절하게 유지됨을 보여준다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/original_model_vs_l2_regularized_model_imdb.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><div class="hint admonition">
-<p class="admonition-title">규제 적용</p>
-<p>규제는 훈련 중에만 적용되며 실전에는 사용되지 않는다.</p>
-</div>
-<p><strong>규제 기법 3: 드롭아웃 적용</strong></p>
-<p>가중치 규제 기법은 복잡한 딥러닝 모델에 대해서는 잘 작동하지 않는다.
-심층 신경망 모델의 규제는 일반적으로 드롭아웃 기법을 적용한다.
-<strong>드롭아웃</strong>은 무작위로 선택된 일정한 비율의 유닛을 끄는 것을 의미하며,
+규제라 부른다.
+모델 규제를 위해 <strong>드롭아웃</strong><font size='2'>drop out</font> 기법이 많이 적용된다.
+드롭아웃은 무작위로 선택된 일정한 비율의 유닛을 끄는 것을 의미하며,
 해당 유닛에 저장된 값을 0으로 처리한다.</p>
 <p>아래 그림은 50%의 드롭아웃을 층의 출력값에 적용하는 과정을 보여준다.
 출력값의 50%를 0으로 처리한 다음에 출력 텐서를 0.5로 나눈다.
@@ -883,11 +799,10 @@ L2 규제를 가했을 때 검증셋에 대한 손실값이 적절하게 유지�
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="getting_started_with_neural_networks.html"
@@ -907,10 +822,7 @@ L2 규제를 가했을 때 검증셋에 대한 손실값이 적절하게 유지�
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -943,9 +855,9 @@ L2 규제를 가했을 때 검증셋에 대한 손실값이 적절하게 유지�
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5.4. 모델 훈련 최적화</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.5. 일반화 향상법</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.5. 모델 일반화 성능 향상 기법</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5.5.1. 조기 종료</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.5.2. 규제</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.5.2. 규제: 드롭아웃</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">5.6. 연습문제</a></li>
@@ -989,8 +901,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>
