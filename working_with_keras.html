@@ -364,22 +364,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.1. 케라스 모델 구성법</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential">7.1.1. 모델 구성법 1: <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api">7.1.2. 모델 구성법 2: 함수형 API</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.1.3. 모델 구성법 3: 서브클래싱</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.1.4. 혼합 모델 구성법</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential">7.1. 케라스 모델 구성법 1: <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델 활용</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api">7.2. 케라스 모델 구성법 2: 함수형 API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.2.1. 다중 입력, 다중 출력 모델</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.2.2. 모델 구조 그래프</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.2.3. 모델 재활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.2. 모델 훈련/평가 방식 조정</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.2.1. 사용자 정의 평가지표 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.2.2. 콜백 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.2.3. 사용자 정의 콜백 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorboard">7.2.4. 텐서보드(TensorBoard) 활용</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.3. 케라스 모델 구성법 3: 서브클래싱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.4. 케라스 혼합 모델 구성법</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.5. 모델 훈련/평가 방식 조정</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.5.1. 사용자 정의 평가지표 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.5.2. 콜백 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.5.3. 사용자 정의 콜백 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorboard">7.5.4. 텐서보드(TensorBoard) 활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.3. 훈련/평가 알고리즘 직접 구현하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.4. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.6. 훈련/평가 알고리즘 직접 구현하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">7.7. 연습문제</a></li>
 </ul>
             </nav>
         </div>
@@ -410,8 +412,8 @@ document.write(`
 <li><p>모델과 층의 재활용</p></li>
 <li><p>모델 훈련 옵션: 콜백과 텍서보드</p></li>
 </ul>
-<section id="id2">
-<h2><span class="section-number">7.1. </span>케라스 모델 구성법<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<section id="sequential">
+<h2><span class="section-number">7.1. </span>케라스 모델 구성법 1: <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델 활용<a class="headerlink" href="#sequential" title="Permalink to this heading">#</a></h2>
 <p>케라스를 이용하여 매우 간단한 방식부터 매우 복잡한 방식까지 다양한 방식으로
 필요한 수준의 모델을 구성할 수 있다.
 또한 케라스의 모델과 층은 모두 각각 <code class="docutils literal notranslate"><span class="pre">Model</span></code> 클래스와 <code class="docutils literal notranslate"><span class="pre">Layer</span></code> 클래스를 상속하기에
@@ -422,9 +424,7 @@ document.write(`
 <li><p>함수형 API 활용: 가장 많이 사용됨.</p></li>
 <li><p>모델 서브클래싱: 모든 것을 사용자가 지정.</p></li>
 </ul>
-<section id="sequential">
-<h3><span class="section-number">7.1.1. </span>모델 구성법 1: <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델 활용<a class="headerlink" href="#sequential" title="Permalink to this heading">#</a></h3>
-<p>층으로 스택을 쌓아 만든 모델이며 가장 단순하다.</p>
+<p>먼저 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델은 층으로 스택을 쌓아 만든 모델이며 가장 단순하다.</p>
 <ul class="simple">
 <li><p>한 종류의 입력값과 한 종류의 출력값만 사용 가능</p>
 <ul>
@@ -489,9 +489,8 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><strong>층별 가중치 텐서</strong></p>
-<p>모델 빌드가 완성되면 <code class="docutils literal notranslate"><span class="pre">weights</span></code> 속성에 생성된 모델 훈련에 필요한 모든 가중치와 편향이 저장된다.
-위 모델에 대해서 층별로 가중치와 편향 텐서 하나씩 총 4 개의 텐서가 생성된다.</p>
+<p>위 모델에 대해서 층별로 가중치 행렬과 편향 벡터 하나씩 총 4 개의 텐서가 생성된다.
+생성된 모든 텐서를 항목으로 갖는 리스트를 모델의 <code class="docutils literal notranslate"><span class="pre">weights</span></code> 속성이 가리킨다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span>
 <span class="go">4</span>
 </pre></div>
@@ -517,11 +516,24 @@ document.write(`
 </pre></div>
 </div>
 <p><strong><code class="docutils literal notranslate"><span class="pre">summary()</span></code> 메서드</strong></p>
-<p>완성된 모델의 요악한 내용은 확인할 수 있다.</p>
+<p>완성된 모델의 층의 구조와 각 층의 출력값의 모양 정보를 확인할 수 있다.</p>
 <ul class="simple">
-<li><p>모델과 층의 이름</p></li>
-<li><p>층별 파라미터 수</p></li>
-<li><p>파라미터 수</p></li>
+<li><p>모델과 층의 이름: 특별히 지정하지 않으면 기본 이름 자동으로 할당됨.</p></li>
+<li><p>층별 출력값의 모양(<code class="docutils literal notranslate"><span class="pre">Output</span> <span class="pre">Shape</span></code>): 유닛수 확인. <code class="docutils literal notranslate"><span class="pre">None</span></code> 은 임의의 배치크기를 가리킴.</p></li>
+<li><p>층별 파라미터 수(<code class="docutils literal notranslate"><span class="pre">Param</span> <span class="pre">#</span></code>): 훈련을 통해 학습되어야 하는 파라미터들의 개수</p>
+<ul>
+<li><p>가중치 행렬과 편향 벡터에 포함된 항목들의 수를 가리킴.</p></li>
+</ul>
+</li>
+<li><p>파라미터 수</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Total</span> <span class="pre">params</span></code>: 파라미터의 총 개수</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Trainable</span> <span class="pre">params</span></code>: 가중치 행렬과 편향 벡터에 포함된 파라리터처럼 훈련을 통해 학습(업데이트)되는 파라미터 총 개수</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Non-trainable</span> <span class="pre">params</span></code>: 훈련에는 관여하지만 훈련을 통해 학습되지는 않는 파라미터.
+지금까지 다룬 모델에서는 비학습 파라미터 사용되지 않았음.
+나중에 비학습 파라미터 예제를 다룰 것임 (<a class="reference internal" href="computer_vision_advanced.html#ch-computer-vision-advanced"><span class="std std-numref">9장</span></a> 참고).</p></li>
+</ul>
+</li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 <span class="go">Model: &quot;sequential_1&quot;</span>
@@ -539,18 +551,19 @@ document.write(`
 </pre></div>
 </div>
 <p><strong><code class="docutils literal notranslate"><span class="pre">Input()</span></code> 함수</strong></p>
-<p>모델 구성하는 중간에 그때까지의 모델 구성을 확인하기 위해
-<code class="docutils literal notranslate"><span class="pre">Input()</span></code>함수를 이용할 수 있다.
-<code class="docutils literal notranslate"><span class="pre">Input()</span></code> 함수는 모델 훈련에 사용되는 훈련 샘플의 모양 정보를 제공하는
-가상의 텐서인 <code class="docutils literal notranslate"><span class="pre">KerasTensor</span></code> 객체를 생성한다.</p>
+<p>모델 훈련을 시작하거나 모델의 <code class="docutils literal notranslate"><span class="pre">build()</span></code> 메서드를 실행하기 전까지는 모델의 <code class="docutils literal notranslate"><span class="pre">summary()</span></code> 메서드가 작동하지 않는다.
+그리고 그 이유는 입력값의 모양, 즉 특성 수를 미리 알지 못하기 때문이었다.</p>
+<p>그런데 모델을 구성할 때 <code class="docutils literal notranslate"><span class="pre">Input()</span></code> 함수를 활용하면 모델 훈련에 사용될
+입력값에 대한 정보를 모델에 미리 전달할 수 있다.
+예를 들어 아래 코드는 훈련셋의 샘플이 3 개의 특성을 갖는다는 것을 가리킨다.
+물론, 이렇게 입력값의 정보를 미리 지정하면 지정된 모양의 훈련셋만 사용할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">()</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,)))</span>
 <span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Input()</span></code> 함수의 <code class="docutils literal notranslate"><span class="pre">shape</span></code> 키워드 인자에 사용되는 값은 각 샘플의 특성 수이며,
-앞서 <code class="docutils literal notranslate"><span class="pre">build()</span></code> 메서드의 인자와 다른 형식으로 사용됨에 주의한다.</p>
-<p>이제 층을 추가할 때마다 <code class="docutils literal notranslate"><span class="pre">build()</span></code> 메서드를 실행할 필요 없이 바로 <code class="docutils literal notranslate"><span class="pre">summary()</span></code>를 실행할 수 있다.</p>
+<p>이제 <code class="docutils literal notranslate"><span class="pre">build()</span></code> 메서드를 실행할 필요 없이 바로 <code class="docutils literal notranslate"><span class="pre">summary()</span></code>를 실행하여
+모델의 구조를 확인할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 <span class="go">Model: &quot;sequential_2&quot;</span>
 <span class="go">_________________________________________________________________</span>
@@ -564,6 +577,7 @@ document.write(`
 <span class="go">_________________________________________________________________</span>
 </pre></div>
 </div>
+<p>층을 추가할 때 마다 모델의 구조를 확인할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 <span class="go">Model: &quot;sequential_2&quot;</span>
@@ -582,10 +596,11 @@ document.write(`
 </div>
 </section>
 <section id="api">
-<h3><span class="section-number">7.1.2. </span>모델 구성법 2: 함수형 API<a class="headerlink" href="#api" title="Permalink to this heading">#</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스를 사용하면 하나의 입력과 하나의 출력만을 지원한다.
-반면에 함수형 API를 이용하면 다중 입력과 다중 출력을 지원하는 모델을 구성할 수 있다.
-가장 많이 사용되는 모델 구성법이다.</p>
+<h2><span class="section-number">7.2. </span>케라스 모델 구성법 2: 함수형 API<a class="headerlink" href="#api" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스를 사용하면 한 종류의 입력값과 한 종류의 출력값만을 사용할 수 있다.
+반면에 함수형 API를 이용하면 다중 입력과 다중 출력을 지원하는
+모델을 구성할 수 있다.
+즉, 모델이 서로 다른 종류의 입력값과 서로 다른 종류의 출력값을 지원한다.</p>
 <p><strong>기본 활용법</strong></p>
 <p>앞서 살펴 본 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델을 함수형 API를 이용하여 구성하면 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_input&quot;</span><span class="p">)</span>          <span class="c1"># 입력층</span>
@@ -596,28 +611,28 @@ document.write(`
 </div>
 <p>사용된 단계들을 하나씩 살펴보자.</p>
 <ul>
-<li><p>입력층</p>
+<li><p>입력층: 여기서는 한 개만 사용</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_input&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 </ul>
 <ul>
-<li><p>은닉층</p>
+<li><p>은닉층: 입력층의 값을 이어 받음. 여러 개의 은닉층을 자유 자재로 구성 가능.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 </ul>
 <ul>
-<li><p>출력층</p>
+<li><p>출력층: 최종 은닉층의 결과를 이어 받아 출력값 계산. 여기서는 한 개만 사용.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 </ul>
 <ul>
-<li><p>모델 빌드: 입력층과 출력층을 이용하여 모델을 지정한다.</p>
+<li><p>모델 빌드: 입력층과 출력층을 이용하여 모델 지정</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -641,7 +656,8 @@ document.write(`
 <span class="go">_________________________________________________________________</span>
 </pre></div>
 </div>
-<p><strong>다중 입력, 다중 출력 모델 지정</strong></p>
+<section id="id2">
+<h3><span class="section-number">7.2.1. </span>다중 입력, 다중 출력 모델<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>다중 입력과 다중 출력을 지원하는 모델을 구성하는 방법을 예제를 이용하여 설명한다.</p>
 <div class="proof example admonition" id="exp-customer">
 <p class="admonition-title"><span class="caption-number">Example 7.1 </span> (고객 요구사항 접수 모델)</p>
@@ -653,16 +669,16 @@ document.write(`
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: 요구사항 제목</p>
 <ul>
-<li><p>제목 내용을  멀티-핫 인코딩한 0과 1로 구성된 길이가 1만인 벡터.</p></li>
+<li><p>제목을  멀티-핫 인코딩한 0과 1로 구성된 길이가 1만인 벡터.</p></li>
 <li><p>1만등 이내의 사용빈도를 갖는 단어만 사용됨.</p></li>
-<li><p>IMDB 영화 후기 멀티-핫 인코딩 참고</p></li>
+<li><p><a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">4장</span></a>의IMDB 영화 후기 멀티-핫 인코딩 참고</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">text_body</span></code>: 요구사항 내용</p>
 <ul>
-<li><p>제목 내용을  멀티-핫 인코딩한 0과 1로 구성된 길이가 1만인 벡터.</p></li>
+<li><p>요구사항 내용을  멀티-핫 인코딩한 0과 1로 구성된 길이가 1만인 벡터.</p></li>
 <li><p>1만등 이내의 사용빈도를 갖는 단어만 사용됨.</p></li>
-<li><p>IMDB 영화 후기 멀티-핫 인코딩 참고</p></li>
+<li><p><a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">4장</span></a>의IMDB 영화 후기 멀티-핫 인코딩 참고</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tags</span></code>: 사용자에 의한 추가 선택 사항</p>
@@ -689,6 +705,32 @@ document.write(`
 </section>
 </div><p>고객 요구사항 접수 모델을 함수형 API를 이용하여 다음과 같이
 구현할 수 있다.</p>
+<ul class="simple">
+<li><p>입력층: 세 개</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: 제목 입력 처리</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">text_body</span></code>:  요구사항 내용 입력 처리</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tags</span></code>: 추가 선택사항 처리</p></li>
+</ul>
+</li>
+<li><p>은닉층: 두 개</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Concatenate</span></code> 층: 여러 개의 텐서를 좌우로 이어붙임.
+여기서는 고객의 요구사항 제목, 내용, 추가 선택사항을 담고 있는
+길이가 각각 1만, 1만, 100인 세 개의 벡터를 이어붙여서
+길이가 총 2만1백인 하나의 벡터로 변환.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층: 64 개의 유닛과 함께 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수 사용</p></li>
+</ul>
+</li>
+<li><p>출력층: 두 개</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">priority</span></code>: 요구사항 처리 우선순위 판단. 0과 1사의 값을 계산하는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층.
+1개의 유닛과 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 활성화함수 지정.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">department</span></code>: 요구사항 처리 담당 부서 선택. 4 개의 부서 각각에 대한 처리 활률값을 계산하는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층.
+4개의 유닛과 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 활성화함수 지정.</p></li>
+</ul>
+</li>
+</ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vocabulary_size</span> <span class="o">=</span> <span class="mi">10000</span>    <span class="c1"># 사용빈도 1만등 인내 단어 사용</span>
 <span class="n">num_tags</span> <span class="o">=</span> <span class="mi">100</span>             <span class="c1"># 태그 수</span>
 <span class="n">num_departments</span> <span class="o">=</span> <span class="mi">4</span>        <span class="c1"># 부서 수</span>
@@ -711,11 +753,8 @@ document.write(`
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">title</span><span class="p">,</span> <span class="n">text_body</span><span class="p">,</span> <span class="n">tags</span><span class="p">],</span> <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">priority</span><span class="p">,</span> <span class="n">department</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>은닉층으로 사용된 <code class="docutils literal notranslate"><span class="pre">Concatenate()</span></code> 층은 여러 개의 텐서를 좌우로 이어붙이는 기능을 수행한다.
-따라서 여기서는 고객의 요구사항을 담고 있는
-길이가 각각 1만, 1만, 100인 세 개의 벡터를 이어붙여서 길이가 총 2만1백인 하나의 벡터로 변환한다.</p>
 <p><strong>모델 컴파일</strong></p>
-<p>손실함수와 평가지표 모두 출력층의 개수 개수만큼 지정한다.</p>
+<p>손실함수와 평가지표 모두 출력층의 개수만큼 지정한다.</p>
 <ul class="simple">
 <li><p>손실함수(loss)</p>
 <ul>
@@ -723,16 +762,16 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">department</span></code> 대상: <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code></p></li>
 </ul>
 </li>
-<li><p>평가지표(metrics): 평가지표는 대상 별로 여러 개를 사용할 수 있기에 각각의 대상에 대해 평가지표 리스트 작성</p>
+<li><p>평가지표(metrics): 평가지표는 대상 별로 여러 개를 사용할 수 있기에 각각의 대상에 대해 평가지표 리스트를 작성함.</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">priority</span></code> 대상: <code class="docutils literal notranslate"><span class="pre">[&quot;mean_absolute_error&quot;]</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">department</span></code> 대상: <code class="docutils literal notranslate"><span class="pre">[&quot;accuracy&quot;]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">priority</span></code> 대상: <code class="docutils literal notranslate"><span class="pre">[&quot;mean_absolute_error&quot;,</span> <span class="pre">&quot;mean_squared_error&quot;]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">department</span></code> 대상: <code class="docutils literal notranslate"><span class="pre">[&quot;accuracy&quot;,</span> <span class="pre">&quot;AUC&quot;,</span> <span class="pre">&quot;Precision&quot;]</span></code></p></li>
 </ul>
 </li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;adam&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean_squared_error&quot;</span><span class="p">,</span> <span class="s2">&quot;categorical_crossentropy&quot;</span><span class="p">],</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;mean_absolute_error&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]])</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;mean_absolute_error&quot;</span><span class="p">,</span> <span class="s2">&quot;mean_squared_error&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;AUC&quot;</span><span class="p">,</span> <span class="s2">&quot;Precision&quot;</span><span class="p">]])</span>
 </pre></div>
 </div>
 <p><strong>모델 훈련</strong></p>
@@ -744,21 +783,50 @@ document.write(`
 </pre></div>
 </div>
 <p><strong>모델 평가</strong></p>
-<p>모델 평가도 훈련과 동일한 방식의 인자가 사용된다.</p>
+<p>모델 평가도 훈련과 동일한 방식으로 구성된 인자가 사용된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">([</span><span class="n">title_data</span><span class="p">,</span> <span class="n">text_body_data</span><span class="p">,</span> <span class="n">tags_data</span><span class="p">],</span>
                <span class="p">[</span><span class="n">priority_data</span><span class="p">,</span> <span class="n">department_data</span><span class="p">])</span>
 </pre></div>
 </div>
 <p><strong>모델 활용</strong></p>
-<p>예측값은 두 개 출력층 각각에서 생성된 두 개의 어레이로 구성된 리스트이다.</p>
+<p>예측값은 두 개의 출력층 각각에서 생성된 두 개의 어레이로 구성된 리스트이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">priority_preds</span><span class="p">,</span> <span class="n">department_preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">title_data</span><span class="p">,</span> <span class="n">text_body_data</span><span class="p">,</span> <span class="n">tags_data</span><span class="p">])</span>
 </pre></div>
 </div>
+<ul>
+<li><p>우선 순위 예측값: 0과 1사이의 확률값</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">priority_preds</span>
+<span class="go">array([[1.],</span>
+<span class="go">       [1.],</span>
+<span class="go">       [1.],</span>
+<span class="go">       ...,</span>
+<span class="go">       [1.],</span>
+<span class="go">       [1.],</span>
+<span class="go">       [1.]], dtype=float32)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<ul>
+<li><p>처리 부서 예측값: 각 부서별 적정도를 가리키는 확률값</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">department_preds</span>
+<span class="go">array([[3.15035926e-04, 9.99676108e-01, 3.48305429e-38, 8.79832805e-06],</span>
+<span class="go">       [2.57118052e-04, 9.99649763e-01, 2.81043147e-36, 9.31219838e-05],</span>
+<span class="go">       [1.25319435e-04, 9.99730408e-01, 5.14789972e-38, 1.44241771e-04],</span>
+<span class="go">       ...,</span>
+<span class="go">       [2.07843386e-05, 9.99939203e-01, 6.17548646e-37, 4.00628560e-05],</span>
+<span class="go">       [5.92015058e-05, 9.99811471e-01, 3.15372667e-37, 1.29307984e-04],</span>
+<span class="go">       [1.07195789e-04, 9.99771416e-01, 1.70482034e-36, 1.21468736e-04]],</span>
+<span class="go">      dtype=float32)</span>
+</pre></div>
+</div>
+</li>
+</ul>
 <p><strong>사전 객체 활용</strong></p>
 <p>입력층과 출력층의 이름을 이용하여 사전 형식으로 입력값과 출력값을 지정할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;adam&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;priority&quot;</span><span class="p">:</span> <span class="s2">&quot;mean_squared_error&quot;</span><span class="p">,</span> <span class="s2">&quot;department&quot;</span><span class="p">:</span> <span class="s2">&quot;categorical_crossentropy&quot;</span><span class="p">},</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;priority&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mean_absolute_error&quot;</span><span class="p">],</span> <span class="s2">&quot;department&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]})</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;priority&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mean_absolute_error&quot;</span><span class="p">,</span> <span class="s2">&quot;mean_squared_error&quot;</span><span class="p">],</span> <span class="s2">&quot;department&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;AUC&quot;</span><span class="p">,</span> <span class="s2">&quot;Precision&quot;</span><span class="p">]})</span>
 
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">({</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title_data</span><span class="p">,</span> <span class="s2">&quot;text_body&quot;</span><span class="p">:</span> <span class="n">text_body_data</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="n">tags_data</span><span class="p">},</span>
           <span class="p">{</span><span class="s2">&quot;priority&quot;</span><span class="p">:</span> <span class="n">priority_data</span><span class="p">,</span> <span class="s2">&quot;department&quot;</span><span class="p">:</span> <span class="n">department_data</span><span class="p">},</span>
@@ -771,7 +839,9 @@ document.write(`
     <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">title_data</span><span class="p">,</span> <span class="s2">&quot;text_body&quot;</span><span class="p">:</span> <span class="n">text_body_data</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="n">tags_data</span><span class="p">})</span>
 </pre></div>
 </div>
-<p><strong>층 연결 구조</strong></p>
+</section>
+<section id="id3">
+<h3><span class="section-number">7.2.2. </span>모델 구조 그래프<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">plot_model()</span></code>을 이용하여 층 연결 구조를 그래프로 나타낼 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;ticket_classifier.png&quot;</span><span class="p">)</span>
 </pre></div>
@@ -790,49 +860,56 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;ticket_classifier_with_shape_info.png&quot;</span><span class="p">,</span> <span class="n">show_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-ticket_classifier_with_shapes.png?raw=true" style="width:900px;"></div><p><strong>모델 재활용</strong></p>
-<p>훈련된 모델의 특성을 이용하여 새로운 모델을 빌드할 수 있다.
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-ticket_classifier_with_shapes.png?raw=true" style="width:900px;"></div></section>
+<section id="id4">
+<h3><span class="section-number">7.2.3. </span>모델 재활용<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>훈련된 모델을 새로운 모델을 구성하는 데에 활용할 수 있다.
 먼저 모델의 <code class="docutils literal notranslate"><span class="pre">layers</span></code> 속성을 이용하여 사용된 층에 대한 정보를 확인한다.
-<code class="docutils literal notranslate"><span class="pre">layers</span></code> 속성은 사용된 층들의 객체로 이루어진 리스트를 가리킨다.</p>
+<code class="docutils literal notranslate"><span class="pre">layers</span></code> 속성은 사용된 층들로 이루어진 리스트를 가리킨다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">layers</span>
-<span class="go">[&lt;tensorflow.python.keras.engine.input_layer.InputLayer at 0x7fa963f9d358&gt;,</span>
-<span class="go"> &lt;tensorflow.python.keras.engine.input_layer.InputLayer at 0x7fa963f9d2e8&gt;,</span>
-<span class="go"> &lt;tensorflow.python.keras.engine.input_layer.InputLayer at 0x7fa963f9d470&gt;,</span>
-<span class="go"> &lt;tensorflow.python.keras.layers.merge.Concatenate at 0x7fa963f9d860&gt;,</span>
-<span class="go"> &lt;tensorflow.python.keras.layers.core.Dense at 0x7fa964074390&gt;,</span>
-<span class="go"> &lt;tensorflow.python.keras.layers.core.Dense at 0x7fa963f9d898&gt;,</span>
-<span class="go"> &lt;tensorflow.python.keras.layers.core.Dense at 0x7fa963f95470&gt;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">input</span>
-<span class="go">[&lt;tf.Tensor &quot;title:0&quot; shape=(None, 10000) dtype=float32&gt;,</span>
-<span class="go"> &lt;tf.Tensor &quot;text_body:0&quot; shape=(None, 10000) dtype=float32&gt;,</span>
-<span class="go"> &lt;tf.Tensor &quot;tags:0&quot; shape=(None, 100) dtype=float32&gt;]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">output</span>
-<span class="go">&lt;tf.Tensor &quot;concatenate/concat:0&quot; shape=(None, 20100) dtype=float32&gt;</span>
+<span class="go">[&lt;keras.src.engine.input_layer.InputLayer at 0x7fc3a1313fd0&gt;,</span>
+<span class="go"> &lt;keras.src.engine.input_layer.InputLayer at 0x7fc3a13ce450&gt;,</span>
+<span class="go"> &lt;keras.src.engine.input_layer.InputLayer at 0x7fc3a13c5990&gt;,</span>
+<span class="go"> &lt;keras.src.layers.merging.concatenate.Concatenate at 0x7fc3a13e0d50&gt;,</span>
+<span class="go"> &lt;keras.src.layers.core.dense.Dense at 0x7fc3a13a6310&gt;,</span>
+<span class="go"> &lt;keras.src.layers.core.dense.Dense at 0x7fc3a12f6850&gt;,</span>
+<span class="go"> &lt;keras.src.layers.core.dense.Dense at 0x7fc3a13e2f90&gt;]</span>
 </pre></div>
 </div>
-<p>출력층을 제외한 나머지 층을 재활용해보자.
-출력층은 5번과 6번 인덱스에 위치하기에 4번 인덱스가
-가리키는 (은닉)층의 출력 정보를 따로 떼어낸다.</p>
+<p>예를 들어, 3번 인덱스에 해당하는 층의 입력값과 출력값에 대한 정보는 아래처럼 확인할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">input</span>
+<span class="go">[&lt;KerasTensor: shape=(None, 10000) dtype=float32 (created by layer &#39;title&#39;)&gt;,</span>
+<span class="go"> &lt;KerasTensor: shape=(None, 10000) dtype=float32 (created by layer &#39;text_body&#39;)&gt;,</span>
+<span class="go"> &lt;KerasTensor: shape=(None, 100) dtype=float32 (created by layer &#39;tags&#39;)&gt;]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">output</span>
+<span class="go">&lt;KerasTensor: shape=(None, 20100) dtype=float32 (created by layer &#39;concatenate&#39;)&gt;</span>
+</pre></div>
+</div>
+<p>여기서는 문제해결의 어려움 정도를 “quick”, “medium”, “difficult”로 구분하는 어려움 정도를 판별하는
+출력층을 추가하여 총 세 종류의 출력값을 생성하는 모델을 얻고자 한다.
+원래는 모델을 새로 구성하고 훈련을 처음부터 다시 시작해야 한다.
+하지만 어차피 훈련과정이 이전과 특별히 다를 이유가 없다.
+이런 경우 이전에 훈련된 모델의 일부를 재활용할 수 있다.
+기존에 훈련된 모델을 재활용하는 경우
+일반적으로 출력층을 제외한 나머지 층을 재활용 대상으로 삼는다.</p>
+<p>기존 모델에서 출력층은 5번과 6번 인덱스에 위치하기에
+4번 인덱스가 가리키는 (은닉)층의 출력 정보를 따로 떼어낸다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">output</span>
 </pre></div>
 </div>
-<p>이제 출력층에 문제해결의 어려움 정도를 “quick”, “medium”, “difficult”로
-구분하는 어려움(difficulty) 정도를 판별하는 층을 추가해보자.
-먼저, <code class="docutils literal notranslate"><span class="pre">difficulty</span></code> 층을 준비한다.</p>
+<p>그런 다음 이제 출력층에 문제해결의 어려움 정도를 판별하는 층을 아래와 같이 지정한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">difficulty</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;difficulty&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>준비된 <code class="docutils literal notranslate"><span class="pre">'difficulty'</span></code> 층을 출력층으로 추가하여
-<code class="docutils literal notranslate"><span class="pre">priority</span></code>, <code class="docutils literal notranslate"><span class="pre">department</span></code>, <code class="docutils literal notranslate"><span class="pre">difficulty</span></code>
-세 개의 출력값을 생성하는 새로운 모델을 구성한다.</p>
+<p>새로이 준비된 <code class="docutils literal notranslate"><span class="pre">'difficulty'</span></code> 층을 기존에 사용된 두 개의 출력층과 함께
+새로운 모델의 출력층으로 지정한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span>
     <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">title</span><span class="p">,</span> <span class="n">text_body</span><span class="p">,</span> <span class="n">tags</span><span class="p">],</span>
     <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">priority</span><span class="p">,</span> <span class="n">department</span><span class="p">,</span> <span class="n">difficulty</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>새로 생성된 모델은 기존에 훈련된 모델의 가중치,
-즉, 은닉층에 사용된 가중치는 그대로 사용되며,
-모델 구성 그래프는 다음과 같다.</p>
+<p>모델 구성 그래프는 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">new_model</span><span class="p">,</span> <span class="s2">&quot;updated_ticket_classifier.png&quot;</span><span class="p">,</span> <span class="n">show_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -866,9 +943,15 @@ document.write(`
 <span class="go">__________________________________________________________________________________________________</span>
 </pre></div>
 </div>
+<p>새로 생성된 모델은 출력층을 제외한 나머지 층들이 기존 모델의 훈련 과정에서 학습한
+가중치 행렬과 편향 벡터를 그대로 유지한다.</p>
+<p>모델 재활용은 기존에 매우 잘 훈련된 모델을 새로운 문제를 해결하는 딥러닝 모델을
+훈련시킬 때 많이 사용하는 기법이다.
+<a class="reference internal" href="computer_vision_advanced.html#ch-computer-vision-advanced"><span class="std std-numref">9장</span></a>에서 모델 재활용을 자세히 다룬다.</p>
 </section>
-<section id="id3">
-<h3><span class="section-number">7.1.3. </span>모델 구성법 3: 서브클래싱<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="id5">
+<h2><span class="section-number">7.3. </span>케라스 모델 구성법 3: 서브클래싱<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
 <p>케라스 모델과 호환되는 모델 클래스를 직접 선언하여 활용하려면 <code class="docutils literal notranslate"><span class="pre">keras.Model</span></code> 클래스를 상속해야 한다.
 이런 방식을 <strong>서브클래싱</strong><font size='2'>subclassing</font>이라 부른다.</p>
 <p>서브클래싱은 <code class="docutils literal notranslate"><span class="pre">keras.Model</span></code> 클래스를 상속하면서 기본적으로 아래 두 메서드를 목적에 맞추어
@@ -930,8 +1013,8 @@ document.write(`
 </li>
 </ul>
 </section>
-<section id="id4">
-<h3><span class="section-number">7.1.4. </span>혼합 모델 구성법<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<section id="id6">
+<h2><span class="section-number">7.4. </span>케라스 혼합 모델 구성법<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
 <p>소개된 세 가지 방식을 임의로 혼합하여 활용할 수 있다.</p>
 <p><strong>예제: 서브클래싱 모델을 함수형 모델에 활용하기</strong> (강추!!!)</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Classifier</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
@@ -975,9 +1058,8 @@ document.write(`
 </pre></div>
 </div>
 </section>
-</section>
-<section id="id5">
-<h2><span class="section-number">7.2. </span>모델 훈련/평가 방식 조정<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<section id="id7">
+<h2><span class="section-number">7.5. </span>모델 훈련/평가 방식 조정<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <p>케라스 모델의 가장 기본적인 활용법은 아래 과정을 차례대로 이행하는 것이다.</p>
 <ul class="simple">
 <li><p>컴파일(<code class="docutils literal notranslate"><span class="pre">compile()</span></code>)</p></li>
@@ -991,8 +1073,8 @@ document.write(`
 <li><p>다양한 종류의 콜백<font size='2'>callback</font>을 이용하여
 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 함수의 훈련 과정을 모니터링 하거나 어느 정도 조정할 수 있다.</p></li>
 </ul>
-<section id="id6">
-<h3><span class="section-number">7.2.1. </span>사용자 정의 평가지표 활용<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<section id="id8">
+<h3><span class="section-number">7.5.1. </span>사용자 정의 평가지표 활용<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <p>훈련중인 모델의 성능을 평가하는 평가지표<font size='2'>metric</font>는 문제에 따라 일반적으로 사용되는 것들이 있다.</p>
 <ul class="simple">
 <li><p>회귀 모델: 평균제곱근오차(RMSE), 평균절대오차(MAE) 등</p></li>
@@ -1001,8 +1083,8 @@ document.write(`
 <p>하지만 필요에 따라 사용자가 직접 모델 평가지표를 정의해서 활용할 수 있다.
 케라스와 호환되는 평가지표를 정의하기 위해서는 <code class="docutils literal notranslate"><span class="pre">keras.metrics.Metric</span></code> 클래스를 상속하면 된다.</p>
 </section>
-<section id="id7">
-<h3><span class="section-number">7.2.2. </span>콜백 활용<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<section id="id9">
+<h3><span class="section-number">7.5.2. </span>콜백 활용<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p><strong>콜백</strong><font size='2'>callback</font>은 모델 훈련 과정중에
 저장되는 모든 기록을 모니터링하면서 필요에 따라 특정 기능을 수행한다.
 가장 많이 활용되는 콜백의 기능과 담당 콜백 클래스는 다음과 같다.</p>
@@ -1064,18 +1146,18 @@ document.write(`
 </div>
 </section>
 </div></section>
-<section id="id8">
-<h3><span class="section-number">7.2.3. </span>사용자 정의 콜백 활용<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<section id="id10">
+<h3><span class="section-number">7.5.3. </span>사용자 정의 콜백 활용<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <p>케라스와 호환되는 콜백 클래스를 정의하려면 <code class="docutils literal notranslate"><span class="pre">keras.callbacks.Callback</span></code> 클래스를 상속하면 된다.</p>
 </section>
 <section id="tensorboard">
-<h3><span class="section-number">7.2.4. </span>텐서보드(TensorBoard) 활용<a class="headerlink" href="#tensorboard" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.5.4. </span>텐서보드(TensorBoard) 활용<a class="headerlink" href="#tensorboard" title="Permalink to this heading">#</a></h3>
 <p><strong>텐서보드</strong><font size='2'>TensorBoard</font>는 모델 훈련과정을 모니터링하는 최고의 어플이며
 텐서플로우와 함께 기본적으로 설치된다.</p>
 <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-tensorboard.png?raw=true" style="width:600px;"></div></section>
 </section>
-<section id="id9">
-<h2><span class="section-number">7.3. </span>훈련/평가 알고리즘 직접 구현하기<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<section id="id11">
+<h2><span class="section-number">7.6. </span>훈련/평가 알고리즘 직접 구현하기<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
 <p>모델 컴파일 이후 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드를 호출하면 모델의 훈련이 진행된다.
 그런데 모델의 훈련 방식을 사용자가 직접 조정할 수 있는 방식으로 진행하고자 하면
 아래 과정을 자신만의 알고리즘으로 직접 구현하면 된다.</p>
@@ -1086,8 +1168,8 @@ document.write(`
 </ul>
 <p>자세한 이야기는 <a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-working_with_keras.ipynb">(구글 코랩) 케라스 모델 활용법</a>을 참고한다.</p>
 </section>
-<section id="id10">
-<h2><span class="section-number">7.4. </span>연습문제<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<section id="id12">
+<h2><span class="section-number">7.7. </span>연습문제<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-working_with_keras.ipynb">(실습) 케라스 모델 고급 활용법</a></p></li>
 </ol>
@@ -1157,22 +1239,24 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.1. 케라스 모델 구성법</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential">7.1.1. 모델 구성법 1: <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api">7.1.2. 모델 구성법 2: 함수형 API</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.1.3. 모델 구성법 3: 서브클래싱</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.1.4. 혼합 모델 구성법</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential">7.1. 케라스 모델 구성법 1: <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델 활용</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api">7.2. 케라스 모델 구성법 2: 함수형 API</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7.2.1. 다중 입력, 다중 출력 모델</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">7.2.2. 모델 구조 그래프</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">7.2.3. 모델 재활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.2. 모델 훈련/평가 방식 조정</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.2.1. 사용자 정의 평가지표 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.2.2. 콜백 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.2.3. 사용자 정의 콜백 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorboard">7.2.4. 텐서보드(TensorBoard) 활용</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.3. 케라스 모델 구성법 3: 서브클래싱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.4. 케라스 혼합 모델 구성법</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.5. 모델 훈련/평가 방식 조정</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.5.1. 사용자 정의 평가지표 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.5.2. 콜백 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.5.3. 사용자 정의 콜백 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorboard">7.5.4. 텐서보드(TensorBoard) 활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.3. 훈련/평가 알고리즘 직접 구현하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.4. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.6. 훈련/평가 알고리즘 직접 구현하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">7.7. 연습문제</a></li>
 </ul>
   </nav></div>
 
