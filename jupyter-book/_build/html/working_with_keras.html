@@ -374,14 +374,13 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.3. 케라스 모델 구성법 3: 서브클래싱</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.4. 케라스 혼합 모델 구성법</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.5. 모델 훈련/평가 방식 조정</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.5.1. 사용자 정의 평가지표 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.5.2. 콜백 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.5.3. 사용자 정의 콜백 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorboard">7.5.4. 텐서보드(TensorBoard) 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.5.1. 콜백 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.5.2. 사용자 정의 콜백 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorboard">7.5.3. 텐서보드(TensorBoard) 활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.6. 훈련/평가 알고리즘 직접 구현하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">7.7. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.6. 훈련/평가 알고리즘 직접 구현하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.7. 연습문제</a></li>
 </ul>
             </nav>
         </div>
@@ -960,14 +959,6 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">__init__()</span></code> 메서드(생성자): 은닉층과 출력층으로 사용될 층 객체 지정</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">call()</span></code> 메서드: 층을 연결하는 과정 지정. 즉, 입력값으부터 출력값을 만들어내는 순전파 과정 묘사.</p></li>
 </ul>
-<div class="note admonition">
-<p class="admonition-title">모델과 층</p>
-<p>모델 서브클래싱은 <code class="docutils literal notranslate"><span class="pre">keras.layers.Layer</span></code>를 상속하여 사용자 정의 층 클래스를 선언하는 방식과
-거의 동일하다 (<a class="reference internal" href="keras_and_tf.html#ch-keras-tf"><span class="std std-numref">3장</span></a> 참고).
-층 클래스와는 다르게 모델 클래스는 <code class="docutils literal notranslate"><span class="pre">fit()</span></code>, <code class="docutils literal notranslate"><span class="pre">evaluate()</span></code>, <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 함께 지원하기에
-모델의 훈련, 평가, 예측을 총괄할 수 있다.
-물론 모든 과정에서 훈련된 층에 저장된 가중치 행렬과 편향 벡터를 이용한다.</p>
-</div>
 <p>앞서 함수형 API로 구성한 고객 요구사항 접수 모델(두 종류의 출력값 생성 모델)을 서브클래싱을 기법을 이용하여 구현하면 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CustomerTicketModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 
@@ -1017,11 +1008,26 @@ document.write(`
 </ul>
 </li>
 </ul>
+<p><strong>모델은 층의 자식 클래스</strong></p>
+<p>모델 서브클래싱은 <code class="docutils literal notranslate"><span class="pre">keras.layers.Layer</span></code>를 상속하여 사용자 정의 층 클래스를 선언하는 방식과
+거의 동일하다 (<a class="reference internal" href="keras_and_tf.html#ch-keras-tf"><span class="std std-numref">3장</span></a> 참고).
+이유는 <code class="docutils literal notranslate"><span class="pre">keras.Model</span></code>이 <code class="docutils literal notranslate"><span class="pre">keras.layers.Layer</span></code>의 자식 클래스이기 때문이다.
+그리고 모델 클래스는 <code class="docutils literal notranslate"><span class="pre">fit()</span></code>, <code class="docutils literal notranslate"><span class="pre">evaluate()</span></code>, <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 함께 지원하기에
+모델의 훈련, 평가, 예측을 총괄할 수 있다.
+물론 모든 과정에서 훈련된 층에 저장된 가중치 행렬과 편향 벡터를 이용한다.</p>
 </section>
 <section id="id6">
 <h2><span class="section-number">7.4. </span>케라스 혼합 모델 구성법<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
-<p>소개된 세 가지 방식을 임의로 혼합하여 활용할 수 있다.</p>
+<p>소개된 세 가지 방식을 임의로 혼합하여 활용할 수 있다.
+무엇보다도 모델 클래스가 층의 하위 클래스이기에
+선언된/훈련된 모델을 다른 모델의 하나의 층으로 활용할 수도 있다.</p>
 <p><strong>예제: 서브클래싱 모델을 함수형 모델에 활용하기</strong> (강추!!!)</p>
+<p>먼저 서브클래싱으로 하나의 모델을 선언한다.</p>
+<ul class="simple">
+<li><p>한 개의 밀집층만 사용</p></li>
+<li><p>이진 분류인 경우: 하나의 유닛과 <code class="docutils literal notranslate"><span class="pre">sigmoid</span></code> 활성화 함수 사용</p></li>
+<li><p>다중 클래스 분류인 경우: 클래스(범주) 수 만큼의 유닛과  <code class="docutils literal notranslate"><span class="pre">softmax</span></code> 활성화 함수 사용</p></li>
+</ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Classifier</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
@@ -1036,19 +1042,26 @@ document.write(`
 
     <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>아래 코드는 함수형 API 형식으로 새로운 모델을 지정한다.
+이때 위 모델 클래스의 객체를 출력층으로 사용한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,))</span>                       <span class="c1"># 입력층</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span> <span class="c1"># 은닉층</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">Classifier</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>         <span class="c1"># 출력층</span>
 
-<span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
-<span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">Classifier</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>예제: 함수형 모델을 서브클래싱 모델에 활용하기</strong></p>
+<p>먼저 함수형 API 형식으로 하나의 모델을 선언한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,))</span>
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
 <span class="n">binary_classifier</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>아래 <code class="docutils literal notranslate"><span class="pre">MyModel</span></code> 클래스는 앞서 선언한 <code class="docutils literal notranslate"><span class="pre">binary_classifier</span></code> 모델을 출력층으로 활용한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -1065,31 +1078,20 @@ document.write(`
 </section>
 <section id="id7">
 <h2><span class="section-number">7.5. </span>모델 훈련/평가 방식 조정<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
-<p>케라스 모델의 가장 기본적인 활용법은 아래 과정을 차례대로 이행하는 것이다.</p>
+<p>딥러닝 모델의 훈련은 한 번 시작되면 훈련 종료까지 어떤 간섭도 받지 않는다.
+즉, 훈련 이전에 컴파일 과정에서 지정된 설정을 훈련 중간에 변경할 수 없다.
+다만, 훈련 진행과정을 관찰<font size='2'>monitoring</font>할 수 있을 뿐이다.</p>
+<p>훈련 과정 동안 관찰할 수 있는 내용은 일반적으로 다음과 같다.</p>
 <ul class="simple">
-<li><p>컴파일(<code class="docutils literal notranslate"><span class="pre">compile()</span></code>)</p></li>
-<li><p>훈련(<code class="docutils literal notranslate"><span class="pre">fit()</span></code>)</p></li>
-<li><p>평가(<code class="docutils literal notranslate"><span class="pre">evaluate()</span></code>)</p></li>
-<li><p>예측(<code class="docutils literal notranslate"><span class="pre">predict()</span></code>)</p></li>
+<li><p>에포크별 손실값</p></li>
+<li><p>에포크별 평가지표</p></li>
 </ul>
-<p>하지만 훈련중의 모델 평가 방식과 훈련 과정을 조정할 수 있는 다양한 기법이 지원된다.</p>
-<ul class="simple">
-<li><p>평가지표<font size='2'>metric</font>를 사용자가 직접 정의할 수 있다.</p></li>
-<li><p>다양한 종류의 콜백<font size='2'>callback</font>을 이용하여
-<code class="docutils literal notranslate"><span class="pre">fit()</span></code> 함수의 훈련 과정을 모니터링 하거나 어느 정도 조정할 수 있다.</p></li>
-</ul>
+<p>손실값과 평가지표는 모델을 컴파일할 때 지정된다.
+케라스가 지원하는 방식 중에 하나를 선택하거나
+필요에 따라 사용자가 직접 선언한 손실함수와 평가지표를 활용할 수 있다.
+평가지표의 경우 <code class="docutils literal notranslate"><span class="pre">keras.metrics.Metric</span></code> 클래스를 상속해야 케라스의 다른 평가지표와 호환된다.</p>
 <section id="id8">
-<h3><span class="section-number">7.5.1. </span>사용자 정의 평가지표 활용<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
-<p>훈련중인 모델의 성능을 평가하는 평가지표<font size='2'>metric</font>는 문제에 따라 일반적으로 사용되는 것들이 있다.</p>
-<ul class="simple">
-<li><p>회귀 모델: 평균제곱근오차(RMSE), 평균절대오차(MAE) 등</p></li>
-<li><p>분류 모델: 정확도, 정밀도 등</p></li>
-</ul>
-<p>하지만 필요에 따라 사용자가 직접 모델 평가지표를 정의해서 활용할 수 있다.
-케라스와 호환되는 평가지표를 정의하기 위해서는 <code class="docutils literal notranslate"><span class="pre">keras.metrics.Metric</span></code> 클래스를 상속하면 된다.</p>
-</section>
-<section id="id9">
-<h3><span class="section-number">7.5.2. </span>콜백 활용<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.5.1. </span>콜백 활용<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <p><strong>콜백</strong><font size='2'>callback</font>은 모델 훈련 과정중에
 저장되는 모든 기록을 모니터링하면서 필요에 따라 특정 기능을 수행한다.
 가장 많이 활용되는 콜백의 기능과 담당 콜백 클래스는 다음과 같다.</p>
@@ -1151,18 +1153,18 @@ document.write(`
 </div>
 </section>
 </div></section>
-<section id="id10">
-<h3><span class="section-number">7.5.3. </span>사용자 정의 콜백 활용<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<section id="id9">
+<h3><span class="section-number">7.5.2. </span>사용자 정의 콜백 활용<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p>케라스와 호환되는 콜백 클래스를 정의하려면 <code class="docutils literal notranslate"><span class="pre">keras.callbacks.Callback</span></code> 클래스를 상속하면 된다.</p>
 </section>
 <section id="tensorboard">
-<h3><span class="section-number">7.5.4. </span>텐서보드(TensorBoard) 활용<a class="headerlink" href="#tensorboard" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.5.3. </span>텐서보드(TensorBoard) 활용<a class="headerlink" href="#tensorboard" title="Permalink to this heading">#</a></h3>
 <p><strong>텐서보드</strong><font size='2'>TensorBoard</font>는 모델 훈련과정을 모니터링하는 최고의 어플이며
 텐서플로우와 함께 기본적으로 설치된다.</p>
 <div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-tensorboard.png?raw=true" style="width:600px;"></div></section>
 </section>
-<section id="id11">
-<h2><span class="section-number">7.6. </span>훈련/평가 알고리즘 직접 구현하기<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<section id="id10">
+<h2><span class="section-number">7.6. </span>훈련/평가 알고리즘 직접 구현하기<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
 <p>모델 컴파일 이후 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드를 호출하면 모델의 훈련이 진행된다.
 그런데 모델의 훈련 방식을 사용자가 직접 조정할 수 있는 방식으로 진행하고자 하면
 아래 과정을 자신만의 알고리즘으로 직접 구현하면 된다.</p>
@@ -1173,8 +1175,8 @@ document.write(`
 </ul>
 <p>자세한 이야기는 <a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-working_with_keras.ipynb">(구글 코랩) 케라스 모델 활용법</a>을 참고한다.</p>
 </section>
-<section id="id12">
-<h2><span class="section-number">7.7. </span>연습문제<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<section id="id11">
+<h2><span class="section-number">7.7. </span>연습문제<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-working_with_keras.ipynb">(실습) 케라스 모델 고급 활용법</a></p></li>
 </ol>
@@ -1254,14 +1256,13 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.3. 케라스 모델 구성법 3: 서브클래싱</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.4. 케라스 혼합 모델 구성법</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.5. 모델 훈련/평가 방식 조정</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.5.1. 사용자 정의 평가지표 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.5.2. 콜백 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.5.3. 사용자 정의 콜백 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorboard">7.5.4. 텐서보드(TensorBoard) 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.5.1. 콜백 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.5.2. 사용자 정의 콜백 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tensorboard">7.5.3. 텐서보드(TensorBoard) 활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.6. 훈련/평가 알고리즘 직접 구현하기</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">7.7. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.6. 훈련/평가 알고리즘 직접 구현하기</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.7. 연습문제</a></li>
 </ul>
   </nav></div>
 
