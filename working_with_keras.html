@@ -1172,7 +1172,35 @@ document.write(`
 <li><p>이미지, 텍스트, 오디오 데이터 시각화</p></li>
 <li><p>기타 다양한 기능 제공</p></li>
 </ul>
-<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-tensorboard.png?raw=true" style="width:600px;"></div></section>
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-tensorboard.png?raw=true" style="width:600px;"></div><p>텐서보드는 <code class="docutils literal notranslate"><span class="pre">TensorBoard</span></code> 콜백 클래스를 활용한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">log_dir</span></code>: 텐서보드 서버 실행에 필요한 데이터 저장소 지정</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tensorboard</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">TensorBoard</span><span class="p">(</span>
+    <span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;./tensorboard_log_dir&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
+          <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">),</span>
+          <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">tensorboard</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>모델 훈련 중 또는 이후에 텐서보드 서버를 실행한다.</p>
+<ul class="simple">
+<li><p>주피터 노트북에서</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">tensorboard</span>
+<span class="o">%</span><span class="n">tensorboard</span> <span class="o">--</span><span class="n">logdir</span> <span class="o">./</span><span class="n">tensorboard_log_dir</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>터미널에서</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tensorboard</span> <span class="o">--</span><span class="n">logdir</span> <span class="o">./</span><span class="n">tensorboard_log_dir</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="id10">
 <h2><span class="section-number">7.6. </span>연습문제<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
