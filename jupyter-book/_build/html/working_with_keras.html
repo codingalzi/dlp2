@@ -375,11 +375,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.3. 신경망 모델 구성법 3: 서브클래싱</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.4. 혼합 신경망 모델 구성법</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.5. 훈련 평가 방식 지정</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.5.1. 콜백</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.5.2. 텐서보드</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.5.1. 사용자 정의 평가지표</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.5.2. 콜백</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.5.3. 텐서보드</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.6. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.6. 연습문제</a></li>
 </ul>
             </nav>
         </div>
@@ -494,22 +495,48 @@ document.write(`
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>1층의 가중치 행렬과 편향 벡터</p></li>
+<li><p>1층의 가중치 행렬(2차원 텐서) 모양: (3, 64)</p>
+<ul>
+<li><p>입력값 특성: 3개</p></li>
+<li><p>출력값 특성: 64개</p></li>
+</ul>
+</li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 가중치 행렬</span>
 <span class="go">TensorShape([3, 64])</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 편향 벡터</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>1층의 편향 벡터(1차원 텐서) 모양: (64,)</p>
+<ul>
+<li><p>출력값 특성: 64개</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 편향 벡터</span>
 <span class="go">TensorShape([64])</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>2층의 가중치 행렬과 편향 벡터</p></li>
+<li><p>2층의 가중치 행렬(2차원 텐서): (64, 10)</p>
+<ul>
+<li><p>입력값 특성: 64개</p></li>
+<li><p>출력값 특성: 10개</p></li>
+</ul>
+</li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 가중치 행렬</span>
 <span class="go">TensorShape([64, 10])</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 편향 벡터</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>2층의 편향 벡터(1차원 텐서) 모양: (10,)</p>
+<ul>
+<li><p>출력값 특성: 10개</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 편향 벡터</span>
 <span class="go">TensorShape([10])</span>
 </pre></div>
 </div>
@@ -794,13 +821,13 @@ document.write(`
 <ul>
 <li><p>우선 순위 예측값: 0과 1사이의 확률값</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">priority_preds</span>
-<span class="go">array([[1.],</span>
-<span class="go">       [1.],</span>
-<span class="go">       [1.],</span>
-<span class="go">       ...,</span>
-<span class="go">       [1.],</span>
-<span class="go">       [1.],</span>
-<span class="go">       [1.]], dtype=float32)</span>
+<span class="go">array([[0.],</span>
+<span class="go">   [0.],</span>
+<span class="go">   [0.],</span>
+<span class="go">   ...,</span>
+<span class="go">   [0.],</span>
+<span class="go">   [0.],</span>
+<span class="go">   [0.]], dtype=float32)</span>
 </pre></div>
 </div>
 </li>
@@ -808,14 +835,19 @@ document.write(`
 <ul>
 <li><p>처리 부서 예측값: 각 부서별 적정도를 가리키는 확률값</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">department_preds</span>
-<span class="go">array([[3.15035926e-04, 9.99676108e-01, 3.48305429e-38, 8.79832805e-06],</span>
-<span class="go">       [2.57118052e-04, 9.99649763e-01, 2.81043147e-36, 9.31219838e-05],</span>
-<span class="go">       [1.25319435e-04, 9.99730408e-01, 5.14789972e-38, 1.44241771e-04],</span>
+<span class="go">array([[1.26754885e-05, 3.67883259e-11, 2.38737906e-03, 9.97599900e-01],</span>
+<span class="go">       [5.86307794e-03, 4.93278662e-09, 6.00390911e-01, 3.93745989e-01],</span>
+<span class="go">       [1.56256149e-03, 3.38436678e-07, 2.20820252e-02, 9.76355135e-01],</span>
 <span class="go">       ...,</span>
-<span class="go">       [2.07843386e-05, 9.99939203e-01, 6.17548646e-37, 4.00628560e-05],</span>
-<span class="go">       [5.92015058e-05, 9.99811471e-01, 3.15372667e-37, 1.29307984e-04],</span>
-<span class="go">       [1.07195789e-04, 9.99771416e-01, 1.70482034e-36, 1.21468736e-04]],</span>
-<span class="go">      dtype=float32)</span>
+<span class="go">       [2.97836447e-03, 6.37571304e-07, 4.77804057e-03, 9.92242992e-01],</span>
+<span class="go">       [2.41168109e-05, 3.63892028e-10, 3.09850991e-01, 6.90124929e-01],</span>
+<span class="go">       [9.11577154e-05, 7.13576198e-10, 7.34233633e-02, 9.26485479e-01]],</span>
+<span class="go">       dtype=float32)</span>
+</pre></div>
+</div>
+<p>각각의 요구사항을 처리해야 하는 부서는 <code class="docutils literal notranslate"><span class="pre">argmax()</span></code> 메서드로 확인된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">department_preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+<span class="go">array([3, 2, 3, ..., 3, 3, 3])</span>
 </pre></div>
 </div>
 </li>
@@ -911,7 +943,8 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">new_model</span><span class="p">,</span> <span class="s2">&quot;updated_ticket_classifier.png&quot;</span><span class="p">,</span> <span class="n">show_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-ticket_classifier_with_shapes-02.png?raw=true" style="width:900px;"></div><p>요약 결과는 다음과 같다.</p>
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-ticket_classifier_with_shapes-02.png?raw=true" style="width:900px;"></div><p>새로 생성된 모델은 출력층을 제외한 나머지 층들이 기존 모델의 훈련 과정에서 학습한
+가중치 행렬과 편향 벡터를 그대로 유지한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">new_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 <span class="go">Model: &quot;model_2&quot;</span>
 <span class="go">__________________________________________________________________________________________________</span>
@@ -941,8 +974,6 @@ document.write(`
 <span class="go">__________________________________________________________________________________________________</span>
 </pre></div>
 </div>
-<p>새로 생성된 모델은 출력층을 제외한 나머지 층들이 기존 모델의 훈련 과정에서 학습한
-가중치 행렬과 편향 벡터를 그대로 유지한다.</p>
 <p>모델 재활용은 기존에 매우 잘 훈련된 모델을 새로운 문제를 해결하는 딥러닝 신경망 모델을
 훈련시킬 때 많이 사용하는 기법이다.
 <a class="reference internal" href="computer_vision_advanced.html#ch-computer-vision-advanced"><span class="std std-numref">9장</span></a>에서 모델 재활용을 자세히 다룬다.</p>
@@ -1087,10 +1118,54 @@ document.write(`
 케라스가 지원하는 방식 중에 하나를 선택하거나
 필요에 따라 사용자가 직접 선언한 손실함수 또는 평가지표 클래스를 활용할 수 있다.
 평가지표의 경우 <code class="docutils literal notranslate"><span class="pre">keras.metrics.Metric</span></code> 클래스를 상속해야 케라스의 다른 평가지표 클래스와 호환된다.</p>
-<p>여기서는 훈련 과정을 조정하고 계산되는 손실값과 평가지표를 활용하는 방식을 지정하는 콜백 기능과
-텐서보드를 소개한다.</p>
 <section id="id8">
-<h3><span class="section-number">7.5.1. </span>콜백<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">7.5.1. </span>사용자 정의 평가지표<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<p>사용자가 직접 평가지표를 정의하려면 <code class="docutils literal notranslate"><span class="pre">Metric</span></code> 클래스를 상속하는 클래스를 선언해야 한다.
+특히 아래 세 개의 메서드를 재정의<font size='2'>overriding</font> 한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">update_state()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">result()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reset_state()</span></code></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">RootMeanSquaredError</span></code> 클래스는 평균제곱근오차(RMSE)를 평가지표로 사용하는 객체를 생성한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RootMeanSquaredError</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">Metric</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rmse&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mse_sum&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;total_samples&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">update_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">mse</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+        <span class="n">num_samples</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">/</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">reset_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>아래 코드는 앞서 직접 정의한 RMSE 평가지표의 객체를 활용하여 모델을 훈련시킨다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">RootMeanSquaredError</span><span class="p">()])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
+          <span class="n">epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+          <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>이제 훈련 과정에서 계산되는 손실값과 평가지표를 활용하는 방식을 지정하는 콜백 기능과
+텐서보드를 소개한다.</p>
+</section>
+<section id="id9">
+<h3><span class="section-number">7.5.2. </span>콜백<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p>컴퓨터 프로그래밍에서 <strong>콜백</strong><font size='2'>callback</font>은
 하나의 프로그램이 실행되는 도중에 추가적으로 다른 API를 호출하는 기능 또는 해당 API를 가리킨다.
 호출된 콜백은 자신을 호출한 프로그램과 독립적으로 실행된다.</p>
@@ -1159,10 +1234,47 @@ document.write(`
 </pre></div>
 </div>
 <p><strong>사용자 정의 콜백</strong></p>
-<p>케라스와 호환되는 콜백 클래스를 정의하려면 <code class="docutils literal notranslate"><span class="pre">keras.callbacks.Callback</span></code> 클래스를 상속하면 된다.</p>
+<p>케라스와 호환되는 콜백 클래스를 정의하려면 <code class="docutils literal notranslate"><span class="pre">keras.callbacks.Callback</span></code> 클래스를 상속하면 된다.
+매 에포크와 매 배치 훈련 단계의 시작과 종료 지점에서
+수행해야 할 기능을 정의해야 하며 아래 메서드를 재정의하는 방식으로 이루어진다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">on_epoch_begin</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
+<span class="n">on_epoch_end</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
+<span class="n">on_batch_begin</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
+<span class="n">on_batch_end</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
+<span class="n">on_train_begin</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+<span class="n">on_train_end</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>각 메서드에 사용되는 인자는 훈련 과정 중에 자동으로 생성된 객체로부터 값을 받아온다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">logs</span></code> 인자: 이전 배치와 에포크의 훈련셋과 검증셋에 대한 손실값, 평가지표 등을 포함한 사전 객체.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch</span></code>와 <code class="docutils literal notranslate"><span class="pre">epoch</span></code>: 배치와 에포크 정보</p></li>
+</ul>
+<p>다음 <code class="docutils literal notranslate"><span class="pre">LossHistory</span></code> 콜백 클래스는 배치 훈련이 끝날 때마다 손실값을 저장하고
+에포크가 끝날 때마다 배치별 손실값을 그래프로 저장하여 훈련이 종료된 후 시각화하여 보여주도록 한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="k">class</span> <span class="nc">LossHistory</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">on_train_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">on_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;loss&quot;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span><span class="p">,</span>
+                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training loss for each batch&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch (epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;plot_at_epoch_</span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
 </section>
-<section id="id9">
-<h3><span class="section-number">7.5.2. </span>텐서보드<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<section id="id10">
+<h3><span class="section-number">7.5.3. </span>텐서보드<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <p><strong>텐서보드</strong><font size='2'>TensorBoard</font>는 모델 훈련 과정을 시각적으로 실시간 관찰할 수 있는 도구를 제공하며
 텐서플로우와 함께 설치된다.</p>
 <ul class="simple">
@@ -1202,8 +1314,8 @@ document.write(`
 </div>
 </section>
 </section>
-<section id="id10">
-<h2><span class="section-number">7.6. </span>연습문제<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<section id="id11">
+<h2><span class="section-number">7.6. </span>연습문제<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-working_with_keras.ipynb">(실습) 케라스 신경망 모델 활용법</a></p></li>
 </ol>
@@ -1283,11 +1395,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">7.3. 신경망 모델 구성법 3: 서브클래싱</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">7.4. 혼합 신경망 모델 구성법</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">7.5. 훈련 평가 방식 지정</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.5.1. 콜백</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.5.2. 텐서보드</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">7.5.1. 사용자 정의 평가지표</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">7.5.2. 콜백</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.5.3. 텐서보드</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">7.6. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">7.6. 연습문제</a></li>
 </ul>
   </nav></div>
 
