@@ -439,53 +439,93 @@ document.write(`
 <h3><span class="section-number">2.7.1.1. </span>상수 텐서<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>상수 텐서를 다양한 방식으로 생성할 수 있다.
 아래 코드는 직접 상수 텐서의 모양과 항목을 지정한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="go">tf.Tensor(</span>
-<span class="go">[[1. 2.]</span>
-<span class="go"> [3. 4.]], shape=(2, 2), dtype=float32)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
+[[1. 2.]
+ [3. 4.]], shape=(2, 2), dtype=float32)
+</pre></div>
+</div>
+</div>
 </div>
 <p>넘파이 어레이의 경우와 거의 유사하게 다양한 텐서를 생성하는 함수들이 제공된다.
 <code class="docutils literal notranslate"><span class="pre">tf.ones()</span></code> 함수는 1로만 이루어진 상수 텐서를 생성한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="go">tf.Tensor(</span>
-<span class="go">[[1.]</span>
-<span class="go"> [1.]], shape=(2, 1), dtype=float32)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>반면에 <code class="docutils literal notranslate"><span class="pre">tf.zeros()</span></code> 텐서는 0으로만 이루어진 상수 텐서를 생성한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="go">tf.Tensor(</span>
-<span class="go">[[0.]</span>
-<span class="go"> [0.]], shape=(2, 1), dtype=float32)</span>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
+[[1.]
+ [1.]], shape=(2, 1), dtype=float32)
 </pre></div>
+</div>
+</div>
+</div>
+<p>반면에 <code class="docutils literal notranslate"><span class="pre">tf.zeros()</span></code> 텐서는 0으로만 이루어진 상수 텐서를 생성한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
+[[0.]
+ [0.]], shape=(2, 1), dtype=float32)
+</pre></div>
+</div>
+</div>
 </div>
 <p>확률적 통계 분포를 따르는 항목으로 구성된 상수 텐서를 생성하는 함수는 딥러닝에서 매우 유용하다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">normal()</span></code> 함수: 평균값(<code class="docutils literal notranslate"><span class="pre">mean</span></code>)과 표준편차(<code class="docutils literal notranslate"><span class="pre">stddev</span></code>)를 지정하면 해당 정규분포를 따르는 항목들을 이용하여
 원하는 모양의 상수 텐서를 생성한다.</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">mean</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">stddev</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="go">tf.Tensor(</span>
-<span class="go">[[-0.5644841 ]</span>
-<span class="go"> [-0.76016265]</span>
-<span class="go"> [ 0.30502525]], shape=(3, 1), dtype=float32)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">mean</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">stddev</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
+[[ 0.6337905]
+ [-1.2415351]
+ [-1.113419 ]], shape=(3, 1), dtype=float32)
+</pre></div>
+</div>
+</div>
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">uniform()</span></code> 함수: 지정된 구간 최솟값(<code class="docutils literal notranslate"><span class="pre">minval</span></code>)과 최댓값(<code class="docutils literal notranslate"><span class="pre">maxval</span></code>) 사이에서 균등분포를 따르는 항목들을 이용하여 상수 텐서를 생성한다.</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">minval</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">maxval</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="go">tf.Tensor(</span>
-<span class="go">[[0.33661604]</span>
-<span class="go"> [0.09824598]</span>
-<span class="go"> [0.32487237]], shape=(3, 1), dtype=float32)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">minval</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">maxval</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
+[[0.5301858 ]
+ [0.7619331 ]
+ [0.18653095]], shape=(3, 1), dtype=float32)
+</pre></div>
+</div>
+</div>
 </div>
 <p><strong>상수 텐서의 수정 불가능성</strong></p>
 <p>한 번 생성된 상수 텐서는 수정이 불가능하다.
@@ -499,42 +539,74 @@ document.write(`
 </pre></div>
 </div>
 <p>반면에 넘파이 어레이는 수정이 가능하다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="go">[[0. 1.]</span>
-<span class="go"> [1. 1.]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0. 1.]
+ [1. 1.]]
+</pre></div>
+</div>
+</div>
 </div>
 <p><strong>텐서 항목의 자료형</strong></p>
 <p>텐서 항목의 자료형은 <code class="docutils literal notranslate"><span class="pre">EagerTensor</span></code> 라는 텐서다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="go">tensorflow.python.framework.ops.EagerTensor</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensorflow.python.framework.ops.EagerTensor
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="id4">
 <h3><span class="section-number">2.7.1.2. </span>변수 텐서<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">tf.Variaible</span></code> 객체는 항목을 수정할 수 있는 가변 텐서이다.
 아래 코드는 정규 분포를 이용하여 (3. 1) 모양의 변수 텐서를 생성한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-<span class="go">&lt;tf.Variable &#39;Variable:0&#39; shape=(3, 1) dtype=float32, numpy=</span>
-<span class="go">array([[-1.3837979 ],</span>
-<span class="go">       [-0.23704937],</span>
-<span class="go">       [-0.9790895 ]], dtype=float32)&gt;</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">initial_value</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Variable &#39;Variable:0&#39; shape=(3, 1) dtype=float32, numpy=
+array([[ 0.61507696],
+       [-0.8042565 ],
+       [ 1.6464952 ]], dtype=float32)&gt;
+</pre></div>
+</div>
+</div>
 </div>
 <p><strong>변수 텐서 교체</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">assign()</span></code> 메서드는 해당 텐서를 통채로 다른 텐서로 대체한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
-<span class="go">&lt;tf.Variable &#39;UnreadVariable&#39; shape=(3, 1) dtype=float32, numpy=</span>
-<span class="go">array([[1.],</span>
-<span class="go">       [1.],</span>
-<span class="go">       [1.]], dtype=float32)&gt;</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Variable &#39;UnreadVariable&#39; shape=(3, 1) dtype=float32, numpy=
+array([[1.],
+       [1.],
+       [1.]], dtype=float32)&gt;
+</pre></div>
+</div>
+</div>
 </div>
 <p>단, 대체하는 텐서의 모양(shape)이 기존 텐서의 모양과 동일해야 한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
@@ -555,22 +627,47 @@ document.write(`
 <p><strong>변수 텐서 항목 수정</strong></p>
 <p>변수 텐서의 특정 항목을 수정하려면 인덱싱과 <code class="docutils literal notranslate"><span class="pre">assign()</span></code> 메서드를 함께 사용한다.
 이것이 가능한 이유는 텐서의 항목 또한 텐서이기 때문이다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="go">&lt;tf.Tensor: shape=(), dtype=float32, numpy=1.0&gt;</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="go">tensorflow.python.framework.ops.EagerTensor</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(), dtype=float32, numpy=1.0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensorflow.python.framework.ops.EagerTensor
+</pre></div>
+</div>
+</div>
 </div>
 <p>상수 텐서의 경우처럼 각 항목은 <code class="docutils literal notranslate"><span class="pre">EagerTensor</span></code> 객체이지만 이번엔 항목 변환이 가능하다.
 텐서플로우 내부에서 변수 텐서인 경우와 아닌 경우를 구분해서 <code class="docutils literal notranslate"><span class="pre">assign()</span></code> 메서드의 지원여부를
 판단하는 것으로 보인다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mf">3.</span><span class="p">)</span>
-<span class="go">&lt;tf.Variable &#39;UnreadVariable&#39; shape=(3, 1) dtype=float32, numpy=</span>
-<span class="go">array([[3.],</span>
-<span class="go">       [1.],</span>
-<span class="go">       [1.]], dtype=float32)&gt;</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mf">3.</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Variable &#39;UnreadVariable&#39; shape=(3, 1) dtype=float32, numpy=
+array([[3.],
+       [1.],
+       [1.]], dtype=float32)&gt;
+</pre></div>
+</div>
+</div>
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">assign_add()</span></code>와 <code class="docutils literal notranslate"><span class="pre">assign_sub()</span></code></p></li>
@@ -578,12 +675,20 @@ document.write(`
 <p><code class="docutils literal notranslate"><span class="pre">assign_sub()</span></code> 메서드는 <code class="docutils literal notranslate"><span class="pre">-=</span></code> 연산자,
 <code class="docutils literal notranslate"><span class="pre">assign_add()</span></code> 메서드는 <code class="docutils literal notranslate"><span class="pre">+=</span></code> 연산자의 기능을 갖는다.
 특히 <code class="docutils literal notranslate"><span class="pre">assign_sub()</span></code> 메서드가 경사하강법 적용과정에서 가중치와 편향 텐서를 업데이트할 때 사용된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">v</span><span class="o">.</span><span class="n">assign_sub</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
-<span class="go">&lt;tf.Variable &#39;UnreadVariable&#39; shape=(3, 1) dtype=float32, numpy=</span>
-<span class="go">array([[2.],</span>
-<span class="go">       [0.],</span>
-<span class="go">       [0.]], dtype=float32)&gt;</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v</span><span class="o">.</span><span class="n">assign_sub</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Variable &#39;UnreadVariable&#39; shape=(3, 1) dtype=float32, numpy=
+array([[2.],
+       [0.],
+       [0.]], dtype=float32)&gt;
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 </section>
@@ -838,7 +943,7 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
 array([[2, 3],
-       [4, 5]])&gt;
+       [4, 5]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -852,7 +957,7 @@ array([[2, 3],
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
 array([[2, 3],
-       [4, 5]])&gt;
+       [4, 5]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -869,7 +974,7 @@ array([[2, 3],
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
 array([[1, 2],
-       [3, 4]])&gt;
+       [3, 4]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -883,7 +988,7 @@ array([[1, 2],
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
 array([[1, 2],
-       [3, 4]])&gt;
+       [3, 4]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -901,7 +1006,7 @@ array([[1, 2],
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
 array([[3, 3],
-       [7, 7]])&gt;
+       [7, 7]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -915,7 +1020,7 @@ array([[3, 3],
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=int32, numpy=
 array([[3, 3],
-       [7, 7]])&gt;
+       [7, 7]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -953,7 +1058,7 @@ array([[3, 3],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2,), dtype=int64, numpy=array([1, 0], dtype=int64)&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2,), dtype=int64, numpy=array([1, 0])&gt;
 </pre></div>
 </div>
 </div>
@@ -969,7 +1074,7 @@ array([[3, 3],
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 2), dtype=float32, numpy=
-array([[2.6894143e-01, 7.3105860e-01],
+array([[2.6894143e-01, 7.3105854e-01],
        [9.9987662e-01, 1.2339458e-04]], dtype=float32)&gt;
 </pre></div>
 </div>
@@ -989,7 +1094,7 @@ array([[2.6894143e-01, 7.3105860e-01],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=int32, numpy=array([1, 2, 3])&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3,), dtype=int32, numpy=array([1, 2, 3], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1215,7 +1320,7 @@ array([[[[0., 0., 0., 0., 0.],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(4,), dtype=int32, numpy=array([3, 2, 4, 5])&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(4,), dtype=int32, numpy=array([3, 2, 4, 5], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1253,7 +1358,7 @@ array([[[ 0,  1,  2,  3,  4],
         [15, 16, 17, 18, 19]],
 
        [[20, 21, 22, 23, 24],
-        [25, 26, 27, 28, 29]]])&gt;
+        [25, 26, 27, 28, 29]]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1287,7 +1392,7 @@ array([[[ 0,  1,  2,  3,  4],
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 2), dtype=int32, numpy=
 array([[ 4,  9],
        [14, 19],
-       [24, 29]])&gt;
+       [24, 29]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1319,7 +1424,7 @@ array([[ 4,  9],
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 1), dtype=int32, numpy=
 array([[1],
        [2],
-       [3]])&gt;
+       [3]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1344,7 +1449,7 @@ array([[1],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(1, 3), dtype=int32, numpy=array([[1, 2, 3]])&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(1, 3), dtype=int32, numpy=array([[1, 2, 3]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1377,7 +1482,7 @@ array([[1],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(1, 3), dtype=int32, numpy=array([[1, 2, 3]])&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(1, 3), dtype=int32, numpy=array([[1, 2, 3]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1400,7 +1505,7 @@ array([[[ 0,  1,  2,  3,  4],
         [15, 16, 17, 18, 19]],
 
        [[20, 21, 22, 23, 24],
-        [25, 26, 27, 28, 29]]])&gt;
+        [25, 26, 27, 28, 29]]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1417,7 +1522,7 @@ array([[[ 0,  1,  2,  3,  4],
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(30,), dtype=int32, numpy=
 array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16,
-       17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29])&gt;
+       17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1445,7 +1550,7 @@ array([[ 0,  1,  2,  3,  4],
        [10, 11, 12, 13, 14],
        [15, 16, 17, 18, 19],
        [20, 21, 22, 23, 24],
-       [25, 26, 27, 28, 29]])&gt;
+       [25, 26, 27, 28, 29]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1463,7 +1568,7 @@ array([[ 0,  1,  2,  3,  4],
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 10), dtype=int32, numpy=
 array([[ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9],
        [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-       [20, 21, 22, 23, 24, 25, 26, 27, 28, 29]])&gt;
+       [20, 21, 22, 23, 24, 25, 26, 27, 28, 29]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1494,7 +1599,7 @@ array([[[ 0,  1,  2,  3,  4],
 
        [[15, 16, 17, 18, 19],
         [20, 21, 22, 23, 24],
-        [25, 26, 27, 28, 29]]])&gt;
+        [25, 26, 27, 28, 29]]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1511,7 +1616,7 @@ array([[ 0,  1,  2,  3,  4,  5],
        [ 6,  7,  8,  9, 10, 11],
        [12, 13, 14, 15, 16, 17],
        [18, 19, 20, 21, 22, 23],
-       [24, 25, 26, 27, 28, 29]])&gt;
+       [24, 25, 26, 27, 28, 29]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1526,7 +1631,7 @@ array([[ 0,  1,  2,  3,  4,  5],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>InvalidArgumentError: {{function_node __wrapped__Reshape_device_/job:localhost/replica:0/task:0/device:CPU:0}} Input to reshape is a tensor with 30 values, but the requested shape requires a multiple of 7 [Op:Reshape]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>InvalidArgumentError: {{function_node __wrapped__Reshape_device_/job:localhost/replica:0/task:0/device:GPU:0}} Input to reshape is a tensor with 30 values, but the requested shape requires a multiple of 7 [Op:Reshape]
 </pre></div>
 </div>
 </div>
@@ -1638,7 +1743,7 @@ tf.Tensor([2 4 6], shape=(3,), dtype=int32)
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 1), dtype=int32, numpy=
 array([[1],
        [2],
-       [3]])&gt;
+       [3]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1651,7 +1756,7 @@ array([[1],
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(4,), dtype=int32, numpy=array([1, 2, 3, 4])&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(4,), dtype=int32, numpy=array([1, 2, 3, 4], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1669,7 +1774,7 @@ array([[1],
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 4), dtype=int32, numpy=
 array([[ 1,  2,  3,  4],
        [ 2,  4,  6,  8],
-       [ 3,  6,  9, 12]])&gt;
+       [ 3,  6,  9, 12]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
@@ -1842,7 +1947,7 @@ array([[ 1,  2,  3,  4],
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 4), dtype=int32, numpy=
 array([[1, 0, 0, 0],
        [0, 0, 2, 0],
-       [0, 0, 0, 0]])&gt;
+       [0, 0, 0, 0]], dtype=int32)&gt;
 </pre></div>
 </div>
 </div>
