@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -150,7 +150,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
-  
     <p class="title logo__title">Deep Learning with Python(2판)</p>
   
 </a></div>
@@ -159,8 +158,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="tensor_intro.html">2.5. 부록: 텐서 소개</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tf_tensor.html">2.6. 부록: 텐서플로우 텐서</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tf_tensor.html">2.7. 부록: 텐서플로우 텐서</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">3. 케라스와 텐서플로우</a></li>
@@ -367,9 +365,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.1. 합성곱 신경망 소개</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.1.1. 합성곱 연산</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.1.2. 맥스 풀링 연산</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.1. 합성곱 신경망</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mnist-cnn">8.1.1. MNIST 데이터셋 분류 CNN 모델</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.1.2. 합성곱 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.1.3. 맥스 풀링 연산</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.2. 합성곱 신경망 실전 활용 예제</a><ul class="nav section-nav flex-column">
@@ -408,31 +407,51 @@ document.write(`
 <p>여기서 언급되는 코드를
 <a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-computer_vision_intro.ipynb">(구글 코랩) 컴퓨터 비전 기초: 합성곱 신경망</a>에서
 직접 실행할 수 있다.</p>
+<p><strong>슬라이드</strong></p>
+<p>본문 내용을 요약한 <a class="reference external" href="https://github.com/codingalzi/dlp2/raw/master/slides/slides-computer_vision_intro.pdf">슬라이드</a>를 다운로드할 수 있다.</p>
 <p><strong>주요 내용</strong></p>
 <ul class="simple">
-<li><p>합성곱 신경망(convnet) 소개</p></li>
+<li><p>합성곱 신경망</p></li>
 <li><p>데이터 증식</p></li>
-<li><p>convnet 재활용: 특성 추출과 모델 미세 조정<font size='2'>fine-tuning</font></p></li>
+<li><p>전이학습</p></li>
 </ul>
 <section id="id2">
-<h2><span class="section-number">8.1. </span>합성곱 신경망 소개<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">8.1. </span>합성곱 신경망<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>2011년부터 2015년 사이에 벌어진
-컴퓨터 비전 분야에서의 딥러닝의 획기적 활용이 딥러닝 분야의 약진을 불러왔다.
-현재 사진 앱, 사진 검색, 유튜브, 카메라 필터, 글자 인식, 자율주행, 로봇공학, 의학 진단 프로그램,
+컴퓨터 비전 분야에서의 딥러닝 기법이 획기적으로 발전하였다.
+그 결과 지금은 사진 검색, 자율주행, 로봇공학, 의학 진단 프로그램,
 얼굴 확인, 스마트 팜 등 일상의 많은 영역에서 딥러닝 모델이 사용되고 있다.</p>
 <p>컴퓨터 비전 분야에서 일반적으로 가장 많이 사용되는 딥러닝 모델은
-<strong>convnet</strong> 또는 <strong>CNN</strong>으로 불리는
+<strong>CNN</strong> 또는 <strong>convnet</strong>으로 불리는
 <strong>합성곱 신경망</strong><font size='2'>convolutional neural networks</font>이다.
-여기서는 작은 크기의 훈련 데이터셋을 이용하여 이미지 분류 문제에
-convnet을 적용하는 방법을 소개한다.</p>
-<p><strong>예제: MNIST 데이터셋 분류 convnet 모델</strong></p>
+여기서는 이미지 분류 문제에 CNN을 적용하는 방법을 소개한다.</p>
+<section id="mnist-cnn">
+<h3><span class="section-number">8.1.1. </span>MNIST 데이터셋 분류 CNN 모델<a class="headerlink" href="#mnist-cnn" title="Permalink to this heading">#</a></h3>
+<p>아래 층들을 이용하여 모델을 함수형 API 방식으로 선언한다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Input()</span></code>의 <code class="docutils literal notranslate"><span class="pre">shape</span></code>: <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>와 <code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 층을 함수형 API 방식으로 층쌓기</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">Input()</span></code>: 입력층</p>
 <ul>
-<li><p>채널수: <code class="docutils literal notranslate"><span class="pre">filters</span></code> 인자로 결정</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>에 유의할 것.</p></li>
-<li><p>출력값: 3D 텐서 (높이, 너비, 채널수). <code class="docutils literal notranslate"><span class="pre">filers</span></code>와 <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>에 의존.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shape=(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code>. 훈련 샘플의 모양 지정.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">28x28</span></code> 픽셀 크기의 흑백 손글씨 사진</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>: 합성곱 층</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">filters</span></code>: 필터 수 지정. 층 출력값의 채널의 수로 사용됨.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>: 합성곱 연산에 사용되는 커널의 크기. 층 출력값의 높이, 너비 크기 결정에 사용됨.</p></li>
+<li><p>출력값: 3D 텐서 (높이, 너비, 채널수).</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code>: 맥스풀링 층</p>
+<ul>
+<li><p>입력 사진의 높이와 너비를 지정된 비율만큼 축소. 즉 사진의 크기 축소.</p></li>
+<li><p>출력값: 3D 텐서 (높이, 너비, 채널수).</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code>: 밀집 층</p>
+<ul>
+<li><p>CNN 모델의 출력층은 일반적으로 밀집층 사용</p></li>
+<li><p>이전 층의 출력값을 <code class="docutils literal notranslate"><span class="pre">Flatten()</span></code> 층을 이용하여 1차원 텐서로 변형시킨 후 입력값으로 사용.</p></li>
 </ul>
 </li>
 </ul>
@@ -457,6 +476,10 @@ convnet을 적용하는 방법을 소개한다.</p>
 </pre></div>
 </div>
 <p><strong>모델 구성 요약</strong></p>
+<p>모델 구성을 요약하면 다음과 같다.
+각 층별로 출력값의 모양과 사용되는 파라미터의 수에 대해서는
+나중에 설명한다.
+다만, <code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 층과 <code class="docutils literal notranslate"><span class="pre">Flatten</span></code> 층엔 파라미터가 전혀 사용되지 않음은 기억해 둔다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 <span class="go">Model: &quot;model&quot; </span>
 <span class="go">_________________________________________________________________</span>
@@ -484,7 +507,29 @@ convnet을 적용하는 방법을 소개한다.</p>
 </pre></div>
 </div>
 <p><strong>MNIST 이미지 분류 훈련</strong></p>
-<p>모델 훈련은 이전과 동일하다.</p>
+<p>모델 훈련은 이전과 동일하다.
+다만 훈련 샘플은 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code> 모양의 3차원 텐서이어야 한다.
+이유는 <code class="docutils literal notranslate"><span class="pre">Input()</span></code> 함수에 의해 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code> 모양의 입력값이 지정되었기 때문이다.</p>
+<p>지금까지 입력층으로 사용한 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층은 입력 샘플의 모양이 1차원 텐서, 즉 벡터이어야 했고,
+따라서 MNIST 데이터셋의 샘플들을 모두
+1차원 텐서로 변형한 다음에 훈련셋으로 활용하였다.
+하지만 여기서는 3차원 텐서 이미지를
+모양을 변형시키는 전처리 없이 바로 사용해야 한다.</p>
+<ul class="simple">
+<li><p>훈련셋 준비</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
+
+<span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">60000</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">train_images</span> <span class="o">=</span> <span class="n">train_images</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+<span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">10000</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>모델 컴파일과 훈련</p></li>
+</ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
     <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>  <span class="c1"># 레이블이 정수인 경우</span>
     <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
@@ -492,10 +537,27 @@ convnet을 적용하는 방법을 소개한다.</p>
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>훈련된 convnet 평가</strong></p>
 <p>테스트셋에 대한 정확도가 99% 정도로 이전에 사용한 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델보다 훨씬 좋다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;테스트 정확도: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="go">313/313 [==============================] - 2s 4ms/step - loss: 0.0395 - accuracy: 0.9893</span>
+<span class="go">테스트 정확도: 0.989</span>
+</pre></div>
+</div>
+</section>
 <section id="id3">
-<h3><span class="section-number">8.1.1. </span>합성곱 연산<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.1.2. </span>합성곱 연산<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>합성곱 층(<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>)에서 입력값을 변환하는 과정은 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층에서의 변환과 다르다.
+차이점의 핵심은 아핀 변환을 적용하는 방식에 있다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층: 입력값의 전체 특성을 대상으로 한 번의 아핀 변환 적용</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층: <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>로 지정된 크기의 공간에 대해 여러 개의 아핀 변환 적용.</p>
+<ul>
+<li><p>예를 들어, <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>인 경우 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 크기의 영역에 대해
+지정된 <code class="docutils literal notranslate"><span class="pre">filters</span></code> 수 만큼의 아핀 변환 적용.</p></li>
+</ul>
+</li>
+</ul>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층: 입력값 전체를 학습 대상으로 삼는다.
 예를 들어, MNIST의 경우 숫자 이미지 전체를 대상으로 학습한다.</p></li>
@@ -599,7 +661,7 @@ convnet을 적용하는 방법을 소개한다.</p>
 </ul>
 </section>
 <section id="id4">
-<h3><span class="section-number">8.1.2. </span>맥스 풀링 연산<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">8.1.3. </span>맥스 풀링 연산<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>합성곱 신경망의 전형적인 모습은 다음과 같이 풀링 층을 합성곱 층 이후에 바로 위치시킨다.
 단, 합성곱 층, 맥스 풀링 층이 연속적으로 몇 개씩 사용될 수 있다.</p>
 <div align="center"><img src="http://formal.hknu.ac.kr/handson-ml2/slides/images/ch14/homl14-03.png" style="width:700px;"></div>
@@ -703,7 +765,7 @@ convnet을 적용하는 방법을 소개한다.</p>
 </section>
 <section id="id8">
 <h3><span class="section-number">8.2.3. </span>모델 구성<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
-<p>convnet(합성곱 신경망) 모델은 앞서 설명한대로 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>와 <code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 레이어를
+<p>CNN 모델은 앞서 설명한대로 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>와 <code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 레이어를
 연속에서 쌓는 방식을 사용한다.
 다만, 보다 큰 이미지와 보다 복잡한 문제를 해결하기 위해 모델을 보다 크게 만들기 위해
 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>와 <code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 층을 두 번 더 쌓는다.</p>
@@ -1198,9 +1260,10 @@ VGG16 합성곱 기저(베이스)를 구성요소로 사용하는 모델을 직�
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.1. 합성곱 신경망 소개</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.1.1. 합성곱 연산</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.1.2. 맥스 풀링 연산</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.1. 합성곱 신경망</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mnist-cnn">8.1.1. MNIST 데이터셋 분류 CNN 모델</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.1.2. 합성곱 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.1.3. 맥스 풀링 연산</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.2. 합성곱 신경망 실전 활용 예제</a><ul class="nav section-nav flex-column">
@@ -1257,8 +1320,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>

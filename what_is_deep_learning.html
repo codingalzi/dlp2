@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -63,8 +63,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'what_is_deep_learning';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -150,7 +148,6 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
-  
     <p class="title logo__title">Deep Learning with Python(2판)</p>
   
 </a></div>
@@ -159,8 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">1. 딥러닝 소개</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="tensor_intro.html">2.5. 부록: 텐서 소개</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tf_tensor.html">2.6. 부록: 텐서플로우 텐서</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tf_tensor.html">2.7. 부록: 텐서플로우 텐서</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">3. 케라스와 텐서플로우</a></li>
@@ -370,12 +366,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.1. 인공지능, 머신러닝, 딥러닝</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1.1. 인공지능</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.1.2. 머신러닝</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.1.3. 학습 규칙과 데이터 표현법</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.1.4. 딥러닝 모델</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.1.5. 딥러닝의 성과와 전망</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.1.3. 딥러닝 모델</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.1.4. 딥러닝의 성과와 전망</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.2. 머신러닝 역사</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.2. 머신러닝 역사</a></li>
 </ul>
             </nav>
         </div>
@@ -460,59 +455,7 @@ document.write(`
 </ul>
 </section>
 <section id="id5">
-<h3><span class="section-number">1.1.3. </span>학습 규칙과 데이터 표현법<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
-<p><strong>데이터 표현법 학습</strong></p>
-<p>머신러닝 모델은 입력과 타깃 데이터셋을 이용한 학습 과정을 통해
-입력 데이터를 적절하게 변환하는 규칙을 스스로 찾아낸 다음에
-문제를 보다 쉽게 해결하려 시도한다.
-즉, 주어진 과제 해결에 가장 적절한 <strong>데이터 표현법</strong>을 모델 학습을 통해 알아낸다.</p>
-<p>데이터는 다양한 방식으로 표현될 수 있으며
-과제에 따라 보다 적절한 표현법을 채택해야 한다.
-예를 들어, 컬러 사진 데이터를
-빨간색(red)-초록색(green)-파란색(blue)을 사용하는 RGB 방식으로 표현하거나
-색상(hue)-채도(saturation)-명도(value)를 사용하는 HSV 방식으로 표현할 수 있다.
-그러면 컬러 사진에서 빨간색 픽셀만을 선택하고자 할 때는 RGB 방식으로 컬러 사진을
-표현하는 것이 좋은 반면에
-컬러 사진의 채도를 조정하고자 할 때는 HSV 방식으로 표현된 데이터를 사용해야 한다.</p>
-<div class="proof example admonition" id="exp-lin-reg">
-<p class="admonition-title"><span class="caption-number">Example 1.1 </span> (좌표 변환)</p>
-<section class="example-content" id="proof-content">
-<p>흑점과 백점이 아래 왼쪽 그림에서첨 분포되어 있다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-learning_representations.png" style="width:600px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
-<p>가운데 그림에서처럼 적절한 직선을 그으면 백점/흑점 구분을 할 수 있다.
-그런데 오른쪽 그림에서처럼 모든 점의 좌표를 시계 방향으로 30도 정도 회전시키면
-단순히 <span class="math notranslate nohighlight">\(x\)</span>-좌표가 양수인지 여부에 따라 백점인지 흑점인지 여부를 보다 간단하게 판단할 수 있다.</p>
-</section>
-</div><p><strong>데이터 변환 자동화</strong></p>
-<p>위 예제의 경우 수동으로 데이터 변환 방식을 어렵지 않게 알아낼 수 있었다.
-반면에 MNIST 손글씨의 경우처럼 숫자를 구분하는 데에 보다 용이한 표현으로
-데이터를 변환하는 알고리즘을 수동으로 찾는 일은 거의 불가능하다.</p>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch03/homl03-10.png" width="300"/></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B9267655530">핸즈온 머신러닝(2판)</a>&gt;</div></p><p>반면에 머신러닝 모델은 학습을 통해 입력 데이터를 보다 유용한 표현식으로 변환하는
-알고리즘을 데이터 학습을 통해 찾아준다.
-찾아낸 변환 알고리즘의 유용성 여부는
-<strong>새로운 데이터 표현법이 과제 해결에 보다 도움이 되는가</strong>를 기준으로 판단된다.
-머신러닝 학습에 사용되는 대표적인 변환 알고리즘은 다음과 같다.</p>
-<ul class="simple">
-<li><p>회전</p></li>
-<li><p>이동</p></li>
-<li><p>사영<font size='2'>projection</font></p></li>
-<li><p>잘라내기</p></li>
-</ul>
-<p>머신러닝 모델은 한 개 이상의 변환을 조합하여 주어진 과제를 해결하는 데에 보다
-도움되는 데이터 표현 변환 알고리즘을 찾아낸다.
-머신러닝 모델이 학습을 통해 찾아낸 변환 알고리즘의 유용성이 높지 않다고 판단되면
-보다 유용한 변환 알고리즘을 찾아 내도록 유도한다.
-이 과정을 적절한 변환 알고리즘이 찾아질 때까지 반복한다.</p>
-<p><strong>가설 공간</strong></p>
-<p>주어진 문제의 해결에 가장 적절한 변환 알고리즘을 머신러닝 모델 스스로 알아내기는 기본적으로 불가능하다.
-대신에 데이터 표현법 변환 알고리즘을 어떻게 구현할 수 있는지 길안내를 해주면 머신러닝 모델이
-가능한 모든 알고리즘의 공간 내에서 최적의 데이터 변환 알고리즘을 데이터 학습을 통해  알아낸다.
-이와같이 머신러닝 모델이 변환 알고리즘 학습에 활용할 수 있는 알고리즘의 공간을 <strong>가설 공간</strong>이라 부른다.</p>
-</section>
-<section id="id6">
-<h3><span class="section-number">1.1.4. </span>딥러닝 모델<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">1.1.3. </span>딥러닝 모델<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <p><strong>딥<font size='2'>deep</font>의 의미</strong></p>
 <p>딥러닝의 <strong>딥</strong><font size='2'>deep</font>은
 데이터 변환을 실행하는 <strong>층</strong><font size='2'>layer</font>을
@@ -526,7 +469,7 @@ document.write(`
 모든 층에서 데이터 표현의 변환이 지정된 방식에 따라 <strong>자동</strong>으로 이루어진다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch14/homl14-15b.png" width="600"/></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">ImageNet Classification with Deep Convolutional Neural Networks</a>&gt;</div></p><div class="proof example admonition" id="exc-minist-transform">
-<p class="admonition-title"><span class="caption-number">Example 1.2 </span> (손글씨 숫자 인식)</p>
+<p class="admonition-title"><span class="caption-number">Example 1.1 </span> (손글씨 숫자 인식)</p>
 <section class="example-content" id="proof-content">
 <p>아래 이미지는 네 개의 층을 사용하는 딥러닝 모델이
 MNIST 손글씨 이미지를 변환해서 최종적으로
@@ -537,8 +480,8 @@ MNIST 손글씨 이미지를 변환해서 최종적으로
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 </section>
 </div></section>
-<section id="id7">
-<h3><span class="section-number">1.1.5. </span>딥러닝의 성과와 전망<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<section id="id6">
+<h3><span class="section-number">1.1.4. </span>딥러닝의 성과와 전망<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>지난 10여년 동안 다양한 분야에서 다음과 같은 혁명적 성과가 딥러닝에 의해 이루어졌으며
 거의 모든 산업 분야로 딥러닝의 활용이 확대되고 있다.
 하지만 단기적으로 너무 높은 기대를 갖는 것은 위험하다.
@@ -550,8 +493,8 @@ MNIST 손글씨 이미지를 변환해서 최종적으로
 인간의 삶을 획기적으로 변화시킬 것으로 기대된다.</p>
 </section>
 </section>
-<section id="id8">
-<h2><span class="section-number">1.2. </span>머신러닝 역사<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<section id="id7">
+<h2><span class="section-number">1.2. </span>머신러닝 역사<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <p>산업계에서 사용되는 머신러닝 알고리즘의 대부분은 딥러닝 알고리즘이 아니다.
 딥러닝 모델의 훈련에 필요한 데이터가 너무 적을 수도 있고,
 아니면 딥러닝이 아닌 다른 알고리즘이 보다 좋은 성능을 발휘하기 때문이다.
@@ -730,12 +673,11 @@ top-1 정확도는 가장 높은 확률을 갖는 범주가 정답일 확율을 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.1. 인공지능, 머신러닝, 딥러닝</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1.1. 인공지능</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.1.2. 머신러닝</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.1.3. 학습 규칙과 데이터 표현법</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.1.4. 딥러닝 모델</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.1.5. 딥러닝의 성과와 전망</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.1.3. 딥러닝 모델</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.1.4. 딥러닝의 성과와 전망</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">1.2. 머신러닝 역사</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.2. 머신러닝 역사</a></li>
 </ul>
   </nav></div>
 
@@ -776,8 +718,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>
