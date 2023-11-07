@@ -15710,20 +15710,9 @@ div.jp-OutputPrompt {
         <span class="n">features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mixing_layer</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
         <span class="n">priority</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">priority_scorer</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>             
         <span class="n">department</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">department_classifier</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">priority</span><span class="p">,</span> <span class="n">department</span>
-</pre></div>
+        <span class="k">return</span> <span class="n">priority</span><span class="p">,</span> <span class="n">department</span>                           
 
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">CustomerTicketModel</span><span class="p">(</span><span class="n">num_departments</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CustomerTicketModel</span><span class="p">(</span><span class="n">num_departments</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -15784,6 +15773,17 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="%ED%98%BC%ED%95%A9-%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%EC%84%B1%EB%B2%95">&#54844;&#54633; &#49888;&#44221;&#47581; &#47784;&#45944; &#44396;&#49457;&#48277;<a class="anchor-link" href="#%ED%98%BC%ED%95%A9-%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%EC%84%B1%EB%B2%95">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="%EB%AA%A8%EB%8D%B8%EC%9D%80-%EC%B8%B5%EC%9D%98-%EC%9E%90%EC%8B%9D-%ED%81%B4%EB%9E%98%EC%8A%A4">&#47784;&#45944;&#51008; &#52789;&#51032; &#51088;&#49885; &#53364;&#47000;&#49828;<a class="anchor-link" href="#%EB%AA%A8%EB%8D%B8%EC%9D%80-%EC%B8%B5%EC%9D%98-%EC%9E%90%EC%8B%9D-%ED%81%B4%EB%9E%98%EC%8A%A4">&#182;</a></h3>
 </div>
 </div>
@@ -15810,20 +15810,9 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>모델 클래스: <code>fit()</code>, <code>evaluate()</code>, <code>predict()</code> 메서드를 함께 지원</li>
+<li>모델 클래스: 모델에 포함된 층의 가중치 행렬과 편향 벡터를 활용하는 훈련, 평가, 예측을 총괄 <code>fit()</code>, <code>evaluate()</code>, <code>predict()</code> 메서드를 함께 지원할 뿐.</li>
 </ul>
 
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="%ED%98%BC%ED%95%A9-%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%EC%84%B1%EB%B2%95">&#54844;&#54633; &#49888;&#44221;&#47581; &#47784;&#45944; &#44396;&#49457;&#48277;<a class="anchor-link" href="#%ED%98%BC%ED%95%A9-%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%EC%84%B1%EB%B2%95">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -16051,7 +16040,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%83%9D%EC%84%B1%EC%9E%90">&#49373;&#49457;&#51088;<a class="anchor-link" href="#%EC%83%9D%EC%84%B1%EC%9E%90">&#182;</a></h3>
+<h3 id="%EC%97%90%ED%8F%AC%ED%81%AC-%EB%8B%A8%EC%9C%84-%ED%8F%89%EA%B0%80%EC%A7%80%ED%91%9C-%EA%B3%84%EC%82%B0">&#50640;&#54252;&#53356; &#45800;&#50948; &#54217;&#44032;&#51648;&#54364; &#44228;&#49328;<a class="anchor-link" href="#%EC%97%90%ED%8F%AC%ED%81%AC-%EB%8B%A8%EC%9C%84-%ED%8F%89%EA%B0%80%EC%A7%80%ED%91%9C-%EA%B3%84%EC%82%B0">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -16063,10 +16052,9 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><code>Metric</code> 클래스 상속, 평가지표 이름 지정, 에포크 별로 계산될 평가지표 계산에 필요한 속성(변수) 초기화</li>
-<li><code>name="rmse"</code>: 평가지표 이름. 훈련중에 평가지표 구분에 사용됨.</li>
-<li><code>mse_sum</code>: (에포크 별) 누적 제곱 오차. 0으로 초기화.</li>
-<li><code>total_samples</code>: (에포크 별) 훈련에 사용된 총 데이터 샘플 수. 0으로 초기화.</li>
+<li><code>result</code>: 에포크 별로 평가지표 계산</li>
+<li>여기서는 에포크 별로 평균 제곱근 오차 계산.</li>
+<li><code>mse_sum</code>을 <code>total_samlpes</code>으로 나눈 값의 제곱근 계산</li>
 </ul>
 
 </div>
@@ -16079,11 +16067,8 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rmse&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mse_sum&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;total_samples&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">/</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -16143,7 +16128,7 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="%EC%97%90%ED%8F%AC%ED%81%AC-%EB%8B%A8%EC%9C%84-%ED%8F%89%EA%B0%80%EC%A7%80%ED%91%9C-%EA%B3%84%EC%82%B0">&#50640;&#54252;&#53356; &#45800;&#50948; &#54217;&#44032;&#51648;&#54364; &#44228;&#49328;<a class="anchor-link" href="#%EC%97%90%ED%8F%AC%ED%81%AC-%EB%8B%A8%EC%9C%84-%ED%8F%89%EA%B0%80%EC%A7%80%ED%91%9C-%EA%B3%84%EC%82%B0">&#182;</a></h3>
+<h3 id="%EC%83%9D%EC%84%B1%EC%9E%90">&#49373;&#49457;&#51088;<a class="anchor-link" href="#%EC%83%9D%EC%84%B1%EC%9E%90">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -16155,9 +16140,10 @@ div.jp-OutputPrompt {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><code>result</code>: 에포크 별로 평가지표 계산</li>
-<li>여기서는 에포크 별로 평균 제곱근 오차 계산.</li>
-<li><code>mse_sum</code>을 <code>total_samlpes</code>으로 나눈 값의 제곱근 계산</li>
+<li><code>Metric</code> 클래스 상속, 평가지표 이름 지정, 에포크 별로 계산될 평가지표 계산에 필요한 속성(변수) 초기화</li>
+<li><code>name="rmse"</code>: 평가지표 이름. 훈련중에 평가지표 구분에 사용됨.</li>
+<li><code>mse_sum</code>: (에포크 별) 누적 제곱 오차. 0으로 초기화.</li>
+<li><code>total_samples</code>: (에포크 별) 훈련에 사용된 총 데이터 샘플 수. 0으로 초기화.</li>
 </ul>
 
 </div>
@@ -16170,8 +16156,11 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">/</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rmse&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mse_sum&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;total_samples&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -16297,42 +16286,62 @@ Epoch 3/3
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>컴퓨터 프로그래밍에서 <strong>콜백</strong><font size='2'>callback</font>은
-하나의 프로그램이 실행되는 도중에 추가적으로 다른 API를 호출하는 기능 또는 해당 API를 가리킨다.
-호출된 콜백은 자신을 호출한 프로그램과 독립적으로 실행된다.</p>
+<ul>
+<li>훈련 기록 작성<ul>
+<li>훈련 에포크마다 보여지는 손실값, 평가지표 등 관리</li>
+<li><code>keras.callbacks.CSVLogger</code> 클래스 활용. </li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
 </div>
-</div></section></section><section><section>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>가장 많이 활용되는 콜백은 다음과 같다.</p>
 <ul>
-<li><p>훈련 기록 작성</p>
-<ul>
-<li>훈련 에포크마다 보여지는 손실값, 평가지표 등 관리</li>
-<li><code>keras.callbacks.CSVLogger</code> 클래스 활용. </li>
-</ul>
-</li>
-<li><p>훈련중인 모델의 상태 저장</p>
-<ul>
+<li>훈련중인 모델의 상태 저장<ul>
 <li>훈련 중 가장 좋은 성능의 모델(의 상태) 저장</li>
 <li><code>keras.callbacks.ModelCheckpoint</code> 클래스 활용</li>
 </ul>
 </li>
-<li><p>훈련 조기 종료</p>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
+<li>훈련 조기 종료<ul>
 <li>검증셋에 대한 손실이 더 이상 개선되지 않는 경우 훈련을 종료 시키기</li>
 <li><code>keras.callbacks.EarlyStopping</code> 클래스 활용</li>
 </ul>
 </li>
-<li><p>하이퍼 파라미터 조정</p>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
+<li>하이퍼 파라미터 조정<ul>
 <li>학습률 동적 변경 지원</li>
 <li><code>keras.callbacks.LearningRateScheduler</code> 또는 <code>keras.callbacks.ReduceLROnPlateau</code> 클래스 활용</li>
 </ul>
@@ -16349,32 +16358,11 @@ Epoch 3/3
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>예제</strong></p>
-
+<h3 id="%EC%98%88%EC%A0%9C">&#50696;&#51228;<a class="anchor-link" href="#%EC%98%88%EC%A0%9C">&#182;</a></h3>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>콜백은 <code>fit()</code> 함수의 <code>callbacks</code>라는 옵션 인자를 이용하여 지정한다.
-예를 들어 아래 코드는 두 종류의 콜백을 지정한다.</p>
-<ul>
-<li><code>EarlyStopping</code>: 검증셋에 대한 정확도가 2 에포크 연속 개선되지 않을 때 훈련 종료</li>
-<li><code>ModelCheckpoint</code>: 매 에포크마다 훈련된 모델 상태 저장<ul>
-<li><code>save_best_only=True</code>: 검증셋에 대한 손실값이 가장 낮은 모델만 저장</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-</div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16412,8 +16400,7 @@ Epoch 3/3
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>사용자 정의 콜백</strong></p>
-
+<h3 id="%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%EC%BD%9C%EB%B0%B1">&#49324;&#50857;&#51088; &#51221;&#51032; &#53084;&#48177;<a class="anchor-link" href="#%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%A0%95%EC%9D%98-%EC%BD%9C%EB%B0%B1">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -16424,9 +16411,10 @@ Epoch 3/3
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>케라스와 호환되는 콜백 클래스를 정의하려면 <code>keras.callbacks.Callback</code> 클래스를 상속하면 된다.
-매 에포크와 매 배치 훈련 단계의 시작과 종료 지점에서
-수행해야 할 기능을 정의해야 하며 아래 메서드를 재정의하는 방식으로 이루어진다.</p>
+<ul>
+<li><code>keras.callbacks.Callback</code> 클래스 상속</li>
+<li>매 에포크와 매 배치 훈련 단계의 시작과 종료 지점에서 수행해야 할 기능 정의</li>
+</ul>
 <div class="highlight"><pre><span></span><span class="n">on_epoch_begin</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
 <span class="n">on_epoch_end</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
 <span class="n">on_batch_begin</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
@@ -16445,18 +16433,15 @@ Epoch 3/3
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>각 메서드에 사용되는 인자는 훈련 과정 중에 자동으로 생성된 객체로부터 값을 받아온다.</p>
 <ul>
 <li><code>logs</code> 인자: 이전 배치와 에포크의 훈련셋과 검증셋에 대한 손실값, 평가지표 등을 포함한 사전 객체.</li>
 <li><code>batch</code>와 <code>epoch</code>: 배치와 에포크 정보</li>
 </ul>
-<p>다음 <code>LossHistory</code> 콜백 클래스는 배치 훈련이 끝날 때마다 손실값을 저장하고
-에포크가 끝날 때마다 배치별 손실값을 그래프로 저장하여 훈련이 종료된 후 시각화하여 보여주도록 한다.</p>
 
 </div>
 </div>
 </div>
-</div></section></section><section><section>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -16504,13 +16489,63 @@ Epoch 3/3
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>텐서보드</strong><font size='2'>TensorBoard</font>는 모델 훈련 과정을 시각적으로 실시간 관찰할 수 있는 도구를 제공하며
-텐서플로우와 함께 설치된다.</p>
 <ul>
 <li>신경망 모델 구조 시각화</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
 <li>손실값, 정확도 등의 변화 시각화</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
 <li>가중치, 편향 텐서 등의 변화 히스토그램</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
 <li>이미지, 텍스트, 오디오 데이터 시각화</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
 <li>기타 다양한 기능 제공</li>
 </ul>
 
