@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -369,7 +369,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.1. 합성곱 신경망</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mnist-cnn">8.1.1. MNIST 데이터셋 분류 CNN 모델</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.1.2. 합성곱 연산</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.1.3. 맥스 풀링 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.1.3. 맥스 풀링</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.2. 합성곱 신경망 실전 활용 예제</a><ul class="nav section-nav flex-column">
@@ -439,7 +439,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>: 합성곱 층</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">filters</span></code>: 필터 수 지정. 층 출력값의 채널 수로 사용됨. 하나의 필터를 이용해 하나의 채널 생성.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>: 합성곱 연산에 사용되는 커널의 크기. 층 출력값의 높이, 너비 크기 결정에 사용됨.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>: 합성곱 연산에 사용되는 커널의 크기. 일반적으로 3 사용.</p></li>
 <li><p>출력값: 3D 텐서 (높이, 너비, 채널수).</p></li>
 </ul>
 </li>
@@ -509,7 +509,7 @@ document.write(`
 <p><strong>MNIST 이미지 분류 훈련</strong></p>
 <p>모델 훈련은 이전과 동일하다.
 다만 훈련 샘플은 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code> 모양의 3차원 텐서이어야 한다.
-이유는 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 모델은 3차원 텐서를 입력값으로 받기 때문이며,
+이유는 합성곱 층(<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>)이 3차원 텐서를 입력값으로 받기 때문이며,
 따라서 <code class="docutils literal notranslate"><span class="pre">Input()</span></code> 함수의 인자로 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code> 모양이 지정되었다.</p>
 <p>지금까지 입력층으로 사용한 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층은 입력 샘플의 모양이 1차원 텐서, 즉 벡터이어야 했고,
 따라서 MNIST 데이터셋의 샘플들을 모두
@@ -564,8 +564,8 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층: 예를 들어 <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>으로 설정된 경우 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 크기의 영역에 대해 국소적 패턴을 찾아낸다.
 그리고 그런 국소적 패턴들을 종합하여 모델 예측에 도움되는 데이터로 변환한다.</p></li>
 </ul>
-<p><strong>Conv2D 모델의 장점</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층의 장점은 크게 다음 두 가지로 요약된다.</p>
+<p><strong>합성곱 층의 특징</strong></p>
+<p>합성곱 층의 특징은 크게 다음 두 가지로 요약된다.</p>
 <p>첫째, 위치와 무관하게 패턴을 찾아낸다.
 즉, 서로 다른 위치에 있는 동일한 패턴은 동일한 방식으로 인식된다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/local_patterns.jpg" style="width:400px;"></div>
@@ -599,7 +599,7 @@ document.write(`
 <p>컬러 이미지는 R(red), G(green), B(blue) 세 개의 채털로 구성된다.
 각각의 채널은 2차원 어레이로 다뤄지기에 하나의 컬러 이미지는 세 개의 채널을 모은 3차원 어레이로 표현된다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-reign_pic_breakdown.png" style="width:700px;"></div>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-three_d_array.png" style="width:400px;"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-three_d_array-a.jpg" style="width:600px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://e2eml.school/convert_rgb_to_grayscale.html">How to Convert an RGB Image to Grayscale</a>&gt;</div></p>
 </div>
 <p><strong>필터 적용</strong></p>
@@ -642,12 +642,16 @@ document.write(`
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-filter-product-2a.jpg" style="width:700px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oreilly.com/library/view/fundamentals-of-deep/9781492082170/">Fundamentals of Deep Learning(2판)</a>&gt;</div></p><p><strong>합성곱 층 연속 적용</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층을 통과할 때 마다 동일한 작업이 반복된다.
-각 층마다 사용되는 필터의 크기와 수가 다를 수 있으며,
 앞서 패턴 공간의 계층에서 설명했듯이
 위쪽의 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층을 통과할 수록 보다 복잡한 구조의 패턴을 알아낸다.</p>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-cnn-layers.jpg" style="width:700px;"></div>
+<ul class="simple">
+<li><p>입력 샘플: 3개의 채털로 구성된 칼라 사진</p></li>
+<li><p>첫째 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층: 필터 12개</p></li>
+<li><p>둘째 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층: 필터 7개</p></li>
+</ul>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-cnn-layers-a.jpg" style="width:700px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p><p><strong>합성곱 신경망 모델</strong></p>
-<p>합성곱 신경망 모델은 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층에 포함된 필터 텐서를 학습시킨다.
+<p>합성곱 신경망 모델은 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층에서 필터로 사용되는 텐서들을 학습시킨다.
 앞서 설명한 대로 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층의 아핀 변환에 필요한 가중치와 편향 벡터와는 다르게
 각각의 필터는 국소적으로 아핀 변환을 적용한다.</p>
 <p><strong>패딩과 보폭</strong></p>
@@ -663,6 +667,7 @@ document.write(`
 <ul class="simple">
 <li><p>경우 1: 패딩 없음, 보폭은 1.</p>
 <ul>
+<li><p>필터라 1칸씩 슬라이딩 함.</p></li>
 <li><p>출력 특성맵의 깊이와 너비: <code class="docutils literal notranslate"><span class="pre">3x3</span></code></p></li>
 <li><p>출력 특성맥의 깊이와 너비가 줄어듦.</p></li>
 </ul>
@@ -672,6 +677,7 @@ document.write(`
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.analyticsvidhya.com/blog/2022/03/basics-of-cnn-in-deep-learning/">Basics of CNN in Deep Learning</a>&gt;</div></p><ul class="simple">
 <li><p>경우 2: 패딩 없음, 보폭은 2.</p>
 <ul>
+<li><p>필터라 2칸씩 건너 뛰며 슬라이딩 함.</p></li>
 <li><p>출력 특성맵의 깊이와 너비: <code class="docutils literal notranslate"><span class="pre">2x2</span></code></p></li>
 <li><p>출력 특성맵의 깊이와 너비가 보폭의 반비례해서 줄어듦.</p></li>
 </ul>
@@ -681,7 +687,7 @@ document.write(`
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.analyticsvidhya.com/blog/2022/03/basics-of-cnn-in-deep-learning/">Basics of CNN in Deep Learning</a>&gt;</div></p><ul class="simple">
 <li><p>경우 3: 패딩 있음, 보폭은 1.</p>
 <ul>
-<li><p>출력 특성맵의 깊이와 너비: <code class="docutils literal notranslate"><span class="pre">5x5</span></code></p></li>
+<li><p>입력 텐서의 테두리에 0으로 채워진 패딩 추가.</p></li>
 <li><p>출력 특성맵의 깊이와 너비가 동일하게 유지됨.</p></li>
 </ul>
 </li>
@@ -693,25 +699,33 @@ document.write(`
 </ul>
 </section>
 <section id="id4">
-<h3><span class="section-number">8.1.3. </span>맥스 풀링 연산<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<p>합성곱 신경망의 전형적인 모습은 다음과 같이 풀링 층을 합성곱 층 이후에 바로 위치시킨다.
-단, 합성곱 층, 맥스 풀링 층이 연속적으로 몇 개씩 사용될 수 있다.</p>
+<h3><span class="section-number">8.1.3. </span>맥스 풀링<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>합성곱 신경망의 전형적인 구조는 아래 그림에서처럼 합성곱 층과 풀링 층을 번갈아 가며 사용한다.</p>
 <div align="center"><img src="http://formal.hknu.ac.kr/handson-ml2/slides/images/ch14/homl14-03.png" style="width:700px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p><p>풀링 층 중에서 <strong>맥스 풀링</strong>(max-pooling) 층이 많이 사용된다.
-맥스 풀링 층은 일정 크기의 영역에서 최댓값만을 선택하여 특성맵의 높이와 너비를 일정 비율로 줄인다.
-예를 들어, 아래 맥스 풀링 층은 <code class="docutils literal notranslate"><span class="pre">2x2</span></code>영역에서 최댓값 하나만을 남기고 나머지는 버리며,
-이 연산을 보폭 2만큼씩 이동하며 입력 특성맵의 모든 영역(<code class="docutils literal notranslate"><span class="pre">높이x너비</span></code>)에 대해 실행한다.
-맥스 풀링 연산은 입력 특성맵의 채녈 단위로 이루어지기에 채널 수는 변하지 않는다.
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p><p><strong>맥스 풀링 기능</strong></p>
+<p>풀링 층은 일정 크기의 영역에서 하나의 값만 선택하여 특성맵의 높이와 너비를 일정 비율로 줄인다.
+일정 영역에서 최댓값을 선택하는 <strong>맥스 풀링</strong>(max-pooling) 층이 가장 많이 사용된다.
+예를 들어 아래 그림은 <code class="docutils literal notranslate"><span class="pre">2x2</span></code>영역에서 최댓값만 선택하는 과정을
+보폭 2만큼씩 이동하며 반복한 결과를 보여준다.
+결과적으로 입력 사진의 높이와 너비를 각각 1/2씩 줄인 사진이 생성된다.</p>
+<div align="center"><img src="http://formal.hknu.ac.kr/handson-ml2/slides/images/ch14/homl14-10.png" style="width:700px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p><p>맥스 풀링은 입력 샘플의 채녈 단위로 적용된다.
+따라서 사진의 가로, 세로 사이즈는 줄어들지만 채널 수는 그대로 유지한다.
 예를 들어, 만약 <code class="docutils literal notranslate"><span class="pre">x</span></code>가 <code class="docutils literal notranslate"><span class="pre">(26,</span> <span class="pre">26,</span> <span class="pre">32)</span></code> 모양의 3D 텐서이면
 다음 맥스 풀링 층의 출력값은 <code class="docutils literal notranslate"><span class="pre">(13,</span> <span class="pre">13,</span> <span class="pre">32)</span></code> 모양의 3D 텐서가 된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
-<div align="center"><img src="http://formal.hknu.ac.kr/handson-ml2/slides/images/ch14/homl14-10.png" style="width:700px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p><p>맥스 풀링 층을 합성곱 층(<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>)과 함께 사용하는 이유는 두 가지이다.</p>
+<p><strong>맥스 풀링 사용 이유</strong></p>
+<p>맥스 풀링 층을 합성곱 층(<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>)과 함께 사용하는 이유는 두 가지이다.</p>
 <ul class="simple">
-<li><p>학습해야할 가중치 파라미터의 수 줄이기.</p></li>
-<li><p>상위 층으로 갈 수록 입력 특성맵의 보다 넓은 영역에 대한 정보를 얻기 위해.</p></li>
+<li><p>모델이 훈련 중에 학습해야할 파라미터(가중치와 편향)의 수를 줄인다.</p>
+<ul>
+<li><p>합성곱 층 자체에서 사용되는 파라미터의 수는 맥스 풀링 층에 줄어들지 않는다.</p></li>
+<li><p>반면에 합성곱 층에 이어서 사용되는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층의 입력값에 갖는 특성 수가 획기적으로 줄어든다.</p></li>
+</ul>
+</li>
+<li><p>상위 합성곱 층으로 이동 수록 입력 데이터의 보다 넓은 영역에 대한 정보를 얻을 수 있다.</p></li>
 </ul>
 <p>아래 코드는 맥스 풀링 층을 사용하지 않는 경우 가중치 파라미터의 수가 엄청나게 증가함을 잘 보여준다.</p>
 <ul class="simple">
@@ -749,14 +763,6 @@ document.write(`
 <span class="go">Non-trainable params: 0 </span>
 </pre></div>
 </div>
-<p><strong>적절한 <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>, <code class="docutils literal notranslate"><span class="pre">stride</span></code>, <code class="docutils literal notranslate"><span class="pre">pool_size</span></code> 지정하기</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층의 기본값: <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>, <code class="docutils literal notranslate"><span class="pre">stride=1</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 층의 기본값: <code class="docutils literal notranslate"><span class="pre">pool_size=2</span></code>, <code class="docutils literal notranslate"><span class="pre">strides=2</span></code>.
-<code class="docutils literal notranslate"><span class="pre">strides</span></code>의 기본값을 지정하지 않으면 <code class="docutils literal notranslate"><span class="pre">pool_size</span></code>의 값과 동일하게 지정됨.</p></li>
-</ul>
-<p>다른 설정 또는 최댓값 대신에 평균값을 사용하는 <code class="docutils literal notranslate"><span class="pre">AveragePooling2D</span></code>를
-활용할 수 있으나 케라스의 기본 설정이 일반적으로 가장 좋은 성능을 보인다.</p>
 </section>
 </section>
 <section id="id5">
@@ -765,16 +771,15 @@ document.write(`
 <h3><span class="section-number">8.2.1. </span>작은 데이터셋과 딥러닝 모델<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>이미지 분류 모델을 훈련시킬 때 데이터셋의 크기가 그다지 크지 않은 경우가 일반적이다.
 즉, 데이터셋의 크기가 적게는 몇 백 개에서 많게는 몇 만 개 정도이다.
-여기서 훈련시켜야 하는 모델은 개와 고양이 사진을 대상으로 하는 이진분류 합성곱 신경망 모델이다.
-실전 상황에 맞추기 위해 5천 개의 이미지로 이루어진 작은 데이터셋을 사용한다.</p>
-<p>합성곱 신경망 모델은 작은 크기의 데이터셋으로도 어느 정도의 성능을 얻을 수 있으며,
-데이터 증식 기법을 적용하거나 기존에 잘 훈련된 모델을 재활용하여 보다 또는 훨씬 높은 성능의 모델을 구현할 수 있음을 보인다.
-데이터 증식 기법은 훈련 데이터셋을 크기를 늘리는 기법이며,
-사전에 잘 훈련된 모델을 재활용하기 위해 특성 추출 기법과 모델 미세조정 기법을 적용한다.</p>
+여기서 훈련시켜야 하는 모델은 개와 고양이 사진을 대상으로 하는 이진 분류 합성곱 신경망 모델이다.
+실전 상황을 재현하기 위해 5천 개의 이미지로 이루어진 작은 데이터셋을 사용한다.</p>
+<p>합성곱 신경망 모델은 작은 크기의 데이터셋으로도 어느 정도의 성능을 얻을 수 있다.
+또한 데이터 증식 기법을 이용하여 훈련셋의 크기를 늘리거나 기존에 잘 훈련된 모델을 재활용하면
+보다 높은 성능의 모델을 구현할 수 있다.</p>
 </section>
 <section id="id7">
 <h3><span class="section-number">8.2.2. </span>데이터 다운로드<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
-<p>데이터 과학과 머신러닝과 관련된 다양한 데이터셋과 모델을 활용할 수 있는
+<p>다양한 종류의 데이터 모델을 활용할 수 있는
 <a class="reference external" href="https://www.kaggle.com">캐글<font size='2'>Kaggle</font></a>에서
 훈련에 필요한 데이터셋을 다운로드하려면 다음 사항을 먼저 확인해야 한다.</p>
 <ul class="simple">
@@ -799,12 +804,12 @@ document.write(`
 <h3><span class="section-number">8.2.3. </span>모델 구성<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <p>CNN 모델은 앞서 설명한대로 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>와 <code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 레이어를
 연속에서 쌓는 방식을 사용한다.
-다만, 보다 큰 이미지와 보다 복잡한 문제를 해결하기 위해 모델을 보다 크게 만들기 위해
+다만, 보다 큰 이미지와 보다 복잡한 문제를 해결하기 위해
 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>와 <code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 층을 두 번 더 쌓는다.</p>
 <p>이렇게 하면 모델의 정보 저장 능력을 키우면서 동시에 특성맵의 크기를 더 작게 만들어
 <code class="docutils literal notranslate"><span class="pre">Flatten</span></code> 층에 최종적으로 <code class="docutils literal notranslate"><span class="pre">7</span> <span class="pre">x</span> <span class="pre">7</span></code> 크기의 않은 특성맵이 전달된다.
 반면에 특성맵의 깊이(필터 개수)는 32에서 256으로 점차 키운다.
-이렇게 층을 쌓아 합성곱 신경망을 구성하는 방식이 매우 일반적이다.</p>
+많은 합성곱 신경망이 이런 식으로 구성된다.</p>
 <ul class="simple">
 <li><p>입력층: 입력 샘플의 모양을 <code class="docutils literal notranslate"><span class="pre">(180,</span> <span class="pre">180,</span> <span class="pre">3)</span></code>으로 지정. 픽셀 크기는 임의로 지정함.
 사진의 크기가 제 각각이기에 먼저 지정된 크기의 텐서로 변환을 해주는 전처리 과정이 필요함.</p></li>
@@ -848,7 +853,7 @@ document.write(`
 지정된 크기의 배치로 구성된 훈련셋, 검증셋, 테스트셋을 쉽게 생성할 수 있다.</p>
 <p>예를 들어, 아래 코드는 <code class="docutils literal notranslate"><span class="pre">new_base_dir/train</span></code> 라는 디렉토리에 크기가 32인 배치들로 구성된
 훈련셋을 저장한다.
-각각의 배치는 <code class="docutils literal notranslate"><span class="pre">(32,</span> <span class="pre">180,</span> <span class="pre">180,</span> <span class="pre">3)</span></code> 모양의 텐서로 저장된다.</p>
+각각의 배치는 <code class="docutils literal notranslate"><span class="pre">(32,</span> <span class="pre">180,</span> <span class="pre">180,</span> <span class="pre">3)</span></code> 모양의 4차원 텐서로 저장된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">train_dataset</span> <span class="o">=</span> <span class="n">image_dataset_from_directory</span><span class="p">(</span>
     <span class="n">new_base_dir</span> <span class="o">/</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span>
     <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
@@ -880,14 +885,21 @@ document.write(`
 <section id="id10">
 <h3><span class="section-number">8.2.5. </span>데이터 증식<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <p>데이터 증식 기법을 사용하여 훈련셋의 크기를 키우는 효과를 추가하면,
-과대적합이 보다 늦게 발생하여 학습된 모델의 성능이 올로간다.</p>
-<p>데이터 증식을 지원하는 층을 이용하면 쉽게 데이터 증식 기법을 적용할 수 있다.
-아래 코드의 <code class="docutils literal notranslate"><span class="pre">data_augmentation</span></code>는 Sequential 모델을 이용하여 간단하게 구현된 데이터 증식 층을 가리킨다.</p>
+과대적합이 보다 늦게 발생하여 학습된 모델의 성능이 올로간다.
+참고로 데이터 증식은 새로운 훈련셋을 추가하는 것이 아니다.
+대신 그런 효과를 낼 뿐이다.</p>
+<p>예를 들어 아래 코드의 <code class="docutils literal notranslate"><span class="pre">data_augmentation</span></code>는 Sequential 모델을 이용하여 간단하게
+데이터 증식을 지원하는 층을 지정한다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">RandomFlip()</span></code>: 사진을 50%의 확률로 지정된 방향으로 회전.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RandomFlip()</span></code>: 사진을 50%의 확률로 지정된 방향으로 반전.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">RandomRotation()</span></code>: 사진을 지정된 범위 안에서 임의로 좌우로 회전</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">RandomZoom()</span></code>: 사진을 지정된 범위 안에서 임의로 확대 및 축소</p></li>
 </ul>
+<p>하나의 사진이 입력되면 앞서 설명한 세 개의 층을 통과하면서
+사진이 무작위적으로 반전/회전/확대/축소 된다.
+그리고 에포크가 바뀔 때마다 동일한 사진이 변하는 방식은 매번 달라진다.
+즉 하나의 사진이 매 에포크마다 다른 방식으로 무작위적으로 변환되어
+훈련에 사용된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_augmentation</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
     <span class="p">[</span><span class="n">layers</span><span class="o">.</span><span class="n">RandomFlip</span><span class="p">(</span><span class="s2">&quot;horizontal&quot;</span><span class="p">),</span>
      <span class="n">layers</span><span class="o">.</span><span class="n">RandomRotation</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span>
@@ -1295,7 +1307,7 @@ VGG16 합성곱 기저(베이스)를 구성요소로 사용하는 모델을 직�
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.1. 합성곱 신경망</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mnist-cnn">8.1.1. MNIST 데이터셋 분류 CNN 모델</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.1.2. 합성곱 연산</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.1.3. 맥스 풀링 연산</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.1.3. 맥스 풀링</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.2. 합성곱 신경망 실전 활용 예제</a><ul class="nav section-nav flex-column">
@@ -1352,8 +1364,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>
