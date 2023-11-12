@@ -16,3 +16,10 @@
 **/person_pb2.py
 **/datasets
 **/tensorboard_log_dir/*
+**/kaggle.json
+**/*.zip
+notebooks/train*/
+**/*.jpg
+**/*.png
+**/sample*.csv
+**/fine_tuning/
