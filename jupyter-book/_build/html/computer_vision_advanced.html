@@ -509,27 +509,25 @@ document.write(`
 <strong>다운샘플링 블록</strong><font size='2'>downsampling block</font>과
 <code class="docutils literal notranslate"><span class="pre">Conv2DTranspose</span></code> 층으로 구성된
 <strong>업샘플링 블록</strong><font size='2'>upsampling block</font>으로 이루어진다.</p>
+<p>먼저 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층을 활용하는 다운샘플링 블록으로 시작한다.
+이미지 분류를 위해 맥스풀링을 사용하는 대신 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층에서 보폭을 2로
+설정하는 이유는 픽셀에 담긴 값(정보) 뿐만 아니라 각 픽셀의 위치도 중요하기 때문이다.
+맥스풀링은 이와는 달리 위치와 독립적인 패턴을 알아내는 것이 중요할 때 사용된다.</p>
 <ul class="simple">
-<li><p>다운샘플링 블록: <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층 활용</p>
-<ul>
 <li><p>이미지 분류 모델과 동일한 기능.</p></li>
 <li><p>보폭(<code class="docutils literal notranslate"><span class="pre">strides=2</span></code>)을 사용하는 경우와 그렇지 않은 경우를 연속으로 적용하기에
 별도의 <code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code>은 사용하지 않음.</p></li>
 <li><p>패딩(<code class="docutils literal notranslate"><span class="pre">padding=&quot;same&quot;</span></code>)을 사용하지만 보폭을 2로 두면 이미지 크기는 가로, 세로 모두 1/2로 줄어듦.</p></li>
 <li><p>채널 수는 동일한 방식으로 두 배씩 증가시킴.</p></li>
 </ul>
-</li>
-</ul>
+<p>다운샘플링 블록에 이어 <code class="docutils literal notranslate"><span class="pre">Conv2DTranspose</span></code> 층을 활용하는 업샘플링 블록을 추가한다.</p>
 <ul class="simple">
-<li><p>업샘플링 블록: <code class="docutils literal notranslate"><span class="pre">Conv2DTranspose</span></code> 층 활용</p>
-<ul>
 <li><p>이미지 분할 모델의 최종 출력값은 입력 이미지의 동일한 크기의 트라이맵 분할 이미지임.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층을 통과하면서 크기가 작아진 텐서를 입력 이미지 크기로 되돌리는 기능 수행.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층이 적용된 역순으로 크기를 되돌려야 함.</p></li>
 <li><p>모델 훈련과정에서 어떤 값들을 사용하여 모양을 되돌릴지 스스로 학습함.</p></li>
 </ul>
-</li>
-</ul>
+<p>여기서 사용하는 다운/업 샘플링 블록은 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">):</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">img_size</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Rescaling</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mi">255</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
@@ -554,57 +552,65 @@ document.write(`
     <span class="k">return</span> <span class="n">model</span>
 </pre></div>
 </div>
-<div class="info admonition">
-<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층의 보폭 사용</p>
-<p>이미지 분류의 경우와는 달리 맥스풀링을 사용하는 대신 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층에서 보폭을 2로
-설정하는 이유는 픽셀에 담긴 값(정보) 뿐만 아니라 각 픽셀의 위치도 중요하기 때문이다.
-맥스풀링은 이와는 달리 위치와 독립적인 패턴을 알아내는 것이 중요할 때 사용한다.</p>
-</div>
 <p>생성된 모델을 요약하면 다음과 같다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">img_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">img_size</span><span class="o">=</span><span class="n">img_size</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="go">Model: &quot;model&quot;</span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">Layer (type)                 Output Shape              Param #   </span>
-<span class="go">=================================================================</span>
-<span class="go">input_1 (InputLayer)         [(None, 200, 200, 3)]     0         </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">rescaling (Rescaling)        (None, 200, 200, 3)       0         </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d (Conv2D)              (None, 100, 100, 64)      1792      </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_1 (Conv2D)            (None, 100, 100, 64)      36928     </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_2 (Conv2D)            (None, 50, 50, 128)       73856     </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_3 (Conv2D)            (None, 50, 50, 128)       147584    </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_4 (Conv2D)            (None, 25, 25, 256)       295168    </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_5 (Conv2D)            (None, 25, 25, 256)       590080    </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_transpose (Conv2DTran (None, 25, 25, 256)       590080    </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_transpose_1 (Conv2DTr (None, 50, 50, 256)       590080    </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_transpose_2 (Conv2DTr (None, 50, 50, 128)       295040    </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_transpose_3 (Conv2DTr (None, 100, 100, 128)     147584    </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_transpose_4 (Conv2DTr (None, 100, 100, 64)      73792     </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_transpose_5 (Conv2DTr (None, 200, 200, 64)      36928     </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_6 (Conv2D)            (None, 200, 200, 3)       1731      </span>
-<span class="go">=================================================================</span>
-<span class="go">Total params: 2,880,643</span>
-<span class="go">Trainable params: 2,880,643</span>
-<span class="go">Non-trainable params: 0</span>
-<span class="go">_________________________________________________________________</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Model</span><span class="p">:</span> <span class="s2">&quot;model&quot;</span>
+<span class="n">_________________________________________________________________</span>
+<span class="n">Layer</span> <span class="p">(</span><span class="nb">type</span><span class="p">)</span>                 <span class="n">Output</span> <span class="n">Shape</span>              <span class="n">Param</span> <span class="c1">#   </span>
+<span class="o">=================================================================</span>
+<span class="n">input_1</span> <span class="p">(</span><span class="n">InputLayer</span><span class="p">)</span>         <span class="p">[(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>     <span class="mi">0</span>         
+<span class="n">_________________________________________________________________</span>
+<span class="n">rescaling</span> <span class="p">(</span><span class="n">Rescaling</span><span class="p">)</span>        <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>       <span class="mi">0</span>         
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>              <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>      <span class="mi">1792</span>      
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_1</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>      <span class="mi">36928</span>     
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_2</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>       <span class="mi">73856</span>     
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_3</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>       <span class="mi">147584</span>    
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_4</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>       <span class="mi">295168</span>    
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_5</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>       <span class="mi">590080</span>    
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_transpose</span> <span class="p">(</span><span class="n">Conv2DTran</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>       <span class="mi">590080</span>    
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_transpose_1</span> <span class="p">(</span><span class="n">Conv2DTr</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>       <span class="mi">590080</span>    
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_transpose_2</span> <span class="p">(</span><span class="n">Conv2DTr</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>       <span class="mi">295040</span>    
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_transpose_3</span> <span class="p">(</span><span class="n">Conv2DTr</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>     <span class="mi">147584</span>    
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_transpose_4</span> <span class="p">(</span><span class="n">Conv2DTr</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>      <span class="mi">73792</span>     
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_transpose_5</span> <span class="p">(</span><span class="n">Conv2DTr</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>      <span class="mi">36928</span>     
+<span class="n">_________________________________________________________________</span>
+<span class="n">conv2d_6</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>       <span class="mi">1731</span>      
+<span class="o">=================================================================</span>
+<span class="n">Total</span> <span class="n">params</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span><span class="mi">880</span><span class="p">,</span><span class="mi">643</span>
+<span class="n">Trainable</span> <span class="n">params</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span><span class="mi">880</span><span class="p">,</span><span class="mi">643</span>
+<span class="n">Non</span><span class="o">-</span><span class="n">trainable</span> <span class="n">params</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">_________________________________________________________________</span>
 </pre></div>
 </div>
-<p>훈련중 저장된 최고 성능의 모델을 불러와서 이미지 분할을
+<p>모델 컴파일과 훈련은 특별한 게 없다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">)</span>
+
+<span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="s2">&quot;oxford_segmentation.keras&quot;</span><span class="p">,</span>
+                                    <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_input_imgs</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                    <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span>
+                    <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_input_imgs</span><span class="p">,</span> <span class="n">val_targets</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>훈련 결과를 그래프로 시각화해서 보면
+과대적합이 25 에포크 정도에서 발생함을 확인할 수 있다.</p>
+<p><div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch09-training01.png" style="width:400px;"></div></p><p>훈련중 저장된 최고 성능의 모델을 불러와서 이미지 분할을
 어떻게 진행했는지 하나의 이미지에 대해 테스트해보면
 원본 이미지에 포함된 다른 요소들 때문에 약간의 잡음이 있지만
 대략적으로 이미지 분할을 잘 적용함을 알 수 있다.</p>
