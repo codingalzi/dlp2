@@ -19,7 +19,5 @@
 **/kaggle.json
 **/*.zip
 notebooks/train*/
-**/*.jpg
-**/*.png
 **/sample*.csv
 **/fine_tuning/
