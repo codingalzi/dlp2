@@ -455,12 +455,14 @@ document.write(`
 <li><p>자세 추정(pose estimation)</p></li>
 <li><p>3D 메쉬 추정(3D mesh estimation)</p></li>
 </ul>
-<div align="center"><img src="https://github.com/Jeff-sjtu/HybrIK/raw/main/assets/hybrik.png" style="width:100%;"></div><div align="center"><img src="https://github.com/Jeff-sjtu/HybrIK/raw/main/assets/decompose.gif" style="width:80%;"></div>
+<div align="center"><img src="https://github.com/Jeff-sjtu/HybrIK/raw/main/assets/hybrik.png" style="width:100%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://github.com/Jeff-sjtu/HybrIK">HybrIK</a>&gt;</div></p><p>여기서는 이미지 분할을 보다 자세히 살펴본다.
 반면에 객체 탐지 등 다른 분야는 다루지 않는다.
 다만 객체 탐지 관련해서 다음 논문을 참고할 것을 권유한다.</p>
 <ul class="simple">
-<li><p>객체 탐지 참고 자료: <a class="reference external" href="https://keras.io/examples/vision/retinanet/">RetinaNet 활용 객체 탐지</a></p></li>
+<li><p>작동원리 설명: 핸즈온 머신러닝 14장</p></li>
+<li><p>기초 활용법: <a class="reference external" href="https://keras.io/examples/vision/retinanet/">RetinaNet 활용 객체 탐지</a></p></li>
+<li><p>주요 활용 예제: <a class="reference external" href="https://github.com/ultralytics/yolov5">YOLOv5</a></p></li>
 </ul>
 </section>
 <section id="id3">
@@ -637,13 +639,12 @@ document.write(`
 <h2><span class="section-number">9.3. </span>CNN 아키텍처 주요 유형<a class="headerlink" href="#cnn" title="Permalink to this heading">#</a></h2>
 <p><strong>모델 아키텍처</strong><font size='2'>model architecture</font>는 모델 설계방식을 의미하며
 심층 신경망 모델을 구성할 때 매우 중요하다.
-주어진 데이터셋과 해결해야 문제에 따라 적절한 층을 적절하게 구성해서
-모델을 구현한다.
+신경망 모델은 주어진 문제와 데이터셋에 따라 적절한 층을 적절하게 구성해야 한다.
 적절한 모델 아키텍처를 사용할 수록 적은 양의 데이터로 보다 빠르게
 좋은 성능의 모델을 얻을 가능성이 높아진다.</p>
-<p>하지만 아쉽게도 좋은 모델 아키텍처와 관련된 이론은 없으며
-많은 경험을 통한 직관이 보다 중요한 역할을 수행한다.
-여기서는 실전에서 최고 성능을 발휘한 합성곱 신경망 아키텍처의 주요 유형 세 개를 살펴본다.</p>
+<p>하지만 아쉽게도 좋은 모델 아키텍처와 관련되어 정해진 이론은 없다.
+대신 많은 경험을 통한 직관이 모델 구성에 보다 중요한 역할하다.
+여기서는 합성곱 신경망 구성에 사용되는 세 개의 주요 아키텍처 유형을 살펴본다.</p>
 <ul class="simple">
 <li><p>잔차 연결<font size='2'>residual connections</font></p></li>
 <li><p>배치 정규화<font size='2'>batch normalization</font></p></li>
@@ -651,13 +652,13 @@ document.write(`
 </ul>
 <section id="id4">
 <h3><span class="section-number">9.3.1. </span>모듈(블록), 계층, 재활용<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<p>합성곱 신경망 모델 아키텍처는 다음 두 가지 특징을 갖는다.</p>
+<p>합성곱 신경망 모델을 포함하여 주요 신경망 모델의 아키텍처는 다음 두 가지 특징을 갖는다.</p>
 <p>첫째, 깊게 쌓아 올린 합성곱 신경망 모델은 기본적으로 <strong>모듈</strong><font size='2'>module</font>을
 <strong>계층</strong><font size='2'>hierarchy</font>으로 쌓아 올린 구조를 갖는다.
 여기서 모듈은 여러 개의 층<font size='2'>layer</font>으로 구성되며 <strong>블록</strong><font size='2'>block</font>이라 불리기도 한다.
-하나의 모듈(블록)이 여러 번 <strong>재활용</strong><font size='2'>reuse</font>되기도 한다.
+하나의 모듈(블록)이 여러 번 <strong>재활용</strong><font size='2'>reuse</font> 된다.
 예를 들어, <a class="reference internal" href="computer_vision_intro.html#ch-computer-vision-intro"><span class="std std-numref">8장</span></a>에서 다룬 VGG16 모델은 “Conv2D, Conv2D, MaxPooling2D” 로 구성된 모듈(블록)을
-계층으로 구성하였다.</p>
+재활용하여 계층으로 쌓아 올렸다.</p>
 <p>둘째, 대부분의 합성곱 신경망 모델은 <strong>특성 피라미드</strong> 형식의 계층적 구조를 사용하는 점이다.
 VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면에 특성맵<font size='2'>feature maps</font>의
 크기는 그에 상응하게 줄여 나간다(아래 그림 참고).</p>
