@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -143,6 +143,7 @@ const thebe_selector_output = ".output, .cell_output"
   
 
 <a class="navbar-brand logo" href="intro.html">
+  
   
   
   
@@ -529,7 +530,8 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층이 적용된 역순으로 크기를 되돌려야 함.</p></li>
 <li><p>모델 훈련과정에서 어떤 값들을 사용하여 모양을 되돌릴지 스스로 학습함.</p></li>
 </ul>
-<p>여기서 사용하는 다운/업 샘플링 블록은 다음과 같다.</p>
+<p><div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch09-conv2d_transpose01.png" style="width:600px;"></div></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://towardsdatascience.com/understand-transposed-convolutions-and-build-your-own-transposed-convolution-layer-from-scratch-4f5d97b2967">Understand Transposed Convolutions</a>&gt;</div></p><p>여기서 사용하는 다운/업 샘플링 블록은 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">):</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">img_size</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Rescaling</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mi">255</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
@@ -640,15 +642,9 @@ document.write(`
 심층 신경망 모델을 구성할 때 매우 중요하다.
 신경망 모델은 주어진 문제와 데이터셋에 따라 적절한 층을 적절하게 구성해야 한다.
 적절한 모델 아키텍처를 사용할 수록 적은 양의 데이터로 보다 빠르게
-좋은 성능의 모델을 얻을 가능성이 높아진다.</p>
-<p>하지만 아쉽게도 좋은 모델 아키텍처와 관련되어 정해진 이론은 없다.
-대신 많은 경험을 통한 직관이 모델 구성에 보다 중요한 역할하다.
-여기서는 합성곱 신경망 구성에 사용되는 세 개의 주요 아키텍처 유형을 살펴본다.</p>
-<ul class="simple">
-<li><p>잔차 연결<font size='2'>residual connections</font></p></li>
-<li><p>배치 정규화<font size='2'>batch normalization</font></p></li>
-<li><p>채널 분리 합성곱<font size='2'>depthwise separable convolutions</font></p></li>
-</ul>
+좋은 성능의 모델을 얻을 가능성이 높아진다.
+하지만 아쉽게도 좋은 모델 아키텍처와 관련되어 정해진 이론은 없다.
+대신 많은 경험을 통한 직관이 모델 구성에 보다 중요하다.</p>
 <section id="id4">
 <h3><span class="section-number">9.3.1. </span>모듈(블록), 계층, 재활용<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>합성곱 신경망 모델을 포함하여 주요 신경망 모델의 아키텍처는 다음 두 가지 특징을 갖는다.</p>
@@ -660,9 +656,18 @@ document.write(`
 재활용하여 계층으로 쌓아 올렸다.</p>
 <p>둘째, 대부분의 합성곱 신경망 모델은 <strong>특성 피라미드</strong> 형식의 계층적 구조를 사용하는 점이다.
 VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면에 특성맵<font size='2'>feature maps</font>의
-크기는 그에 상응하게 줄여 나간다(아래 그림 참고).</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/09-08.png" style="width:80%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
+크기는 그에 상응하여 줄여 나간다(아래 그림 참고).</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-vgg16.png" style="width:800px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://datascientest.com/en/unveiling-the-secrets-of-the-vgg-model-a-deep-dive-with-daniel">Unveiling the Secrets of the VGG Model</a>&gt;</div></p><p>그런데 블록을 연결하는 계층을 높게 쌓으면 그레이디언트 소실 문제 등으로 인해
+모델의 훈련이 잘 이뤄지지 않는다.
+이를 해결하는 다양한 해결책이 개발되었으며
+여기서는 합성곱 신경망 구성에 사용되는 세 개의 주요 아키텍처 유형을 살펴본다.</p>
+<ul class="simple">
+<li><p>잔차 연결<font size='2'>residual connections</font></p></li>
+<li><p>배치 정규화<font size='2'>batch normalization</font></p></li>
+<li><p>채널 분리 합성곱<font size='2'>depthwise separable convolutions</font></p></li>
+</ul>
+</section>
 <section id="id5">
 <h3><span class="section-number">9.3.2. </span>잔차 연결<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <p>일반적으로 많은 유닛이 포함된 층을 몇 개 쌓는 것보다
@@ -672,7 +677,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 발생하여 이를 극복해야 하는 아키텍처(설계방식)을 사용해야 한다.
 즉, 역전파가 제대로 작동하지 못한다.
 이를 위한 대표적인 아키텍처는 <strong>잔차 연결</strong><font size='2'>residual connections</font>이다.</p>
-<p>블록(모듈)의 입력값을 모델을 통과하여 생성된 출력값과 합쳐서 다음 모델으로 전달하는 아키텍처이다(아래 그림 참고).
+<p>아래 그림은 블록(모듈)의 입력값을 모델을 통과하여 생성된 출력값과 합쳐서 다음 모델으로 전달하는 아키텍처를 보여준다.
 이 방식을 통해 모델의 입력값에 대한 정보가 보다 정확하게 상위 모델에 전달되어,
 그레이디언트 소실 문제를 해결하는 데에 많은 도움을 준다.
 실제로 잔차 연결을 이용하면 모델을 매우 높게 쌓아도 모델 훈련이 가능해질 수 있다.</p>
@@ -682,7 +687,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <p>잔차 연결 아키텍처는 2015년에 소개된 ResNet 계열의 모델에서 처음 사용되었으며,
 2015년 ILSVRC 이미지 분류 경진대회에서 1등을 차지했다.</p>
 </div>
-<p><strong>잔차 연결 핵심: 모양<font size='2'>shape</font> 맞추기</strong></p>
+<p><strong>잔차 연결 핵심: 모양 맞추기</strong></p>
 <p>잔차 연결을 사용할 때 주의해야할 기본사항은 모듈의 입력텐서와 출력테서의 모양을 맞추는 일이다.
 이때 맥스풀링 사용여부에 따라 보폭(<code class="docutils literal notranslate"><span class="pre">strides</span></code>)의 크기가 달라진다.</p>
 <ul>
@@ -755,28 +760,30 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </section>
 <section id="id6">
 <h3><span class="section-number">9.3.3. </span>배치 정규화<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
-<p><strong>정규화</strong><font size='2'>normalization</font>는 다양한 모양의 샘플을 정규화를 통해 보다 유사하게 만들어
-모델의 학습을 도와주고 훈련된 모델의 일반화 성능을 올려준다.
+<p><strong>정규화</strong><font size='2'>normalization</font>는
+다양한 모양의 샘플을 정규화를 통해 보다 정규 분포를 따르도록 만든다.
+이를 통해 모델의 학습을 도와주고 결국 훈련된 모델의 일반화 성능을 올려준다.
 지금까지 살펴 본 정규화는 모델의 입력 데이터를 전처리 과정에서 평균을 0으로,
 표준편차를 1로 만드는 방식이었다.
-이는 데이터셋이 정규분포를 따른다는 가정 하에 진행된 정규화였다.
+이는 데이터셋이 정규 분포를 따른다는 가정 하에 진행된 정규화였다.
 아래 그림은 주택가격 예측 데이터의 특성 중에 주택가격과 건축년수를 정규화한 경우(오른편)와 그렇지 않는 경우(왼편)의
 데이터 분포의 변화를 보여준다.</p>
 <div align="center"><img src="https://miro.medium.com/max/770/1*4T4y3kI0R9Alk_2pe6B4Pg.png" style="width:70%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://medium.com/@ilango100/batch-normalization-speed-up-neural-network-training-245e39a62f85">Batch Normalization — Speed up Neural Network Training</a>&gt;</div></p><div class="info admonition">
-<p class="admonition-title">정규분포와 머신러닝</p>
-<p>정규분포를 따르지 않는 데이터에 대한 분석은 기본적으로 머신러닝(딥러닝) 기법을 적용할 수 없다.</p>
+<p class="admonition-title">정규 분포와 머신러닝</p>
+<p>정규 분포를 따르지 않는 데이터에 대한 분석은 기본적으로 머신러닝(딥러닝) 기법을 적용할 수 없다.</p>
 </div>
 <p>하지만 입력 데이터셋에 대한 정규화가 층을 통과한 출력값의 정규화를 보장하는 것은 아니다.
-따라서 다음 층으로 넘겨주기 전에 정규화를 먼저 진행하면 보다 훈련이 잘 될 수 있다.
-더 나아가 출력값을 먼저 정규화한 후에 활성화 함수를 적용할 때 보다 좋은 성능의 모델이 구현될 수 있음이
-발혀지기도 했다.</p>
+따라서 다음 층으로 넘겨주기 전에 정규화를 먼저 진행하면 보다 훈련이 잘 될 수 있다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">normalized_batch</span> <span class="pre">=</span> <span class="pre">(batch</span> <span class="pre">-</span> <span class="pre">np.mean(batch,</span> <span class="pre">axis=...))</span> <span class="pre">/</span> <span class="pre">np.std(batch,</span> <span class="pre">axis=...)</span></code></p>
+<p>더 나아가 출력값을 먼저 정규화한 후에 활성화 함수를 적용할 때 보다 좋은 성능의 모델이 구현될 수 있음이
+밝혀지기도 했다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/notebooks/images/batchNormalization.jpg" style="width:70%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://medium.com/@ilango100/batch-normalization-speed-up-neural-network-training-245e39a62f85">Batch Normalization — Speed up Neural Network Training</a>&gt;</div></p><p><strong>배치 정규화</strong><font size='2'>batch normalization</font>가 바로 앞서 설명한 기능을 대신 처리하며,
 2015년에 발표된 한 논문에서 소개되었다.
 케라스의 경우 <code class="docutils literal notranslate"><span class="pre">layers.BatchNormalization</span></code> 층이 배치 정규하를 지원한다.</p>
 <p>배치 정규화로 인한 모델 성능 향상에 대한 구체적인 이론은 아직 존재하지 않는다.
-다만 경험적으로 많은 합성곱 신경망 모델의 성능에 도움을 준다는 사실만 알려져 있을 뿐이다.
+다만 경험적으로 합성곱 신경망 모델의 성능에 많은 도움을 준다는 사실만 알려져 있다.
 잔차 연결과 함께 배치 정규화 또한 모델 훈련과정에 그레이디언트 역전파에 도움을 주어
 매우 깊은 심층 신경망 모델의 훈련에 도움을 준다.
 예를 들어, ResNet50, EfficientNet, Xception 모델 등은 배치 정규화 없이는 제대로 훈련되지 않는다.</p>
@@ -791,16 +798,19 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </pre></div>
 </div>
 <ul class="simple">
+<li><p>정규화는 특성맵 단위로 이뤄지며 정규화에 사용되는 평균값과 분산은 배치 단위로 계산된다.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">use_bias=False</span></code> 옵션: 배치 정규화에 의해 어차피 데이터의 평균값을 0으로 만들기에 굳이 편향<font size='2'>bias</font> 파라미터를
 훈련 과정 중에 따로 학습시킬 이유가 없다. 따라서 학습되어야 할 파라미터 수가 아주 조금 줄어들어
 학습 속도가 그만큼 빨라진다.</p></li>
 <li><p>활성화 함수 사용 위치: 배치 정규화 이후에 활성화 함수를 실행한다.
 이를 통해 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 활성화 함수의 기능을 극대화할 수 있다(고 주장된다).</p></li>
 </ul>
-<p><strong>모델 미세조정<font size='2'>fine-tuning</font>과 배치 정규화</strong></p>
-<p>배치 정규화 층이 포함된 모델을 미세조정할 때 해당 배치 정규화 층을 동결(freeze)할 것을 추천한다.
-미세조정의 경우 모델 파라미터가 급격하게 변하지 않기에 배치 정규화에 사용된 평균값과 표준편차를 굳이
-업데이트할 필요는 없기 때문이다(라고 추정된다).</p>
+<p><strong>모델 미세조정과 배치 정규화</strong></p>
+<p>배치 정규화 층이 포함된 모델을 미세조정할 때 배치 정규화 층도 함께 동결(freeze)할 것을 추천한다.
+배치 정규화 층을 동결하면 재활용되는 모델이 훈련될 때 계산한 데이터셋의 평균값과 분산이 대신 활용된다.</p>
+<p>이렇게 하는 이유는 미세조정의 경우 훈련셋의 데이터가 모델이 기존에 훈련했을 때의 훈련셋과 비슷하다고 전제하기 때문이다.
+만약에 많이 다른 훈련셋으로 미세조정을 진행하면 동결해제된 모델의 파라미터가 급격하게 달라지게 되여
+모델의 성능이 오히려 떨어질 수 있다(라고 추정된다).</p>
 <p><strong>예제</strong></p>
 <p>아래 그림은 2017년에 소개된 Xception 모델의 구조를 보여준다.
 빨강색 사각형으로 표시된 부분에 <code class="docutils literal notranslate"><span class="pre">BatchNormalization</span></code> 층이 사용되었다.</p>
@@ -889,7 +899,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <p><strong>예제</strong>: Xception 모델</p>
 <p>케라스에서 지원하는 Xception 모델의 구성은 2017년 모델과 조금 다르지만
 기본적으로 <code class="docutils literal notranslate"><span class="pre">SeparableConv2D</span></code>와 <code class="docutils literal notranslate"><span class="pre">BatchNormalizaiton</span></code> 층을 효율적으로 활용한
-블록(모듈)을 잔차 연결과 함께 사용하여 깊게 쌓은 모델이다.</p>
+모듈(블록)을 잔차 연결과 함께 사용하여 깊게 쌓은 모델이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">Xception</span><span class="p">(</span>
     <span class="n">include_top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">input_tensor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">input_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pooling</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
@@ -1144,8 +1154,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
