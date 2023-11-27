@@ -530,6 +530,14 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층이 적용된 역순으로 크기를 되돌려야 함.</p></li>
 <li><p>모델 훈련과정에서 어떤 값들을 사용하여 모양을 되돌릴지 스스로 학습함.</p></li>
 </ul>
+<p>아래 그림이 업샘플링이 작동하는 과정을 보여준다.</p>
+<ul class="simple">
+<li><p>검정 테두리로 표시된 <code class="docutils literal notranslate"><span class="pre">2x2</span></code> 모양의 텐서에 포함된 하나의 항목에 초록색 바탕의 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 모양의 필터를 적용하면
+왼편에 위치한 파랑색 바탕의 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 모양의 텐서가 생성된다.</p></li>
+<li><p>이 과정을 <code class="docutils literal notranslate"><span class="pre">2x2</span></code> 텐서의 모든 항목에 대해 실행한다.
+단, 생성되는 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 모양의 텐서는 지정된 보폭 크기만큼 오른쪽 또는 아래로 이동하며 서로 겹친다.</p></li>
+<li><p>중첩되는 영역에 포함된 항목은 해당 항목에 대해 계산된 모든 값들의 합으로 지정한다.</p></li>
+</ul>
 <p><div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch09-conv2d_transpose01.png" style="width:600px;"></div></p>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://towardsdatascience.com/understand-transposed-convolutions-and-build-your-own-transposed-convolution-layer-from-scratch-4f5d97b2967">Understand Transposed Convolutions</a>&gt;</div></p><p>여기서 사용하는 다운/업 샘플링 블록은 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">img_size</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">):</span>
@@ -558,7 +566,14 @@ document.write(`
 </div>
 <p>출력층으로 사용된 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층의 활성화 함수로 지정된 소프트맥스 함수는
 출력 텐서의 마지막 축을 대상으로 작동한다.
-즉, <code class="docutils literal notranslate"><span class="pre">num_classes</span></code> 개의 출력맵으로 구성된 3차원 텐서의 픽셀별로 활성화함수가 적용된다.</p>
+즉, <code class="docutils literal notranslate"><span class="pre">num_classes</span></code> 개의 출력맵으로 구성된 3차원 텐서의 픽셀별로 소프트맥스 함수가 적용된다.
+여기서는 <code class="docutils literal notranslate"><span class="pre">num_classes</span></code>가 3으로 지정된다.
+이유는 최종적으로 픽셀별로 0, 1, 2 중에 하나의 값을 예측해야 하기 때문이다.</p>
+<p>위 모델을 훈련시킬 때 손실함수로 <code class="docutils literal notranslate"><span class="pre">sparse_categorical_crossentropy</span></code>를 지정한다.
+그러면 샘플의 타깃으로 사용되는 정수 0, 1, 2가
+각각 <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>, <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">1,</span> <span class="pre">0)</span></code>, <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">1)</span></code> 에 상응하도록 작동하여
+타깃 샘플의 모양이 <code class="docutils literal notranslate"><span class="pre">(200,</span> <span class="pre">200,</span> <span class="pre">3)</span></code>인 것인양 작동하여
+위 모델의 출력값의 모양과 동일해진다.</p>
 <p><code class="docutils literal notranslate"><span class="pre">get_model(img_size=(200,200),</span> <span class="pre">num_classes=3)</span></code>을 호출해서 생성된 모델을 요약하면 다음과 같다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">img_size=(200,200)</span></code>: 크기가 제 각각인 사진을 모두 지정된 크기로 변환시켜서 훈련셋으로 활용</p></li>
@@ -604,7 +619,8 @@ document.write(`
 <span class="n">_________________________________________________________________</span>
 </pre></div>
 </div>
-<p>모델 컴파일과 훈련은 특별한 게 없다.</p>
+<p>모델 컴파일과 훈련은 특별한 게 없다.
+단, 앞서 설명한 대로 <code class="docutils literal notranslate"><span class="pre">sparse_categorical_crossentropy</span></code>를 손실함수로 지정한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span> 
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">)</span>
 </pre></div>
