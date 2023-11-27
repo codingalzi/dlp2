@@ -535,7 +535,7 @@ document.write(`
 <li><p>검정 테두리로 표시된 <code class="docutils literal notranslate"><span class="pre">2x2</span></code> 모양의 텐서에 포함된 하나의 항목에 초록색 바탕의 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 모양의 필터를 적용하면
 왼편에 위치한 파랑색 바탕의 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 모양의 텐서가 생성된다.</p></li>
 <li><p>이 과정을 <code class="docutils literal notranslate"><span class="pre">2x2</span></code> 텐서의 모든 항목에 대해 실행한다.
-단, 생성되는 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 모양의 텐서는 지정된 보폭 크기만큼 오른쪽 또는 아래로 이동하며 서로 겹친다.</p></li>
+단, 생성되는 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 모양의 텐서는 지정된 보폭 크기만큼 오른쪽 또는 아래로 이동시키며 겹친다.</p></li>
 <li><p>중첩되는 영역에 포함된 항목은 해당 항목에 대해 계산된 모든 값들의 합으로 지정한다.</p></li>
 </ul>
 <p><div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch09-conv2d_transpose01.png" style="width:600px;"></div></p>
@@ -837,9 +837,19 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">SeparableConv2D</span></code> 층은 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층보다
 적은 수의 가중치 파라미터를 사용하여 보다 적은 양의 계산으로 성능이 좀 더 좋은 모델을 생성한다.
 2017년 Xception 모델 논문에서 소개되었으며 당시 최고의 이미지 분류 성능을 보였다.</p>
-<p><strong>참고</strong>: 최신 이미지 분류 모델의 성능은
-<a class="reference external" href="https://paperswithcode.com/sota/image-classification-on-imagenet">Image Classification on ImageNet</a>을
-참조한다.</p>
+<div class="note admonition">
+<p class="admonition-title">Top 1 / Top 5 정확도</p>
+<p>최신 이미지 분류 모델의 성능은
+<a class="reference external" href="https://paperswithcode.com/sota/image-classification-on-imagenet">Image Classification on ImageNet</a>에서
+확인할 수 있다.
+2023년 기준으로 최고 성능 모델의 Top 1 정확도는 91.1%,
+Top 5 정확도는 99.02% 정도이다.</p>
+<ul class="simple">
+<li><p>Top 1 정확도: 분류 모델이 모든 클래스에 대해 예측한 확률값 중에 가장 높은 확률값을 갖는 클래스가 실제 타깃과 일치할 확률</p></li>
+<li><p>Top 5 정확도: 분류 모델이 모든 클래스에 대해 예측한 확률값 중에 가장 높은 5 개의 확률값을 갖는
+5개의 클래스 중에 실제 타깃이 포함된 확률</p></li>
+</ul>
+</div>
 <p><strong>SeparableConv2D 작동법</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">SeparableConv2D</span></code>는 필터를 채널 별로 적용한 후
 나중에 채널 별 결과를 합친다.
