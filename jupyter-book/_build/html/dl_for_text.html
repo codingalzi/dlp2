@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -145,6 +145,7 @@ const thebe_selector_output = ".output, .cell_output"
   
 
 <a class="navbar-brand logo" href="intro.html">
+  
   
   
   
@@ -367,7 +368,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.1. 자연어 처리 소개</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.2. 텍스트 데이터 전처리</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.2.1. 문장 표준화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.2.1. 텍스트 표준화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.2.2. 토큰화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">11.2.3. 어휘 색인화</a></li>
 </ul>
@@ -436,20 +437,20 @@ document.write(`
 <p>자연어의 특성상 정확한 분석을 위한 알고리즘을 구현하는 일은 사실상 매우 어렵다.
 딥러닝 기법이 활용되기 이전까지는 적절한 규칙을 구성하여 자연어를 이해하려는
 수 많은 시도가 있어왔지만 별로 성공적이지 않았다.</p>
-<p>1990년대부터 인터넷으로부터 구해진 엄청난 양의 텍스트 데이터에 머신러닝 기법을
+<p>1990년대부터 인터넷으로부터 구해진 엄청난 양의 텍스트(문장) 데이터에 머신러닝 기법을
 적용하기 시작했다. 단, 주요 목적이 <strong>언어의 이해</strong>가 아니라
-아래 예제들처럼 입력 문장을 분석하여
+아래 예제들처럼 입력 텍스트를 분석하여
 <strong>통계적으로 유용한 정보를 예측</strong>하는 방향으로 수정되었다.</p>
 <ul class="simple">
-<li><p>문장 분류: “이 문장의 주제는?”</p></li>
+<li><p>텍스트 분류: “이 텍스트의 주제는?”</p></li>
 <li><p>내용 필터링: “욕설이 포함되었나?”</p></li>
 <li><p>감성 분석: “내용이 긍정이야 부정이야?”</p></li>
-<li><p>언어 모델링: “이 문장에 이어 어떤 단어가 있어야 하지?”</p></li>
+<li><p>언어 모델링: “이 텍스트에 이어 어떤 단어가 있어야 하지?”</p></li>
 <li><p>번역: “이거를 한국어로 어떻게 말해?”</p></li>
 <li><p>요약: “이 기사를 한 줄로 요약하면?”</p></li>
 </ul>
 <p>이와 같은 분석을 <strong>자연어 처리</strong><font size='2'>Natural Language Processing</font>라 하며
-단어, 문장, 문단 등에서 찾을 수 있는 패턴을  인식하려 시도한다.</p>
+단어, 텍스트, 문단 등에서 찾을 수 있는 패턴을  인식하려 시도한다.</p>
 <p><strong>머신러닝 활용</strong></p>
 <p>자연어 처리를 위해 1990년대부터 시작된 머신러닝 활용의 변화과정은 다음과 같다.</p>
 <ul class="simple">
@@ -463,20 +464,20 @@ document.write(`
 </section>
 <section id="id3">
 <h2><span class="section-number">11.2. </span>텍스트 데이터 전처리<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
-<p>딥러닝 모델은 문장 자체를 처리할 수 없다.
-따라서 문장을 수치형 텐서로 변환하는 <strong>문장 벡터화</strong><font size='2'>text vectorization</font> 과정이 요구되며
+<p>딥러닝 모델은 텍스트 자체를 처리할 수 없다.
+따라서 텍스트를 수치형 텐서로 변환하는 <strong>텍스트 벡터화</strong><font size='2'>text vectorization</font> 과정이 요구되며
 보통 다음 세 단계를 따른다.</p>
 <ol class="arabic simple">
-<li><p><strong>문장 표준화</strong><font size='2'>text standardization</font>: 소문자화, 마침표 제거 등등</p></li>
+<li><p><strong>텍스트 표준화</strong><font size='2'>text standardization</font>: 소문자화, 마침표 제거 등등</p></li>
 <li><p><strong>토큰화</strong><font size='2'>tokenization</font>: 기본 단위의 <strong>유닛</strong><font size='2'>units</font>으로 쪼개기.
 문자, 단어, 단어 집합 등이 토큰으로 활용됨.</p></li>
 <li><p><strong>어휘 색인화</strong><font size='2'>vocabulary indexing</font>: 토큰 각각을 하나의 수치형 벡터로 변환.</p></li>
 </ol>
-<p>아래 그림은 문장 벡터화의 기본적인 과정을 잘 보여준다.</p>
+<p>아래 그림은 텍스트 벡터화의 기본적인 과정을 잘 보여준다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-01.png" style="width:60%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><section id="id4">
-<h3><span class="section-number">11.2.1. </span>문장 표준화<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<p>다음 두 문장을 표준화를 통해 동일한 문장으로 변환해보자.</p>
+<h3><span class="section-number">11.2.1. </span>텍스트 표준화<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>다음 두 텍스트를 표준화를 통해 동일한 텍스트로 변환해보자.</p>
 <ul class="simple">
 <li><p>“sunset came. i was staring at the Mexico sky. Isnt nature splendid??”</p></li>
 <li><p>“Sunset came; I stared at the México sky. Isn’t nature splendid?”</p></li>
@@ -488,7 +489,7 @@ document.write(`
 <li><p>특수 알파벳 변환: “é”를 “e”로, “æ”를 “ae”로 등등</p></li>
 <li><p>동사/명사의 기본형 활용: “cats”를 “[cat]”로, “was staring”과 “stared”를 “[stare]”로 등등.</p></li>
 </ul>
-<p>그러면 위 두 문장 모두 아래 문장으로 변환된다.</p>
+<p>그러면 위 두 텍스트 모두 아래 텍스트로 변환된다.</p>
 <ul class="simple">
 <li><p>“sunset came i [stare] at the mexico sky isnt nature splendid”</p></li>
 </ul>
@@ -499,7 +500,7 @@ document.write(`
 </section>
 <section id="id5">
 <h3><span class="section-number">11.2.2. </span>토큰화<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
-<p>문장 표준화 이후 데이터 분석의 기본 단위인 토큰으로 쪼개야 한다.
+<p>텍스트 표준화 이후 데이터 분석의 기본 단위인 토큰으로 쪼개야 한다.
 보통 아래 세 가지 방식 중에 하나를 사용한다.</p>
 <ul class="simple">
 <li><p>단어 기준 토큰화</p>
@@ -517,14 +518,14 @@ document.write(`
 <li><p>문자 기준 토큰화</p>
 <ul>
 <li><p>하나의 문자를 하나의 토큰으로 지정.</p></li>
-<li><p>문장 생성, 음성 인식 등에서 활용됨.</p></li>
+<li><p>텍스트 생성, 음성 인식 등에서 활용됨.</p></li>
 </ul>
 </li>
 </ul>
 <p>일반적으로 문자 기준 토큰화는 잘 사용되지 않는다.
 여기서도 단어 기준과 N-그램 토큰화만 이용한다.</p>
 <ul class="simple">
-<li><p>단어 기준 토큰화: 단어들의 순서를 중요시하는 <strong>순차 모델</strong><font size='2'>sequence models</font>을 사용할 경우 주로 활용된다.</p></li>
+<li><p>단어 기준 토큰화: 단어들의 순서를 중요시하는 <strong>시퀀스 모델</strong><font size='2'>sequence models</font>을 사용할 경우 주로 활용된다.</p></li>
 <li><p>N-그램 토큰화: 단어들의 순서를 별로 상관하지 않는 <strong>단어 주머니</strong><font size='2'>bag-of-words</font>
 모델을 사용할 경우 주로 활용된다.</p>
 <ul>
@@ -536,7 +537,7 @@ document.write(`
 </ul>
 <p>단어 주머니<font size='2'>bag-of-words</font>는 N-그램으로 구성된 집합을 의미하며
 <strong>N-그램 주머니</strong>라고도 불린다.
-예를 들어 “the cat sat on the mat.” 문장에 대한
+예를 들어 “the cat sat on the mat.” 텍스트에 대한
 2-그램(바이그램) 집합과 3-그램 집합은 각각 다음과 같다.</p>
 <ul>
 <li><p>2-그램(바이그램) 집합</p>
@@ -561,7 +562,7 @@ document.write(`
 <p>일반적으로 먼저 훈련셋에 포함된 모든 토큰들의 색인(인덱스)을 생성한 다음에
 원-핫, 멀티-핫 인코딩 등의 방식을 사용하여 수치형 텐서로 변환한다.</p>
 <p><a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">4장</span></a>에서 언급한 대로
-보통 사용 빈도가 높은 2만 또는 3만 개의 단어만을 대상으로 어휘 색인화를 진행한다.
+보통 사용 빈도가 높은 1만, 2만, 또는 3만 개의 단어만을 대상으로 어휘 색인화를 진행한다.
 당시에 IMDB 영화 후기 데이터셋을 불러올 때
 <code class="docutils literal notranslate"><span class="pre">num_words=10000</span></code>을 사용하여 사용 빈도수가 상위 1만 등 안에 들지 않는 단어는
 영화 후기에서 무시되도록 하였다.</p>
@@ -569,16 +570,16 @@ document.write(`
 <span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>케라스의 imdb 데이터셋은 이미 문장 벡터화 전처리가 완료된 상태였다.
+<p>케라스의 imdb 데이터셋은 이미 텍스트 벡터화 전처리가 완료된 상태였다.
 즉 영화 후기가 정수들의 리스트로 이미 변환된 상태였다.
-하지만 여기서는 영어 문장으로 작성된 원본 영화후기로 구성된 imdb 데이터셋을
-다운로드하여 문장 벡터화 전처리를 직접 수행하는 단계부터 살펴보려 한다.</p>
+하지만 여기서는 영어 텍스트로 작성된 원본 영화후기로 구성된 imdb 데이터셋을
+다운로드하여 텍스트 벡터화 전처리를 직접 수행하는 단계부터 살펴보려 한다.</p>
 <p><strong>0과 1의 특별한 기능</strong></p>
-<p>문장을 변환한 벡터에 사용되는 0과 1은 특별한 기능을 수행한다.</p>
+<p>텍스트를 변환한 벡터에 사용되는 0과 1은 특별한 기능을 수행한다.</p>
 <ul>
 <li><p>미등록 어휘 인덱스 기능: 어휘 색인에 미등록된(out-of-vocabulary, OOV) 단어는 모두 1로 지정된다.
-그런 단어는 일반 문장으로 재번역되는 경우 “[UNK]”, 즉 모르는 단어로 처리된다.</p></li>
-<li><p>패딩 기능: 문장의 길이를 통일시키기 위해 0을 패딩으로 사용한다.
+그런 단어는 일반 텍스트로 재번역되는 경우 “[UNK]”, 즉 모르는 단어로 처리된다.</p></li>
+<li><p>패딩 기능: 텍스트의 길이를 통일시키기 위해 0을 패딩으로 사용한다.
 0을 <strong>마스크 토큰</strong><font size='2'>mask token</font>이라 부르기도 하며,
 모델 훈련과정에서 무시되도록 할 수 있다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="mi">5</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">65</span><span class="p">],</span>
@@ -590,7 +591,7 @@ document.write(`
 <div class="proof example admonition" id="exp-textvectorization">
 <p class="admonition-title"><span class="caption-number">Example 11.1 </span> (<code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 활용법)</p>
 <section class="example-content" id="proof-content">
-<p>케라스의 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층을 이용하여 문장 벡터화를 진행할 수 있다.
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층을 이용하여 텍스트 벡터화를 진행할 수 있다.
 아래 코드는 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 구성에 사용되는 주요 기본 설정을 보여준다.
 표준화와 토큰화 방식을 임의로 지정해서 활용할 수도 있지만 여기서는 자세히 다루지 않는다.</p>
 <ul class="simple">
@@ -608,7 +609,7 @@ document.write(`
 <span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
-<p>예를 들어, 아래 데이터셋을 이용하여 문장 벡터화에 사용될 어휘 색인을 생성해보자.</p>
+<p>예를 들어, 아래 데이터셋을 이용하여 텍스트 벡터화에 사용될 어휘 색인을 생성해보자.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="p">[</span>
 <span class="gp">... </span>    <span class="s2">&quot;I write, erase, rewrite&quot;</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="s2">&quot;Erase again, and then&quot;</span><span class="p">,</span>
@@ -637,14 +638,14 @@ document.write(`
 <span class="go"> &#39;a&#39;]</span>
 </pre></div>
 </div>
-<p>생성된 어휘 색인을 활용하여 새로운 문장을 벡터화 해보자.</p>
+<p>생성된 어휘 색인을 활용하여 새로운 텍스트를 벡터화 해보자.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_sentence</span> <span class="o">=</span> <span class="s2">&quot;I write, rewrite, and still rewrite again&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">encoded_sentence</span> <span class="o">=</span> <span class="n">text_vectorization</span><span class="p">(</span><span class="n">test_sentence</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">encoded_sentence</span><span class="p">)</span>
 <span class="go">tf.Tensor([ 7  3  5  9  1  5 10], shape=(7,), dtype=int64)</span>
 </pre></div>
 </div>
-<p>벡터화된 텐서로부터 문장을 복원하면 표준화된 문장이 생성된다.</p>
+<p>벡터화된 텐서로부터 텍스트를 복원하면 표준화된 텍스트가 생성된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">inverse_vocab</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">vocabulary</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_sentence</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">inverse_vocab</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">encoded_sentence</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">decoded_sentence</span><span class="p">)</span>
@@ -665,11 +666,11 @@ document.write(`
 </section>
 <section id="id7">
 <h2><span class="section-number">11.3. </span>단어 주머니와 단어 임베딩<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
-<p>훈련시키려 하는 자연어 처리 모델에 따라 문장(텍스트)을 변환하는 방식이 달라진다.</p>
+<p>훈련시키려 하는 자연어 처리 모델에 따라 텍스트를 변환하는 방식이 달라진다.</p>
 <ul class="simple">
 <li><p>단어 주머니<font size='2'>bag-of-words</font> 사용 모델</p>
 <ul>
-<li><p>단어들의 순서를 무시. 문장을 단어들의 집합으로 다룸.</p></li>
+<li><p>단어들의 순서를 무시. 텍스트를 단어들의 집합으로 다룸.</p></li>
 <li><p>2015년 이전까지 주로 사용됨.</p></li>
 </ul>
 </li>
@@ -677,7 +678,7 @@ document.write(`
 <ul>
 <li><p>RNN: 단어들의 순서를 시계열 데이터의 스텝처럼 간주. 2015-2016에 주로 사용됨.</p></li>
 <li><p>트랜스포머<font size='2'>Transformer</font> 아키텍처.
-기본적으로 순서를 무시하지만 단어 위치를 학습할 수 있는 능력을 가짐.
+기본적으로 순서를 따지지 않지만 단어의 위치를 학습함.
 2017년 이후 많이 활용됨.</p></li>
 </ul>
 </li>
@@ -725,11 +726,15 @@ document.write(`
 </pre></div>
 </div>
 <p>각 데이터셋은 배치로 구분되며
-배치의 각 입력 데이터 샘플은 텐서플로우의 문자열 자료형인 <code class="docutils literal notranslate"><span class="pre">tf.string</span></code> 텐서이고,
-타깃은 0 또는 1의 <code class="docutils literal notranslate"><span class="pre">int32</span></code> 텐서로 지정된다.
+배치의 각 입력 데이터 샘플은 텐서플로우의 문자열(<code class="docutils literal notranslate"><span class="pre">tf.string</span></code>) 텐서이고,
+타깃은 0 또는 1에 해당하는 <code class="docutils literal notranslate"><span class="pre">int32</span></code> 정수 텐서로 지정된다.
 0은 부정을, 1은 긍정을 나타낸다.
 배치의 크기는 32이다.</p>
-<p>예를 들어, 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.</p>
+<div class="note admonition">
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">tf.string</span></code> 대 <code class="docutils literal notranslate"><span class="pre">str</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">tf.string</span></code>은 파이썬의 기본 자료형인 <code class="docutils literal notranslate"><span class="pre">str</span></code>과 다르다.</p>
+</div>
+<p>예를 들어, 첫째 배치, 첫째 훈련 샘플의 입력값과 타깃 데이터의 정보는 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">train_ds</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="c1"># 예제: 첫째 배치의 첫째 후기</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs[0]:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -749,7 +754,7 @@ N-그램의 종류는 다음과 같다.</p>
 <li><p>N-그램(N-grams): 최대 N 개의 이어지는 단어로 이루어진 문구가 하나의 토큰</p></li>
 </ul>
 <p><strong>방식 1: 유니그램 멀티-핫 인코딩</strong></p>
-<p>예를 들어, “the cat sat on the mat” 문장을 유니그램으로 처리하면 다음
+<p>예를 들어, “the cat sat on the mat” 텍스트를 유니그램으로 처리하면 다음
 단어 주머니가 생성된다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;sat&quot;</span><span class="p">,</span> <span class="s2">&quot;the&quot;</span><span class="p">}</span>
 </pre></div>
@@ -770,7 +775,7 @@ N-그램의 종류는 다음과 같다.</p>
 <p>이제 훈련셋의 후기에 포함된 단어들을 이용하여 어휘 색인을 생성한다.
 이를 위해 훈련셋에 포함된 후기만 따로 떼어낸다.
 이 데이터셋은 이후에도 다른 종류의 어휘 색인을 생성하는 데에 계속 사용된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 어휘 색인 생성 대상 훈련셋 후기 문장 데이터셋</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 어휘 색인 생성 대상 훈련셋 후기 텍스트 데이터셋</span>
 <span class="n">text_only_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -786,7 +791,7 @@ N-그램의 종류는 다음과 같다.</p>
 </pre></div>
 </div>
 <p>첫째 배치의 첫째 샘플의 입력과 타깃 데이터는 다음과 같다.
-<code class="docutils literal notranslate"><span class="pre">max_tokens=20000</span></code>으로 지정하였기에 모든 문장은 길이가 2만인 멀티-핫 벡터로 변환된다.
+<code class="docutils literal notranslate"><span class="pre">max_tokens=20000</span></code>으로 지정하였기에 모든 텐스트는 길이가 2만인 멀티-핫 벡터로 변환된다.
 예를 들어, n 번 인덱스의 값이 1이면 인덱스에 해당하는 단어가 영화 후기에 사용되었음을 나타낸다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">첫째</span> <span class="n">배치의</span> <span class="n">첫째</span> <span class="n">데이터</span> <span class="n">입력값</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">1.</span> <span class="mf">1.</span> <span class="mf">1.</span> <span class="o">...</span> <span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">20000</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
 <span class="n">첫째</span> <span class="n">배치의</span> <span class="n">첫째</span> <span class="n">데이터</span> <span class="n">타깃</span><span class="p">:</span>   <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">int32</span><span class="p">)</span>
@@ -822,7 +827,7 @@ N-그램의 종류는 다음과 같다.</p>
 무작위로 찍는 모델보다는 훨씬 좋은 모델이다.</p>
 <p><strong>방식 2: 바이그램 멀티-핫 인코딩</strong></p>
 <p>바이그램(2-grams)을 유니그램 대신 이용해보자.
-예를 들어 “the cat sat on the mat” 문장을 바이그램으로 처리하면 다음
+예를 들어 “the cat sat on the mat” 텍스트를 바이그램으로 처리하면 다음
 단어 주머니가 생성된다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;the cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat sat&quot;</span><span class="p">,</span> <span class="s2">&quot;sat&quot;</span><span class="p">,</span>
  <span class="s2">&quot;sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;on the&quot;</span><span class="p">,</span> <span class="s2">&quot;the mat&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">}</span>
@@ -850,7 +855,7 @@ N-그램의 종류는 다음과 같다.</p>
 <p>이전과 동일한 밀집 모델을 훈련시킨 후 테스트셋에 대한 정확도가 90%를 조금 웃돌 정도로 많이 향상되었다.</p>
 <p><strong>방식 3: 바이그램 TF-IDF 인코딩</strong></p>
 <p>N-그램을 벡터화할 때 사용 빈도를 함께 저장하는 방식을 사용할 수 있다.
-단어의 사용 빈도가 아무래도 문장 평가에 중요한 역할을 수행할 것이기 때문이다.
+단어의 사용 빈도가 아무래도 텍스트 평가에 중요한 역할을 수행할 것이기 때문이다.
 아래 코드에서처럼 <code class="docutils literal notranslate"><span class="pre">output_mode=&quot;count&quot;</span></code> 옵션을 사용하면 된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
     <span class="n">ngrams</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -862,7 +867,7 @@ N-그램의 종류는 다음과 같다.</p>
 <p>그런데 이렇게 하면 “the”, “a”, “is”, “are” 등의 사용 빈도는 매우 높은 반면에
 “Chollet” 등의 단어는 빈도가 거의 0에 가깝게 나온다.
 또한 생성된 벡터의 대부분은 0으로 채워질 것이다.
-<code class="docutils literal notranslate"><span class="pre">max_tokens=20000</span></code>을 사용한 반면에 하나의 문장엔 많아야 몇 십 개 정도의 단어만 사용되었기 때문이다.</p>
+<code class="docutils literal notranslate"><span class="pre">max_tokens=20000</span></code>을 사용한 반면에 하나의 텍스트엔 많아야 몇 십 개 정도의 단어만 사용되었기 때문이다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">1.</span> <span class="mf">1.</span> <span class="mf">1.</span> <span class="o">...</span> <span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">20000</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -874,7 +879,7 @@ N-그램의 종류는 다음과 같다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">TF</span></code>(Term Frequency)</p>
 <ul>
-<li><p>하나의 문장에서 사용되는 단어의 빈도</p></li>
+<li><p>하나의 텍스트에서 사용되는 단어의 빈도</p></li>
 <li><p>높을 수록 중요</p></li>
 <li><p>예를 들어, 하나의 후기에 “terrible” 이 많이 사용되었다면
 해당 후기는 부정일 가능성 높음.</p></li>
@@ -882,7 +887,7 @@ N-그램의 종류는 다음과 같다.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">IDF</span></code>(Inverse Document Frequency)</p>
 <ul>
-<li><p>데이터셋 전체 문장에서 사용된 단어의 빈도</p></li>
+<li><p>데이터셋 전체 텍스트에서 사용된 단어의 빈도</p></li>
 <li><p>낮을 수록 중요.</p></li>
 <li><p>“the”, “a”, “is” 등의 <code class="docutils literal notranslate"><span class="pre">IDF</span></code> 값은 높지만 별로 중요하지 않음.</p></li>
 </ul>
@@ -906,13 +911,13 @@ N-그램의 종류는 다음과 같다.</p>
 </pre></div>
 </div>
 <p>훈련 후 테스트셋에 대한 정확도가 다시 89% 아래로 내려간다.
-여기서는 별 도움이 되지 않았지만 많은 문장 분류 모델에서는 1% 정도의 성능 향상을 가져온다.</p>
+여기서는 별 도움이 되지 않았지만 많은 텍스트 분류 모델에서는 1% 정도의 성능 향상을 가져온다.</p>
 <div class="info admonition">
 <p class="admonition-title">문자열을 입력받는 모델 실전 배치하기</p>
-<p>훈련된 모델을 실전에 배치하려면 문장 벡터화 기능을 전처리 과정에 포함시켜야 한다.
+<p>훈련된 모델을 실전에 배치하려면 텍스트 벡터화 기능을 전처리 과정에 포함시켜야 한다.
 이를 위해 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층의 결과를 재활용만 하면 된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
-<span class="c1"># 문장 벡터화 추가</span>
+<span class="c1"># 텍스트 벡터화 추가</span>
 <span class="n">processed_inputs</span> <span class="o">=</span> <span class="n">text_vectorization</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
 <span class="c1"># 훈련된 모델에 적용</span>
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">processed_inputs</span><span class="p">)</span>
@@ -921,7 +926,7 @@ N-그램의 종류는 다음과 같다.</p>
 <span class="n">inference_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>이제 위 <code class="docutils literal notranslate"><span class="pre">inference_model</span></code>은 일반 문장을 직접 인자로 받을 수 있다.
+<p>이제 위 <code class="docutils literal notranslate"><span class="pre">inference_model</span></code>은 일반 텍스트를 직접 인자로 받을 수 있다.
 예를 들어 “That was an excellent movie, I loved it.”라는 후기는
 긍정일 확률이 매우 높다고 예측된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raw_text_data</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">([</span>
@@ -939,15 +944,15 @@ N-그램의 종류는 다음과 같다.</p>
 하지만 이와 같은 방식은 일종의 특성 공학<font size='2'>feature engineering</font>이며,
 딥러닝은 어떤 형식의 특성 공학도 하지 않는 방향으로 발전해왔다.</p>
 <p>여기서는 양방향 LSTM 층으로 구성된 순환 신경망 모델을 훈련시키기 위해
-문장에 포함된 단어들의 순서를 있는 그대로 전달하는 방식을 알아 본다.
+텍스트에 포함된 단어들의 순서를 있는 그대로 전달하는 방식을 알아 본다.
 훈련셋은 IMDB 영화 후기 데이터셋이다.</p>
 <p><strong>정수 벡터 데이터셋 준비</strong></p>
-<p>먼저 훈련셋의 모든 후기 문장을 정수들의 벡터로 변환한다.
-단, 후기 문장이 최대 600 개의 단어만 포함하도록 한다.
+<p>먼저 훈련셋의 모든 후기 텍스트를 정수들의 벡터로 변환한다.
+단, 후기 텍스트가 최대 600 개의 단어만 포함하도록 한다.
 또한 사용되는 어휘는 빈도 기준 최대 2만 개로 제한한다.
 후기의 길이를 600 개의 단어로 제한한 이유는 후기가 평균적으로 233 개의 단어를 사용하고,
 600 단어 이상을 사용하는 후기는 전체의 5% 정도에 불과하기 때문이다.</p>
-<p>모든 후기는 최대 600 개의 단어만 포함하도록 하며, 그보다 긴 문장은 잘라서 사용한다.
+<p>모든 후기는 최대 600 개의 단어만 포함하도록 하며, 그보다 긴 텐스트는 잘라서 사용한다.
 따라서 생성되는 정수들의 벡터는 모두 길이가 600으로 지정된다.
 후기가 600 개보다 적은 수의 단어를 사용한다면 마스크 토큰 0으로 채운다.
 벡터에 사용된 정수는 2만보다 작은 값인데,
@@ -1062,7 +1067,7 @@ N-그램의 종류는 다음과 같다.</p>
 </div>
 <p>그런데 위 모델의 훈련 과정이 매우 느리다.
 이유는 입력 데이터가 너무 많은 특성을 갖기 때문이다.
-입력 데이터 하나, 하나의 문장을 변환시킨 원-핫 단어 벡터의 모양은 <code class="docutils literal notranslate"><span class="pre">(600,</span> <span class="pre">20000)</span></code>인 2차원 텐서이다.
+입력 데이터 하나, 하나의 텍스트를 변환시킨 원-핫 단어 벡터의 모양은 <code class="docutils literal notranslate"><span class="pre">(600,</span> <span class="pre">20000)</span></code>인 2차원 텐서이다.
 따라서 총 <code class="docutils literal notranslate"><span class="pre">600</span> <span class="pre">*</span> <span class="pre">20,000</span> <span class="pre">=</span> <span class="pre">12,000,000</span></code> 개의 항목이 포함되어 있고 그만큼의
 가중치가 훈련되어야 한다.
 이에 더해 양방향 LSTM은 엄청난 양의 반복을 실행하기에 그만큼 훈련 시간이 길어질 수밖에 없다.</p>
@@ -1093,9 +1098,9 @@ N-그램의 종류는 다음과 같다.</p>
 <p>먼저 케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 모델에 추가하여 단어 임베딩 학습을
 모델 훈련과 함께 진행하는 방식을 살펴본다.</p>
 <p><strong>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층 활용</strong></p>
-<p>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층은 하나의 문장이 입력되면
-문장에 포함된 단어들 사이에 존재하는 연관성을
-어휘 색인을 참고하여 문장에 포함된 각각의 단어를 벡터로 변환시켜서 구성한
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층은 하나의 텍스트가 입력되면
+텍스트에 포함된 단어들 사이에 존재하는 연관성을
+어휘 색인을 참고하여 텍스트에 포함된 각각의 단어를 벡터로 변환시켜서 구성한
 시퀀스를 생성한다.
 단어를 변환해서 생성된 단어 벡터는 부동소수점으로 구성된다.
 단어 벡터의 길이는 보통 256, 512, 1024 등으로 정한다.
@@ -1121,11 +1126,11 @@ N-그램의 종류는 다음과 같다.</p>
 </tbody>
 </table>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-02.png" style="width:60%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>예를 들어, 600 개의 단어로 이루어진 문장이 주어졌을 때,
-문장에 포함된 각 단어에 대해 다른 단어들과의 연관성을 256 개 찾아낸다.
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>예를 들어, 600 개의 단어로 이루어진 텍스트가 주어졌을 때,
+텍스트에 포함된 각 단어에 대해 다른 단어들과의 연관성을 256 개 찾아낸다.
 그런 다음 길이가 256인 600개의 벡터로 이루어진 시퀀스,
 즉 <code class="docutils literal notranslate"><span class="pre">(600,</span> <span class="pre">256)</span></code> 모양의 시퀀스를 생성한다.</p>
-<p>그런데 후기 문장의 길이가 600이 되지 않는 경우 나머지는
+<p>그런데 후기 텍스트의 길이가 600이 되지 않는 경우 나머지는
 <strong>패딩</strong><font size='2'>padding</font>에 의해 0으로 채워진다.
 하지만 이렇게 의미 없이 추가된 0이 훈련에 좋지 않은 영향을 미친다.
 따라서 모델이 패딩으로 사용된 0이 있다는 사실을 인지하도록 도와주는
@@ -1153,7 +1158,7 @@ N-그램의 종류는 다음과 같다.</p>
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 통과하면 후기 문장에 사용된 600개 단어 각각이 총 256개의 특성으로 구성된
+<p><code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 통과하면 후기 텍스트에 사용된 600개 단어 각각이 총 256개의 특성으로 구성된
 벡터로 변환되었음을 <code class="docutils literal notranslate"><span class="pre">summary()</span></code> 를 통해 확인할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 <span class="go">_________________________________________________________________</span>
@@ -1182,8 +1187,8 @@ N-그램의 종류는 다음과 같다.</p>
 <section id="glove">
 <h4><span class="section-number">11.3.3.3. </span>GloVe 단어 임베딩<a class="headerlink" href="#glove" title="Permalink to this heading">#</a></h4>
 <p>합성곱 신경망에서 이미지넷<font size='2'>ImageNet</font> 데이터셋을 이용하여
-잘 훈련된 모델을 재활용했던 것처럼 대량의 문장을 분석하여 훈련된 단어 임베딩을 활용할 수 있다.</p>
-<p>여기서는 2014년에 스탠포드 대학교의 연구자들이 위키피디아에 사용된 수 많은 문장을 분석하여 생성한
+잘 훈련된 모델을 재활용했던 것처럼 대량의 텍스트를 분석하여 훈련된 단어 임베딩을 활용할 수 있다.</p>
+<p>여기서는 2014년에 스탠포드 대학교의 연구자들이 위키피디아에 사용된 수 많은 텍스트를 분석하여 생성한
 <a class="reference external" href="https://nlp.stanford.edu/projects/glove/">GloVe(Gloval Vectors for Word Representation)</a>
 어휘 색인을 활용한다.</p>
 <p><strong>임베딩 파일 다운로드</strong></p>
@@ -1232,7 +1237,7 @@ N-그램의 종류는 다음과 같다.</p>
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 통과하면 후기 문장에 사용된 600개 단어 각각이 총 100개의 특성으로 구성된
+<p><code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 통과하면 후기 텍스트에 사용된 600개 단어 각각이 총 100개의 특성으로 구성된
 벡터로 변환되었음을 <code class="docutils literal notranslate"><span class="pre">summary()</span></code> 를 통해 확인할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 <span class="go">_________________________________________________________________</span>
@@ -1286,16 +1291,16 @@ N-그램의 종류는 다음과 같다.</p>
 </ul>
 <p><strong>자연어 처리에서의 셀프 어텐션</strong></p>
 <p>자연어 처리에서의 <strong>셀프 어텐션</strong><font size='2'>self-attention</font> 기법은
-문장을 시퀀스로 변환 할 때
-주어진 문장에 사용된 단어들 사이의 연관성, 즉 <strong>문맥</strong><font size='2'>context</font>을 파악하여
+텍스트를 시퀀스로 변환 할 때
+주어진 텍스트에 사용된 단어들 사이의 연관성, 즉 <strong>문맥</strong><font size='2'>context</font>을 파악하여
 활용한다.</p>
-<p>아래 그림은 “The train  left the station on time.” 이라는 문장에
-셀프 어텐션을 적용하여 입력 문장을 하나의 시퀀스로 변환하는 과정을 보여준다.</p>
+<p>아래 그림은 “The train  left the station on time.” 이라는 텍스트에
+셀프 어텐션을 적용하여 입력 텍스트를 하나의 시퀀스로 변환하는 과정을 보여준다.</p>
 <ul class="simple">
-<li><p>문장을 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 이용하여 단어 임베딩시킨다.</p></li>
+<li><p>텍스트를 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 이용하여 단어 임베딩시킨다.</p></li>
 <li><p>생성된 벡터 시퀀스에 셀프 어텐션을 적용하여 문맥이 적용된 동일 모양의 새로운 벡터 시퀀스를 생성한다.</p>
 <ul>
-<li><p>1단계: 문장에 사용된 각 토큰들 사이의 연관성을 계산하여 어텐션 점수<font size='2'>attention scores</font> 생성.</p></li>
+<li><p>1단계: 텍스트에 사용된 각 토큰들 사이의 연관성을 계산하여 어텐션 점수<font size='2'>attention scores</font> 생성.</p></li>
 <li><p>2단계: 계산된 어텐션 점수를 시퀀스의 각 단어 벡터와 결합시켜서 한 단어를 기준으로 다른 단어들이 갖는 의미를 반영한 단어 벡터들의 시퀀스 생성.</p></li>
 </ul>
 </li>
@@ -1440,7 +1445,7 @@ N-그램의 종류는 다음과 같다.</p>
 </div>
 <p><strong>트랜스포머 인코더 활용 모델</strong></p>
 <p>훈련셋이 입력되면 먼저 단어 임베딩을 통과시켜 하나의 단어가 가질 수 있는 일반적인 특성을 찾는다.
-이후 트랜스포머 인코더로 셀프 어텐션을 적용하여 단어가 사용되는 문장에서의 문맥상의 특성을 추가한다.</p>
+이후 트랜스포머 인코더로 셀프 어텐션을 적용하여 단어가 사용되는 텍스트에서의 문맥상의 특성을 추가한다.</p>
 <p>사용되는 변수들은 다음과 같다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">vocab_size</span> <span class="pre">=</span> <span class="pre">20000</span></code>: 어휘 색인 크기</p></li>
@@ -1609,11 +1614,11 @@ N-그램의 종류는 다음과 같다.</p>
 <h3><span class="section-number">11.4.4. </span>트랜스포머 사용 기준<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
 <p>단어주머니 모델이 여전히 유용하게 활용된다.
 실제로 IMDB 데이터셋에 대한 성능도 단어주머니 모델이 가장 좋았다.
-그리고 많은 실험 결과 “훈련셋의 크기”와 “문장의 평균 단어 수”의 비율이 모델 선택에
+그리고 많은 실험 결과 “훈련셋의 크기”와 “텍스트의 평균 단어 수”의 비율이 모델 선택에
 결정적인 역할을 수행한다는 경험 법칙이 알려졌다.</p>
 <ul class="simple">
-<li><p>(“훈련셋의 크기” <span class="math notranslate nohighlight">\(/\)</span> “문장의 단어 수 평균”) <span class="math notranslate nohighlight">\(&gt;\)</span> 1500 인 경우: 트랜스포머 등 순차 모델</p></li>
-<li><p>(“훈련셋의 크기” <span class="math notranslate nohighlight">\(/\)</span> “문장의 단어 수 평균”) <span class="math notranslate nohighlight">\(&lt;\)</span> 1500 인 경우: 바이그램 단어주머니 모델</p></li>
+<li><p>(“훈련셋의 크기” <span class="math notranslate nohighlight">\(/\)</span> “텍스트의 단어 수 평균”) <span class="math notranslate nohighlight">\(&gt;\)</span> 1500 인 경우: 트랜스포머 등 순차 모델</p></li>
+<li><p>(“훈련셋의 크기” <span class="math notranslate nohighlight">\(/\)</span> “텍스트의 단어 수 평균”) <span class="math notranslate nohighlight">\(&lt;\)</span> 1500 인 경우: 바이그램 단어주머니 모델</p></li>
 </ul>
 <p><strong>예제 1</strong></p>
 <p>1천개의 단어를 포함한 텍스트 십만 개로 이루어진 훈련셋을 사용하는 경우 비율이 100이기에 바이그램 모델을 사용하는 것이 좋다.</p>
@@ -1625,15 +1630,15 @@ N-그램의 종류는 다음과 같다.</p>
 <p>IMDB 훈련셋은 2만 개의 후기로 구성되며 후기 한 개는 평균 233 개의 단어를 포함한다. 비율이 85.84 정도이기에 바이그램 모델이 보다 적합해야 하는데
 지금까지 살펴본 결과가 이에 입증한다.</p>
 <p><strong>경험 법칙의 직관적 이해</strong></p>
-<p>짧은 문장이 많을 수록 문맥을 파악하려면 단어들의 순서가 중요하며,
-문장에 사용된 단어들 사이의 복잡한 연관성을 보다 주의깊게 살펴볼 필요가 있다.
+<p>짧은 텍스트가 많을 수록 문맥을 파악하려면 단어들의 순서가 중요하며,
+텍스트에 사용된 단어들 사이의 복잡한 연관성을 보다 주의깊게 살펴볼 필요가 있다.
 예를 들어, “그 영화는 실패야”와 “그 영화는 실패였어”는 분명 다른 의미를 가지지만
 단어주머니 모델은 차이점을 파악하기 어렵다.
-반면에 보다 긴 문장의 주제와 긍정/부정 등의 감성에 대한 분류는
+반면에 보다 긴 텍스트의 주제와 긍정/부정 등의 감성에 대한 분류는
 단어 관련 통계의 중요성이 보다 크다.</p>
 <p><strong>주의사항</strong></p>
 <p>앞서 설명한 경험 법칙은은 텍스트 분류에 한정된다.
-예를 들어 기계 번역<font size='2'>machine translation</font>의 경우 매우 긴 문장을 다룰 때
+예를 들어 기계 번역<font size='2'>machine translation</font>의 경우 매우 긴 텍스트를 다룰 때
 트랜스포머가 가본적으로 가장 강력한 성능의 모델을 생성한다.</p>
 </section>
 </section>
@@ -1722,7 +1727,7 @@ N-그램의 종류는 다음과 같다.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.1. 자연어 처리 소개</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.2. 텍스트 데이터 전처리</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.2.1. 문장 표준화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.2.1. 텍스트 표준화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.2.2. 토큰화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">11.2.3. 어휘 색인화</a></li>
 </ul>
@@ -1788,8 +1793,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
