@@ -364,10 +364,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.1. 자연어 처리 소개</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.2. 텍스트 데이터 전처리</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.2. 텍스트 벡터화</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.2.1. 텍스트 표준화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.2.2. 토큰화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">11.2.3. 어휘 색인화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#textvectorization">11.2.4. <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3. 단어 임베딩</a><ul class="nav section-nav flex-column">
@@ -409,16 +410,18 @@ document.write(`
 <p>본문 내용을 요약한 <a class="reference external" href="https://github.com/codingalzi/dlp2/raw/master/slides/slides-dl_for_text.pdf">슬라이드</a>를 다운로드할 수 있다.</p>
 <p><strong>주요 내용</strong></p>
 <ul class="simple">
+<li><p>텍스트 벡터화</p></li>
 <li><p>단어 임베딩</p></li>
 <li><p>트랜스포머 아키텍처</p></li>
 <li><p>시퀀스-투-시퀀스 학습</p></li>
+<li><p>영어-스페인어 번역</p></li>
 </ul>
 <section id="id2">
 <h2><span class="section-number">11.1. </span>자연어 처리 소개<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <p>파이썬, 자바, C, C++, C#, 자바스크립트 등 컴퓨터 프로그래밍언어와 구분하기 위해
 일상에서 사용되는 한국어, 영어 등을 <strong>자연어</strong><font size='2'>natural language</font>라
 부른다.</p>
-<p>자연어의 특성상 정확한 분석을 위한 알고리즘을 구현하는 일은 사실상 매우 어렵다.
+<p>자연어의 특성상 정확한 분석을 위한 알고리즘을 구현하는 일은 매우 어렵다.
 딥러닝 기법이 활용되기 이전까지는 적절한 규칙을 구성하여 자연어를 이해하려는
 수 많은 시도가 있어왔지만 별로 성공적이지 않았다.</p>
 <p>1990년대부터 인터넷으로부터 구해진 엄청난 양의 텍스트(문장) 데이터에 머신러닝 기법을
@@ -429,12 +432,12 @@ document.write(`
 <li><p>텍스트 분류: “이 텍스트의 주제는?”</p></li>
 <li><p>내용 필터링: “욕설이 포함되었나?”</p></li>
 <li><p>감성 분석: “내용이 긍정이야 부정이야?”</p></li>
-<li><p>언어 모델링: “이 텍스트에 이어 어떤 단어가 있어야 하지?”</p></li>
+<li><p>언어 모델링: “이 텍스트에 이어 어떤 단어가 와야 하지?”</p></li>
 <li><p>번역: “이거를 한국어로 어떻게 말해?”</p></li>
 <li><p>요약: “이 기사를 한 줄로 요약하면?”</p></li>
 </ul>
 <p>이와 같은 분석을 <strong>자연어 처리</strong><font size='2'>Natural Language Processing</font>라 하며
-단어, 텍스트, 문단 등에서 찾을 수 있는 패턴을  인식하려 시도한다.</p>
+단어와 텍스트에서 찾을 수 있는 패턴을  인식하려 시도한다.</p>
 <p><strong>머신러닝 활용</strong></p>
 <p>자연어 처리를 위해 1990년대부터 시작된 머신러닝 활용의 변화과정은 다음과 같다.</p>
 <ul class="simple">
@@ -448,19 +451,19 @@ document.write(`
 </ul>
 </section>
 <section id="id3">
-<h2><span class="section-number">11.2. </span>텍스트 데이터 전처리<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.2. </span>텍스트 벡터화<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <p>딥러닝 모델은 텍스트 자체를 처리할 수 없다.
-따라서 텍스트를 수치형 텐서로 변환하는 <strong>텍스트 벡터화</strong><font size='2'>text vectorization</font> 과정이 요구되며
-보통 다음 세 단계를 따른다.</p>
+따라서 텍스트를 수치형 텐서로 변환하는 <strong>텍스트 벡터화</strong><font size='2'>text vectorization</font> 과정이 요구된다.
+아래 그림이 텍스트 벡터화의 기본적인 과정을 잘 보여준다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-EmbeddingLayer-a.png" style="width:50%;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://developers.google.com/machine-learning/guides/text-classification/step-3?hl=ko">머신러닝 가이드</a>&gt;</div></p><p>텍스트 벡터화는 보통 다음 세 단계를 따른다.</p>
 <ol class="arabic simple">
 <li><p><strong>텍스트 표준화</strong><font size='2'>text standardization</font>: 소문자화, 마침표 제거 등등</p></li>
 <li><p><strong>토큰화</strong><font size='2'>tokenization</font>: 기본 단위의 <strong>유닛</strong><font size='2'>units</font>으로 쪼개기.
 문자, 단어, 단어 집합 등이 토큰으로 활용됨.</p></li>
 <li><p><strong>어휘 색인화</strong><font size='2'>vocabulary indexing</font>: 토큰 각각을 하나의 수치형 벡터로 변환.</p></li>
 </ol>
-<p>아래 그림은 텍스트 벡터화의 기본적인 과정을 잘 보여준다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-01.png" style="width:60%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><section id="id4">
+<section id="id4">
 <h3><span class="section-number">11.2.1. </span>텍스트 표준화<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>다음 두 텍스트를 표준화를 통해 동일한 텍스트로 변환해보자.</p>
 <ul class="simple">
@@ -523,9 +526,9 @@ document.write(`
 <p>단어 주머니<font size='2'>bag-of-words</font>는 N-그램으로 구성된 집합을 의미하며
 <strong>N-그램 주머니</strong>라고도 불린다.
 예를 들어 “the cat sat on the mat.” 텍스트에 대한
-2-그램(바이그램) 집합과 3-그램 집합은 각각 다음과 같다.</p>
+2-그램(바이그램) 주머니와 3-그램 주머니는 각각 다음과 같다.</p>
 <ul>
-<li><p>2-그램(바이그램) 집합</p>
+<li><p>2-그램(바이그램) 주머니</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;the cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat sat&quot;</span><span class="p">,</span> <span class="s2">&quot;sat&quot;</span><span class="p">,</span>
 <span class="s2">&quot;sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;on the&quot;</span><span class="p">,</span> <span class="s2">&quot;the mat&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">}</span>
 </pre></div>
@@ -533,7 +536,7 @@ document.write(`
 </li>
 </ul>
 <ul>
-<li><p>3-그램 집합</p>
+<li><p>3-그램 주머니</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;the cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat sat&quot;</span><span class="p">,</span> <span class="s2">&quot;the cat sat&quot;</span><span class="p">,</span>
 <span class="s2">&quot;sat&quot;</span><span class="p">,</span> <span class="s2">&quot;sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;cat sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on the&quot;</span><span class="p">,</span>
 <span class="s2">&quot;sat on the&quot;</span><span class="p">,</span> <span class="s2">&quot;the mat&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">,</span> <span class="s2">&quot;on the mat&quot;</span><span class="p">}</span>
@@ -544,9 +547,8 @@ document.write(`
 </section>
 <section id="id6">
 <h3><span class="section-number">11.2.3. </span>어휘 색인화<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
-<p>일반적으로 먼저 훈련셋에 포함된 모든 토큰들의 색인(인덱스)을 생성한 다음에
-원-핫, 멀티-핫 인코딩 등의 방식을 사용하여 수치형 텐서로 변환한다.</p>
-<p><a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">4장</span></a>에서 언급한 대로
+<p>훈련셋에 포함된 모든 토큰들의 색인(인덱스)을 생성한다.
+<a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">4장</span></a>에서 언급한 대로
 보통 사용 빈도가 높은 1만, 2만, 또는 3만 개의 단어만을 대상으로 어휘 색인화를 진행한다.
 당시에 IMDB 영화 후기 데이터셋을 불러올 때
 <code class="docutils literal notranslate"><span class="pre">num_words=10000</span></code>을 사용하여 사용 빈도수가 상위 1만 등 안에 들지 않는 단어는
@@ -555,25 +557,24 @@ document.write(`
 <span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>케라스의 imdb 데이터셋은 이미 텍스트 벡터화 전처리가 완료된 상태였다.
-즉 영화 후기가 정수들의 리스트로 이미 변환된 상태였다.
+<p>훈련셋에 포함된 단어의 색인을 이용하여 텍스트를 아래처럼 단어 색인으로 구성된 리스트로 변환할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">530</span><span class="p">,</span> <span class="mi">973</span><span class="p">,</span> <span class="mi">1622</span><span class="p">,</span> <span class="mi">1385</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>케라스의 imdb 데이터셋은 이와같은 방식으로 이미 텍스트 벡터화가 완료된 상태였다.
 하지만 여기서는 영어 텍스트로 작성된 원본 영화후기로 구성된 imdb 데이터셋을
 다운로드하여 텍스트 벡터화 전처리를 직접 수행하는 단계부터 살펴보려 한다.</p>
-<p><strong>0과 1의 특별한 기능</strong></p>
-<p>텍스트를 변환한 벡터에 사용되는 0과 1은 특별한 기능을 수행한다.</p>
-<ul>
+<p>참고로 텍스트를 변환한 벡터에 사용되는 0과 1은 특별한 기능을 수행한다.</p>
+<ul class="simple">
 <li><p>미등록 어휘 인덱스 기능: 어휘 색인에 미등록된(out-of-vocabulary, OOV) 단어는 모두 1로 지정된다.
 그런 단어는 일반 텍스트로 재번역되는 경우 “[UNK]”, 즉 모르는 단어로 처리된다.</p></li>
 <li><p>패딩 기능: 텍스트의 길이를 통일시키기 위해 0을 패딩으로 사용한다.
 0을 <strong>마스크 토큰</strong><font size='2'>mask token</font>이라 부르기도 하며,
-모델 훈련과정에서 무시되도록 할 수 있다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="mi">5</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">65</span><span class="p">],</span>
- <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span>  <span class="mi">21</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]]</span>
-</pre></div>
-</div>
-</li>
+모델 훈련과정에서 무시되도록 할 수 있다.</p></li>
 </ul>
-<p><strong><code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 활용법</strong></p>
+</section>
+<section id="textvectorization">
+<h3><span class="section-number">11.2.4. </span><code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층<a class="headerlink" href="#textvectorization" title="Permalink to this heading">#</a></h3>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층을 이용하여 텍스트 벡터화를 진행할 수 있다.
 아래 코드는 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층 구성에 사용되는 주요 기본 설정을 보여준다.
 표준화와 토큰화 방식을 임의로 지정해서 활용할 수도 있지만 여기서는 자세히 다루지 않는다.</p>
@@ -818,12 +819,10 @@ document.write(`
 단어 벡터의 길이는 보통 256, 512, 1024 등으로 정한다.
 이는 모델로 하여금 한 단어에 대해 256 개, 512 개, 또는 1024 개 등 지정된 개수만큼의
 단어 특성을 찾도록 유도한다.</p>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-word-embedding.png" style="width:20%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>예를 들어, 600 개의 단어로 이루어진 텍스트가 주어졌을 때,
-텍스트에 포함된 각 단어에 대해 다른 단어들과의 연관성을 256 개 찾아낸다.
-그런 다음 길이가 256인 600개의 벡터로 이루어진 시퀀스,
-즉 <code class="docutils literal notranslate"><span class="pre">(600,</span> <span class="pre">256)</span></code> 모양의 시퀀스를 생성한다.</p>
-</section>
+<p>아래 그림은 단어 벡터의 길이를 4로 지정했을 때 텍스트가 길이가 4인 벡터로 구성된 2차원
+텐서로 변환되는 과정을 보여준다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-EmbeddingLayer.png" style="width:95%;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://developers.google.com/machine-learning/guides/text-classification/step-3?hl=ko">머신러닝 가이드</a>&gt;</div></p></section>
 </section>
 <section id="id8">
 <h2><span class="section-number">11.4. </span>트랜스포머 아키텍처<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
@@ -847,7 +846,7 @@ document.write(`
 <p>아래 그림은 “The train  left the station on time.” 이라는 텍스트에
 셀프 어텐션을 적용하여 입력 텍스트를 하나의 시퀀스로 변환하는 과정을 보여준다.</p>
 <ul class="simple">
-<li><p>텍스트를 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 이용하여 단어 임베딩시킨다.</p></li>
+<li><p>먼저 텍스트를 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 이용하여 단어 임베딩시킨다.</p></li>
 <li><p>생성된 벡터 시퀀스에 셀프 어텐션을 적용하여 문맥이 적용된 동일 모양의 새로운 벡터 시퀀스를 생성한다.</p>
 <ul>
 <li><p>1단계: 텍스트에 사용된 각 토큰들 사이의 연관성을 계산하여 어텐션 점수<font size='2'>attention scores</font> 생성.</p></li>
@@ -1194,10 +1193,11 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.1. 자연어 처리 소개</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.2. 텍스트 데이터 전처리</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.2. 텍스트 벡터화</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.2.1. 텍스트 표준화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.2.2. 토큰화</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">11.2.3. 어휘 색인화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#textvectorization">11.2.4. <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3. 단어 임베딩</a><ul class="nav section-nav flex-column">
