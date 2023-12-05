@@ -63,8 +63,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'dl_for_text';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -373,23 +371,18 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3. 단어 임베딩</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이셋</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.3.1.1. 단어 임베딩</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#glove">11.3.1.2. GloVe 단어 임베딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이셋 준비</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding">11.3.2. 케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">11.4.1. 셀프 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">11.4.2. 멀티헤드 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.4.3. 트랜스포머 인코더</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">11.4.1. 셀프 어텐션</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.4.2. 멀티헤드 어텐션</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.4.3. 트랜스포머 인코더</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.4.4. 트랜스포머 사용 기준</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">11.5. 시퀀스-투-시퀀스 학습</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">11.6. 참고 문헌</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">11.7. 연습 문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.5. 시퀀스-투-시퀀스 학습</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.6. 연습 문제</a></li>
 </ul>
             </nav>
         </div>
@@ -657,7 +650,7 @@ document.write(`
 <h2><span class="section-number">11.3. </span>단어 임베딩<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <p>IMDB 영화 후기 데이터를 이용하여 주요 단어 임베딩 기법을 소개한다.</p>
 <section id="imdb">
-<h3><span class="section-number">11.3.1. </span>IMDB 영화 후기 데이셋<a class="headerlink" href="#imdb" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.3.1. </span>IMDB 영화 후기 데이셋 준비<a class="headerlink" href="#imdb" title="Permalink to this heading">#</a></h3>
 <p>IMDB 데이터셋을 직접 다운로드하여 전처리하는 과정을 자세히 살펴본다.</p>
 <p><strong>준비 과정 1: 데이터셋 다운로드 압축 풀기</strong></p>
 <p><a class="reference external" href="https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">aclIMDB_v1.tar</a> 파일을
@@ -802,30 +795,21 @@ document.write(`
      <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">int64</span><span class="p">)</span>
 </pre></div>
 </div>
-<section id="id8">
-<h4><span class="section-number">11.3.1.1. </span>단어 임베딩<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
-<p>앞서 보았듯이 정수 벡터를 원-핫 인코딩해서 원-핫 워드 벡터로 구성된 시퀀스를 생성하는 방식은 별로 적절하지 않다.
-변환된 벡터의 특성이 너무 많으며, 단어들 사이의 다음과 같은 유기적 관계도 제대로 반영되지 못한다.</p>
+</section>
+<section id="embedding">
+<h3><span class="section-number">11.3.2. </span>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층<a class="headerlink" href="#embedding" title="Permalink to this heading">#</a></h3>
+<p><strong>단어 임베딩</strong><font size='2'>word embedding</font>은
+단어들 사이의 유기적 관계를 모델 스스로 학습을 통해 찾도록 유도한다.</p>
 <ul class="simple">
 <li><p>“movie”와 “film”, “비디오”와 “동영상”, “강아지”와 “개” 등이 사실상 동일하다는 동의어 관계</p></li>
 <li><p>“왕”(남자)과 “여왕”(여자), “boy”와 “girl” 등의 성별 관계</p></li>
 <li><p>“king”의 복수는 “kings” 등 문법 규칙 관계</p></li>
 <li><p>“고양이”와 “호랑이”는 고양이과, “개”와 “늑대”는 개과, “고양이”와 “개”는 애완동물, “늑대”와 “호랑이”는 야생동물 등의 생물 분류 관계</p></li>
 </ul>
-<p>반면에 <strong>단어 임베딩</strong><font size='2'>word embedding</font>은
-단어들 사이의 유기적 관계를 모델 스스로 학습을 통해 찾도록 유도하며,
-보통 다음 두 가지 방식으로 활용된다.</p>
-<ul class="simple">
-<li><p>모델 훈련과 단어 임베딩 학습 동시 진행:
-언어 종류와 모델 훈련 목적에 따라 기본적으로 서로 다른 단어 사이의 관계가 학습되어야 한다.
-예를 들어, 영화 후기 감성 분석과 재판 판결문 분석은 서로 다른 단어 임베딩을 사용할 수밖에 없다.</p></li>
-<li><p>기존에 잘 훈련된 워드 임베딩 활용:
-합성곱 신경망에서 이미지넷 등의 대용량 데이터셋을 활용하여 잘 훈련된 모델을 재활용하는 것처럼
-잘 구성된 대용량의 어휘 색인을 이용하여 생성된 단어 임베딩을 활용한다.</p></li>
-</ul>
-<p>먼저 케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 모델에 추가하여 단어 임베딩 학습을
-모델 훈련과 함께 진행하는 방식을 살펴본다.</p>
-<p><strong>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층 활용</strong></p>
+<p>단어 임베딩은 모델 훈련을 통해 학습되도록 유도한다.
+이유는 언어 종류와 모델 훈련 목적에 따라 기본적으로 서로 다른 단어 사이의 관계가 학습되어야
+하기 때문이다.
+예를 들어, 영화 후기 감성 분석과 재판 판결문 분석은 서로 다른 단어 임베딩을 사용할 수밖에 없다.</p>
 <p>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층은 하나의 텍스트가 입력되면
 텍스트에 포함된 단어들 사이에 존재하는 연관성을
 어휘 색인을 참고하여 텍스트에 포함된 각각의 단어를 벡터로 변환시켜서 구성한
@@ -834,190 +818,28 @@ document.write(`
 단어 벡터의 길이는 보통 256, 512, 1024 등으로 정한다.
 이는 모델로 하여금 한 단어에 대해 256 개, 512 개, 또는 1024 개 등 지정된 개수만큼의
 단어 특성을 찾도록 유도한다.</p>
-<p>아래 그림은 원-핫 인코딩 방식과 단어 임베딩 방식의 차이점을 보여준다.</p>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-left"><p>원-핫 단어 벡터</p></th>
-<th class="head text-left"><p>단어 임베딩</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-left"><p>희소 벡터</p></td>
-<td class="text-left"><p>밀집 벡터</p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p>매우 많은 특성</p></td>
-<td class="text-left"><p>적절한 양의 특성</p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p>직접 전처리</p></td>
-<td class="text-left"><p>모델 스스로 훈련</p></td>
-</tr>
-</tbody>
-</table>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-02.png" style="width:60%;"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-word-embedding.png" style="width:20%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>예를 들어, 600 개의 단어로 이루어진 텍스트가 주어졌을 때,
 텍스트에 포함된 각 단어에 대해 다른 단어들과의 연관성을 256 개 찾아낸다.
 그런 다음 길이가 256인 600개의 벡터로 이루어진 시퀀스,
 즉 <code class="docutils literal notranslate"><span class="pre">(600,</span> <span class="pre">256)</span></code> 모양의 시퀀스를 생성한다.</p>
-<p>그런데 후기 텍스트의 길이가 600이 되지 않는 경우 나머지는
-<strong>패딩</strong><font size='2'>padding</font>에 의해 0으로 채워진다.
-하지만 이렇게 의미 없이 추가된 0이 훈련에 좋지 않은 영향을 미친다.
-따라서 모델이 패딩으로 사용된 0이 있다는 사실을 인지하도록 도와주는
-<strong>마스킹</strong><font size='2'>masking</font> 기능을 활용하면 보다 좋은 성능을 얻을 수 있다.</p>
-<p>방금 설명한 것을 아래 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층이 실행한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">mask_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="warning admonition">
-<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층과 <code class="docutils literal notranslate"><span class="pre">mask_zero</span></code> 옵션</p>
-<p>입력 벡터에 사용되는 0이 특별한 의미를 갖는 경우 <code class="docutils literal notranslate"><span class="pre">mask_zero</span></code> 옵션을 기본값인 <code class="docutils literal notranslate"><span class="pre">False</span></code>로 지정해야 한다.
-<code class="docutils literal notranslate"><span class="pre">mask_zero=True</span></code>는 입력 벡터의 길이가 달라 0을 패딩으로 사용해야 하는 경우에만 사용한다.</p>
-</div>
-<p>아래 코드는 양방향 LSTM을 사용하는 순환 신경망 모델에
-마스킹을 활용 단어 임베딩 방식을 적용하는 것을 보여준다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
-<span class="c1"># 마스킹 활용 단어 임베딩</span>
-<span class="n">embedded</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
-    <span class="n">input_dim</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">mask_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="c1"># 양방향 LSTM</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Bidirectional</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">32</span><span class="p">))(</span><span class="n">embedded</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 통과하면 후기 텍스트에 사용된 600개 단어 각각이 총 256개의 특성으로 구성된
-벡터로 변환되었음을 <code class="docutils literal notranslate"><span class="pre">summary()</span></code> 를 통해 확인할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="go">_________________________________________________________________</span>
-<span class="go"> Layer (type)                Output Shape              Param #   </span>
-<span class="go">=================================================================</span>
-<span class="go"> input_7 (InputLayer)        [(None, 600)]            0         </span>
-<span class="go">                                                                 </span>
-<span class="go"> embedding_1 (Embedding)     (None, 600, 256)         5120000   </span>
-<span class="go">                                                                 </span>
-<span class="go"> bidirectional_2 (Bidirectio  (None, 64)               73984     </span>
-<span class="go"> nal)                                                            </span>
-<span class="go">                                                                 </span>
-<span class="go"> dropout_5 (Dropout)         (None, 64)                0         </span>
-<span class="go">                                                                 </span>
-<span class="go"> dense_8 (Dense)             (None, 1)                 65        </span>
-<span class="go">                                                                 </span>
-<span class="go">=================================================================</span>
-<span class="go">Total params: 5,194,049</span>
-<span class="go">Trainable params: 5,194,049</span>
-<span class="go">Non-trainable params: 0</span>
-</pre></div>
-</div>
-<p>모델의 훈련은 원-핫 인코딩 방식보다 훨씬 빠르게 이루어지며 성능은 88% 정도로 살짝 향상된다.
-바이그램 모델보다 성능이 여전히 떨어지는 이유 중에 하나는 후기에 사용된 단어의 수를 600 개로 제한하였기 때문이다.</p>
-</section>
-<section id="glove">
-<h4><span class="section-number">11.3.1.2. </span>GloVe 단어 임베딩<a class="headerlink" href="#glove" title="Permalink to this heading">#</a></h4>
-<p>합성곱 신경망에서 이미지넷<font size='2'>ImageNet</font> 데이터셋을 이용하여
-잘 훈련된 모델을 재활용했던 것처럼 대량의 텍스트를 분석하여 훈련된 단어 임베딩을 활용할 수 있다.</p>
-<p>여기서는 2014년에 스탠포드 대학교의 연구자들이 위키피디아에 사용된 수 많은 텍스트를 분석하여 생성한
-<a class="reference external" href="https://nlp.stanford.edu/projects/glove/">GloVe(Gloval Vectors for Word Representation)</a>
-어휘 색인을 활용한다.</p>
-<p><strong>임베딩 파일 다운로드</strong></p>
-<p><a class="reference external" href="http://nlp.stanford.edu/data/glove.6B.zip">glove.6B.zip</a> 파일을 다운로드한다.
-압축파일의 크기는 822 MB이다.
-다운로드한 파일의 압축을 풀면 다음 세 개의 파일이 생성된다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.50d.txt</span></code> (약 160 MB)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.100d.txt</span></code> (약 330 MB)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.200d.txt</span></code> (약 670 MB)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">glove.6B.300d.txt</span></code> (약 1 GB)</p></li>
-</ul>
-<p>예를 들어 <code class="docutils literal notranslate"><span class="pre">glove.6B.100d.txt</span></code> 파일의 첫 20줄은 다음과 같다.
-단어별로 하나의 단어가 가질 수 있는 100개의 특성이 부동소수점으로 지정되어 있지만
-화면상 10여 개의 값만 보여지고 나머지는 화면에서 잘렸다.</p>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-glove01.jpg" style="width:80%;"></div><p><strong>임베딩 층 지정</strong></p>
-<p>총 40만 개의 단어 정보를 포함한 <code class="docutils literal notranslate"><span class="pre">glove.6B.100d.txt</span></code> 파일을 이용하여 단어 임베딩을 실행하려면
-임베딩 층을 다음과 같이 설정한다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">max_tokens</span> <span class="pre">=</span> <span class="pre">20000</span></code>: 빈도가 2만등 안에 드는 단어만 대상으로 함.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">embedding_dim</span> <span class="pre">=</span> <span class="pre">100</span></code>: 단어별로 총 100개의 특성을 갖는 벡터가 연결된다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">embedding_matrix</span></code>: <code class="docutils literal notranslate"><span class="pre">glove.6B.100d.txt</span></code> 파일에 포함된 어휘 토큰 중에서
-훈련셋에 포함된 2만개의 단어에 해당하는 어휘만 추출해서 생성한
-<code class="docutils literal notranslate"><span class="pre">(20000,</span> <span class="pre">100)</span></code> 모양의 임베딩 행렬이다.
-이 행렬을 어휘 색인으로 참고하여 후기에 사용된 각 단어에 대해 하나의 단어 벡터를 연결한다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Constant</span></code>: 단어 임베딩의 기준으로 사용될 행렬을 상수 텐서로 지정한다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">trainable=False</span></code>: 단어 임베딩의 기준이 되는 임베딩 행렬이 훈련되지 않도록 한다.</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">embedding_layer</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
-    <span class="n">max_tokens</span><span class="p">,</span>
-    <span class="n">embedding_dim</span><span class="p">,</span>
-    <span class="n">embeddings_initializer</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">Constant</span><span class="p">(</span><span class="n">embedding_matrix</span><span class="p">),</span>
-    <span class="n">trainable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">mask_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>모델 지정 및 훈련</strong></p>
-<p>모델 구성은 임베딩 층만 제외하고 이전과 동일하다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
-<span class="c1"># GloVe 단어 임베딩 활용</span>
-<span class="n">embedded</span> <span class="o">=</span> <span class="n">embedding_layer</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Bidirectional</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">32</span><span class="p">))(</span><span class="n">embedded</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 통과하면 후기 텍스트에 사용된 600개 단어 각각이 총 100개의 특성으로 구성된
-벡터로 변환되었음을 <code class="docutils literal notranslate"><span class="pre">summary()</span></code> 를 통해 확인할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="go">_________________________________________________________________</span>
-<span class="go"> Layer (type)                Output Shape              Param #   </span>
-<span class="go">=================================================================</span>
-<span class="go"> input_8 (InputLayer)        [(None, 600)]            0         </span>
-<span class="go">                                                                 </span>
-<span class="go"> embedding_2 (Embedding)     (None, 600, 100)         2000000   </span>
-<span class="go">                                                                 </span>
-<span class="go"> bidirectional_3 (Bidirectio  (None, 64)               34048     </span>
-<span class="go"> nal)                                                            </span>
-<span class="go">                                                                 </span>
-<span class="go"> dropout_6 (Dropout)         (None, 64)                0         </span>
-<span class="go">                                                                 </span>
-<span class="go"> dense_9 (Dense)             (None, 1)                 65        </span>
-<span class="go">                                                                 </span>
-<span class="go">=================================================================</span>
-<span class="go">Total params: 2,034,113</span>
-<span class="go">Trainable params: 34,113</span>
-<span class="go">Non-trainable params: 2,000,000</span>
-<span class="go">_________________________________________________________________</span>
-</pre></div>
-</div>
-<p>훈련 결과가 특별히 나아지지는 않는다. 이유는 훈련 데이터셋이 충분히 크기에 굳이 외부 임베딩 파일을
-이용하지 않아도 자체적으로 단어들 사이의 관계를 잘 찾기 때문이다.
-하지만 훈련셋이 더 작은 경우 잘 훈련된 임베딩 파일을 이용하면 보다 효율적으로 훈련이 진행된다.</p>
-<h1>2부</h1><p>트랜스포머 아키텍처와 시퀀스-투-시퀀스 학습을 알아본다.</p>
 </section>
 </section>
-</section>
-<section id="id9">
-<h2><span class="section-number">11.4. </span>트랜스포머 아키텍처<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
+<section id="id8">
+<h2><span class="section-number">11.4. </span>트랜스포머 아키텍처<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
 <p>2017년 논문 <a class="reference external" href="https://arxiv.org/abs/1706.03762">“Attention is all you need”</a>에서
 소개된 <strong>트랜스포머</strong><font size='2'>Transformer</font> 아키텍처는 자연어처리 분야에서 혁명을 불러왔다.
 트랜스포머는 “<strong>뉴럴 어텐션</strong><font size='2'>Neural Attention</font>” 기법을 이용하여
 순환층과는 다르게 작동하는 순차 모델<font size='2'>sequence model</font>을 지원한다.</p>
 <p>여기서는 뉴럴 어텐션의 작동법을 설명한 후에 트랜스포머 인코더를 이용하여 IMDB 영화 후기 분류 모델을 구현한다.</p>
-<section id="id10">
-<h3><span class="section-number">11.4.1. </span>셀프 어텐션<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<section id="id9">
+<h3><span class="section-number">11.4.1. </span>셀프 어텐션<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p>입력값의 특성 중에 보다 중요한 특성에 <strong>집중</strong><font size='2'>attention</font>하면 보다 효율적으로
 훈련이 진행될 수 있다.</p>
 <p><strong>집중의 중요성</strong></p>
 <p>아래 그림에서 볼 수 있듯이 이미지의 주요 부분에 집중하여 보다 효율적인 이미지 분석을 진행할 수 있다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-05.png" style="width:70%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>유사 아이디어</strong></p>
-<p>앞서 유사한 아이디어를 활용한 적이 있다.</p>
-<ul class="simple">
-<li><p>합성곱 신경망의 맥스 풀링<font size='2'>max pooling</font>: 지역적으로 가장 중요한 특성만 사용한다.</p></li>
-<li><p>TF-IDF 정규화: 텍스트 벡터화를 위해 사용되는 TF-IDF 정규화는
-사용되는 토큰에 포함된 정보의 중요도를 평가하여 보다 중요한 정보를 담은 토큰에 집중한다.</p></li>
-</ul>
-<p><strong>자연어 처리에서의 셀프 어텐션</strong></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>자연어 처리에서의 셀프 어텐션</strong></p>
 <p>자연어 처리에서의 <strong>셀프 어텐션</strong><font size='2'>self-attention</font> 기법은
 텍스트를 시퀀스로 변환 할 때
 주어진 텍스트에 사용된 단어들 사이의 연관성, 즉 <strong>문맥</strong><font size='2'>context</font>을 파악하여
@@ -1035,8 +857,8 @@ document.write(`
 </ul>
 <p>아래 그림에서는 “station” 단어에 해당하는 벡터가 새로운 벡터로 변환되는 과정을 보여준다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-self_attention.jpg" style="width:100%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>아래 <code class="docutils literal notranslate"><span class="pre">self_attention()</span></code> 함수가 셀프 어텐션이 작동하는 과정을 잘 보여준다.
-함수의 입력값으로 단어 임베딩된 시퀀스를 사용한다.</p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>아래 <code class="docutils literal notranslate"><span class="pre">self_attention()</span></code> 함수는 셀프 어텐션이 작동하는 과정을 코드로 설명한다.
+함수의 입력값은 단어 임베딩된 시퀀스가 사용된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">self_attention</span><span class="p">(</span><span class="n">input_sequence</span><span class="p">):</span>
     <span class="c1"># 변환된 시퀀스 저장용</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_sequence</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -1061,9 +883,18 @@ document.write(`
     <span class="k">return</span> <span class="n">output</span>
 </pre></div>
 </div>
-<p><strong><code class="docutils literal notranslate"><span class="pre">MultiHeadAttention</span></code> 층 활용</strong></p>
-<p>케라스의 <code class="docutils literal notranslate"><span class="pre">MultiHeadAttention</span></code> 층이 <code class="docutils literal notranslate"><span class="pre">self_attention()</span></code> 함수의 셀프 어텐션 기능을
-포함한다.</p>
+</section>
+<section id="id10">
+<h3><span class="section-number">11.4.2. </span>멀티헤드 어텐션<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<p><strong>멀티헤드 어텐션</strong><font size='2'>multi-head attention</font>은
+어텐션 변환을 수행하는 <strong>헤드</strong><font size='2'>head</font>를 여러 개 사용해서
+다양한 관점에서 단어들 사이의 연관성을 알아낸 후에 알아낸 결과를 합치는 기법이다.</p>
+<p>아래 그림은 두 개의 헤드가 작동하는 과정을 보여준다.
+각각의 헤드에 별도의 밀집층이 사용됨에 주목한다.
+질문, 열쇠, 값을 어텐션에 넣어 주기 전에 먼저 밀집층을 이용하여
+모델 스스로 질문, 열쇠, 값을 적절하게 변환하도록 유도한다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-08.png" style="width:70%;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><code class="docutils literal notranslate"><span class="pre">self_attention()</span></code> 함수의 셀프 어텐션 기능을 <code class="docutils literal notranslate"><span class="pre">MultiHeadAttention</span></code> 층으로 구현할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_heads</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># 두 개의 셀프 어텐션을 동시에 진행. 각각 다른 문맥을 파악하도록 유도.</span>
 <span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">256</span> 
 
@@ -1071,8 +902,7 @@ document.write(`
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">mha_layer</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="info admonition">
-<p class="admonition-title">질문-열쇠-값</p>
+<p><strong>질문-열쇠-값<font size='2'>query-key-value</font></strong></p>
 <p>동일한 값을 인자로 세 번 사용하는 <code class="docutils literal notranslate"><span class="pre">mha_layer(inputs,</span> <span class="pre">inputs,</span> <span class="pre">inputs)</span></code>, 즉 셀프 어텐션의 작동 과정을
 식으로 표현하면 다음과 같다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">inputs</span> <span class="o">*</span> <span class="n">pairwise_scores</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
@@ -1088,37 +918,18 @@ document.write(`
 적절한 사진을 검색한다면 각 사진과의 <strong>핵심 연관성</strong><font size='2'>key</font> 점수를
 <strong>해당 사진</strong><font size='2'>value</font>과 결합하여 가장 높은 점수를 갖는 사진을
 추천하는 것을 보여준다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-07.png" style="width:80%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
-</div>
-</section>
-<section id="id11">
-<h3><span class="section-number">11.4.2. </span>멀티헤드 어텐션<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
-<p>어텐션 변환을 수행하는 <strong>헤드</strong><font size='2'>head</font>를 여러 개 사용해서
-다양한 관점에서 단어들 사이의 연관성을 알아낸 후에 알아낸 결과를 합치는 기법이
-<strong>멀티헤드 어텐션</strong><font size='2'>multi-head attention</font>이다.
-아래 그림은 두 개의 헤드가 작동하는 과정을 보여준다.</p>
-<p>각각의 헤드에 별도의 밀집층이 사용됨에 주목한다.
-질문, 열쇠, 값을 어텐션에 넣어 주기 전에 먼저 밀집층을 이용하여
-모델 스스로 질문, 열쇠, 값을 적절하게 변환하도록 유도한다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-08.png" style="width:70%;"></div>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-07.png" style="width:70%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
-<section id="id12">
-<h3><span class="section-number">11.4.3. </span>트랜스포머 인코더<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<section id="id11">
+<h3><span class="section-number">11.4.3. </span>트랜스포머 인코더<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
 <p>헤드에 사용된 밀집층의 역할이 중요하며 크다는 사실이 알려지면서
 멀티헤드 어텐션 층 이후에 밀집층을 더 사용하는 아키텍처가 개발되었다.
 멀티헤드 어텐션 층, 밀집<font size='2'>dense</font> 층, 정규화 층, 잔차 연결을
 조합한 <strong>트랜스포머 인코더</strong><font size='2'>transformer encoder</font>가 대표적이다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-09.png" style="width:35%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>트랜스포머 인코더에 포함된 <code class="docutils literal notranslate"><span class="pre">LayerNormalization</span></code>은
-정규화를 배치 단위가 아닌 시퀀스 단위로 정규화를 실행하는 층이며,
-시퀀스 데이터를 처리할 때는 <code class="docutils literal notranslate"><span class="pre">BatchNormalization</span></code> 보다 잘 작동한다.</p>
-<div class="info admonition">
-<p class="admonition-title">트랜스포머 디코더</p>
-<p>영화 후기 등의 분석 모델은 트랜스포머 인코더만 사용한다.
-반면에 예를 들어 번역 모델은  시퀀스-투-시퀀스 학습을 이용하며
-이때 트랜스포머 디코더를 활용한다.</p>
-</div>
+정규화를 배치 단위가 아닌 시퀀스 단위로 정규화를 실행하는 층이며
+<code class="docutils literal notranslate"><span class="pre">BatchNormalization</span></code>과는 다르게 작동한다.</p>
 <p><strong>트랜스포머 인코더 구현</strong></p>
 <p>위 그림에서 설명된 트랜스포머 인코더를 층으로 구현하면 다음과 같다.
 생성자의 입력값을 예를 들어 설명하면 다음과 같다.</p>
@@ -1229,38 +1040,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<p><strong>모델 비교</strong></p>
-<p>자연어처리와 관련된 모델을 단어 순서 인식과 문맥 이해 차원에서 비교하면 다음과 같다.</p>
-<table class="table">
-<thead>
-<tr class="row-odd"><th class="head text-center"><p></p></th>
-<th class="head text-center"><p>단어순서 인식</p></th>
-<th class="head text-center"><p>문맥 이해</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td class="text-center"><p>유니그램 주머니 모델</p></td>
-<td class="text-center"><p>X</p></td>
-<td class="text-center"><p>X</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>바이그램 주머니 모델</p></td>
-<td class="text-center"><p><span class="math notranslate nohighlight">\(\triangle\)</span></p></td>
-<td class="text-center"><p>X</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>RNN</p></td>
-<td class="text-center"><p>O</p></td>
-<td class="text-center"><p>X</p></td>
-</tr>
-<tr class="row-odd"><td class="text-center"><p>셀프 어텐션</p></td>
-<td class="text-center"><p>X</p></td>
-<td class="text-center"><p>O</p></td>
-</tr>
-<tr class="row-even"><td class="text-center"><p>트랜스포머</p></td>
-<td class="text-center"><p>O</p></td>
-<td class="text-center"><p>O</p></td>
-</tr>
-</tbody>
-</table>
 <p><strong>단어 위치 인코딩</strong></p>
 <p>앞서 살펴 본 트랜스포머 인코더는 셀프 어텐션과 밀집층을 사용하기에
 단어순서를 제대로 활용하지는 못한다.
@@ -1338,52 +1117,13 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="id13">
-<h3><span class="section-number">11.4.4. </span>트랜스포머 사용 기준<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
-<p>단어주머니 모델이 여전히 유용하게 활용된다.
-실제로 IMDB 데이터셋에 대한 성능도 단어주머니 모델이 가장 좋았다.
-그리고 많은 실험 결과 “훈련셋의 크기”와 “텍스트의 평균 단어 수”의 비율이 모델 선택에
-결정적인 역할을 수행한다는 경험 법칙이 알려졌다.</p>
-<ul class="simple">
-<li><p>(“훈련셋의 크기” <span class="math notranslate nohighlight">\(/\)</span> “텍스트의 단어 수 평균”) <span class="math notranslate nohighlight">\(&gt;\)</span> 1500 인 경우: 트랜스포머 등 순차 모델</p></li>
-<li><p>(“훈련셋의 크기” <span class="math notranslate nohighlight">\(/\)</span> “텍스트의 단어 수 평균”) <span class="math notranslate nohighlight">\(&lt;\)</span> 1500 인 경우: 바이그램 단어주머니 모델</p></li>
-</ul>
-<p><strong>예제 1</strong></p>
-<p>1천개의 단어를 포함한 텍스트 십만 개로 이루어진 훈련셋을 사용하는 경우 비율이 100이기에 바이그램 모델을 사용하는 것이 좋다.</p>
-<p><strong>예제 2</strong></p>
-<p>평균 40개의 단어를 포함하는 트윗(tweets) 5만 개로 이루어진 훈련셋을 사용하는 경우 비율이 1,250이기에 역시 바이그램 모델을 사용하는 것이 좋다.</p>
-<p><strong>예제 3</strong></p>
-<p>평균 40개의 단어를 포함하는 트윗(tweets) 50만 개로 이루어진 훈련셋을 사용하는 경우 비율이 12,500이기에 이번엔 트랜스포머 인코더를 활용하는 것이 좋다.</p>
-<p><strong>예제 4</strong></p>
-<p>IMDB 훈련셋은 2만 개의 후기로 구성되며 후기 한 개는 평균 233 개의 단어를 포함한다. 비율이 85.84 정도이기에 바이그램 모델이 보다 적합해야 하는데
-지금까지 살펴본 결과가 이에 입증한다.</p>
-<p><strong>경험 법칙의 직관적 이해</strong></p>
-<p>짧은 텍스트가 많을 수록 문맥을 파악하려면 단어들의 순서가 중요하며,
-텍스트에 사용된 단어들 사이의 복잡한 연관성을 보다 주의깊게 살펴볼 필요가 있다.
-예를 들어, “그 영화는 실패야”와 “그 영화는 실패였어”는 분명 다른 의미를 가지지만
-단어주머니 모델은 차이점을 파악하기 어렵다.
-반면에 보다 긴 텍스트의 주제와 긍정/부정 등의 감성에 대한 분류는
-단어 관련 통계의 중요성이 보다 크다.</p>
-<p><strong>주의사항</strong></p>
-<p>앞서 설명한 경험 법칙은은 텍스트 분류에 한정된다.
-예를 들어 기계 번역<font size='2'>machine translation</font>의 경우 매우 긴 텍스트를 다룰 때
-트랜스포머가 가본적으로 가장 강력한 성능의 모델을 생성한다.</p>
 </section>
-</section>
-<section id="id14">
-<h2><span class="section-number">11.5. </span>시퀀스-투-시퀀스 학습<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
+<section id="id12">
+<h2><span class="section-number">11.5. </span>시퀀스-투-시퀀스 학습<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
 <p>준비중 …</p>
 </section>
-<section id="id15">
-<h2><span class="section-number">11.6. </span>참고 문헌<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><a class="reference external" href="https://e2eml.school/transformers.html">Transformers from Scratch</a>:
-트랜스포머 내부의 작동과정 자세한 설명</p></li>
-<li><p><a class="reference external" href="https://keras.io/guides/keras_nlp/getting_started/">KerasNLP</a>: KerasNLP 소개</p></li>
-</ol>
-</section>
-<section id="id16">
-<h2><span class="section-number">11.7. </span>연습 문제<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h2>
+<section id="id13">
+<h2><span class="section-number">11.6. </span>연습 문제<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-dl_for_text.ipynb">(실습) 자연어 처리</a></p></li>
 </ol>
@@ -1461,23 +1201,18 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3. 단어 임베딩</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이셋</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.3.1.1. 단어 임베딩</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#glove">11.3.1.2. GloVe 단어 임베딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이셋 준비</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding">11.3.2. 케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">11.4.1. 셀프 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">11.4.2. 멀티헤드 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.4.3. 트랜스포머 인코더</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">11.4.1. 셀프 어텐션</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.4.2. 멀티헤드 어텐션</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.4.3. 트랜스포머 인코더</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.4.4. 트랜스포머 사용 기준</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">11.5. 시퀀스-투-시퀀스 학습</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">11.6. 참고 문헌</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">11.7. 연습 문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.5. 시퀀스-투-시퀀스 학습</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.6. 연습 문제</a></li>
 </ul>
   </nav></div>
 
