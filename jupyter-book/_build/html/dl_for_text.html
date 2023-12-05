@@ -373,26 +373,23 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3. 단어 임베딩</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.3.2. 단어 주머니 활용법</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">11.3.3. 시퀀스 활용법</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">11.3.3.1. 원-핫 단어 벡터</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.3.3.2. 단어 임베딩</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#glove">11.3.3.3. GloVe 단어 임베딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이셋</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.3.1.1. 단어 임베딩</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#glove">11.3.1.2. GloVe 단어 임베딩</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.4.1. 셀프 어텐션</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">11.4.2. 멀티헤드 어텐션</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">11.4.3. 트랜스포머 인코더</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">11.4.4. 트랜스포머 사용 기준</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">11.4.1. 셀프 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.4.2. 멀티헤드 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.4.3. 트랜스포머 인코더</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.4.4. 트랜스포머 사용 기준</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">11.5. 시퀀스-투-시퀀스 학습</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">11.6. 참고 문헌</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">11.7. 연습 문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">11.5. 시퀀스-투-시퀀스 학습</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">11.6. 참고 문헌</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">11.7. 연습 문제</a></li>
 </ul>
             </nav>
         </div>
@@ -718,208 +715,6 @@ document.write(`
 <span class="go">targets[0]: tf.Tensor(1, shape=(), dtype=int32)</span>
 </pre></div>
 </div>
-</section>
-<section id="id8">
-<h3><span class="section-number">11.3.2. </span>단어 주머니 활용법<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
-<p>단어 주머니에 채울 토큰으로 어떤 N-그램을 사용할지 먼저 지정해야 한다.
-N-그램의 종류는 다음과 같다.</p>
-<ul class="simple">
-<li><p>유니그램(unigrams): 하나의 단어가 하나의 토큰</p></li>
-<li><p>N-그램(N-grams): 최대 N 개의 이어지는 단어로 이루어진 문구가 하나의 토큰</p></li>
-</ul>
-<p><strong>방식 1: 유니그램 멀티-핫 인코딩</strong></p>
-<p>예를 들어, “the cat sat on the mat” 텍스트를 유니그램으로 처리하면 다음
-단어 주머니가 생성된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;sat&quot;</span><span class="p">,</span> <span class="s2">&quot;the&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>그런 다음 어휘 색인을 이용하여 생성된 단어 주머니를 멀티-핫 인코딩을 이용하여 1차원 이진 텐서,
-즉 0과 1로만 구성된 벡터로 변환한다.</p>
-<p>유니그램 멀티-핫 인코딩을 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 클래스를 이용하면 간단하게 처리할 수 있다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">max_tokens=20000</span></code> 옵션: 빈도가 20,000 등 안에 드는 단어만 멀티-핫 인코딩 적용</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">output_mode=&quot;multi_hot&quot;</span></code> 옵션: 유니그램을 멀티-핫 인코딩하기</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
-    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
-    <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;multi_hot&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>이제 훈련셋의 후기에 포함된 단어들을 이용하여 어휘 색인을 생성한다.
-이를 위해 훈련셋에 포함된 후기만 따로 떼어낸다.
-이 데이터셋은 이후에도 다른 종류의 어휘 색인을 생성하는 데에 계속 사용된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 어휘 색인 생성 대상 훈련셋 후기 텍스트 데이터셋</span>
-<span class="n">text_only_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>이제 <code class="docutils literal notranslate"><span class="pre">adapt()</span></code> 메서드를 이용하여 유니그램 토큰을 멀티-핫 인코딩 하기 위해 필요한 어휘 색인을 생성한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 어휘색인 생성</span>
-<span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">text_only_train_ds</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>생성된 어휘 색인을 이용하여 훈련셋, 검증셋, 테스트셋 모두 멀티-핫 인코딩, 즉 벡터화한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">binary_1gram_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-<span class="n">binary_1gram_val_ds</span> <span class="o">=</span> <span class="n">val_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-<span class="n">binary_1gram_test_ds</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>첫째 배치의 첫째 샘플의 입력과 타깃 데이터는 다음과 같다.
-<code class="docutils literal notranslate"><span class="pre">max_tokens=20000</span></code>으로 지정하였기에 모든 텐스트는 길이가 2만인 멀티-핫 벡터로 변환된다.
-예를 들어, n 번 인덱스의 값이 1이면 인덱스에 해당하는 단어가 영화 후기에 사용되었음을 나타낸다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">첫째</span> <span class="n">배치의</span> <span class="n">첫째</span> <span class="n">데이터</span> <span class="n">입력값</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">1.</span> <span class="mf">1.</span> <span class="mf">1.</span> <span class="o">...</span> <span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">20000</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
-<span class="n">첫째</span> <span class="n">배치의</span> <span class="n">첫째</span> <span class="n">데이터</span> <span class="n">타깃</span><span class="p">:</span>   <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">int32</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><em>밀집 모델 활용</em></p>
-<p>단어 주머니 형식으로 전처리된 데이터를 이용하는 모델은 기본적으로
-밀집 모델을 사용한다.
-이유는 단어 주머니에 포함된 토큰들 사이에는 순서가 없기에
-모델도 굳이 순서를 고려할 필요가 없기 때문이다.</p>
-<p>아래 <code class="docutils literal notranslate"><span class="pre">get_model()</span></code> 함수는 단어 주머니로 전처리된 데이터셋을 이용하는 경우
-활용될 매우 단순하며 컴파일된 밀집 모델을 반환한다.
-모델의 출력값은 긍정일 확률이며,
-최상위 층의 활성화 함수로 <code class="docutils literal notranslate"><span class="pre">sigmoid</span></code>를 사용한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
-    <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">max_tokens</span><span class="p">,))</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 긍정일 확률 계산</span>
-    
-    <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
-    
-    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-                  <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
-                  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
-    
-    <span class="k">return</span> <span class="n">model</span>
-</pre></div>
-</div>
-<p>밀집 모델 훈련과정은 특별한 게 없다.
-훈련 후 테스트셋에 대한 정확도가 89% 보다 조금 낮게 나온다.
-최고 성능의 모델이 테스트셋에 대해 95% 정도 정확도를 내는 것보다는 낮지만
-무작위로 찍는 모델보다는 훨씬 좋은 모델이다.</p>
-<p><strong>방식 2: 바이그램 멀티-핫 인코딩</strong></p>
-<p>바이그램(2-grams)을 유니그램 대신 이용해보자.
-예를 들어 “the cat sat on the mat” 텍스트를 바이그램으로 처리하면 다음
-단어 주머니가 생성된다.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;the cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat sat&quot;</span><span class="p">,</span> <span class="s2">&quot;sat&quot;</span><span class="p">,</span>
- <span class="s2">&quot;sat on&quot;</span><span class="p">,</span> <span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;on the&quot;</span><span class="p">,</span> <span class="s2">&quot;the mat&quot;</span><span class="p">,</span> <span class="s2">&quot;mat&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>바이그램 멀티-핫 인코딩을 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 클래스를 이용하면 간단하게 처리할 수 있다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ngrams=2</span></code> 옵션 활용</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
-    <span class="n">ngrams</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
-    <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;multi_hot&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>어휘 색인 생성과 훈련셋, 검증셋, 테스트셋의 벡터화 과정은 동일하다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">text_only_train_ds</span><span class="p">)</span>
-
-<span class="n">binary_2gram_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-<span class="n">binary_2gram_val_ds</span> <span class="o">=</span> <span class="n">val_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-<span class="n">binary_2gram_test_ds</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>이전과 동일한 밀집 모델을 훈련시킨 후 테스트셋에 대한 정확도가 90%를 조금 웃돌 정도로 많이 향상되었다.</p>
-<p><strong>방식 3: 바이그램 TF-IDF 인코딩</strong></p>
-<p>N-그램을 벡터화할 때 사용 빈도를 함께 저장하는 방식을 사용할 수 있다.
-단어의 사용 빈도가 아무래도 텍스트 평가에 중요한 역할을 수행할 것이기 때문이다.
-아래 코드에서처럼 <code class="docutils literal notranslate"><span class="pre">output_mode=&quot;count&quot;</span></code> 옵션을 사용하면 된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
-    <span class="n">ngrams</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
-    <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;count&quot;</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>그런데 이렇게 하면 “the”, “a”, “is”, “are” 등의 사용 빈도는 매우 높은 반면에
-“Chollet” 등의 단어는 빈도가 거의 0에 가깝게 나온다.
-또한 생성된 벡터의 대부분은 0으로 채워질 것이다.
-<code class="docutils literal notranslate"><span class="pre">max_tokens=20000</span></code>을 사용한 반면에 하나의 텍스트엔 많아야 몇 십 개 정도의 단어만 사용되었기 때문이다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">tf</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mf">1.</span> <span class="mf">1.</span> <span class="mf">1.</span> <span class="o">...</span> <span class="mf">0.</span> <span class="mf">0.</span> <span class="mf">0.</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">20000</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>이 점을 고려해서 사용 빈도를 정규화한다.
-평균을 원점으로 만들지는 않고 TF-IDF 값으로 나누기만 실행한다.
-이유는 평균을 옮기면 벡터의 대부분의 값이 0이 아니게 되어
-훈련에 보다 많은 계산이 요구되기 때문이다.</p>
-<p><strong>TF-IDF</strong>의 의미는 다음과 같다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">TF</span></code>(Term Frequency)</p>
-<ul>
-<li><p>하나의 텍스트에서 사용되는 단어의 빈도</p></li>
-<li><p>높을 수록 중요</p></li>
-<li><p>예를 들어, 하나의 후기에 “terrible” 이 많이 사용되었다면
-해당 후기는 부정일 가능성 높음.</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">IDF</span></code>(Inverse Document Frequency)</p>
-<ul>
-<li><p>데이터셋 전체 텍스트에서 사용된 단어의 빈도</p></li>
-<li><p>낮을 수록 중요.</p></li>
-<li><p>“the”, “a”, “is” 등의 <code class="docutils literal notranslate"><span class="pre">IDF</span></code> 값은 높지만 별로 중요하지 않음.</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">TF-IDF</span> <span class="pre">=</span> <span class="pre">TF/IDF</span></code></p></li>
-</ul>
-<p><code class="docutils literal notranslate"><span class="pre">output_mode=&quot;tf_idf&quot;</span></code> 옵션을 사용하면 TF-IDF 인코딩을 지원한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
-    <span class="n">ngrams</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
-    <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;tf_idf&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-<p>어휘색인 생성과 훈련셋, 검증셋, 테스트셋의 벡터화 과정은 동일하다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">text_only_train_ds</span><span class="p">)</span>
-
-<span class="n">tfidf_2gram_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-<span class="n">tfidf_2gram_val_ds</span> <span class="o">=</span> <span class="n">val_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-<span class="n">tfidf_2gram_test_ds</span> <span class="o">=</span> <span class="n">test_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
-</pre></div>
-</div>
-<p>훈련 후 테스트셋에 대한 정확도가 다시 89% 아래로 내려간다.
-여기서는 별 도움이 되지 않았지만 많은 텍스트 분류 모델에서는 1% 정도의 성능 향상을 가져온다.</p>
-<div class="info admonition">
-<p class="admonition-title">문자열을 입력받는 모델 실전 배치하기</p>
-<p>훈련된 모델을 실전에 배치하려면 텍스트 벡터화 기능을 전처리 과정에 포함시켜야 한다.
-이를 위해 <code class="docutils literal notranslate"><span class="pre">TextVectorization</span></code> 층의 결과를 재활용만 하면 된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
-<span class="c1"># 텍스트 벡터화 추가</span>
-<span class="n">processed_inputs</span> <span class="o">=</span> <span class="n">text_vectorization</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="c1"># 훈련된 모델에 적용</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">processed_inputs</span><span class="p">)</span>
-
-<span class="c1"># 최종 모델</span>
-<span class="n">inference_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>이제 위 <code class="docutils literal notranslate"><span class="pre">inference_model</span></code>은 일반 텍스트를 직접 인자로 받을 수 있다.
-예를 들어 “That was an excellent movie, I loved it.”라는 후기는
-긍정일 확률이 매우 높다고 예측된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">raw_text_data</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">convert_to_tensor</span><span class="p">([</span>
-    <span class="p">[</span><span class="s2">&quot;That was an excellent movie, I loved it.&quot;</span><span class="p">],</span>
-<span class="p">])</span>
-
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">inference_model</span><span class="p">(</span><span class="n">raw_text_data</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="id9">
-<h3><span class="section-number">11.3.3. </span>시퀀스 활용법<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
-<p>바이그램, 3-그램 등을 이용하여 단어들 사이의 순서 정보를 함께 활용하면 기본적으로 모델의 훈련 성능이 향상된다.
-하지만 이와 같은 방식은 일종의 특성 공학<font size='2'>feature engineering</font>이며,
-딥러닝은 어떤 형식의 특성 공학도 하지 않는 방향으로 발전해왔다.</p>
-<p>여기서는 양방향 LSTM 층으로 구성된 순환 신경망 모델을 훈련시키기 위해
-텍스트에 포함된 단어들의 순서를 있는 그대로 전달하는 방식을 알아 본다.
-훈련셋은 IMDB 영화 후기 데이터셋이다.</p>
 <p><strong>정수 벡터 데이터셋 준비</strong></p>
 <p>먼저 훈련셋의 모든 후기 텍스트를 정수들의 벡터로 변환한다.
 단, 후기 텍스트가 최대 600 개의 단어만 포함하도록 한다.
@@ -940,6 +735,9 @@ N-그램의 종류는 다음과 같다.</p>
     <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
     <span class="n">output_sequence_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">,</span>  <span class="c1"># 하나의 후기에 포함된 최대 단어는 최대 600 개</span>
 <span class="p">)</span>
+
+<span class="c1"># 어휘 색인 생성 대상 훈련셋 후기 텍스트 데이터셋</span>
+<span class="n">text_only_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
 
 <span class="c1"># 어휘 색인</span>
 <span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">text_only_train_ds</span><span class="p">)</span>
@@ -1004,52 +802,8 @@ N-그램의 종류는 다음과 같다.</p>
      <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">int64</span><span class="p">)</span>
 </pre></div>
 </div>
-<section id="id10">
-<h4><span class="section-number">11.3.3.1. </span>원-핫 단어 벡터<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h4>
-<p>정수 벡터를 순차 모델의 입력값으로 그대로 사용할 수는 없다.
-대신 정수 벡터에 포함된 각각의 정수에 원-핫 인코딩을 적용하면
-원-핫 벡터로 이루어진 시퀀스가 생성되고 이를 순환 신경망 모델의 입력값으로 사용한다.</p>
-<div class="proof example admonition" id="exp-one-hot-sequence">
-<p class="admonition-title"><span class="caption-number">Example 11.1 </span> (<code class="docutils literal notranslate"><span class="pre">tf.one_hot()</span></code> 함수)</p>
-<section class="example-content" id="proof-content">
-<p>정수 벡터 <code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">1,</span> <span class="pre">4,</span> <span class="pre">0,</span> <span class="pre">0]</span></code>의 각 항목에 원-핫 인코딩을 적용하여
-생성되는 원-핫 벡터로 이루어진 시퀀스가 생성된다.
-단, 벡터에 사용된 정수는 0에서 4까지라고 가정한다.</p>
-<p>따라서 원-핫 벡터 하나의 길이는 5가 되며,
-<code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">1,</span> <span class="pre">4,</span> <span class="pre">0,</span> <span class="pre">0]</span></code>의 각 항목을 원-핫 벡터로 변환한 값들로 이뤄진 시퀀스는 다음과 같으며,
-<code class="docutils literal notranslate"><span class="pre">tf.one_hot()</span></code> 함수를 이용하면 된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">depth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="go">[[0, 0, 1, 0, 0],      # 2</span>
-<span class="go"> [0, 1, 0, 0, 0],      # 1</span>
-<span class="go"> [0, 0, 0, 0, 1],      # 4</span>
-<span class="go"> [1, 0, 0, 0, 0],      # 0</span>
-<span class="go"> [1, 0, 0, 0, 0]]      # 0</span>
-</pre></div>
-</div>
-</section>
-</div><p>아래 코드는 <code class="docutils literal notranslate"><span class="pre">tf.one_hot()</span></code> 함수를 전처리로 활용하는 순환 신경망 모델을 정의한다.
-이렇게 하면 정수 벡터를 바로 모델의 입력값으로 사용할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
-<span class="c1"># 원-핫 인코딩</span>
-<span class="n">embedded</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">)</span>  <span class="c1"># (600, 20000) 모양의 출력값 생성</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Bidirectional</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">32</span><span class="p">))(</span><span class="n">embedded</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>그런데 위 모델의 훈련 과정이 매우 느리다.
-이유는 입력 데이터가 너무 많은 특성을 갖기 때문이다.
-입력 데이터 하나, 하나의 텍스트를 변환시킨 원-핫 단어 벡터의 모양은 <code class="docutils literal notranslate"><span class="pre">(600,</span> <span class="pre">20000)</span></code>인 2차원 텐서이다.
-따라서 총 <code class="docutils literal notranslate"><span class="pre">600</span> <span class="pre">*</span> <span class="pre">20,000</span> <span class="pre">=</span> <span class="pre">12,000,000</span></code> 개의 항목이 포함되어 있고 그만큼의
-가중치가 훈련되어야 한다.
-이에 더해 양방향 LSTM은 엄청난 양의 반복을 실행하기에 그만큼 훈련 시간이 길어질 수밖에 없다.</p>
-<p>게다가 훈련된 모델의 성능이 별로 좋지 않다.
-테스트셋에 대한 정확도가 87% 정도에 불과해서 바이그램 모델보다 성능이 낮다.</p>
-</section>
-<section id="id11">
-<h4><span class="section-number">11.3.3.2. </span>단어 임베딩<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h4>
+<section id="id8">
+<h4><span class="section-number">11.3.1.1. </span>단어 임베딩<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
 <p>앞서 보았듯이 정수 벡터를 원-핫 인코딩해서 원-핫 워드 벡터로 구성된 시퀀스를 생성하는 방식은 별로 적절하지 않다.
 변환된 벡터의 특성이 너무 많으며, 단어들 사이의 다음과 같은 유기적 관계도 제대로 반영되지 못한다.</p>
 <ul class="simple">
@@ -1159,7 +913,7 @@ N-그램의 종류는 다음과 같다.</p>
 바이그램 모델보다 성능이 여전히 떨어지는 이유 중에 하나는 후기에 사용된 단어의 수를 600 개로 제한하였기 때문이다.</p>
 </section>
 <section id="glove">
-<h4><span class="section-number">11.3.3.3. </span>GloVe 단어 임베딩<a class="headerlink" href="#glove" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">11.3.1.2. </span>GloVe 단어 임베딩<a class="headerlink" href="#glove" title="Permalink to this heading">#</a></h4>
 <p>합성곱 신경망에서 이미지넷<font size='2'>ImageNet</font> 데이터셋을 이용하여
 잘 훈련된 모델을 재활용했던 것처럼 대량의 텍스트를 분석하여 훈련된 단어 임베딩을 활용할 수 있다.</p>
 <p>여기서는 2014년에 스탠포드 대학교의 연구자들이 위키피디아에 사용된 수 많은 텍스트를 분석하여 생성한
@@ -1242,15 +996,15 @@ N-그램의 종류는 다음과 같다.</p>
 </section>
 </section>
 </section>
-<section id="id12">
-<h2><span class="section-number">11.4. </span>트랜스포머 아키텍처<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<section id="id9">
+<h2><span class="section-number">11.4. </span>트랜스포머 아키텍처<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
 <p>2017년 논문 <a class="reference external" href="https://arxiv.org/abs/1706.03762">“Attention is all you need”</a>에서
 소개된 <strong>트랜스포머</strong><font size='2'>Transformer</font> 아키텍처는 자연어처리 분야에서 혁명을 불러왔다.
 트랜스포머는 “<strong>뉴럴 어텐션</strong><font size='2'>Neural Attention</font>” 기법을 이용하여
 순환층과는 다르게 작동하는 순차 모델<font size='2'>sequence model</font>을 지원한다.</p>
 <p>여기서는 뉴럴 어텐션의 작동법을 설명한 후에 트랜스포머 인코더를 이용하여 IMDB 영화 후기 분류 모델을 구현한다.</p>
-<section id="id13">
-<h3><span class="section-number">11.4.1. </span>셀프 어텐션<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<section id="id10">
+<h3><span class="section-number">11.4.1. </span>셀프 어텐션<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
 <p>입력값의 특성 중에 보다 중요한 특성에 <strong>집중</strong><font size='2'>attention</font>하면 보다 효율적으로
 훈련이 진행될 수 있다.</p>
 <p><strong>집중의 중요성</strong></p>
@@ -1338,8 +1092,8 @@ N-그램의 종류는 다음과 같다.</p>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 </div>
 </section>
-<section id="id14">
-<h3><span class="section-number">11.4.2. </span>멀티헤드 어텐션<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<section id="id11">
+<h3><span class="section-number">11.4.2. </span>멀티헤드 어텐션<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h3>
 <p>어텐션 변환을 수행하는 <strong>헤드</strong><font size='2'>head</font>를 여러 개 사용해서
 다양한 관점에서 단어들 사이의 연관성을 알아낸 후에 알아낸 결과를 합치는 기법이
 <strong>멀티헤드 어텐션</strong><font size='2'>multi-head attention</font>이다.
@@ -1349,8 +1103,8 @@ N-그램의 종류는 다음과 같다.</p>
 모델 스스로 질문, 열쇠, 값을 적절하게 변환하도록 유도한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-08.png" style="width:70%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
-<section id="id15">
-<h3><span class="section-number">11.4.3. </span>트랜스포머 인코더<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<section id="id12">
+<h3><span class="section-number">11.4.3. </span>트랜스포머 인코더<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
 <p>헤드에 사용된 밀집층의 역할이 중요하며 크다는 사실이 알려지면서
 멀티헤드 어텐션 층 이후에 밀집층을 더 사용하는 아키텍처가 개발되었다.
 멀티헤드 어텐션 층, 밀집<font size='2'>dense</font> 층, 정규화 층, 잔차 연결을
@@ -1584,8 +1338,8 @@ N-그램의 종류는 다음과 같다.</p>
 </pre></div>
 </div>
 </section>
-<section id="id16">
-<h3><span class="section-number">11.4.4. </span>트랜스포머 사용 기준<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h3>
+<section id="id13">
+<h3><span class="section-number">11.4.4. </span>트랜스포머 사용 기준<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
 <p>단어주머니 모델이 여전히 유용하게 활용된다.
 실제로 IMDB 데이터셋에 대한 성능도 단어주머니 모델이 가장 좋았다.
 그리고 많은 실험 결과 “훈련셋의 크기”와 “텍스트의 평균 단어 수”의 비율이 모델 선택에
@@ -1616,20 +1370,20 @@ N-그램의 종류는 다음과 같다.</p>
 트랜스포머가 가본적으로 가장 강력한 성능의 모델을 생성한다.</p>
 </section>
 </section>
-<section id="id17">
-<h2><span class="section-number">11.5. </span>시퀀스-투-시퀀스 학습<a class="headerlink" href="#id17" title="Permalink to this heading">#</a></h2>
+<section id="id14">
+<h2><span class="section-number">11.5. </span>시퀀스-투-시퀀스 학습<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h2>
 <p>준비중 …</p>
 </section>
-<section id="id18">
-<h2><span class="section-number">11.6. </span>참고 문헌<a class="headerlink" href="#id18" title="Permalink to this heading">#</a></h2>
+<section id="id15">
+<h2><span class="section-number">11.6. </span>참고 문헌<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://e2eml.school/transformers.html">Transformers from Scratch</a>:
 트랜스포머 내부의 작동과정 자세한 설명</p></li>
 <li><p><a class="reference external" href="https://keras.io/guides/keras_nlp/getting_started/">KerasNLP</a>: KerasNLP 소개</p></li>
 </ol>
 </section>
-<section id="id19">
-<h2><span class="section-number">11.7. </span>연습 문제<a class="headerlink" href="#id19" title="Permalink to this heading">#</a></h2>
+<section id="id16">
+<h2><span class="section-number">11.7. </span>연습 문제<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-dl_for_text.ipynb">(실습) 자연어 처리</a></p></li>
 </ol>
@@ -1707,26 +1461,23 @@ N-그램의 종류는 다음과 같다.</p>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3. 단어 임베딩</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.3.2. 단어 주머니 활용법</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">11.3.3. 시퀀스 활용법</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">11.3.3.1. 원-핫 단어 벡터</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.3.3.2. 단어 임베딩</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#glove">11.3.3.3. GloVe 단어 임베딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이셋</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.3.1.1. 단어 임베딩</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#glove">11.3.1.2. GloVe 단어 임베딩</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.4.1. 셀프 어텐션</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">11.4.2. 멀티헤드 어텐션</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">11.4.3. 트랜스포머 인코더</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">11.4.4. 트랜스포머 사용 기준</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">11.4.1. 셀프 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.4.2. 멀티헤드 어텐션</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.4.3. 트랜스포머 인코더</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.4.4. 트랜스포머 사용 기준</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">11.5. 시퀀스-투-시퀀스 학습</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">11.6. 참고 문헌</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">11.7. 연습 문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">11.5. 시퀀스-투-시퀀스 학습</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">11.6. 참고 문헌</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">11.7. 연습 문제</a></li>
 </ul>
   </nav></div>
 
