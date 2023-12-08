@@ -937,10 +937,11 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 <li><p><code class="docutils literal notranslate"><span class="pre">input_dim</span></code>: 총 어휘 수. 여기서는 2만 개.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">output_dim</span></code>: 단어 임베딩에 사용되는 벡터의 크기. 여기서는 단어별로 256개의 특성을 찾아야 함.</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">20000</span> <span class="c1"># 2만등 이내의 사용 빈도를 갖는 단어 대상</span>
-<span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">256</span>    <span class="c1"># 각각의 단어에 대해 256 개의 특성 파악. 길이가 256인 부동소수점들의 벡터로 단어 임베딩 진행.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">20000</span> <span class="c1"># 총 어휘 수</span>
+<span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">256</span>    <span class="c1"># 단어별로 256 개의 특성 파악.</span>
 
-<span class="n">embedding_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">output_dim</span><span class="o">=</span><span class="n">embed_dim</span><span class="p">)</span>
+<span class="n">embedding_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">vocab_size</span><span class="p">,</span> 
+                                            <span class="n">output_dim</span><span class="o">=</span><span class="n">embed_dim</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>위와 같이 선언된 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층은 (20000, 256) 모양의 2차원 텐서로 구성되며
