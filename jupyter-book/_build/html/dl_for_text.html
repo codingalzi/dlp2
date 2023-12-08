@@ -374,7 +374,6 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3. 단어 임베딩</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이셋 준비</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding">11.3.2. 케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
@@ -681,8 +680,30 @@ document.write(`
 <h2><span class="section-number">11.3. </span>단어 임베딩<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
 <p>단어 임베딩<font size='2'>word embedding</font>은
 텍스트 벡터화를 통해 생성된 어휘집의 단어가 문맥에 따라 가질 수 있는 여러 의미를
-부동소수점의 벡터로 변환하는 과정이다.
-IMDB 영화 후기 데이터를 이용하여 텍스트 벡타화와 단어 임베딩 과정을 상세히 살펴 본다.</p>
+부동소수점의 벡터로 변환하는 과정이다.</p>
+<ul class="simple">
+<li><p>“movie”와 “film”, “비디오”와 “동영상”, “강아지”와 “개” 등이 사실상 동일하다는 동의어 관계</p></li>
+<li><p>“왕”(남자)과 “여왕”(여자), “boy”와 “girl” 등의 성별 관계</p></li>
+<li><p>“king”의 복수는 “kings” 등 문법 규칙 관계</p></li>
+<li><p>“고양이”와 “호랑이”는 고양이과, “개”와 “늑대”는 개과, “고양이”와 “개”는 애완동물, “늑대”와 “호랑이”는 야생동물 등의 생물 분류 관계</p></li>
+</ul>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-WordEmbeddings-b.png" style="width:80%;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://developers.google.com/machine-learning/guides/text-classification/step-3?hl=ko">머신러닝 가이드</a>&gt;</div></p><p>단어 임베딩은 모델 훈련을 통해 학습되도록 유도한다.
+이유는 언어 종류와 모델 훈련 목적에 따라 기본적으로 서로 다른 단어 사이의 관계가 학습되어야
+하기 때문이다.
+예를 들어, 영화 후기 감성 분석과 재판 판결문 분석은 서로 다른 단어 임베딩을 사용할 수밖에 없다.</p>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층은 하나의 텍스트가 입력되면
+텍스트에 포함된 단어들 사이에 존재하는 연관성을
+어휘 색인을 참고하여 텍스트에 포함된 각각의 단어를 벡터로 변환시켜서 구성한
+시퀀스를 생성한다.
+단어를 변환해서 생성된 단어 벡터는 부동소수점으로 구성된다.
+단어 벡터의 길이는 보통 256, 512, 1024 등으로 정한다.
+이는 모델로 하여금 한 단어에 대해 256 개, 512 개, 또는 1024 개 등 지정된 개수만큼의
+단어 특성을 찾도록 유도한다.</p>
+<p>아래 그림은 단어 벡터의 길이를 4로 지정했을 때 텍스트가 길이가 4인 벡터로 구성된 2차원
+텐서로 변환되는 과정을 보여준다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-EmbeddingLayer.png" style="width:95%;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://developers.google.com/machine-learning/guides/text-classification/step-3?hl=ko">머신러닝 가이드</a>&gt;</div></p><p>IMDB 영화 후기 데이터를 이용하여 텍스트 벡타화와 단어 임베딩 과정을 상세히 살펴 본다.</p>
 <section id="imdb">
 <h3><span class="section-number">11.3.1. </span>IMDB 영화 후기 데이셋 준비<a class="headerlink" href="#imdb" title="Permalink to this heading">#</a></h3>
 <p>먼저 자연어로 구성된 IMDB 영화후기 데이터셋을 다운로드한다.</p>
@@ -899,36 +920,10 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
      <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>
      <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>
      <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">0</span><span class="p">],</span> 
-    <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">int64</span><span class="p">)</span>
+<span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">600</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">int64</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<section id="embedding">
-<h3><span class="section-number">11.3.2. </span>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층<a class="headerlink" href="#embedding" title="Permalink to this heading">#</a></h3>
-<p><strong>단어 임베딩</strong><font size='2'>word embedding</font>은
-단어들 사이의 유기적 관계를 모델 스스로 학습을 통해 찾도록 유도한다.</p>
-<ul class="simple">
-<li><p>“movie”와 “film”, “비디오”와 “동영상”, “강아지”와 “개” 등이 사실상 동일하다는 동의어 관계</p></li>
-<li><p>“왕”(남자)과 “여왕”(여자), “boy”와 “girl” 등의 성별 관계</p></li>
-<li><p>“king”의 복수는 “kings” 등 문법 규칙 관계</p></li>
-<li><p>“고양이”와 “호랑이”는 고양이과, “개”와 “늑대”는 개과, “고양이”와 “개”는 애완동물, “늑대”와 “호랑이”는 야생동물 등의 생물 분류 관계</p></li>
-</ul>
-<p>단어 임베딩은 모델 훈련을 통해 학습되도록 유도한다.
-이유는 언어 종류와 모델 훈련 목적에 따라 기본적으로 서로 다른 단어 사이의 관계가 학습되어야
-하기 때문이다.
-예를 들어, 영화 후기 감성 분석과 재판 판결문 분석은 서로 다른 단어 임베딩을 사용할 수밖에 없다.</p>
-<p>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층은 하나의 텍스트가 입력되면
-텍스트에 포함된 단어들 사이에 존재하는 연관성을
-어휘 색인을 참고하여 텍스트에 포함된 각각의 단어를 벡터로 변환시켜서 구성한
-시퀀스를 생성한다.
-단어를 변환해서 생성된 단어 벡터는 부동소수점으로 구성된다.
-단어 벡터의 길이는 보통 256, 512, 1024 등으로 정한다.
-이는 모델로 하여금 한 단어에 대해 256 개, 512 개, 또는 1024 개 등 지정된 개수만큼의
-단어 특성을 찾도록 유도한다.</p>
-<p>아래 그림은 단어 벡터의 길이를 4로 지정했을 때 텍스트가 길이가 4인 벡터로 구성된 2차원
-텐서로 변환되는 과정을 보여준다.</p>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-EmbeddingLayer.png" style="width:95%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://developers.google.com/machine-learning/guides/text-classification/step-3?hl=ko">머신러닝 가이드</a>&gt;</div></p></section>
 </section>
 <section id="id8">
 <h2><span class="section-number">11.4. </span>트랜스포머 아키텍처<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
@@ -1308,7 +1303,6 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.3. 단어 임베딩</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">11.3.1. IMDB 영화 후기 데이셋 준비</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding">11.3.2. 케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.4. 트랜스포머 아키텍처</a><ul class="nav section-nav flex-column">
