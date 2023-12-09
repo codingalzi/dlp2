@@ -903,26 +903,66 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 <p><strong><code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층</strong></p>
 <p>단어 임베딩은 모델 훈련을 통해 학습되도록 유도한다.
 이유는 언어 종류, 텍스트 내용, 모델 훈련 목적에 따라
-단어들 사이의 관계가 학습되어야 하기 때문이다.
-예를 들어, 영화 후기 감성 분석에 사용되는 단어 임베딩과
-재판 판결문 분석에 사용되는 단어 임베딩은 다를 수 밖에 없다.</p>
-<p>아래 그림은 단어 임베딩에 사용되는 벡터의 길이를 4로 지정했을 때
-텍스트에 포함된 모든 단어를 길이가 4인 벡터로 변환하는
-<code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층의 작동 과정을 보여준다.
+단어들 사이의 관계가 다르게 학습되어야 하기 때문이다.
+예를 들어, 영화 후기에 포함된 텍스트와 재판 판결문 텍스트는
+단어의 종류뿐만 아니라 동일한 단어의 의미와 용도까지
+많이 다를 수 있기에 당연히 단어 임베딩 또한
+달라져야 한다.</p>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층이 훈련셋에 따라 다른 단어 임베딩이 학습되도록 하는 기능을 제공한다.
+<code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 선언하는 방식은 아래 코드와 같다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">input_dim</span></code>: 총 어휘 수. 여기서는 7 개.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_dim</span></code>: 단어 임베딩에 사용되는 벡터의 크기. 여기서는 단어별로 4 개의 특성을 찾도록 유도함.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">7</span> <span class="c1"># 총 어휘 수</span>
+<span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># 단어별로 4 개의 특성 파악.</span>
+
+<span class="n">embedding_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">vocab_size</span><span class="p">,</span> 
+                                            <span class="n">output_dim</span><span class="o">=</span><span class="n">embed_dim</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>위와 같이 선언된 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층은 (7, 4) 모양의 2차원 텐서로 구성되며
+모델 훈련이 시작될 때 균등 분포를 이용하여 초기화된다.
+이후 훈련을 통해 <code class="docutils literal notranslate"><span class="pre">7x4</span></code> 개의 항목이 훈련 파라미터로써 학습된다.</p>
+<p>아래 그림은 앞서 정의한 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층의 작동 과정을 보여준다.
 예를 들어 6개의 단어로 구성된 “The mouse ran up the clock” 문장을 단어 임베딩하는 과정은 다음과 같다.</p>
 <ul class="simple">
 <li><p>먼저 단어들의 정수 색인으로 구성된 길이가 6인 벡터인 <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">1,</span> <span class="pre">5]</span></code>로 변환한다.</p></li>
 <li><p>단어 임베딩을 통해 4 개의 부동소수점을 포함한 벡터 6 개로 구성된 (6, 4) 모양의 텐서로 변환된다.</p></li>
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-EmbeddingLayer.png" style="width:95%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://developers.google.com/machine-learning/guides/text-classification/step-3?hl=ko">머신러닝 가이드</a>&gt;</div></p><p>각각의 단어에 대한 임베딩 과정을 요약하면 다음과 같다.</p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://developers.google.com/machine-learning/guides/text-classification/step-3?hl=ko">머신러닝 가이드</a>&gt;</div></p><p>위 그림에서의 단어 임베딩에 사용된 <code class="docutils literal notranslate"><span class="pre">(7,</span> <span class="pre">4)</span></code> 모양의 2차원 텐서는 다음과 같다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">embedding_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="o">-</span><span class="mf">0.012</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.008</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mf">0.236</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.141</span><span class="p">,</span> <span class="mf">0.000</span><span class="p">,</span> <span class="mf">0.045</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mf">0.006</span><span class="p">,</span> <span class="mf">0.652</span><span class="p">,</span> <span class="mf">0.270</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.556</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mf">0.305</span><span class="p">,</span> <span class="mf">0.569</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.028</span><span class="p">,</span> <span class="mf">0.496</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mf">0.421</span><span class="p">,</span> <span class="mf">0.195</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.058</span><span class="p">,</span> <span class="mf">0.477</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mf">0.844</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.763</span><span class="p">,</span> <span class="mf">0.201</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mf">0.466</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.326</span><span class="p">,</span> <span class="mf">0.884</span><span class="p">,</span> <span class="mf">0.007</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>그리고 “The mouse ran up the clock” 벡터화된
+<code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">1,</span> <span class="pre">5]</span></code> 가 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층에 입력되면
+아래와 같이 위 <code class="docutils literal notranslate"><span class="pre">embedding_matrix</span></code>로부터
+각각의 색인에 해당하는 벡터를 추출하여
+<code class="docutils literal notranslate"><span class="pre">(6,</span> <span class="pre">4)</span></code> 모양의 출력 텐서를 생성한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">'the'</span>&#160;&#160; <span class="pre">=&gt;</span> <span class="pre">1</span> <span class="pre">=&gt;</span> <span class="pre">[0.236,</span> <span class="pre">-0.141,</span> <span class="pre">0.000,</span> <span class="pre">0.045]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">'mouse'</span> <span class="pre">=&gt;</span> <span class="pre">2</span> <span class="pre">=&gt;</span> <span class="pre">[0.006,</span> <span class="pre">0.652,</span> <span class="pre">0.270,</span> <span class="pre">-0.556]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">'ran'</span>&#160;&#160; <span class="pre">=&gt;</span> <span class="pre">3</span> <span class="pre">=&gt;</span> <span class="pre">[0.305,</span> <span class="pre">0.569,</span> <span class="pre">-0.028,</span> <span class="pre">0.496]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">'up'</span>&#160;&#160;&#160; <span class="pre">=&gt;</span> <span class="pre">4</span> <span class="pre">=&gt;</span> <span class="pre">[0.421,</span> <span class="pre">0.195,</span> <span class="pre">-0.058,</span> <span class="pre">0.477]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'the'</span>&#160;&#160; <span class="pre">=&gt;</span> <span class="pre">1</span> <span class="pre">=&gt;</span> <span class="pre">[0.236,</span> <span class="pre">-0.141,</span> <span class="pre">0.000,</span> <span class="pre">0.045]</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">'clock'</span> <span class="pre">=&gt;</span> <span class="pre">5</span> <span class="pre">=&gt;</span> <span class="pre">[0.844,</span> <span class="pre">-0.001,</span> <span class="pre">0.763,</span> <span class="pre">0.201]</span></code></p></li>
 </ul>
+<p>반면에 “The mouse ran down”는 <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">6]</span></code>으로 벡터화 되기에 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을
+통과할 때 <code class="docutils literal notranslate"><span class="pre">(4,</span> <span class="pre">4)</span></code> 모양으로 단어 임베딩된다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'the'</span>&#160;&#160; <span class="pre">=&gt;</span> <span class="pre">1</span> <span class="pre">=&gt;</span> <span class="pre">[0.236,</span> <span class="pre">-0.141,</span> <span class="pre">0.000,</span> <span class="pre">0.045]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'mouse'</span> <span class="pre">=&gt;</span> <span class="pre">2</span> <span class="pre">=&gt;</span> <span class="pre">[0.006,</span> <span class="pre">0.652,</span> <span class="pre">0.270,</span> <span class="pre">-0.556]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'ran'</span>&#160;&#160; <span class="pre">=&gt;</span> <span class="pre">3</span> <span class="pre">=&gt;</span> <span class="pre">[0.305,</span> <span class="pre">0.569,</span> <span class="pre">-0.028,</span> <span class="pre">0.496]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'down'</span>&#160; <span class="pre">=&gt;</span> <span class="pre">6</span> <span class="pre">=&gt;</span> <span class="pre">[0.466,</span> <span class="pre">-0.326,</span> <span class="pre">0.884,</span> <span class="pre">0.007]</span></code></p></li>
+</ul>
+<p><strong>단어 임베딩의 의미</strong></p>
 <p>단어 임베딩의 결과로 생성된 벡터에 포함된
 각각의 항목은 해당 단어가 가질 수 있는 다양한 의미를 가리킨다.
 아래 그림은 3차원 벡터로 변환된 단어들의 예시를 담고 있다.</p>
@@ -932,50 +972,62 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 <li><p>오른쪽: 국가와 국가의 수도 관계</p></li>
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-WordEmbeddings-b.png" style="width:95%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://developers.google.com/machine-learning/guides/text-classification/step-3?hl=ko">머신러닝 가이드</a>&gt;</div></p><p>아래 코드는 케라스 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 선언한다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">input_dim</span></code>: 총 어휘 수. 여기서는 2만 개.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">output_dim</span></code>: 단어 임베딩에 사용되는 벡터의 크기. 여기서는 단어별로 256개의 특성을 찾아야 함.</p></li>
-</ul>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://developers.google.com/machine-learning/guides/text-classification/step-3?hl=ko">머신러닝 가이드</a>&gt;</div></p><p><strong>단어 임베딩 활용법</strong></p>
+<p>단어 임베딩은 입력층 다음에 위치시킨다.
+그러면 어휘 인덱스로 구성된 훈련 배치 데이터셋에 대해
+바로 단어 임베딩을 실행한다.
+그 이후에 텍스트의 내용을 파악하는 훈련을 시작할 수 있다.</p>
+<p>아래 코드에서 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층 바로 다음에 위치하는
+<code class="docutils literal notranslate"><span class="pre">TransformerEncoder</span></code> 층이 텍스트의 내용을 파악한다.
+그런 다음에 최종적으로 모델의 예측값을 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층을 통해 결정한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vocab_size</span> <span class="o">=</span> <span class="mi">20000</span> <span class="c1"># 총 어휘 수</span>
 <span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">256</span>    <span class="c1"># 단어별로 256 개의 특성 파악.</span>
 
-<span class="n">embedding_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="n">vocab_size</span><span class="p">,</span> 
-                                            <span class="n">output_dim</span><span class="o">=</span><span class="n">embed_dim</span><span class="p">)</span>
+<span class="c1"># 입력층: 어휘 인덱스로 구성된 벡터들의 배치 입력</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+
+<span class="c1"># 단어 임베딩 실행</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+
+<span class="c1"># 트랜스포머 인코더: 텍스트 내용 파악</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">dense_dim</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 출력층</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">GlobalMaxPooling1D</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 모델 선언</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>위와 같이 선언된 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층은 (20000, 256) 모양의 2차원 텐서로 구성되며
-모델 훈련이 시작될 때 균등 분포를 이용하여 초기화된다.
-이후 훈련을 통해 <code class="docutils literal notranslate"><span class="pre">20000x256=5,120,000</span></code> 개의 항목이
-훈련 파라미터로 학습된다.</p>
-<p>훈련 순전파 과정에서 예를 들어 600개의 어휘 색인으로 구성된 벡터,
-즉 최대 600 개의 단어로 구성된 훈련 샘플에 해당하는
-정수 벡터가 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층에 입력되면
-(20000, 256) 모양의 텐서로부터
-각각의 단어 색인에 해당하는 길이가 256인 부동소수점 벡터를 선택하여 구성한
-(600, 256) 모양의 2차원 텐서로 변환된다.</p>
 </section>
 <section id="id8">
 <h2><span class="section-number">11.4. </span>트랜스포머 아키텍처<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
-<p>2017년 논문 <a class="reference external" href="https://arxiv.org/abs/1706.03762">“Attention is all you need”</a>에서
-소개된 <strong>트랜스포머</strong><font size='2'>Transformer</font> 아키텍처는 자연어처리 분야에서 혁명을 불러왔다.
-트랜스포머는 “<strong>뉴럴 어텐션</strong><font size='2'>Neural Attention</font>” 기법을 이용하여
-순환층과는 다르게 작동하는 순차 모델<font size='2'>sequence model</font>을 지원한다.</p>
-<p>여기서는 뉴럴 어텐션의 작동법을 설명한 후에 트랜스포머 인코더를 이용하여 IMDB 영화 후기 분류 모델을 구현한다.</p>
+<p>앞서 언급한 트랜스포머 인코더는
+2017년에 발표된 논문인 <a class="reference external" href="https://arxiv.org/abs/1706.03762">“Attention is all you need”</a>에서
+<strong>트랜스포머</strong><font size='2'>Transformer</font> 아키텍처의 주요 구성 요소 중 하나로 소개되었다.
+트랜스포머 아키텍처는 <strong>셀프 어텐션</strong><font size='2'>Self attention</font> 이라는
+뉴럴 어텐션<font size='2'>neural attention</font> 기법을 이용하며 자연어처리 분야에서 혁명을 불러왔다.</p>
 <section id="id9">
 <h3><span class="section-number">11.4.1. </span>셀프 어텐션<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <p>입력값의 특성 중에 보다 중요한 특성에 <strong>집중</strong><font size='2'>attention</font>하면 보다 효율적으로
-훈련이 진행될 수 있다.</p>
-<p><strong>집중의 중요성</strong></p>
-<p>아래 그림에서 볼 수 있듯이 이미지의 주요 부분에 집중하여 보다 효율적인 이미지 분석을 진행할 수 있다.</p>
+훈련이 진행될 수 있다.
+아래 그림에서 볼 수 있듯이 이미지의 주요 부분에 집중하여 보다 효율적인 이미지 분석을 진행할 수 있다.
+그림 왼쪽 하단에 위치한 어텐션 점수<font size='2'>attention score</font>는
+위쪽 고양이 사진에 포함된 각각의 픽셀에 대한 가중치로 구성된다.
+오른쪽 사진은 원본 이미지와 어텐션 점수를 곱한 결과로
+고양이의 머리에만 집중한다.
+이와같이 모든 입력 사진에 어텐션 점수를 계산하여 활용한다면
+사진 속의 객체를 파악하는 분석 모델을 보다 효율적으로 훈련시킬 수 있다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-05.png" style="width:70%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>자연어 처리에서의 셀프 어텐션</strong></p>
-<p>자연어 처리에서의 <strong>셀프 어텐션</strong><font size='2'>self-attention</font> 기법은
-텍스트를 시퀀스로 변환 할 때
-주어진 텍스트에 사용된 단어들 사이의 연관성, 즉 <strong>문맥</strong><font size='2'>context</font>을 파악하여
-활용한다.</p>
-<p>아래 그림은 “The train  left the station on time.” 이라는 텍스트에
-셀프 어텐션을 적용하여 입력 텍스트를 하나의 시퀀스로 변환하는 과정을 보여준다.</p>
+<p><strong>셀프 어텐션</strong><font size='2'>self-attention</font>은 주어진 샘플의 어텐션 점수를 계산할 때
+해당 샘플을 활용하는 기법이며 자연어 처리에서 텍스트에 포함된 단어들의 문맥상의 의미를 파악하기 위해 유용하게 활용된다.</p>
+<p>아래 그림은 “The train  left the station on time.” 이라는 텍스트를
+먼저 단어 임베딩한 다음에 셀프 어텐션을 적용하여
+텍스트의 문맥을 반영한 값들로 구성된
+새로운 단어 임베딩으로 변환하는 과정을 보여준다.</p>
 <ul class="simple">
 <li><p>먼저 텍스트를 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 이용하여 단어 임베딩시킨다.</p></li>
 <li><p>생성된 벡터 시퀀스에 셀프 어텐션을 적용하여 문맥이 적용된 동일 모양의 새로운 벡터 시퀀스를 생성한다.</p>
@@ -987,30 +1039,43 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 </ul>
 <p>아래 그림에서는 “station” 단어에 해당하는 벡터가 새로운 벡터로 변환되는 과정을 보여준다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-self_attention.jpg" style="width:100%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>아래 <code class="docutils literal notranslate"><span class="pre">self_attention()</span></code> 함수는 셀프 어텐션이 작동하는 과정을 코드로 설명한다.
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>아래 <code class="docutils literal notranslate"><span class="pre">self_attention()</span></code> 함수는 셀프 어텐션이 작동하는 과정을 설명하는 유사코드다.
 함수의 입력값은 단어 임베딩된 시퀀스가 사용된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">self_attention</span><span class="p">(</span><span class="n">input_sequence</span><span class="p">):</span>
-    <span class="c1"># 변환된 시퀀스 저장용</span>
+    <span class="c1"># 문맥이 반영된 시퀀스 저장</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">input_sequence</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     
-    <span class="c1"># 단어 임베딩된 시퀀스의 단어 벡터 각각에 대해 셀프 어텐션 실행. 위 그림 참고.</span>
+    <span class="c1"># 단어 임베딩된 시퀀스의 단어 벡터 각각(pivor_vector)에 대해 </span>
+    <span class="c1"># 셀프 어텐션 실행. 위 그림 참고.</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pivot_vector</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">input_sequence</span><span class="p">):</span>
 
-        <span class="c1"># 주어진 단어 벡터 pivot_vector와 다른 단어 벡터들 사이의 문맥 점수 계산</span>
+        <span class="c1"># pivot_vector와 다른 단어 벡터들 사이의 문맥 점수 계산</span>
         <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_sequence</span><span class="p">),))</span>
-        <span class="c1"># 계산된 점수를 스케일링 후 소프트맥스 적용</span>
         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">vector</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">input_sequence</span><span class="p">):</span>
             <span class="n">scores</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">pivot_vector</span><span class="p">,</span> <span class="n">vector</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="c1"># 계산된 점수를 스케일링 후 소프트맥스 적용</span>
         <span class="n">scores</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">input_sequence</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="n">scores</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
 
-        <span class="c1"># 문맥이 반영된 단어 벡터로 변환: 각 단어 벡터와 점수를 곱한 결과를 더함.</span>
+        <span class="c1"># 문맥이 반영된 단어 벡터로 변환</span>
+        <span class="c1"># 각 단어 벡터와 점수를 곱한 결과를 더함.</span>
         <span class="n">new_pivot_representation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">pivot_vector</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">vector</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">input_sequence</span><span class="p">):</span>
             <span class="n">new_pivot_representation</span> <span class="o">+=</span> <span class="n">vector</span> <span class="o">*</span> <span class="n">scores</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
         
+        <span class="c1"># pivot_vector를 변환한 벡터 저장</span>
         <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_pivot_representation</span>
+
     <span class="k">return</span> <span class="n">output</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">self_attention()</span></code> 함수의 셀프 어텐션 기능을 <code class="docutils literal notranslate"><span class="pre">MultiHeadAttention</span></code> 층으로 구현할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_heads</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># 두 개의 셀프 어텐션 동시 진행. 각각 다른 문맥을 파악.</span>
+<span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">256</span> <span class="c1"># 단어 임베딩된 벡터의 길이</span>
+
+<span class="n">mha_layer</span> <span class="o">=</span> <span class="n">MultiHeadAttention</span><span class="p">(</span><span class="n">num_heads</span><span class="o">=</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">key_dim</span><span class="o">=</span><span class="n">embed_dim</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">mha_layer</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -1024,15 +1089,7 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 질문, 열쇠, 값을 어텐션에 넣어 주기 전에 먼저 밀집층을 이용하여
 모델 스스로 질문, 열쇠, 값을 적절하게 변환하도록 유도한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-08.png" style="width:70%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><code class="docutils literal notranslate"><span class="pre">self_attention()</span></code> 함수의 셀프 어텐션 기능을 <code class="docutils literal notranslate"><span class="pre">MultiHeadAttention</span></code> 층으로 구현할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_heads</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># 두 개의 셀프 어텐션을 동시에 진행. 각각 다른 문맥을 파악하도록 유도.</span>
-<span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">256</span> 
-
-<span class="n">mha_layer</span> <span class="o">=</span> <span class="n">MultiHeadAttention</span><span class="p">(</span><span class="n">num_heads</span><span class="o">=</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">key_dim</span><span class="o">=</span><span class="n">embed_dim</span><span class="p">)</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">mha_layer</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>질문-열쇠-값<font size='2'>query-key-value</font></strong></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>질문-열쇠-값<font size='2'>query-key-value</font></strong></p>
 <p>동일한 값을 인자로 세 번 사용하는 <code class="docutils literal notranslate"><span class="pre">mha_layer(inputs,</span> <span class="pre">inputs,</span> <span class="pre">inputs)</span></code>, 즉 셀프 어텐션의 작동 과정을
 식으로 표현하면 다음과 같다.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">inputs</span> <span class="o">*</span> <span class="n">pairwise_scores</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">))</span>
