@@ -674,7 +674,7 @@ document.write(`
 <section id="imdb">
 <h3><span class="section-number">11.2.4. </span>IMDB 영화 후기 데이터셋 벡터화<a class="headerlink" href="#imdb" title="Permalink to this heading">#</a></h3>
 <p>IMDB 영화 후기 데이터셋을 이용하여 텍스트 벡타화 과정을 상세히 살펴 본다.</p>
-<p><strong>과정 1: 데이터셋 다운로드 압축 풀기</strong></p>
+<p><strong>과정 1: 데이터셋 다운로드 후 압축 풀기</strong></p>
 <p>먼저 자연어로 구성된 IMDB 영화 후기 데이터셋을 다운로드한다.
 5만 개의 IMDB 영화 후기를 압축한
 <a class="reference external" href="https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz">aclImdb_v1.tar,gz</a> 파일을
@@ -1288,7 +1288,7 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
         <span class="k">return</span> <span class="n">config</span>
 </pre></div>
 </div>
-<p><strong>단어위치 인식 트랜스포머 아키텍처</strong></p>
+<p><strong>단어위치 인식 트랜스포머 인코더 활용</strong></p>
 <p>영화후기 분석등 이진분류 모델로 사용될 수 있는 모델을
 <code class="docutils literal notranslate"><span class="pre">PositionalEmbedding</span></code> 층과 트랜스포머 인코더를 이용하여
 구성하면 다음과 같다.</p>
@@ -1309,6 +1309,39 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>모델 컴파일과 훈련 진행은 별다른 점이 없다.
+다만 훈련과정 중에 저장된 최적의 모델을 불러올 때는
+모델 구성에 사용된 층중에서 사용자가 직접 정의한 층의
+클래스를 <code class="docutils literal notranslate"><span class="pre">custom_objects</span></code> 인자로 지정해야 함에 주의한다.</p>
+<ul class="simple">
+<li><p>모델 컴파일</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>모델 훈련</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="s2">&quot;full_transformer_encoder&quot;</span><span class="p">,</span>
+                                    <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># 시간 오래 걸리기에 5개의 에포크 사용</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">int_train_ds</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">int_val_ds</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span>
+<span class="c1"># model.fit(int_train_ds, validation_data=int_val_ds, epochs=20, callbacks=callbacks)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span>
+    <span class="s2">&quot;full_transformer_encoder&quot;</span><span class="p">,</span>
+    <span class="n">custom_objects</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;TransformerEncoder&quot;</span><span class="p">:</span> <span class="n">TransformerEncoder</span><span class="p">,</span>
+                    <span class="s2">&quot;PositionalEmbedding&quot;</span><span class="p">:</span> <span class="n">PositionalEmbedding</span><span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test acc: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">int_test_ds</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
