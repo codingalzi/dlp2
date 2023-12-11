@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -411,7 +411,7 @@ document.write(`
 <li><p>단어 임베딩</p></li>
 <li><p>트랜스포머 아키텍처</p></li>
 <li><p>시퀀스-투-시퀀스 학습</p></li>
-<li><p>영어-스페인어 번역</p></li>
+<li><p>영어-한국어 번역</p></li>
 </ul>
 <section id="id2">
 <h2><span class="section-number">11.1. </span>자연어 처리 소개<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
@@ -447,9 +447,8 @@ document.write(`
 결정트리, 로지스틱 회귀 모델이 주로 활용됨.</p></li>
 <li><p>2014-2015: LSTM 등 시퀀스 처리 알고리즘 활용 시작</p></li>
 <li><p>2015-2017: (양방향) 순환신경망이 기본적으로 활용됨.</p></li>
-<li><p>2017-2018: 트랜스포머<font size='2'>transformer</font> 모델이 최고의 성능 발휘하며,
-많은 난제들을 해결함. 현재 가장 많이 활용되는 모델임.</p></li>
-<li><p>2022 이후: GPT의 혁명적 발전</p></li>
+<li><p>2017-2018: 트랜스포머<font size='2'>transformer</font> 아키텍처가 많은 난제들을 해결함.</p></li>
+<li><p>2022 이후: 트랜스포머 아키텍처를 이용한 GPT의 혁명적 발전</p></li>
 </ul>
 </section>
 <section id="id3">
@@ -463,7 +462,7 @@ document.write(`
 <li><p><strong>텍스트 표준화</strong><font size='2'>text standardization</font>: 소문자화, 마침표 제거 등등</p></li>
 <li><p><strong>토큰화</strong><font size='2'>tokenization</font>: 기본 단위의 <strong>유닛</strong><font size='2'>units</font>으로 쪼개기.
 문자, 단어, 단어 집합 등이 토큰으로 활용됨.</p></li>
-<li><p><strong>어휘 색인화</strong><font size='2'>vocabulary indexing</font>: 토큰 각각을 하나의 수치형 벡터로 변환.</p></li>
+<li><p><strong>어휘 색인화</strong><font size='2'>vocabulary indexing</font>: 토큰 각각을 하나의 정수 색인(인덱스)으로 변환.</p></li>
 </ol>
 <section id="id4">
 <h3><span class="section-number">11.2.1. </span>텍스트 표준화<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
@@ -500,7 +499,7 @@ document.write(`
 <li><p>N-그램 토큰화</p>
 <ul>
 <li><p>N-그램 토큰: 연속으로 위치한 N 개(이하)의 단어 묶음</p></li>
-<li><p>예제: “the cat”, “he was” 등은 2-그램(바이그램) 토큰이다.</p></li>
+<li><p>예제: “the cat”, “he was” 등은 2-그램(바이그램) 토큰</p></li>
 </ul>
 </li>
 <li><p>문자 토큰화</p>
@@ -524,8 +523,8 @@ document.write(`
 </ul>
 <p>단어 주머니<font size='2'>bag-of-words</font>는 N-그램으로 구성된 집합을 의미하며
 <strong>N-그램 주머니</strong>라고도 불린다.
-예를 들어 “the cat sat on the mat.” 텍스트에 대한
-2-그램(바이그램) 주머니와 3-그램 주머니는 각각 다음과 같다.</p>
+예를 들어 “the cat sat on the mat.”에 대한
+바이그램과 3-그램 주머니는 각각 다음과 같다.</p>
 <ul>
 <li><p>2-그램(바이그램) 주머니</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;the&quot;</span><span class="p">,</span> <span class="s2">&quot;the cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat sat&quot;</span><span class="p">,</span> <span class="s2">&quot;sat&quot;</span><span class="p">,</span>
@@ -554,7 +553,8 @@ document.write(`
 <code class="docutils literal notranslate"><span class="pre">num_words=10000</span></code>을 사용하여 사용 빈도수가 상위 1만 등 안에 들지 않는 단어는
 영화 후기에서 무시되도록 하였다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">imdb</span>
-<span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+
+<span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>어휘 색인화를 통해 생성된 <strong>어휘집</strong><font size='2'>vocabulary</font>을 이용하여
@@ -1478,8 +1478,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
