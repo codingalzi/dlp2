@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -39,9 +39,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -143,7 +143,6 @@ const thebe_selector_output = ".output, .cell_output"
   
 
 <a class="navbar-brand logo" href="intro.html">
-  
   
   
   
@@ -379,7 +378,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.4.3. 트랜스포머 인코더</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.5. 시퀀스-투-시퀀스 학습</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.5. 시퀀스-투-시퀀스 학습: 기계 번역</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.6. 연습 문제</a></li>
 </ul>
             </nav>
@@ -1127,9 +1126,8 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 <code class="docutils literal notranslate"><span class="pre">BatchNormalization</span></code>과는 다르게 작동한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-09.png" style="width:35%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>트랜스포머 인코더는 트랜스포머 아키텍처의 두 구성 요소중의 하나이다.
-다른 요소는 아래 그림의 오른쪽에 위치한 트랜스포머 디코더<font size='2'>transformer decoder</font>이다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-14.png" style="width:75%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>트랜스포머 아키텍처는 언어 번역 등 텍스트를 텍스트로 변환하는 모델로 가장 많이 활용된다.
+다른 요소는 아래 그림의 오른쪽에 위치한 트랜스포머 디코더<font size='2'>transformer decoder</font>이다.
+트랜스포머 아키텍처는 언어 번역 등 텍스트를 텍스트로 변환하는 모델로 가장 많이 활용된다.
 트랜스포머 디코더에 대해서는 아래에서 자세히 다룬다.</p>
 <p><strong>트랜스포머 인코더 구현</strong></p>
 <p>위 그림에서 설명된 트랜스포머 인코더를 층으로 구현하면 다음과 같다.
@@ -1347,8 +1345,179 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 </section>
 </section>
 <section id="id12">
-<h2><span class="section-number">11.5. </span>시퀀스-투-시퀀스 학습<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
-<p>준비중 …</p>
+<h2><span class="section-number">11.5. </span>시퀀스-투-시퀀스 학습: 기계 번역<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<p>시퀀스-투-시퀀스 모델은 하나의 문장이 들어오면 새로운 문장을 생성하는 모델이며,
+자연어 처리의 다양한 분야에서 활용된다.</p>
+<ul class="simple">
+<li><p>기계 번역</p></li>
+<li><p>텍스트 내용 요약</p></li>
+<li><p>질문 답변</p></li>
+<li><p>챗봇 기능</p></li>
+<li><p>텍스트 생성</p></li>
+</ul>
+<p>여기서는
+영어-스페인어, 영어-한국어를 기계 번역하는 시퀀스-투-시퀀스 모델을 훈련시켜 본다.
+성능은 별로 좋지 않다. 특히 영어-한국어 번역은 전혀 유용하지 않다.
+이유는 훈련 데이터셋이 너무 작기 때문에 과소적합이 매우 심하게 발생한다.
+훈련 데이터셋은 <a class="reference external" href="https://www.manythings.org/anki/">https://www.manythings.org/anki/</a> 에서 다운로드 할 수 있다.</p>
+<ul class="simple">
+<li><p>영어-스페인어 데이터셋: <a class="reference external" href="https://www.manythings.org/anki/spa-eng.zip">spa-eng.zip</a></p></li>
+<li><p>영어-한국어 데이터셋: <a class="reference external" href="https://www.manythings.org/anki/kor-eng.zip">kor-eng.zip</a></p></li>
+</ul>
+<p>기계 번역에 사용되는 모델은 트랜스포머 인코더와 트랜스포머 디코더로 구성된
+아래 구조의 트랜스포머 아키첵처이다.</p>
+<ul class="simple">
+<li><p>그림 왼쪽: 트랜스포머 인코더</p></li>
+<li><p>그림 오른쪽: 트랜스포머 디코더</p></li>
+</ul>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-14.png" style="width:75%;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>트랜스포머 디코더는 다음과 같이 구현된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TransformerDecoder</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">,</span> <span class="n">dense_dim</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span> <span class="o">=</span> <span class="n">embed_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense_dim</span> <span class="o">=</span> <span class="n">dense_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">=</span> <span class="n">num_heads</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attention_1</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">MultiHeadAttention</span><span class="p">(</span>
+            <span class="n">num_heads</span><span class="o">=</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">key_dim</span><span class="o">=</span><span class="n">embed_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attention_2</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">MultiHeadAttention</span><span class="p">(</span>
+            <span class="n">num_heads</span><span class="o">=</span><span class="n">num_heads</span><span class="p">,</span> <span class="n">key_dim</span><span class="o">=</span><span class="n">embed_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dense_proj</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">dense_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+             <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">),]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layernorm_1</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">LayerNormalization</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layernorm_2</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">LayerNormalization</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layernorm_3</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">LayerNormalization</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">supports_masking</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s2">&quot;embed_dim&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed_dim</span><span class="p">,</span>
+            <span class="s2">&quot;num_heads&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span>
+            <span class="s2">&quot;dense_dim&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense_dim</span><span class="p">,</span>
+        <span class="p">})</span>
+        <span class="k">return</span> <span class="n">config</span>
+
+    <span class="k">def</span> <span class="nf">get_causal_attention_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">input_shape</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">sequence_length</span> <span class="o">=</span> <span class="n">input_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">input_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">sequence_length</span><span class="p">)[:,</span> <span class="n">tf</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">sequence_length</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">j</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">input_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">mult</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">tf</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+             <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">mult</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">encoder_outputs</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">causal_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_causal_attention_mask</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">padding_mask</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span>
+                <span class="n">mask</span><span class="p">[:,</span> <span class="n">tf</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
+            <span class="n">padding_mask</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">padding_mask</span><span class="p">,</span> <span class="n">causal_mask</span><span class="p">)</span>
+        <span class="n">attention_output_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attention_1</span><span class="p">(</span>
+            <span class="n">query</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span>
+            <span class="n">key</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span>
+            <span class="n">attention_mask</span><span class="o">=</span><span class="n">causal_mask</span><span class="p">)</span>
+        <span class="n">attention_output_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layernorm_1</span><span class="p">(</span><span class="n">inputs</span> <span class="o">+</span> <span class="n">attention_output_1</span><span class="p">)</span>
+        <span class="n">attention_output_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attention_2</span><span class="p">(</span>
+            <span class="n">query</span><span class="o">=</span><span class="n">attention_output_1</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">encoder_outputs</span><span class="p">,</span>
+            <span class="n">key</span><span class="o">=</span><span class="n">encoder_outputs</span><span class="p">,</span>
+            <span class="n">attention_mask</span><span class="o">=</span><span class="n">padding_mask</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">attention_output_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layernorm_2</span><span class="p">(</span>
+            <span class="n">attention_output_1</span> <span class="o">+</span> <span class="n">attention_output_2</span><span class="p">)</span>
+        <span class="n">proj_output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dense_proj</span><span class="p">(</span><span class="n">attention_output_2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layernorm_3</span><span class="p">(</span><span class="n">attention_output_2</span> <span class="o">+</span> <span class="n">proj_output</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>기계 번역 트랜스포머 모델을 구성한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">embed_dim</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">dense_dim</span> <span class="o">=</span> <span class="mi">2048</span>
+<span class="n">num_heads</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="n">encoder_inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;english&quot;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">PositionalEmbedding</span><span class="p">(</span><span class="n">sequence_length</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)(</span><span class="n">encoder_inputs</span><span class="p">)</span>
+<span class="n">encoder_outputs</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">dense_dim</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">decoder_inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;spanish&quot;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">PositionalEmbedding</span><span class="p">(</span><span class="n">sequence_length</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)(</span><span class="n">decoder_inputs</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">TransformerDecoder</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">dense_dim</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">encoder_outputs</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">decoder_outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">transformer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">([</span><span class="n">encoder_inputs</span><span class="p">,</span> <span class="n">decoder_inputs</span><span class="p">],</span> <span class="n">decoder_outputs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>훈련을 위해 손실함수를 <code class="docutils literal notranslate"><span class="pre">&quot;sparse_categorical_crossentropy&quot;</span></code> 로 지정한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">transformer</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+    <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
+    <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+
+<span class="n">transformer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">val_ds</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>트랜스포머 모델은 훈련 중의 출력값과 훈련이 아닌 실전에서 활용될 때의 출력값이
+아래 그림이 보여주는 것처럼 서로 다르다.</p>
+<ul class="simple">
+<li><p>훈련의 출력값: 길이가 20인 문장이 들어오면 그 다음에 이어질 단어가 포함된 길이가 20인 단어로 구성된 문장</p></li>
+<li><p>실전 활용서의 출력값: 길이가 20인 문장이 들어오면 문장을 구성할 단어를 하나씩 생성</p></li>
+</ul>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-12.png" style="width:65%;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>영어를 스페인어로 번역하는 코드는 다음과 같다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">spa_vocab</span> <span class="o">=</span> <span class="n">target_vectorization</span><span class="o">.</span><span class="n">get_vocabulary</span><span class="p">()</span>
+<span class="n">spa_index_lookup</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spa_vocab</span><span class="p">)),</span> <span class="n">spa_vocab</span><span class="p">))</span>
+<span class="n">max_decoded_sentence_length</span> <span class="o">=</span> <span class="mi">20</span>
+
+<span class="k">def</span> <span class="nf">decode_sequence</span><span class="p">(</span><span class="n">input_sentence</span><span class="p">):</span>
+    <span class="n">tokenized_input_sentence</span> <span class="o">=</span> <span class="n">source_vectorization</span><span class="p">([</span><span class="n">input_sentence</span><span class="p">])</span>
+    <span class="n">decoded_sentence</span> <span class="o">=</span> <span class="s2">&quot;[start]&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_decoded_sentence_length</span><span class="p">):</span>
+        <span class="n">tokenized_target_sentence</span> <span class="o">=</span> <span class="n">target_vectorization</span><span class="p">([</span><span class="n">decoded_sentence</span><span class="p">])[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">transformer</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">tokenized_input_sentence</span><span class="p">,</span> <span class="n">tokenized_target_sentence</span><span class="p">])</span>
+        
+        <span class="n">sampled_token_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="n">sampled_token</span> <span class="o">=</span> <span class="n">spa_index_lookup</span><span class="p">[</span><span class="n">sampled_token_index</span><span class="p">]</span>
+        <span class="n">decoded_sentence</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">sampled_token</span>
+        <span class="k">if</span> <span class="n">sampled_token</span> <span class="o">==</span> <span class="s2">&quot;[end]&quot;</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">decoded_sentence</span>
+
+<span class="n">test_eng_texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">test_pairs</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">input_sentence</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">test_eng_texts</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">input_sentence</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">decode_sequence</span><span class="p">(</span><span class="n">input_sentence</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>예를 들어 다음과 같이 번역된다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span>
+<span class="n">Take</span> <span class="n">whichever</span> <span class="n">one</span> <span class="n">you</span> <span class="n">want</span><span class="o">.</span>
+<span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="n">toma</span> <span class="n">el</span> <span class="n">que</span> <span class="n">quieres</span> <span class="p">[</span><span class="n">end</span><span class="p">]</span>
+<span class="o">-</span>
+<span class="n">He</span> <span class="n">was</span> <span class="n">too</span> <span class="n">busy</span> <span class="n">to</span> <span class="n">notice</span> <span class="n">it</span><span class="o">.</span>
+<span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="n">Él</span> <span class="n">estaba</span> <span class="n">demasiado</span> <span class="n">ocupado</span> <span class="n">para</span> <span class="p">[</span><span class="n">UNK</span><span class="p">]</span> <span class="p">[</span><span class="n">end</span><span class="p">]</span>
+<span class="o">-</span>
+<span class="n">Her</span> <span class="n">mother</span> <span class="n">does</span> <span class="n">aerobics</span> <span class="n">once</span> <span class="n">a</span> <span class="n">week</span><span class="o">.</span>
+<span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="n">su</span> <span class="n">madre</span> <span class="n">hace</span> <span class="n">una</span> <span class="n">vez</span> <span class="n">a</span> <span class="n">la</span> <span class="n">semana</span> <span class="p">[</span><span class="n">end</span><span class="p">]</span>
+<span class="o">-</span>
+<span class="n">I</span> <span class="n">can</span><span class="s1">&#39;t stop.</span>
+<span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="n">no</span> <span class="n">puedo</span> <span class="n">dejar</span> <span class="p">[</span><span class="n">end</span><span class="p">]</span>
+<span class="o">-</span>
+<span class="n">I</span> <span class="n">just</span> <span class="n">wanted</span> <span class="n">to</span> <span class="n">make</span> <span class="n">sure</span> <span class="n">everyone</span> <span class="n">was</span> <span class="n">awake</span><span class="o">.</span>
+<span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="n">solo</span> <span class="n">quería</span> <span class="n">saber</span> <span class="n">qué</span> <span class="n">estaba</span> <span class="n">haciendo</span> <span class="n">nada</span> <span class="n">de</span> <span class="n">noche</span> <span class="p">[</span><span class="n">end</span><span class="p">]</span>
+</pre></div>
+</div>
 </section>
 <section id="id13">
 <h2><span class="section-number">11.6. </span>연습 문제<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
@@ -1436,7 +1605,7 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">11.4.3. 트랜스포머 인코더</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.5. 시퀀스-투-시퀀스 학습</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">11.5. 시퀀스-투-시퀀스 학습: 기계 번역</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">11.6. 연습 문제</a></li>
 </ul>
   </nav></div>
@@ -1478,8 +1647,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
   <footer class="bd-footer">
   </footer>
