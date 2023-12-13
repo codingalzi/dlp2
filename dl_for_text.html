@@ -1372,29 +1372,20 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-14.png" style="width:75%;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>훈련 과정</strong></p>
 <p>예를 들어 영어 텍스트를 스페인어 텍스트로 기계 번역하는 트랜스포머 모델은 훈련 과정 중에 사용되는 훈련셋과 타깃은 다음과 같다.
-단, 영어 텍스트와 스페인어 텍스트 모두 어휘 인데스로 구성된 벡터로 변환된 상태로 훈련의 입력값과 타깃으로 사용된다.</p>
+아래 설명에서 영어 텍스트와 스페인어 텍스트 모두 어휘 인데스로 구성된 벡터로 변환되었다고 가정한다.</p>
+<p>훈련셋은 영어 텍스트 데이터셋과 스페인어 텍스트 데이터셋으로 구성된 튜플이다.</p>
 <ul class="simple">
-<li><p>훈련셋: 영어 텍스트 셋과 스페인어 텍스트셋으로 구성된 튜플.</p>
-<ul>
-<li><p>영어 텍스트와 스페인어 텍스트는 모두 동일한 개수의 단어 포함.
-예를 들어 아래 그림은 5개의 단어로 구성된 텍스트 사용.</p></li>
+<li><p>영어 텍스트와 스페인어 텍스트에 포함된 단어의 수가 모두 일정.
+예를 들어 아래 그림은 5개의 단어로 구성된 텍스트를 보여줌.</p></li>
 <li><p>스페인어 텍스트: 첫 단어는 <code class="docutils literal notranslate"><span class="pre">[start]</span></code>로 지정.</p></li>
 <li><p>스페인어 텍스트의 단어 수가 <code class="docutils literal notranslate"><span class="pre">[start]</span></code> 포함 지정된 단어수 (예를 들어 5) 보다 적은 경우 <code class="docutils literal notranslate"><span class="pre">[end]</span></code>가 마지막 단어로 사용됨.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">[start]</span></code>와 <code class="docutils literal notranslate"><span class="pre">[end]</span></code> 포함 단어 수가 지정된 수보다 적은 경우 0 패딩 사용.</p></li>
-<li><p>각각의 텍스트 셋은 배치로 묶여 있음. 예를 들어 배치 크기가 64인 배치는
-크기가 각각 64인 영어 텍스트 배치와 스페인어 텍스트 배치의 튜플로 구성됨.</p></li>
 </ul>
-</li>
-<li><p>타깃: 스페인어 텍스트 셋</p>
-<ul>
+<p>타깃은 스페인어 텍스트 셋이다.</p>
+<ul class="simple">
 <li><p>텍스트의 길이는 훈련셋에 포함된 스페인어 텍스트의 길이와 동일. 예를 들어 동일하게 5개의 단어로 구성됨.</p></li>
-<li><p>단, 입력값으로 사용되는 스페인어 텍스트의 첫 단어인 <code class="docutils literal notranslate"><span class="pre">[start]</span></code> 를 삭제하고
-입력 텍스트를 계속 이어갈 단어를 마지막 단어로 추가.</p></li>
+<li><p>입력값으로 사용되는 스페인어 텍스트의 첫 단어인 <code class="docutils literal notranslate"><span class="pre">[start]</span></code> 를 삭제하고
+입력 텍스트를 계속 이어갈 단어를 마지막 단어가 추가된 텍스트.</p></li>
 <li><p>입력된 스페인어 텍스트를 어떤 단어로 이어갈 것인지를 학습하도록 유도함.</p></li>
-<li><p>단어의 개수가 지정된 개수보다 적은 경우 패딩 사용</p></li>
-<li><p>훈련셋과 동일한 크기의 배치로 묶임.</p></li>
-</ul>
-</li>
 </ul>
 <p>아래 그림은 입력 텍스트에 사용된 단어의 개수를 5로 지정했을 때 영어 입력값, 스페인어 입력값, 스페인어 타깃을 보여준다.</p>
 <ul class="simple">
@@ -1414,9 +1405,9 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 </ul>
 </li>
 </ul>
-<p>영어 입력값은 트랜스포머 인코더의 입력값으로, 스페인어 입력값은 트랜스포머 디코더의 입력값으로 사용된다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-transformer-02.png" style="width:70%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>트랜스포머 모델 활용</strong></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>영어 입력값은 트랜스포머 인코더의 입력값으로, 스페인어 입력값은 트랜스포머 디코더의 입력값으로 사용된다.</p>
+<p><strong>트랜스포머 모델 활용</strong></p>
 <p>트랜스포머 모델은 실전에서는 입력된 영어 텍스트를 번역한 스페인어 텍스트를 생성하는 데에 활용된다.
 앞서 설명한 훈련 과정에서와는 달리 입력값으로 영어 텍스트만 주어진 상황에서 스페인어 텍스트를 생성해야 한다.
 즉, 모델의 둘째 입력값인 스페인어 텍스트가 없이 모델의 예측값을 생성해야 한다.
@@ -1433,10 +1424,9 @@ targets[0]: tf.Tensor(1, shape=(), dtype=int32)
 이 과정을 <code class="docutils literal notranslate"><span class="pre">'[end]'</span></code> 단어가 추천될 때까지 반복한다.</p></li>
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch11-transformer-03.png" style="width:70%;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>정리하면 다음과 같다. 영어 텍스트가 입력되면 스페인어 텍스트로 <code class="docutils literal notranslate"><span class="pre">'[start]'</span></code>로 시작해서
-<code class="docutils literal notranslate"><span class="pre">'[end]'</span></code>가 이전 스페인어 텍스트를 이어갈 단어로 추천될 때까지
-트랜스포머 모델을 반복 활용하면
-하나의 완성된 스펜인어 텍스트가 생성된다.</p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>정리하면 다음과 같다. 영어 텍스트가 입력되면 <code class="docutils literal notranslate"><span class="pre">'[start]'</span></code>로만 구성된 텍스트를
+스페인어 입력 텍스르로 사용해서 <code class="docutils literal notranslate"><span class="pre">'[end]'</span></code>가 이전 스페인어 텍스트를 이어갈 단어로 추천될 때까지
+트랜스포머 모델을 반복 활용하며, 이 과정을 통해 하나의 완성된 스펜인어 텍스트를 생성한다.</p>
 </section>
 <section id="id14">
 <h3><span class="section-number">11.5.2. </span>트랜스포머 디코더<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
