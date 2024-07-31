@@ -29,7 +29,7 @@ CUDA(Compute Unified Device Architecture)는 병렬 처리를 사용하여 계�
 1. 최신 리눅스 커널을 다운로드 하기 위해 먼저 wsl을 업데이트 한다.
 
     ```bash
-    wsl --updte
+    wsl --update
     ```
         
 1. 아래 명령문을 이용하여 설치된 wsl 버전이 5.15.90.1 이상이어야 함
