@@ -4,10 +4,10 @@
 
 - 우분투 운영체제에 직접 설치하는 방법도 동일 (Nvidia 드라이버 설치 부분 제외)
 
-## NVIDIA CUDA 드라이버 설치 (윈도우11 대상)
+## NVIDIA cuda 드라이버 설치 (윈도우11 대상)
 
-CUDA(Compute Unified Device Architecture)는 병렬 처리를 사용하여 계산을 더 빠르게 처리할 수 있도록 설계된 강력한 컴퓨팅 플랫폼이며
-그래픽 드라이버, 툴킷, 소프트웨어 개발 키트 및 응용 프로그래밍 인터페이스로 구성된다. CUDA를 통해 NVIDIA 그래픽 카드에서 CPU에서 보다 훨씬 빠르게 실행되는 프로그램을 만들 수 있다. 이는 몇 개의 CPU 코어가 아닌 수천 개의 그래픽 카드 코어를 사용하여 계산을 수행할 수 있기 때문이다.
+cuda(Compute Unified Device Architecture)는 병렬 처리를 사용하여 계산을 더 빠르게 처리할 수 있도록 설계된 강력한 컴퓨팅 플랫폼이며
+그래픽 드라이버, 툴킷, 소프트웨어 개발 키트 및 응용 프로그래밍 인터페이스로 구성된다. cuda를 통해 NVIDIA 그래픽 카드에서 CPU에서 보다 훨씬 빠르게 실행되는 프로그램을 만들 수 있다. 이는 몇 개의 CPU 코어가 아닌 수천 개의 그래픽 카드 코어를 사용하여 계산을 수행할 수 있기 때문이다.
 
 1. [Nvidia 드라이버 공식 웹 사이트 방문](https://www.nvidia.com/Download/index.aspx?lang=en-us)
 1. 자신의 컴퓨터에 맞는 Nvidia 드라이버(Search) 탐색 후에 아래 이름과 같은 드라이버 설치 파일을 
@@ -53,19 +53,23 @@ CUDA(Compute Unified Device Architecture)는 병렬 처리를 사용하여 계�
 어떤 방식으로든 설치가 끝난 후 우분투를 실행할 때 요구되는 사용자 아이디와 패스워드를 지정하면
 모든 설정이 끝난다.
 
-우분투 설치 후 우분투 터미널에서 명령문을 실행하여 설치된 CUDA 드라이버 버전을 확인한다.
+우분투 설치 후 우분투 터미널에서 명령문을 실행하여 설치된 cuda 드라이버 버전을 확인한다.
 
 ```bash
 nvidia-smi
 ```
 
-터미널에서 출력된 내용 중에서 `CUDA Version`을 확인한다. 
-2024년 7월 기준으로 12.4로 확인된다.
+터미널에서 출력된 내용 중에서 `cuda Version`을 확인한다. 
+2024년 7월 기준으로 최소 12.4 이상으로 확인된다.
+
+**참고:** cuda 버전 확인이 꼭 필요한지 이제는 확실하지 않다. 
+이유는 Tensorflow와 PyTorch 모두 자체적으로 cuda 라이브러러리를 설치하기 때문이다.
+
 
 ## 파이썬 설치
 
 파이썬 설치는 miniconda를 이용한다.
-2024년 7월 기준으로 파이썬 3.2.4 버전이 함께 설치된다.
+2024년 7월 기준으로 파이썬 3.12.4 버전이 함께 설치된다.
 
 ### miniconda와 파이썬, 주피터 노트북 설치
 
@@ -119,11 +123,11 @@ export TF_CPP_MIN_LOG_LEVEL="2"
 conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia
 ```
 
-위 명령문은 `nvidia-smi` 리눅스 명령문으로 확인된 Cuda 버전이 12.4인 경우에 해당한다.
-다른 Cuda 버전인 경우엔 12.4 부분만 수정하면 된다. 
-언급된 PyTorch 홈페이지에서 현재 11.8, 12.1, 12.3 세 가지 Cuda 버전을 지원한다.
+위 명령문은 cuda 12.4를 함께 설치한다.
+언급된 PyTorch 홈페이지에서 현재 11.8, 12.1, 12.3 세 가지 cuda 버전을 지원한다.
+앞서 `nvidia-smi` 명령문으로 확인된 cuda 버전이 12.4보다 높다 하더라도 문제가 없어 보이기도 한다.
+이유는 PyTorch가 자체로 설치한 cuda 라이브러리를 사용하기 때문이지 않을까 한다.
 
-참고로 `pip`을 이용하면 cuda 라이브러리의 충돌이 발생하여 Tensorflow에서의 GPU 지원이 작동하지 않게 된다.
 설치가 완료된 후에 파이썬을 실행한 다음 아래 명령문을 이용하여 GPU의 지원 여부를 확인한다.
 
 ```python
@@ -137,6 +141,10 @@ True
 >>> torch.cuda.get_device_name(0)
 'NVIDIA RTX A4000 Laptop GPU'
 ```
+
+**주의사항:** 
+`pip`을 이용하여 PyTorch를 설치하면 Tensorflow를 설치할 때
+설치된 cuda 라이브러리와의 충돌로 인해 Tensorflow에서의 GPU 지원이 작동하지 않을 수 있다.
 
 ### 추가 파이썬 패키지 설치
 
