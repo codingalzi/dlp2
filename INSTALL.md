@@ -143,8 +143,8 @@ True
 ```
 
 **주의사항:** 
-`pip`을 이용하여 PyTorch를 설치하면 Tensorflow를 설치할 때
-설치된 cuda 라이브러리와의 충돌로 인해 Tensorflow에서의 GPU 지원이 작동하지 않을 수 있다.
+`pip`을 이용하여 PyTorch를 설치하면 Tensorflow와 함께
+설치된 cuda 라이브러리와의 충돌로 인해 Tensorflow에서 GPU가 지원되지 않을 수 있다.
 
 ### 추가 파이썬 패키지 설치
 
