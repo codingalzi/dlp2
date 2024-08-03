@@ -167,11 +167,17 @@ python3 -c "import torch; print(torch.cuda.get_device_name(0))"
 jupyter-notebook
 ```
 
-이후에 터미널에 보여지는 많은 내용 중에서 아래 링크에 마우스를 가져간 다음에 `Ctrl` 키와 함께 마우스 오른쪽 버튼을 누른다.
+이후에 터미널에 보여지는 많은 내용 중에서 아래와 같이 생긴 링크에 `Ctrl` 키와 함께 마우스 오른쪽 버튼을 누른다.
 
 ```bash
-   http://localhost:8888/?token=c62a2b619d95a13fbc9ef35596ae5308ae55404525a67d8c
-or http://127.0.0.1:8888/?token=c62a2b619d95a13fbc9ef35596ae5308ae55404525a67d8c
+   http://localhost:8888/?token=c62a2b619d95a13fbc9ef35596ae5308dd99904525a67d8c
+or http://127.0.0.1:8888/?token=c62a2b619d95a13fbc9ef35596ae5308dd99904525a67d8c
 ```  
 
-아니면 위 주소중에 하나를 복사해서 브라우저 주소창에서 실행하면 주피터 노트북 홈 화면이 보여진다.
+또는 위 주소중에 하나를 복사해서 브라우저 주소창에서 실행하면 주피터 노트북 홈 화면이 보여진다.
+주피터 노트북을 활용한 파이썬 프로그래밍은 인터넷 자료를 활용한다.
+
+## Visual Studio Code 활용
+
+WSL에 설치된 우분투와 윈도우용 Visual Studio Code를 연동하는 방법은
+[Linux용 Windows 하위 시스템에서 Visual Studio Code 사용 시작](https://learn.microsoft.com/ko-kr/windows/wsl/tutorials/wsl-vscode) 등 인터넷 자료를 활용한다.
