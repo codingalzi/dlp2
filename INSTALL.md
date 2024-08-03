@@ -130,16 +130,14 @@ conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvi
 
 설치가 완료된 후에 파이썬을 실행한 다음 아래 명령문을 이용하여 GPU의 지원 여부를 확인한다.
 
-```python
->>> import torch
->>> torch.cuda.is_available()
-True
->>> torch.cuda.device_count()
-1
->>> torch.cuda.current_device()
-0
->>> torch.cuda.get_device_name(0)
-'NVIDIA RTX A4000 Laptop GPU'
+```bash
+python3 -c "import torch; print(torch.cuda.get_device_name(0))"
+```
+
+아래와 같이 설치된 그래픽카드 모델이 출력되면 정상적으로 작동하는 것이다.
+
+```bash
+'NVIDIA GeForce RTX 4070'
 ```
 
 **주의사항:** 
