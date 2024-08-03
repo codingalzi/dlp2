@@ -155,6 +155,23 @@ python3 -c "import torch; print(torch.cuda.get_device_name(0))"
 | 패키지 | 설치 명령문 | 설명 |
 | :--- | :--- | :--- |
 | jupyter | `conda install -y jupyter` | 주피터 노트북 |
-| pandas | `conda install -c anaconda pandas` | 판다스 모듈 |
-| scikit-learn | `conda install -c anaconda scikit-learn` | 사이킷런 패키지 |
-| matplotlib | `conda install -c conda-forge matplotlib` | 시각화 패키지 |
+| pandas | `conda install -y -c anaconda pandas` | 판다스 모듈 |
+| scikit-learn | `conda install -y -c anaconda scikit-learn` | 사이킷런 패키지 |
+| matplotlib | `conda install -y -c conda-forge matplotlib` | 시각화 패키지 |
+
+## 주피터 노트북(Jupyter Notebook) 실행
+
+우분투 터미널에서 아래 명령을 실행한다. 
+
+```bash
+jupyter-notebook
+```
+
+이후에 터미널에 보여지는 많은 내용 중에서 아래 링크에 마우스를 가져간 다음에 `Ctrl` 키와 함께 마우스 오른쪽 버튼을 누른다.
+
+```bash
+   http://localhost:8888/?token=c62a2b619d95a13fbc9ef35596ae5308ae55404525a67d8c
+or http://127.0.0.1:8888/?token=c62a2b619d95a13fbc9ef35596ae5308ae55404525a67d8c
+```  
+
+아니면 위 주소중에 하나를 복사해서 브라우저 주소창에서 실행하면 주피터 노트북 홈 화면이 보여진다.
