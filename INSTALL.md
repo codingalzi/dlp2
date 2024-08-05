@@ -17,6 +17,12 @@ cuda(Compute Unified Device Architecture)는 병렬 처리를 사용하여 계�
     5xx.xx-desktop-win10-win11–64bit-international-dch-whql.exe
     ```
 
+참고: [PyTorch](https://pytorch.org/get-started/locally/) 공식 홈페이지에서 cuda 버전이
+11.8, 12.1, 12.4를 지원하는 PyTorch 라이브러리를 간단하게 설치하는 방법을 언급한다.
+반면에 NVIDIA 최신 드라이버는 cuda 12.6을 포함한다. 테스트 결과 별 문제는 없어 보이지만
+그래도 [cuda 12.4를 사용하는 NVIDIA 드라이버](https://www.nvidia.com/ko-kr/drivers/details/224483/)를 
+설치할 것을 권장한다. 물론 자신의 그래픽 카드가 지원되는 경우에 한한다.
+
 ## WSL2 설치 및 업데이트
 
 1. Windows PowerShell을 관리자 모드로 연다.
@@ -124,7 +130,7 @@ conda install pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvi
 ```
 
 위 명령문은 cuda 12.4를 함께 설치한다.
-언급된 PyTorch 홈페이지에서 현재 11.8, 12.1, 12.3 세 가지 cuda 버전을 지원한다.
+언급된 PyTorch 홈페이지에서 현재 11.8, 12.1, 12.4 세 가지 cuda 버전을 지원한다.
 앞서 `nvidia-smi` 명령문으로 확인된 cuda 버전이 12.4보다 높다 하더라도 문제가 없어 보이기도 한다.
 이유는 PyTorch가 자체로 설치한 cuda 라이브러리를 사용하기 때문이지 않을까 한다.
 
