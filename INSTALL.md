@@ -165,6 +165,7 @@ True
 | pandas | `conda install -y -c anaconda pandas` | 판다스 모듈 |
 | scikit-learn | `conda install -y -c anaconda scikit-learn` | 사이킷런 패키지 |
 | matplotlib | `conda install -y -c conda-forge matplotlib` | 시각화 패키지 |
+| seaborn | `pip install seaborn` | 시각화 추가 패키지 |
 
 ## 주피터 노트북(Jupyter Notebook) 실행
 
