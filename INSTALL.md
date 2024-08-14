@@ -151,21 +151,27 @@ True
 `pip`을 이용하여 PyTorch를 설치하면 Tensorflow와 함께
 설치된 cuda 라이브러리와의 충돌로 인해 Tensorflow에서 GPU가 지원되지 않을 수 있다.
 
-### 추가 파이썬 패키지 설치
+### 추가 파이썬 라이브러리 설치
 
 필요에 따라 우분투 터미널에서 `conda` 또는 `pip` 을 이용하여 추가 패키지를 설치한다.
 일반적으로 텐서플로우 관련해서는 `pip`으로, 그 이외의 경우엔 `conda`를 추천한다.
 
-데이터분석에 필요한 추가 필수 패키지와 `conda`를 이용한 설치방법은 다음과 같다.
+데이터분석에 필요한 추가 필수 라이브러리와 `conda`를 이용한 설치방법은 다음과 같다.
 참고로 numpy는 이전 과정에서 이미 설치되었다.
 
-| 패키지 | 설치 명령문 | 설명 |
+| 라이브러리 | 설치 명령문 | 설명 |
 | :--- | :--- | :--- |
 | jupyter | `conda install -y jupyter` | 주피터 노트북 |
 | pandas | `conda install -y -c anaconda pandas` | 판다스 모듈 |
-| scikit-learn | `conda install -y -c anaconda scikit-learn` | 사이킷런 패키지 |
-| matplotlib | `conda install -y -c conda-forge matplotlib` | 시각화 패키지 |
-| seaborn | `pip install seaborn` | 시각화 추가 패키지 |
+| scikit-learn | `conda install -y -c anaconda scikit-learn` | 사이킷런 라이브러리 |
+| matplotlib | `conda install -y -c conda-forge matplotlib` | 시각화 라이브러리 |
+
+하지만 아래 라이브러리는 `pip` 파이썬 라이브러리 관리자 명령문을 이용하는 것이 편하다.
+
+| 라이브러리 | 설치 명령문 | 설명 |
+| :--- | :--- | :--- |
+| seaborn | `pip install seaborn` | 시각화 추가 라이브러리 |
+| openpyxl | `pip install openpyxl` | 엑셀파일 불러오기 |
 
 ## 주피터 노트북(Jupyter Notebook) 실행
 
