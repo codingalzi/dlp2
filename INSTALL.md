@@ -166,10 +166,12 @@ True
 | scikit-learn | `conda install -y -c anaconda scikit-learn` | 사이킷런 라이브러리 |
 | matplotlib | `conda install -y -c conda-forge matplotlib` | 시각화 라이브러리 |
 
-하지만 아래 라이브러리는 `pip` 파이썬 라이브러리 관리자 명령문을 이용하는 것이 편하다.
+아래 라이브러리들도 데이터 분석을 위해 추천된다.
+하지만 `pip` 파이썬 라이브러리 관리자 명령문을 이용할 것을 추천한다.
 
 | 라이브러리 | 설치 명령문 | 설명 |
 | :--- | :--- | :--- |
+| XGBoost | `pip install xgboost` | 그레이디언트 부스팅 라이브러리|
 | seaborn | `pip install seaborn` | 시각화 추가 라이브러리 |
 | openpyxl | `pip install openpyxl` | 엑셀파일 불러오기 |
 
