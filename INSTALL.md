@@ -175,16 +175,15 @@ True
 | seaborn | `pip install seaborn` | 시각화 추가 라이브러리 |
 | openpyxl | `pip install openpyxl` | 엑셀파일 불러오기 |
 
-케라스 모델의 구조를 시각화하려면 `pydot` 파이썬 모듈과 `graphviz`라는 프로그램이 컴퓨터에 설치되어 있어야 한다.
+케라스 모델의 구조를 시각화하려면 `pydot` 파이썬 모듈, `graphviz` 파이썬 모듈, 
+그리고 `graphviz` 프로그램이 컴퓨터 운영체에제 설치되어 있어야 한다.
+여기서는 WSL과 우분투를 이용하기에 우분투 운영체제에 설치해야 한다.
 
 | 라이브러리 | 설치 명령문 | 설명 |
 | :--- | :--- | :--- |
-| pydot | `pip install pydot` | 신경망 모델 시각화 라이브러리 |
+| pydot | `pip install pydot` | 모델 시각화 라이브러리 |
+| graphviz | `pip install graphviz` | 모델 시각화 라이브러리 |
 | graphviz | [설치요령](https://graphviz.gitlab.io/download/) | 운영체제에 따른 설치 |
-
-graphviz 프로그램 설치: https://graphviz.gitlab.io/download/
-
-구글 코랩에서는 기본으로 지원됨.
 
 ## 주피터 노트북(Jupyter Notebook) 실행
 
