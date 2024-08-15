@@ -156,15 +156,14 @@ True
 필요에 따라 우분투 터미널에서 `conda` 또는 `pip` 을 이용하여 추가 패키지를 설치한다.
 일반적으로 텐서플로우 관련해서는 `pip`으로, 그 이외의 경우엔 `conda`를 추천한다.
 
-데이터분석에 필요한 추가 필수 라이브러리와 `conda`를 이용한 설치방법은 다음과 같다.
+데이터분석에 필요한 추가 필수 라이브러리는 `conda` 또는 `pip` 패키지 관라자를 이용한다.
 참고로 numpy는 이전 과정에서 이미 설치되었다.
+
+먼저 주피터 노트북을 지원하는 `jupyter`는 `conda`를 이용한다.
 
 | 라이브러리 | 설치 명령문 | 설명 |
 | :--- | :--- | :--- |
 | jupyter | `conda install -y jupyter` | 주피터 노트북 |
-| pandas | `conda install -y -c anaconda pandas` | 판다스 모듈 |
-| scikit-learn | `conda install -y -c anaconda scikit-learn` | 사이킷런 라이브러리 |
-| matplotlib | `conda install -y -c conda-forge matplotlib` | 시각화 라이브러리 |
 
 아래 라이브러리들도 데이터 분석을 위해 추천된다.
 하지만 `pip` 파이썬 라이브러리 관리자 명령문을 이용할 것을 추천한다.
@@ -172,6 +171,9 @@ True
 | 라이브러리 | 설치 명령문 | 설명 |
 | :--- | :--- | :--- |
 | XGBoost | `pip install xgboost` | 그레이디언트 부스팅 라이브러리|
+| pandas | `pip install pandas` | 판다스 모듈 |
+| scikit-learn | `pip install scikit-learn` | 사이킷런 라이브러리 |
+| matplotlib | `pip install matplotlib` | 시각화 라이브러리 |
 | seaborn | `pip install seaborn` | 시각화 추가 라이브러리 |
 | openpyxl | `pip install openpyxl` | 엑셀파일 불러오기 |
 
@@ -183,7 +185,7 @@ True
 | :--- | :--- | :--- |
 | pydot | `pip install pydot` | 모델 시각화 라이브러리 |
 | graphviz | `pip install graphviz` | 모델 시각화 라이브러리 |
-| graphviz | [설치요령](https://graphviz.gitlab.io/download/) | 운영체제에 따른 설치 |
+| graphviz | [설치요령](https://graphviz.gitlab.io/download/) 참고 | 운영체제에 따른 설치 |
 
 ## 주피터 노트북(Jupyter Notebook) 실행
 
