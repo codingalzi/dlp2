@@ -1,75 +1,70 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4. 신경망 활용 처음부터 끝까지: 분류와 회귀 &#8212; Deep Learning with Python(2판)</title>
+    <title>5. 신경망 활용 처음부터 끝까지: 분류와 회귀 &#8212; Deep Learning with Python(2판)</title>
   
   
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'getting_started_with_neural_networks';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="5. 머신러닝 모델 훈련 기법" href="fundamentals_of_ml.html" />
-    <link rel="prev" title="3. 케라스와 텐서플로우" href="keras_and_tf.html" />
+    <link rel="next" title="6. 머신러닝 모델 훈련 기법" href="fundamentals_of_ml.html" />
+    <link rel="prev" title="4. 케라스와 텐서플로우" href="keras_and_tf.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -79,28 +74,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -122,12 +112,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -142,6 +140,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="intro.html">
@@ -150,28 +151,38 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Deep Learning with Python(2판)</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="tf_tensor.html">2.7. 부록: 텐서플로우 텐서</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">3. 케라스와 텐서플로우</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. 신경망 활용 처음부터 끝까지: 분류와 회귀</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">5. 머신러닝 모델 훈련 기법</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">6. 머신러닝 작업 흐름 일반</a></li>
-<li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">7. 케라스 신경망 모델 활용법</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computer_vision_intro.html">8. 컴퓨터 비전 기초: 합성곱 신경망</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computer_vision_advanced.html">9. 고급 컴퓨터 비전</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dl_for_timeseries.html">10. 시계열 분석</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dl_for_text.html">11. 자연어 처리</a></li>
-<li class="toctree-l1"><a class="reference internal" href="generative_dl.html">12. 생성 모델</a></li>
-<li class="toctree-l1"><a class="reference internal" href="best_practices.html">13. 딥러닝 실전 적용</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tf_tensor.html">3. 텐서</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">4. 케라스와 텐서플로우</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. 신경망 활용 처음부터 끝까지: 분류와 회귀</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">6. 머신러닝 모델 훈련 기법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">7. 머신러닝 작업 흐름 일반</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">8. 케라스 신경망 모델 활용법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_intro.html">9. 컴퓨터 비전 기초: 합성곱 신경망</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_advanced.html">10. 고급 컴퓨터 비전</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dl_for_timeseries.html">11. 시계열 분석</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dl_for_text.html">12. 자연어 처리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative_dl.html">13. 생성 모델</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">14. 딥러닝 실전 적용</a></li>
 </ul>
 
     </div>
@@ -187,7 +198,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -196,14 +207,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -325,26 +336,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -365,29 +378,29 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-imdb">4.1. 영화 후기: 이진 분류</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">4.1.1. 데이터 준비: IMDB 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.1.2. 데이터 전처리: 벡터화와 멀티-핫 인코딩</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.1.3. 모델 구성과 컴파일</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.1.4. 모델 훈련과 활용</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-imdb">5.1. 영화 후기: 이진 분류</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">5.1.1. 데이터 준비: IMDB 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.1.2. 데이터 전처리: 벡터화와 멀티-핫 인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.1.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.1.4. 모델 훈련과 활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.2. 뉴스 기사: 다중 클래스 분류</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.2.1. 데이터 준비: 로이터 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.2.2. 데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.2.3. 모델 구성과 컴파일</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4.2.4. 모델 훈련과 활용</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5.2. 뉴스 기사: 다중 클래스 분류</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">5.2.1. 데이터 준비: 로이터 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">5.2.2. 데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">5.2.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">5.2.4. 모델 훈련과 활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">4.3. 주택가격: 회귀</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">4.3.1. 데이터 준비: 보스턴 주택가격 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">4.3.2. 데이터 전처리: 표준화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">4.3.3. 모델 구성과 컴파일</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">4.3.4. 모델 훈련과 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">4.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">5.3. 주택가격: 회귀</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">5.3.1. 데이터 준비: 보스턴 주택가격 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5.3.2. 데이터 전처리: 표준화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.3.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5.3.4. 모델 훈련과 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">5.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">4.4. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.4. 연습문제</a></li>
 </ul>
             </nav>
         </div>
@@ -397,10 +410,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ch-getting-started-with-neural-networks">
-<span id="id1"></span><h1><span class="section-number">4. </span>신경망 활용 처음부터 끝까지: 분류와 회귀<a class="headerlink" href="#ch-getting-started-with-neural-networks" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">5. </span>신경망 활용 처음부터 끝까지: 분류와 회귀<a class="headerlink" href="#ch-getting-started-with-neural-networks" title="Link to this heading">#</a></h1>
 <p><strong>감사의 글</strong></p>
 <p>아래 내용은 프랑소와 숄레의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
@@ -421,7 +434,7 @@ document.write(`
 </ul>
 <p><strong>머신러닝 주요 용어</strong></p>
 <p>아래 용어의 정의를 명확히 알아야 한다.</p>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>한글</p></th>
 <th class="head text-left"><p>영어</p></th>
@@ -483,11 +496,12 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
 <section id="sec-imdb">
-<span id="id2"></span><h2><span class="section-number">4.1. </span>영화 후기: 이진 분류<a class="headerlink" href="#sec-imdb" title="Permalink to this heading">#</a></h2>
+<span id="id2"></span><h2><span class="section-number">5.1. </span>영화 후기: 이진 분류<a class="headerlink" href="#sec-imdb" title="Link to this heading">#</a></h2>
 <p>영화 후기의 긍정/부정 여부를 판단하는 이진 분류 모델을 구성한다.</p>
 <section id="imdb">
-<h3><span class="section-number">4.1.1. </span>데이터 준비: IMDB 데이터셋<a class="headerlink" href="#imdb" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.1.1. </span>데이터 준비: IMDB 데이터셋<a class="headerlink" href="#imdb" title="Link to this heading">#</a></h3>
 <p>긍정 후기와 부정 후기 각각 25,000개씩 총 50,000개의 영화 후기 샘플로 구성되었으며
 <a class="reference external" href="https://www.imdb.com/">IMDB(Internet Moview Database)</a> 영화 후기 사이트에서
 구한 데이터셋이다.</p>
@@ -594,7 +608,7 @@ document.write(`
 </div>
 </section>
 <section id="id3">
-<h3><span class="section-number">4.1.2. </span>데이터 전처리: 벡터화와 멀티-핫 인코딩<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.1.2. </span>데이터 전처리: 벡터화와 멀티-핫 인코딩<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <p>정수들의 리스트, 그것도 길이가 다른 여러 개의 리스트로 구성된 데이터셋은
 신경망의 입력값으로 사용할 수 없다.
 이 문제를 해결하기 위해 일반적으로 아래 두 방식중에 하나를 적용한다.</p>
@@ -614,7 +628,7 @@ document.write(`
 </li>
 </ul>
 <p>여기서는 멀티-핫 인코딩 방식을 사용한다.
-벡터화 방식은 <a class="reference internal" href="dl_for_text.html#ch-nlp"><span class="std std-numref">11장 자연어 처리</span></a>에서 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 사용할 때 자세히 설명한다.</p>
+벡터화 방식은 <a class="reference internal" href="dl_for_text.html#ch-nlp"><span class="std std-numref">12장 자연어 처리</span></a>에서 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 사용할 때 자세히 설명한다.</p>
 <p>후기 리스트에 사용된 숫자들은 0부터 9999 사이의 값이다.
 이 정보를 이용하여 후기 샘플을 길이가 10,000인 벡터(1차원 어레이)로 변환한다.</p>
 <ul class="simple">
@@ -662,7 +676,7 @@ document.write(`
 </div>
 </section>
 <section id="id4">
-<h3><span class="section-number">4.1.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.1.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p><strong>모델 구성</strong></p>
 <p>입력 샘플의 특성이 벡터(1차원 어레이)로 주어지고
 라벨이 스칼라(하나의 숫자)로 주어졌을 때
@@ -706,7 +720,7 @@ document.write(`
 <li><p>각 층마다 몇 개의 유닛<font size='2'>unit</font>을 사용하는가?</p></li>
 </ul>
 <p>위 두 질문에 대한 체계적인 답은
-<a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">5장 머신러닝 핵심 이슈</span></a>에서 다룬다.
+<a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">6장 머신러닝 핵심 이슈</span></a>에서 다룬다.
 여기서는 일단 아래 구성을 사용한다.</p>
 <ul class="simple">
 <li><p>세 개의 밀집층</p></li>
@@ -743,7 +757,7 @@ document.write(`
 </div>
 </section>
 <section id="id5">
-<h3><span class="section-number">4.1.4. </span>모델 훈련과 활용<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.1.4. </span>모델 훈련과 활용<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>훈련 중인 모델을 에포크마다 검증하기 위해 검증셋을 따로 지정한다.
 여기서는 <code class="docutils literal notranslate"><span class="pre">x_train</span></code>에서 10,000개의 샘플을 검증셋으로 활용한다.
 즉, 실제 훈련에 사용되는 데이터는 15,000개로 줄어든다.</p>
@@ -766,7 +780,7 @@ document.write(`
 <code class="docutils literal notranslate"><span class="pre">History</span></code> 클래스는 <code class="docutils literal notranslate"><span class="pre">Callback</span></code> 클래스를 상속하는데
 신경망 모델의 훈련 과정중에 생성되는 다양한 정보를 기록하도록 설계되었다.</p>
 <p>콜백(<code class="docutils literal notranslate"><span class="pre">Callback</span></code>) 클래스의 다양한 활용법에 대해서는
-<a class="reference internal" href="working_with_keras.html#ch-working-with-keras"><span class="std std-numref">7장 케라스 모델 고급 활용법</span></a>에서 자세히 살펴볼 것이다.</p>
+<a class="reference internal" href="working_with_keras.html#ch-working-with-keras"><span class="std std-numref">8장 케라스 모델 고급 활용법</span></a>에서 자세히 살펴볼 것이다.</p>
 <p>예를 들어,
 <code class="docutils literal notranslate"><span class="pre">History</span></code> 객체에 포함된 <code class="docutils literal notranslate"><span class="pre">history</span></code> 속성은 훈련중에 에포크 단위로 측정된 손실값과 평가지표를 사전으로 저장한다.
 아래 코드는 훈련 과정중에 기록된
@@ -798,7 +812,7 @@ document.write(`
 모델 구성부터, 컴파일, 훈련을 모두 처음부터 다시 시작해야 한다.
 그래야 가중치와 편향이 초기화된 상태로 훈련이 시작되기 때문이다.
 그렇지 않으면 이전 훈련 결과를 이어 받아 훈련된다.</p>
-<p><a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">5장 머신러닝 모델 훈련 기법</span></a>에서
+<p><a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">6장 머신러닝 모델 훈련 기법</span></a>에서
 과대적합을 방지하기 위한 기타 다양한 기법을 소개한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
@@ -846,9 +860,9 @@ document.write(`
 </section>
 </section>
 <section id="id6">
-<h2><span class="section-number">4.2. </span>뉴스 기사: 다중 클래스 분류<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.2. </span>뉴스 기사: 다중 클래스 분류<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
 <section id="id7">
-<h3><span class="section-number">4.2.1. </span>데이터 준비: 로이터 데이터셋<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.2.1. </span>데이터 준비: 로이터 데이터셋<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <p>로이터<font size='2'>Reuter</font> 통신사가 1986년에 작성한 단문 기사 모음집이다.
 총 11,228개의 단문 기사로 구성되었으며 훈련셋과 테스트셋으로 이미 구분되어 있다.</p>
 <ul class="simple">
@@ -885,7 +899,7 @@ document.write(`
 <p class="admonition-title">로이터 기사 주제</p>
 <p>언급된 46개의 주제와 번호 사이의 관계는
 <a class="reference external" href="https://github.com/keras-team/keras/issues/12072">GitHub: Where can I find topics of reuters dataset #12072</a>에서 확인할 수 있다.</p>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-center"><p>번호</p></th>
 <th class="head text-center"><p>주제</p></th>
@@ -1008,6 +1022,7 @@ document.write(`
 </tr>
 </tbody>
 </table>
+</div>
 <p>실제로 10번 기사 내용을 확인해보면 소득(earn)과 관련되어 있어 보인다.
 데이터를 해독(decoding)하는 방법은 IMDB 데이터셋의 경우와 동일하다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">word_index</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">get_word_index</span><span class="p">()</span>
@@ -1020,7 +1035,7 @@ document.write(`
 </div>
 </section>
 <section id="id8">
-<h3><span class="section-number">4.2.2. </span>데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.2.2. </span>데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p><strong>입력 데이터셋 멀티-핫 인코딩</strong></p>
 <p>사용빈도가 10,000 미만인 단어만 사용하도록 하였기에
 IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,000인 멀티-핫 인코딩 한다.</p>
@@ -1071,7 +1086,7 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 </div>
 </section>
 <section id="id9">
-<h3><span class="section-number">4.2.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.2.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <p><strong>모델 구성</strong></p>
 <p>IMDB 데이터셋의 경우와는 달리 3 개 이상의 클래스(범주)로 분류하는
 <strong>다중 클래스 분류</strong> 모델을 구성하고 훈련시킨다.</p>
@@ -1133,7 +1148,7 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 </div>
 </section>
 <section id="id10">
-<h3><span class="section-number">4.2.4. </span>모델 훈련과 활용<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.2.4. </span>모델 훈련과 활용<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
 <p>훈련 방식은 영화 후기 이진 분류 모델의 경우와 동일하다.
 대신에 검증셋의 크기를 1,000으로 지정한다.
 참고로, 검증셋의 크기는 훈련셋의 크기에 비례해서 적절하게 정한다.</p>
@@ -1228,7 +1243,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </section>
 </section>
 <section id="id11">
-<h2><span class="section-number">4.3. </span>주택가격: 회귀<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.3. </span>주택가격: 회귀<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
 <p>이진 분류와 다중 클래스 분류는
 몇 개의 클래스를 가리키는 숫자들 중에 하나를 예측하는 문제다.
 반면에 임의의 실수를 예측하는 문제는 <strong>회귀</strong><font size='2'>regression</font>라 부른다.
@@ -1240,11 +1255,11 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <p>로지스틱 회귀<font size='2'>logistic regression</font> 알고리즘는 분류 모델임에 주의하라.</p>
 </div>
 <section id="id12">
-<h3><span class="section-number">4.3.1. </span>데이터 준비: 보스턴 주택가격 데이터셋<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.1. </span>데이터 준비: 보스턴 주택가격 데이터셋<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
 <p>사용하는 데이터셋은
 1970년대 중반의 미국 보스턴 시 외곽의 총 506개 지역에서 수집된 통계 자료를 담고 있다.
 통계는  지역별 중간 주택가격과 함께 다음 13가지 내용을 조사했다.</p>
-<table class="table">
+<div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>특성</p></th>
 <th class="head text-left"><p>의미</p></th>
@@ -1292,6 +1307,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </tr>
 </tbody>
 </table>
+</div>
 <p>언급된 13가지 데이터가 주어졌을 때 해당 구역의 중간 주택가격을 예측하는 회귀 모델을
 훈련시켜야 한다.</p>
 <div class="hint admonition">
@@ -1316,7 +1332,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </div>
 </section>
 <section id="id13">
-<h3><span class="section-number">4.3.2. </span>데이터 전처리: 표준화<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.2. </span>데이터 전처리: 표준화<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
 <p>특성에 따라 사용되는 값들의 크기 정도<font size='2'>scale</font>가 다르다.
 어떤 특성은 0과 1사이의 값을, 다른 특성은 100단위의 값을 포함하기도 한다.
 그런데 머신러닝 모델은 기본적으로 모든 특성이 동일한 크기 정도의
@@ -1349,7 +1365,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </div>
 </section>
 <section id="id14">
-<h3><span class="section-number">4.3.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id14" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>데이터셋이 작으므로 출력층을 제외하고 두 개 층만 사용한다.
 머신러닝 모델은 훈련셋이 작을 수록 과대적합을 보다 잘하기 때문이
 이를 방지하기 위해 보다 단순한 모델을 사용한다.</p>
@@ -1378,7 +1394,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </div>
 </section>
 <section id="id15">
-<h3><span class="section-number">4.3.4. </span>모델 훈련과 활용<a class="headerlink" href="#id15" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.4. </span>모델 훈련과 활용<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p>데이터셋이 작기에 훈련 중에 사용할 검증 세트를 따로 분리하는 것은 훈련의 효율성을 떨어뜨린다.
 대신에 <strong>K-겹 교차검증</strong><font size='2'>K-fold cross-validation</font>을 사용한다.
 아래 이미지는 3-겹 교차검증을 사용할 때 훈련 중에 사용되는 훈련셋과 검증셋의 사용법을 보여준다.</p>
@@ -1431,7 +1447,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </pre></div>
 </div>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting02.png" style="width:600px;"></div><div class="proof example admonition" id="exp-k-fold">
-<p class="admonition-title"><span class="caption-number">Example 4.1 </span> (사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스)</p>
+<p class="admonition-title"><span class="caption-number">Example 5.1 </span> (사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스)</p>
 <section class="example-content" id="proof-content">
 <p>사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스를 이용하면 봅다 간단하게 K-겹 교차검증을 진행할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
@@ -1489,7 +1505,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </div>
 </section>
 <section id="b">
-<h3><span class="section-number">4.3.5. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련<a class="headerlink" href="#b" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">5.3.5. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련<a class="headerlink" href="#b" title="Link to this heading">#</a></h3>
 <p><strong>훈련 1편</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제외하고 이전과 동일한 방식으로 모델을 훈련시킨 결과는 다음과 같이 비슷하게 작동한다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting03.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련된 모델의 테스트셋에 대한 성능을 평가하면
@@ -1545,7 +1561,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </section>
 </section>
 <section id="id16">
-<h2><span class="section-number">4.4. </span>연습문제<a class="headerlink" href="#id16" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">5.4. </span>연습문제<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-getting_started_with_neural_networks.ipynb">(실습) 신경망 활용 처음부터 끝까지: 분류와 회귀</a></p></li>
 </ol>
@@ -1579,8 +1595,8 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
               
               
               
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                <footer class="prev-next-footer d-print-none">
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="keras_and_tf.html"
@@ -1588,7 +1604,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>케라스와 텐서플로우</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>케라스와 텐서플로우</p>
       </div>
     </a>
     <a class="right-next"
@@ -1596,7 +1612,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">5. </span>머신러닝 모델 훈련 기법</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>머신러닝 모델 훈련 기법</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1609,35 +1625,36 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-imdb">4.1. 영화 후기: 이진 분류</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">4.1.1. 데이터 준비: IMDB 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.1.2. 데이터 전처리: 벡터화와 멀티-핫 인코딩</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.1.3. 모델 구성과 컴파일</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.1.4. 모델 훈련과 활용</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-imdb">5.1. 영화 후기: 이진 분류</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">5.1.1. 데이터 준비: IMDB 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">5.1.2. 데이터 전처리: 벡터화와 멀티-핫 인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">5.1.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">5.1.4. 모델 훈련과 활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.2. 뉴스 기사: 다중 클래스 분류</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.2.1. 데이터 준비: 로이터 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.2.2. 데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.2.3. 모델 구성과 컴파일</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4.2.4. 모델 훈련과 활용</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">5.2. 뉴스 기사: 다중 클래스 분류</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">5.2.1. 데이터 준비: 로이터 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">5.2.2. 데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">5.2.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">5.2.4. 모델 훈련과 활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">4.3. 주택가격: 회귀</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">4.3.1. 데이터 준비: 보스턴 주택가격 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">4.3.2. 데이터 전처리: 표준화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">4.3.3. 모델 구성과 컴파일</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">4.3.4. 모델 훈련과 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">4.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">5.3. 주택가격: 회귀</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">5.3.1. 데이터 준비: 보스턴 주택가격 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">5.3.2. 데이터 전처리: 표준화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">5.3.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">5.3.4. 모델 훈련과 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">5.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">4.4. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">5.4. 연습문제</a></li>
 </ul>
   </nav></div>
 
@@ -1659,6 +1676,7 @@ By 코딩알지
   
   <div class="footer-item">
     
+
   </div>
   
   <div class="footer-item">
@@ -1678,8 +1696,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>

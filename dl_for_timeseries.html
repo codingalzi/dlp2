@@ -1,73 +1,68 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>10. 시계열 분석 &#8212; Deep Learning with Python(2판)</title>
+    <title>11. 시계열 분석 &#8212; Deep Learning with Python(2판)</title>
   
   
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'dl_for_timeseries';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="11. 자연어 처리" href="dl_for_text.html" />
-    <link rel="prev" title="9. 고급 컴퓨터 비전" href="computer_vision_advanced.html" />
+    <link rel="next" title="12. 자연어 처리" href="dl_for_text.html" />
+    <link rel="prev" title="10. 고급 컴퓨터 비전" href="computer_vision_advanced.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -77,28 +72,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -120,12 +110,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -140,6 +138,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="intro.html">
@@ -148,28 +149,38 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     <p class="title logo__title">Deep Learning with Python(2판)</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="tf_tensor.html">2.7. 부록: 텐서플로우 텐서</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">3. 케라스와 텐서플로우</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started_with_neural_networks.html">4. 신경망 활용 처음부터 끝까지: 분류와 회귀</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">5. 머신러닝 모델 훈련 기법</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">6. 머신러닝 작업 흐름 일반</a></li>
-<li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">7. 케라스 신경망 모델 활용법</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computer_vision_intro.html">8. 컴퓨터 비전 기초: 합성곱 신경망</a></li>
-<li class="toctree-l1"><a class="reference internal" href="computer_vision_advanced.html">9. 고급 컴퓨터 비전</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. 시계열 분석</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dl_for_text.html">11. 자연어 처리</a></li>
-<li class="toctree-l1"><a class="reference internal" href="generative_dl.html">12. 생성 모델</a></li>
-<li class="toctree-l1"><a class="reference internal" href="best_practices.html">13. 딥러닝 실전 적용</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tf_tensor.html">3. 텐서</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">4. 케라스와 텐서플로우</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_neural_networks.html">5. 신경망 활용 처음부터 끝까지: 분류와 회귀</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">6. 머신러닝 모델 훈련 기법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">7. 머신러닝 작업 흐름 일반</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">8. 케라스 신경망 모델 활용법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_intro.html">9. 컴퓨터 비전 기초: 합성곱 신경망</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_advanced.html">10. 고급 컴퓨터 비전</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">11. 시계열 분석</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dl_for_text.html">12. 자연어 처리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative_dl.html">13. 생성 모델</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">14. 딥러닝 실전 적용</a></li>
 </ul>
 
     </div>
@@ -185,7 +196,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -194,14 +205,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -323,26 +334,28 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -363,15 +376,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10.1. 시계열 분석 사례</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">10.2. 시계열 분석 사례: 온도 예측</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">10.2.1. 데이터셋 준비</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">10.2.2. 간단한 순환 모델 성능</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.1. 시계열 분석 사례</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.2. 시계열 분석 사례: 온도 예측</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.2.1. 데이터셋 준비</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.2.2. 간단한 순환 모델 성능</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">10.3. 순환 신경망 이해</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">10.4. 순환 신경망 고급 활용법</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">10.5. 연습 문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">11.3. 순환 신경망 이해</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.4. 순환 신경망 고급 활용법</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.5. 연습 문제</a></li>
 </ul>
             </nav>
         </div>
@@ -381,10 +394,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ch-timeseries">
-<span id="id1"></span><h1><span class="section-number">10. </span>시계열 분석<a class="headerlink" href="#ch-timeseries" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">11. </span>시계열 분석<a class="headerlink" href="#ch-timeseries" title="Link to this heading">#</a></h1>
 <p><strong>감사의 글</strong></p>
 <p>아래 내용은 프랑소와 숄레의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
@@ -402,7 +415,7 @@ document.write(`
 <li><p>순환 신경망 고급 활용법</p></li>
 </ul>
 <section id="id2">
-<h2><span class="section-number">10.1. </span>시계열 분석 사례<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.1. </span>시계열 분석 사례<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
 <p><strong>시계열</strong><font size='2'>timeseries</font> 데이터는 일정 간격으로 측정된 값들로 이루어진 데이터이다.</p>
 <ul class="simple">
 <li><p>일일 단위 증시 가격</p></li>
@@ -427,10 +440,10 @@ document.write(`
 </ul>
 </section>
 <section id="id3">
-<h2><span class="section-number">10.2. </span>시계열 분석 사례: 온도 예측<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.2. </span>시계열 분석 사례: 온도 예측<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
 <p>24시간 이후의 온도를 예측하는 <strong>순환 신경망</strong><font size='2'>recurrent neural network</font>(RNN) 모델을 구현한다.</p>
 <section id="id4">
-<h3><span class="section-number">10.2.1. </span>데이터셋 준비<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.2.1. </span>데이터셋 준비<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <p>독일 예나<font size='2'>Jena</font>시에 위치한
 막스-플랑크 생지화확<font size='2'>Max-Planck Biogeochemistry</font> 연구소가
 온도, 기압, 풍향 등 14 종류의 기상 데이터를 10분 단위로 측정해서 수집한 데이터셋이다.
@@ -489,7 +502,7 @@ x-축에 사용되었다.
 5일 단위 시퀀스 데이터를 준비해야 하지만
 <code class="docutils literal notranslate"><span class="pre">timeseries_dataset_from_array()</span></code> 함수를 활용하면 아주 쉽게 해결된다.</p>
 <div class="proof example admonition" id="exc-timeseries">
-<p class="admonition-title"><span class="caption-number">Example 10.1 </span> (<code class="docutils literal notranslate"><span class="pre">timeseries_dataset_from_array()</span></code> 함수 활용법)</p>
+<p class="admonition-title"><span class="caption-number">Example 11.1 </span> (<code class="docutils literal notranslate"><span class="pre">timeseries_dataset_from_array()</span></code> 함수 활용법)</p>
 <section class="example-content" id="proof-content">
 <p>아래 코드는 넘파이 어레이를 이용하여
 <code class="docutils literal notranslate"><span class="pre">timeseries_dataset_from_array()</span></code> 함수의 작동법을 설명한다.</p>
@@ -595,7 +608,7 @@ x-축에 사용되었다.
 </div>
 </section>
 <section id="id5">
-<h3><span class="section-number">10.2.2. </span>간단한 순환 모델 성능<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">11.2.2. </span>간단한 순환 모델 성능<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>모델 성능의 최저 기준선으로 24시간 후의 온도를 현재 온도로 예측하는 것을 사용한다.
 즉, 내일 이 시간 온도가 현재 온도와 별 차이가 없다는 가정을 이용한다.
 그러면 검증셋과 테스트셋에 대한 평균절대오차는 각각 2.44와 2.62이다.</p>
@@ -617,7 +630,7 @@ x-축에 사용되었다.
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p></section>
 </section>
 <section id="id6">
-<h2><span class="section-number">10.3. </span>순환 신경망 이해<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.3. </span>순환 신경망 이해<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
 <p><strong>순전파 신경망 대 순환 신경망</strong></p>
 <p>밀집층 <code class="docutils literal notranslate"><span class="pre">Dense</span></code>와 합성곱층 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>는 샘플들 사이의 순서를 고려하지 않으며,
 입력 샘플이 주어지면 그 샘플에 대한 출력값을 계산해서 다음 층으로 바로 전달한다.
@@ -737,7 +750,7 @@ x-축에 사용되었다.
 </div>
 </section>
 <section id="id7">
-<h2><span class="section-number">10.4. </span>순환 신경망 고급 활용법<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.4. </span>순환 신경망 고급 활용법<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
 <p>순환 신경망의 성능을 끌어 올리는 세 가지 기법을 소개한다.</p>
 <ul class="simple">
 <li><p>순환 드랍아웃<font size='2'>recurrent dropout</font> 적용</p></li>
@@ -824,7 +837,7 @@ cuDNN을 잘 활용할 수는 있지만 메모리가 훨씬 많이 더 요구된
 </ul>
 </section>
 <section id="id8">
-<h2><span class="section-number">10.5. </span>연습 문제<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">11.5. </span>연습 문제<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-dl_for_timeseries.ipynb">(실습) 시계열 분석</a></p></li>
 </ol>
@@ -858,8 +871,8 @@ cuDNN을 잘 활용할 수는 있지만 메모리가 훨씬 많이 더 요구된
               
               
               
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                <footer class="prev-next-footer d-print-none">
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="computer_vision_advanced.html"
@@ -867,7 +880,7 @@ cuDNN을 잘 활용할 수는 있지만 메모리가 훨씬 많이 더 요구된
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>고급 컴퓨터 비전</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>고급 컴퓨터 비전</p>
       </div>
     </a>
     <a class="right-next"
@@ -875,7 +888,7 @@ cuDNN을 잘 활용할 수는 있지만 메모리가 훨씬 많이 더 요구된
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>자연어 처리</p>
+        <p class="prev-next-title"><span class="section-number">12. </span>자연어 처리</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -888,21 +901,22 @@ cuDNN을 잘 활용할 수는 있지만 메모리가 훨씬 많이 더 요구된
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10.1. 시계열 분석 사례</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">10.2. 시계열 분석 사례: 온도 예측</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">10.2.1. 데이터셋 준비</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">10.2.2. 간단한 순환 모델 성능</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">11.1. 시계열 분석 사례</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">11.2. 시계열 분석 사례: 온도 예측</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11.2.1. 데이터셋 준비</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">11.2.2. 간단한 순환 모델 성능</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">10.3. 순환 신경망 이해</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">10.4. 순환 신경망 고급 활용법</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">10.5. 연습 문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">11.3. 순환 신경망 이해</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">11.4. 순환 신경망 고급 활용법</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">11.5. 연습 문제</a></li>
 </ul>
   </nav></div>
 
@@ -924,6 +938,7 @@ By 코딩알지
   
   <div class="footer-item">
     
+
   </div>
   
   <div class="footer-item">
@@ -943,8 +958,8 @@ By 코딩알지
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
