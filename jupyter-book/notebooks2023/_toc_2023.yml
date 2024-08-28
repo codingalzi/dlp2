@@ -1,0 +1,24 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+options:
+  numbered: True
+#  only_build_toc_files: true
+chapters:
+- file: what_is_deep_learning
+- file: building_blocks_of_NN
+  sections:
+  - file: tf_tensor
+- file: keras_and_tf
+- file: getting_started_with_neural_networks
+- file: fundamentals_of_ml
+- file: unversal_workflow_of_ml
+- file: working_with_keras
+- file: computer_vision_intro
+- file: computer_vision_advanced
+- file: dl_for_timeseries
+- file: dl_for_text
+- file: generative_dl
+- file: best_practices
