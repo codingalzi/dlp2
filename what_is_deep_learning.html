@@ -377,13 +377,13 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.1. 인공지능, 머신러닝, 딥러닝</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1.1. 인공지능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1.1. 인공지능의 기원</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.1.2. 머신러닝</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.1.3. 딥러닝 모델</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.1.4. 딥러닝의 성과와 전망</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.2. 머신러닝 역사</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.2. 딥러닝의 성과와 전망</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.3. 머신러닝 역사</a></li>
 </ul>
             </nav>
         </div>
@@ -406,7 +406,7 @@ document.write(`
 <p><div style="text-align: center">&lt;그림 출처: <a href="http://www.kyobobook.co.kr/readIT/readITColumnView.laf?thmId=00198&sntnId=14142">교보문고(에이지 오브 머신러닝)</a>&gt;</div></p><p><strong>관계 2: 역사</strong></p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ai-ml-relation2.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://blogs.nvidia.com/blog/2016/07/29/whats-difference-artificial-intelligence-machine-learning-deep-learning-ai/">NVIDIA 블로그</a>&gt;</div></p><section id="id3">
-<h3><span class="section-number">1.1.1. </span>인공지능<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">1.1.1. </span>인공지능의 기원<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p>인공지능: 인간의 지적 활동을 모방하여 컴퓨터로 자동화하려는 시도. 머신러닝과 딥러닝을 포괄함.</p></li>
 <li><p>(1950년대) 컴퓨터가 생각할 수 있는가? 라는 질문에서 출발</p></li>
@@ -434,14 +434,9 @@ document.write(`
 </section>
 <section id="id4">
 <h3><span class="section-number">1.1.2. </span>머신러닝<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>기본적으로 통계학과 연관되어 출발했지만 다음 두 측면에서 통계학과 다르다.</p>
-<p>첫째, 아주 큰 데이터(빅데이터)를 단순히 통계학적으로 다룰 수는 없다.
-예를 들어, 수 백만장의 사진을 통계 기법으로 다루지 못하지만 머신러닝은 가능하다.</p>
-<p>둘째, 머신러닝, 특히 딥러닝의 경우 수학적, 통계적 이론 보다는 공학적 접근법이 보다 중요하다.
-또한 소프트웨어와 하드웨어의 발전이 딥러닝 연구에 중요한 역할을 수행한다.</p>
-<p><strong>전통적 인공지능 프로그램 대 머신러닝 프로그램</strong></p>
+<p><strong>전통적 프로그램 대 머신러닝 프로그램</strong></p>
 <ul class="simple">
-<li><p>전통적 인공지능 프로그램</p>
+<li><p>전통적 프로그램</p>
 <ul>
 <li><p>컴퓨터가 수행해야 할 규칙을 순서대로 적어 놓은 프로그램 작성</p></li>
 <li><p>입력값이 지정되면 지정된 규칙을 수행하여 답을 생성함.</p></li>
@@ -460,11 +455,9 @@ document.write(`
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch01-a-new-programming-paradigm.png" style="width:400px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>머신러닝 모델 학습의 필수 요소</strong></p>
 <ul class="simple">
-<li><p><strong>입력 데이터셋(훈련셋)</strong>: 음성 인식 모델을 위한 음성 파일 데이터셋, 이미지 태깅 모델을 위한 사진 데이터셋 등등.</p></li>
-<li><p><strong>타깃 데이터셋</strong>: 음성 인식 작업의 경우 사람이 직접 파일 내용을 정리한 글 데이터셋,
-이미지 작업의 경우 ‘강아지’, ‘고양이’, 등 사람이 직접 붙힌 태그 데이터셋.</p></li>
-<li><p><strong>모델 평가지표</strong>: 알고리즘이 생성한 출력값과 실제 타깃 사이의 거리(차이) 측정법.
-거리를 줄이는 방향으로 알고리즘을 수정하는 과정을 <strong>학습</strong><font size='2'>learning</font>이라 부름.</p></li>
+<li><p>입력 데이터셋(훈련셋)</p></li>
+<li><p>타깃 데이터셋</p></li>
+<li><p>모델 평가지표</p></li>
 </ul>
 </section>
 <section id="id5">
@@ -472,14 +465,14 @@ document.write(`
 <p><strong>딥<font size='2'>deep</font>의 의미</strong></p>
 <p>딥러닝의 <strong>딥</strong><font size='2'>deep</font>은
 데이터 변환을 실행하는 <strong>층</strong><font size='2'>layer</font>을
-세 개 이상 연속적으로 활용하는 머신러닝 모델을 이용한 학습법을 가리킨다.
+세 개 이상 연속적으로 활용하는 머신러닝 모델을 활용한 학습법을 의미한다.
 반면에 <strong>쉘로우 러닝</strong><font size='2'>shallow learning</font>은
 한 두 개의 층만 사용하는 학습을 의미한다.</p>
 <p><strong>심층 신경망 모델</strong></p>
 <p>딥러닝 모델은 세 개 이상의 층으로 구성된 <strong>심층 신경망</strong><font size='2'>deep neural network</font>으로 구현된다.
-<strong>신경망</strong>은 여러 개의 층을 쌓아 올린 구조를 가리키며, 신경망의 깊이는 쌓아 올려진 층의 높이다.
-심층 신경망은 경우에 따라 수 십 또는 수 백 층으로 구성되기도 하는데(아래 그림 참고),
-모든 층에서 데이터 표현의 변환이 지정된 방식에 따라 <strong>자동</strong>으로 이루어진다.</p>
+<strong>신경망</strong>은 여러 개의 층을 쌓아 올린 구조를 가리키며, 신경망의 깊이는 쌓아 올려진 층의 높이다.</p>
+<p>심층 신경망은 경우에 따라 수 십 층 이상으로 구성되기도 하며(아래 그림 참고),
+각각의 층에서 데이터를 변환하여 최종적으로 원하는 결과를 쉽게 예측하는 값을 만들어내도록 유도한다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch14/homl14-15b.png" width="600"/></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">ImageNet Classification with Deep Convolutional Neural Networks</a>&gt;</div></p><div class="proof example admonition" id="exc-minist-transform">
 <p class="admonition-title"><span class="caption-number">Example 1.1 </span> (손글씨 숫자 인식)</p>
@@ -493,36 +486,23 @@ MNIST 손글씨 이미지를 변환해서 최종적으로
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p>
 </section>
 </div></section>
+</section>
 <section id="id6">
-<h3><span class="section-number">1.1.4. </span>딥러닝의 성과와 전망<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
-<p>지난 10여년 동안 다양한 분야에서 다음과 같은 혁명적 성과가 딥러닝에 의해 이루어졌으며
-거의 모든 산업 분야로 딥러닝의 활용이 확대되고 있다.
-하지만 단기적으로 너무 높은 기대를 갖는 것은 위험하다.
-그리고 실망이 너무 크면 AI에 대한 투자가 급속도로 줄어들어
-1970년대의 1차, 1990년대의 2차 AI 겨울(AI winter)가 올 수도 있다.</p>
-<p>2020년대 초반 현재 중요한 문제에 본격적으로 딥러닝이 적용되고 있지만 대중화는 아직이며
-여전히 딥러닝의 능력을 평가하는 정도라고 할 수 있다.
-그럼에도 불구하고 장기적으로 딥러닝이 가져올 가능성은 무궁무진하다고 말할 수 있으며
+<h2><span class="section-number">1.2. </span>딥러닝의 성과와 전망<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>2012년 이미지 분석 분야에서 딥러닝의 성과가 확인되고
+2016년 알파고 바둑 프로그램의 등장으로 딥러닝으로 인한 혁신이 본격화되었다.
+딥러닝이 가져올 가능성은 확실히 알 수 없지만
 인간의 삶을 획기적으로 변화시킬 것으로 기대된다.</p>
-</section>
-</section>
+<p>그럼에도 불구하여 딥러닝의 발전에 대한 너무 큰 기대를 가지면 위험할 수도 있다.
+실제로 1960년대와 1990년을 전후에서 AI 붐이 있었지만
+기대에 대한 실망이 너무 커서
+1970년대에 1차, 1990년대의 2차 AI 겨울(AI winter)가 왔었다.
+현재 진행중인 3차 AI 붐이 실제로 어떻게 전개될 것인가는 아무도 모른다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ai_winter.jpg" style="width:800px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://openreview.net/pdf?id=FsTfsV018-/">Is the Next Winter Coming for AI? The Elements of Making Secure and Robust AI</a>&gt;</div></p></section>
 <section id="id7">
-<h2><span class="section-number">1.2. </span>머신러닝 역사<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
-<p>산업계에서 사용되는 머신러닝 알고리즘의 대부분은 딥러닝 알고리즘이 아니다.
-딥러닝 모델의 훈련에 필요한 데이터가 너무 적을 수도 있고,
-아니면 딥러닝이 아닌 다른 알고리즘이 보다 좋은 성능을 발휘하기 때문이다.
-따라서 딥러닝 모델이 아닌 다른 머신러닝 모델에 대해서도 잘 알고 있어야 한다.</p>
-<p>여기서는 딥러닝 발전 이전의 머신러닝의 역사를 간단하게 살펴본다.
-아직도 많이 활용되는 머신러닝 모델에 대한 자세한 설명은
-<a class="reference external" href="https://codingalzi.github.io/handson-ml3/intro.html">핸즈온 머신러닝(3판)</a>을
-참고할 수 있다.</p>
-<p><strong>확률적 모델링</strong></p>
-<p>통계 법칙을 데이터분석에 적용하는 기법을 가리키며
-지금도 많이 활용된다.
-베이즈 정리<font size='2'>Bayes theorem</font>를 이용하는
-<strong>나이브 베이즈 알고리즘</strong>이 대표적이며
-현재와 같은 컴퓨터가 없었던 1950년대부터 데이터분석에 활용되었다.
-로지스틱 회귀 분류 모델이 나이브 베이즈 알고리즘과 유사하게 작동한다.</p>
+<h2><span class="section-number">1.3. </span>머신러닝 역사<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>딥러닝 발전 이전의 머신러닝의 역사를 간단하게 살펴본다.</p>
 <p><strong>초창기 신경망</strong></p>
 <p>신경망의 기본 아이디어는 1950년대부터 연구되기 시작했다.
 하지만 역전파를 어느 정도 제대로 실행할 수 있게 된 1990년 전후까지
@@ -533,17 +513,7 @@ MNIST 손글씨 이미지를 변환해서 최종적으로
 소개했으며 1990년대에 미국 우체국에서
 우편번호를 자동 분류하는 데에 이용되었다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/handson-ml2/master/slides/images/ch14/homl14-16.gif" width="400"/></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="http://yann.lecun.com/exdb/lenet/index.html">LeNet-T CNN</a>&gt;</div></p><p><strong>커널 기법</strong></p>
-<p>LeNet 합성곱 신경망의 성공에도 불구하고 1990년대의 신경망 모델의 활용은 매우 제한적이었다.
-그러다가 1995년에 소개된 <strong>커널 기법</strong><font size='2'>kernel method</font>이
-개발되면서 당시의 신경망 모델의 성능을 넘어서는 새로운 머신러닝 모델이 개발되었다.</p>
-<p>커널 기법을 사용하는 대표적인 머신러닝 모델이 바로 <strong>서포트 벡터 머신</strong>(SVM)이다.
-SVM은 비선형 방식으로 작동할 수 있는 분류 모델이며
-딥러닝이 보다 발전하기 전까지 최고 성능의 모델로 활용되었다
-(<a class="reference external" href="https://codingalzi.github.io/handson-ml3/svm.html">서포트 벡터 머신</a> 참고).
-SVM은 하지만 대용량 데이터셋 처리에 부적합하며, 무엇보다도
-손글씨 인식, 이미지 분류 등 지각 문제 해결에 활용되기 어렵다.</p>
-<p><strong>결정트리, 랜덤 포레스트, 그레이디언트 부스팅</strong></p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="http://yann.lecun.com/exdb/lenet/index.html">LeNet-T CNN</a>&gt;</div></p><p><strong>결정트리, 랜덤 포레스트, 그레이디언트 부스팅</strong></p>
 <p>2000년대에 들어서면서 <strong>결정트리</strong><font size='2'>decision tree</font>가
 인기를 얻기 시작했다.
 많은 수의 결정트리에 앙상블<font size='2'>ensemble</font> 기법을 적용한
@@ -554,7 +524,7 @@ SVM은 하지만 대용량 데이터셋 처리에 부적합하며, 무엇보다�
 2014년 소개되었으며
 랜덤 포레스트의 성능을 뛰어 넘는 모델에 활용되었다.
 현재까지도 딥러닝과 더불어 가장 많이 활용되는 기법중의 하나다.</p>
-<p><strong>딥러닝의 본격적 발전</strong></p>
+<p><strong>딥러닝의 본격적 발전 기점</strong></p>
 <p>2011년 GPU를 활용한 딥러닝 모델 훈련이 시작되었으며,
 이미지 분류 경진대회인 <a class="reference external" href="https://www.image-net.org/challenges/LSVRC/index.php">이미지넷의 ILSVRC</a>의
 2012년 대회에서 이전 년도 우승 모델의 성능을 훨씬 뛰어 넘는
@@ -584,26 +554,6 @@ top-1 정확도는 가장 높은 확률을 갖는 범주가 정답일 확율을 
 이런 경우 라벨 자체가 틀릴 수도 있다.
 실제로 ILSVRC 경진대회에 사용된 데이터셋에 사용된 라벨의 5% 정도는 잘못 지정됐다.</p>
 </div>
-<p>2015년 이후로 많은 영역에서 SVM, 결정트리 등 전통적인 머신러닝 모델이
-딥러닝 모델로 대체되기 시작했다.
-이유는 데이터에 내재되어 있지만 사람이 직접 알아내기는 매우 어렵거나 불가능한
-복잡한 구조를 딥러닝 모델은 데이터가 여러 층을 통과시키면서 스스로 찾아낼 수 있기 때문이다.
-예를 들어 이미지와 영상을 분석하는 컴퓨터 비전 분야에서 CNN의 활용이 앞도적이다.
-또한 번역, 통역, 문맥 이해 등 인식과 관련된 모든 분야에서
-딥러닝 모델의 성능이 나날이 발전하고 있다.</p>
-<p><strong>최근 머신러닝 분야 동향</strong></p>
-<p>2022년 캐글(Kaggle)에서 진행한 <a class="reference external" href="https://www.kaggle.com/competitions/kaggle-survey-2022/data">머신러닝 도구에 대한 설문조사</a> 결과
-사이킷런(Sckkit-learn)의 활용도가 가장 높았다.
-딥러닝 분야러 한정하면
-케라스<font size='2'>Keras</font>와 텐서플로우<font size='2'>TensorFlow</font>의
-조합이 가장 많이 사용되었으며, 파이토치<font size='2'>PyTorch</font>가 뒤를 이었다.
-그레이디언트 부스팅 모델은 머신러닝 연구에서 여전히 인기가 많다.</p>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch01-kaggle_survey2022.jpg" style="width:700px;"></div><p>지난 4년 동안의 머신러닝 도구의 인기도 변화도 비슷하다.</p>
-<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch01-dlp2-kaggle-survey-ML-framework.png?raw=true" style="width:550px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://storage.googleapis.com/kaggle-media/surveys/Kaggle's%20State%20of%20Machine%20Learning%20and%20Data%20Science%202021.pdf">www.kaggle.com/kaggle-survey-2021(36쪽)</a>&gt;</div></p><p>이미지 분류, 텍스트 분석, 음성 인식 등 지적 활동과 관련된 문제의 해결을 위해서는 케라스, 파이토치와
-같은 딥러닝 프레임워크가 일반적으로 사용되고,
-그 이외의 경우엔 사이킷런과 XGBoost, LightGBM 등 그레이디언트 부스팅 기법의 조합이
-많이 활용된다.</p>
 <p><strong>딥러닝 발전 동력</strong></p>
 <p>이미지 분석과 시계열 데이터 분석이 2012년 이후 획기적으로 발전하였지만
 이런 획기적 발전에 기여한 아래 기법은 이미 1990년대에 제시되었다.</p>
@@ -685,13 +635,13 @@ top-1 정확도는 가장 높은 확률을 갖는 범주가 정답일 확율을 
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">1.1. 인공지능, 머신러닝, 딥러닝</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1.1. 인공지능</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1.1.1. 인공지능의 기원</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">1.1.2. 머신러닝</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">1.1.3. 딥러닝 모델</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.1.4. 딥러닝의 성과와 전망</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.2. 머신러닝 역사</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">1.2. 딥러닝의 성과와 전망</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">1.3. 머신러닝 역사</a></li>
 </ul>
   </nav></div>
 
