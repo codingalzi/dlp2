@@ -454,6 +454,13 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-09 23:48:11.178478: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-09-09 23:48:11.229557: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-09-09 23:48:11.244522: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+</pre></div>
+</div>
+</div>
 </div>
 <p>넘파이 어레이의 <strong>차원</strong>은 어레이 정의에 사용된 <strong>축</strong><font size='2'>axis</font>의 개수로
 결정되며 <strong>랭크</strong><font size='2'>rank</font>라 불리기도 한다.</p>
@@ -604,7 +611,7 @@ float64
 일반적으로 2D 어레이로 제공된다.</p>
 <ul class="simple">
 <li><p>샘플: 10개의 특성 사용. 따라서 <code class="docutils literal notranslate"><span class="pre">(10,)</span></code> 모양의 벡터로 표현됨.</p></li>
-<li><p>데이터셋: 20,640개의 구역별 데이터 포함. 따라서 <code class="docutils literal notranslate"><span class="pre">(20640,</span> <span class="pre">10)</span></code> 모양의 2D 텐서로 표현 가능.
+<li><p>데이터셋: 20,640개의 구역별 데이터 포함. 따라서 <code class="docutils literal notranslate"><span class="pre">(20640,</span> <span class="pre">10)</span></code> 모양의 2D 어레이로 표현 가능.
 <br>
 <img src="https://raw.githubusercontent.com/codingalzi/handson-ml3/master/jupyter-book/imgs/ch02/housing-data.png" style="width:600px;"></p></li>
 </ul>
@@ -614,7 +621,7 @@ float64
 <li><p>샘플: <code class="docutils literal notranslate"><span class="pre">28x28</span></code> 크기의 (흑백) 손글씨 사진.
 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28)</span></code> 모양의 2D 텐서로 표현 가능.</p></li>
 <li><p>MNIST 훈련 데이터셋: 총 6만개의 (흑백) 손글씨 사진으로 구성됨.
-<code class="docutils literal notranslate"><span class="pre">(60000,</span> <span class="pre">28,</span> <span class="pre">28)</span></code> 모양의 3D 텐서로 표현 가능.</p></li>
+<code class="docutils literal notranslate"><span class="pre">(60000,</span> <span class="pre">28,</span> <span class="pre">28)</span></code> 모양의 3D 어레이로 표현 가능.</p></li>
 </ul>
 <p><strong>4D 텐서 실전 활용 예제</strong></p>
 <p>컬러 사진으로 구성된 데이터셋은
@@ -660,6 +667,27 @@ float64
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1725893293.962948    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
+Your kernel may have been built without NUMA support.
+I0000 00:00:1725893294.068876    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
+Your kernel may have been built without NUMA support.
+I0000 00:00:1725893294.068921    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
+Your kernel may have been built without NUMA support.
+I0000 00:00:1725893294.071752    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
+Your kernel may have been built without NUMA support.
+I0000 00:00:1725893294.071802    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
+Your kernel may have been built without NUMA support.
+I0000 00:00:1725893294.071816    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
+Your kernel may have been built without NUMA support.
+I0000 00:00:1725893294.266545    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
+Your kernel may have been built without NUMA support.
+I0000 00:00:1725893294.266593    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
+Your kernel may have been built without NUMA support.
+I0000 00:00:1725893294.266623    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
+Your kernel may have been built without NUMA support.
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
 [[1. 2.]
  [3. 4.]], shape=(2, 2), dtype=float32)
@@ -667,7 +695,7 @@ float64
 </div>
 </div>
 </div>
-<p>넘파이 어레이의 경우와 거의 유사하게 다양한 텐서를 생성하는 함수들이 제공된다.
+<p>넘파이 어레이의 경우와 거의 유사하게 다양한 불변 텐서를 생성하는 함수들이 제공된다.
 <code class="docutils literal notranslate"><span class="pre">tf.ones()</span></code> 함수는 1로만 이루어진 불변 텐서를 생성한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -714,9 +742,9 @@ float64
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
-[[ 1.3731117 ]
- [ 0.5951849 ]
- [-0.28321794]], shape=(3, 1), dtype=float32)
+[[ 0.23775762]
+ [-1.3753685 ]
+ [-2.166317  ]], shape=(3, 1), dtype=float32)
 </pre></div>
 </div>
 </div>
@@ -733,9 +761,9 @@ float64
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
-[[0.06819296]
- [0.9727112 ]
- [0.16666853]], shape=(3, 1), dtype=float32)
+[[0.22281778]
+ [0.28075564]
+ [0.9108522 ]], shape=(3, 1), dtype=float32)
 </pre></div>
 </div>
 </div>
@@ -752,7 +780,7 @@ float64
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
 
 <span class="ne">TypeError</span>: &#39;tensorflow.python.framework.ops.EagerTensor&#39; object does not support item assignment
@@ -792,9 +820,9 @@ float64
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Variable &#39;Variable:0&#39; shape=(3, 1) dtype=float32, numpy=
-array([[ 0.84899724],
-       [-1.3992549 ],
-       [-0.22706768]], dtype=float32)&gt;
+array([[ 1.3996521 ],
+       [-0.91019785],
+       [ 0.08374712]], dtype=float32)&gt;
 </pre></div>
 </div>
 </div>
@@ -826,7 +854,7 @@ array([[1.],
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">v</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
 
 <span class="nn">File ~/miniconda3/lib/python3.12/site-packages/tensorflow/python/ops/weak_tensor_ops.py:142,</span> in <span class="ni">weak_tensor_binary_op_wrapper.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
@@ -948,12 +976,12 @@ array([[2.],
 </div>
 </div>
 <p><strong>행렬: 2차원 텐서</strong></p>
-<p>아래 <code class="docutils literal notranslate"><span class="pre">d2_tensor</span></code>는 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 키워드 인자를 이용하여 자료형을 <code class="docutils literal notranslate"><span class="pre">float16</span></code>으로 지정하였다.</p>
+<p>아래 <code class="docutils literal notranslate"><span class="pre">d2_tensor</span></code>는 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 키워드 인자를 이용하여 자료형을 <code class="docutils literal notranslate"><span class="pre">tf.int16</span></code>으로 지정하였다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d2_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
                          <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-                         <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+                         <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">d2_tensor</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">()</span>
@@ -966,20 +994,20 @@ array([[2.],
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
-[[1. 2.]
- [3. 4.]
- [5. 6.]], shape=(3, 2), dtype=float16)
+[[1 2]
+ [3 4]
+ [5 6]], shape=(3, 2), dtype=int16)
 
 차원: 2
 모양: (3, 2)
-항목 자료형: &lt;dtype: &#39;float16&#39;&gt;
+항목 자료형: &lt;dtype: &#39;int16&#39;&gt;
 </pre></div>
 </div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">dtype</span></code>을 지정하지 않았다면 <code class="docutils literal notranslate"><span class="pre">d0_tensor</span></code>의 경우처럼 <code class="docutils literal notranslate"><span class="pre">float32</span></code>로
+<p><code class="docutils literal notranslate"><span class="pre">dtype</span></code>을 지정하지 않았다면 <code class="docutils literal notranslate"><span class="pre">d0_tensor</span></code>의 경우처럼 <code class="docutils literal notranslate"><span class="pre">int32</span></code>로
 <code class="docutils literal notranslate"><span class="pre">dtype</span></code>이 자동 지정되었을 것이다.
-참고로 <code class="docutils literal notranslate"><span class="pre">float32</span></code>는 <code class="docutils literal notranslate"><span class="pre">float16</span></code> 보다 보다 큰 정수를 다룰 수 있으며
+참고로 <code class="docutils literal notranslate"><span class="pre">int32</span></code>는 <code class="docutils literal notranslate"><span class="pre">int16</span></code> 보다 보다 큰 정수를 다룰 수 있으며
 따라서 보다 많은 메모리와 계산 시간이 소비된다.</p>
 <p>딥러닝 모델은 경우에 따라 매우 큰 텐서 연산을 실행해야 하기에
 계산의 시간적, 공간적 효율성이 매우 중요하다.
