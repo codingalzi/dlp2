@@ -419,17 +419,18 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="ch-tensor">
 <span id="id1"></span><h1><span class="section-number">3. </span>텐서<a class="headerlink" href="#ch-tensor" title="Link to this heading">#</a></h1>
 <p><strong>참고</strong></p>
-<p><a class="reference external" href="https://www.tensorflow.org/guide/tensor">Introduction to Tensors</a>를 요약, 정리한 내용입니다.</p>
+<p><a class="reference external" href="https://www.tensorflow.org/guide/tensor">Introduction to Tensors</a>를 참고하였습니다.</p>
 <p><strong>소스코드</strong></p>
 <p>여기서 언급되는 코드를 <a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-tf_tensor.ipynb">(구글 코랩) 부록: 텐서플로우 텐서</a>에서 직접 실행할 수 있다.</p>
 <p><strong>슬라이드</strong></p>
 <p>본문 내용을 요약한 <a class="reference external" href="https://github.com/codingalzi/dlp2/raw/master/slides/slides-tf_tensor.pdf">슬라이드</a>를 다운로드할 수 있다.</p>
 <p><strong>주요 내용</strong></p>
 <ul class="simple">
+<li><p>넘파이 어레이와 텐서</p></li>
+<li><p>텐서의 종류</p></li>
 <li><p>텐서의 모양, 랭크, 축, 크기</p></li>
-<li><p>텐서 인덱싱/슬라이싱</p></li>
-<li><p>텐서 모양 변환</p></li>
-<li><p>다양한 종류의 텐서</p></li>
+<li><p>텐서 연산</p></li>
+<li><p>텐서 변환</p></li>
 </ul>
 <section id="id2">
 <h2><span class="section-number">3.1. </span>넘파이 어레이와 텐서<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
@@ -454,17 +455,10 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-09-09 23:48:11.178478: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:485] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
-2024-09-09 23:48:11.229557: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:8454] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
-2024-09-09 23:48:11.244522: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1452] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-</pre></div>
-</div>
-</div>
 </div>
 <p>넘파이 어레이의 <strong>차원</strong>은 어레이 정의에 사용된 <strong>축</strong><font size='2'>axis</font>의 개수로
 결정되며 <strong>랭크</strong><font size='2'>rank</font>라 불리기도 한다.</p>
-<p><strong>0차원(0D) 어레이 (랭크-0 어레이)</strong></p>
+<p><strong>0차원(0D) 어레이</strong></p>
 <ul class="simple">
 <li><p>정수 한 개, 부동소수점 한 개 등 하나의 수를 표현하는 어레이.</p></li>
 <li><p><strong>스칼라</strong><font size='2'>scalar</font>라고도 불림.</p></li>
@@ -478,7 +472,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p><strong>1차원(1D) 어레이 (랭크-1 어레이)</strong></p>
+<p><strong>1차원(1D) 어레이</strong></p>
 <ul class="simple">
 <li><p>1열로 나열된 값들의 리스트와 같은 형식의 어레이.</p></li>
 <li><p><strong>벡터</strong><font size='2'>vector</font>로도 불리며 한 개의 축을 가짐.</p></li>
@@ -490,7 +484,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p><strong>2차원(2D) 어레이 (랭크-2 어레이)</strong></p>
+<p><strong>2차원(2D) 어레이</strong></p>
 <ul class="simple">
 <li><p>행<font size='2'>row</font>과 열<font size='2'>column</font> 두 개의 축을 가짐.</p></li>
 <li><p><strong>행렬</strong><font size='2'>matrix</font>로도 불림.</p></li>
@@ -504,7 +498,7 @@ document.write(`
 </div>
 </div>
 </div>
-<p><strong>3차원(3D) 어레이 (랭크-3 어레이)</strong></p>
+<p><strong>3차원(3D) 어레이</strong></p>
 <ul class="simple">
 <li><p>행, 열, 깊이 세 개의 축 사용.</p></li>
 <li><p>컬러 이미지 등을 표현할 때 사용됨.</p></li>
@@ -667,27 +661,6 @@ float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-I0000 00:00:1725893293.962948    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
-Your kernel may have been built without NUMA support.
-I0000 00:00:1725893294.068876    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
-Your kernel may have been built without NUMA support.
-I0000 00:00:1725893294.068921    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
-Your kernel may have been built without NUMA support.
-I0000 00:00:1725893294.071752    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
-Your kernel may have been built without NUMA support.
-I0000 00:00:1725893294.071802    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
-Your kernel may have been built without NUMA support.
-I0000 00:00:1725893294.071816    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
-Your kernel may have been built without NUMA support.
-I0000 00:00:1725893294.266545    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
-Your kernel may have been built without NUMA support.
-I0000 00:00:1725893294.266593    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
-Your kernel may have been built without NUMA support.
-I0000 00:00:1725893294.266623    5493 cuda_executor.cc:1001] could not open file to read NUMA node: /sys/bus/pci/devices/0000:01:00.0/numa_node
-Your kernel may have been built without NUMA support.
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tf.Tensor(
 [[1. 2.]
  [3. 4.]], shape=(2, 2), dtype=float32)
