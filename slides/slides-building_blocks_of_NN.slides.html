@@ -7790,70 +7790,7 @@ Epoch 5/5
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%EB%B0%B0%EC%B9%98-%ED%81%AC%EA%B8%B0,-%EC%8A%A4%ED%85%9D,-%EC%97%90%ED%8F%AC%ED%81%AC">배치 크기, 스텝, 에포크<a class="anchor-link" href="#%EB%B0%B0%EC%B9%98-%ED%81%AC%EA%B8%B0,-%EC%8A%A4%ED%85%9D,-%EC%97%90%ED%8F%AC%ED%81%AC">¶</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<ul>
-<li><p><strong>배치 크기</strong>: 훈련셋의 샘플을 일정 개수로 묶기 위해 지정된 양의 정수</p>
-</li>
-<li><p><strong>스텝</strong><font size="2">step</font>: 하나의 배치(묶음)에 대해 훈련하는 과정</p>
-<ul>
-<li>스텝이 끝날 때마다 사용된 배치 묶음에 대한 손실값 계산 후 가중치 조정</li>
-</ul>
-</li>
-<li><p><strong>에포크</strong><font size="2">epoch</font>: 훈련셋 전체의 모든 스텝을 한 번 실행하는 과정</p>
-</li>
-<li><p>MNIST 데이터셋 예제</p>
-<ul>
-<li>배치 크기(<code>batch_size</code>)가 128이기에 총 6만개의 훈련 샘플을 128개씩 묶음</li>
-<li>따라서 469(60,000/128 = 468.75)개의 배치 생성</li>
-<li>하나의 에포크 동안 총 469번의 스텝이 실행</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div align="center"><img alt="No description has been provided for this image" src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/step.jpg?raw=true" style="width:600px;"/></div>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="%EB%AA%A8%EB%8D%B8-%EC%98%88%EC%B8%A1%EA%B0%92-%EA%B3%84%EC%82%B0-%EA%B3%BC%EC%A0%95">모델 예측값 계산 과정<a class="anchor-link" href="#%EB%AA%A8%EB%8D%B8-%EC%98%88%EC%B8%A1%EA%B0%92-%EA%B3%84%EC%82%B0-%EA%B3%BC%EC%A0%95">¶</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<ul>
-<li>배치 크기가 1이라고 가정:</li>
-</ul>
 </div>
 </div>
 </div>
@@ -7888,6 +7825,7 @@ Epoch 5/5
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
 <li>층과 층 사이에서 이뤄지는 데이터 변환</li>
+<li>유닛과 유닛 사이의 모든 선에 가중치 관여</li>
 </ul>
 </div>
 </div>
@@ -7904,6 +7842,30 @@ Epoch 5/5
 </div>
 </div>
 </div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="%ED%96%89%EB%A0%AC-%EC%97%B0%EC%82%B0">행렬 연산<a class="anchor-link" href="#%ED%96%89%EB%A0%AC-%EC%97%B0%EC%82%B0">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>가중치 행렬과 입력값의 행렬 연산</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -7943,7 +7905,35 @@ Epoch 5/5
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="2.2.1.-%ED%9B%88%EB%A0%A8-%EC%8A%A4%ED%85%9D%EA%B3%BC-%EC%97%90%ED%8F%AC%ED%81%AC">2.2.1. 훈련 스텝과 에포크<a class="anchor-link" href="#2.2.1.-%ED%9B%88%EB%A0%A8-%EC%8A%A4%ED%85%9D%EA%B3%BC-%EC%97%90%ED%8F%AC%ED%81%AC">¶</a></h3>
+<h3 id="%EB%B0%B0%EC%B9%98-%ED%81%AC%EA%B8%B0,-%EC%8A%A4%ED%85%9D,-%EC%97%90%ED%8F%AC%ED%81%AC">배치 크기, 스텝, 에포크<a class="anchor-link" href="#%EB%B0%B0%EC%B9%98-%ED%81%AC%EA%B8%B0,-%EC%8A%A4%ED%85%9D,-%EC%97%90%ED%8F%AC%ED%81%AC">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li><p><strong>배치 크기</strong>: 훈련셋의 샘플을 일정 개수로 묶기 위해 지정된 양의 정수</p>
+</li>
+<li><p><strong>스텝</strong><font size="2">step</font>: 하나의 배치(묶음)에 대해 훈련하는 과정</p>
+<ul>
+<li>스텝이 끝날 때마다 사용된 배치 묶음에 대한 손실값 계산 후 가중치 조정</li>
+</ul>
+</li>
+<li><p><strong>에포크</strong><font size="2">epoch</font>: 훈련셋 전체의 모든 스텝을 한 번 실행하는 과정</p>
+</li>
+<li><p>MNIST 데이터셋 예제</p>
+<ul>
+<li>배치 크기(<code>batch_size</code>)가 128이기에 총 6만개의 훈련 샘플을 128개씩 묶음</li>
+<li>따라서 469(60,000/128 = 468.75)개의 배치 생성</li>
+<li>하나의 에포크 동안 총 469번의 스텝이 실행</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -7954,7 +7944,70 @@ Epoch 5/5
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%ED%9B%88%EB%A0%A8-%EC%8A%A4%ED%85%9D">훈련 스텝<a class="anchor-link" href="#%ED%9B%88%EB%A0%A8-%EC%8A%A4%ED%85%9D">¶</a></h3>
+<h3 id="2.2.1.-%ED%9B%88%EB%A0%A8-%EC%8A%A4%ED%85%9D%EA%B3%BC-%EC%97%90%ED%8F%AC%ED%81%AC">2.2.1. 훈련 스텝과 에포크<a class="anchor-link" href="#2.2.1.-%ED%9B%88%EB%A0%A8-%EC%8A%A4%ED%85%9D%EA%B3%BC-%EC%97%90%ED%8F%AC%ED%81%AC">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div align="center"><img alt="No description has been provided for this image" src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/step.jpg?raw=true" style="width:600px;"/></div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="%EB%B0%B0%EC%B9%98-%ED%81%AC%EA%B8%B0">배치 크기<a class="anchor-link" href="#%EB%B0%B0%EC%B9%98-%ED%81%AC%EA%B8%B0">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>훈련셋의 샘플을 일정 개수로 묶기 위해 지정된 양의 정수</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>예제:<ul>
+<li>배치 크기: 128</li>
+<li>MNIST 손글씨 이미지를 분류하는 모델은 128x784 모양의 2차원 어레이를 입력값으로 사용</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="%ED%9B%88%EB%A0%A8-%EC%8A%A4%ED%85%9D%EA%B3%BC-%EA%B2%BD%EC%82%AC%ED%95%98%EA%B0%95%EB%B2%95">훈련 스텝과 경사하강법<a class="anchor-link" href="#%ED%9B%88%EB%A0%A8-%EC%8A%A4%ED%85%9D%EA%B3%BC-%EA%B2%BD%EC%82%AC%ED%95%98%EA%B0%95%EB%B2%95">¶</a></h3>
 </div>
 </div>
 </div>
@@ -7972,7 +8025,9 @@ Epoch 5/5
 <div class="highlight"><pre><span></span><span class="n">softmax</span><span class="p">(</span><span class="n">W</span> <span class="n">X</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
 </pre></div>
 </li>
-<li><p>훈련 스텝: 배치 단위로 예측 결과의 오차를 이용하여 가중치 행렬 <code>W</code> 조정</p>
+<li><p>훈련 스텝: 배치 단위로 예측 결과의 오차를 이용하여 가중치 행렬 <code>W</code>와 편향 벡터 <code>b</code> 조정</p>
+</li>
+<li><p>경사하강법 활용됨</p>
 </li>
 </ul>
 </div>
@@ -8011,6 +8066,24 @@ Epoch 5/5
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
 <li>입력 데이터를 배치 단위로 여러 층을 통과시키면서 변환시키는 과정을 최적의 예측값을 만들 때까지 여러 에포크를 거치면서 진행</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>MNIST 데이터셋 예제<ul>
+<li>배치 크기(<code>batch_size</code>)가 128이기에 총 6만개의 훈련 샘플을 128개씩 묶음</li>
+<li>따라서 469(60,000/128 = 468.75)개의 배치 생성</li>
+<li>하나의 에포크 동안 총 469번의 스텝이 실행</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -8118,7 +8191,7 @@ Epoch 5/5
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%ED%9B%88%EB%A0%A8-%EB%A3%A8%ED%94%84(%EC%8A%A4%ED%85%9D)">훈련 루프(스텝)<a class="anchor-link" href="#%ED%9B%88%EB%A0%A8-%EB%A3%A8%ED%94%84(%EC%8A%A4%ED%85%9D)">¶</a></h3>
+<h3 id="%ED%9B%88%EB%A0%A8-%EB%A3%A8%ED%94%84">훈련 루프<a class="anchor-link" href="#%ED%9B%88%EB%A0%A8-%EB%A3%A8%ED%94%84">¶</a></h3>
 </div>
 </div>
 </div>
