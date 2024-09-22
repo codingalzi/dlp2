@@ -1,0 +1,932 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. 훈련 루프 들여다보기 &#8212; Deep Learning with Python(2판)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'training_loop_from_scratch';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="5. 케라스와 텐서플로우" href="keras_and_tf.html" />
+    <link rel="prev" title="3. 텐서" href="tf_tensor.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning with Python(2판)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tf_tensor.html">3. 텐서</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. 훈련 루프 들여다보기</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">5. 케라스와 텐서플로우</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_with_neural_networks.html">6. 신경망 활용 처음부터 끝까지: 분류와 회귀</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">7. 머신러닝 모델 훈련 기법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">8. 머신러닝 작업 흐름 일반</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">9. 케라스 신경망 모델 활용법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_intro.html">10. 컴퓨터 비전 기초: 합성곱 신경망</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_advanced.html">11. 고급 컴퓨터 비전</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dl_for_timeseries.html">12. 시계열 분석</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dl_for_text.html">13. 자연어 처리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative_dl.html">14. 생성 모델</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">15. 딥러닝 실전 적용</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/codingalzi/dlp2" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Ftraining_loop_from_scratch.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/training_loop_from_scratch.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>훈련 루프 들여다보기</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.1. 모델 지정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2. 옵티마이저, 손실 함수, 평가지표 지정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.3. 데이터셋 준비</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.4. 훈련 루프</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-function">4.5. <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> 데코레이터</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">4. </span>훈련 루프 들여다보기<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>신경망 모델의 훈련과 평가 과정을 보다 깊이 이해하기 위해 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드를 실행할 때
+텐서플로우 내부에서 훈련 루프가 처리되는 과정을 자세히 들여다본다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h2><span class="section-number">4.1. </span>모델 지정<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>설명을 위해 다시 한 번 간단한 MNIST 모델을 이용한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+                          <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+                          <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2><span class="section-number">4.2. </span>옵티마이저, 손실 함수, 평가지표 지정<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>모델 훈련에 필요한 요소인 옵티마이저, 손실 함수, 평가지표를 지정하기 위해
+일반적으로 모델의 <code class="docutils literal notranslate"><span class="pre">compile()</span></code> 메서드를 다음과 같이 실행한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>하지만 여기서는 모델의 훈련 루프를 직접 구현하려 하기에
+<code class="docutils literal notranslate"><span class="pre">compile()</span></code> 메서드를 실행하는 대신 컴파일 과정에 필요한 API를 직접 선언한다.</p>
+<p><strong>옵티마이저 API 선언</strong></p>
+<p>아래코드는 모델 컴파일에 사용된 문자열 <code class="docutils literal notranslate"><span class="pre">'rmsprop'</span></code>에 해당한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSprop</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>손실 함수 API 선언</strong></p>
+<p>0, 1, 2, 3 등 정수 형식의 타깃(레이블)을 예측하는 다중 클래스 분류 모델을 훈련시키는 경우
+보통 <code class="docutils literal notranslate"><span class="pre">SparseCategoricalCrossentropy</span></code> 클래스를 이용한다.
+아래코드는 모델 컴파일에 사용된 문자열 <code class="docutils literal notranslate"><span class="pre">'sparse_categorical_crossentropy'</span></code>에 해당한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">(</span><span class="n">from_logits</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>평가지표 API 선언</strong></p>
+<p>0, 1, 2, 3 등 정수 형식의 타깃(레이블)을 예측하는 다중 클래스 분류 모델을 훈련시키는 경우
+평가지표는 <code class="docutils literal notranslate"><span class="pre">SparseCategoricalAccuracy</span></code> 클래스를 이용한다.
+아래코드는 모델 컴파일에 사용된 문자열 <code class="docutils literal notranslate"><span class="pre">'accuracy'</span></code>에 해당한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_acc_metric</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()</span> <span class="c1"># 훈련셋 대상 평가</span>
+<span class="n">val_acc_metric</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()</span>   <span class="c1"># 검증셋 대상 평가</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">4.3. </span>데이터셋 준비<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>훈련과 평가에 사용된 데이터를 준비한다.</p>
+<p><strong>훈련셋, 검증셋, 테스트셋 지정</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
+
+<span class="c1"># 훈련셋과 테스트셋 가져오기</span>
+<span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">))</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">))</span>
+
+<span class="c1"># 훈련셋의 일부를 검증셋으로 지정</span>
+<span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="o">-</span><span class="mi">10000</span><span class="p">:]</span>
+<span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="o">-</span><span class="mi">10000</span><span class="p">:]</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[:</span><span class="o">-</span><span class="mi">10000</span><span class="p">]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="o">-</span><span class="mi">10000</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>배치 묶음 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 객체 지정</strong></p>
+<p>훈련셋과 검증셋을 대상으로 배치 묶음으로 구성된 모음 자료형 객체를 지정한다.
+이를 위해 텐서플로우의 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 클래스를 이용한다.
+<code class="docutils literal notranslate"><span class="pre">tf.data.Dataset</span></code> 머신러닝 모델 훈련에 사용되는 대용량 데이터의 효율적인 처리를
+지원하는 모음 자료형이다.
+배치 크기는 64로 지정한다.</p>
+<ul class="simple">
+<li><p>훈련용 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 객체 지정</p>
+<ul>
+<li><p>훈련셋 어레이와 훈련셋 타깃 어레이로부터 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 생성 후 배치로 묶은 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>으로 변환.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shuffle()</span></code> 메서드를 이용하여 데이터 무작위 섞기 실행 후 배치 묶음 생성</p></li>
+</ul>
+</li>
+<li><p>검증용 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 객체 지정</p>
+<ul>
+<li><p>검증셋 어레이와 검증셋 타깃 어레이로부터 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 생성 후 배치로 묶은 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>으로 변환.</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 배치크기: 64</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span>
+
+<span class="c1"># 훈련용 Dataset 객체</span>
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">buffer_size</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span>
+
+<span class="c1"># 검증용 Dataset 객체</span>
+<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">))</span>
+<span class="n">val_dataset</span> <span class="o">=</span> <span class="n">val_dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id5">
+<h2><span class="section-number">4.4. </span>훈련 루프<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>학습 및 평가를 진행하는 훈련 루프는 다음과 같다.</p>
+<ul class="simple">
+<li><p>지정된 에포크 수만큼 에포크를 반복하는 <code class="docutils literal notranslate"><span class="pre">for</span></code> 반복문 실행</p></li>
+<li><p>각 에포크에 대해 배치 단위로 스텝을 진행하는 <code class="docutils literal notranslate"><span class="pre">for</span></code> 반복문 실행</p>
+<ul>
+<li><p>각 배치에 대해 <code class="docutils literal notranslate"><span class="pre">GradientTape()</span></code> 영역 지정</p>
+<ul>
+<li><p>이 영역 내에서 순전파 실행 후 손실값 계산</p></li>
+</ul>
+</li>
+<li><p>영역 외부에서 손실값에 대한 모델 가중치의 그래디언트 계산</p></li>
+<li><p>옵티마이저를 사용하여 모델의 가중치 업데이트</p></li>
+</ul>
+</li>
+<li><p>평가지표를 확인하면서 에포크 마무리</p>
+<ul>
+<li><p>훈련셋 대상 정확도 계산: 매 스텝을 통해 업데이트된 정확도 최종 결과 확인</p></li>
+<li><p>검증셋 대상 정확도 계산: 지정된 배치 단위로 검증셋 정확도 확인</p></li>
+</ul>
+</li>
+</ul>
+<p>평가지표 API는 다음과 같이 활용한다.</p>
+<ul class="simple">
+<li><p>매 스텝마다 훈련셋 평가지표 계산, 즉 <code class="docutils literal notranslate"><span class="pre">update_state()</span></code> 메서드 호출</p></li>
+<li><p>검증셋에 대한 평가지표 계산은 스텝 훈련이 끝난후 지정된 배치 단위로 진행.</p></li>
+<li><p>에포크를 마무리하면서 끝날 때마다 훈련셋과 검증셋의 평가지표 API 초기화:  <code class="docutils literal notranslate"><span class="pre">reset_state()</span></code> 메서드 호출</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Start of epoch </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">epoch</span><span class="p">,))</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="c1"># Iterate over the batches of the dataset.</span>
+    <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="p">(</span><span class="n">x_batch_train</span><span class="p">,</span> <span class="n">y_batch_train</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+            <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_batch_train</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">loss_value</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y_batch_train</span><span class="p">,</span> <span class="n">logits</span><span class="p">)</span>
+        <span class="n">grads</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss_value</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">)</span>
+        <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">grads</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">))</span>
+
+        <span class="c1"># Update training metric.</span>
+        <span class="n">train_acc_metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">y_batch_train</span><span class="p">,</span> <span class="n">logits</span><span class="p">)</span>
+
+        <span class="c1"># Log every 200 batches.</span>
+        <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">200</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Training loss (for one batch) at step </span><span class="si">%d</span><span class="s2">: </span><span class="si">%.4f</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">loss_value</span><span class="p">))</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Seen so far: </span><span class="si">%d</span><span class="s2"> samples&quot;</span> <span class="o">%</span> <span class="p">((</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">batch_size</span><span class="p">))</span>
+
+    <span class="c1"># Display metrics at the end of each epoch.</span>
+    <span class="n">train_acc</span> <span class="o">=</span> <span class="n">train_acc_metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training acc over epoch: </span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">train_acc</span><span class="p">),))</span>
+
+    <span class="c1"># Reset training metrics at the end of each epoch</span>
+    <span class="n">train_acc_metric</span><span class="o">.</span><span class="n">reset_state</span><span class="p">()</span>
+
+    <span class="c1"># Run a validation loop at the end of each epoch.</span>
+    <span class="k">for</span> <span class="n">x_batch_val</span><span class="p">,</span> <span class="n">y_batch_val</span> <span class="ow">in</span> <span class="n">val_dataset</span><span class="p">:</span>
+        <span class="n">val_logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_batch_val</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># Update val metrics</span>
+        <span class="n">val_acc_metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">y_batch_val</span><span class="p">,</span> <span class="n">val_logits</span><span class="p">)</span>
+    <span class="n">val_acc</span> <span class="o">=</span> <span class="n">val_acc_metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="n">val_acc_metric</span><span class="o">.</span><span class="n">reset_state</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Validation acc: </span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">val_acc</span><span class="p">),))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time taken: </span><span class="si">%.2f</span><span class="s2">s&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Start of epoch 0
+Training loss (for one batch) at step 0: 0.5018
+Seen so far: 64 samples
+Training loss (for one batch) at step 200: 0.3227
+Seen so far: 12864 samples
+Training loss (for one batch) at step 400: 0.3646
+Seen so far: 25664 samples
+Training loss (for one batch) at step 600: 1.2174
+Seen so far: 38464 samples
+Training acc over epoch: 0.9342
+Validation acc: 0.9256
+Time taken: 8.39s
+
+Start of epoch 1
+Training loss (for one batch) at step 0: 0.2016
+Seen so far: 64 samples
+Training loss (for one batch) at step 200: 0.3699
+Seen so far: 12864 samples
+Training loss (for one batch) at step 400: 0.0628
+Seen so far: 25664 samples
+Training loss (for one batch) at step 600: 0.1414
+Seen so far: 38464 samples
+Training acc over epoch: 0.9463
+Validation acc: 0.9501
+Time taken: 7.97s
+
+Start of epoch 2
+Training loss (for one batch) at step 0: 0.2433
+Seen so far: 64 samples
+Training loss (for one batch) at step 200: 0.2498
+Seen so far: 12864 samples
+Training loss (for one batch) at step 400: 0.2782
+Seen so far: 25664 samples
+Training loss (for one batch) at step 600: 0.2418
+Seen so far: 38464 samples
+Training acc over epoch: 0.9541
+Validation acc: 0.9520
+Time taken: 8.22s
+
+Start of epoch 3
+Training loss (for one batch) at step 0: 0.0207
+Seen so far: 64 samples
+Training loss (for one batch) at step 200: 0.4361
+Seen so far: 12864 samples
+Training loss (for one batch) at step 400: 0.2838
+Seen so far: 25664 samples
+Training loss (for one batch) at step 600: 0.0622
+Seen so far: 38464 samples
+Training acc over epoch: 0.9609
+Validation acc: 0.9507
+Time taken: 9.96s
+
+Start of epoch 4
+Training loss (for one batch) at step 0: 0.3596
+Seen so far: 64 samples
+Training loss (for one batch) at step 200: 0.0695
+Seen so far: 12864 samples
+Training loss (for one batch) at step 400: 0.2535
+Seen so far: 25664 samples
+Training loss (for one batch) at step 600: 0.0451
+Seen so far: 38464 samples
+Training acc over epoch: 0.9641
+Validation acc: 0.9543
+Time taken: 10.11s
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tf-function">
+<h2><span class="section-number">4.5. </span><code class="docutils literal notranslate"><span class="pre">tf.function</span></code> 데코레이터<a class="headerlink" href="#tf-function" title="Link to this heading">#</a></h2>
+<p>TensorFlow 2의 기본 런타임은 <a class="reference external" href="https://www.tensorflow.org/guide/eager">즉시 실행</a>입니다. 따라서 위의 훈련 루프는 즉시 실행됩니다.</p>
+<p>이것은 디버깅에 매우 유용하지만 그래프 컴파일이 확실한 성능에 이점이 있습니다. 계산을 정적 그래프로 설명하면 프레임워크로 전역 성능 최적화를 적용할 수 있습니다. 이것은 프레임워크가 다음에 무엇이 올지 알지 못한 상태로 탐욕적으로 하나의 작업을 차례로 실행하도록 제한되어 있을 때에는 불가능합니다.</p>
+<p>텐서를 입력으로 사용하는 모든 함수를 정적 그래프로 컴파일할 수 있습니다. 다음과 같이 <code class="docutils literal notranslate"><span class="pre">&#64;tf.function</span></code> 데코레이터를 추가하기만 하면 됩니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+<span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">loss_value</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">logits</span><span class="p">)</span>
+    <span class="n">grads</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss_value</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">)</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">apply_gradients</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">grads</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">trainable_weights</span><span class="p">))</span>
+    <span class="n">train_acc_metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">logits</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss_value</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>평가 단계에서도 동일하게 수행해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
+<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">val_logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">val_acc_metric</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">val_logits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이제 이 컴파일된 학습 단계로 학습 루프를 다시 실행해 보겠습니다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Start of epoch </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">epoch</span><span class="p">,))</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="c1"># Iterate over the batches of the dataset.</span>
+    <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="p">(</span><span class="n">x_batch_train</span><span class="p">,</span> <span class="n">y_batch_train</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">):</span>
+        <span class="n">loss_value</span> <span class="o">=</span> <span class="n">train_step</span><span class="p">(</span><span class="n">x_batch_train</span><span class="p">,</span> <span class="n">y_batch_train</span><span class="p">)</span>
+
+        <span class="c1"># Log every 200 batches.</span>
+        <span class="k">if</span> <span class="n">step</span> <span class="o">%</span> <span class="mi">200</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Training loss (for one batch) at step </span><span class="si">%d</span><span class="s2">: </span><span class="si">%.4f</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">loss_value</span><span class="p">))</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Seen so far: </span><span class="si">%d</span><span class="s2"> samples&quot;</span> <span class="o">%</span> <span class="p">((</span><span class="n">step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">batch_size</span><span class="p">))</span>
+
+    <span class="c1"># Display metrics at the end of each epoch.</span>
+    <span class="n">train_acc</span> <span class="o">=</span> <span class="n">train_acc_metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training acc over epoch: </span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">train_acc</span><span class="p">),))</span>
+
+    <span class="c1"># Reset training metrics at the end of each epoch</span>
+    <span class="n">train_acc_metric</span><span class="o">.</span><span class="n">reset_state</span><span class="p">()</span>
+
+    <span class="c1"># Run a validation loop at the end of each epoch.</span>
+    <span class="k">for</span> <span class="n">x_batch_val</span><span class="p">,</span> <span class="n">y_batch_val</span> <span class="ow">in</span> <span class="n">val_dataset</span><span class="p">:</span>
+        <span class="n">test_step</span><span class="p">(</span><span class="n">x_batch_val</span><span class="p">,</span> <span class="n">y_batch_val</span><span class="p">)</span>
+
+    <span class="n">val_acc</span> <span class="o">=</span> <span class="n">val_acc_metric</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+    <span class="n">val_acc_metric</span><span class="o">.</span><span class="n">reset_state</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Validation acc: </span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">val_acc</span><span class="p">),))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Time taken: </span><span class="si">%.2f</span><span class="s2">s&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Start of epoch 0
+Training loss (for one batch) at step 0: 0.1266
+Seen so far: 64 samples
+Training loss (for one batch) at step 200: 0.1668
+Seen so far: 12864 samples
+Training loss (for one batch) at step 400: 0.2674
+Seen so far: 25664 samples
+Training loss (for one batch) at step 600: 0.2795
+Seen so far: 38464 samples
+Training acc over epoch: 0.9685
+Validation acc: 0.9535
+Time taken: 2.72s
+
+Start of epoch 1
+Training loss (for one batch) at step 0: 0.3350
+Seen so far: 64 samples
+Training loss (for one batch) at step 200: 0.0694
+Seen so far: 12864 samples
+Training loss (for one batch) at step 400: 0.0694
+Seen so far: 25664 samples
+Training loss (for one batch) at step 600: 0.2801
+Seen so far: 38464 samples
+Training acc over epoch: 0.9689
+Validation acc: 0.9566
+Time taken: 1.20s
+
+Start of epoch 2
+Training loss (for one batch) at step 0: 0.0226
+Seen so far: 64 samples
+Training loss (for one batch) at step 200: 0.0107
+Seen so far: 12864 samples
+Training loss (for one batch) at step 400: 0.2391
+Seen so far: 25664 samples
+Training loss (for one batch) at step 600: 0.0985
+Seen so far: 38464 samples
+Training acc over epoch: 0.9717
+Validation acc: 0.9574
+Time taken: 1.24s
+
+Start of epoch 3
+Training loss (for one batch) at step 0: 0.0103
+Seen so far: 64 samples
+Training loss (for one batch) at step 200: 0.0982
+Seen so far: 12864 samples
+Training loss (for one batch) at step 400: 0.4373
+Seen so far: 25664 samples
+Training loss (for one batch) at step 600: 0.2368
+Seen so far: 38464 samples
+Training acc over epoch: 0.9725
+Validation acc: 0.9545
+Time taken: 1.20s
+
+Start of epoch 4
+Training loss (for one batch) at step 0: 0.0172
+Seen so far: 64 samples
+Training loss (for one batch) at step 200: 0.1743
+Seen so far: 12864 samples
+Training loss (for one batch) at step 400: 0.0733
+Seen so far: 25664 samples
+Training loss (for one batch) at step 600: 0.0430
+Seen so far: 38464 samples
+Training acc over epoch: 0.9735
+Validation acc: 0.9569
+Time taken: 1.22s
+</pre></div>
+</div>
+</div>
+</div>
+<p>6배 정도 빠르게 훈련된다.
+하지만 <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> 데코레이터를 사용한다 해서 모델 훈련 속도가 항상 빨라지는 것은 아님에 주의한다.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="tf_tensor.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>텐서</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="keras_and_tf.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>케라스와 텐서플로우</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.1. 모델 지정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2. 옵티마이저, 손실 함수, 평가지표 지정</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.3. 데이터셋 준비</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.4. 훈련 루프</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-function">4.5. <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> 데코레이터</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 코딩알지
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
