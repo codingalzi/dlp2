@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4. 훈련 루프 들여다보기 &#8212; Deep Learning with Python(2판)</title>
+    <title>4. 훈련 루프 &#8212; Deep Learning with Python(2판)</title>
   
   
   
@@ -170,7 +170,7 @@
 <li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
 <li class="toctree-l1"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tf_tensor.html">3. 텐서</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. 훈련 루프 들여다보기</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. 훈련 루프</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">5. 케라스와 텐서플로우</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started_with_neural_networks.html">6. 신경망 활용 처음부터 끝까지: 분류와 회귀</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">7. 머신러닝 모델 훈련 기법</a></li>
@@ -367,7 +367,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>훈련 루프 들여다보기</h1>
+    <h1>훈련 루프</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -381,7 +381,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2. 옵티마이저, 손실 함수, 평가지표 지정</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.3. 데이터셋 준비</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.4. 훈련 루프</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-function">4.5. <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> 데코레이터</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-function">4.5. <code class="docutils literal notranslate"><span class="pre">@tf.function</span></code> 데코레이터</a></li>
 </ul>
             </nav>
         </div>
@@ -394,26 +394,28 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1><span class="section-number">4. </span>훈련 루프 들여다보기<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">4. </span>훈련 루프<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p><strong>참고</strong></p>
+<p><a class="reference external" href="https://www.tensorflow.org/guide/keras/writing_a_training_loop_from_scratch">Writing a training loop from scratch</a>를 참고하였습니다.</p>
+<p><strong>소스코드</strong></p>
+<p>여기서 언급되는 코드를 <a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-training_loop_from_scratch.ipynb">(구글 코랩) 훈련 루프</a>에서 직접 실행할 수 있다.</p>
+<p><strong>슬라이드</strong></p>
+<p>본문 내용을 요약한 <a class="reference external" href="https://github.com/codingalzi/dlp2/raw/master/slides/slides-training_loop_from_scratch.pdf">슬라이드</a>를 다운로드할 수 있다.</p>
+<p><strong>주요 내용</strong></p>
 <p>신경망 모델의 훈련과 평가 과정을 보다 깊이 이해하기 위해 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드를 실행할 때
 텐서플로우 내부에서 훈련 루프가 처리되는 과정을 자세히 들여다본다.</p>
+<section id="id2">
+<h2><span class="section-number">4.1. </span>모델 지정<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>설명을 위해 다시 한 번 간단한 MNIST 모델을 이용한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="id2">
-<h2><span class="section-number">4.1. </span>모델 지정<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>설명을 위해 다시 한 번 간단한 MNIST 모델을 이용한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
-                          <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+                          <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
                           <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)])</span>
 </pre></div>
 </div>
@@ -479,8 +481,9 @@ document.write(`
 
 <span class="c1"># 훈련셋의 일부를 검증셋으로 지정</span>
 <span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="o">-</span><span class="mi">10000</span><span class="p">:]</span>
-<span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="o">-</span><span class="mi">10000</span><span class="p">:]</span>
 <span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[:</span><span class="o">-</span><span class="mi">10000</span><span class="p">]</span>
+
+<span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="o">-</span><span class="mi">10000</span><span class="p">:]</span>
 <span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="o">-</span><span class="mi">10000</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -491,7 +494,7 @@ document.write(`
 이를 위해 텐서플로우의 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 클래스를 이용한다.
 <code class="docutils literal notranslate"><span class="pre">tf.data.Dataset</span></code> 머신러닝 모델 훈련에 사용되는 대용량 데이터의 효율적인 처리를
 지원하는 모음 자료형이다.
-배치 크기는 64로 지정한다.</p>
+배치 크기는 128로 지정한다.</p>
 <ul class="simple">
 <li><p>훈련용 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 객체 지정</p>
 <ul>
@@ -507,8 +510,8 @@ document.write(`
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 배치크기: 64</span>
-<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">64</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 배치크기: 128</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">128</span>
 
 <span class="c1"># 훈련용 Dataset 객체</span>
 <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="o">.</span><span class="n">from_tensor_slices</span><span class="p">((</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
@@ -555,7 +558,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 
-<span class="n">epochs</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Start of epoch </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">epoch</span><span class="p">,))</span>
     <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -600,79 +603,106 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Start of epoch 0
-Training loss (for one batch) at step 0: 0.5018
-Seen so far: 64 samples
-Training loss (for one batch) at step 200: 0.3227
-Seen so far: 12864 samples
-Training loss (for one batch) at step 400: 0.3646
-Seen so far: 25664 samples
-Training loss (for one batch) at step 600: 1.2174
-Seen so far: 38464 samples
-Training acc over epoch: 0.9342
-Validation acc: 0.9256
-Time taken: 8.39s
+Training loss (for one batch) at step 0: 0.3334
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.2486
+Seen so far: 25728 samples
+Training acc over epoch: 0.9743
+Validation acc: 0.9673
+Time taken: 7.75s
 
 Start of epoch 1
-Training loss (for one batch) at step 0: 0.2016
-Seen so far: 64 samples
-Training loss (for one batch) at step 200: 0.3699
-Seen so far: 12864 samples
-Training loss (for one batch) at step 400: 0.0628
-Seen so far: 25664 samples
-Training loss (for one batch) at step 600: 0.1414
-Seen so far: 38464 samples
-Training acc over epoch: 0.9463
-Validation acc: 0.9501
-Time taken: 7.97s
+Training loss (for one batch) at step 0: 0.0620
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.1358
+Seen so far: 25728 samples
+Training acc over epoch: 0.9786
+Validation acc: 0.9633
+Time taken: 6.48s
 
 Start of epoch 2
-Training loss (for one batch) at step 0: 0.2433
-Seen so far: 64 samples
-Training loss (for one batch) at step 200: 0.2498
-Seen so far: 12864 samples
-Training loss (for one batch) at step 400: 0.2782
-Seen so far: 25664 samples
-Training loss (for one batch) at step 600: 0.2418
-Seen so far: 38464 samples
-Training acc over epoch: 0.9541
-Validation acc: 0.9520
-Time taken: 8.22s
+Training loss (for one batch) at step 0: 0.1861
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.2354
+Seen so far: 25728 samples
+Training acc over epoch: 0.9792
+Validation acc: 0.9662
+Time taken: 7.04s
 
 Start of epoch 3
-Training loss (for one batch) at step 0: 0.0207
-Seen so far: 64 samples
-Training loss (for one batch) at step 200: 0.4361
-Seen so far: 12864 samples
-Training loss (for one batch) at step 400: 0.2838
-Seen so far: 25664 samples
-Training loss (for one batch) at step 600: 0.0622
-Seen so far: 38464 samples
-Training acc over epoch: 0.9609
-Validation acc: 0.9507
-Time taken: 9.96s
+Training loss (for one batch) at step 0: 0.6180
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0278
+Seen so far: 25728 samples
+Training acc over epoch: 0.9812
+Validation acc: 0.9724
+Time taken: 6.62s
 
 Start of epoch 4
-Training loss (for one batch) at step 0: 0.3596
-Seen so far: 64 samples
-Training loss (for one batch) at step 200: 0.0695
-Seen so far: 12864 samples
-Training loss (for one batch) at step 400: 0.2535
-Seen so far: 25664 samples
-Training loss (for one batch) at step 600: 0.0451
-Seen so far: 38464 samples
-Training acc over epoch: 0.9641
-Validation acc: 0.9543
-Time taken: 10.11s
+Training loss (for one batch) at step 0: 0.0326
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.8386
+Seen so far: 25728 samples
+Training acc over epoch: 0.9830
+Validation acc: 0.9711
+Time taken: 6.74s
+
+Start of epoch 5
+Training loss (for one batch) at step 0: 0.0638
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.2035
+Seen so far: 25728 samples
+Training acc over epoch: 0.9845
+Validation acc: 0.9668
+Time taken: 7.01s
+
+Start of epoch 6
+Training loss (for one batch) at step 0: 0.3963
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0374
+Seen so far: 25728 samples
+Training acc over epoch: 0.9863
+Validation acc: 0.9675
+Time taken: 6.99s
+
+Start of epoch 7
+Training loss (for one batch) at step 0: 0.1129
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.3808
+Seen so far: 25728 samples
+Training acc over epoch: 0.9865
+Validation acc: 0.9646
+Time taken: 6.91s
+
+Start of epoch 8
+Training loss (for one batch) at step 0: 0.0260
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.1818
+Seen so far: 25728 samples
+Training acc over epoch: 0.9874
+Validation acc: 0.9633
+Time taken: 7.59s
+
+Start of epoch 9
+Training loss (for one batch) at step 0: 0.1073
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.3317
+Seen so far: 25728 samples
+Training acc over epoch: 0.9881
+Validation acc: 0.9714
+Time taken: 8.02s
 </pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="tf-function">
-<h2><span class="section-number">4.5. </span><code class="docutils literal notranslate"><span class="pre">tf.function</span></code> 데코레이터<a class="headerlink" href="#tf-function" title="Link to this heading">#</a></h2>
-<p>TensorFlow 2의 기본 런타임은 <a class="reference external" href="https://www.tensorflow.org/guide/eager">즉시 실행</a>입니다. 따라서 위의 훈련 루프는 즉시 실행됩니다.</p>
-<p>이것은 디버깅에 매우 유용하지만 그래프 컴파일이 확실한 성능에 이점이 있습니다. 계산을 정적 그래프로 설명하면 프레임워크로 전역 성능 최적화를 적용할 수 있습니다. 이것은 프레임워크가 다음에 무엇이 올지 알지 못한 상태로 탐욕적으로 하나의 작업을 차례로 실행하도록 제한되어 있을 때에는 불가능합니다.</p>
-<p>텐서를 입력으로 사용하는 모든 함수를 정적 그래프로 컴파일할 수 있습니다. 다음과 같이 <code class="docutils literal notranslate"><span class="pre">&#64;tf.function</span></code> 데코레이터를 추가하기만 하면 됩니다.</p>
+<h2><span class="section-number">4.5. </span><code class="docutils literal notranslate"><span class="pre">&#64;tf.function</span></code> 데코레이터<a class="headerlink" href="#tf-function" title="Link to this heading">#</a></h2>
+<p>텐서플로우의 텐서를 다루는 함수에 <code class="docutils literal notranslate"><span class="pre">&#64;tf.function</span></code> 데코레이터를 추가하면 모델 훈련 속도가 빨라질 수 있다.
+훈련 속도의 변화가 발생하는 이유는 여기서는 다루지 않는다.
+다만 전적으로 텐서플로우의 텐서 연산만 사용하는 함수에만 적용될 수 있음에 주의한다.</p>
+<p>아래 코드는 훈련 스텝을 담당하는 함수를 선언한 다음에
+<code class="docutils literal notranslate"><span class="pre">&#64;tf.function</span></code> 데코레이터를 추가한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
@@ -688,7 +718,8 @@ Time taken: 10.11s
 </div>
 </div>
 </div>
-<p>평가 단계에서도 동일하게 수행해 보겠습니다.</p>
+<p>아래 코드는 검증셋에 대한 정확도를 계산하는 함수를 선언한 다음에
+<code class="docutils literal notranslate"><span class="pre">&#64;tf.function</span></code> 데코레이터를 추가한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nd">@tf</span><span class="o">.</span><span class="n">function</span>
@@ -699,12 +730,12 @@ Time taken: 10.11s
 </div>
 </div>
 </div>
-<p>이제 이 컴파일된 학습 단계로 학습 루프를 다시 실행해 보겠습니다.</p>
+<p>아래 코드는 위 두 개의 함수를 이용하여 모델 훈련을 훨씬 빠르게 진행한다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 
-<span class="n">epochs</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Start of epoch </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">epoch</span><span class="p">,))</span>
     <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
@@ -741,75 +772,105 @@ Time taken: 10.11s
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Start of epoch 0
-Training loss (for one batch) at step 0: 0.1266
-Seen so far: 64 samples
-Training loss (for one batch) at step 200: 0.1668
-Seen so far: 12864 samples
-Training loss (for one batch) at step 400: 0.2674
-Seen so far: 25664 samples
-Training loss (for one batch) at step 600: 0.2795
-Seen so far: 38464 samples
-Training acc over epoch: 0.9685
-Validation acc: 0.9535
-Time taken: 2.72s
+Training loss (for one batch) at step 0: 0.7231
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0731
+Seen so far: 25728 samples
+Training acc over epoch: 0.9940
+Validation acc: 0.9777
+Time taken: 1.00s
 
 Start of epoch 1
-Training loss (for one batch) at step 0: 0.3350
-Seen so far: 64 samples
-Training loss (for one batch) at step 200: 0.0694
-Seen so far: 12864 samples
-Training loss (for one batch) at step 400: 0.0694
-Seen so far: 25664 samples
-Training loss (for one batch) at step 600: 0.2801
-Seen so far: 38464 samples
-Training acc over epoch: 0.9689
-Validation acc: 0.9566
-Time taken: 1.20s
+Training loss (for one batch) at step 0: 0.0000
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0007
+Seen so far: 25728 samples
+Training acc over epoch: 0.9949
+Validation acc: 0.9760
+Time taken: 0.79s
 
 Start of epoch 2
-Training loss (for one batch) at step 0: 0.0226
-Seen so far: 64 samples
-Training loss (for one batch) at step 200: 0.0107
-Seen so far: 12864 samples
-Training loss (for one batch) at step 400: 0.2391
-Seen so far: 25664 samples
-Training loss (for one batch) at step 600: 0.0985
-Seen so far: 38464 samples
-Training acc over epoch: 0.9717
-Validation acc: 0.9574
-Time taken: 1.24s
+Training loss (for one batch) at step 0: 0.0173
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0363
+Seen so far: 25728 samples
+Training acc over epoch: 0.9947
+Validation acc: 0.9755
+Time taken: 0.77s
 
 Start of epoch 3
-Training loss (for one batch) at step 0: 0.0103
-Seen so far: 64 samples
-Training loss (for one batch) at step 200: 0.0982
-Seen so far: 12864 samples
-Training loss (for one batch) at step 400: 0.4373
-Seen so far: 25664 samples
-Training loss (for one batch) at step 600: 0.2368
-Seen so far: 38464 samples
-Training acc over epoch: 0.9725
-Validation acc: 0.9545
-Time taken: 1.20s
+Training loss (for one batch) at step 0: 0.0000
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0517
+Seen so far: 25728 samples
+Training acc over epoch: 0.9950
+Validation acc: 0.9729
+Time taken: 0.79s
 
 Start of epoch 4
-Training loss (for one batch) at step 0: 0.0172
-Seen so far: 64 samples
-Training loss (for one batch) at step 200: 0.1743
-Seen so far: 12864 samples
-Training loss (for one batch) at step 400: 0.0733
-Seen so far: 25664 samples
-Training loss (for one batch) at step 600: 0.0430
-Seen so far: 38464 samples
-Training acc over epoch: 0.9735
-Validation acc: 0.9569
-Time taken: 1.22s
+Training loss (for one batch) at step 0: 0.0000
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0000
+Seen so far: 25728 samples
+Training acc over epoch: 0.9940
+Validation acc: 0.9736
+Time taken: 0.86s
+
+Start of epoch 5
+Training loss (for one batch) at step 0: 0.0000
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0000
+Seen so far: 25728 samples
+Training acc over epoch: 0.9947
+Validation acc: 0.9757
+Time taken: 0.83s
+
+Start of epoch 6
+Training loss (for one batch) at step 0: 0.1587
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0000
+Seen so far: 25728 samples
+Training acc over epoch: 0.9950
+Validation acc: 0.9761
+Time taken: 0.82s
+
+Start of epoch 7
+Training loss (for one batch) at step 0: 0.0000
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0001
+Seen so far: 25728 samples
+Training acc over epoch: 0.9952
+Validation acc: 0.9750
+Time taken: 0.87s
+
+Start of epoch 8
+Training loss (for one batch) at step 0: 0.1037
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0002
+Seen so far: 25728 samples
+Training acc over epoch: 0.9951
+Validation acc: 0.9769
+Time taken: 0.83s
+
+Start of epoch 9
+Training loss (for one batch) at step 0: 0.0000
+Seen so far: 128 samples
+Training loss (for one batch) at step 200: 0.0000
+Seen so far: 25728 samples
+Training acc over epoch: 0.9958
+Validation acc: 0.9736
+Time taken: 0.81s
 </pre></div>
 </div>
 </div>
 </div>
-<p>6배 정도 빠르게 훈련된다.
-하지만 <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> 데코레이터를 사용한다 해서 모델 훈련 속도가 항상 빨라지는 것은 아님에 주의한다.</p>
+<div class="note admonition">
+<p class="admonition-title">주의사항</p>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;tf.function</span></code> 데코레이터를 추가한다 해서 모델 훈련 속도가 항상 빨라지는 것은 아님에 주의한다.
+어느 경우에 빠르고, 언제 그렇지 않은지에 대한 설명은
+<a class="reference external" href="https://www.tensorflow.org/guide/function">Better performance with tf.function</a>을
+참고한다.</p>
+</div>
 </section>
 </section>
 
@@ -881,7 +942,7 @@ Time taken: 1.22s
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2. 옵티마이저, 손실 함수, 평가지표 지정</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.3. 데이터셋 준비</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.4. 훈련 루프</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-function">4.5. <code class="docutils literal notranslate"><span class="pre">tf.function</span></code> 데코레이터</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tf-function">4.5. <code class="docutils literal notranslate"><span class="pre">@tf.function</span></code> 데코레이터</a></li>
 </ul>
   </nav></div>
 
