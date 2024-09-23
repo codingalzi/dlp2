@@ -493,8 +493,14 @@ document.write(`
 <p>훈련셋과 검증셋을 대상으로 배치 묶음으로 구성된 모음 자료형 객체를 지정한다.
 이를 위해 텐서플로우의 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 클래스를 이용한다.
 <code class="docutils literal notranslate"><span class="pre">tf.data.Dataset</span></code> 머신러닝 모델 훈련에 사용되는 대용량 데이터의 효율적인 처리를
-지원하는 모음 자료형이다.
-배치 크기는 128로 지정한다.</p>
+지원하는 모음 자료형이다.</p>
+<p>아래 이미지는 넘파이 어레이 훈련셋과 타깃셋을 조합하여 하나의 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 객체를 생성하는
+과정을 보여준다.</p>
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/tf_dataset_1.png?raw=true" style="width:800px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://igormintz.medium.com/introduction-to-tensorflows-data-dataset-api-83d49f300740">Introduction to TensorFlow’s data.Dataset API</a>&gt;</div></p><p><code class="docutils literal notranslate"><span class="pre">tf.data.Dataset</span></code> 클래스는 모델 학습에 필요한 훈련셋을 효율적으로 준비시켜주는 다양한 API(메서드)를 제공한다.
+<code class="docutils literal notranslate"><span class="pre">tf.data.Dataset</span></code> API를 이용하여 생성된 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 객체는 항목 하나 하나를 이용하여 다양한 형식으로 배치 묶음을 제공할 수 있다. 아래 이미지는 대용량 데이터를 다룰 때 유용한 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>의 다양한 하위 클래스들의 구조를 보여준다.</p>
+<div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/tf_dataset_2.png?raw=true" style="width:800px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://ekababisong.org/gcp-ml-seminar/tensorflow/">TensorFlow</a>&gt;</div></p><p>여기서는 배치 크기가 128인 묶음으로 구성된 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code>객체를  이용한다.</p>
 <ul class="simple">
 <li><p>훈련용 <code class="docutils literal notranslate"><span class="pre">Dataset</span></code> 객체 지정</p>
 <ul>
