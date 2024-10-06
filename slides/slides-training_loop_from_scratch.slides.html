@@ -7653,7 +7653,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="n">train_acc_metric</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()</span> <span class="c1"># 훈련셋 대상 평가</span>
+<div class="highlight"><pre><span></span><span class="n">train_acc_metric</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">SparseCategoricalAccuracy</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -7870,7 +7870,7 @@ main {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
 <li>텐서플로우의 텐서를 다루는 함수에 <code>@tf.function</code> 데코레이터를 추가</li>
-<li>모델 훈련 속도가 빨라질 수 있음</li>
+<li>훈련 스텝 과정에 <code>@tf.function</code> 데코레이터를 적용하면 모델 훈련 속도가 7-8배 빨라짐</li>
 </ul>
 </div>
 </div>
@@ -7961,7 +7961,7 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
-<li>참고: <a href="https://www.tensorflow.org/guide/function">Better performance with tf.function</a></li>
+<li>보다 자세한 내용은 <a href="https://www.tensorflow.org/guide/function">Better performance with tf.function</a> 참고.</li>
 </ul>
 </div>
 </div>
