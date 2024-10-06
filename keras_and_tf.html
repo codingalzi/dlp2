@@ -835,11 +835,11 @@ document.write(`
 <tbody>
 <tr class="row-even"><td class="text-left"><p>keras.losses.CategoricalCrossentropy</p></td>
 <td class="text-left"><p>“categorical_crossentropy”</p></td>
-<td class="text-left"><p>다중 클래스 분류</p></td>
+<td class="text-left"><p>다중 클래스 분류. 원-핫 형식 타깃</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>keras.losses.SparseCategoricalCrossentropy</p></td>
 <td class="text-left"><p>“sparse_categorical_crossentropy”</p></td>
-<td class="text-left"><p>다중 클래스 분류. 정수형 (벡터) 타깃</p></td>
+<td class="text-left"><p>다중 클래스 분류. 정수 타깃</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>keras.losses.BinaryCrossentropy</p></td>
 <td class="text-left"><p>“binary_crossentropy”</p></td>
@@ -855,7 +855,7 @@ document.write(`
 </tr>
 <tr class="row-odd"><td class="text-left"><p>keras.losses.CosineSimilarity</p></td>
 <td class="text-left"><p>“cosine_similarity”</p></td>
-<td class="text-left"><p>회귀와 분류 모두. 문장 번역, 물건 추천, 이미지 분류 등</p></td>
+<td class="text-left"><p>문장 번역, 물건 추천, 이미지 분류 등</p></td>
 </tr>
 </tbody>
 </table>
@@ -872,11 +872,11 @@ document.write(`
 <tbody>
 <tr class="row-even"><td class="text-left"><p>keras.metrics.CategoricalAccuracy</p></td>
 <td class="text-left"><p>“categorical_accuracy”</p></td>
-<td class="text-left"><p>다중클래스 분류 정확도  측정</p></td>
+<td class="text-left"><p>다중클래스 분류 정확도 측정. 원-핫 형식 타깃</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p>keras.metrics.SparseCategoricalAccuracy</p></td>
 <td class="text-left"><p>“sparse_categorical_accuracy”</p></td>
-<td class="text-left"><p>다중클래스 분류 정확도. 정수형 (벡터) 타깃 사용</p></td>
+<td class="text-left"><p>다중클래스 분류 정확도 측정. 정수 타깃</p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p>keras.metrics.BinaryAccuracy</p></td>
 <td class="text-left"><p>“binary_accuracy”</p></td>
