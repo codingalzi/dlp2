@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -795,38 +795,67 @@ document.write(`
 앞으로 다양한 예제를 통해 적절한 옵티마이저, 손실함수, 평가지표를 선택하는 방법을 살펴볼 것이다.</p>
 <p><strong>옵티마이저 API</strong></p>
 <p>다양한 옵티마이저의 장단점에 대해서는 <a class="reference external" href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">Hands-on Machine Learning 3판</a>의 11장에 정리되어 있다.</p>
-<ul class="simple">
-<li><p>SGD</p></li>
-<li><p>SGD + momentum</p></li>
-<li><p>Adagrad</p></li>
-<li><p>RMSprop</p></li>
-<li><p>Adam</p></li>
-<li><p>Nadam</p></li>
-<li><p>AdamW</p></li>
-</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>옵티마이저</p></th>
+<th class="head text-left"><p>문자열</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>keras.optimizers.SGD</p></td>
+<td class="text-left"><p>“SGD”</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>keras.optimizers.RMSprop</p></td>
+<td class="text-left"><p>“rmsprop”</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>keras.optimizers.Adam</p></td>
+<td class="text-left"><p>“adam”</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>keras.optimizers.AdamW</p></td>
+<td class="text-left"><p>“adamw”</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>keras.optimizers.Adagrad</p></td>
+<td class="text-left"><p>“adagrad”</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>keras.optimizers.Nadam</p></td>
+<td class="text-left"><p>“nadam”</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <p><strong>손실 함수 API</strong></p>
 <p>일반적으로 모델의 종류에 따라 손실 함수를 선택한다.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p>손실 함수</p></th>
-<th class="head text-center"><p>용도</p></th>
+<tr class="row-odd"><th class="head text-left"><p>손실 함수</p></th>
+<th class="head text-left"><p>문자열</p></th>
+<th class="head text-left"><p>용도</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p>CategoricalCrossentropy</p></td>
-<td class="text-center"><p>다중 클래스 분류</p></td>
+<tr class="row-even"><td class="text-left"><p>keras.losses.CategoricalCrossentropy</p></td>
+<td class="text-left"><p>“categorical_crossentropy”</p></td>
+<td class="text-left"><p>다중 클래스 분류</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>SparseCategoricalCrossentropy</p></td>
-<td class="text-center"><p>다중 클래스 분류. 정수형 (벡터) 타깃</p></td>
+<tr class="row-odd"><td class="text-left"><p>keras.losses.SparseCategoricalCrossentropy</p></td>
+<td class="text-left"><p>“sparse_categorical_crossentropy”</p></td>
+<td class="text-left"><p>다중 클래스 분류. 정수형 (벡터) 타깃</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>BinaryCrossentropy</p></td>
-<td class="text-center"><p>이진 분류</p></td>
+<tr class="row-even"><td class="text-left"><p>keras.losses.BinaryCrossentropy</p></td>
+<td class="text-left"><p>“binary_crossentropy”</p></td>
+<td class="text-left"><p>이진 분류</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>MeanSquaredError</p></td>
-<td class="text-center"><p>회귀</p></td>
+<tr class="row-odd"><td class="text-left"><p>keras.losses.MeanSquaredError</p></td>
+<td class="text-left"><p>“mean_squared_error”</p></td>
+<td class="text-left"><p>회귀</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>CosineSimilarity</p></td>
-<td class="text-center"><p>회귀와 분류 모두. 문장 번역, 물건 추천, 이미지 분류 등</p></td>
+<tr class="row-even"><td class="text-left"><p>keras.losses.MeanAbsoluteError</p></td>
+<td class="text-left"><p>“mean_absolute_error”</p></td>
+<td class="text-left"><p>회귀</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>keras.losses.CosineSimilarity</p></td>
+<td class="text-left"><p>“cosine_similarity”</p></td>
+<td class="text-left"><p>회귀와 분류 모두. 문장 번역, 물건 추천, 이미지 분류 등</p></td>
 </tr>
 </tbody>
 </table>
@@ -835,28 +864,35 @@ document.write(`
 <p>일반적으로 모델 종류와 목적에 따라 평가 지표를 선택한다.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
-<tr class="row-odd"><th class="head text-center"><p>평가지표</p></th>
-<th class="head text-center"><p>용도</p></th>
+<tr class="row-odd"><th class="head text-left"><p>평가지표</p></th>
+<th class="head text-left"><p>문자열</p></th>
+<th class="head text-left"><p>용도</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-center"><p>CategoricalAccuracy</p></td>
-<td class="text-center"><p>다중클래스 분류 정확도  측정</p></td>
+<tr class="row-even"><td class="text-left"><p>keras.metrics.CategoricalAccuracy</p></td>
+<td class="text-left"><p>“categorical_accuracy”</p></td>
+<td class="text-left"><p>다중클래스 분류 정확도  측정</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>SparseCategoricalAccuracy</p></td>
-<td class="text-center"><p>다중클래스 분류 정확도. 정수형 (벡터) 타깃 사용</p></td>
+<tr class="row-odd"><td class="text-left"><p>keras.metrics.SparseCategoricalAccuracy</p></td>
+<td class="text-left"><p>“sparse_categorical_accuracy”</p></td>
+<td class="text-left"><p>다중클래스 분류 정확도. 정수형 (벡터) 타깃 사용</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>BinaryAccuracy</p></td>
-<td class="text-center"><p>이진 분류 정확도 측정</p></td>
+<tr class="row-even"><td class="text-left"><p>keras.metrics.BinaryAccuracy</p></td>
+<td class="text-left"><p>“binary_accuracy”</p></td>
+<td class="text-left"><p>이진 분류 정확도 측정</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>AUC</p></td>
-<td class="text-center"><p>다중 클래스 분류 AUC 측정</p></td>
+<tr class="row-odd"><td class="text-left"><p>keras.metrics.AUC</p></td>
+<td class="text-left"><p>없음</p></td>
+<td class="text-left"><p>다중 클래스 분류 AUC 측정</p></td>
 </tr>
-<tr class="row-even"><td class="text-center"><p>Precision</p></td>
-<td class="text-center"><p>다중 클래스 분류 정밀도 측정</p></td>
+<tr class="row-even"><td class="text-left"><p>keras.metrics.Precision</p></td>
+<td class="text-left"><p>없음</p></td>
+<td class="text-left"><p>다중 클래스 분류 정밀도 측정</p></td>
 </tr>
-<tr class="row-odd"><td class="text-center"><p>Recall</p></td>
-<td class="text-center"><p>다중 클래스 분류 재현율 측정</p></td>
+<tr class="row-odd"><td class="text-left"><p>keras.metrics.Recall</p></td>
+<td class="text-left"><p>없음</p></td>
+<td class="text-left"><p>다중 클래스 분류 재현율 측정</p></td>
 </tr>
 </tbody>
 </table>
@@ -961,7 +997,7 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loss_and_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">evaluate()</span></code> 메서드는 테스트셋에 대한 손실값과 평가지표 값을 담은 리스트를 반환한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">evaluate()</span></code> 메서드는 테스트셋에 대한 손실값과 평가지표값을 담은 리스트를 반환한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">loss_and_metrics</span><span class="p">)</span>
 </pre></div>
 </div>
