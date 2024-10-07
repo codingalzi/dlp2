@@ -795,16 +795,27 @@ MNIST 데이터셋을 이용했을 때처럼 <code class="docutils literal notra
 <p><code class="docutils literal notranslate"><span class="pre">history</span></code> 속성에 저장된 훈련셋과 검증 세트에 대한 에포크별 손실값의 변화를 보면
 훈련셋에 대해서는 손실값이 계속 감소하지만
 검증셋에 대해서는 4번째 에포크 다음부터 오히려 상승한다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-04.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>정확도의 변화</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span>
+<span class="n">val_loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_loss&quot;</span><span class="p">]</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation loss&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/training_val_loss.png" style="width:500px;"><p><strong>정확도의 변화</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">history</span></code> 속성에 저장된 훈련셋과 검증셋에 대한 에포크별 정확도의 경우엔
 훈련셋에 대해서는 정확도가 계속 증가하지만,
 검증셋에 대해서는 역시 4번째 에포크 다음부터 조금씩 감소한다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-05.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>과대적합 방지</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]</span>
+<span class="n">val_acc</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training accuracy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_acc</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/training_val_acc.png" style="width:500px;"><p><strong>과대적합 방지</strong></p>
 <p><strong>과대적합</strong><font size='2'>overfitting</font>은 모델이 훈련셋에 익숙해져서
 처음 보는 데이터에 대해서 성능이 더 이상 좋아지지 않거나 떨어지는 현상을 가리킨다.
-따라서 앞서 살펴본 모델도 4번째 에포크 이후로 과대적합 현상을 겪기 시작했다.
+따라서 앞서 살펴본 모델도 4번째 에포크 이후로 과대적합을 겪기 시작했다.
 이는 4번의 에포크만 훈련 반복을 진행하면 과대적합되지
 않은 모델이 훈련됨을 의미한다.</p>
 <p>여기서는 과대적합되지 않는 모델을 얻기위해 모델을 재훈련시킨다.
@@ -813,7 +824,7 @@ MNIST 데이터셋을 이용했을 때처럼 <code class="docutils literal notra
 그래야 가중치와 편향이 초기화된 상태로 훈련이 시작되기 때문이다.
 그렇지 않으면 이전 훈련 결과를 이어 받아 훈련된다.</p>
 <p><a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">7장 머신러닝 모델 훈련 기법</span></a>에서
-과대적합을 방지하기 위한 기타 다양한 기법을 소개한다.</p>
+모델 재훈련을 하지 않으면서도 과대적합을 방지할 수 있는 다양한 기법을 소개한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
     <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
@@ -1449,7 +1460,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting02.png" style="width:600px;"></div><div class="proof example admonition" id="exp-k-fold">
 <p class="admonition-title"><span class="caption-number">Example 6.1 </span> (사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스)</p>
 <section class="example-content" id="proof-content">
-<p>사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스를 이용하면 봅다 간단하게 K-겹 교차검증을 진행할 수 있다.</p>
+<p>사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스를 이용하면 보다 간단하게 K-겹 교차검증을 진행할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
 
 <span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
