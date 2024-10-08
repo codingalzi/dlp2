@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -172,7 +172,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tf_tensor.html">3. 텐서</a></li>
 <li class="toctree-l1"><a class="reference internal" href="training_loop_from_scratch.html">4. 훈련 루프 상세</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">5. 케라스와 텐서플로우</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started_with_neural_networks.html">6. 신경망 활용 처음부터 끝까지: 분류와 회귀</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification_regression.html">6. 분류와 회귀</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">7. 머신러닝 모델 훈련 기법</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">8. 머신러닝 작업 흐름 일반</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">9. 케라스 신경망 모델 활용법</a></li>
@@ -565,7 +565,7 @@ document.write(`
 <section id="id6">
 <h3><span class="section-number">13.2.3. </span>어휘 색인화<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p>훈련셋에 포함된 모든 단어 토큰들의 색인(인덱스)을 생성한다.
-<a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">6장</span></a>에서 언급한 대로
+<a class="reference internal" href="classification_regression.html#ch-classification-regression"><span class="std std-numref">6장</span></a>에서 언급한 대로
 사용 빈도가 높은 1만, 2만, 또는 3만 개의 단어만을 대상으로 어휘 색인화를 진행하는 게 일반적이다.
 당시에 IMDB 영화 후기 데이터셋을 아래와 같이 불러오면서 불러올 때
 <code class="docutils literal notranslate"><span class="pre">num_words=10000</span></code>을 사용하여 사용 빈도수가 상위 1만 등 안에 들지 않는 단어는
@@ -588,7 +588,7 @@ document.write(`
 <li><p>0의 기능: 텍스트의 길이를 통일시키기 위해 패딩으로 사용하며, <strong>마스크 토큰</strong><font size='2'>mask token</font>이라 부르리도 한다.</p></li>
 </ul>
 <p>영화 후기 분석을 위해
-<a class="reference internal" href="getting_started_with_neural_networks.html#ch-getting-started-with-neural-networks"><span class="std std-numref">6장</span></a>에서 사용한
+<a class="reference internal" href="classification_regression.html#ch-classification-regression"><span class="std std-numref">6장</span></a>에서 사용한
 케라스의 imdb 데이터셋은 앞서 설명한 방식으로 이미 텍스트 벡터화가 완료된 상태였다.
 여기서는 영어 텍스트로 작성된 원본 영화 후기로 구성된 imdb 데이터셋을
 다운로드하여 텍스트 벡터화 전처리를 직접 수행하는 단계부터 살펴보려 한다.</p>
