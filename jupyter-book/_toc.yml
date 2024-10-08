@@ -12,7 +12,7 @@ chapters:
 - file: tf_tensor
 - file: training_loop_from_scratch
 - file: keras_and_tf
-- file: getting_started_with_neural_networks
+- file: classification_regression
 - file: fundamentals_of_ml
 - file: unversal_workflow_of_ml
 - file: working_with_keras
