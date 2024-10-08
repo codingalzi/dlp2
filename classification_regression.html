@@ -1,0 +1,1716 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>6. 분류와 회귀 &#8212; Deep Learning with Python(2판)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'classification_regression';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7. 머신러닝 모델 훈련 기법" href="fundamentals_of_ml.html" />
+    <link rel="prev" title="5. 케라스와 텐서플로우" href="keras_and_tf.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Deep Learning with Python(2판)</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="what_is_deep_learning.html">1. 딥러닝 소개</a></li>
+<li class="toctree-l1"><a class="reference internal" href="building_blocks_of_NN.html">2. 신경망 기본 구성 요소</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tf_tensor.html">3. 텐서</a></li>
+<li class="toctree-l1"><a class="reference internal" href="training_loop_from_scratch.html">4. 훈련 루프 상세</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">5. 케라스와 텐서플로우</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. 분류와 회귀</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">7. 머신러닝 모델 훈련 기법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">8. 머신러닝 작업 흐름 일반</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">9. 케라스 신경망 모델 활용법</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_intro.html">10. 컴퓨터 비전 기초: 합성곱 신경망</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computer_vision_advanced.html">11. 고급 컴퓨터 비전</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dl_for_timeseries.html">12. 시계열 분석</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dl_for_text.html">13. 자연어 처리</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generative_dl.html">14. 생성 모델</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best_practices.html">15. 딥러닝 실전 적용</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/codingalzi/dlp2" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/codingalzi/dlp2/issues/new?title=Issue%20on%20page%20%2Fclassification_regression.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/classification_regression.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>분류와 회귀</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-imdb">6.1. 이진 분류: 영화 후기 분류</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">6.1.1. 데이터 준비: IMDB 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.1.2. 데이터 전처리: 벡터화와 멀티-핫 인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.1.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">6.1.4. 모델 훈련과 활용</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6.2. 다중 클래스 분류: 뉴스 기사 주제 분류</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6.2.1. 데이터 준비: 로이터 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">6.2.2. 데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">6.2.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">6.2.4. 모델 훈련과 활용</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">6.3. 회귀: 주택가격 예측</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">6.3.1. 데이터 준비: 보스턴 주택가격 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">6.3.2. 데이터 전처리: 표준화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">6.3.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">6.3.4. 모델 훈련과 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">6.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">6.4. 연습문제</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ch-classification-regression">
+<span id="id1"></span><h1><span class="section-number">6. </span>분류와 회귀<a class="headerlink" href="#ch-classification-regression" title="Link to this heading">#</a></h1>
+<p><strong>감사의 글</strong></p>
+<p>아래 내용은 프랑소와 숄레의
+<a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
+소스코드 내용을 참고해서 작성되었습니다.
+자료를 공개한 저자에게 진심어린 감사를 전합니다.</p>
+<p><strong>소스코드</strong></p>
+<p>여기서 언급되는 코드를
+<a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/notebooks/NB-getting_started_with_neural_networks.ipynb">(구글 코랩) 신경망 활용 처음부터 끝까지: 분류와 회귀</a>에서
+직접 실행할 수 있다.</p>
+<p><strong>슬라이드</strong></p>
+<p>본문 내용을 요약한 <a class="reference external" href="https://github.com/codingalzi/dlp2/raw/master/slides/slides-getting_started_with_neural_networks.pdf">슬라이드</a>를 다운로드할 수 있다.</p>
+<p><strong>주요 내용</strong></p>
+<p>실전 데이터셋 세 개를 이용하여 세 종류의 모델을 훈련시키는 방법을 소개한다.</p>
+<ul class="simple">
+<li><p>이진 분류: 영화 후기 분류</p></li>
+<li><p>다중 클래스 분류: 뉴스 기사 분류</p></li>
+<li><p>회귀: 주택 가격 예측</p></li>
+</ul>
+<p><strong>머신러닝 주요 용어</strong></p>
+<p>아래 용어의 정의를 명확히 알아야 한다.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>한글</p></th>
+<th class="head text-left"><p>영어</p></th>
+<th class="head text-left"><p>뜻</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>샘플, 입력값</p></td>
+<td class="text-left"><p>sample, input</p></td>
+<td class="text-left"><p>모델 훈련에 사용되는 데이터</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>배치</p></td>
+<td class="text-left"><p>batch</p></td>
+<td class="text-left"><p>16, 32, 64, 128 등의 개수의 샘플로 구성된 묶음(배치). 훈련 루프의 스텝에 사용되는 훈련셋.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>예측값, 출력값</p></td>
+<td class="text-left"><p>prediction, output</p></td>
+<td class="text-left"><p>모델이 계산한 예측값</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>타깃</p></td>
+<td class="text-left"><p>target</p></td>
+<td class="text-left"><p>모델이 맞춰야 하는 값</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>라벨</p></td>
+<td class="text-left"><p>label</p></td>
+<td class="text-left"><p>분류 모델에서 타깃을 가리키는 표현</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>손실값, 비용, 예측 오차</p></td>
+<td class="text-left"><p>loss value</p></td>
+<td class="text-left"><p>타깃과 예측값 사이의 오차. 문제 유형에 따라 측정법 다름.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>손실 함수, 비용 함수</p></td>
+<td class="text-left"><p>loss function</p></td>
+<td class="text-left"><p>손실값(비용)을 계산하는 함수.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>클래스(범주)</p></td>
+<td class="text-left"><p>class</p></td>
+<td class="text-left"><p>분류 모델에서 각각의 샘플이 속하는 범주(클래스)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>이진 분류</p></td>
+<td class="text-left"><p>binary classification</p></td>
+<td class="text-left"><p>양성/음성, 긍정/부정 등 샘플을 두 개의 클래스로 분류.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>다중 클래스 분류</p></td>
+<td class="text-left"><p>multiclass classification</p></td>
+<td class="text-left"><p>샘플을 세 개 이상의 클래스로 분류. 손글씨 숫자 분류 등.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>다중 라벨 분류</p></td>
+<td class="text-left"><p>multilabel classification</p></td>
+<td class="text-left"><p>샘플에 대해 두 종류 이상의 라벨을 지정하는 분류. 한 장의 사진에 강아지, 고양이, 토끼 등 여러 종의 포함 여부 확인</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>(스칼라) 회귀</p></td>
+<td class="text-left"><p>(scalar) regression</p></td>
+<td class="text-left"><p>샘플 별로 하나의 값만 예측하기. 주택 가격 예측 등.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>벡터 회귀</p></td>
+<td class="text-left"><p>vector regression</p></td>
+<td class="text-left"><p>샘플 별로 두 종류 이상의 값 예측하기. 네모 상자의 좌표 등.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="sec-imdb">
+<span id="id2"></span><h2><span class="section-number">6.1. </span>이진 분류: 영화 후기 분류<a class="headerlink" href="#sec-imdb" title="Link to this heading">#</a></h2>
+<p>영화 후기의 긍정/부정 여부를 판단하는 이진 분류 모델을 훈련시키기 위한 준비과정을 살펴본다.
+무엇보다도 문장으로 구성된 데이터셋을 훈련에 적절한 텐서로 변환시키는 전처리 과정에 집중한다.</p>
+<section id="imdb">
+<h3><span class="section-number">6.1.1. </span>데이터 준비: IMDB 데이터셋<a class="headerlink" href="#imdb" title="Link to this heading">#</a></h3>
+<p>긍정 후기와 부정 후기 각각 25,000개씩 총 50,000개의 영화 후기 샘플로 구성되었으며
+<a class="reference external" href="https://www.imdb.com/">IMDB(Internet Moview Database)</a> 영화 후기 사이트에서
+구한 데이터셋이다.</p>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">imdb</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 불러올 수 있는 IMDB 데이터셋은
+이미 훈련셋과 테스트셋으로 구분되어 있다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">train_data</span></code>: 훈련용 입력 데이터셋. 25,000개의 리스트로 구성된 1차원 어레이.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">train_labels</span></code>: 훈련용 타깃 데이터셋. 0과 1로 구성된 길이가 25,000인 1차원 어레이.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_data</span></code>: 테스트용 입력 데이터셋. 25,000개의 리스트로 구성된 1차원 어레이.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_labels</span></code>: 테스트용 타깃 데이터셋. 0과 1로 구성된 길이가 25,000인 1차원 어레이.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">imdb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>후기 데이터셋 전체에서 원래 총 88,585개의 단어가 최소 한 번 이상 사용되지만 가장 많이 사용되는
+10,000개 단어 이외에는 사용 빈도가 너무 낮다.
+그런 단어는 클래스 분류 훈련에 별 도움이 되지 않거나 오히려 악형향을 끼치기도 한다.
+따라서 그런 단어들은 무시하는 것이 좋다.
+<code class="docutils literal notranslate"><span class="pre">imdb.load_data()</span></code> 함수의 <code class="docutils literal notranslate"><span class="pre">num_words=10000</span></code> 키워드 인자는
+가장 많이 사용되는 10,000개의 이외의 단어는 특정 숫자로 처리하여
+신경망 모델을 훈련시킬 때 무시되도록 한다.</p>
+<div class="note admonition">
+<p class="admonition-title">케라스 제공 데이터셋</p>
+<p><a class="reference external" href="https://keras.io/api/datasets/"><code class="docutils literal notranslate"><span class="pre">tf.keras.datasets</span></code> 모듈</a>이 몇 개의 연습용 데이터셋을 제공한다.</p>
+<ul class="simple">
+<li><p>MNIST 손글씨 숫자 분류 데이터셋</p></li>
+<li><p>CIFAR10 작은 이미지 분류 데이터셋</p></li>
+<li><p>CIFAR100 작은 이미지 분류 데이터셋</p></li>
+<li><p>IMDB 영화 후기 감성 분류 데이터셋</p></li>
+<li><p>Reuters 단문 기사 주제 분류 데이터셋</p></li>
+<li><p>패션 MNIST(Fashion MNIST) dataset</p></li>
+<li><p>보스턴 주택 가격(Boston Housing price) 회귀 데이터셋</p></li>
+</ul>
+<p>각 데이터셋을 담고 있는 객체의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 메서드를 이용하여 미리 구분된 훈련셋과 테스트셋을 넘파이 어레이로 불러올 수 있다.</p>
+</div>
+<p><strong>데이터 살펴보기</strong></p>
+<p>후기 샘플 각각에 사용되는 단어의 수는 일정하지 않다.
+즉 각 후기 문장의 길이가 일정하지 않다.
+예를 들어, 훈련셋의 첫째 후기 문장은 218개의 단어로,
+둘째 후기 문장은 189개의 단어로 구성된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">218</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="go">189</span>
+</pre></div>
+</div>
+<p>각각의 입력 샘플은 정수로 구성된 벡터, 즉 1차원 텐서다.
+각각의 정수는 특정 단어를 가리킨다.
+예를 들어, 530은 영화 후기에서 530번째로 많이 사용되는 어떤 단어를 가리킨다.</p>
+<p>훈련셋의 0번 입력 샘플의 처음 10개 값은 다음과 같다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">[1, 14, 22, 16, 43, 530, 973, 1622, 1385, 65]</span>
+</pre></div>
+</div>
+<p>각 샘플의 라벨은 0(부정) 또는 1(긍정)이다.
+예를 들어, 훈련셋 0번 샘플은 긍정 후기를 가리킨다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">영화 후기 내용</p>
+<p><strong>모델 훈련을 위해 반드시 필요한 사항은 아니지만</strong>
+필요한 경우 단어와 정수(빈도) 사이의 관계를 담은 사전을 이용하여
+후기 내용을 확인할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">word_index</span> <span class="o">=</span> <span class="n">imdb</span><span class="o">.</span><span class="n">get_word_index</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">word_index</span></code>에 포함된 10개 항목을 확인하면 다음과 같다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">()[:</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">(&#39;fawn&#39;, 34701)</span>
+<span class="go">(&#39;tsukino&#39;, 52006)</span>
+<span class="go">(&#39;nunnery&#39;, 52007)</span>
+<span class="go">(&#39;sonja&#39;, 16816)</span>
+<span class="go">(&#39;vani&#39;, 63951)</span>
+<span class="go">(&#39;woods&#39;, 1408)</span>
+<span class="go">(&#39;spiders&#39;, 16115)</span>
+<span class="go">(&#39;hanging&#39;, 2345)</span>
+<span class="go">(&#39;woody&#39;, 2289)</span>
+<span class="go">(&#39;trawling&#39;, 52008)</span>
+</pre></div>
+</div>
+<p>아래 코드는 첫째 후기의 내용을 확인한다.
+단어 인덱스에서 3을 빼야 함에 주의하라.
+이유는 인덱스 0, 1, 2는 아래의 의미로 지정되었기 때문이다.</p>
+<ul class="simple">
+<li><p>0: 여백</p></li>
+<li><p>1: 문장의 시작</p></li>
+<li><p>2: 불분명</p></li>
+</ul>
+<p>앞서 10,000개의 가장 많이 사용되는 단어만을 대상으로 하였기에
+그 이외의 단어는 모두 2로 처리된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_word_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_review</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_review</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">reverse_word_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">first_review</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>첫째 후기 내용은 다음과 같다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_review</span>
+<span class="go">&quot;? this film was just brilliant casting location scenery story direction everyone&#39;s really suited the part they played and you could just imagine being there robert ? is an amazing actor and now the same being director ? father came from the same scottish island as myself so i loved the fact there was a real connection with this film the witty remarks throughout the film were great it was just brilliant so much that i bought the film as soon as it was released for ? and would recommend it to everyone to watch and the fly fishing was amazing really cried at the end it was so sad and you know what they say if you cry at a film it must have been good and this definitely was also ? to the two little boy&#39;s that played the ? of norman and paul they were just brilliant children are often left out of the ? list i think because the stars that play them all grown up are such a big profile for the whole film but these children are amazing and should be praised for what they have done don&#39;t you think the whole story was so lovely because it was true and was someone&#39;s life after all that was shared with us all&quot;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3><span class="section-number">6.1.2. </span>데이터 전처리: 벡터화와 멀티-핫 인코딩<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>정수들의 리스트, 그것도 길이가 다른 여러 개의 리스트로 구성된 데이터셋은
+신경망의 입력값으로 사용할 수 없다.
+이 문제를 해결하기 위해 일반적으로 아래 두 방식중에 하나를 적용한다.</p>
+<ul class="simple">
+<li><p><strong>벡터화</strong><font size='2'>vectorization</font></p>
+<ul>
+<li><p>가장 긴 길이의 샘플에 맞춰 모든 샘플을 확장한다.</p></li>
+<li><p>확장에 사용되는 값은 기존 샘플에 사용되지 않은 값을 사용한다.</p></li>
+<li><p>예를 들어 여백을 의미하는 0을 사용할 수 있다.</p></li>
+</ul>
+</li>
+<li><p><strong>멀티-핫 인코딩</strong><font size='2'>multi-hot encoding</font></p>
+<ul>
+<li><p>0과 1로만 이루어진 일정한 길이의 벡터(1차원 어레이)로 변환한다.</p></li>
+<li><p>벡터의 길이는 사용된 단어의 총 수, 예를 들어 10,000을 사용한다.</p></li>
+</ul>
+</li>
+</ul>
+<p>여기서는 멀티-핫 인코딩 방식을 사용한다.
+벡터화 방식은 <a class="reference internal" href="dl_for_text.html#ch-nlp"><span class="std std-numref">13장 자연어 처리</span></a>에서 <code class="docutils literal notranslate"><span class="pre">Embedding</span></code> 층을 사용할 때 자세히 설명한다.</p>
+<p>후기 리스트에 사용된 숫자들은 0부터 9999 사이의 값이다.
+이 정보를 이용하여 후기 샘플을 길이가 10,000인 벡터(1차원 어레이)로 변환한다.</p>
+<ul class="simple">
+<li><p>어레이 길이: 10,000</p></li>
+<li><p>항목: 0 또는 1</p></li>
+<li><p>후기 샘플에 포함된 정수에 해당하는 인덱스의 항목만 1로 지정</p></li>
+</ul>
+<p>예를 들어, <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">5,</span> <span class="pre">9998]</span></code>은 길이가 10,000인 1차원 어레이(벡터)로 변환되는데
+1번, 5번, 13번 인덱스의 항목만 1이고 나머지는 0으로 채워진다.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">멀티</span><span class="o">-</span><span class="n">핫</span><span class="o">-</span><span class="n">인코딩</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9998</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>아래 <code class="docutils literal notranslate"><span class="pre">vectorize_text_sequences()</span></code> 함수는 앞서 설명한 멀티-핫 인코딩을
+모든 주어진 샘플에 대해 실행하여 최종적으로
+데이터셋을 표현하는 넘파이 어레이를 반환한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">vectorize_text_sequences</span><span class="p">(</span><span class="n">text_sequences</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">text_sequences</span><span class="p">),</span> <span class="n">dimension</span><span class="p">))</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">seq</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">text_sequences</span><span class="p">):</span>    <span class="c1"># 모든 샘플에 대한 멀티-핫 인코딩</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+    <span class="k">return</span> <span class="n">results</span>
+</pre></div>
+</div>
+<p>이제 훈련셋과 테스트셋을 벡터화한다.
+자료형은 <code class="docutils literal notranslate"><span class="pre">float32</span></code>로 고정한다. 그렇지 않으면 <code class="docutils literal notranslate"><span class="pre">float64</span></code>로 지정되기에
+메모리 효율성을 떨어뜨린다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_train</span> <span class="o">=</span> <span class="n">vectorize_text_sequences</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_test</span> <span class="o">=</span> <span class="n">vectorize_text_sequences</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>첫째 훈련 샘플의 변환 결과는 다음과 같다.
+결과를 보면 원래의 첫째 훈련 샘플에 0은 포함되지 않았지만 1과 2는 사용되었음을 알 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([0., 1., 1., ..., 0., 0., 0.], dtype=float32)</span>
+</pre></div>
+</div>
+<p>라벨은 멀티-핫 인코딩을 적용하지 않는다.
+다만 <code class="docutils literal notranslate"><span class="pre">float32</span></code> 자료형으로 변환해서 훈련 샘플의 자료형과 일치시킬 필요는 있다.
+그래야 손실값을 계산하기 위해 예측값과 라벨을 서로 비교할 수 있기 때문이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">train_labels</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span>
+<span class="go">array([1., 0., 0., ..., 0., 1., 0.], dtype=float32)</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3><span class="section-number">6.1.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p><strong>모델 구성</strong></p>
+<p><a class="reference internal" href="building_blocks_of_NN.html#ch-building-blocks"><span class="std std-numref">2장</span></a>에서
+MNIST 데이터셋을 이용했을 때처럼 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층과 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스를 이용하여 단순한 모델을 구성한다.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층으로 신경망을 구성할 때 다음 두 가지를 정해야 한다.</p>
+<ul class="simple">
+<li><p>몇 개의 층을 사용하는가?</p></li>
+<li><p>각 층마다 몇 개의 유닛<font size='2'>unit</font>을 사용하는가?</p></li>
+</ul>
+<p>위 두 질문에 대한 체계적인 답은
+<a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">7장 머신러닝 핵심 이슈</span></a>에서 다룬다.
+여기서는 세 개의 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층으로 순차 모델을 구성한다.</p>
+<p><strong>은닉층과 출력층</strong></p>
+<p>딥러닝 신경망 모델에 사용된 층 중에서 모델의 예측값을 계산하는 마지막 층이 <strong>출력층</strong>이다.
+출력층 이외의 다른 층은 <strong>은닉층</strong>이다.
+따라서 아래 모델은 두 개의 은닉층을 가지며 각각의 은닉층과 출력층의 구성 요소는 다음과 같다.</p>
+<ul class="simple">
+<li><p>은닉층: 각각 16개의 유닛 사용. 활성화 함수는 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수</p></li>
+<li><p>출력층: 1개의 유닛 사용. 활성화 함수는 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)</span>
+    <span class="p">])</span>
+</pre></div>
+</div>
+<p>위 모델을 시각화하면 다음과 같다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-01.png" style="width:200px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>출력층의 유닛 수</strong></p>
+<p>이진 분류 모델의 출력층은 긍정과 부정 중의 하나,
+양성과 음성 중의 하나를 결정하는 데에 사용될
+하나의 값, 즉 스칼라를 계산해서 출력해야 하기에
+보통 하나의 유닛을 사용하는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 밀집층을 사용한다.</p>
+<p>반면에 MNIST 데이터셋처럼 2개보다 많은 라벨 중에 하나를 예측해야 하는
+다중 클래스 분류 모델의 출력층은 라벨의 개수만큼의 유닛을 지정한다.
+예를 들어 MNIST 데이터셋을 이용한 다중 클래스 분류 모델의 출력층은
+10개의 유닛을 가져야 한다.</p>
+<p>회귀 모델은 하나의 각각의 입력 샘츨에 대해 하나의 값을 예측해야 하기에
+출력층은 하나의 유닛을 사용한다.</p>
+<p><strong>활성화 함수 선택</strong></p>
+<p>은닉층의 활성화 함수는 보통 음수값을 제거하는 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수가 사용된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>은닉층의 활성화 함수로 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수와 유사한 함수들이 사용된다.
+대표적으로 <code class="docutils literal notranslate"><span class="pre">prelu()</span></code>, <code class="docutils literal notranslate"><span class="pre">elu()</span></code>, <code class="docutils literal notranslate"><span class="pre">tanh()</span></code> 등이 많이 활용된다.
+하지만 여기서는 기본적으로 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 함수만 사용한다.
+기타 활성화 함수에 대한 활용과 설명은
+오렐리앙 제롱의 <a class="reference external" href="https://www.oreilly.com/library/view/hands-on-machine-learning/9781098125967/">핸즈온 머신러닝 (3판)</a>
+11장을 참고하면 좋다.</p>
+<p>출력층의 활성화 함수는 모델의 종류에 따라 다르게 선택된다.
+영화 후기의 긍정/부정을 예측하는 이진 분류 모델의 출력층은 기본적으로 0과 1사이의 확률값을 계삲하는 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수가
+사용된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/slides/images/relu_sigmoid.png" style="width:600px;"></div><p>반면에 다중 클래스 분류 모델은 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수를 사용한다.
+그리고 회귀 모델의 경우 일반적으로 활성화 함수를 사용하지 않는다.</p>
+<p><strong>이진 분류 모델 컴파일</strong></p>
+<p>이진 분류 모델 훈련에 필요한 옵티마이저, 손실 함수, 평가지표를 많은 경우 다음과 같이 지정한다.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">optimizer=&quot;rmsprop&quot;</span></code>: 일반적으로 추천되는 옵티마이저.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">loss=&quot;binary_crossentropy&quot;</span></code>: 이진 분류 모델의 확률 예측값의 오차에 해당하는 로그 손실 계산.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">metrics=&quot;accuracy&quot;</span></code>: 정확도가 분류 모델의 일반적인 평가지표로 사용됨.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]</span>
+             <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3><span class="section-number">6.1.4. </span>모델 훈련과 활용<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>훈련 중인 모델을 에포크마다 검증하기 위해 검증셋을 따로 지정한다.
+여기서는 <code class="docutils literal notranslate"><span class="pre">x_train</span></code>에서 10,000개의 샘플을 검증셋으로 활용한다.
+즉, 실제 훈련에 사용되는 데이터는 15,000개로 줄어든다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]</span>            <span class="c1"># 검증용</span>
+<span class="n">partial_x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="mi">10000</span><span class="p">:]</span>  <span class="c1"># 훈련용</span>
+<span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">10000</span><span class="p">]</span>            <span class="c1"># 검증용 타깃셋</span>
+<span class="n">partial_y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="mi">10000</span><span class="p">:]</span>  <span class="c1"># 훈련용 타깃셋</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_x_train</span><span class="p">,</span>
+                    <span class="n">partial_y_train</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                    <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span> <span class="c1"># 검증 데이터셋 지정</span>
+                   <span class="p">)</span>
+</pre></div>
+</div>
+<p><strong><code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드 반환값: <code class="docutils literal notranslate"><span class="pre">History</span></code> 객체</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">fit()</span></code> 메서드는 훈련과정 중에 계산된 다양한 정보를 저장한 <code class="docutils literal notranslate"><span class="pre">History</span></code> 클래스의 객체를
+반환한다.
+<code class="docutils literal notranslate"><span class="pre">History</span></code> 클래스는 <code class="docutils literal notranslate"><span class="pre">Callback</span></code> 클래스를 상속하는데
+신경망 모델의 훈련 과정중에 생성되는 다양한 정보를 기록하도록 설계되었다.</p>
+<p>콜백(<code class="docutils literal notranslate"><span class="pre">Callback</span></code>) 클래스의 다양한 활용법에 대해서는
+<a class="reference internal" href="working_with_keras.html#ch-working-with-keras"><span class="std std-numref">9장 케라스 모델 고급 활용법</span></a>에서 자세히 살펴볼 것이다.</p>
+<p>예를 들어,
+<code class="docutils literal notranslate"><span class="pre">History</span></code> 객체에 포함된 <code class="docutils literal notranslate"><span class="pre">history</span></code> 속성은 훈련중에 에포크 단위로 측정된 손실값과 평가지표를 사전으로 저장한다.
+아래 코드는 훈련 과정중에 기록된
+훈련셋과 검증셋에 대한 에포크별 손실값과 정확도가
+저장되어 있음을 보여준다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">history_dict</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">history_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">dict_keys([&#39;loss&#39;, &#39;accuracy&#39;, &#39;val_loss&#39;, &#39;val_accuracy&#39;])</span>
+</pre></div>
+</div>
+<p><strong>손실값의 변화</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">history</span></code> 속성에 저장된 훈련셋과 검증 세트에 대한 에포크별 손실값의 변화를 보면
+훈련셋에 대해서는 손실값이 계속 감소하지만
+검증셋에 대해서는 4번째 에포크 다음부터 오히려 상승한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span>
+<span class="n">val_loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_loss&quot;</span><span class="p">]</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation loss&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/training_val_loss.png" style="width:500px;"><p><strong>정확도의 변화</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">history</span></code> 속성에 저장된 훈련셋과 검증셋에 대한 에포크별 정확도의 경우엔
+훈련셋에 대해서는 정확도가 계속 증가하지만,
+검증셋에 대해서는 역시 4번째 에포크 다음부터 조금씩 감소한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]</span>
+<span class="n">val_acc</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training accuracy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_acc</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation accuracy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/training_val_acc.png" style="width:500px;"><p><strong>과대적합 방지</strong></p>
+<p><strong>과대적합</strong><font size='2'>overfitting</font>은 모델이 훈련셋에 익숙해져서
+처음 보는 데이터에 대해서 성능이 더 이상 좋아지지 않거나 떨어지는 현상을 가리킨다.
+따라서 앞서 살펴본 모델도 4번째 에포크 이후로 과대적합을 겪기 시작했다.
+이는 4번의 에포크만 훈련 반복을 진행하면 과대적합되지
+않은 모델이 훈련됨을 의미한다.</p>
+<p>여기서는 과대적합되지 않는 모델을 얻기위해 모델을 재훈련시킨다.
+모델을 재훈련 시키려면
+모델 구성부터, 컴파일, 훈련을 모두 처음부터 다시 시작해야 한다.
+그래야 가중치와 편향이 초기화된 상태로 훈련이 시작되기 때문이다.
+그렇지 않으면 이전 훈련 결과를 이어 받아 훈련된다.</p>
+<p><a class="reference internal" href="fundamentals_of_ml.html#ch-fundamentals-of-ml"><span class="std std-numref">7장 머신러닝 모델 훈련 기법</span></a>에서
+모델 재훈련을 하지 않으면서도 과대적합을 방지할 수 있는 다양한 기법을 소개한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>훈련 결과 평가</strong></p>
+<p>훈련 결과를 테스트하기 위해 훈련에 전혀 사용되지 않은 테스트셋을 이용하여
+정확도를 계산한다.
+이를 훈련된 모델의 <code class="docutils literal notranslate"><span class="pre">evaluate()</span></code> 메서드를 이용한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span>
+<span class="go">[0.3139097988605499, 0.8770800232887268]</span>
+</pre></div>
+</div>
+<p>테스트셋에 대한 성능은 아래와 같이 88% 정도의 정확도를 보인다. 모델의 손실값은 0.31 정도.
+앞으로 보다 좋은 성능의 모델을 살펴볼 것이며,
+현존하는 가장 좋은 모델의 정확도는 95% 정도로 알려져 있다.</p>
+<p><strong>모델 활용</strong></p>
+<p>훈련된 모델을 활용하려면 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 이용한다.
+그러면 큰 데이터셋에 대해서도 지정된 배치 단위로 예측값을 계산한다.</p>
+<p>이진 분류 모델이고 출력층에 <code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code> 함수를 사용하였기에
+예측값이 부정 샘플에 대해서는 0을, 긍정 샘플에 대해서는 1에 가까울 수록
+신경망 모델이 자신의 예측값에 대한 확신이 높다고 할 수 있다.</p>
+<p>앞서 훈련셋의 <code class="docutils literal notranslate"><span class="pre">dtype</span></code>을 <code class="docutils literal notranslate"><span class="pre">float32</span></code>로 지정하였기에 예측값도 동일한 자료형으로
+계산되었음을 확인할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+<span class="go">array([[0.25440323],</span>
+<span class="go">       [0.9999424 ],</span>
+<span class="go">       [0.95840394],</span>
+<span class="go">       ...,</span>
+<span class="go">       [0.17153329],</span>
+<span class="go">       [0.10725482],</span>
+<span class="go">       [0.6672551 ]], dtype=float32)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">6.2. </span>다중 클래스 분류: 뉴스 기사 주제 분류<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="id7">
+<h3><span class="section-number">6.2.1. </span>데이터 준비: 로이터 데이터셋<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>로이터<font size='2'>Reuter</font> 통신사가 1986년에 작성한 단문 기사 모음집이다.
+총 11,228개의 단문 기사로 구성되었으며 훈련셋과 테스트셋으로 이미 구분되어 있다.</p>
+<ul class="simple">
+<li><p>훈련셋 크기: 8,982</p></li>
+<li><p>테스트셋 크기: 2,246</p></li>
+</ul>
+<p>기사에서 다루는 주제는 총 46 개로 구분되며, 각각의 기사는 하나의 주제와 연관된다.
+여기서 훈련시키는 모델은 각각의 기사에 대해 46개 중의 하나의 주제를 예측하는
+분류 모델이다.
+라벨의 범주(클래스)가 3개 이상이기에
+<strong>다중 클래스 분류</strong><font size='2'>multiclass classification</font> 모델이다.</p>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">reuters</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 데이터셋을 불러올 수 있다.
+불러올 때 영화 후기의 경우처럼 단어 사용빈도에서 상위 10,000등 이내의 단어만 대상으로 한다.
+그렇지 않은 단어는 모두 특정 숫자로 대체된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">reuters</span>
+<span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="n">num_words</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>데이터 살펴보기</strong></p>
+<p>각 샘플은 정수들의 리스트이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_data</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">[1, 245, 273, 207, 156, 53, 74, 160, 26, 14, 46, 296, 26, 39, 74, 2979,</span>
+<span class="go">3554, 14, 46, 4689, 4329, 86, 61, 3499, 4795, 14, 61, 451, 4329, 17, 12]</span>
+</pre></div>
+</div>
+<p>각 샘플에 대한 라벨은 0부터 45까지의 정수로 표현된다.
+예를 들어, 10번 기사의 주제는 3이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_labels</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<p>3번 주제는 소득(earn)을 가리킨다.</p>
+<div class="tip admonition">
+<p class="admonition-title">로이터 기사 주제</p>
+<p>언급된 46개의 주제와 번호 사이의 관계는
+<a class="reference external" href="https://github.com/keras-team/keras/issues/12072">GitHub: Where can I find topics of reuters dataset #12072</a>에서 확인할 수 있다.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>번호</p></th>
+<th class="head text-center"><p>주제</p></th>
+<th class="head text-center"><p>번호</p></th>
+<th class="head text-center"><p>주제</p></th>
+<th class="head text-center"><p>번호</p></th>
+<th class="head text-center"><p>주제</p></th>
+<th class="head text-center"><p>번호</p></th>
+<th class="head text-center"><p>주제</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>0</p></td>
+<td class="text-center"><p>cocoa</p></td>
+<td class="text-center"><p>1</p></td>
+<td class="text-center"><p>grain</p></td>
+<td class="text-center"><p>2</p></td>
+<td class="text-center"><p>veg-oil</p></td>
+<td class="text-center"><p>3</p></td>
+<td class="text-center"><p>earn</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>4</p></td>
+<td class="text-center"><p>acq</p></td>
+<td class="text-center"><p>5</p></td>
+<td class="text-center"><p>wheat</p></td>
+<td class="text-center"><p>6</p></td>
+<td class="text-center"><p>copper</p></td>
+<td class="text-center"><p>7</p></td>
+<td class="text-center"><p>housing</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>8</p></td>
+<td class="text-center"><p>money-supply</p></td>
+<td class="text-center"><p>9</p></td>
+<td class="text-center"><p>coffee</p></td>
+<td class="text-center"><p>10</p></td>
+<td class="text-center"><p>sugar</p></td>
+<td class="text-center"><p>11</p></td>
+<td class="text-center"><p>trade</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>12</p></td>
+<td class="text-center"><p>reserves</p></td>
+<td class="text-center"><p>13</p></td>
+<td class="text-center"><p>ship</p></td>
+<td class="text-center"><p>14</p></td>
+<td class="text-center"><p>cotton</p></td>
+<td class="text-center"><p>15</p></td>
+<td class="text-center"><p>carcass</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>16</p></td>
+<td class="text-center"><p>crude</p></td>
+<td class="text-center"><p>17</p></td>
+<td class="text-center"><p>nat-gas</p></td>
+<td class="text-center"><p>18</p></td>
+<td class="text-center"><p>cpi</p></td>
+<td class="text-center"><p>19</p></td>
+<td class="text-center"><p>money-fx</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>20</p></td>
+<td class="text-center"><p>interest</p></td>
+<td class="text-center"><p>21</p></td>
+<td class="text-center"><p>gnp</p></td>
+<td class="text-center"><p>22</p></td>
+<td class="text-center"><p>meal-feed</p></td>
+<td class="text-center"><p>23</p></td>
+<td class="text-center"><p>alum</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>24</p></td>
+<td class="text-center"><p>oilseed</p></td>
+<td class="text-center"><p>25</p></td>
+<td class="text-center"><p>gold</p></td>
+<td class="text-center"><p>26</p></td>
+<td class="text-center"><p>tin</p></td>
+<td class="text-center"><p>27</p></td>
+<td class="text-center"><p>strategic-metal</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>28</p></td>
+<td class="text-center"><p>livestock</p></td>
+<td class="text-center"><p>29</p></td>
+<td class="text-center"><p>retail</p></td>
+<td class="text-center"><p>30</p></td>
+<td class="text-center"><p>ipi</p></td>
+<td class="text-center"><p>31</p></td>
+<td class="text-center"><p>iron-steel</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>32</p></td>
+<td class="text-center"><p>rubber</p></td>
+<td class="text-center"><p>33</p></td>
+<td class="text-center"><p>heat</p></td>
+<td class="text-center"><p>34</p></td>
+<td class="text-center"><p>jobs</p></td>
+<td class="text-center"><p>35</p></td>
+<td class="text-center"><p>lei</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>36</p></td>
+<td class="text-center"><p>bop</p></td>
+<td class="text-center"><p>37</p></td>
+<td class="text-center"><p>zinc</p></td>
+<td class="text-center"><p>38</p></td>
+<td class="text-center"><p>orange</p></td>
+<td class="text-center"><p>39</p></td>
+<td class="text-center"><p>pet-chem</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>40</p></td>
+<td class="text-center"><p>dlr</p></td>
+<td class="text-center"><p>41</p></td>
+<td class="text-center"><p>gas</p></td>
+<td class="text-center"><p>42</p></td>
+<td class="text-center"><p>silver</p></td>
+<td class="text-center"><p>43</p></td>
+<td class="text-center"><p>wpi</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>44</p></td>
+<td class="text-center"><p>hog</p></td>
+<td class="text-center"><p>45</p></td>
+<td class="text-center"><p>lead</p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+<td class="text-center"><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>실제로 10번 기사 내용을 확인해보면 소득(earn)과 관련되어 있어 보인다.
+데이터를 해독(decoding)하는 방법은 IMDB 데이터셋의 경우와 동일하다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">word_index</span> <span class="o">=</span> <span class="n">reuters</span><span class="o">.</span><span class="n">get_word_index</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reverse_word_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">word_index</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_newswire</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">reverse_word_index</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train_data</span><span class="p">[</span><span class="mi">10</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">decoded_newswire</span>
+<span class="go">? period ended december 31 shr profit 11 cts vs loss 24 cts net profit 224 271 vs loss 511 349 revs 7 258 688 vs 7 200 349 reuter 3</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h3><span class="section-number">6.2.2. </span>데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p><strong>입력 데이터셋 멀티-핫 인코딩</strong></p>
+<p>사용빈도가 10,000 미만인 단어만 사용하도록 하였기에
+IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,000인 멀티-핫 인코딩 한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x_train</span> <span class="o">=</span> <span class="n">vectorize_text_sequences</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_test</span> <span class="o">=</span> <span class="n">vectorize_text_sequences</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>라벨 데이터셋 원-핫 인코딩</strong></p>
+<p>라벨은 0부터 45 사이의 값이다.
+이런 경우 정수로 구성된 텐서를 사용하기 보다는
+<strong>원-핫 인코딩</strong><font size='2'>one-hot encoding</font>
+기법을 적용하는 게 좋다.</p>
+<p>원-핫 인코딩은 멀티-핫 인코딩 기법과 유사하다.
+원-핫 인코딩으로 생성된 벡터 (1차원 텐서, 여기서는 1차원 어레이)는
+한 곳에서만 1이고 나머지 인덱스에서는 모두 0을 항목으로 갖는다.
+예를 들어, 정수 3은 길이가 46인 벡터로 변환되는데
+3번 인덱스에서만 1이고 나머지 항목은 모두 0이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">....</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수가 원-핫 인코딩을 지원한다.
+원-핫 벡터의 길이는 사용된 라벨의 최댓값에 1을 더한 값이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">to_categorical</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_test</span> <span class="o">=</span> <span class="n">to_categorical</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,</span>
+<span class="go">       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,</span>
+<span class="go">       0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32)</span>
+</pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">원-핫 인코딩 함수</p>
+<p>케라스의 <code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수를 아래 <code class="docutils literal notranslate"><span class="pre">to_ont_hot()</span></code> 함수로 직접 구현할 수 있다.
+<code class="docutils literal notranslate"><span class="pre">dimension</span></code>은 원-핫 벡터의 길이를 지정하며, 사용된 라벨의 최댓값보다 1 크게 잡는다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">to_one_hot</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+    <span class="n">dimension</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">dimension</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+    <span class="k">return</span> <span class="n">results</span>
+</pre></div>
+</div>
+<p>또한 원-핫 인코딩, 멀티-핫 인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환하는
+전처리 과정을 지원하는 층<font size='2'>layer</font>도 있다.
+예를 들어 <a class="reference external" href="https://keras.io/api/layers/preprocessing_layers/categorical/category_encoding/">tf.keras.layers.CategoryEncoding</a>은
+원-핫 인코딩과 멀티-핫 인코딩을 지원한다.</p>
+</div>
+</section>
+<section id="id9">
+<h3><span class="section-number">6.2.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p><strong>모델 구성</strong></p>
+<p>IMDB 데이터셋의 경우와는 달리 3 개 이상의 클래스(범주)로 분류하는
+<strong>다중 클래스 분류</strong> 모델을 구성하고 훈련시킨다.</p>
+<p>여기서 사용하는 층의 구성은 다음과 같다.</p>
+<ul class="simple">
+<li><p>은닉층은 긍정/부정의 이진 분류 모델 보다 훨씬 많은 64개의
+유닛을 사용하도록 한다.
+이유는 이진 분류보다 훨씬 많은 46개의 클래스로 분류하려면
+보다 많은 정보를 각 층에서 다룰 수 있어야 하기 때문이다.
+층에 사용되는 유닛이 많을 수록 보다 많은 정보를 계산한다.</p></li>
+<li><p>다중 클래스 분류 모델의 출력층은 클래스 수 만큼의 값으로 구성된 벡터를 출력하도록
+여러 개의 유닛을 사용하는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 밀집층을 사용한다.
+또한 활성화 함수로 모든 유닛에 대한 확률값의 합이 1이 되도록 하는 <code class="docutils literal notranslate"><span class="pre">softmax()</span></code>를 활성화 함수로 사용한다.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+<div class="info admonition">
+<p class="admonition-title">softmax 활성화 함수</p>
+<p><code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 함수는 다음과 같이 정의된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">softmax</span><span class="p">(</span><span class="n">vector</span><span class="p">):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">e</span> <span class="o">/</span> <span class="n">e</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">softmax()</span></code> 활성화 함수는 유닛별로 아핀변환된 값들을 종합하여
+최종적으로 각 유닛이 대변하는 클래스에 속할 확률을 계산한다.
+클래스별 확률을 합치면 1이 되며, 가장 높은 확률을 갖는 클래스를
+모델의 최종 예측값으로 사용한다.
+보다 자세한 설명은 <a class="reference external" href="https://codingalzi.github.io/handson-ml3/training_models.html">핸즈온 머신러닝 4장</a>을 참고한다.</p>
+</div>
+<p><strong>모델 컴파일</strong></p>
+<p>다중 클래스 분류 모델의 손실함수는 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>로 지정한다.
+<code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>는 클래스의 실제 분포와 예측 클래스의 분포 사이의
+오차를 측정하며, 보다 자세한 설명은
+<a class="reference external" href="https://codingalzi.github.io/handson-ml3/training_models.html#sec-softmax-regression">핸즈온 머신러닝(3판)의 소프트맥스 회귀의 비용 함수</a>를 참고한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;categorical_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">정수 라벨과 sparse_categorical_crossentropy</p>
+<p>분류할 범주의 수가 많을 경우 정수 라벨을 원-핫 인코딩하지 않고 바로 사용하는 게 보다 메모리 효율적이다.
+그런데 정수 텐서 라벨(타깃)을 이용하여 훈련하려면 모델을 컴파일할 때 손실함수로
+<code class="docutils literal notranslate"><span class="pre">sparse_categorical_crossentropy</span></code>를 사용해야 한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_labels</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">test_labels</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="id10">
+<h3><span class="section-number">6.2.4. </span>모델 훈련과 활용<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>훈련 방식은 영화 후기 이진 분류 모델의 경우와 동일하다.
+대신에 검증셋의 크기를 1,000으로 지정한다.
+참고로, 검증셋의 크기는 훈련셋의 크기에 비례해서 적절하게 정한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_val</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+<span class="n">partial_x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="mi">1000</span><span class="p">:]</span>
+<span class="n">y_val</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">1000</span><span class="p">]</span>
+<span class="n">partial_y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="mi">1000</span><span class="p">:]</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_x_train</span><span class="p">,</span>
+                    <span class="n">partial_y_train</span><span class="p">,</span>
+                    <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                    <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+                    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>손실값의 변화</strong></p>
+<p>9번째 에포크 이후로 검증셋에 대한 손실값이 올라간다.
+즉, 그때부터 과대적합이 발생하였다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-06.png" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>정확도의 변화</strong></p>
+<p>정확도 역시 9번째 에포크 이후로 조금씩 떨어진다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-07.png" style="width:500px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>모델 재훈련</strong></p>
+<p>9번 에포크를 지나면서 과대적합이 발생하기에
+에포크 수를 9로 줄이고 처음부터 다시 훈련시킨다.
+IMDB 데이터셋 이진 분류에서 설명한 대로
+모델 구성부터, 컴파일, 훈련을 모두 다시 시작한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;categorical_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span>
+          <span class="n">y_train</span><span class="p">,</span>
+          <span class="n">epochs</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+          <span class="n">batch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>테스트셋에 대한 성능은 아래와 같이 80% 정도의 정확도를 보인다.
+모델의 손실값은 0.96 정도로 계산된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span>
+<span class="go">[0.9565213431445807, 0.79697239536954589]</span>
+</pre></div>
+</div>
+<p>80%의 정확도가 얼마나 좋은지/나쁜지를 판단하려면 무작위로 찍을 때의 정확도를 계산해봐야 한다.
+실제로 로이터 데이터셋을 이용하여 무작위로 찍을 때의 정확도는 19% 정도 나온다.
+따라서 80% 정도의 정확도는 상당히 좋은 편이다.</p>
+<p><strong>모델 활용</strong></p>
+<p>훈련된 모델의 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드는 각 입력 샘플에 대해
+마지막 층에 사용된 유닛의 개수 만큼의 길이로 구성된 벡터 텐서를 반환한다.
+여기서는 소프트맥스 함수에 의해 46개 클래스에 속할 확률로 구성된 길이가 46인 벡터 텐서가 반환되며
+각 확률값의 합은 1이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(46,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<p>이중에 가장 높은 확률값이 위치한 인덱스를 모델의 최종 예측값으로 사용하면 된다.
+이를 위해 <code class="docutils literal notranslate"><span class="pre">np.argmax()</span></code> 함수를 이용한다.
+예를 들어, 테스트셋의 첫째 샘플에 대한 예측값은 3이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">정보 병목 현상</p>
+<p>층에 사용되는 유닛의 수를 지정할 때 병목 현상<font size='2'>bottleneck</font>이 발생하지 않도록 조심해야 한다.
+각 층은 이전 층에서 넘겨진 값만 활용할 수 있기에 이전 층이 너무 적은 수의 유닛을
+사용하면 그만큼 전달되는 정보의 양도 적다.
+따라서 이후에 아무리 많은 유닛을 사용하더라도 새로운 정보를 생성하기는 어렵다.
+이를 정보 병목 현상이라 부르며 이런 일이 발생하지 않도록
+층을 구성해야 한다.</p>
+<p>예를 들어 은닉층에 사용되는 유닛은 마지막 층의 유닛보다 많아야 한다.
+그렇지 않으면 정보전달 과정에 병목 현상이 발생할 수 있다.
+아래 코드의 둘째 은닉층은 4 개의 유닛만을 사용하는데
+훈련된 모델의 성능이 많이 저하된다.
+실제로 테스트셋에 대한 정확도가 80% 정도에서 65% 정도로 낮아진다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">46</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="id11">
+<h2><span class="section-number">6.3. </span>회귀: 주택가격 예측<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>이진 분류와 다중 클래스 분류는
+몇 개의 클래스를 가리키는 숫자들 중에 하나를 예측하는 문제다.
+반면에 임의의 실수를 예측하는 문제는 <strong>회귀</strong><font size='2'>regression</font>라 부른다.
+예를 들어 온도 예측, 가격 예측을 하는 머신러닝 모델이 회귀 모델이다.</p>
+<p>여기서는 미국 보스턴<font size='2'>Boston</font> 시의 1970년대 중반의
+주택가격을 예측하는 회귀 문제를 예제로 다룬다.</p>
+<div class="warning admonition">
+<p class="admonition-title">로지스틱 회귀</p>
+<p>로지스틱 회귀<font size='2'>logistic regression</font> 알고리즘는 분류 모델임에 주의하라.</p>
+</div>
+<section id="id12">
+<h3><span class="section-number">6.3.1. </span>데이터 준비: 보스턴 주택가격 데이터셋<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>사용하는 데이터셋은
+1970년대 중반의 미국 보스턴 시 외곽의 총 506개 지역에서 수집된 통계 자료를 담고 있다.
+통계는  지역별 중간 주택가격과 함께 다음 13가지 내용을 조사했다.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>특성</p></th>
+<th class="head text-left"><p>의미</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><font color="#FF0000">CRIM</font></p></td>
+<td class="text-left"><p><font color="#FF0000">구역별 1인당 범죄율</font></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ZN</p></td>
+<td class="text-left"><p>25,000 평방 피트 이상의 주거 구역 비율</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>INDUS</p></td>
+<td class="text-left"><p>구역별 비 소매 사업 면적(에이커) 비율</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>CHAS</p></td>
+<td class="text-left"><p>Charles River 경계 접촉 여부</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>NOX</p></td>
+<td class="text-left"><p>산화 질소 농도</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>RM</p></td>
+<td class="text-left"><p>주택 당 평균 방 수</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>AGE</p></td>
+<td class="text-left"><p>1940년 이전에 지어졌으면서 소유주가 살고 있는 주택 비율</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>DIS</p></td>
+<td class="text-left"><p>보스턴 고용 센터 다섯 곳 까지의 가중(weighted) 거리</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>RAD</p></td>
+<td class="text-left"><p>방사형 고속도로 접근성 지수</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>TAX</p></td>
+<td class="text-left"><p>1만달러당 재산세율</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>PTRATIO</p></td>
+<td class="text-left"><p>구역별 학생-교사 비율</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><font color="#FF0000">B</font></p></td>
+<td class="text-left"><p><font color="#FF0000">1000(Bk - 0.63)^2 (Bk는구역별 흑인 비율)</font></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><font color="#FF0000">LSTAT</font></p></td>
+<td class="text-left"><p><font color="#FF0000">구역별 하위 계층 인구 비율</font></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>언급된 13가지 데이터가 주어졌을 때 해당 구역의 중간 주택가격을 예측하는 회귀 모델을
+훈련시켜야 한다.</p>
+<div class="hint admonition">
+<p class="admonition-title">보스턴 데이터셋의 윤리적 문제</p>
+<p>구역별로 조사된 자료 중에서 범죄율, 흑인 비율, 하위 계층 비율 등을 포함한다.
+특히 흑인 비율을 사용하는 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성이 윤리적 논쟁을 일으킨다.
+구역의 집값과 흑인 비율의 연관성을 암시하는 이런 통계 조사는
+1970년대 미국에서 인종 차별이 여전히 주요 쟁점이었음을 단편적으로 보여준다.
+여기서는 단순히 데이터 활용 차원에서만 보스턴 데이터셋을 이용할 뿐 다른 어떤 의도도 없음을 밝힌다.
+또한 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거하더라도 좋은 성능의 회귀 모델을 훈련시킬 수 있음을 보인다.</p>
+</div>
+<p>케라스 <code class="docutils literal notranslate"><span class="pre">boston_housing</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 보스턴 데이터셋을 불러올 수 있다.
+데이터셋이 이미 404개 샘플로 구성된 훈련셋과 102개 샘플로 구성된 테스트셋으로 구분되어 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">boston_housing</span>
+<span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">),</span> <span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span> <span class="o">=</span> <span class="n">boston_housing</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>타깃은 구역별 중앙 주택가격이며 부동소수점을 사용한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_targets</span>
+<span class="go">[ 15.2,  42.3,  50. ...  19.4,  19.4,  29.1]</span>
+</pre></div>
+</div>
+</section>
+<section id="id13">
+<h3><span class="section-number">6.3.2. </span>데이터 전처리: 표준화<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>특성에 따라 사용되는 값들의 크기 정도<font size='2'>scale</font>가 다르다.
+어떤 특성은 0과 1사이의 값을, 다른 특성은 100단위의 값을 포함하기도 한다.
+그런데 머신러닝 모델은 기본적으로 모든 특성이 동일한 크기 정도의
+값으로 구성될 때 보다 잘 훈련된다.
+이런 이유로 여기서는 평균은 0, 표준편차는 1이 되도록 변환하는
+<strong>표준화</strong><font size='2'>standardization</font>를 적용해서
+훈련셋과 테스트셋을 전처리한다.</p>
+<p>표준화는 다음 식으로 계산된다.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{x - \mu}{\sigma}
+\]</div>
+<p><span class="math notranslate nohighlight">\(x\)</span>는 샘플의 특성값을, <span class="math notranslate nohighlight">\(\mu\)</span>와 <span class="math notranslate nohighlight">\(\sigma\)</span>는 특성별 평균값과 표준편차를 가리킨다.
+넘파이 어레이를 이용하면 전체 훈련셋에 대해 다음처럼 한 번에 표준화를 진행할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 훈련셋의 특성별 평균값/표준편차</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">std</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 훈련셋 표준화</span>
+<span class="n">train_data</span> <span class="o">-=</span> <span class="n">mean</span>
+<span class="n">train_data</span> <span class="o">/=</span> <span class="n">std</span>
+</pre></div>
+</div>
+<p>테스트셋의 표준화도 훈련셋의 평균값과 표준편차를 이용한다.
+이유는 테스트셋에 대한 어떤 정보도 미리 알 수 없다는 전제가 실현되야 하기 때문이다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 테스트셋 표준화: 훈련셋의 평균값과 표준편차 활용</span>
+<span class="n">test_data</span> <span class="o">-=</span> <span class="n">mean</span>
+<span class="n">test_data</span> <span class="o">/=</span> <span class="n">std</span>
+</pre></div>
+</div>
+</section>
+<section id="id14">
+<h3><span class="section-number">6.3.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>데이터셋이 작으므로 출력층을 제외하고 두 개 층만 사용한다.
+머신러닝 모델은 훈련셋이 작을 수록 과대적합을 보다 잘하기 때문이
+이를 방지하기 위해 보다 단순한 모델을 사용한다.</p>
+<p>마지막 층을 제외한 나머지 층은 64개의 유닛과 함께 <code class="docutils literal notranslate"><span class="pre">relu()</span></code> 활성화 함수를 사용한다.
+회귀 모델의 마지막 층은 기본적으로 활성화 함수 없이 1개의 유닛만 사용한다.
+이유는 하나의 값을 예측하되 그 값의 크기를 제한하지 않아야 하기 때문이다.</p>
+<p>모델 컴파일에 필요한 손실 함수와 평가지표는 다음과 같다.</p>
+<ul class="simple">
+<li><p>손실함수: <strong>평균제곱오차</strong><font size='2'>mean squared error</font>(mse).
+타깃과 예측값 사이의 오차의 제곱의 평균값. 회귀 모델의 일반적인 손실 함수.</p></li>
+<li><p>평가지표: <strong>평균절대오차</strong><font size='2'>mean absolute error</font>(mae).
+타깃과 예측값 사이의 오차의 평균값.</p></li>
+</ul>
+<p>동일한 모델을 앞으로도 반복해서 사용할 예정이기에
+여기서는 모델 구성과 컴파일을 동시에 진행하는
+하나의 함수를 선언한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_model</span><span class="p">():</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;mse&quot;</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mae&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</section>
+<section id="id15">
+<h3><span class="section-number">6.3.4. </span>모델 훈련과 활용<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>데이터셋이 작기에 훈련 중에 사용할 검증 세트를 따로 분리하는 것은 훈련의 효율성을 떨어뜨린다.
+대신에 <strong>K-겹 교차검증</strong><font size='2'>K-fold cross-validation</font>을 사용한다.
+아래 이미지는 3-겹 교차검증을 사용할 때 훈련 중에 사용되는 훈련셋과 검증셋의 사용법을 보여준다.</p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/3-fold-cross-validation.png" style="width:600px;"></div>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>아래 코드는 3-겹 교차검증을 구현한다.</p>
+<p>훈련셋을 3등분 한 다음에 폴드별로 차례대로 검증셋으로 활용하여 모델을 3번 훈련시킨다.
+훈련되는 모델은 앞서 <code class="docutils literal notranslate"><span class="pre">build_model()</span></code> 함수로 선언된 모델이며
+폴드가 정해지면 매번 새롭게 선언된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 폴드 수</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="c1"># 검증 폴드의 크기</span>
+<span class="n">num_val_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span> <span class="o">//</span> <span class="n">k</span>
+<span class="c1"># 모델 훈련 에포크 수</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="c1"># 폴드별 평가지표 저장</span>
+<span class="n">all_mae_histories</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># k-겹 교차검증</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">번 째 폴드(fold) 훈련 시작&quot;</span><span class="p">)</span>
+    <span class="c1"># 검증 폴드 지정</span>
+    <span class="n">val_data</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">]</span>
+    <span class="n">val_targets</span> <span class="o">=</span> <span class="n">train_targets</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">]</span>
+    <span class="c1"># 훈련셋과 훈련 타깃 지정: 검증 폴드 이외 나머지 3개의 폴드</span>
+    <span class="n">partial_train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">train_data</span><span class="p">[:</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">],</span>
+         <span class="n">train_data</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:]],</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">partial_train_targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">train_targets</span><span class="p">[:</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">],</span>
+         <span class="n">train_targets</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:]],</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># 모델 지정</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
+    <span class="c1"># 모델 훈련</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_train_data</span><span class="p">,</span> <span class="n">partial_train_targets</span><span class="p">,</span>
+                        <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_data</span><span class="p">,</span> <span class="n">val_targets</span><span class="p">),</span>
+                        <span class="n">epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># 폴드별 평가지표 저장</span>
+    <span class="n">mae_history</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_mae&quot;</span><span class="p">]</span>
+    <span class="n">all_mae_histories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_history</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>3개의 폴드에 대해 매번 다른 폴드를 검증셋으로 지정하고
+모델 훈련을 500번 에포크 동안 진행하였다.
+에포크별로 검증셋을 대상으로하는 평균절대오차(MAE)의 평균값을 계산하면
+에포크별 MAE의 변화를 그래프로 확인할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">average_mae_history</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">all_mae_histories</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)]</span>
+</pre></div>
+</div>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting02.png" style="width:600px;"></div><div class="proof example admonition" id="exp-k-fold">
+<p class="admonition-title"><span class="caption-number">Example 6.1 </span> (사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스)</p>
+<section class="example-content" id="proof-content">
+<p>사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스를 이용하면 보다 간단하게 K-겹 교차검증을 진행할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<span class="n">all_mae_histories</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">val_index</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">):</span>
+    
+    <span class="n">val_data</span><span class="p">,</span> <span class="n">val_targets</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">val_index</span><span class="p">],</span> <span class="n">train_targets</span><span class="p">[</span><span class="n">val_index</span><span class="p">]</span>
+    <span class="n">partial_train_data</span><span class="p">,</span> <span class="n">partial_train_targets</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">train_targets</span><span class="p">[</span><span class="n">train_index</span><span class="p">]</span>
+    
+    <span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_train_data</span><span class="p">,</span> <span class="n">partial_train_targets</span><span class="p">,</span>
+                        <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_data</span><span class="p">,</span> <span class="n">val_targets</span><span class="p">),</span>
+                        <span class="n">epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">mae_history</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_mae&quot;</span><span class="p">]</span>    
+    <span class="n">all_mae_histories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_history</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</div><p><strong>모델 재훈련</strong></p>
+<p>대략 200번 째 에포크를 전후로 과대적합이 발생함을 확인할 수 있다.
+정확한 에포크 수는 아래와 같이 확인한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 최소의 mae가 위치한 인덱스 확인</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">overfitting_epoch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">average_mae_history</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">overfitting_epoch</span>
+<span class="mi">196</span>
+</pre></div>
+</div>
+<p>과대적합이 발생하기 이전까지의 에포크만 이용해서 모델을 처음부터 재훈련한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">,</span>
+<span class="gp">... </span>          <span class="n">epochs</span><span class="o">=</span><span class="n">overfitting_epoch</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>재훈련된 모델의 테스트셋에 대한 성능을 평가하면
+주택가격 예측에 있어서 평균적으로 2.39, 즉 2,390달러 정도의 차이를 갖는다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
+<span class="go">2.3917253017425537</span>
+</pre></div>
+</div>
+<p><strong>모델 활용</strong></p>
+<p>새로운 데이터에 대한 예측은 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 활용한다.
+집갑을 예측하는 모델이기에 하나의 수가 예측된다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([9.530529], dtype=float32)</span>
+</pre></div>
+</div>
+</section>
+<section id="b">
+<h3><span class="section-number">6.3.5. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련<a class="headerlink" href="#b" title="Link to this heading">#</a></h3>
+<p><strong>훈련 1편</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제외하고 이전과 동일한 방식으로 모델을 훈련시킨 결과는 다음과 같이 비슷하게 작동한다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting03.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련된 모델의 테스트셋에 대한 성능을 평가하면
+주택가격 예측에 있어서 평균적으로 2.60, 즉 2,600달러 정도의 차이를 가진다.
+즉, 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>를 추가했을 때보다 성능이 조금 떨어진다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="go">4/4 [==============================] - 0s 5ms/step - loss: 12.2827 - mae: 2.6088</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
+<span class="go">2.608802080154419</span>
+</pre></div>
+</div>
+<p><strong>훈련 2편</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거한 다음에 3겹 교차검증 대신에 4차 교차검증을 이용한다.
+검증셋의 평균절대오차의 변화는 이전과 비슷하다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting04.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련된 모델의 테스트셋에 대한 성능이 조금 좋아졌다.
+주택가격 예측에 있어서 평균적으로 2.47, 즉 2,470달러 정도의 차이를 가진다.
+하지만 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>를 추가했을 때보다 성능이 조금 떨어진다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="go">4/4 [==============================] - 0s 5ms/step - loss: 16.2812 - mae: 2.4741</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
+<span class="go">2.4740915298461914</span>
+</pre></div>
+</div>
+<p><strong>훈련 3편</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거한 다음에 데이터 전처리를 다르게 수행한다.</p>
+<p><em>전처리: 범주형 특성 원-핫 인코딩</em></p>
+<p>특성 <code class="docutils literal notranslate"><span class="pre">'CHAS'</span></code>는 찰스강<font size='2'>Charles River</font>과의 인접성 여부를 판단하는
+범주형 데이터다.
+따라서 <code class="docutils literal notranslate"><span class="pre">CHAS</span></code> 특성은 원-핫 인코딩으로 변환한다.
+또한 이 특성은 표준화를 진행하지 않는다.</p>
+<p><em>모델 훈련</em></p>
+<p>4-겹 교차검증을 이용한다.
+평균절대오차의 변화가 이전과 많이 다르다.
+무엇보다도 과대적합히 훨씬 늦게 발생한다.</p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting05.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크를 이용하여 재훈련된 모델의 테스트셋에 대한 성능을 평가하면
+주택가격 예측에 있어서 평균적으로 2.26, 즉 2,260달러 정도의 차이를 가진다.
+특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>를 추가한 최초의 모델보다 성능이 많이 좋아졌다.</p>
+<p>앞서 확인한대로 이는 과대적합이 보다 늦게 발생하기 때문이다.
+즉, 과대적합 없이 오랫동안 훈련한 모델일 수록 성능이 좋아진다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="go">4/4 [==============================] - 0s 3ms/step - loss: 11.8552 - mae: 2.2617</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
+<span class="go">2.2616639137268066</span>
+</pre></div>
+</div>
+<p><strong>결론</strong></p>
+<p>특정 특성의 유효성 여부를 확인하는 일반적인 방식을 적용해 보았다.
+결과적으로 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>를 포함하지 않더라도 성능이 좋은 모델을 훈련시킬 수 있음을 확인하였다.
+이는 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 유효성이 그리 높지 않음을 알 수 있다.</p>
+</section>
+</section>
+<section id="id16">
+<h2><span class="section-number">6.4. </span>연습문제<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-getting_started_with_neural_networks.ipynb">(실습) 신경망 활용 처음부터 끝까지: 분류와 회귀</a></p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="keras_and_tf.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>케라스와 텐서플로우</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="fundamentals_of_ml.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>머신러닝 모델 훈련 기법</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sec-imdb">6.1. 이진 분류: 영화 후기 분류</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imdb">6.1.1. 데이터 준비: IMDB 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">6.1.2. 데이터 전처리: 벡터화와 멀티-핫 인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">6.1.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">6.1.4. 모델 훈련과 활용</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">6.2. 다중 클래스 분류: 뉴스 기사 주제 분류</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">6.2.1. 데이터 준비: 로이터 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">6.2.2. 데이터 전처리: 원-핫 인코딩, 멀티-핫 인코딩</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">6.2.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">6.2.4. 모델 훈련과 활용</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">6.3. 회귀: 주택가격 예측</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">6.3.1. 데이터 준비: 보스턴 주택가격 데이터셋</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">6.3.2. 데이터 전처리: 표준화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">6.3.3. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">6.3.4. 모델 훈련과 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">6.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">6.4. 연습문제</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 코딩알지
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
