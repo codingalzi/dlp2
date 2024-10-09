@@ -1079,21 +1079,8 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 </pre></div>
 </div>
 <div class="note admonition">
-<p class="admonition-title">원-핫 인코딩 함수</p>
-<p>케라스의 <code class="docutils literal notranslate"><span class="pre">to_categorical()</span></code> 함수를 아래 <code class="docutils literal notranslate"><span class="pre">to_ont_hot()</span></code> 함수로 직접 구현할 수 있다.
-<code class="docutils literal notranslate"><span class="pre">dimension</span></code>은 원-핫 벡터의 길이를 지정하며, 사용된 라벨의 최댓값보다 1 크게 잡는다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">to_one_hot</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
-    <span class="n">dimension</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">dimension</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
-        <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
-    <span class="k">return</span> <span class="n">results</span>
-</pre></div>
-</div>
-<p>또한 원-핫 인코딩, 멀티-핫 인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환하는
-전처리 과정을 지원하는 층<font size='2'>layer</font>도 있다.
-예를 들어 <a class="reference external" href="https://keras.io/api/layers/preprocessing_layers/categorical/category_encoding/">tf.keras.layers.CategoryEncoding</a>은
-원-핫 인코딩과 멀티-핫 인코딩을 지원한다.</p>
+<p class="admonition-title"><code class="docutils literal notranslate"><span class="pre">tf.keras.layers.CategoryEncoding</span></code> 층</p>
+<p>원-핫 인코딩, 멀티-핫 인코딩 등 정수를 사용하는 데이터를 범주형 데이터로 변환한다.</p>
 </div>
 </section>
 <section id="id9">
@@ -1134,7 +1121,7 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 보다 자세한 설명은 <a class="reference external" href="https://codingalzi.github.io/handson-ml3/training_models.html">핸즈온 머신러닝 4장</a>을 참고한다.</p>
 </div>
 <p><strong>모델 컴파일</strong></p>
-<p>다중 클래스 분류 모델의 손실함수는 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>로 지정한다.
+<p>원-핫 인코딩된 라벨을 예측하는 다중 클래스 분류 모델의 손실함수는 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>로 지정한다.
 <code class="docutils literal notranslate"><span class="pre">categorical_crossentropy</span></code>는 클래스의 실제 분포와 예측 클래스의 분포 사이의
 오차를 측정하며, 보다 자세한 설명은
 <a class="reference external" href="https://codingalzi.github.io/handson-ml3/training_models.html#sec-softmax-regression">핸즈온 머신러닝(3판)의 소프트맥스 회귀의 비용 함수</a>를 참고한다.</p>
@@ -1414,52 +1401,6 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <p>훈련셋을 3등분 한 다음에 폴드별로 차례대로 검증셋으로 활용하여 모델을 3번 훈련시킨다.
 훈련되는 모델은 앞서 <code class="docutils literal notranslate"><span class="pre">build_model()</span></code> 함수로 선언된 모델이며
 폴드가 정해지면 매번 새롭게 선언된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 폴드 수</span>
-<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="c1"># 검증 폴드의 크기</span>
-<span class="n">num_val_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span> <span class="o">//</span> <span class="n">k</span>
-<span class="c1"># 모델 훈련 에포크 수</span>
-<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">500</span>
-<span class="c1"># 폴드별 평가지표 저장</span>
-<span class="n">all_mae_histories</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="c1"># k-겹 교차검증</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">번 째 폴드(fold) 훈련 시작&quot;</span><span class="p">)</span>
-    <span class="c1"># 검증 폴드 지정</span>
-    <span class="n">val_data</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">]</span>
-    <span class="n">val_targets</span> <span class="o">=</span> <span class="n">train_targets</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">]</span>
-    <span class="c1"># 훈련셋과 훈련 타깃 지정: 검증 폴드 이외 나머지 3개의 폴드</span>
-    <span class="n">partial_train_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">train_data</span><span class="p">[:</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">],</span>
-         <span class="n">train_data</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:]],</span>
-        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">partial_train_targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
-        <span class="p">[</span><span class="n">train_targets</span><span class="p">[:</span><span class="n">i</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">],</span>
-         <span class="n">train_targets</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">num_val_samples</span><span class="p">:]],</span>
-        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="c1"># 모델 지정</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
-    <span class="c1"># 모델 훈련</span>
-    <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_train_data</span><span class="p">,</span> <span class="n">partial_train_targets</span><span class="p">,</span>
-                        <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_data</span><span class="p">,</span> <span class="n">val_targets</span><span class="p">),</span>
-                        <span class="n">epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="c1"># 폴드별 평가지표 저장</span>
-    <span class="n">mae_history</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_mae&quot;</span><span class="p">]</span>
-    <span class="n">all_mae_histories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_history</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>3개의 폴드에 대해 매번 다른 폴드를 검증셋으로 지정하고
-모델 훈련을 500번 에포크 동안 진행하였다.
-에포크별로 검증셋을 대상으로하는 평균절대오차(MAE)의 평균값을 계산하면
-에포크별 MAE의 변화를 그래프로 확인할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">average_mae_history</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">all_mae_histories</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)]</span>
-</pre></div>
-</div>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting02.png" style="width:600px;"></div><div class="proof example admonition" id="exp-k-fold">
-<p class="admonition-title"><span class="caption-number">Example 6.1 </span> (사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스)</p>
-<section class="example-content" id="proof-content">
 <p>사이킷런의 <code class="docutils literal notranslate"><span class="pre">KFold</span></code> 클래스를 이용하면 보다 간단하게 K-겹 교차검증을 진행할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
 
@@ -1467,10 +1408,13 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">500</span>
 
 <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
-<span class="n">all_mae_histories</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">all_mae_histories</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># 모든 에포크에 대한 평균절대오차 저장</span>
 
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">val_index</span> <span class="ow">in</span> <span class="n">kf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_targets</span><span class="p">):</span>
-    
+    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">번 째 폴드(fold) 훈련 시작&quot;</span><span class="p">)</span>
+
     <span class="n">val_data</span><span class="p">,</span> <span class="n">val_targets</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">val_index</span><span class="p">],</span> <span class="n">train_targets</span><span class="p">[</span><span class="n">val_index</span><span class="p">]</span>
     <span class="n">partial_train_data</span><span class="p">,</span> <span class="n">partial_train_targets</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">train_targets</span><span class="p">[</span><span class="n">train_index</span><span class="p">]</span>
     
@@ -1483,14 +1427,18 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
     <span class="n">all_mae_histories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_history</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-</div><p><strong>모델 재훈련</strong></p>
-<p>대략 200번 째 에포크를 전후로 과대적합이 발생함을 확인할 수 있다.
-정확한 에포크 수는 아래와 같이 확인한다.</p>
+<p>3개의 폴드에 대해 매번 다른 폴드를 검증셋으로 지정하고
+모델 훈련을 500번 에포크 동안 진행하였다.
+에포크별로 검증셋을 대상으로하는 평균절대오차(MAE)의 평균값을 계산하면
+에포크별 MAE의 변화를 그래프로 확인할 수 있다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">average_mae_history</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">all_mae_histories</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epochs</span><span class="p">)]</span>
+</pre></div>
+</div>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting02.png" style="width:600px;"></div><p><strong>모델 재훈련</strong></p>
+<p>과대적합이 발생하는 에포크 수는 아래와 같이 확인한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 최소의 mae가 위치한 인덱스 확인</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">overfitting_epoch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">average_mae_history</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">overfitting_epoch</span>
-<span class="mi">196</span>
 </pre></div>
 </div>
 <p>과대적합이 발생하기 이전까지의 에포크만 이용해서 모델을 처음부터 재훈련한다.</p>
@@ -1502,16 +1450,18 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <p>재훈련된 모델의 테스트셋에 대한 성능을 평가하면
 주택가격 예측에 있어서 평균적으로 2.39, 즉 2,390달러 정도의 차이를 갖는다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
+<span class="go">4/4 ━━━━━━━━━━━━━━━━━━━━ 0s 36ms/step - loss: 14.3688 - mae: 2.7425</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
-<span class="go">2.3917253017425537</span>
+<span class="go">2.888192892074585</span>
 </pre></div>
 </div>
 <p><strong>모델 활용</strong></p>
 <p>새로운 데이터에 대한 예측은 <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 활용한다.
 집갑을 예측하는 모델이기에 하나의 수가 예측된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+<span class="go">4/4 ━━━━━━━━━━━━━━━━━━━━ 0s 36ms/step</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">array([9.530529], dtype=float32)</span>
+<span class="go">array([10.15969], dtype=float32)</span>
 </pre></div>
 </div>
 </section>
@@ -1523,26 +1473,12 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 주택가격 예측에 있어서 평균적으로 2.60, 즉 2,600달러 정도의 차이를 가진다.
 즉, 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>를 추가했을 때보다 성능이 조금 떨어진다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
-<span class="go">4/4 [==============================] - 0s 5ms/step - loss: 12.2827 - mae: 2.6088</span>
-
+<span class="go">4/4 ━━━━━━━━━━━━━━━━━━━━ 1s 51ms/step - loss: 12.7020 - mae: 2.5867</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
-<span class="go">2.608802080154419</span>
+<span class="go">2.726799964904785</span>
 </pre></div>
 </div>
 <p><strong>훈련 2편</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거한 다음에 3겹 교차검증 대신에 4차 교차검증을 이용한다.
-검증셋의 평균절대오차의 변화는 이전과 비슷하다.</p>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting04.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련된 모델의 테스트셋에 대한 성능이 조금 좋아졌다.
-주택가격 예측에 있어서 평균적으로 2.47, 즉 2,470달러 정도의 차이를 가진다.
-하지만 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>를 추가했을 때보다 성능이 조금 떨어진다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
-<span class="go">4/4 [==============================] - 0s 5ms/step - loss: 16.2812 - mae: 2.4741</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
-<span class="go">2.4740915298461914</span>
-</pre></div>
-</div>
-<p><strong>훈련 3편</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거한 다음에 데이터 전처리를 다르게 수행한다.</p>
 <p><em>전처리: 범주형 특성 원-핫 인코딩</em></p>
 <p>특성 <code class="docutils literal notranslate"><span class="pre">'CHAS'</span></code>는 찰스강<font size='2'>Charles River</font>과의 인접성 여부를 판단하는
@@ -1559,10 +1495,9 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <p>앞서 확인한대로 이는 과대적합이 보다 늦게 발생하기 때문이다.
 즉, 과대적합 없이 오랫동안 훈련한 모델일 수록 성능이 좋아진다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_mse_score</span><span class="p">,</span> <span class="n">test_mae_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_targets</span><span class="p">)</span>
-<span class="go">4/4 [==============================] - 0s 3ms/step - loss: 11.8552 - mae: 2.2617</span>
-
+<span class="go">4/4 ━━━━━━━━━━━━━━━━━━━━ 0s 35ms/step - loss: 11.8448 - mae: 2.4151</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">test_mae_score</span>
-<span class="go">2.2616639137268066</span>
+<span class="go">2.527559518814087</span>
 </pre></div>
 </div>
 <p><strong>결론</strong></p>
