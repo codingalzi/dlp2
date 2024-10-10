@@ -1405,7 +1405,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
 
 <span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">num_epochs</span> <span class="o">=</span> <span class="mi">300</span>
 
 <span class="n">kf</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
 <span class="n">all_mae_histories</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c1"># 모든 에포크에 대한 평균절대오차 저장</span>
@@ -1417,18 +1417,18 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 
     <span class="n">val_data</span><span class="p">,</span> <span class="n">val_targets</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">val_index</span><span class="p">],</span> <span class="n">train_targets</span><span class="p">[</span><span class="n">val_index</span><span class="p">]</span>
     <span class="n">partial_train_data</span><span class="p">,</span> <span class="n">partial_train_targets</span> <span class="o">=</span> <span class="n">train_data</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">train_targets</span><span class="p">[</span><span class="n">train_index</span><span class="p">]</span>
-    
+
     <span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
     <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">partial_train_data</span><span class="p">,</span> <span class="n">partial_train_targets</span><span class="p">,</span>
                         <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_data</span><span class="p">,</span> <span class="n">val_targets</span><span class="p">),</span>
                         <span class="n">epochs</span><span class="o">=</span><span class="n">num_epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">mae_history</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_mae&quot;</span><span class="p">]</span>    
+    <span class="n">mae_history</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_mae&quot;</span><span class="p">]</span>
     <span class="n">all_mae_histories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mae_history</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>3개의 폴드에 대해 매번 다른 폴드를 검증셋으로 지정하고
-모델 훈련을 500번 에포크 동안 진행하였다.
+모델 훈련을 300번 에포크 동안 진행하였다.
 에포크별로 검증셋을 대상으로하는 평균절대오차(MAE)의 평균값을 계산하면
 에포크별 MAE의 변화를 그래프로 확인할 수 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">average_mae_history</span> <span class="o">=</span> <span class="p">[</span>
