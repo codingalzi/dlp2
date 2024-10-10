@@ -1165,11 +1165,9 @@ IMDB의 경우와 동일한 방식으로 모든 기사 샘플을 길이가 10,00
 <p><strong>손실값의 변화</strong></p>
 <p>9번째 에포크 이후로 검증셋에 대한 손실값이 올라간다.
 즉, 그때부터 과대적합이 발생하였다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-06.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>정확도의 변화</strong></p>
+<img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/training_val_loss_1.png" style="width:500px;"><p><strong>정확도의 변화</strong></p>
 <p>정확도 역시 9번째 에포크 이후로 조금씩 떨어진다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/04-07.png" style="width:500px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>모델 재훈련</strong></p>
+<img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/training_val_acc_1.png" style="width:500px;"><p><strong>모델 재훈련</strong></p>
 <p>9번 에포크를 지나면서 과대적합이 발생하기에
 에포크 수를 9로 줄이고 처음부터 다시 훈련시킨다.
 IMDB 데이터셋 이진 분류에서 설명한 대로
