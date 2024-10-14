@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>7. 머신러닝 모델 훈련 기법 &#8212; Deep Learning with Python(2판)</title>
+    <title>7. 모델 최적화와 일반화 &#8212; Deep Learning with Python(2판)</title>
   
   
   
@@ -173,7 +173,7 @@
 <li class="toctree-l1"><a class="reference internal" href="training_loop_from_scratch.html">4. 훈련 루프 상세</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">5. 케라스와 텐서플로우</a></li>
 <li class="toctree-l1"><a class="reference internal" href="classification_regression.html">6. 분류와 회귀</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. 머신러닝 모델 훈련 기법</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. 모델 최적화와 일반화</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">8. 머신러닝 작업 흐름 일반</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">9. 케라스 신경망 모델 활용법</a></li>
 <li class="toctree-l1"><a class="reference internal" href="computer_vision_intro.html">10. 컴퓨터 비전 기초: 합성곱 신경망</a></li>
@@ -367,7 +367,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>머신러닝 모델 훈련 기법</h1>
+    <h1>모델 최적화와 일반화</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -408,7 +408,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="ch-fundamentals-of-ml">
-<span id="id1"></span><h1><span class="section-number">7. </span>머신러닝 모델 훈련 기법<a class="headerlink" href="#ch-fundamentals-of-ml" title="Link to this heading">#</a></h1>
+<span id="id1"></span><h1><span class="section-number">7. </span>모델 최적화와 일반화<a class="headerlink" href="#ch-fundamentals-of-ml" title="Link to this heading">#</a></h1>
 <p><strong>감사의 글</strong></p>
 <p>아래 내용은 프랑소와 숄레의
 <a class="reference external" href="https://github.com/fchollet/deep-learning-with-python-notebooks">Deep Learning with Python(2판)</a>의
@@ -628,7 +628,10 @@ K-겹 교차 검증을 P번 반복하면 총 <code class="docutils literal notra
 <li><p>셋째, 훈련셋과 검증셋의 평가가 기준선을 넘어 계속 좋아지지만 과대적합이 발생하지 않아
 계속해서 과소적합 상태로 머무는 경우</p></li>
 </ul>
-<p><strong>첫째 경우: 경사하강법 관련 파라미터 조정</strong></p>
+<p>언급된 문제들을 해결하기 위해 일반적으로 모델의 보다 적절한 하이퍼파라미터 선택,
+보다 많은 양질의 데이터 수집, 다른 종류의 모델 선택, 규제 활용 등
+다양한 기법을 적용한다.</p>
+<p><strong>첫째 경우: 경사하강법 관련 하이퍼파라미터 조정</strong></p>
 <p>훈련셋의 손실값이 줄어들지 않거나 진동하는 등 훈련이 제대로 이루어지지 않는 경우는
 기본적으로 경사하강법이 제대로 작동하지 않아서이다.
 이럴 때는 보통 학습률과 배치 크기를 조정하면 해결된다.</p>
