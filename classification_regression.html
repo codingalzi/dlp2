@@ -63,7 +63,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'classification_regression';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="7. 모델 최적화와 일반화" href="fundamentals_of_ml.html" />
+    <link rel="next" title="7. 최적화와 일반화" href="fundamentals_of_ml.html" />
     <link rel="prev" title="5. 케라스와 텐서플로우" href="keras_and_tf.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -175,7 +175,7 @@
 <li class="toctree-l1"><a class="reference internal" href="training_loop_from_scratch.html">4. 훈련 루프 상세</a></li>
 <li class="toctree-l1"><a class="reference internal" href="keras_and_tf.html">5. 케라스와 텐서플로우</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">6. 분류와 회귀</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">7. 모델 최적화와 일반화</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fundamentals_of_ml.html">7. 최적화와 일반화</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unversal_workflow_of_ml.html">8. 머신러닝 작업 흐름 일반</a></li>
 <li class="toctree-l1"><a class="reference internal" href="working_with_keras.html">9. 케라스 신경망 모델 활용법</a></li>
 <li class="toctree-l1"><a class="reference internal" href="computer_vision_intro.html">10. 컴퓨터 비전 기초: 합성곱 신경망</a></li>
@@ -395,13 +395,14 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">6.3. 회귀: 주택가격 예측</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">6.3.1. 데이터 준비: 보스턴 주택가격 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">6.3.2. 데이터 전처리: 표준화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">6.3.3. 모델 구성과 컴파일</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">6.3.4. 모델 훈련과 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">6.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">6.3.2. 보스턴 데이터셋의 윤리적 문제</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">6.3.3. 데이터 전처리: 표준화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">6.3.4. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">6.3.5. 모델 훈련과 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">6.3.6. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">6.4. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">6.4. 연습문제</a></li>
 </ul>
             </nav>
         </div>
@@ -1248,7 +1249,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 주택가격을 예측하는 회귀 문제를 예제로 다룬다.</p>
 <div class="warning admonition">
 <p class="admonition-title">로지스틱 회귀</p>
-<p>로지스틱 회귀<font size='2'>logistic regression</font> 알고리즘는 분류 모델임에 주의하라.</p>
+<p>로지스틱 회귀<font size='2'>logistic regression</font> 알고리즘은 분류 모델임에 주의하라.</p>
 </div>
 <section id="id12">
 <h3><span class="section-number">6.3.1. </span>데이터 준비: 보스턴 주택가격 데이터셋<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
@@ -1306,15 +1307,6 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </div>
 <p>언급된 13가지 데이터가 주어졌을 때 해당 구역의 중간 주택가격을 예측하는 회귀 모델을
 훈련시켜야 한다.</p>
-<div class="hint admonition">
-<p class="admonition-title">보스턴 데이터셋의 윤리적 문제</p>
-<p>구역별로 조사된 자료 중에서 범죄율, 흑인 비율, 하위 계층 비율 등을 포함한다.
-특히 흑인 비율을 사용하는 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성이 윤리적 논쟁을 일으킨다.
-구역의 집값과 흑인 비율의 연관성을 암시하는 이런 통계 조사는
-1970년대 미국에서 인종 차별이 여전히 주요 쟁점이었음을 단편적으로 보여준다.
-여기서는 단순히 데이터 활용 차원에서만 보스턴 데이터셋을 이용할 뿐 다른 어떤 의도도 없음을 밝힌다.
-또한 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거하더라도 좋은 성능의 회귀 모델을 훈련시킬 수 있음을 보인다.</p>
-</div>
 <p>케라스 <code class="docutils literal notranslate"><span class="pre">boston_housing</span></code> 모듈의 <code class="docutils literal notranslate"><span class="pre">load_data()</span></code> 함수로 보스턴 데이터셋을 불러올 수 있다.
 데이터셋이 이미 404개 샘플로 구성된 훈련셋과 102개 샘플로 구성된 테스트셋으로 구분되어 있다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">boston_housing</span>
@@ -1328,7 +1320,17 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </div>
 </section>
 <section id="id13">
-<h3><span class="section-number">6.3.2. </span>데이터 전처리: 표준화<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.3.2. </span>보스턴 데이터셋의 윤리적 문제<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>구역별로 조사된 자료 중에서 범죄율, 흑인 비율, 하위 계층 비율 등을 포함한다.
+특히 흑인 비율을 사용하는 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성이 윤리적 논쟁을 일으킨다.
+구역의 집값과 흑인 비율의 연관성을 암시하는 이런 통계 조사는
+1970년대 미국에서 인종 차별이 여전히 주요 쟁점이었음을 단편적으로 보여준다.</p>
+<p>여기서는 단순히 데이터 활용 차원에서만 보스턴 데이터셋을 이용할 뿐 다른 어떤 의도도 없음을 밝힌다.
+또한 <code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제거하더라도 좋은 성능의 회귀 모델을 훈련시킬 수 있음을 보여주면서
+<code class="docutils literal notranslate"><span class="pre">B</span></code> 특성의 무의미성을 확인한다.</p>
+</section>
+<section id="id14">
+<h3><span class="section-number">6.3.3. </span>데이터 전처리: 표준화<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>특성에 따라 사용되는 값들의 크기 정도<font size='2'>scale</font>가 다르다.
 어떤 특성은 0과 1사이의 값을, 다른 특성은 100단위의 값을 포함하기도 한다.
 그런데 머신러닝 모델은 기본적으로 모든 특성이 동일한 크기 정도의
@@ -1360,8 +1362,8 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </pre></div>
 </div>
 </section>
-<section id="id14">
-<h3><span class="section-number">6.3.3. </span>모델 구성과 컴파일<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<section id="id15">
+<h3><span class="section-number">6.3.4. </span>모델 구성과 컴파일<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p>데이터셋이 작으므로 출력층을 제외하고 두 개 층만 사용한다.
 머신러닝 모델은 훈련셋이 작을 수록 과대적합을 보다 잘하기 때문이
 이를 방지하기 위해 보다 단순한 모델을 사용한다.</p>
@@ -1389,8 +1391,8 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </pre></div>
 </div>
 </section>
-<section id="id15">
-<h3><span class="section-number">6.3.4. </span>모델 훈련과 활용<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<section id="id16">
+<h3><span class="section-number">6.3.5. </span>모델 훈련과 활용<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
 <p>데이터셋이 작기에 훈련 중에 사용할 검증 세트를 따로 분리하는 것은 훈련의 효율성을 떨어뜨린다.
 대신에 <strong>K-겹 교차검증</strong><font size='2'>K-fold cross-validation</font>을 사용한다.
 아래 이미지는 3-겹 교차검증을 사용할 때 훈련 중에 사용되는 훈련셋과 검증셋의 사용법을 보여준다.</p>
@@ -1464,7 +1466,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </div>
 </section>
 <section id="b">
-<h3><span class="section-number">6.3.5. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련<a class="headerlink" href="#b" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">6.3.6. </span>특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련<a class="headerlink" href="#b" title="Link to this heading">#</a></h3>
 <p><strong>훈련 1편</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">B</span></code> 특성을 제외하고 이전과 동일한 방식으로 모델을 훈련시킨 결과는 다음과 같이 비슷하게 작동한다.</p>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch04-overfitting03.png" style="width:600px;"></div><p>과대적합이 발생하기 이전까지의 에포크만 사용하여 재훈련된 모델의 테스트셋에 대한 성능을 평가하면
@@ -1504,8 +1506,8 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 이는 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code>의 유효성이 그리 높지 않음을 알 수 있다.</p>
 </section>
 </section>
-<section id="id16">
-<h2><span class="section-number">6.4. </span>연습문제<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<section id="id17">
+<h2><span class="section-number">6.4. </span>연습문제<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-getting_started_with_neural_networks.ipynb">(실습) 신경망 활용 처음부터 끝까지: 분류와 회귀</a></p></li>
 </ol>
@@ -1556,7 +1558,7 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>모델 최적화와 일반화</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>최적화와 일반화</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1592,13 +1594,14 @@ IMDB 데이터셋 이진 분류에서 설명한 대로
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">6.3. 회귀: 주택가격 예측</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">6.3.1. 데이터 준비: 보스턴 주택가격 데이터셋</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">6.3.2. 데이터 전처리: 표준화</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">6.3.3. 모델 구성과 컴파일</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">6.3.4. 모델 훈련과 활용</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">6.3.5. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">6.3.2. 보스턴 데이터셋의 윤리적 문제</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">6.3.3. 데이터 전처리: 표준화</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">6.3.4. 모델 구성과 컴파일</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">6.3.5. 모델 훈련과 활용</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">6.3.6. 특성 <code class="docutils literal notranslate"><span class="pre">B</span></code> 제외 후 훈련</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">6.4. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">6.4. 연습문제</a></li>
 </ul>
   </nav></div>
 
