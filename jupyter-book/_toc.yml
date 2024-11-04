@@ -14,7 +14,7 @@ chapters:
 - file: keras_and_tf
 - file: classification_regression
 - file: fundamentals_of_ml
-- file: unversal_workflow_of_ml
+# - file: unversal_workflow_of_ml
 - file: working_with_keras
 - file: computer_vision_intro
 - file: computer_vision_advanced
