@@ -385,13 +385,12 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.3. 신경망 모델 구성법 3: 서브클래싱</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">8.4. 혼합 신경망 모델 구성법</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">8.5. 훈련 평가 방식 지정</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">8.5.1. 사용자 정의 평가지표</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8.5.2. 콜백</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">8.5.3. 텐서보드</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">8.5. 신경망 모델의 구성, 훈련, 평가, 예측</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">8.5.1. 콜백</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8.5.2. 텐서보드</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">8.6. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">8.6. 연습문제</a></li>
 </ul>
             </nav>
         </div>
@@ -885,11 +884,6 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">CustomerTicketModel</span><span class="p">(</span><span class="n">num_departments</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>입력값의 정보가 없기에 층별 가중치와 편향은 초기화되지 않는다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span>
-<span class="go">[]</span>
-</pre></div>
-</div>
 <p>컴파일, 훈련, 평가, 예측은 이전과 완전히 동일한 방식으로 실행된다.</p>
 <p><strong>서브클래싱 기법의 장단점</strong></p>
 <ul class="simple">
@@ -910,6 +904,7 @@ document.write(`
 </section>
 <section id="id6">
 <h2><span class="section-number">8.4. </span>혼합 신경망 모델 구성법<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p><strong>모델 vs. 층</strong></p>
 <p>모델 서브클래싱은 <code class="docutils literal notranslate"><span class="pre">keras.layers.Layer</span></code>를 상속하여 사용자 정의 층 클래스를 선언하는 방식과
 거의 동일하다 (<a class="reference internal" href="keras_and_tf.html#ch-keras-tf"><span class="std std-numref">5장</span></a> 참고).
 사실 <code class="docutils literal notranslate"><span class="pre">keras.Model</span></code>이 <code class="docutils literal notranslate"><span class="pre">keras.layers.Layer</span></code>의 자식 클래스이다.
@@ -972,7 +967,7 @@ document.write(`
 </div>
 </section>
 <section id="id7">
-<h2><span class="section-number">8.5. </span>훈련 평가 방식 지정<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.5. </span>신경망 모델의 구성, 훈련, 평가, 예측<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
 <p>딥러닝 신경망 모델의 훈련은 한 번 시작되면 훈련이 종료될 때까지 어떤 간섭도 받지 않는다.
 즉, 훈련 시작 이전의 컴파일 과정에서 지정된 설정을 훈련 중간에 변경할 수 없다.
 다만, 훈련 진행과정을 관찰<font size='2'>monitoring</font>할 수 있을 뿐이다.</p>
@@ -983,129 +978,9 @@ document.write(`
 </ul>
 <p>손실값과 평가지표를 계산하는 방식은 모델을 컴파일할 때 지정된다.
 케라스가 지원하는 방식 중에 하나를 선택하거나
-필요에 따라 사용자가 직접 선언한 손실함수 또는 평가지표 클래스를 활용할 수 있다.
-평가지표의 경우 <code class="docutils literal notranslate"><span class="pre">keras.metrics.Metric</span></code> 클래스를 상속해야 케라스의 다른 평가지표 클래스와 호환된다.</p>
+필요에 따라 사용자가 직접 선언한 손실함수 또는 평가지표 클래스를 활용할 수 있다.</p>
 <section id="id8">
-<h3><span class="section-number">8.5.1. </span>사용자 정의 평가지표<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
-<p>사용자가 직접 평가지표를 정의하려면 <code class="docutils literal notranslate"><span class="pre">Metric</span></code> 클래스를 상속하는 클래스를 선언해야 한다.
-특히 아래 세 개의 메서드를 재정의<font size='2'>overriding</font> 한다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">update_state()</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">result()</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">reset_state()</span></code></p></li>
-</ul>
-<p><strong><code class="docutils literal notranslate"><span class="pre">RootMeanSquaredError</span></code> 클래스 선언</strong></p>
-<p>평균 제곱근 오차(RMSE)를 평가지표로 사용하는 객체를 생성한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RootMeanSquaredError</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">Metric</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rmse&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mse_sum&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;total_samples&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">update_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">y_true</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">mse</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
-        <span class="n">num_samples</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">/</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">reset_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>포함된 메서드를 하나씩 살펴 보자.</p>
-<ul class="simple">
-<li><p>생성자: <code class="docutils literal notranslate"><span class="pre">Metric</span></code> 클래스 상속, 평가지표 이름 지정, 에포크 별로 계산될 평가지표 계산에 필요한 속성(변수) 초기화</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">name=&quot;rmse&quot;</span></code>: 평가지표 이름. 훈련중에 평가지표 구분에 사용됨.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mse_sum</span></code>: (에포크 별) 누적 제곱 오차. 0으로 초기화.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">total_samples</span></code>: (에포크 별) 훈련에 사용된 총 데이터 샘플 수. 0으로 초기화.</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rmse&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;mse_sum&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_weight</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;total_samples&quot;</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="s2">&quot;zeros&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">update_state</span></code>: 에포크 내에서 스텝 단위로 지정된 속성 업데이트</p>
-<ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">mse</span></code>: 입력 배치 단위로 계산된 모든 샘플들에 대한 예측 오차의 제곱의 합.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mse_sum</span></code> 업데이트: 새롭게 계산된 <code class="docutils literal notranslate"><span class="pre">mse</span></code>를 기존 <code class="docutils literal notranslate"><span class="pre">mse_sum</span></code>에 더함.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">num_samples</span></code>: 배치 크기</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">total_samples</span></code> 업데이트: 새로 훈련된 배치 크기를 기존 <code class="docutils literal notranslate"><span class="pre">total_samples</span></code>에 더함</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="n">y_true</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">mse</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">))</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
-    <span class="n">num_samples</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="o">.</span><span class="n">assign_add</span><span class="p">(</span><span class="n">num_samples</span><span class="p">)</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">result</span></code>: 에포크 별로 평가지표 계산</p>
-<ul>
-<li><p>여기서는 에포크 별로 평균 제곱근 오차 계산.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mse_sum</span></code>을 <code class="docutils literal notranslate"><span class="pre">total_samlpes</span></code>으로 나눈 값의 제곱근 계산</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span> <span class="o">/</span> <span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">reset_state</span></code>: 새로운 에포크 훈련이 시작될 때 모든 인스턴스 속성(변수) 초기화</p>
-<ul>
-<li><p>여기서는 <code class="docutils literal notranslate"><span class="pre">mse_sum</span></code>과 <code class="docutils literal notranslate"><span class="pre">total_samlpes</span></code> 모두 0으로 초기화</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">reset_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">mse_sum</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>사용자 정의 평가지표 활용</strong></p>
-<p>직접 정의한 평가지표를 활용하려면 직접 해당 클래스의 객제를 지정하면 된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
-              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
-              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span> <span class="n">RootMeanSquaredError</span><span class="p">()])</span>
-</pre></div>
-</div>
-<p>훈련을 시작하면 지정된 평가지표 이름과 함께 에포크 단위로 계산된 평가지표 값이 다른 평가지표, 손실값 등과 함께 출력된다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
-<span class="go">              epochs=3,</span>
-<span class="go">              validation_data=(val_images, val_labels))</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Epoch</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span>
-<span class="mi">1563</span><span class="o">/</span><span class="mi">1563</span> <span class="p">[</span><span class="o">==============================</span><span class="p">]</span> <span class="o">-</span> <span class="mi">12</span><span class="n">s</span> <span class="mi">7</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.2929</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9136</span> <span class="o">-</span> <span class="n">rmse</span><span class="p">:</span> <span class="mf">7.1776</span> <span class="o">-</span> <span class="n">val_loss</span><span class="p">:</span> <span class="mf">0.1463</span> <span class="o">-</span> <span class="n">val_accuracy</span><span class="p">:</span> <span class="mf">0.9576</span> <span class="o">-</span> <span class="n">val_rmse</span><span class="p">:</span> <span class="mf">7.3533</span>
-<span class="n">Epoch</span> <span class="mi">2</span><span class="o">/</span><span class="mi">3</span>
-<span class="mi">1563</span><span class="o">/</span><span class="mi">1563</span> <span class="p">[</span><span class="o">==============================</span><span class="p">]</span> <span class="o">-</span> <span class="mi">11</span><span class="n">s</span> <span class="mi">7</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.1585</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9546</span> <span class="o">-</span> <span class="n">rmse</span><span class="p">:</span> <span class="mf">7.3526</span> <span class="o">-</span> <span class="n">val_loss</span><span class="p">:</span> <span class="mf">0.1215</span> <span class="o">-</span> <span class="n">val_accuracy</span><span class="p">:</span> <span class="mf">0.9650</span> <span class="o">-</span> <span class="n">val_rmse</span><span class="p">:</span> <span class="mf">7.3954</span>
-<span class="n">Epoch</span> <span class="mi">3</span><span class="o">/</span><span class="mi">3</span>
-<span class="mi">1563</span><span class="o">/</span><span class="mi">1563</span> <span class="p">[</span><span class="o">==============================</span><span class="p">]</span> <span class="o">-</span> <span class="mi">11</span><span class="n">s</span> <span class="mi">7</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.1293</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9636</span> <span class="o">-</span> <span class="n">rmse</span><span class="p">:</span> <span class="mf">7.3837</span> <span class="o">-</span> <span class="n">val_loss</span><span class="p">:</span> <span class="mf">0.1058</span> <span class="o">-</span> <span class="n">val_accuracy</span><span class="p">:</span> <span class="mf">0.9711</span> <span class="o">-</span> <span class="n">val_rmse</span><span class="p">:</span> <span class="mf">7.4182</span>
-<span class="mi">313</span><span class="o">/</span><span class="mi">313</span> <span class="p">[</span><span class="o">==============================</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="n">s</span> <span class="mi">5</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.1003</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9731</span> <span class="o">-</span> <span class="n">rmse</span><span class="p">:</span> <span class="mf">7.4307</span>
-</pre></div>
-</div>
-<p>이제 훈련 과정에서 계산되는 손실값과 평가지표를 활용하는 방식을 지정하는 콜백 기능과
-텐서보드를 소개한다.</p>
-</section>
-<section id="id9">
-<h3><span class="section-number">8.5.2. </span>콜백<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.5.1. </span>콜백<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p>컴퓨터 프로그래밍에서 <strong>콜백</strong><font size='2'>callback</font>은
 하나의 프로그램이 실행되는 도중에 추가적으로 다른 API를 호출하는 기능 또는 해당 API를 가리킨다.
 호출된 콜백은 자신을 호출한 프로그램과 독립적으로 실행된다.</p>
@@ -1158,63 +1033,45 @@ document.write(`
         <span class="n">patience</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span>
-        <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;checkpoint_path&quot;</span><span class="p">,</span>
+        <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;checkpoint_path.keras&quot;</span><span class="p">,</span>
         <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">,</span>
         <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
 <span class="p">]</span>
+</pre></div>
+</div>
+<p>지정된 콜백과 함께 모델을 훈련시키는 방법은 다음과 같다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_mnist_model</span><span class="p">():</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">,))</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_mnist_model</span><span class="p">()</span>
 
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
           <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
           <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks_list</span><span class="p">,</span>
           <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><strong>사용자 정의 콜백</strong></p>
-<p>케라스와 호환되는 콜백 클래스를 정의하려면 <code class="docutils literal notranslate"><span class="pre">keras.callbacks.Callback</span></code> 클래스를 상속하면 된다.
-매 에포크와 매 배치 훈련 단계의 시작과 종료 지점에서
-수행해야 할 기능을 정의해야 하며 아래 메서드를 재정의하는 방식으로 이루어진다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">on_epoch_begin</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
-<span class="n">on_epoch_end</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
-<span class="n">on_batch_begin</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
-<span class="n">on_batch_end</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">logs</span><span class="p">)</span>
-<span class="n">on_train_begin</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
-<span class="n">on_train_end</span><span class="p">(</span><span class="n">logs</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>각 메서드에 사용되는 인자는 훈련 과정 중에 자동으로 생성된 객체로부터 값을 받아온다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">logs</span></code> 인자: 이전 배치와 에포크의 훈련셋과 검증셋에 대한 손실값, 평가지표 등을 포함한 사전 객체.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">batch</span></code>와 <code class="docutils literal notranslate"><span class="pre">epoch</span></code>: 배치와 에포크 정보</p></li>
-</ul>
-<p>다음 <code class="docutils literal notranslate"><span class="pre">LossHistory</span></code> 콜백 클래스는 배치 훈련이 끝날 때마다 손실값을 저장하고
-에포크가 끝날 때마다 배치별 손실값을 그래프로 저장하여 훈련이 종료된 후 시각화하여 보여주도록 한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="k">class</span> <span class="nc">LossHistory</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">Callback</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">on_train_begin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">def</span> <span class="nf">on_batch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">logs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;loss&quot;</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span><span class="p">,</span>
-                 <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training loss for each batch&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch (epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;plot_at_epoch_</span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">per_batch_losses</span> <span class="o">=</span> <span class="p">[]</span>
+<p>조기종료 후 훈련과정에서 저장된 최고 성능의 모델을 불러온 다음에 활용하는 방법은 다음과 같다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;checkpoint_path.keras&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_metrics</span>
+<span class="go">313/313 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.9767 - loss: 0.0914</span>
+<span class="go">[0.07562295347452164, 0.9811000227928162]</span>
 </pre></div>
 </div>
 </section>
-<section id="id10">
-<h3><span class="section-number">8.5.3. </span>텐서보드<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<section id="id9">
+<h3><span class="section-number">8.5.2. </span>텐서보드<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <p><strong>텐서보드</strong><font size='2'>TensorBoard</font>는 모델 훈련 과정을 시각적으로 실시간 관찰할 수 있는 도구를 제공하며
 텐서플로우와 함께 설치된다.</p>
 <ul class="simple">
@@ -1224,10 +1081,8 @@ document.write(`
 <li><p>이미지, 텍스트, 오디오 데이터 시각화</p></li>
 <li><p>기타 다양한 기능 제공</p></li>
 </ul>
-<p><div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-tensorboard.png?raw=true" style="width:600px;"></div></p><p>텐서보드는 <code class="docutils literal notranslate"><span class="pre">TensorBoard</span></code> 콜백 클래스를 활용한다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">log_dir</span></code>: 텐서보드 서버 실행에 필요한 데이터 저장소 지정</p></li>
-</ul>
+<p><div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-tensorboard.png?raw=true" style="width:600px;"></div></p><p><code class="docutils literal notranslate"><span class="pre">TensorBoard</span></code> 콜백 클래스를 활용해서 텐서보드 서버 실행을 콜백으로 지정한다.
+아래 코드에서 <code class="docutils literal notranslate"><span class="pre">log_dir</span></code>는 텐서보드 서버 실행에 필요한 데이터 저장소를 가리킨다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tensorboard</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">TensorBoard</span><span class="p">(</span>
     <span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;./tensorboard_log_dir&quot;</span><span class="p">,</span>
 <span class="p">)</span>
@@ -1238,7 +1093,8 @@ document.write(`
           <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">tensorboard</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>모델 훈련 중 또는 이후에 텐서보드 서버를 실행한다.</p>
+<p>모델 훈련 중 또는 이후에 텐서보드 서버를 다음 두 가지 방식을 이용하여 실행할 수 있다.
+단, 현재 작업 디렉토리(cwd)에 <code class="docutils literal notranslate"><span class="pre">tensorboard_log_dir</span></code> 디렉토리가 포함되어 있다고 가정한다.</p>
 <ul class="simple">
 <li><p>주피터 노트북에서</p></li>
 </ul>
@@ -1249,13 +1105,13 @@ document.write(`
 <ul class="simple">
 <li><p>터미널에서</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tensorboard</span> <span class="o">--</span><span class="n">logdir</span> <span class="o">./</span><span class="n">tensorboard_log_dir</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>tensorboard<span class="w"> </span>--logdir<span class="w"> </span>./tensorboard_log_dir
 </pre></div>
 </div>
 </section>
 </section>
-<section id="id11">
-<h2><span class="section-number">8.6. </span>연습문제<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<section id="id10">
+<h2><span class="section-number">8.6. </span>연습문제<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-working_with_keras.ipynb">(실습) 케라스 신경망 모델 활용법</a></p></li>
 </ol>
@@ -1335,13 +1191,12 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.3. 신경망 모델 구성법 3: 서브클래싱</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">8.4. 혼합 신경망 모델 구성법</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">8.5. 훈련 평가 방식 지정</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">8.5.1. 사용자 정의 평가지표</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8.5.2. 콜백</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">8.5.3. 텐서보드</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">8.5. 신경망 모델의 구성, 훈련, 평가, 예측</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">8.5.1. 콜백</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8.5.2. 텐서보드</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">8.6. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">8.6. 연습문제</a></li>
 </ul>
   </nav></div>
 
