@@ -7632,135 +7632,6 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%EC%B8%B5%EB%B3%84-%EA%B0%80%EC%A4%91%EC%B9%98-%ED%85%90%EC%84%9C">층별 가중치 텐서<a class="anchor-link" href="#%EC%B8%B5%EB%B3%84-%EA%B0%80%EC%A4%91%EC%B9%98-%ED%85%90%EC%84%9C">¶</a></h3>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<ul>
-<li>1층의 가중치 행렬(2차원 텐서) 모양: (784, 64)<ul>
-<li>입력값 특성: 784개</li>
-<li>출력값 특성: 64개</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 가중치 행렬</span>
-<span class="n">TensorShape</span><span class="p">([</span><span class="mi">784</span><span class="p">,</span> <span class="mi">64</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<ul>
-<li>1층의 편향 벡터(1차원 텐서) 모양: (64,)<ul>
-<li>출력값 특성: 64개</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 편향 벡터</span>
-<span class="n">TensorShape</span><span class="p">([</span><span class="mi">64</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<ul>
-<li>2층의 가중치 행렬(2차원 텐서): (64, 10)<ul>
-<li>입력값 특성: 64개</li>
-<li>출력값 특성: 10개</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 가중치 행렬</span>
-<span class="n">TensorShape</span><span class="p">([</span><span class="mi">64</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<ul>
-<li>2층의 편향 벡터(1차원 텐서) 모양: (10,)<ul>
-<li>출력값 특성: 10개</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 편향 벡터</span>
-<span class="n">TensorShape</span><span class="p">([</span><span class="mi">10</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%EC%84%B1%EB%B2%95-2:-%ED%95%A8%EC%88%98%ED%98%95-API">신경망 모델 구성법 2: 함수형 API<a class="anchor-link" href="#%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%EC%84%B1%EB%B2%95-2:-%ED%95%A8%EC%88%98%ED%98%95-API">¶</a></h2>
 </div>
 </div>
@@ -8164,116 +8035,6 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8-%EC%9E%AC%ED%99%9C%EC%9A%A9">신경망 모델 재활용<a class="anchor-link" href="#%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8-%EC%9E%AC%ED%99%9C%EC%9A%A9">¶</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span>
-<span class="p">[</span><span class="o">&lt;</span><span class="n">keras</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">input_layer</span><span class="o">.</span><span class="n">InputLayer</span> <span class="n">at</span> <span class="mh">0x7fc3a1313fd0</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">keras</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">input_layer</span><span class="o">.</span><span class="n">InputLayer</span> <span class="n">at</span> <span class="mh">0x7fc3a13ce450</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">keras</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">input_layer</span><span class="o">.</span><span class="n">InputLayer</span> <span class="n">at</span> <span class="mh">0x7fc3a13c5990</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">keras</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">merging</span><span class="o">.</span><span class="n">concatenate</span><span class="o">.</span><span class="n">Concatenate</span> <span class="n">at</span> <span class="mh">0x7fc3a13e0d50</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">keras</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">dense</span><span class="o">.</span><span class="n">Dense</span> <span class="n">at</span> <span class="mh">0x7fc3a13a6310</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">keras</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">dense</span><span class="o">.</span><span class="n">Dense</span> <span class="n">at</span> <span class="mh">0x7fc3a12f6850</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">keras</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">dense</span><span class="o">.</span><span class="n">Dense</span> <span class="n">at</span> <span class="mh">0x7fc3a13e2f90</span><span class="o">&gt;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%EC%B8%B5%EB%B3%84-%EC%9E%85%EB%A0%A5%EA%B0%92/%EC%B6%9C%EB%A0%A5%EA%B0%92-%EC%A0%95%EB%B3%B4">층별 입력값/출력값 정보<a class="anchor-link" href="#%EC%B8%B5%EB%B3%84-%EC%9E%85%EB%A0%A5%EA%B0%92/%EC%B6%9C%EB%A0%A5%EA%B0%92-%EC%A0%95%EB%B3%B4">¶</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">input</span>
-<span class="p">[</span><span class="o">&lt;</span><span class="n">KerasTensor</span><span class="p">:</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span> <span class="p">(</span><span class="n">created</span> <span class="n">by</span> <span class="n">layer</span> <span class="s1">'title'</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">KerasTensor</span><span class="p">:</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span> <span class="p">(</span><span class="n">created</span> <span class="n">by</span> <span class="n">layer</span> <span class="s1">'text_body'</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
- <span class="o">&lt;</span><span class="n">KerasTensor</span><span class="p">:</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span> <span class="p">(</span><span class="n">created</span> <span class="n">by</span> <span class="n">layer</span> <span class="s1">'tags'</span><span class="p">)</span><span class="o">&gt;</span><span class="p">]</span>
-
-<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">output</span>
-<span class="o">&lt;</span><span class="n">KerasTensor</span><span class="p">:</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">20100</span><span class="p">)</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span> <span class="p">(</span><span class="n">created</span> <span class="n">by</span> <span class="n">layer</span> <span class="s1">'concatenate'</span><span class="p">)</span><span class="o">&gt;</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%EC%B6%9C%EB%A0%A5%EC%B8%B5%EC%9D%84-%EC%A0%9C%EC%99%B8%ED%95%9C-%EC%B8%B5-%EC%9E%AC%ED%99%9C%EC%9A%A9">출력층을 제외한 층 재활용<a class="anchor-link" href="#%EC%B6%9C%EB%A0%A5%EC%B8%B5%EC%9D%84-%EC%A0%9C%EC%99%B8%ED%95%9C-%EC%B8%B5-%EC%9E%AC%ED%99%9C%EC%9A%A9">¶</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">output</span>
-<span class="n">difficulty</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"softmax"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"difficulty"</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
-
-<span class="n">new_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span>
-    <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">title</span><span class="p">,</span> <span class="n">text_body</span><span class="p">,</span> <span class="n">tags</span><span class="p">],</span>
-    <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">priority</span><span class="p">,</span> <span class="n">department</span><span class="p">,</span> <span class="n">difficulty</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">new_model</span><span class="p">,</span> <span class="s2">"updated_ticket_classifier.png"</span><span class="p">,</span> <span class="n">show_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div align="center"><img alt="No description has been provided for this image" src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-ticket_classifier_with_shapes-02.png?raw=true" style="width:900px;"/></div>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%EC%84%B1%EB%B2%95-3:-%EC%84%9C%EB%B8%8C%ED%81%B4%EB%9E%98%EC%8B%B1">신경망 모델 구성법 3: 서브클래싱<a class="anchor-link" href="#%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8-%EA%B5%AC%EC%84%B1%EB%B2%95-3:-%EC%84%9C%EB%B8%8C%ED%81%B4%EB%9E%98%EC%8B%B1">¶</a></h2>
 </div>
 </div>
@@ -8403,7 +8164,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%EB%AA%A8%EB%8D%B8%EC%9D%80-%EC%B8%B5%EC%9D%98-%EC%9E%90%EC%8B%9D-%ED%81%B4%EB%9E%98%EC%8A%A4">모델은 층의 자식 클래스<a class="anchor-link" href="#%EB%AA%A8%EB%8D%B8%EC%9D%80-%EC%B8%B5%EC%9D%98-%EC%9E%90%EC%8B%9D-%ED%81%B4%EB%9E%98%EC%8A%A4">¶</a></h3>
+<h3 id="%EB%AA%A8%EB%8D%B8-vs.-%EC%B8%B5">모델 vs. 층<a class="anchor-link" href="#%EB%AA%A8%EB%8D%B8-vs.-%EC%B8%B5">¶</a></h3>
 </div>
 </div>
 </div>
@@ -8428,7 +8189,21 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
-<li>모델 클래스: 모델에 포함된 층의 가중치 행렬과 편향 벡터를 활용하는 훈련, 평가, 예측을 총괄 <code>fit()</code>, <code>evaluate()</code>, <code>predict()</code> 메서드를 함께 지원할 뿐.</li>
+<li>이미 선언된 모델을 다른 모델에서 하나의 층으로 활용 가능</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>층 클래스와는 다르게 모델 클래스는 <code>fit()</code>, <code>evaluate()</code>, <code>predict()</code> 메서드를 함께 지원하여
+  모델의 훈련, 평가, 활용을 담당하도록 함.</li>
 </ul>
 </div>
 </div>
