@@ -937,7 +937,9 @@ document.write(`
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>지정된 콜백과 함께 모델을 훈련시키는 방법은 다음과 같다.</p>
+<p>지정된 콜백과 함께 모델을 훈련시키는 방법은 다음과 같다.
+에포크를 50 정도로 크게 잡는다. 하지만
+조기 종료 기능에 의해 10번 에포크 정도에서 훈련이 종료된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_mnist_model</span><span class="p">():</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">,))</span>
     <span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
@@ -953,17 +955,42 @@ document.write(`
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
 
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+          <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
           <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks_list</span><span class="p">,</span>
           <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Epoch<span class="w"> </span><span class="m">1</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>4s<span class="w"> </span>2ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.8635<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.4526<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9594<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.1473
+Epoch<span class="w"> </span><span class="m">2</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>2s<span class="w"> </span>2ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.9526<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.1668<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9671<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.1173
+Epoch<span class="w"> </span><span class="m">3</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>3s<span class="w"> </span>2ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.9616<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.1319<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9718<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.1117
+Epoch<span class="w"> </span><span class="m">4</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>3s<span class="w"> </span>2ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.9674<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.1145<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9736<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.1019
+Epoch<span class="w"> </span><span class="m">5</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>2s<span class="w"> </span>2ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.9709<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.1056<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9750<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.1051
+Epoch<span class="w"> </span><span class="m">6</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>3s<span class="w"> </span>2ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.9745<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.0950<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9750<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.1033
+Epoch<span class="w"> </span><span class="m">7</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>2s<span class="w"> </span>1ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.9768<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.0834<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9780<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.0891
+Epoch<span class="w"> </span><span class="m">8</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>3s<span class="w"> </span>2ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.9776<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.0792<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9792<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.0872
+Epoch<span class="w"> </span><span class="m">9</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>3s<span class="w"> </span>2ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.9792<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.0714<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9786<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.0929
+Epoch<span class="w"> </span><span class="m">10</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>2s<span class="w"> </span>1ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.9804<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.0733<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9782<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.0957
+Epoch<span class="w"> </span><span class="m">11</span>/50
+<span class="m">1563</span>/1563<span class="w"> </span>━━━━━━━━<span class="w"> </span>2s<span class="w"> </span>2ms/step<span class="w"> </span>-<span class="w"> </span>accuracy:<span class="w"> </span><span class="m">0</span>.9816<span class="w"> </span>-<span class="w"> </span>loss:<span class="w"> </span><span class="m">0</span>.0685<span class="w"> </span>-<span class="w"> </span>val_accuracy:<span class="w"> </span><span class="m">0</span>.9782<span class="w"> </span>-<span class="w"> </span>val_loss:<span class="w"> </span><span class="m">0</span>.0924
+&lt;keras.src.callbacks.history.History<span class="w"> </span>at<span class="w"> </span>0x7f3251f342f0&gt;
 </pre></div>
 </div>
 <p>조기종료 후 훈련과정에서 저장된 최고 성능의 모델을 불러온 다음에 활용하는 방법은 다음과 같다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;checkpoint_path.keras&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">test_metrics</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">test_metrics</span>
-<span class="go">313/313 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.9767 - loss: 0.0914</span>
-<span class="go">[0.07562295347452164, 0.9811000227928162]</span>
+<span class="go">313/313 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.9745 - loss: 0.1033</span>
+<span class="go">[0.08732542395591736, 0.9786999821662903]</span>
 </pre></div>
 </div>
 </section>

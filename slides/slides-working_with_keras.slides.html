@@ -8503,6 +8503,17 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>에포크를 50 정도로 크게 잡고 훈련을 실행하면 조기 종료 기능에 의해 10번 에포크 정도에서 훈련이 종료된다.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_mnist_model</span><span class="p">():</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span> <span class="o">*</span> <span class="mi">28</span><span class="p">,))</span>
     <span class="n">features</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"relu"</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
@@ -8518,9 +8529,35 @@ main {
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">"accuracy"</span><span class="p">])</span>
 
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
-          <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+          <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
           <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks_list</span><span class="p">,</span>
           <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_images</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="n">Epoch</span> <span class="mi">1</span><span class="o">/</span><span class="mi">50</span>
+<span class="mi">1563</span><span class="o">/</span><span class="mi">1563</span> <span class="err">━━━━━━━━━━━━━━━━━━━━</span> <span class="mi">4</span><span class="n">s</span> <span class="mi">2</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.8635</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.4526</span> <span class="o">-</span> <span class="n">val_accuracy</span><span class="p">:</span> <span class="mf">0.9594</span> <span class="o">-</span> <span class="n">val_loss</span><span class="p">:</span> <span class="mf">0.1473</span>
+<span class="n">Epoch</span> <span class="mi">2</span><span class="o">/</span><span class="mi">50</span>
+<span class="mi">1563</span><span class="o">/</span><span class="mi">1563</span> <span class="err">━━━━━━━━━━━━━━━━━━━━</span> <span class="mi">2</span><span class="n">s</span> <span class="mi">2</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9526</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.1668</span> <span class="o">-</span> <span class="n">val_accuracy</span><span class="p">:</span> <span class="mf">0.9671</span> <span class="o">-</span> <span class="n">val_loss</span><span class="p">:</span> <span class="mf">0.1173</span>
+<span class="n">Epoch</span> <span class="mi">3</span><span class="o">/</span><span class="mi">50</span>
+<span class="mi">1563</span><span class="o">/</span><span class="mi">1563</span> <span class="err">━━━━━━━━━━━━━━━━━━━━</span> <span class="mi">3</span><span class="n">s</span> <span class="mi">2</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9616</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.1319</span> <span class="o">-</span> <span class="n">val_accuracy</span><span class="p">:</span> <span class="mf">0.9718</span> <span class="o">-</span> <span class="n">val_loss</span><span class="p">:</span> <span class="mf">0.1117</span>
+<span class="o">...</span>
+<span class="o">...</span>                
+<span class="n">Epoch</span> <span class="mi">9</span><span class="o">/</span><span class="mi">50</span>
+<span class="mi">1563</span><span class="o">/</span><span class="mi">1563</span> <span class="err">━━━━━━━━━━━━━━━━━━━━</span> <span class="mi">3</span><span class="n">s</span> <span class="mi">2</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9792</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.0714</span> <span class="o">-</span> <span class="n">val_accuracy</span><span class="p">:</span> <span class="mf">0.9786</span> <span class="o">-</span> <span class="n">val_loss</span><span class="p">:</span> <span class="mf">0.0929</span>
+<span class="n">Epoch</span> <span class="mi">10</span><span class="o">/</span><span class="mi">50</span>
+<span class="mi">1563</span><span class="o">/</span><span class="mi">1563</span> <span class="err">━━━━━━━━━━━━━━━━━━━━</span> <span class="mi">2</span><span class="n">s</span> <span class="mi">1</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9804</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.0733</span> <span class="o">-</span> <span class="n">val_accuracy</span><span class="p">:</span> <span class="mf">0.9782</span> <span class="o">-</span> <span class="n">val_loss</span><span class="p">:</span> <span class="mf">0.0957</span>
+<span class="n">Epoch</span> <span class="mi">11</span><span class="o">/</span><span class="mi">50</span>
+<span class="mi">1563</span><span class="o">/</span><span class="mi">1563</span> <span class="err">━━━━━━━━━━━━━━━━━━━━</span> <span class="mi">2</span><span class="n">s</span> <span class="mi">2</span><span class="n">ms</span><span class="o">/</span><span class="n">step</span> <span class="o">-</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.9816</span> <span class="o">-</span> <span class="n">loss</span><span class="p">:</span> <span class="mf">0.0685</span> <span class="o">-</span> <span class="n">val_accuracy</span><span class="p">:</span> <span class="mf">0.9782</span> <span class="o">-</span> <span class="n">val_loss</span><span class="p">:</span> <span class="mf">0.0924</span>
+<span class="o">&lt;</span><span class="n">keras</span><span class="o">.</span><span class="n">src</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">history</span><span class="o">.</span><span class="n">History</span> <span class="n">at</span> <span class="mh">0x7f3251f342f0</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 </div>
