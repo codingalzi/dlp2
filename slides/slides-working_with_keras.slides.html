@@ -7776,6 +7776,30 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># 샘플 수</span>
+<span class="n">num_samples</span> <span class="o">=</span> <span class="mi">1280</span>
+
+<span class="c1"># 입력 텐서 3 개 무작위 생성</span>
+<span class="n">title_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">vocabulary_size</span><span class="p">))</span>
+<span class="n">text_body_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">vocabulary_size</span><span class="p">))</span>
+<span class="n">tags_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">num_tags</span><span class="p">))</span>    <span class="c1"># 멀티-핫-인코딩</span>
+
+<span class="c1"># 타깃 텐서 2 개 무작위 생성</span>
+<span class="n">priority_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">department_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">num_departments</span><span class="p">))</span>  <span class="c1"># 멀티-핫-인코딩</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">([</span><span class="n">title_data</span><span class="p">,</span> <span class="n">text_body_data</span><span class="p">,</span> <span class="n">tags_data</span><span class="p">],</span>
           <span class="p">[</span><span class="n">priority_data</span><span class="p">,</span> <span class="n">department_data</span><span class="p">],</span>
           <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
@@ -7885,14 +7909,14 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">department_preds</span>
-<span class="n">array</span><span class="p">([[</span><span class="mf">1.267548e-05</span><span class="p">,</span> <span class="mf">3.678832e-11</span><span class="p">,</span> <span class="mf">2.387379e-03</span><span class="p">,</span> <span class="mf">9.975999e-01</span><span class="p">],</span>
-       <span class="p">[</span><span class="mf">5.863077e-03</span><span class="p">,</span> <span class="mf">4.932786e-09</span><span class="p">,</span> <span class="mf">6.003909e-01</span><span class="p">,</span> <span class="mf">3.937459e-01</span><span class="p">],</span>
-       <span class="p">[</span><span class="mf">1.562561e-03</span><span class="p">,</span> <span class="mf">3.384366e-07</span><span class="p">,</span> <span class="mf">2.208202e-02</span><span class="p">,</span> <span class="mf">9.763551e-01</span><span class="p">],</span>
+<span class="n">array</span><span class="p">([[</span><span class="mf">1.0000000e+00</span><span class="p">,</span> <span class="mf">5.0770291e-28</span><span class="p">,</span> <span class="mf">4.8780390e-08</span><span class="p">,</span> <span class="mf">1.4980437e-14</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">1.0000000e+00</span><span class="p">,</span> <span class="mf">8.9238867e-31</span><span class="p">,</span> <span class="mf">4.3726455e-08</span><span class="p">,</span> <span class="mf">1.0175944e-14</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">1.0000000e+00</span><span class="p">,</span> <span class="mf">1.6067065e-29</span><span class="p">,</span> <span class="mf">5.4092455e-09</span><span class="p">,</span> <span class="mf">2.2488301e-14</span><span class="p">],</span>
        <span class="o">...</span><span class="p">,</span>
-       <span class="p">[</span><span class="mf">2.978364e-03</span><span class="p">,</span> <span class="mf">6.375713e-07</span><span class="p">,</span> <span class="mf">4.778040e-03</span><span class="p">,</span> <span class="mf">9.922429e-01</span><span class="p">],</span>
-       <span class="p">[</span><span class="mf">2.411681e-05</span><span class="p">,</span> <span class="mf">3.638920e-10</span><span class="p">,</span> <span class="mf">3.098509e-01</span><span class="p">,</span> <span class="mf">6.901249e-01</span><span class="p">],</span>
-       <span class="p">[</span><span class="mf">9.115771e-05</span><span class="p">,</span> <span class="mf">7.135761e-10</span><span class="p">,</span> <span class="mf">7.342336e-02</span><span class="p">,</span> <span class="mf">9.264854e-01</span><span class="p">]],</span>
-       <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
+       <span class="p">[</span><span class="mf">1.0000000e+00</span><span class="p">,</span> <span class="mf">1.8711068e-29</span><span class="p">,</span> <span class="mf">2.2684986e-08</span><span class="p">,</span> <span class="mf">5.9480673e-14</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">1.0000000e+00</span><span class="p">,</span> <span class="mf">4.0235123e-29</span><span class="p">,</span> <span class="mf">1.5713432e-08</span><span class="p">,</span> <span class="mf">9.7684718e-14</span><span class="p">],</span>
+       <span class="p">[</span><span class="mf">1.0000000e+00</span><span class="p">,</span> <span class="mf">2.8694353e-30</span><span class="p">,</span> <span class="mf">7.1231565e-10</span><span class="p">,</span> <span class="mf">6.3928655e-15</span><span class="p">]],</span>
+      <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7916,7 +7940,7 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">department_preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
-<span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>

@@ -562,7 +562,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">tags</span></code>: 사용자에 의한 추가 선택 사항</p>
 <ul>
 <li><p>100개 중 여러 개 선택.</p></li>
-<li><p>멀티-핫 인코딩된 길이가 1만인 벡터.</p></li>
+<li><p>멀티-핫 인코딩된 길이가 100인 벡터.</p></li>
 </ul>
 </li>
 </ul>
@@ -588,7 +588,7 @@ document.write(`
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">title</span></code>: 제목 입력 처리</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">text_body</span></code>:  요구사항 내용 입력 처리</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">tags</span></code>: 추가 선택사항 처리</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tags</span></code>: 추가 선택사항 처리. 100개 중에 하나 선택.</p></li>
 </ul>
 </li>
 <li><p>은닉층: 두 개</p>
@@ -655,6 +655,21 @@ document.write(`
 <p><strong>모델 훈련</strong></p>
 <p>모델 훈련은 <code class="docutils literal notranslate"><span class="pre">fit()</span></code> 함수에 세 개의 훈련 텐서로 이루어진 리스트와
 두 개의 타깃 텐서로 이루어진 리스트를 지정한 후에 실행한다.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># 샘플 수</span>
+<span class="n">num_samples</span> <span class="o">=</span> <span class="mi">1280</span>
+
+<span class="c1"># 입력 텐서 3 개 무작위 생성</span>
+<span class="n">title_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">vocabulary_size</span><span class="p">))</span>
+<span class="n">text_body_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">vocabulary_size</span><span class="p">))</span>
+<span class="n">tags_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">num_tags</span><span class="p">))</span>    <span class="c1"># 멀티-핫-인코딩</span>
+
+<span class="c1"># 타깃 텐서 2 개 무작위 생성</span>
+<span class="n">priority_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">department_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">num_departments</span><span class="p">))</span>  <span class="c1"># 멀티-핫-인코딩</span>
+</pre></div>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">([</span><span class="n">title_data</span><span class="p">,</span> <span class="n">text_body_data</span><span class="p">,</span> <span class="n">tags_data</span><span class="p">],</span>
           <span class="p">[</span><span class="n">priority_data</span><span class="p">,</span> <span class="n">department_data</span><span class="p">]</span>
           <span class="n">epochs</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
@@ -688,19 +703,19 @@ document.write(`
 <ul>
 <li><p>처리 부서 예측값: 각 부서별 적정도를 가리키는 확률값</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">department_preds</span>
-<span class="go">array([[1.26754885e-05, 3.67883259e-11, 2.38737906e-03, 9.97599900e-01],</span>
-<span class="go">       [5.86307794e-03, 4.93278662e-09, 6.00390911e-01, 3.93745989e-01],</span>
-<span class="go">       [1.56256149e-03, 3.38436678e-07, 2.20820252e-02, 9.76355135e-01],</span>
+<span class="go">array([[1.0000000e+00, 5.0770291e-28, 4.8780390e-08, 1.4980437e-14],</span>
+<span class="go">       [1.0000000e+00, 8.9238867e-31, 4.3726455e-08, 1.0175944e-14],</span>
+<span class="go">       [1.0000000e+00, 1.6067065e-29, 5.4092455e-09, 2.2488301e-14],</span>
 <span class="go">       ...,</span>
-<span class="go">       [2.97836447e-03, 6.37571304e-07, 4.77804057e-03, 9.92242992e-01],</span>
-<span class="go">       [2.41168109e-05, 3.63892028e-10, 3.09850991e-01, 6.90124929e-01],</span>
-<span class="go">       [9.11577154e-05, 7.13576198e-10, 7.34233633e-02, 9.26485479e-01]],</span>
-<span class="go">       dtype=float32)</span>
+<span class="go">       [1.0000000e+00, 1.8711068e-29, 2.2684986e-08, 5.9480673e-14],</span>
+<span class="go">       [1.0000000e+00, 4.0235123e-29, 1.5713432e-08, 9.7684718e-14],</span>
+<span class="go">       [1.0000000e+00, 2.8694353e-30, 7.1231565e-10, 6.3928655e-15]],</span>
+<span class="go">      dtype=float32)</span>
 </pre></div>
 </div>
 <p>각각의 요구사항을 처리해야 하는 부서는 <code class="docutils literal notranslate"><span class="pre">argmax()</span></code> 메서드로 확인된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">department_preds</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
-<span class="go">array([3, 2, 3, ..., 3, 3, 3])</span>
+<span class="go">array([0, 0, 0, ..., 0, 0, 0])</span>
 </pre></div>
 </div>
 </li>
