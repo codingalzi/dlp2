@@ -380,17 +380,16 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api">8.2. 신경망 모델 구성법 2: 함수형 API</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.2.1. 다중 입력, 다중 출력 모델</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.2.2. 신경망 모델 구조 그래프</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.2.3. 신경망 모델 재활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.3. 신경망 모델 구성법 3: 서브클래싱</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">8.4. 혼합 신경망 모델 구성법</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">8.5. 신경망 모델의 구성, 훈련, 평가, 예측</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">8.5.1. 콜백</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8.5.2. 텐서보드</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.3. 신경망 모델 구성법 3: 서브클래싱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.4. 혼합 신경망 모델 구성법</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">8.5. 신경망 모델의 구성, 훈련, 평가, 예측</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">8.5.1. 콜백</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">8.5.2. 텐서보드</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">8.6. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8.6. 연습문제</a></li>
 </ul>
             </nav>
         </div>
@@ -487,63 +486,7 @@ document.write(`
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><div align="left"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-model_summary2.png?raw=true" style="width:600px;"></div></p><p><strong>층별 가중치 텐서</strong></p>
-<p>위 모델에 대해서 층별로 가중치 행렬과 편향 벡터 하나씩 총 4 개의 텐서가 생성된다.
-생성된 모든 텐서를 항목으로 갖는 리스트를 모델의 <code class="docutils literal notranslate"><span class="pre">weights</span></code> 속성이 가리킨다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span>
-<span class="go">[&lt;KerasVariable shape=(784, 64), dtype=float32, path=sequential_2/dense_4/kernel&gt;,</span>
-<span class="go"> &lt;KerasVariable shape=(64,), dtype=float32, path=sequential_2/dense_4/bias&gt;,</span>
-<span class="go"> &lt;KerasVariable shape=(64, 10), dtype=float32, path=sequential_2/dense_5/kernel&gt;,</span>
-<span class="go"> &lt;KerasVariable shape=(10,), dtype=float32, path=sequential_2/dense_5/bias&gt;]</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>1층의 가중치 행렬(2차원 텐서) 모양: (784, 64)</p>
-<ul>
-<li><p>입력값 특성: 784개</p></li>
-<li><p>출력값 특성: 64개</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 가중치 행렬</span>
-<span class="go">TensorShape([784, 64])</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>1층의 편향 벡터(1차원 텐서) 모양: (64,)</p>
-<ul>
-<li><p>출력값 특성: 64개</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 편향 벡터</span>
-<span class="go">TensorShape([64])</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>2층의 가중치 행렬(2차원 텐서): (64, 10)</p>
-<ul>
-<li><p>입력값 특성: 64개</p></li>
-<li><p>출력값 특성: 10개</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 가중치 행렬</span>
-<span class="go">TensorShape([64, 10])</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>2층의 편향 벡터(1차원 텐서) 모양: (10,)</p>
-<ul>
-<li><p>출력값 특성: 10개</p></li>
-</ul>
-</li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># 편향 벡터</span>
-<span class="go">TensorShape([10])</span>
-</pre></div>
-</div>
-</section>
+<p><div align="left"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-model_summary2.png?raw=true" style="width:600px;"></div></p></section>
 <section id="api">
 <h2><span class="section-number">8.2. </span>신경망 모델 구성법 2: 함수형 API<a class="headerlink" href="#api" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 클래스를 사용하면 한 종류의 입력값과 한 종류의 출력값만을 사용할 수 있다.
@@ -784,71 +727,9 @@ document.write(`
 </pre></div>
 </div>
 <p><div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-ticket_classifier_with_shapes.png?raw=true" style="width:900px;"></div></p></section>
+</section>
 <section id="id4">
-<h3><span class="section-number">8.2.3. </span>신경망 모델 재활용<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
-<p>훈련된 모델을 새로운 모델을 구성하는 데에 활용할 수 있다.
-먼저 모델의 <code class="docutils literal notranslate"><span class="pre">layers</span></code> 속성을 이용하여 사용된 층에 대한 정보를 확인한다.
-<code class="docutils literal notranslate"><span class="pre">layers</span></code> 속성은 사용된 층들로 이루어진 리스트를 가리킨다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">layers</span>
-<span class="go">[&lt;keras.src.engine.input_layer.InputLayer at 0x7fc3a1313fd0&gt;,</span>
-<span class="go"> &lt;keras.src.engine.input_layer.InputLayer at 0x7fc3a13ce450&gt;,</span>
-<span class="go"> &lt;keras.src.engine.input_layer.InputLayer at 0x7fc3a13c5990&gt;,</span>
-<span class="go"> &lt;keras.src.layers.merging.concatenate.Concatenate at 0x7fc3a13e0d50&gt;,</span>
-<span class="go"> &lt;keras.src.layers.core.dense.Dense at 0x7fc3a13a6310&gt;,</span>
-<span class="go"> &lt;keras.src.layers.core.dense.Dense at 0x7fc3a12f6850&gt;,</span>
-<span class="go"> &lt;keras.src.layers.core.dense.Dense at 0x7fc3a13e2f90&gt;]</span>
-</pre></div>
-</div>
-<p>예를 들어, 3번 인덱스에 해당하는 층의 입력값과 출력값에 대한 정보는 아래처럼 확인할 수 있다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">input</span>
-<span class="go">[&lt;KerasTensor: shape=(None, 10000) dtype=float32 (created by layer &#39;title&#39;)&gt;,</span>
-<span class="go"> &lt;KerasTensor: shape=(None, 10000) dtype=float32 (created by layer &#39;text_body&#39;)&gt;,</span>
-<span class="go"> &lt;KerasTensor: shape=(None, 100) dtype=float32 (created by layer &#39;tags&#39;)&gt;]</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">output</span>
-<span class="go">&lt;KerasTensor: shape=(None, 20100) dtype=float32 (created by layer &#39;concatenate&#39;)&gt;</span>
-</pre></div>
-</div>
-<p>여기서는 문제해결의 어려움 정도를 “quick”, “medium”, “difficult”로 구분하는 어려움 정도를 판별하는
-출력층을 추가하여 총 세 종류의 출력값을 생성하는 모델을 얻고자 한다.
-원래는 모델을 새로 구성하고 훈련을 처음부터 다시 시작해야 한다.
-하지만 어차피 훈련과정이 이전과 특별히 다를 이유가 없다.
-이런 경우 이전에 훈련된 모델의 일부를 재활용할 수 있다.
-기존에 훈련된 모델을 재활용하는 경우
-일반적으로 출력층을 제외한 나머지 층을 재활용 대상으로 삼는다.</p>
-<p>기존 모델에서 출력층은 5번과 6번 인덱스에 위치하기에
-4번 인덱스가 가리키는 (은닉)층의 출력 정보를 따로 떼어낸다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">output</span>
-</pre></div>
-</div>
-<p>그런 다음 이제 출력층에 문제해결의 어려움 정도를 판별하는 층을 아래와 같이 지정한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">difficulty</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;difficulty&quot;</span><span class="p">)(</span><span class="n">features</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>새로이 준비된 <code class="docutils literal notranslate"><span class="pre">'difficulty'</span></code> 층을 기존에 사용된 두 개의 출력층과 함께
-새로운 모델의 출력층으로 지정한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">new_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span>
-    <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">title</span><span class="p">,</span> <span class="n">text_body</span><span class="p">,</span> <span class="n">tags</span><span class="p">],</span>
-    <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">priority</span><span class="p">,</span> <span class="n">department</span><span class="p">,</span> <span class="n">difficulty</span><span class="p">])</span>
-</pre></div>
-</div>
-<p>모델 구성 그래프는 다음과 같다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">new_model</span><span class="p">,</span> <span class="s2">&quot;updated_ticket_classifier.png&quot;</span><span class="p">,</span> <span class="n">show_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><div align="center"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-ticket_classifier_with_shapes-02.png?raw=true" style="width:900px;"></div></p><p>새로 생성된 모델은 출력층을 제외한 나머지 층들이 기존 모델의 훈련 과정에서 학습한
-가중치 행렬과 편향 벡터를 그대로 유지한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">new_model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-</pre></div>
-</div>
-<p><div align="left"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch07-model_summary5.png?raw=true" style="width:600px;"></div></p><p>모델 재활용은 기존에 매우 잘 훈련된 모델을 새로운 문제를 해결하는 딥러닝 신경망 모델을
-훈련시킬 때 많이 사용하는 기법이다.
-<a class="reference internal" href="computer_vision_intro.html#ch-computer-vision-intro"><span class="std std-numref">9장</span></a>에서 전이학습을 소개하면서 모델 재활용 방식을
-자세히 다룬다.</p>
-</section>
-</section>
-<section id="id5">
-<h2><span class="section-number">8.3. </span>신경망 모델 구성법 3: 서브클래싱<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.3. </span>신경망 모델 구성법 3: 서브클래싱<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">keras.Model</span></code> 클래스를 상속하는 모델 클래스를 직접 선언하여 활용하는 기법이
 <strong>서브클래싱</strong><font size='2'>subclassing</font>이다.</p>
 <p>서브클래싱으로 모델 클래서를 선언하려면 아래 두 메서드를 목적에 맞추어
@@ -902,14 +783,15 @@ document.write(`
 </li>
 </ul>
 </section>
-<section id="id6">
-<h2><span class="section-number">8.4. </span>혼합 신경망 모델 구성법<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<section id="id5">
+<h2><span class="section-number">8.4. </span>혼합 신경망 모델 구성법<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
 <p><strong>모델 vs. 층</strong></p>
 <p>모델 서브클래싱은 <code class="docutils literal notranslate"><span class="pre">keras.layers.Layer</span></code>를 상속하여 사용자 정의 층 클래스를 선언하는 방식과
 거의 동일하다 (<a class="reference internal" href="keras_and_tf.html#ch-keras-tf"><span class="std std-numref">5장</span></a> 참고).
 사실 <code class="docutils literal notranslate"><span class="pre">keras.Model</span></code>이 <code class="docutils literal notranslate"><span class="pre">keras.layers.Layer</span></code>의 자식 클래스이다.
-다만 모델 클래스는 <code class="docutils literal notranslate"><span class="pre">fit()</span></code>, <code class="docutils literal notranslate"><span class="pre">evaluate()</span></code>, <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 함께 지원하기에
-모델에 포함된 층의 가중치 행렬과 편향 벡터를 활용하는 훈련, 평가, 예측을 총괄할 수 있을 뿐이다.</p>
+즉, 이미 선언된 모델을 다른 모델에서 하나의 층으로 활용할 수 있다.</p>
+<p>층 클래스와는 다르게 모델 클래스는 <code class="docutils literal notranslate"><span class="pre">fit()</span></code>, <code class="docutils literal notranslate"><span class="pre">evaluate()</span></code>, <code class="docutils literal notranslate"><span class="pre">predict()</span></code> 메서드를 함께 지원하여
+모델의 훈련, 평가, 활용을 담당하도록 한다.</p>
 <p>모델 클래스가 층의 하위 클래스이기에
 선언된/훈련된 모델을 다른 모델의 하나의 층으로 활용할 수도 있다.
 아래 두 예제는 이 사실을 이용하여 앞서 소개된 세 가지 방식을 임의로 혼합할 수 있음을 보여준다.</p>
@@ -966,8 +848,8 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="id7">
-<h2><span class="section-number">8.5. </span>신경망 모델의 구성, 훈련, 평가, 예측<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<section id="id6">
+<h2><span class="section-number">8.5. </span>신경망 모델의 구성, 훈련, 평가, 예측<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
 <p>딥러닝 신경망 모델의 훈련은 한 번 시작되면 훈련이 종료될 때까지 어떤 간섭도 받지 않는다.
 즉, 훈련 시작 이전의 컴파일 과정에서 지정된 설정을 훈련 중간에 변경할 수 없다.
 다만, 훈련 진행과정을 관찰<font size='2'>monitoring</font>할 수 있을 뿐이다.</p>
@@ -979,8 +861,8 @@ document.write(`
 <p>손실값과 평가지표를 계산하는 방식은 모델을 컴파일할 때 지정된다.
 케라스가 지원하는 방식 중에 하나를 선택하거나
 필요에 따라 사용자가 직접 선언한 손실함수 또는 평가지표 클래스를 활용할 수 있다.</p>
-<section id="id8">
-<h3><span class="section-number">8.5.1. </span>콜백<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<section id="id7">
+<h3><span class="section-number">8.5.1. </span>콜백<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
 <p>컴퓨터 프로그래밍에서 <strong>콜백</strong><font size='2'>callback</font>은
 하나의 프로그램이 실행되는 도중에 추가적으로 다른 API를 호출하는 기능 또는 해당 API를 가리킨다.
 호출된 콜백은 자신을 호출한 프로그램과 독립적으로 실행된다.</p>
@@ -1070,8 +952,8 @@ document.write(`
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h3><span class="section-number">8.5.2. </span>텐서보드<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<section id="id8">
+<h3><span class="section-number">8.5.2. </span>텐서보드<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
 <p><strong>텐서보드</strong><font size='2'>TensorBoard</font>는 모델 훈련 과정을 시각적으로 실시간 관찰할 수 있는 도구를 제공하며
 텐서플로우와 함께 설치된다.</p>
 <ul class="simple">
@@ -1110,8 +992,8 @@ document.write(`
 </div>
 </section>
 </section>
-<section id="id10">
-<h2><span class="section-number">8.6. </span>연습문제<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<section id="id9">
+<h2><span class="section-number">8.6. </span>연습문제<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://colab.research.google.com/github/codingalzi/dlp2/blob/master/excs/exc-working_with_keras.ipynb">(실습) 케라스 신경망 모델 활용법</a></p></li>
 </ol>
@@ -1186,17 +1068,16 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api">8.2. 신경망 모델 구성법 2: 함수형 API</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">8.2.1. 다중 입력, 다중 출력 모델</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8.2.2. 신경망 모델 구조 그래프</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.2.3. 신경망 모델 재활용</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.3. 신경망 모델 구성법 3: 서브클래싱</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">8.4. 혼합 신경망 모델 구성법</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">8.5. 신경망 모델의 구성, 훈련, 평가, 예측</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">8.5.1. 콜백</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8.5.2. 텐서보드</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">8.3. 신경망 모델 구성법 3: 서브클래싱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">8.4. 혼합 신경망 모델 구성법</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">8.5. 신경망 모델의 구성, 훈련, 평가, 예측</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">8.5.1. 콜백</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">8.5.2. 텐서보드</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">8.6. 연습문제</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">8.6. 연습문제</a></li>
 </ul>
   </nav></div>
 
