@@ -445,7 +445,8 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">Input()</span></code>: 입력층</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">shape=(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code>. 훈련 샘플의 모양 지정.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">28x28</span></code> 픽셀 크기의 흑백 손글씨 사진</p></li>
+<li><p>훈련 샘플은 원래 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28)</span></code> 모양의 흑백 손글씨 사진이었음.</p></li>
+<li><p>2차원 어레이를 3차원 어레이로 변환함.</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>: 합성곱 층</p>
@@ -457,14 +458,20 @@ document.write(`
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code>: 맥스풀링 층</p>
 <ul>
-<li><p>입력 사진의 높이와 너비를 지정된 비율만큼 축소. 즉 사진 크기 축소.</p></li>
-<li><p>출력값: 3D 텐서 (높이, 너비, 채널수).</p></li>
+<li><p>입력 사진의 높이와 너비를 지정된 비율만큼 축소. 즉 사진 크기 축소 변형 실행.</p></li>
+<li><p>출력값: 3D 텐서 (축소된높이, 축소된너비, 채널수).</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Flatten</span></code>: 평탄화 층</p>
+<ul>
+<li><p>입력 샘플을 모두 1차원 텐서로 변환</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">높이,</span> <span class="pre">너비,</span> <span class="pre">채널수)</span></code> 모양의 입력 배치를 <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">높이*너비*채널수)</span></code> 모양의 배치 텐서로 변환</p></li>
 </ul>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code>: 밀집 층</p>
 <ul>
 <li><p>CNN 모델의 출력층은 일반적으로 밀집층 사용</p></li>
-<li><p>입력값: <code class="docutils literal notranslate"><span class="pre">Flatten()</span></code> 층을 통과해서 <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">N)</span></code> 모양의 2차원 텐서</p></li>
+<li><p>입력값: <code class="docutils literal notranslate"><span class="pre">Flatten()</span></code> 층을 통과한 <code class="docutils literal notranslate"><span class="pre">(None,</span> <span class="pre">N)</span></code> 모양의 2차원 텐서</p></li>
 </ul>
 </li>
 </ul>
@@ -492,43 +499,16 @@ document.write(`
 <p><code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 층과 <code class="docutils literal notranslate"><span class="pre">Flatten</span></code> 층엔 파라미터가 전혀 사용되지 않는다.
 왜 그런지를 포함해서 각 층별로 출력값의 모양과 사용되는 파라미터의 수에 대해
 나중에 자세히 다룬다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="go">Model: &quot;model&quot; </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">Layer (type)                 Output Shape              Param # </span>
-<span class="go">================================================================= </span>
-<span class="go">input_1 (InputLayer)         [(None, 28, 28, 1)]       0 </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d (Conv2D)              (None, 26, 26, 32)        320 </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">max_pooling2d (MaxPooling2D) (None, 13, 13, 32)        0 </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_1 (Conv2D)            (None, 11, 11, 64)        18496 </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">max_pooling2d_1 (MaxPooling2 (None, 5, 5, 64)          0 </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">conv2d_2 (Conv2D)            (None, 3, 3, 128)         73856 </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">flatten (Flatten)            (None, 1152)              0 </span>
-<span class="go">_________________________________________________________________</span>
-<span class="go">dense (Dense)                (None, 10)                11530 </span>
-<span class="go">=================================================================</span>
-<span class="go">Total params: 104,202 </span>
-<span class="go">Trainable params: 104,202 </span>
-<span class="go">Non-trainable params: 0 </span>
-</pre></div>
-</div>
-<p><strong>MNIST 이미지 분류 훈련</strong></p>
+<p><div align="left"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/cnn01.png?raw=true" style="width:600px;"></div></p><p><strong>MNIST 이미지 분류 훈련</strong></p>
 <p>모델 훈련은 이전과 동일하다.
 다만 훈련 샘플은 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code> 모양의 3차원 텐서이어야 한다.
 이유는 합성곱 층(<code class="docutils literal notranslate"><span class="pre">Conv2D</span></code>)이 3차원 텐서를 입력값으로 받기 때문이며,
 따라서 <code class="docutils literal notranslate"><span class="pre">Input()</span></code> 함수의 인자로 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28,</span> <span class="pre">1)</span></code> 모양이 지정되었다.</p>
 <p>지금까지 입력층으로 사용한 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층은 입력 샘플의 모양이 1차원 텐서, 즉 벡터이어야 했고,
-따라서 MNIST 데이터셋의 샘플들을 모두
+따라서 2차원 텐서인 MNIST 데이터셋의 샘플들을 모두
 1차원 텐서로 변형한 다음에 훈련셋으로 활용하였다.
-하지만 여기서는 3차원 텐서 이미지를
-모양을 변형시키는 전처리 없이 바로 사용한다.
-단, 항목의 값을 0과 1사이의 값을 갖는 부동소수점으로 변환한다.</p>
+반면에 여기서는 3차원 텐서 이미지로 오히려 차원을 키우는 전처리를 실행한다.
+또한 항목의 값을 0과 1사이의 값을 갖는 부동소수점으로 변환한다.</p>
 <ul class="simple">
 <li><p>훈련셋 준비</p></li>
 </ul>
@@ -554,8 +534,8 @@ document.write(`
 <p>테스트셋에 대한 정확도가 99% 정도로 이전에 사용한 <code class="docutils literal notranslate"><span class="pre">Sequential</span></code> 모델보다 훨씬 좋다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;테스트 정확도: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="go">313/313 [==============================] - 2s 4ms/step - loss: 0.0395 - accuracy: 0.9893</span>
-<span class="go">테스트 정확도: 0.989</span>
+<span class="go">313/313 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.9894 - loss: 0.0410</span>
+<span class="go">테스트 정확도: 0.991</span>
 </pre></div>
 </div>
 </section>
@@ -568,28 +548,29 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층: <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>로 지정된 크기의 공간에 대해 여러 개의 아핀 변환 적용.
 예를 들어, <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>인 경우 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 크기의 영역에 대해 아핀 변환 적용.</p></li>
 </ul>
-<p>직관적으로 풀어서 말하면 다음과 같다.</p>
+<p>직관적으로 풀어서 설명하면 다음과 같다.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층: 입력값 전체를 대상으로 지정된 개수의 좋은 특성으로 구성된 텐서로 데이터 변환을 진행한다.
+<li><p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층: 입력 샘플의 모든 특성을 대상으로 가중치와 편향을 적용하여 지정된 개수의 특성으로 구성된 텐서로 데이터를 변환함.
 예를 들어, <code class="docutils literal notranslate"><span class="pre">Dense(64,</span> <span class="pre">activation=&quot;relu&quot;)</span></code>에 MNIST 데이터셋을 입력하면
-흑백 손글씨 이미지 각각에 대해 784개 특성을 아핀 변환하여 64개의 좋은 특성을 생성한다.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층: 예를 들어 <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>으로 설정된 경우 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 크기의 영역에 대해 국소적 패턴을 찾아낸다.
-그리고 그런 국소적 패턴들을 종합하여 모델 예측에 도움되는 데이터로 변환한다.</p></li>
+흑백 손글씨 이미지에 포함된 784개 특성에 아핀 변환을 적용하여 64개의 특성으로 구성된 텐서 생성.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층: 예를 들어 <code class="docutils literal notranslate"><span class="pre">kernel_size=3</span></code>으로 설정된 경우 <code class="docutils literal notranslate"><span class="pre">3x3</span></code> 크기의 영역에 대해 아핀 변환 적용.
+이 과정을 입력 이미지 전체 영역에 반복적으로 적용.
+주어진 커널 사이지의 영역에 존재하는 패턴을 파악하는 기능 수행.</p></li>
 </ul>
 <p><strong>합성곱 층의 특징</strong></p>
 <p>합성곱 층의 특징은 크게 다음 두 가지로 요약된다.</p>
-<p>첫째, 위치와 무관하게 패턴을 찾아낸다.
-즉, 서로 다른 위치에 있는 동일한 패턴은 동일한 방식으로 인식된다.</p>
+<p>첫째, 위치와 무관한 패턴을 찾아낸다.
+즉, 서로 다른 위치에 있는 동일한 패턴은 동일한 값으로 계산된다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/local_patterns.jpg" style="width:400px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>둘째, <code class="docutils literal notranslate"><span class="pre">Con2D</span></code> 층 여러 개를 연속적으로 통과시키면  패턴 공간의 계층을 파악할 수 있다.
-<strong>패턴 공간의 계층</strong><font size='2'>spatial hierarchy of patterns</font>은
-아래 층에서는 단순한 패턴을 인식하고, 위 층으로 진행할 수록 이미지에 포함된 보다 복잡한 패턴을 파악하는 것을 가리킨다.</p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>둘째, <code class="docutils literal notranslate"><span class="pre">Con2D</span></code> 층 여러 개를 연속적으로 통과시키면 보다 복잡한 패턴을 파악할 수 있다.
+아래 층에서는 단순한 패턴을 인식하고, 위 층으로 진행할 수록 이미지에 포함된 보다 복잡한 패턴을 파악한다.</p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/visual_hierarchy_hires.png" style="width:500px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p><strong>특성맵(채널), 필터, 출력맵</strong></p>
 <p>합성곱 연산의 작동법을 이해하려면 아래 세 개념을 이해해야 한다.</p>
 <ul class="simple">
-<li><p><strong>특성맵</strong><font size='2'>feature map</font> 또는 <strong>채널</strong><font size='2'>channel</font>:</p>
+<li><p><strong>채널</strong><font size='2'>channel</font>:</p>
 <ul>
+<li><p><strong>특성맵</strong><font size='2'>feature map</font>이라고 불림.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">(높이,</span> <span class="pre">너비)</span></code> 모양의 2D 텐서.</p></li>
 <li><p>예제: MNIST 데이터셋에 포함된 흑백 이미지 샘플의 경우 <code class="docutils literal notranslate"><span class="pre">(28,</span> <span class="pre">28)</span></code> 모양의 채널(특성맵) 한 개로 구성됨.</p></li>
 <li><p>예제: 컬러사진의 경우 세 개의 채널(특성맵)로 구성됨.</p></li>
@@ -617,7 +598,7 @@ document.write(`
 <p><strong>필터 적용</strong></p>
 <p>아래 그림은 필터의 모양과 동일한 크기의 국소 텐서 하나를 대상으로 하나의 필터를 적용하여 하나의 값을
 생성하는 과정을 보여준다.</p>
-<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-filter-product-1c.jpg" style="width:700px;"></div>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-filter-product-1.jpg" style="width:700px;"></div>
 <p><div style="text-align: center">&lt;그림 출처: <a href="https://www.oreilly.com/library/view/fundamentals-of-deep/9781492082170/">Fundamentals of Deep Learning(2판)</a>&gt;</div></p><p><strong>출력맵</strong></p>
 <p>하나의 필터를 슬라이딩 시키면서 입력 텐서 전체를 대상으로 위 과정을 적용하여 한 개의 출력맵을
 생성한다.
@@ -662,18 +643,17 @@ document.write(`
 <li><p>둘째 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층: 필터 7개</p></li>
 </ul>
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-cnn-layers-a.jpg" style="width:700px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p><p><strong>합성곱 신경망 모델</strong></p>
-<p>합성곱 신경망 모델은 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층에서 필터로 사용되는 텐서들을 학습시킨다.
-앞서 설명한 대로 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층의 아핀 변환에 필요한 가중치와 편향 벡터와는 다르게
-각각의 필터는 국소적으로 아핀 변환을 적용한다.</p>
+<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a>&gt;</div></p><p><strong>합성곱 층 학습 파라미터</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층은 아핀 변환에 필요한 가중치와 편향을 학습시킨다.
+반면에 합성곱 신경망 모델은 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층에서 필터로 사용되는 텐서들을 학습시킨다.
+따라서 모델 훈련 과정에서 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층에서 학습되어야 하는 파라미터의 수는
+커널 크기 <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>와 필터 수 <code class="docutils literal notranslate"><span class="pre">filters</span></code>에 의해 결정된다.</p>
 <p><strong>패딩과 보폭</strong></p>
 <p>필터를 적용하여 생성된 출력 특성맵의 모양이 입력 특성맵(채널)의 모양과 다를 수 있다.
-다만 출력값의 채널 수는 필터의 개수와 동일하다.
-이유는 하나의 필터가 하나의 특성맵(채널)을 생성하기 때문이다.
-출력 특성맵의 높이와 너비는
+실제로 출력 특성맵의 높이와 너비는
 <strong>패딩</strong><font size='2'>padding</font>의 사용 여부와
-<strong>보폭</strong><font size='2'>stride</font>의 크기에 의에 결정된다.</p>
-<p>다음 세 개의 그림은 입력 특성맵의 높이와 너비가 <code class="docutils literal notranslate"><span class="pre">5x5</span></code>일 때
+<strong>보폭</strong><font size='2'>stride</font>의 크기에 의해 결정된다.</p>
+<p>아래 세 개의 그림은 입력 특성맵의 높이와 너비가 <code class="docutils literal notranslate"><span class="pre">5x5</span></code>일 때
 패딩의 사용 여부와 보폭의 크기에 따라
 출력 특성맵의 높이와 너비가 어떻게 달라지는가를 보여준다.</p>
 <ul class="simple">
