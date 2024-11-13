@@ -19,5 +19,6 @@
 **/kaggle.json
 **/*.zip
 notebooks/train*/
+notebooks/cats_*
 **/sample*.csv
 **/fine_tuning/
