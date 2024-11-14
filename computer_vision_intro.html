@@ -385,7 +385,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">9.2. 합성곱 신경망 실전 활용 예제</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">9.2.1. 작은 데이터셋과 딥러닝 모델</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">9.2.1. 작은 데이터셋과 합성곱 신경망 모델</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">9.2.2. 데이터 다운로드</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">9.2.3. 모델 구성</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">9.2.4. 데이터 전처리와 모델 훈련</a></li>
@@ -435,7 +435,7 @@ document.write(`
 그 결과 지금은 사진 검색, 자율주행, 로봇공학, 의학 진단 프로그램,
 얼굴 인식 등 일상의 많은 영역에서 딥러닝 모델이 사용되고 있다.</p>
 <p>컴퓨터 비전 분야에서 일반적으로 가장 많이 사용되는 딥러닝 모델은
-<strong>CNN</strong> 또는 <strong>convnet</strong>으로 불리는
+<strong>CNN</strong>으로 불리는
 <strong>합성곱 신경망</strong><font size='2'>convolutional neural networks</font>이다.
 여기서는 이미지 분류 문제에 CNN을 적용하는 방법을 소개한다.</p>
 <section id="mnist-cnn">
@@ -652,7 +652,7 @@ document.write(`
 따라서 모델 훈련 과정에서 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층에서 학습되어야 하는 파라미터의 수는
 커널 크기 <code class="docutils literal notranslate"><span class="pre">kernel_size</span></code>와 필터 수 <code class="docutils literal notranslate"><span class="pre">filters</span></code>에 의해 결정된다.</p>
 <p><strong>패딩과 보폭</strong></p>
-<p>필터를 적용하여 생성된 출력 특성맵의 모양이 입력 특성맵(채널)의 모양과 다를 수 있다.
+<p>필터를 적용하여 생성된 출력 특성맵의 모양이 입력 특성맵의 모양과 다를 수 있다.
 실제로 출력 특성맵의 높이와 너비는
 <strong>패딩</strong><font size='2'>padding</font>의 사용 여부와
 <strong>보폭</strong><font size='2'>stride</font>의 크기에 의해 결정된다.</p>
@@ -723,8 +723,7 @@ document.write(`
 </ul>
 </li>
 <li><p>상위 합성곱 층으로 이동할 수록 입력 데이터의 보다 넓은 영역에 대한 함축된 정보를 얻을 수 있다.
-예를 들어 이 과정을 통해 이미지에서의 위치와 무관한 특정 패턴을 모델이
-보다 용이하게 학습할 수 있게 된다.</p></li>
+또한 이미지에서의 위치와 무관한 특정 패턴을 모델이 보다 용이하게 학습할 수 있게 된다.</p></li>
 </ul>
 <p>아래 코드는 맥스 풀링 층을 사용하지 않는 경우 가중치 파라미터의 수가 엄청나게 증가함을 잘 보여준다.</p>
 <ul class="simple">
@@ -748,7 +747,7 @@ document.write(`
 <section id="id5">
 <h2><span class="section-number">9.2. </span>합성곱 신경망 실전 활용 예제<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
 <section id="id6">
-<h3><span class="section-number">9.2.1. </span>작은 데이터셋과 딥러닝 모델<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">9.2.1. </span>작은 데이터셋과 합성곱 신경망 모델<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p>이미지 분류 모델을 훈련시킬 때 데이터셋의 크기가 그다지 크지 않은 경우가 일반적이다.
 즉, 데이터셋의 크기가 적게는 몇 백 개에서 많게는 몇 만 개 정도이다.
 여기서 훈련시켜야 하는 모델은 개와 고양이 사진을 대상으로 하는 이진 분류 합성곱 신경망 모델이다.
@@ -1344,7 +1343,7 @@ VGG16 합성곱 기저(베이스)를 구성요소로 사용하는 모델을 직�
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">9.2. 합성곱 신경망 실전 활용 예제</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">9.2.1. 작은 데이터셋과 딥러닝 모델</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">9.2.1. 작은 데이터셋과 합성곱 신경망 모델</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">9.2.2. 데이터 다운로드</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">9.2.3. 모델 구성</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">9.2.4. 데이터 전처리와 모델 훈련</a></li>
