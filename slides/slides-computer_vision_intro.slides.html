@@ -7808,17 +7808,46 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
-<li><strong>특성맵</strong><font size="2">feature map</font> 또는 <strong>채널</strong><font size="2">channel</font>:<ul>
+<li><strong>채널</strong><font size="2">channel</font>:<ul>
+<li><strong>특성맵</strong><font size="2">feature map</font>이라고 불림.</li>
 <li><code>(높이, 너비)</code> 모양의 2D 텐서.</li>
-<li>예제: 컬러사진의 경우 세 개의 채널(특성맵)로 구성됨. 채널 수를 깊이라 부름.</li>
+<li>예제: MNIST 데이터셋에 포함된 흑백 이미지 샘플의 경우 <code>(28, 28)</code> 모양의 채널(특성맵) 한 개로 구성됨.</li>
+<li>예제: 컬러사진의 경우 세 개의 채널(특성맵)로 구성됨.</li>
+<li>이미지에 포함된 채널(특성맵)의 수를 <strong>깊이</strong>라 부름.</li>
 </ul>
 </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
 <li><strong>필터</strong><font size="2">filter</font>: <code>kernel_size</code>를 이용한 3D 텐서.<ul>
 <li>예제: <code>kernel_size=3</code>인 경우 필터는 <code>(3, 3, 입력샘플의깊이)</code> 모양의 3D 텐서.</li>
+<li>필터 수: <code>filters</code> 인자에 의해 결정됨.</li>
 </ul>
 </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
 <li><strong>출력맵</strong><font size="2">response map</font>: 
-  입력 샘플을 대상으로 하나의 필터를 적용해서 생성된 하나의 특성맵(채널).</li>
+  입력 샘플을 대상으로 하나의 필터를 적용해서 생성된 하나의 특성맵(채널).
+  필터 수만큼의 출력맵 생성.</li>
 </ul>
 </div>
 </div>
@@ -7841,7 +7870,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div align="center"><img alt="No description has been provided for this image" src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-filter-product-1c.jpg" style="width:800px;"/></div>
+<div align="center"><img alt="No description has been provided for this image" src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-filter-product-1.jpg" style="width:800px;"/></div>
 </div>
 </div>
 </div>
@@ -7874,6 +7903,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>예제: 출력맵의 맨 상단 왼쪽에 위치한 155가 계산되는 과정</p>
 <pre><code>0 * -1  + 0  * -2 + 75 * -1 +
 0 *  0  + 75 *  0 + 80 *  0 +
 0 *  1  + 75 *  2 + 80 *  1 +
@@ -7905,6 +7935,7 @@ main {
 <li>입력 텐서: (10, 8, 3) 모양의 텐서</li>
 <li>필터: (3, 3, 3) 모양의 텐서<ul>
 <li>커널 크기(<code>kernel_size</code>): 3</li>
+<li>입력 텐서의 깊이: 3</li>
 </ul>
 </li>
 <li>출력 텐서: (8, 6, 6) 모양의 텐서<ul>
@@ -7955,7 +7986,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%ED%8C%A8%EB%94%A9%EA%B3%BC-%EB%B3%B4%ED%8F%AD">패딩과 보폭<a class="anchor-link" href="#%ED%8C%A8%EB%94%A9%EA%B3%BC-%EB%B3%B4%ED%8F%AD">¶</a></h3>
+<h3 id="%ED%95%A9%EC%84%B1%EA%B3%B1-%EC%B8%B5-%ED%95%99%EC%8A%B5-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0">합성곱 층 학습 파라미터<a class="anchor-link" href="#%ED%95%A9%EC%84%B1%EA%B3%B1-%EC%B8%B5-%ED%95%99%EC%8A%B5-%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0">¶</a></h3>
 </div>
 </div>
 </div>
@@ -7967,7 +7998,7 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
-<li>필터를 적용하여 생성된 출력 특성맵의 모양이 입력 특성맵(채널)의 모양과 다를 수 있음.</li>
+<li><code>Dense</code> 층: 아핀 변환에 필요한 가중치와 편향을 학습시킴.</li>
 </ul>
 </div>
 </div>
@@ -7980,7 +8011,58 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
-<li>출력 특성맵의 높이와 너비: 패딩의 사용 여부와 보폭의 크기에 의에 결정됨.</li>
+<li><code>Conv2D</code> 층: 필터로 사용되는 텐서들을 학습시킴.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>모델 훈련 과정에서 <code>Conv2D</code> 층에서 학습되어야 하는 파라미터의 수: 
+  커널 크기 <code>kernel_size</code>와 필터 수 <code>filters</code>에 의해 결정됨.</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="%ED%8C%A8%EB%94%A9%EA%B3%BC-%EB%B3%B4%ED%8F%AD">패딩과 보폭<a class="anchor-link" href="#%ED%8C%A8%EB%94%A9%EA%B3%BC-%EB%B3%B4%ED%8F%AD">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>필터를 적용하여 생성된 출력 특성맵의 모양이 입력 특성맵의 모양과 다를 수 있음.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>출력 특성맵의 높이와 너비: 패딩의 사용 여부와 보폭의 크기에 의해 결정됨.</li>
 </ul>
 </div>
 </div>
@@ -8102,6 +8184,43 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="%EA%B2%BD%EC%9A%B0-4:-%ED%8C%A8%EB%94%A9-%EC%9E%88%EC%9D%8C,-%EB%B3%B4%ED%8F%AD%EC%9D%80-1%EB%B3%B4%EB%8B%A4-%ED%81%BC">경우 4: 패딩 있음, 보폭은 1보다 큼<a class="anchor-link" href="#%EA%B2%BD%EC%9A%B0-4:-%ED%8C%A8%EB%94%A9-%EC%9E%88%EC%9D%8C,-%EB%B3%B4%ED%8F%AD%EC%9D%80-1%EB%B3%B4%EB%8B%A4-%ED%81%BC">¶</a></h3>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>굳이 사용할 필요 없음.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<ul>
+<li>보폭이 1보다 크기에 출력 특성맵의 깊이와 너비가 어차피 보폭에 반비례해서 줄어들기 때문임.</li>
+</ul>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="CNN-%EB%AA%A8%EB%8D%B8%EC%9D%98-%EC%A0%84%ED%98%95">CNN 모델의 전형<a class="anchor-link" href="#CNN-%EB%AA%A8%EB%8D%B8%EC%9D%98-%EC%A0%84%ED%98%95">¶</a></h3>
 </div>
 </div>
@@ -8124,7 +8243,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%EB%A7%A5%EC%8A%A4-%ED%92%80%EB%A7%81-%EA%B8%B0%EB%8A%A5">맥스 풀링 기능<a class="anchor-link" href="#%EB%A7%A5%EC%8A%A4-%ED%92%80%EB%A7%81-%EA%B8%B0%EB%8A%A5">¶</a></h3>
+<h3 id="%EB%A7%A5%EC%8A%A4-%ED%92%80%EB%A7%81-%EC%B8%B5">맥스 풀링 층<a class="anchor-link" href="#%EB%A7%A5%EC%8A%A4-%ED%92%80%EB%A7%81-%EC%B8%B5">¶</a></h3>
 </div>
 </div>
 </div>
@@ -8169,7 +8288,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>첫째, 모델이 학습 파라미터(가중치와 편향) 수를 줄인다.</p>
+<p>첫째, 모델이 훈련 중에 학습해야할 파라미터의 수를 줄인다</p>
 </div>
 </div>
 </div>
@@ -8180,42 +8299,18 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model_no_max_pool</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="n">Model</span><span class="p">:</span> <span class="s2">"model_1"</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">Layer</span> <span class="p">(</span><span class="nb">type</span><span class="p">)</span>                 <span class="n">Output</span> <span class="n">Shape</span>              <span class="n">Param</span> <span class="c1"># </span>
-<span class="o">=================================================================</span>
-<span class="n">input_2</span> <span class="p">(</span><span class="n">InputLayer</span><span class="p">)</span>         <span class="p">[(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>       <span class="mi">0</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">conv2d_3</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>        <span class="mi">320</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">conv2d_4</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>        <span class="mi">18496</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">conv2d_5</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>       <span class="mi">73856</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">flatten_1</span> <span class="p">(</span><span class="n">Flatten</span><span class="p">)</span>          <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">61952</span><span class="p">)</span>             <span class="mi">0</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">dense_1</span> <span class="p">(</span><span class="n">Dense</span><span class="p">)</span>              <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>                <span class="mi">619530</span> 
-<span class="o">=================================================================</span>
-<span class="n">Total</span> <span class="n">params</span><span class="p">:</span> <span class="mi">712</span><span class="p">,</span><span class="mi">202</span> 
-<span class="n">Trainable</span> <span class="n">params</span><span class="p">:</span> <span class="mi">712</span><span class="p">,</span><span class="mi">202</span> 
-<span class="n">Non</span><span class="o">-</span><span class="n">trainable</span> <span class="n">params</span><span class="p">:</span> <span class="mi">0</span>
+<div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"relu"</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"relu"</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"relu"</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">"softmax"</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">model_no_max_pool</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>맥스 풀링 사용 모델의 경우는 다음과 같다.</p>
-</div>
-</div>
-</div>
-</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -8223,30 +8318,18 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
-<span class="n">Model</span><span class="p">:</span> <span class="s2">"model"</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">Layer</span> <span class="p">(</span><span class="nb">type</span><span class="p">)</span>                 <span class="n">Output</span> <span class="n">Shape</span>              <span class="n">Param</span> <span class="c1"># </span>
-<span class="o">=================================================================</span> 
-<span class="n">input_1</span> <span class="p">(</span><span class="n">InputLayer</span><span class="p">)</span>         <span class="p">[(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>       <span class="mi">0</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">conv2d</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>              <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>        <span class="mi">320</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">max_pooling2d</span> <span class="p">(</span><span class="n">MaxPooling2D</span><span class="p">)</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>        <span class="mi">0</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">conv2d_1</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>        <span class="mi">18496</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">max_pooling2d_1</span> <span class="p">(</span><span class="n">MaxPooling2</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>          <span class="mi">0</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">conv2d_2</span> <span class="p">(</span><span class="n">Conv2D</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>         <span class="mi">73856</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">flatten</span> <span class="p">(</span><span class="n">Flatten</span><span class="p">)</span>            <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1152</span><span class="p">)</span>              <span class="mi">0</span> 
-<span class="n">_________________________________________________________________</span>
-<span class="n">dense</span> <span class="p">(</span><span class="n">Dense</span><span class="p">)</span>                <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>                <span class="mi">11530</span> 
-<span class="o">=================================================================</span>
-<span class="n">Total</span> <span class="n">params</span><span class="p">:</span> <span class="mi">104</span><span class="p">,</span><span class="mi">202</span> 
-<span class="n">Trainable</span> <span class="n">params</span><span class="p">:</span> <span class="mi">104</span><span class="p">,</span><span class="mi">202</span> 
-<span class="n">Non</span><span class="o">-</span><span class="n">trainable</span> <span class="n">params</span><span class="p">:</span> <span class="mi">0</span>
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><div align="left"><img alt="No description has been provided for this image" src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/cnn02.png?raw=true" style="width:600px;"/></div></p>
 </div>
 </div>
 </div>
@@ -8257,7 +8340,29 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>둘째, 상위 합성곱 층으로 이동 수록 입력 데이터의 보다 넓은 영역에 대한 정보를 획득한다.</p>
+<p>맥스 풀링 사용 모델의 경우는 다음과 같았다.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><div align="left"><img alt="No description has been provided for this image" src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/cnn01.png?raw=true" style="width:600px;"/></div></p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>둘째, 상위 합성곱 층으로 이동할 수록 입력 데이터의 보다 넓은 영역에 대한 함축된 정보를 얻을 수 있다.</p>
 </div>
 </div>
 </div>
@@ -8290,7 +8395,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%EC%9E%91%EC%9D%80-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B%EA%B3%BC-%EB%94%A5%EB%9F%AC%EB%8B%9D-%EB%AA%A8%EB%8D%B8">작은 데이터셋과 딥러닝 모델<a class="anchor-link" href="#%EC%9E%91%EC%9D%80-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B%EA%B3%BC-%EB%94%A5%EB%9F%AC%EB%8B%9D-%EB%AA%A8%EB%8D%B8">¶</a></h3>
+<h3 id="%EC%9E%91%EC%9D%80-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B%EA%B3%BC-%ED%95%A9%EC%84%B1%EA%B3%B1-%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8">작은 데이터셋과 합성곱 신경망 모델<a class="anchor-link" href="#%EC%9E%91%EC%9D%80-%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B%EA%B3%BC-%ED%95%A9%EC%84%B1%EA%B3%B1-%EC%8B%A0%EA%B2%BD%EB%A7%9D-%EB%AA%A8%EB%8D%B8">¶</a></h3>
 </div>
 </div>
 </div>
@@ -8555,7 +8660,7 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>사진들을 무작위로 섞어 크기가 32인 배치들로 구성된 훈련셋, 검증셋, 테스트셋을 지정</p>
+<p>사진들을 무작위로 섞어 크기가 32인 배치들로 구성된 훈련셋, 검증셋, 테스트셋 지정</p>
 </div>
 </div>
 </div>
