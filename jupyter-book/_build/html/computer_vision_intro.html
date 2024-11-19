@@ -965,8 +965,7 @@ document.write(`
 </div>
 <p>훈련셋의 이미지 샘플 하나를 대상으로 데이터 증식 층을 아홉 번 적용한 결과를
 다음고 같다.</p>
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/08-10.png" style="width:800px;"></div>
-<p><div style="text-align: center">&lt;그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(2판)</a>&gt;</div></p><p>데이터 증식 층을 이용하여 모델 구성을 다시 한다.
+<p><div align="left"><img src="https://github.com/codingalzi/dlp2/blob/master/jupyter-book/imgs/ch08-dogs_cats.png?raw=true" style="width:800px;"></div></p><p>데이터 증식 층을 이용하여 모델 구성을 다시 한다.
 과대적합을 최대한 방지하기 위해 출력층 바로 이전에 드롭아웃(Dropout) 층도 추가한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data_augmentation</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
