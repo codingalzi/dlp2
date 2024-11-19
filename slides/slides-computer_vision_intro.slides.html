@@ -7932,13 +7932,13 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
-<li>입력 텐서: (10, 8, 3) 모양의 텐서</li>
+<li>입력 텐서: (8, 8, 3) 모양의 텐서</li>
 <li>필터: (3, 3, 3) 모양의 텐서<ul>
-<li>커널 크기(<code>kernel_size</code>): 3</li>
-<li>입력 텐서의 깊이: 3</li>
+<li>커널 크기(<code>kernel_size</code>): 3, 즉 세로, 가로 크기가 (3, 3)으로 지정.</li>
+<li>입력 텐서의 깊이: 3. 필터의 세 번째 항목은 입력 텐서의 깊이로 지정됨. 즉, 커널 크기와 무관함.</li>
 </ul>
 </li>
-<li>출력 텐서: (8, 6, 6) 모양의 텐서<ul>
+<li>출력 텐서: (6, 6, 6) 모양의 텐서<ul>
 <li>필터 수가 6이기에 출력 텐서의 깊이가 6이 됨.</li>
 </ul>
 </li>
@@ -7954,28 +7954,6 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div align="center"><img alt="No description has been provided for this image" src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-filter-product-2.jpg" style="width:600px;"/></div>
-</div>
-</div>
-</div>
-</div></section></section><section><section>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="%ED%95%A9%EC%84%B1%EA%B3%B1-%EC%B8%B5-%EC%97%B0%EC%86%8D-%EC%A0%81%EC%9A%A9">합성곱 층 연속 적용<a class="anchor-link" href="#%ED%95%A9%EC%84%B1%EA%B3%B1-%EC%B8%B5-%EC%97%B0%EC%86%8D-%EC%A0%81%EC%9A%A9">¶</a></h3>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div align="center"><img alt="No description has been provided for this image" src="https://raw.githubusercontent.com/codingalzi/dlp2/master/jupyter-book/imgs/ch08-cnn-layers-a.jpg" style="width:600px;"/></div>
 </div>
 </div>
 </div>
