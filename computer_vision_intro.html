@@ -836,7 +836,7 @@ document.write(`
 맥스풀링 층에 의해 사진의 크기가 줄어드는 대신 필터 수를 늘려 출력맵의 개수를 키워주면서
 모델의 정보 저장 능력을 유지시키기 위함임.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">MaxPooling2D</span></code> 층을 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층과 함께 사용.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Flatten</span></code> 층에 최종적으로 <code class="docutils literal notranslate"><span class="pre">7</span> <span class="pre">x</span> <span class="pre">7</span></code> 크기의 않은 특성맵으로 구성된 입력값이 전달됨.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Flatten</span></code> 층에 최종적으로 <code class="docutils literal notranslate"><span class="pre">(7,</span> <span class="pre">7,</span> <span class="pre">256)</span></code> 크기의 텐서가 입력값으로 전달됨.</p></li>
 <li><p>출력층: 이항 분류 모델이기에 한 개의 유닛과 시그모이드 활성화 함수 사용하는 <code class="docutils literal notranslate"><span class="pre">Dense</span></code> 층으로 지정.</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 입력층</span>
@@ -1159,7 +1159,7 @@ document.write(`
 </div>
 <p>예를 들어, 변환된 강아지/고양이 이미지 샘플 2,000개는 이제 각각 <code class="docutils literal notranslate"><span class="pre">(5,</span> <span class="pre">5,</span> <span class="pre">512)</span></code> 모양을 갖는다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">train_features</span><span class="o">.</span><span class="n">shape</span>
-<span class="go">(2000, 5, 5, 12)</span>
+<span class="go">(2000, 5, 5, 512)</span>
 </pre></div>
 </div>
 <p>변환된 데이터셋을 훈련 데이터셋으로 사용하는
@@ -1178,6 +1178,24 @@ document.write(`
 
 <span class="c1"># 모델</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+
+<span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span>
+      <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;feature_extraction&quot;</span><span class="p">,</span>
+      <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+      <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">val_features</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">),</span>
+    <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>검증셋에 대한 정확도가 97% 정도까지 향상되지만 과대적합이 매우 빠르게 발생한다.
@@ -1201,20 +1219,22 @@ VGG16 합성곱 기저(베이스)를 구성요소로 사용하는 모델을 직�
 </pre></div>
 </div>
 <p>동결 해제(<code class="docutils literal notranslate"><span class="pre">trainable=True</span></code>)로 설정하는 경우와 그렇지 않은 경우 학습되어야 하는
-파라미터의 수가 달라짐을 다음처럼 확인할 수 있다.</p>
+파라미터의 수가 달라짐을 다음처럼 확인할 수 있다.
+참고로 합성곱 층마다 하나의 가중치 행렬과 하나의 편향 행렬이 존재하여 총 2개의 파라미터 행렬이
+학습에 활용되며, VGG16은 13개의 <code class="docutils literal notranslate"><span class="pre">Conv2D</span></code> 층을 포함한다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">conv_base</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;합성곱 기저의 학습을 허용하는 경우 학습 가능한 가중치 행렬 개수: &quot;</span><span class="p">,</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;합성곱 기저의 학습을 허용하는 경우 학습 가능한 파라미터 행렬 개수: &quot;</span><span class="p">,</span> 
 <span class="go">          len(conv_base.trainable_weights))</span>
 <span class="go">      </span>
-<span class="go">합성곱 기저의 학습을 허용하는 경우 학습 가능한 파라미터 수: 26</span>
+<span class="go">합성곱 기저의 학습을 허용하는 경우 학습 가능한 파라미터 행렬 개수: 26</span>
 </pre></div>
 </div>
 <p>동결 설정(<code class="docutils literal notranslate"><span class="pre">trainable=False</span></code>)인 경우에 학습되는 파라미터 수가 0이 된다.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">conv_base</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;합성곱 기저의 학습을 금지하는 경우 학습 가능한 가중치 행렬 개수: &quot;</span><span class="p">,</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;합성곱 기저의 학습을 금지하는 경우 학습 가능한 파라미터 행렬 개수: &quot;</span><span class="p">,</span> 
 <span class="go">          len(conv_base.trainable_weights))</span>
 <span class="go">      </span>
-<span class="go">합성곱 기저의 학습을 허용하는 경우 학습 가능한 파라미터 수: 0</span>
+<span class="go">합성곱 기저의 학습을 금지하는 경우 학습 가능한 파라미터 행렬 개수: 0</span>
 </pre></div>
 </div>
 <p>아래 모델은 데이터 증식을 위한 층과 VGG16 기저를 함께 이용한다.</p>
@@ -1239,6 +1259,23 @@ VGG16 합성곱 기저(베이스)를 구성요소로 사용하는 모델을 직�
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 출력층</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+
+<span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span>
+        <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;feature_extraction_with_data_augmentation&quot;</span><span class="p">,</span>
+        <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+    <span class="n">train_dataset</span><span class="p">,</span>
+    <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">validation_data</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">,</span>
+    <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>이렇게 훈련하면 재활용된 합성곱 기저에 속한 층은 학습하지 않으며
