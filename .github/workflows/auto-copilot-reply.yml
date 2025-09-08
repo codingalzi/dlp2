@@ -1,0 +1,46 @@
+name: Auto Copilot Reply to Issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  copilot-reply:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: pip install openai
+
+    - name: Generate Copilot answer
+      id: copilot
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        python scripts/copilot_issue_answer.py \
+          --title "${{ github.event.issue.title }}" \
+          --body "${{ github.event.issue.body }}" \
+          --output copilot_answer.txt
+
+    - name: Read Copilot answer
+      id: answer
+      run: |
+        echo "answer=$(cat copilot_answer.txt)" >> $GITHUB_OUTPUT
+
+    - name: Post Copilot answer as comment
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `${{ steps.answer.outputs.answer }}`
+          })
