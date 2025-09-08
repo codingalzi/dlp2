@@ -17,7 +17,9 @@ prompt = f"""다음은 GitHub Issue에 등록된 질문입니다.
 
 이 질문에 대해 친절하고, 정확한 답변을 한글로 작성해주세요."""
 
-response = openai.ChatCompletion.create(
+# 최신 openai 라이브러리 방식
+client = openai.OpenAI(api_key=openai.api_key)
+response = client.chat.completions.create(
     model="gpt-3.5-turbo",
     messages=[{"role": "user", "content": prompt}],
     max_tokens=350,
