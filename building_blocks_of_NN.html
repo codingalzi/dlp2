@@ -28,13 +28,13 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -796,7 +796,7 @@ y &amp;=
 <p><strong>순전파 행렬 연산</strong></p>
 <p>각각의 층에서 입력된 배치는 아래 행렬 연산을 통해 변환된다.
 아래 식에서 <code class="docutils literal notranslate"><span class="pre">W</span></code>는 가중치 행렬을, <code class="docutils literal notranslate"><span class="pre">X</span></code> 는 배치 데이터셋, <code class="docutils literal notranslate"><span class="pre">b</span></code>는 편향 벡터를 가리킨다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">softmax</span><span class="p">(</span><span class="n">X</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="n">W</span> <span class="o">+</span> <span class="n">b</span>
 </pre></div>
 </div>
 <p>위 식에서 <code class="docutils literal notranslate"><span class="pre">X</span></code>는 배치 데이터셋을 표현하는 행렬를, <code class="docutils literal notranslate"><span class="pre">W</span></code>는 가중치 행렬을 가리킨다.
@@ -812,7 +812,7 @@ x_{k1} &amp; x_{k2} &amp; x_{k3}
 \end{bmatrix}
 \end{split}\]</div>
 <p>배치 연산 또한 아래와 같이 표기하곤 한다.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">softmax</span><span class="p">(</span><span class="n">X</span> <span class="n">W</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="n">W</span>
 </pre></div>
 </div>
 <p>이때 <code class="docutils literal notranslate"><span class="pre">X</span></code>는 다음과 같이 생겼다.</p>

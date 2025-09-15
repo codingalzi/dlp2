@@ -28,13 +28,13 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b76e3c8a" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=ca93fcec" />
+    <link rel="stylesheet" type="text/css" href="_static/proof.css?v=b4b7a797" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -393,10 +393,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.3.1. 텐서로의 자동 변환</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.4. 인덱싱/슬라이싱</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3.5. 텐서 변환</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">3.5.1. 모양 변환</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype">3.5.2. <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.4. 텐서 인덱싱/슬라이싱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype">3.5. 텐서의 모양과 dtype 변환</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3.5.1. 모양 변환</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">3.5.2. <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 변환</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3.5.3. 브로드캐스팅</a></li>
 </ul>
 </li>
@@ -702,7 +702,8 @@ float64
 </div>
 </div>
 </div>
-<p>확률적 통계 분포를 따르는 항목으로 구성된 불변 텐서를 생성하는 함수는 딥러닝에서 매우 유용하다.</p>
+<p>특정 확률분포를 따르는 값들로 구성된 불변 텐서를 생성하는 다음 두 함수가 딥러닝에서 매우 유용하게 활용된다.
+두 함수 모두 불변 텐서를 생성한다.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">normal()</span></code> 함수: 평균값(<code class="docutils literal notranslate"><span class="pre">mean</span></code>)과 표준편차(<code class="docutils literal notranslate"><span class="pre">stddev</span></code>)를 지정하면 해당 정규분포를 따르는 항목들을 이용하여
 원하는 모양의 불변 텐서를 생성한다.</p></li>
@@ -762,7 +763,7 @@ float64
 </div>
 </div>
 </div>
-<p>반면에 넘파이 어레이는 수정이 가능하다.</p>
+<p>참고로 넘파이 어레이는 항상 항목 수정이 가능하다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -893,14 +894,15 @@ array([[2.],
 </div>
 </div>
 </div>
+<p><strong>가변 텐서 활용</strong></p>
+<p>가변 텐서는 경상하강법으로 매 스텝마다 업데이트되어야 하는 파라미터들로 구성된 텐서로 주로 활용된다.</p>
 </section>
 <section id="id9">
 <h3><span class="section-number">3.2.3. </span>차원과 모양<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
 <p>텐서틀로우 텐서의 기본 성질과 활용법을 간단하게 살펴 본다.
 불변 텐서를 이용하지만 가변 텐서에 대해서도 기본적으로 동일하게 작동한다.
-텐서의 차원은 넘파이 어레이의 경우처럼 텐서에 사용되는 축<font size='2'>axis</font>의 개수로 지정되며,
-생성된 텐서의 모양<font size='2'>shape</font>은 텐서 자체에 속성으로 저장된다.
-또한 텐서의 차원은 모양을 가리키는 튜플의 크기와 동일하다.</p>
+텐서의 차원과 모양은 넘파이 어레이의 경우와 사실상 동일하다.
+또한 두 자료형 사이의 변환이 필요에 따라 자유자재로 처리된다.</p>
 <p><strong>스칼라: 0차원 텐서</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1426,8 +1428,9 @@ array([[2.6894143e-01, 7.3105854e-01],
 </section>
 </section>
 <section id="id13">
-<h2><span class="section-number">3.4. </span>인덱싱/슬라이싱<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
-<p>예를 들어 아래 랭크-3 텐서를 이용한 인덱싱/슬라이싱 예를 하나 살펴보자.</p>
+<h2><span class="section-number">3.4. </span>텐서 인덱싱/슬라이싱<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>텐서의 인덱싱과 슬라이싱 또한 넘파이의 경우와 동일하게 작동한다.
+예를 들어 아래 랭크-3 텐서를 이용한 인덱싱/슬라이싱 예를 하나 살펴보자.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d3_tensor</span>
@@ -1491,10 +1494,10 @@ array([[ 4,  9],
       <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/index2.png" alt="The selected values packed into a 2-axis tensor.">   </td>
 </tr>
 </table></section>
+<section id="dtype">
+<h2><span class="section-number">3.5. </span>텐서의 모양과 dtype 변환<a class="headerlink" href="#dtype" title="Link to this heading">#</a></h2>
 <section id="id14">
-<h2><span class="section-number">3.5. </span>텐서 변환<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
-<section id="id15">
-<h3><span class="section-number">3.5.1. </span>모양 변환<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">3.5.1. </span>모양 변환<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
 <p>주어진 텐서의 모양을 변환해서 새로운 모양의 텐서를 생성할 수 있다.
 단, 새로운 텐서를 위해 메모리를 더 사용하는 것은 아니며
 단지 주어진 텐서의 정보를 활용하기에 매우 빠르고 메모리
@@ -1574,167 +1577,9 @@ array([[1],
 </div>
 </div>
 </div>
-<p><strong>항목 저장 순서</strong></p>
-<p>임의의 텐서를 rank-1 텐서로 만들면 텐서의 항목들이 메모리상에서
-저장되는 순서를 확인할 수 있다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d3_tensor</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 2, 5), dtype=int32, numpy=
-array([[[ 0,  1,  2,  3,  4],
-        [ 5,  6,  7,  8,  9]],
-
-       [[10, 11, 12, 13, 14],
-        [15, 16, 17, 18, 19]],
-
-       [[20, 21, 22, 23, 24],
-        [25, 26, 27, 28, 29]]], dtype=int32)&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<p>랭크-1 텐서로 변환하려면 모양을 <code class="docutils literal notranslate"><span class="pre">[-1]</span></code>로 지정하면 된다.
-그러면 1개의 축만 사용하고, -1은 자동으로 전체 항목의 개수를
-가기키기 때문이다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">d3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(30,), dtype=int32, numpy=
-array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16,
-       17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], dtype=int32)&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>축의 순서를 고려하는 좋은 모양 변환</strong></p>
-<p><code class="docutils literal notranslate"><span class="pre">tf.reshape()</span></code> 함수는 앞서 확인한 항목들의 순서를 그대로 유지하며
-단순히 인접한 두 개의 축을 합치거나, 하나의 축을 두 개의 축으로 나누거나,
-또는 새로운 축을 추가하는 기능을 수행한다.</p>
-<p><strong>주의사항:</strong> 모양 변환은 축의 순서를 바꾸지는 않는다.
-축의 순서를 바꾸러면 <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/transpose"><code class="docutils literal notranslate"><span class="pre">tf.transpose()</span></code></a> 함수를 이용해야 하는데,
-여기서는 자세히 다루지 않는다.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">3x2x5</span></code> 텐서 =&gt; <code class="docutils literal notranslate"><span class="pre">(3x2)x5</span></code> 텐서</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">d3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(6, 5), dtype=int32, numpy=
-array([[ 0,  1,  2,  3,  4],
-       [ 5,  6,  7,  8,  9],
-       [10, 11, 12, 13, 14],
-       [15, 16, 17, 18, 19],
-       [20, 21, 22, 23, 24],
-       [25, 26, 27, 28, 29]], dtype=int32)&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">3x2x5</span></code> 텐서 =&gt; <code class="docutils literal notranslate"><span class="pre">3x(2x5)</span></code> 텐서</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">d3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(3, 10), dtype=int32, numpy=
-array([[ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9],
-       [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
-       [20, 21, 22, 23, 24, 25, 26, 27, 28, 29]], dtype=int32)&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<table>
-<th colspan="3">축의 순서를 반영하는 좋은 변환</th>
-<tr>
-  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-before.png" alt="A 3x2x5 tensor">   </td>
-  <td>   <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-good1.png" alt="The same data reshaped to (3x2)x5">   </td>
-  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-good2.png" alt="The same data reshaped to 3x(2x5)">   </td>
-</tr>
-</table>
-<p><strong>축의 순서를 고려하지 않는 나쁜 모양 변환</strong></p>
-<p>축의 순서를 고려하지 않으면
-완전히 엉뚱한 텐서가 생성되거
-모양 변환이 되지 않고 실행오류가 발생한다.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">d3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(2, 3, 5), dtype=int32, numpy=
-array([[[ 0,  1,  2,  3,  4],
-        [ 5,  6,  7,  8,  9],
-        [10, 11, 12, 13, 14]],
-
-       [[15, 16, 17, 18, 19],
-        [20, 21, 22, 23, 24],
-        [25, 26, 27, 28, 29]]], dtype=int32)&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">d3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tf.Tensor: shape=(5, 6), dtype=int32, numpy=
-array([[ 0,  1,  2,  3,  4,  5],
-       [ 6,  7,  8,  9, 10, 11],
-       [12, 13, 14, 15, 16, 17],
-       [18, 19, 20, 21, 22, 23],
-       [24, 25, 26, 27, 28, 29]], dtype=int32)&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-  <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">d3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>InvalidArgumentError: {{function_node __wrapped__Reshape_device_/job:localhost/replica:0/task:0/device:GPU:0}} Input to reshape is a tensor with 30 values, but the requested shape requires a multiple of 7 [Op:Reshape]
-</pre></div>
-</div>
-</div>
-</div>
-<p>아래 그림이 축의 순서를 고려하지 않은 잘못된 모양 변환의
-결과를 보여준다.</p>
-<table>
-<th colspan="3">몇 가지 잘못된 재구성</th>
-<tr>
-  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-bad.png" alt="You can't reorder axes, use tf.transpose for that">   </td>
-  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-bad4.png" alt="Anything that mixes the slices of data together is probably wrong.">   </td>
-  <td> <img src="https://raw.githubusercontent.com/tensorflow/docs/master/site/en/guide/images/tensor/reshape-bad2.png" alt="The new shape must fit exactly.">   </td>
-</tr>
-</table></section>
-<section id="dtype">
-<h3><span class="section-number">3.5.2. </span><code class="docutils literal notranslate"><span class="pre">dtype</span></code> 변환<a class="headerlink" href="#dtype" title="Link to this heading">#</a></h3>
+</section>
+<section id="id15">
+<h3><span class="section-number">3.5.2. </span><code class="docutils literal notranslate"><span class="pre">dtype</span></code> 변환<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">tf.cast()</span></code> 함수를 이용하여 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 속성에 저장된
 항목들의 자료형을 강제로 형변환하여
 새로운 텐서를 생성할 수 있다.</p>
@@ -2150,10 +1995,10 @@ array([[1, 0, 0, 0],
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.3.1. 텐서로의 자동 변환</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.4. 인덱싱/슬라이싱</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3.5. 텐서 변환</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">3.5.1. 모양 변환</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype">3.5.2. <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 변환</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.4. 텐서 인덱싱/슬라이싱</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dtype">3.5. 텐서의 모양과 dtype 변환</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3.5.1. 모양 변환</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">3.5.2. <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 변환</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3.5.3. 브로드캐스팅</a></li>
 </ul>
 </li>
