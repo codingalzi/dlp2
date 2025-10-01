@@ -1,0 +1,47 @@
+# Conda environment spec to update the base environment for data analysis
+# Apply with:
+#   conda env update -n base -f environment.base.yml
+# Dry-run first to preview changes:
+#   conda env update -n base -f environment.base.yml --dry-run
+
+name: base
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Core Python runtime will follow the existing base's Python version
+  # - python
+
+  # Essentials
+  - numpy
+  - pandas
+  - pyarrow
+
+  # Notebooks
+  - notebook        # Classic Jupyter Notebook UI
+  - ipykernel       # Kernel for Jupyter
+  - ipywidgets      # Interactive widgets
+
+  # Plotting & Viz
+  - matplotlib
+  - seaborn
+
+  # Modeling & Stats
+  - scikit-learn
+  - scipy
+  - statsmodels
+
+  # IO helpers
+  - openpyxl        # Excel xlsx
+  - xlrd            # Older xls
+  - lxml            # HTML/XML parsing
+
+  # Utilities
+  - tqdm
+  - requests
+
+  # Allow pip installs if ever needed
+  - pip
+  # - pip:
+  #   - some-pypi-only-package
