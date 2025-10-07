@@ -45,3 +45,10 @@ dependencies:
   - pip
   # - pip:
   #   - some-pypi-only-package
+  # ML libraries
+  - lightgbm
+  - optuna
+  - shap
+  - xgboost
+  - interpret
+  - dcor

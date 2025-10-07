@@ -44,3 +44,10 @@ dependencies:
     - accelerate
     - gradio
     - wandb
+    # ML libraries
+    - lightgbm
+    - optuna
+    - shap
+    - xgboost
+    - interpret
+    - dcor

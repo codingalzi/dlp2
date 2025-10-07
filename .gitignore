@@ -22,3 +22,4 @@ notebooks/train*/
 notebooks/cats_*
 **/sample*.csv
 **/fine_tuning/
+**/condaenv.*.requirements.txt
