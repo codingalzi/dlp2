@@ -43,3 +43,5 @@ dependencies:
     - accelerate
     - gradio
     - wandb
+    # Interpretability
+    - shap

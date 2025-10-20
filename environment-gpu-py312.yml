@@ -1,10 +1,10 @@
-name: dlp-gpu-latest
+name: dlp-gpu-py312
 channels:
   - conda-forge
   - nvidia
   - defaults
 dependencies:
-  - python=3.11
+  - python=3.12.12
   - pip
   - jupyterlab
   - notebook
@@ -25,15 +25,15 @@ dependencies:
   - pip:
     # Latest Keras 3
     - keras
-    # Latest TensorFlow with CUDA support
+    # TensorFlow with CUDA support (Colab uses 2.19.0)
     - tensorflow[and-cuda]
-    # Latest PyTorch with CUDA 12.1 support
-    - torch --index-url https://download.pytorch.org/whl/cu121
-    - torchvision --index-url https://download.pytorch.org/whl/cu121
-    - torchaudio --index-url https://download.pytorch.org/whl/cu121
-    # Latest JAX with CUDA 12 support
-    - "jax[cuda12_pip]"
-    - jaxlib --index-url https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+    # PyTorch with CUDA 12.6 support (Colab uses 2.8.0+cu126)
+    - torch --index-url https://download.pytorch.org/whl/cu126
+    - torchvision --index-url https://download.pytorch.org/whl/cu126
+    - torchaudio --index-url https://download.pytorch.org/whl/cu126
+    # JAX with CUDA 12 support (Colab uses 0.5.3)
+    - jax[cuda12]>=0.5.3
+    - jaxlib>=0.5.3
     # Other useful packages
     - kagglehub
     - tensorflow-datasets
