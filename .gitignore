@@ -23,3 +23,6 @@ notebooks/cats_*
 **/sample*.csv
 **/fine_tuning/
 **/condaenv.*.requirements.txt
+# Ignore PNG images in the notebooks folder and its subfolders
+notebooks/*.png
+notebooks/**/*.png
