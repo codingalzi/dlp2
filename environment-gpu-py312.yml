@@ -38,6 +38,7 @@ dependencies:
     - kagglehub
     - tensorflow-datasets
     - tensorflow-hub
+    - tensorboard
     - transformers
     - tokenizers
     - datasets
