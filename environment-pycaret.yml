@@ -1,0 +1,27 @@
+name: pycaret-env
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Python 및 기본 도구
+  - python=3.10
+  - pip
+  - ipython
+  - jupyterlab
+  - notebook
+
+  # 데이터 처리 / 시각화
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+
+  # 기타 유틸
+  - tqdm
+  - requests
+
+  # PyCaret은 pip로 설치 (공식 권장)
+  - pip:
+      - pycaret[full]

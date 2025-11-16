@@ -22,6 +22,8 @@ dependencies:
   - graphviz
   - python-graphviz
   - pydot
+  - flaml
+  - catboost
   - pip:
     # Latest Keras 3
     - keras
@@ -48,7 +50,6 @@ dependencies:
     # ML libraries
     - lightgbm
     - optuna
-    - shap
     - xgboost
     - interpret
     - dcor
