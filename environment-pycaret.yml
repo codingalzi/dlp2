@@ -21,6 +21,7 @@ dependencies:
   # 기타 유틸
   - tqdm
   - requests
+  - openpyxl
 
   # PyCaret은 pip로 설치 (공식 권장)
   - pip:
