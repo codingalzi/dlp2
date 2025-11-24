@@ -51,6 +51,7 @@ dependencies:
     # ML libraries
     - lightgbm
     - optuna
+    - optuna-dashboard
     - xgboost
     - interpret
     - dcor
