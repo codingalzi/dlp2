@@ -1,4 +1,4 @@
-name: dlp-cpu-latest
+name: cpu-latest
 channels:
   - conda-forge
   - defaults

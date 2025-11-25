@@ -1,4 +1,4 @@
-name: dlp-gpu-py312
+name: gpu-py312
 channels:
   - conda-forge
   - nvidia

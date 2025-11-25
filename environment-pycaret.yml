@@ -1,4 +1,4 @@
-name: pycaret-env
+name: pycaret-py310
 channels:
   - conda-forge
   - defaults
