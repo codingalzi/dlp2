@@ -48,6 +48,7 @@ dependencies:
     - accelerate
     - gradio
     - wandb
+    - jupyter-book
     # ML libraries
     - lightgbm
     - optuna
